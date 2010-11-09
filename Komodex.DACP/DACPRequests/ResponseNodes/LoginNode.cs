@@ -9,18 +9,14 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace Komodex.DACP.DACPRequests
+namespace Komodex.DACP.DACPRequests.ResponseNodes
 {
-    public class DACPRequestManager
+    public class LoginNode : ResponseNode
     {
-        public DACPRequestManager(DACPServer dacpServer)
+        protected override void ProcessNode(string code, byte[] body)
         {
-            DACPServer = dacpServer;
+            if (code == "mlid") // Session ID
+                return;
         }
-
-        public DACPServer DACPServer { get; protected set; }
-
-         
-
     }
 }

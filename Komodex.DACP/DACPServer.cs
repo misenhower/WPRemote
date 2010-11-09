@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Komodex.DACP.DACPRequests;
 
 namespace Komodex.DACP
 {
@@ -17,8 +18,20 @@ namespace Komodex.DACP
 
         public DACPServer(string hostName, string pairingKey)
         {
-
+            dacpRequestManager = new DACPRequestManager(this);
         }
+
+        #region Fields
+
+        DACPRequestManager dacpRequestManager = null;
+
+        #endregion
+
+        #region Properties
+
+
+
+        #endregion
 
         public void Connect()
         {

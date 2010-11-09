@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="DACPRequests\DACPRequestManager.cs" />
     <Compile Include="DACPRequests\Extensions.cs" />
+    <Compile Include="DACPRequests\ResponseNodes\LoginNode.cs" />
     <Compile Include="DACPRequests\ResponseNodes\ResponseNode.cs" />
     <Compile Include="DACPServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
