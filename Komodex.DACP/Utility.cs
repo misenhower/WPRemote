@@ -9,11 +9,36 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Komodex.DACP.DACPRequests
+namespace Komodex.DACP
 {
-    public static class Extensions
+    public static class Utility
     {
+        protected static List<KeyValuePair<string, byte[]>> GetResponseNodes(byte[] data)
+        {
+            List<KeyValuePair<string, byte[]>> result = new List<KeyValuePair<string, byte[]>>();
+
+            int dataLength = data.Length;
+            int location = 0;
+
+            while (location + 8 < dataLength)
+            {
+                string code = Encoding.UTF8.GetString(data, location, 4);
+                int length = BitConverter.ToInt32(data, location + 4).SwapBits();
+                byte[] nodeBody = data.Skip(location + 8).Take(length).ToArray();
+
+                result.Add(new KeyValuePair<string, byte[]>(code, nodeBody));
+
+                location += 8 + length;
+            }
+
+            return result;
+        }
+
+        #region Extension Methods
+
         public static Int32 SwapBits(this Int32 value)
         {
             UInt32 uvalue = (UInt32)value;
@@ -52,5 +77,7 @@ namespace Komodex.DACP.DACPRequests
         {
             return Encoding.UTF8.GetString(data, 0, data.Length);
         }
+
+        #endregion
     }
 }
