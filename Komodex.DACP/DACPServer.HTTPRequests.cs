@@ -66,7 +66,7 @@ namespace Komodex.DACP
             switch (responseType)
             {
                 case "mlog": // Login response
-                    ProcessStatusResponse(responseBody);
+                    ProcessLoginResponse(responseBody);
                     break;
                 default:
                     break;
@@ -80,9 +80,17 @@ namespace Komodex.DACP
 
         #endregion
 
-        #region Response Processing
+        #region Requests and Responses
 
-        protected void ProcessStatusResponse(byte[] responseBody)
+        #region Login
+
+        protected void SubmitLoginRequest()
+        {
+            string url = "/login?pairing-guid=0x" + PairingKey;
+            SubmitHTTPRequest(url);
+        }
+
+        protected void ProcessLoginResponse(byte[] responseBody)
         {
             var response = Utility.GetResponseNodes(responseBody);
 
@@ -95,14 +103,7 @@ namespace Komodex.DACP
 
         #endregion
 
-        #region Requests
-
-        protected void SubmitLoginRequest()
-        {
-            string url = "/login?pairing-guid=0x" + PairingKey;
-            SubmitHTTPRequest(url);
-        }
-
         #endregion
+
     }
 }
