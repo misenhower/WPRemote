@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.WP7DACPRemote", "Komodex.WP7DACPRemote\Komodex.WP7DACPRemote.csproj", "{D3454FD2-E767-4C6D-B26B-333C1DCFDA4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.DACPLibrary", "Komodex.DACPLibrary\Komodex.DACPLibrary.csproj", "{ACA1ED09-5121-48E4-9DD1-BE2E078BF9CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D3454FD2-E767-4C6D-B26B-333C1DCFDA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3454FD2-E767-4C6D-B26B-333C1DCFDA4F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3454FD2-E767-4C6D-B26B-333C1DCFDA4F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{ACA1ED09-5121-48E4-9DD1-BE2E078BF9CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACA1ED09-5121-48E4-9DD1-BE2E078BF9CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACA1ED09-5121-48E4-9DD1-BE2E078BF9CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACA1ED09-5121-48E4-9DD1-BE2E078BF9CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
