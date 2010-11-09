@@ -48,6 +48,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DACPServer.HTTPRequests.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="DACPServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

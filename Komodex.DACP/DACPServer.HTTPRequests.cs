@@ -1,0 +1,108 @@
+﻿using System;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using System.IO;
+using System.Linq;
+
+namespace Komodex.DACP
+{
+    public partial class DACPServer
+    {
+        #region HTTP Management
+
+        /// <summary>
+        /// Submits a HTTP request to the DACP server
+        /// </summary>
+        /// <param name="url">The URL request (e.g., "/server-info").</param>
+        /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
+        protected void SubmitHTTPRequest(string url, AsyncCallback callback = null)
+        {
+            // Set up callback if none was specified
+            if (callback == null)
+                callback = new AsyncCallback(HTTPByteCallback);
+
+            // Set up HTTPWebRequest
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(HTTPPrefix + url);
+            webRequest.Method = "POST";
+            webRequest.Headers["Viewer-Only-Client"] = "1";
+
+            // Send HTTP request
+            webRequest.BeginGetResponse(callback, webRequest);
+        }
+
+        protected void HTTPByteCallback(IAsyncResult result)
+        {
+            // TODO: Error checking
+
+            WebResponse response = ((HttpWebRequest)result.AsyncState).EndGetResponse(result);
+            Stream responseStream = response.GetResponseStream();
+            BinaryReader br = new BinaryReader(responseStream);
+            MemoryStream data = new MemoryStream();
+            byte[] buffer;
+
+            do
+            {
+                buffer = br.ReadBytes(8192);
+                data.Write(buffer, 0, buffer.Length);
+            } while (buffer.Length > 0);
+
+            data.Flush();
+
+            byte[] byteResult = data.GetBuffer();
+
+            var parsedResponse = Utility.GetResponseNodes(byteResult).First();
+
+            string responseType = parsedResponse.Key;
+            byte[] responseBody = parsedResponse.Value;
+
+            // Determine the type of response
+            switch (responseType)
+            {
+                case "mlog": // Login response
+                    ProcessStatusResponse(responseBody);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        protected void HTTPImageCallback(IAsyncResult result)
+        {
+
+        }
+
+        #endregion
+
+        #region Response Processing
+
+        protected void ProcessStatusResponse(byte[] responseBody)
+        {
+            var response = Utility.GetResponseNodes(responseBody);
+
+            foreach (var kvp in response)
+            {
+                if (kvp.Key == "mlid")
+                    SessionID = kvp.Value.GetInt32Value();
+            }
+        }
+
+        #endregion
+
+        #region Requests
+
+        protected void SubmitLoginRequest()
+        {
+            string url = "/login?pairing-guid=0x" + PairingKey;
+            SubmitHTTPRequest(url);
+        }
+
+        #endregion
+    }
+}

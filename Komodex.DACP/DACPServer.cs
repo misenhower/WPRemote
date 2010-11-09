@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace Komodex.DACP
 {
-    public class DACPServer
+    public partial class DACPServer
     {
         private DACPServer() { }
 
@@ -55,6 +55,7 @@ namespace Komodex.DACP
             }
         }
 
+        public int SessionID { get; protected set; }
 
         #endregion
 
@@ -62,48 +63,15 @@ namespace Komodex.DACP
 
         public void Connect()
         {
+            // Get session ID
+            SubmitLoginRequest();
 
+            // Get play status
+
+            // Start timers, delayed-response requests, etc...
         }
 
         #endregion
 
-        #region HTTP Management
-
-        /// <summary>
-        /// Submits a HTTP request to the DACP server
-        /// </summary>
-        /// <param name="url">The URL request (e.g., "/server-info").</param>
-        /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
-        protected void SubmitHTTPRequest(string url, AsyncCallback callback = null)
-        {
-            // Set up callback if none was specified
-            if (callback == null)
-                callback = new AsyncCallback(HTTPByteCallback);
-
-            // Set up HTTPWebRequest
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(HTTPPrefix + url);
-            webRequest.Method = "POST";
-            webRequest.Headers["Viewer-Only-Client"] = "1";
-
-            // Send HTTP request
-            webRequest.BeginGetResponse(callback, webRequest);
-        }
-
-        protected void HTTPByteCallback(IAsyncResult result)
-        {
-
-        }
-
-        protected void HTTPImageCallback(IAsyncResult result)
-        {
-
-        }
-
-        #endregion
-
-        #region Static Methods
-
-
-        #endregion
     }
 }

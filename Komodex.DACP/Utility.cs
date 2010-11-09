@@ -16,8 +16,10 @@ namespace Komodex.DACP
 {
     public static class Utility
     {
-        protected static List<KeyValuePair<string, byte[]>> GetResponseNodes(byte[] data)
+        public static List<KeyValuePair<string, byte[]>> GetResponseNodes(byte[] data)
         {
+            // TODO: Error checking
+
             List<KeyValuePair<string, byte[]>> result = new List<KeyValuePair<string, byte[]>>();
 
             int dataLength = data.Length;
