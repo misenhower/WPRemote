@@ -37,8 +37,11 @@ namespace Komodex.DACP
                 webRequest.Method = "POST";
                 webRequest.Headers["Viewer-Only-Client"] = "1";
 
+                // Create a new HTTPRequestState object
+                HTTPRequestState requestState = new HTTPRequestState(webRequest);
+
                 // Send HTTP request
-                webRequest.BeginGetResponse(callback, webRequest);
+                webRequest.BeginGetResponse(callback, requestState);
             }
             catch (Exception e)
             {
@@ -53,7 +56,10 @@ namespace Komodex.DACP
         {
             try
             {
-                WebResponse response = ((HttpWebRequest)result.AsyncState).EndGetResponse(result);
+                // Get the HTTPRequestState object
+                HTTPRequestState requestState = (HTTPRequestState)result.AsyncState;
+
+                WebResponse response = requestState.WebRequest.EndGetResponse(result);
                 Stream responseStream = response.GetResponseStream();
                 BinaryReader br = new BinaryReader(responseStream);
                 MemoryStream data = new MemoryStream();
