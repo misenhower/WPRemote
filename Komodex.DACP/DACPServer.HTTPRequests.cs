@@ -38,10 +38,10 @@ namespace Komodex.DACP
                 webRequest.Headers["Viewer-Only-Client"] = "1";
 
                 // Create a new HTTPRequestState object
-                HTTPRequestState requestState = new HTTPRequestState(webRequest);
+                HTTPRequestInfo requestInfo = new HTTPRequestInfo(webRequest);
 
                 // Send HTTP request
-                webRequest.BeginGetResponse(callback, requestState);
+                webRequest.BeginGetResponse(callback, requestInfo);
             }
             catch (Exception e)
             {
@@ -57,9 +57,9 @@ namespace Komodex.DACP
             try
             {
                 // Get the HTTPRequestState object
-                HTTPRequestState requestState = (HTTPRequestState)result.AsyncState;
+                HTTPRequestInfo requestInfo = (HTTPRequestInfo)result.AsyncState;
 
-                WebResponse response = requestState.WebRequest.EndGetResponse(result);
+                WebResponse response = requestInfo.WebRequest.EndGetResponse(result);
                 Stream responseStream = response.GetResponseStream();
                 BinaryReader br = new BinaryReader(responseStream);
                 MemoryStream data = new MemoryStream();
@@ -78,13 +78,13 @@ namespace Komodex.DACP
                 var parsedResponse = Utility.GetResponseNodes(byteResult).First();
 
                 string responseType = parsedResponse.Key;
-                byte[] responseBody = parsedResponse.Value;
+                requestInfo.ResponseBody = parsedResponse.Value;
 
                 // Determine the type of response
                 switch (responseType)
                 {
                     case "mlog": // Login response
-                        ProcessLoginResponse(responseBody);
+                        ProcessLoginResponse(requestInfo);
                         break;
                     default:
                         break;
@@ -116,11 +116,9 @@ namespace Komodex.DACP
             SubmitHTTPRequest(url);
         }
 
-        protected void ProcessLoginResponse(byte[] responseBody)
+        protected void ProcessLoginResponse(HTTPRequestInfo requestState)
         {
-            var response = Utility.GetResponseNodes(responseBody);
-
-            foreach (var kvp in response)
+            foreach (var kvp in requestState.ResponseNodes)
             {
                 if (kvp.Key == "mlid")
                     SessionID = kvp.Value.GetInt32Value();
