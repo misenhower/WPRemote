@@ -24,7 +24,7 @@ namespace Komodex.DACP
 #endif
         }
 
-        public static List<KeyValuePair<string, byte[]>> GetResponseNodes(byte[] data)
+        public static List<KeyValuePair<string, byte[]>> GetResponseNodes(byte[] data, bool firstOnly = false)
         {
             // TODO: Error checking
 
@@ -42,6 +42,9 @@ namespace Komodex.DACP
                 result.Add(new KeyValuePair<string, byte[]>(code, nodeBody));
 
                 location += 8 + length;
+
+                if (firstOnly)
+                    break;
             }
 
             return result;

@@ -75,7 +75,7 @@ namespace Komodex.DACP
 
                 byte[] byteResult = data.GetBuffer();
 
-                var parsedResponse = Utility.GetResponseNodes(byteResult).First();
+                var parsedResponse = Utility.GetResponseNodes(byteResult, true)[0];
 
                 string responseType = parsedResponse.Key;
                 requestInfo.ResponseBody = parsedResponse.Value;
