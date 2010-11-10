@@ -24,6 +24,8 @@ namespace Komodex.DACP
         /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
         protected void SubmitHTTPRequest(string url, AsyncCallback callback = null)
         {
+            Utility.DebugWrite("Submitting HTTP request for: " + url);
+
             // Set up callback if none was specified
             if (callback == null)
                 callback = new AsyncCallback(HTTPByteCallback);
@@ -99,6 +101,20 @@ namespace Komodex.DACP
                 if (kvp.Key == "mlid")
                     SessionID = kvp.Value.GetInt32Value();
             }
+        }
+
+        #endregion
+
+        #region Play Status
+
+        protected void SubmitPlayStatusRequest()
+        {
+
+        }
+
+        protected void ProcessPlayStatusRequest(byte[] responseBody)
+        {
+
         }
 
         #endregion

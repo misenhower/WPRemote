@@ -11,11 +11,19 @@ using System.Windows.Shapes;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Komodex.DACP
 {
     public static class Utility
     {
+        public static void DebugWrite(string message)
+        {
+#if DEBUG
+            Debug.WriteLine(message);
+#endif
+        }
+
         public static List<KeyValuePair<string, byte[]>> GetResponseNodes(byte[] data)
         {
             // TODO: Error checking
