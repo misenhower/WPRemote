@@ -30,48 +30,66 @@ namespace Komodex.DACP
             if (callback == null)
                 callback = new AsyncCallback(HTTPByteCallback);
 
-            // Set up HTTPWebRequest
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(HTTPPrefix + url);
-            webRequest.Method = "POST";
-            webRequest.Headers["Viewer-Only-Client"] = "1";
+            try
+            {
+                // Set up HTTPWebRequest
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(HTTPPrefix + url);
+                webRequest.Method = "POST";
+                webRequest.Headers["Viewer-Only-Client"] = "1";
 
-            // Send HTTP request
-            webRequest.BeginGetResponse(callback, webRequest);
+                // Send HTTP request
+                webRequest.BeginGetResponse(callback, webRequest);
+            }
+            catch (Exception e)
+            {
+                Utility.DebugWrite("Caught exception: " + e.Message);
+                // TODO: Signal the main application
+                // Just exiting for now
+                throw e;
+            }
         }
 
         protected void HTTPByteCallback(IAsyncResult result)
         {
-            // TODO: Error checking
-
-            WebResponse response = ((HttpWebRequest)result.AsyncState).EndGetResponse(result);
-            Stream responseStream = response.GetResponseStream();
-            BinaryReader br = new BinaryReader(responseStream);
-            MemoryStream data = new MemoryStream();
-            byte[] buffer;
-
-            do
+            try
             {
-                buffer = br.ReadBytes(8192);
-                data.Write(buffer, 0, buffer.Length);
-            } while (buffer.Length > 0);
+                WebResponse response = ((HttpWebRequest)result.AsyncState).EndGetResponse(result);
+                Stream responseStream = response.GetResponseStream();
+                BinaryReader br = new BinaryReader(responseStream);
+                MemoryStream data = new MemoryStream();
+                byte[] buffer;
 
-            data.Flush();
+                do
+                {
+                    buffer = br.ReadBytes(8192);
+                    data.Write(buffer, 0, buffer.Length);
+                } while (buffer.Length > 0);
 
-            byte[] byteResult = data.GetBuffer();
+                data.Flush();
 
-            var parsedResponse = Utility.GetResponseNodes(byteResult).First();
+                byte[] byteResult = data.GetBuffer();
 
-            string responseType = parsedResponse.Key;
-            byte[] responseBody = parsedResponse.Value;
+                var parsedResponse = Utility.GetResponseNodes(byteResult).First();
 
-            // Determine the type of response
-            switch (responseType)
+                string responseType = parsedResponse.Key;
+                byte[] responseBody = parsedResponse.Value;
+
+                // Determine the type of response
+                switch (responseType)
+                {
+                    case "mlog": // Login response
+                        ProcessLoginResponse(responseBody);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception e)
             {
-                case "mlog": // Login response
-                    ProcessLoginResponse(responseBody);
-                    break;
-                default:
-                    break;
+                Utility.DebugWrite("Caught exception: " + e.Message);
+                // TODO: Signal the main application
+                // Just exiting for now
+                throw e;
             }
         }
 
