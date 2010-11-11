@@ -92,7 +92,10 @@ namespace Komodex.DACP
                         ProcessLoginResponse(requestInfo);
                         break;
                     case "cmst": // Play status response
-                        ProcessPlayStatusRequest(requestInfo);
+                        ProcessPlayStatusResponse(requestInfo);
+                        break;
+                    case "cmgt": // Volume status response (TODO: and maybe others?)
+                        ProcessVolumeStatusResponse(requestInfo);
                         break;
                     default:
                         break;
@@ -172,7 +175,7 @@ namespace Komodex.DACP
             playStatusWebRequest = SubmitHTTPRequest(url);
         }
 
-        protected void ProcessPlayStatusRequest(HTTPRequestInfo requestInfo)
+        protected void ProcessPlayStatusResponse(HTTPRequestInfo requestInfo)
         {
             foreach (var kvp in requestInfo.ResponseNodes)
             {
@@ -205,6 +208,7 @@ namespace Komodex.DACP
             }
 
             SubmitAlbumArtRequest();
+            SubmitVolumeStatusRequest();
             SubmitPlayStatusRequest();
         }
 
@@ -217,6 +221,28 @@ namespace Komodex.DACP
             //string url = "/ctrl-int/1/nowplayingartwork?mw=320&mh=320&session-id=" + SessionID;
             string url = "/ctrl-int/1/nowplayingartwork?session-id=" + SessionID;
             SubmitHTTPRequest(url, new AsyncCallback(HTTPImageCallback));
+        }
+
+        #endregion
+
+        #region Volume Status
+
+        protected void SubmitVolumeStatusRequest()
+        {
+            string url = "/ctrl-int/1/getproperty?properties=dmcp.volume&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        protected void ProcessVolumeStatusResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                if (kvp.Key == "cmvo")
+                {
+                    Volume = (byte)kvp.Value.GetInt32Value();
+                    break;
+                }
+            }
         }
 
         #endregion

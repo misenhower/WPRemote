@@ -110,6 +110,24 @@ namespace Komodex.DACP
             }
         }
 
+        private byte _Volume = 0;
+        public byte Volume
+        {
+            get { return _Volume; }
+            protected set
+            {
+                if (_Volume == value)
+                    return;
+
+                if (value > 100)
+                    _Volume = 100;
+                else
+                    _Volume = value;
+
+                SendPropertyChanged("Volume");
+            }
+        }
+
         #endregion
 
         #region Notify Property Changed
