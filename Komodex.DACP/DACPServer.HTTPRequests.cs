@@ -22,7 +22,7 @@ namespace Komodex.DACP
         /// </summary>
         /// <param name="url">The URL request (e.g., "/server-info").</param>
         /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
-        protected void SubmitHTTPRequest(string url, AsyncCallback callback = null)
+        protected HttpWebRequest SubmitHTTPRequest(string url, AsyncCallback callback = null)
         {
             Utility.DebugWrite("Submitting HTTP request for: " + url);
 
@@ -42,6 +42,8 @@ namespace Komodex.DACP
 
                 // Send HTTP request
                 webRequest.BeginGetResponse(callback, requestInfo);
+
+                return webRequest;
             }
             catch (Exception e)
             {
@@ -86,6 +88,9 @@ namespace Komodex.DACP
                     case "mlog": // Login response
                         ProcessLoginResponse(requestInfo);
                         break;
+                    case "cmst": // Play status response
+                        ProcessPlayStatusRequest(requestInfo);
+                        break;
                     default:
                         break;
                 }
@@ -116,27 +121,50 @@ namespace Komodex.DACP
             SubmitHTTPRequest(url);
         }
 
-        protected void ProcessLoginResponse(HTTPRequestInfo requestState)
+        protected void ProcessLoginResponse(HTTPRequestInfo requestInfo)
         {
-            foreach (var kvp in requestState.ResponseNodes)
+            foreach (var kvp in requestInfo.ResponseNodes)
             {
                 if (kvp.Key == "mlid")
+                {
                     SessionID = kvp.Value.GetInt32Value();
+                    break;
+                }
             }
+            SubmitPlayStatusRequest();
         }
 
         #endregion
 
         #region Play Status
 
+        protected int playStatusRevisionNumber = 1;
+        protected HttpWebRequest playStatusWebRequest = null;
+
         protected void SubmitPlayStatusRequest()
         {
+            if (playStatusWebRequest != null)
+                playStatusWebRequest.Abort();
 
+            string url = "/ctrl-int/1/playstatusupdate?revision-number=" + playStatusRevisionNumber + "&session-id=" + SessionID;
+            playStatusWebRequest = SubmitHTTPRequest(url);
         }
 
-        protected void ProcessPlayStatusRequest(byte[] responseBody)
+        protected void ProcessPlayStatusRequest(HTTPRequestInfo requestInfo)
         {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "cmsr":
+                        playStatusRevisionNumber = kvp.Value.GetInt32Value();
+                        break;
+                    default:
+                        break;
+                }
+            }
 
+            SubmitPlayStatusRequest();
         }
 
         #endregion
