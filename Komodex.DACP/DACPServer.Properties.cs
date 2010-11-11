@@ -55,8 +55,10 @@ namespace Komodex.DACP
 
         protected void SendPropertyChanged(string propertyName)
         {
+            // TODO: Is this the best way to execute this on the UI thread?
             if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                Deployment.Current.Dispatcher.BeginInvoke(() => { PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); });
+
         }
 
         #region INotifyPropertyChanged Members
