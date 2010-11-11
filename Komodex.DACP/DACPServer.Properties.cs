@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
 
 namespace Komodex.DACP
 {
@@ -48,6 +49,19 @@ namespace Komodex.DACP
                     return;
                 _CurrentAlbum = value;
                 SendPropertyChanged("CurrentAlbum");
+            }
+        }
+
+        private BitmapImage _CurrentAlbumArt = null;
+        public BitmapImage CurrentAlbumArt
+        {
+            get { return _CurrentAlbumArt; }
+            set
+            {
+                if (_CurrentAlbumArt == value)
+                    return;
+                _CurrentAlbumArt = value;
+                SendPropertyChanged("CurrentAlbumArt");
             }
         }
 
