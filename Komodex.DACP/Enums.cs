@@ -11,14 +11,14 @@ using System.Windows.Shapes;
 
 namespace Komodex.DACP
 {
-    public enum PlayStatuses
+    public enum PlayStates
     {
         Stopped = 2,
         Paused = 3,
         Playing = 4,
     }
 
-    public enum RepeatStatuses
+    public enum RepeatStates
     {
         None = 0,
         RepeatOne = 1,

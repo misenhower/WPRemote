@@ -71,41 +71,41 @@ namespace Komodex.DACP
 
         #region Program Status
 
-        private PlayStatuses _PlayStatus = PlayStatuses.Stopped;
-        public PlayStatuses PlayStatus
+        private PlayStates _PlayState = PlayStates.Stopped;
+        public PlayStates PlayState
         {
-            get { return _PlayStatus; }
+            get { return _PlayState; }
             protected set
             {
-                if (_PlayStatus == value)
+                if (_PlayState == value)
                     return;
-                _PlayStatus = value;
+                _PlayState = value;
                 SendPropertyChanged("PlayStatus");
             }
         }
 
-        private bool _ShuffleStatus = false;
-        public bool ShuffleStatus
+        private bool _ShuffleState = false;
+        public bool ShuffleState
         {
-            get { return _ShuffleStatus; }
+            get { return _ShuffleState; }
             protected set
             {
-                if (_ShuffleStatus == value)
+                if (_ShuffleState == value)
                     return;
-                _ShuffleStatus = value;
+                _ShuffleState = value;
                 SendPropertyChanged("ShuffleStatus");
             }
         }
 
-        private RepeatStatuses _RepeatStatus = RepeatStatuses.None;
-        public RepeatStatuses RepeatStatus
+        private RepeatStates _RepeatState = RepeatStates.None;
+        public RepeatStates RepeatState
         {
-            get { return _RepeatStatus; }
+            get { return _RepeatState; }
             protected set
             {
-                if (_RepeatStatus == value)
+                if (_RepeatState == value)
                     return;
-                _RepeatStatus = value;
+                _RepeatState = value;
                 SendPropertyChanged("RepeatStatus");
             }
         }

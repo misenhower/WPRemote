@@ -80,10 +80,14 @@ namespace Komodex.DACP
 
                 byte[] byteResult = data.GetBuffer();
 
-                var parsedResponse = Utility.GetResponseNodes(byteResult, true)[0];
+                var parsedResponse = Utility.GetResponseNodes(byteResult, true);
+                if (parsedResponse.Count == 0)
+                    return;
 
-                requestInfo.ResponseCode = parsedResponse.Key;
-                requestInfo.ResponseBody = parsedResponse.Value;
+                var parsedResponseNode = parsedResponse[0];
+
+                requestInfo.ResponseCode = parsedResponseNode.Key;
+                requestInfo.ResponseBody = parsedResponseNode.Value;
 
                 // Determine the type of response
                 switch (requestInfo.ResponseCode)
@@ -194,20 +198,20 @@ namespace Komodex.DACP
                         CurrentAlbum = kvp.Value.GetStringValue();
                         break;
                     case "caps": // Play status
-                        PlayStatus = (PlayStatuses)kvp.Value[0];
+                        PlayState = (PlayStates)kvp.Value[0];
                         break;
                     case "cash": // Shuffle status
-                        ShuffleStatus = !(kvp.Value[0] == 0);
+                        ShuffleState = !(kvp.Value[0] == 0);
                         break;
                     case "carp": // Repeat status
-                        RepeatStatus = (RepeatStatuses)kvp.Value[0];
+                        RepeatState = (RepeatStates)kvp.Value[0];
                         break;
                     default:
                         break;
                 }
             }
 
-            SubmitAlbumArtRequest();
+            SubmitAlbumArtRequest(); // TODO: Need to be a bit more efficient about this, perhaps by doing this in the PropertyChanged event
             SubmitVolumeStatusRequest();
             SubmitPlayStatusRequest();
         }
@@ -246,6 +250,42 @@ namespace Komodex.DACP
         }
 
         #endregion
+
+        #endregion
+
+        #region Commands
+
+        public void SendPlayPauseCommand()
+        {
+            string url = "/ctrl-int/1/playpause?session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        public void SendNextItemCommand()
+        {
+            string url = "/ctrl-int/1/nextitem?session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        public void SendPrevItemCommand()
+        {
+            string url = "/ctrl-int/1/previtem?session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        public void SendShuffleStateCommand(bool shuffleState)
+        {
+            int intState = (shuffleState) ? 1 : 0;
+            string url = "/ctrl-int/1/setproperty?dacp.shufflestate=" + intState + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        public void SendRepeatStateCommand(RepeatStates repeatState)
+        {
+            int intState = (int)repeatState;
+            string url = "/ctrl-int/1/setproperty?dacp.repeatstate=" + intState + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
 
         #endregion
 
