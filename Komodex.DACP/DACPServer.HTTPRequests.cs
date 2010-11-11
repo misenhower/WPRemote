@@ -61,6 +61,8 @@ namespace Komodex.DACP
                 // Get the HTTPRequestState object
                 HTTPRequestInfo requestInfo = (HTTPRequestInfo)result.AsyncState;
 
+                Utility.DebugWrite("Got HTTP response for: " + requestInfo.WebRequest.RequestUri);
+
                 WebResponse response = requestInfo.WebRequest.EndGetResponse(result);
                 Stream responseStream = response.GetResponseStream();
                 BinaryReader br = new BinaryReader(responseStream);
@@ -79,11 +81,11 @@ namespace Komodex.DACP
 
                 var parsedResponse = Utility.GetResponseNodes(byteResult, true)[0];
 
-                string responseType = parsedResponse.Key;
+                requestInfo.ResponseCode = parsedResponse.Key;
                 requestInfo.ResponseBody = parsedResponse.Value;
 
                 // Determine the type of response
-                switch (responseType)
+                switch (requestInfo.ResponseCode)
                 {
                     case "mlog": // Login response
                         ProcessLoginResponse(requestInfo);
