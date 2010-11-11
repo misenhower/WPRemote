@@ -15,6 +15,8 @@ namespace Komodex.DACP
 {
     public partial class DACPServer : INotifyPropertyChanged
     {
+        #region Current Song
+
         private string _CurrentSongName = null;
         public string CurrentSongName
         {
@@ -31,7 +33,7 @@ namespace Komodex.DACP
         private string _CurrentArtist = null;
         public string CurrentArtist {
             get { return _CurrentArtist; }
-            set {
+            protected set {
                 if (_CurrentArtist == value)
                     return;
                 _CurrentArtist = value;
@@ -43,7 +45,7 @@ namespace Komodex.DACP
         public string CurrentAlbum
         {
             get { return _CurrentAlbum; }
-            set
+            protected set
             {
                 if (_CurrentAlbum == value)
                     return;
@@ -56,7 +58,7 @@ namespace Komodex.DACP
         public BitmapImage CurrentAlbumArt
         {
             get { return _CurrentAlbumArt; }
-            set
+            protected set
             {
                 if (_CurrentAlbumArt == value)
                     return;
@@ -64,6 +66,51 @@ namespace Komodex.DACP
                 SendPropertyChanged("CurrentAlbumArt");
             }
         }
+
+        #endregion
+
+        #region Program Status
+
+        private PlayStatuses _PlayStatus = PlayStatuses.Stopped;
+        public PlayStatuses PlayStatus
+        {
+            get { return _PlayStatus; }
+            protected set
+            {
+                if (_PlayStatus == value)
+                    return;
+                _PlayStatus = value;
+                SendPropertyChanged("PlayStatus");
+            }
+        }
+
+        private bool _ShuffleStatus = false;
+        public bool ShuffleStatus
+        {
+            get { return _ShuffleStatus; }
+            protected set
+            {
+                if (_ShuffleStatus == value)
+                    return;
+                _ShuffleStatus = value;
+                SendPropertyChanged("ShuffleStatus");
+            }
+        }
+
+        private RepeatStatuses _RepeatStatus = RepeatStatuses.None;
+        public RepeatStatuses RepeatStatus
+        {
+            get { return _RepeatStatus; }
+            protected set
+            {
+                if (_RepeatStatus == value)
+                    return;
+                _RepeatStatus = value;
+                SendPropertyChanged("RepeatStatus");
+            }
+        }
+
+        #endregion
 
         #region Notify Property Changed
 

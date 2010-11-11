@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DACPServer.Properties.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="HTTPRequestInfo.cs" />
     <Compile Include="DACPServer.HTTPRequests.cs" />
     <Compile Include="Utility.cs" />

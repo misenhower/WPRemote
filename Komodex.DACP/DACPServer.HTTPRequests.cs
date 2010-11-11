@@ -98,7 +98,7 @@ namespace Komodex.DACP
                         break;
                 }
             }
-            catch (Exception e)
+            catch (WebException e)
             {
                 Utility.DebugWrite("Caught exception: " + e.Message);
                 // TODO: Signal the main application
@@ -189,6 +189,15 @@ namespace Komodex.DACP
                         break;
                     case "canl": // Album
                         CurrentAlbum = kvp.Value.GetStringValue();
+                        break;
+                    case "caps": // Play status
+                        PlayStatus = (PlayStatuses)kvp.Value[0];
+                        break;
+                    case "cash": // Shuffle status
+                        ShuffleStatus = !(kvp.Value[0] == 0);
+                        break;
+                    case "carp": // Repeat status
+                        RepeatStatus = (RepeatStatuses)kvp.Value[0];
                         break;
                     default:
                         break;
