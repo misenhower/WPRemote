@@ -158,8 +158,17 @@ namespace Komodex.DACP
             {
                 switch (kvp.Key)
                 {
-                    case "cmsr":
+                    case "cmsr": // Revision number
                         playStatusRevisionNumber = kvp.Value.GetInt32Value();
+                        break;
+                    case "cann": // Song name
+                        CurrentSongName = kvp.Value.GetStringValue();
+                        break;
+                    case "cana": // Artist
+                        CurrentArtist = kvp.Value.GetStringValue();
+                        break;
+                    case "canl": // Album
+                        CurrentAlbum = kvp.Value.GetStringValue();
                         break;
                     default:
                         break;
