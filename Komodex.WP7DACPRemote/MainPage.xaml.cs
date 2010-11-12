@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.WP7DACPRemote.DACPServerInfoManagement;
+using Microsoft.Unsupported;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -20,6 +21,9 @@ namespace Komodex.WP7DACPRemote
         public MainPage()
         {
             InitializeComponent();
+
+
+            TiltEffect.SetIsTiltEnabled(this, true);
 
             DACPServerViewModel vm = new DACPServerViewModel();
             DACPServerInfo si;
