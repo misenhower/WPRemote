@@ -21,6 +21,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             InitializeComponent();
 
             TiltEffect.SetIsTiltEnabled(this, true);
+            DataContext = DACPServerViewModel.Instance;
         }
+
     }
 }

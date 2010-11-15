@@ -21,6 +21,14 @@ namespace Komodex.WP7DACPRemote
 
             SetVisibility(false);
 
+
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            NavigationService.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
+
         }
 
         private void SetVisibility(bool serverConnected)
