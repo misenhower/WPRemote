@@ -65,6 +65,9 @@
     </Compile>
     <Compile Include="DACPServerInfoManagement\DACPServerInfo.cs" />
     <Compile Include="DACPServerInfoManagement\DACPServerViewModel.cs" />
+    <Compile Include="DACPServerInfoManagement\LibraryChooserPage.xaml.cs">
+      <DependentUpon>LibraryChooserPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -76,6 +79,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="DACPServerInfoManagement\LibraryChooserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

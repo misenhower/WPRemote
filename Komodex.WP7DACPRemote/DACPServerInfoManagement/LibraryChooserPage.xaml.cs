@@ -10,17 +10,17 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Komodex.WP7DACPRemote.DACPServerInfoManagement;
 using Microsoft.Unsupported;
 
-namespace Komodex.WP7DACPRemote
+namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class LibraryChooserPage : PhoneApplicationPage
     {
-        // Constructor
-        public MainPage()
+        public LibraryChooserPage()
         {
             InitializeComponent();
+
+            TiltEffect.SetIsTiltEnabled(this, true);
         }
     }
 }
