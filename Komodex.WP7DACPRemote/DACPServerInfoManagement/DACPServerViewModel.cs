@@ -79,6 +79,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             set
             {
                 _SelectedServerGuid = value;
+                isolatedSettings[SelectedServerGuidKey] = _SelectedServerGuid;
                 Save();
             }
         }
