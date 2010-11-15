@@ -67,6 +67,9 @@
     <Compile Include="Controls\ConnectingStatusControl.xaml.cs">
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DACPServerInfoManagement\AddLibraryPage.xaml.cs">
+      <DependentUpon>AddLibraryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DACPServerInfoManagement\DACPServerInfo.cs" />
     <Compile Include="DACPServerInfoManagement\DACPServerViewModel.cs" />
     <Compile Include="DACPServerInfoManagement\LibraryChooserPage.xaml.cs">
@@ -86,6 +89,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="Controls\ConnectingStatusControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DACPServerInfoManagement\AddLibraryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
