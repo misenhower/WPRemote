@@ -7,7 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -19,8 +19,14 @@
         <!--Pivot Control-->
         <controls:Pivot Title="MY APPLICATION">
             <!--Pivot item one-->
-            <controls:PivotItem Header="item1">
-                <Grid/>
+            <controls:PivotItem Header="now playing" Visibility="Collapsed" IsEnabled="False">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Image HorizontalAlignment="Left" Name="image1" Stretch="UniformToFill" VerticalAlignment="Top" Width="380" Height="380" />
+                </Grid>
             </controls:PivotItem>
 
             <!--Pivot item two-->
@@ -31,15 +37,15 @@
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.rew.rest.png" Text="previous"/>
+            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.pause.rest.png" Text="play/pause"/>
+            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.ff.rest.png" Text="next"/>
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
+                <shell:ApplicationBarMenuItem Text="settings"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
     
 </phone:PhoneApplicationPage>

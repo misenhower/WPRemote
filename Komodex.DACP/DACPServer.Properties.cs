@@ -110,8 +110,8 @@ namespace Komodex.DACP
             }
         }
 
-        private byte _Volume = 0;
-        public byte Volume
+        private int _Volume = 0;
+        public int Volume
         {
             get { return _Volume; }
             protected set
@@ -121,6 +121,8 @@ namespace Komodex.DACP
 
                 if (value > 100)
                     _Volume = 100;
+                else if (value < 0)
+                    _Volume = 0;
                 else
                     _Volume = value;
 
