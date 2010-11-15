@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Komodex.WP7DACPRemote.Controls.ConnectingStatusControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:localHelpers="clr-namespace:Komodex.WP7DACPRemote.ThirdParty"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}" Height="416" Width="492">
+    
+    <UserControl.Resources>
+        <localHelpers:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}" Visibility="{Binding ShowProgress, Converter={StaticResource booleanToVisibilityConverter}}">
+        <StackPanel HorizontalAlignment="Center" Name="stackPanel1" VerticalAlignment="Center">
+            <ProgressBar Height="4" Name="progressBar1" Width="460" IsIndeterminate="{Binding ShowProgress}" />
+            <TextBlock Name="textBlock1" Text="Connecting to Library" TextAlignment="Center" />
+            <TextBlock Name="textBlock2" Text="{Binding LibraryName}" Style="{StaticResource PhoneTextAccentStyle}" TextAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -64,6 +64,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ConnectingStatusControl.xaml.cs">
+      <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DACPServerInfoManagement\DACPServerInfo.cs" />
     <Compile Include="DACPServerInfoManagement\DACPServerViewModel.cs" />
     <Compile Include="DACPServerInfoManagement\LibraryChooserPage.xaml.cs">
@@ -73,6 +76,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThirdParty\BooleanToVisibilityConverter.cs" />
     <Compile Include="ThirdParty\TiltEffect.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +84,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Controls\ConnectingStatusControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DACPServerInfoManagement\LibraryChooserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +136,7 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
