@@ -53,7 +53,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
                     _Items.CollectionChanged+=new NotifyCollectionChangedEventHandler(Items_CollectionChanged);
                 }
-
                 
                 return _Items;
             }
@@ -64,13 +63,22 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             Save();
         }
 
-        private Guid _SelectedServerGUID = Guid.Empty;
+        private const string SelectedServerGuidKey = "SelectedServerGuid";
+        private Guid _SelectedServerGuid = Guid.Empty;
         public Guid SelectedServerGuid
         {
-            get { return _SelectedServerGUID; }
+            get
+            {
+                if (_SelectedServerGuid == Guid.Empty)
+                    if (isolatedSettings.Contains(SelectedServerGuidKey))
+                        if (isolatedSettings[SelectedServerGuidKey] is Guid)
+                            _SelectedServerGuid = (Guid)isolatedSettings[SelectedServerGuidKey];
+
+                return _SelectedServerGuid;
+            }
             set
             {
-                _SelectedServerGUID = value;
+                _SelectedServerGuid = value;
                 Save();
             }
         }
