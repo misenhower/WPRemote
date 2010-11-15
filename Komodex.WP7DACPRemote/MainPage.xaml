@@ -27,8 +27,12 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Image HorizontalAlignment="Left" Name="image1" Stretch="UniformToFill" VerticalAlignment="Top" Width="380" Height="380" />
-                    <TextBlock Height="30" HorizontalAlignment="Left" Margin="168,65,0,0" Name="textBlock1" Text="{Binding Path=CurrentSongName}" VerticalAlignment="Top" Grid.Row="1" />
+                    <Image HorizontalAlignment="Left" Name="image1" Stretch="UniformToFill" VerticalAlignment="Top" Width="380" Height="380" Source="{Binding Path=CurrentAlbumArt}" />
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Name="stackPanel1" VerticalAlignment="Stretch">
+                        <TextBlock Height="30" Name="textBlock1" Text="{Binding Path=CurrentArtist}" />
+                        <TextBlock Height="30" Name="textBlock2" Text="{Binding Path=CurrentSongName}" FontWeight="Bold" />
+                        <TextBlock Height="30" Name="textBlock3" Text="{Binding Path=CurrentAlbum}" />
+                    </StackPanel>
                 </Grid>
             </controls:PivotItem>
             <!--Pivot item two-->
