@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:localHelpers="clr-namespace:Komodex.WP7DACPRemote.ThirdParty"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -15,9 +16,10 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
+        <my:ConnectingStatusControl ShowProgress="False" LibraryName="{Binding LibraryName}" x:Name="connectingStatusControl" />
         <!--Pivot Control-->
-        <controls:Pivot Title="MY APPLICATION">
+        <controls:Pivot Title="MY APPLICATION" Name="pivotControl">
             <!--Pivot item one-->
             <controls:PivotItem Header="now playing">
                 <Grid>
@@ -26,6 +28,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Image HorizontalAlignment="Left" Name="image1" Stretch="UniformToFill" VerticalAlignment="Top" Width="380" Height="380" />
+                    <TextBlock Height="30" HorizontalAlignment="Left" Margin="168,65,0,0" Name="textBlock1" Text="{Binding Path=CurrentSongName}" VerticalAlignment="Top" Grid.Row="1" />
                 </Grid>
             </controls:PivotItem>
             <!--Pivot item two-->
@@ -33,7 +36,6 @@
                 <Grid />
             </controls:PivotItem>
         </controls:Pivot>
-        <my:ConnectingStatusControl ShowProgress="True" LibraryName="Testing123" />
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->

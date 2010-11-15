@@ -18,6 +18,25 @@ namespace Komodex.WP7DACPRemote
         public MainPage()
         {
             InitializeComponent();
+
+            SetVisibility(false);
+
+        }
+
+        private void SetVisibility(bool serverConnected)
+        {
+            if (serverConnected)
+            {
+                pivotControl.Visibility = System.Windows.Visibility.Visible;
+                ApplicationBar.IsVisible = true;
+                connectingStatusControl.ShowProgress = false;
+            }
+            else
+            {
+                pivotControl.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = false;
+                connectingStatusControl.ShowProgress = true;
+            }
         }
     }
 }

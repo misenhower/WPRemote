@@ -15,6 +15,36 @@ namespace Komodex.DACP
 {
     public partial class DACPServer : INotifyPropertyChanged
     {
+        #region Connection
+
+        private bool _IsConnected = false;
+        public bool IsConnected
+        {
+            get { return _IsConnected; }
+            set
+            {
+                if (_IsConnected == value)
+                    return;
+                _IsConnected = value;
+                SendPropertyChanged("IsConnected");
+            }
+        }
+
+        private string _LibraryName = string.Empty;
+        public string LibraryName
+        {
+            get { return _LibraryName; }
+            set
+            {
+                if (_LibraryName == value)
+                    return;
+                _LibraryName = value;
+                SendPropertyChanged("LibraryName");
+            }
+        }
+
+        #endregion
+
         #region Current Song
 
         private string _CurrentSongName = null;
