@@ -92,6 +92,9 @@ namespace Komodex.DACP
                 // Determine the type of response
                 switch (requestInfo.ResponseCode)
                 {
+                    case "msrv":
+                        ProcessServerInfoResponse(requestInfo);
+                        break;
                     case "mlog": // Login response
                         ProcessLoginResponse(requestInfo);
                         break;
@@ -142,6 +145,33 @@ namespace Komodex.DACP
 
         #region Requests and Responses
 
+        #region Server Info
+
+        protected void SubmitServerInfoRequest()
+        {
+            string url = "/server-info";
+            SubmitHTTPRequest(url);
+        }
+
+        protected void ProcessServerInfoResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "minm": // Library name
+                        LibraryName = kvp.Value.GetStringValue();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            SendServerUpdate(ServerUpdateType.ServerInfoResponse);
+        }
+
+        #endregion
+
         #region Login
 
         protected void SubmitLoginRequest()
@@ -161,6 +191,8 @@ namespace Komodex.DACP
                 }
             }
             SubmitPlayStatusRequest();
+
+            SendServerUpdate(ServerUpdateType.ServerConnected);
         }
 
         #endregion

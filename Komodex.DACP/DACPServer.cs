@@ -61,7 +61,12 @@ namespace Komodex.DACP
 
         #region Public Methods
 
-        public void Connect()
+        public void GetServerInfo()
+        {
+            SubmitServerInfoRequest();
+        }
+
+        public void Start()
         {
             // Get session ID
             SubmitLoginRequest();
@@ -69,6 +74,18 @@ namespace Komodex.DACP
             // Get play status
 
             // Start timers, delayed-response requests, etc...
+        }
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler<ServerUpdateEventArgs> ServerUpdate;
+
+        protected void SendServerUpdate(ServerUpdateType type)
+        {
+            if (ServerUpdate != null)
+                ServerUpdate(this, new ServerUpdateEventArgs(type));
         }
 
         #endregion

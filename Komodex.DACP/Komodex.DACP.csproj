@@ -52,6 +52,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="HTTPRequestInfo.cs" />
     <Compile Include="DACPServer.HTTPRequests.cs" />
+    <Compile Include="ServerUpdateEventArgs.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="DACPServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
