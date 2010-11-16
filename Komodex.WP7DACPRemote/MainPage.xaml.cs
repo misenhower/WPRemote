@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerInfoManagement;
+using Microsoft.Phone.Shell;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -20,7 +21,14 @@ namespace Komodex.WP7DACPRemote
         public MainPage()
         {
             InitializeComponent();
+
+            // ApplicationBar button and menu item references must be referenced at run time
+            btnPlayPause = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
         }
+
+        private ApplicationBarIconButton btnPlayPause = null;
+        private readonly Uri iconPlay = new Uri("/icons/appbar.transport.play.rest.png", UriKind.Relative);
+        private readonly Uri iconPause = new Uri("/icons/appbar.transport.pause.rest.png", UriKind.Relative);
 
         #region Properties
 
@@ -31,13 +39,19 @@ namespace Komodex.WP7DACPRemote
             set
             {
                 if (_Server != null)
+                {
                     _Server.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServerUpdate);
+                    _Server.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
+                }
 
                 _Server = value;
                 DataContext = _Server;
 
                 if (_Server != null)
+                {
                     _Server.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(DACPServerUpdate);
+                    _Server.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
+                }
             }
         }
 
@@ -100,6 +114,26 @@ namespace Komodex.WP7DACPRemote
                         break;
                 }
             });
+        }
+
+        void Server_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "PlayState":
+                    UpdatePlayPauseButton();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void UpdatePlayPauseButton()
+        {
+            if (Server.PlayState == PlayStates.Playing)
+                btnPlayPause.IconUri = iconPause;
+            else
+                btnPlayPause.IconUri = iconPlay;
         }
 
         #endregion
