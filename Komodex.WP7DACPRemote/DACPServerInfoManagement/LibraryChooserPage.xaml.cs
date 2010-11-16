@@ -29,5 +29,17 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             NavigationService.Navigate(new Uri("/DACPServerInfoManagement/AddLibraryPage.xaml", UriKind.Relative));
         }
 
+        private void mnuDelete_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+            if (!(menuItem.Tag is Guid))
+                return;
+
+            Guid itemGuid = (Guid)menuItem.Tag;
+            DACPServerInfo serverInfo = DACPServerViewModel.Instance.Items.FirstOrDefault(si => si.ID == itemGuid);
+            if (serverInfo != null)
+                DACPServerViewModel.Instance.Items.Remove(serverInfo);
+        }
+
     }
 }
