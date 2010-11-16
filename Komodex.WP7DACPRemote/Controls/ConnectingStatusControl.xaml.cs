@@ -31,6 +31,16 @@ namespace Komodex.WP7DACPRemote.Controls
             set { SetValue(ShowProgressProperty, value); }
         }
 
+        public static readonly DependencyProperty ShowConnectingProperty =
+            DependencyProperty.Register("ShowConnecting", typeof(bool), typeof(ConnectingStatusControl),
+            new PropertyMetadata((bool)false));
+
+        public bool ShowConnecting
+        {
+            get { return (bool)GetValue(ShowConnectingProperty); }
+            set { SetValue(ShowConnectingProperty, value); }
+        }
+
         public static readonly DependencyProperty LibraryNameProperty =
             DependencyProperty.Register("LibraryName", typeof(string), typeof(ConnectingStatusControl),
             new PropertyMetadata((string)string.Empty));
@@ -39,6 +49,26 @@ namespace Komodex.WP7DACPRemote.Controls
         {
             get { return (string)GetValue(LibraryNameProperty); }
             set { SetValue(LibraryNameProperty, value); }
+        }
+
+        public string LibraryConnectionText
+        {
+            get { return tbLibraryConnectionText.Text; }
+            set { tbLibraryConnectionText.Text = value; }
+        }
+
+        public string ButtonText
+        {
+            get { return btnAction.Content as string; }
+            set { btnAction.Content = value; }
+        }
+
+        public event RoutedEventHandler ButtonClick;
+
+        private void btnAction_Click(object sender, RoutedEventArgs e)
+        {
+            if (ButtonClick != null)
+                ButtonClick(sender, e);
         }
 
     }

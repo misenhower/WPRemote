@@ -13,16 +13,16 @@
         <localHelpers:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}" Visibility="{Binding ShowProgress, Converter={StaticResource booleanToVisibilityConverter}}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}" Visibility="{Binding ShowConnecting, Converter={StaticResource booleanToVisibilityConverter}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Center" Name="stackPanel1" VerticalAlignment="Center">
-            <ProgressBar Height="4" Name="progressBar1" Width="460" IsIndeterminate="{Binding ShowProgress}" />
-            <TextBlock Name="textBlock1" Text="Connecting to Library" TextAlignment="Center" />
-            <TextBlock Name="textBlock2" Text="{Binding LibraryName}" Style="{StaticResource PhoneTextAccentStyle}" TextAlignment="Center" />
+            <ProgressBar Height="4" Name="progressBar1" Width="460" IsIndeterminate="{Binding ShowProgress}" Visibility="{Binding ShowProgress, Converter={StaticResource booleanToVisibilityConverter}}" />
+            <TextBlock Name="tbLibraryConnectionText" Text="Connecting to Library" TextAlignment="Center" TextWrapping="Wrap" />
+            <TextBlock Name="tbLibraryName" Text="{Binding LibraryName}" Style="{StaticResource PhoneTextAccentStyle}" TextAlignment="Center" />
         </StackPanel>
-        <Button Content="Change Library..." Grid.Row="1" Height="72" HorizontalAlignment="Center" Name="button1" VerticalAlignment="Center" Margin="0,0,0,30" />
+        <Button Content="Change Library..." Grid.Row="1" Height="72" HorizontalAlignment="Center" Name="btnAction" VerticalAlignment="Center" Margin="0,0,0,30" Click="btnAction_Click" />
     </Grid>
 </UserControl>

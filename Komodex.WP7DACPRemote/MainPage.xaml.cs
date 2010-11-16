@@ -157,6 +157,11 @@ namespace Komodex.WP7DACPRemote
 
         #region Actions
 
+        private void connectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            GoToSettingsPage();
+        }
+
         private void mnuSettings_Click(object sender, EventArgs e)
         {
             GoToSettingsPage();
@@ -187,18 +192,35 @@ namespace Komodex.WP7DACPRemote
             {
                 pivotControl.Visibility = System.Windows.Visibility.Visible;
                 ApplicationBar.IsVisible = true;
+                connectingStatusControl.ShowConnecting = false;
                 connectingStatusControl.ShowProgress = false;
             }
             else
             {
                 pivotControl.Visibility = System.Windows.Visibility.Collapsed;
                 ApplicationBar.IsVisible = false;
-                connectingStatusControl.ShowProgress = true;
+                connectingStatusControl.ShowConnecting = true;
+                if (viewModel.CurrentDACPServer == null)
+                {
+                    connectingStatusControl.ShowProgress = false;
+                    connectingStatusControl.LibraryConnectionText = "Tap \"Change Library\" to select or add a new library.";
+                }
+                else
+                {
+                    connectingStatusControl.ShowProgress = true;
+                    connectingStatusControl.LibraryConnectionText = "Connecting to Library";
+                }
             }
         }
 
         private void GoToSettingsPage()
         {
+            if (Server != null)
+            {
+                Server.Stop();
+                Server = null;
+            }
+
             NavigationService.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
         }
 

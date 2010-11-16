@@ -17,7 +17,7 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
-        <my:ConnectingStatusControl ShowProgress="False" LibraryName="{Binding LibraryName}" x:Name="connectingStatusControl" />
+        <my:ConnectingStatusControl ShowConnecting="False" ShowProgress="False" LibraryName="{Binding LibraryName}" x:Name="connectingStatusControl" ButtonClick="connectingStatusControl_ButtonClick" />
         <!--Pivot Control-->
         <controls:Pivot Title="{Binding Path=LibraryName}" Name="pivotControl">
             <!--Pivot item one-->
