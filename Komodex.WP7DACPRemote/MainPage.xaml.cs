@@ -111,6 +111,21 @@ namespace Komodex.WP7DACPRemote
             GoToSettingsPage();
         }
 
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            Server.SendPrevItemCommand();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            Server.SendNextItemCommand();
+        }
+
+        private void btnPlayPause_Click(object sender, EventArgs e)
+        {
+            Server.SendPlayPauseCommand();
+        }
+
         #endregion
 
         #region Methods
