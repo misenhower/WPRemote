@@ -24,5 +24,10 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             DataContext = DACPServerViewModel.Instance;
         }
 
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/DACPServerInfoManagement/AddLibraryPage.xaml", UriKind.Relative));
+        }
+
     }
 }

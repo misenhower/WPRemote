@@ -10,7 +10,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -22,24 +22,34 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="ADD LIBRARY" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        	<Grid.RowDefinitions>
+        		<RowDefinition Height="Auto"/>
+        		<RowDefinition Height="*"/>
+        	</Grid.RowDefinitions>
+        	<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+        		<TextBlock TextWrapping="Wrap" Text="To add a library, download the Pairing Utility from the following website on your computer:"/>
+        		<TextBlock TextWrapping="Wrap" Text="http://komodex.com/pair" Style="{StaticResource PhoneTextAccentStyle}"/>
+        	</StackPanel>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Left" Name="stackPanel1" VerticalAlignment="Top">
+                <TextBlock Height="30" Name="textBlock1" Text="Host" Style="{StaticResource PhoneTextSmallStyle}" />
+                <TextBox Height="71" Name="tbHost" Text="TextBox" Width="460" InputScope="Url" />
+                <TextBlock Height="30" Name="textBlock2" Text="PIN" Style="{StaticResource PhoneTextSmallStyle}" />
+                <TextBox Height="71" Name="tbPIN" Text="TextBox" Width="460" InputScope="TelephoneNumber" KeyDown="tbPIN_KeyDown" MaxLength="4" />
+            </StackPanel>
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
+        	<shell:ApplicationBarIconButton IconUri="/icons/appbar.save.rest.png" Text="save"/>
+        	<shell:ApplicationBarIconButton IconUri="/icons/appbar.cancel.rest.png" Text="cancel"/>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

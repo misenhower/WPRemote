@@ -19,5 +19,15 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         {
             InitializeComponent();
         }
+
+        private void tbPIN_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Only allow numeric characters
+            bool validCharacter = (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key >= Key.D0 && e.Key <= Key.D9);
+
+            if (!validCharacter)
+                e.Handled = true;
+
+        }
     }
 }
