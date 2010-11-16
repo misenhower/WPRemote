@@ -17,13 +17,20 @@ namespace Komodex.WP7DACPRemote
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        public MainPage()
+        {
+            InitializeComponent();
+        }
+
+        #region Properties
+
         private DACPServer _Server = null;
         private DACPServer Server
         {
             get { return _Server; }
             set
             {
-                if (_Server!=null)
+                if (_Server != null)
                     _Server.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServerUpdate);
 
                 _Server = value;
@@ -34,24 +41,23 @@ namespace Komodex.WP7DACPRemote
             }
         }
 
-        public MainPage()
-        {
-            InitializeComponent();
+        #endregion
 
-            SetVisibility(false);
-        }
+        #region Overrides
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
+            SetVisibility(false);
+
             DACPServerViewModel viewModel = DACPServerViewModel.Instance;
 
             DACPServerInfo serverInfo = viewModel.Items.FirstOrDefault(si => si.ID == viewModel.SelectedServerGuid);
 
-            if (serverInfo == null)//||true)
+            if (serverInfo == null)
             {
-                NavigationService.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
+                GoToSettingsPage();
             }
             else
             {
@@ -60,6 +66,21 @@ namespace Komodex.WP7DACPRemote
                 Server.Start();
             }
         }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            if (Server != null)
+            {
+                Server.Stop();
+                Server = null;
+            }
+        }
+
+        #endregion
+
+        #region Event Handlers
 
         void DACPServerUpdate(object sender, ServerUpdateEventArgs e)
         {
@@ -73,12 +94,26 @@ namespace Komodex.WP7DACPRemote
                         SetVisibility(true);
                         break;
                     case ServerUpdateType.Error:
+                        GoToSettingsPage();
                         break;
                     default:
                         break;
                 }
             });
         }
+
+        #endregion
+
+        #region Actions
+
+        private void mnuSettings_Click(object sender, EventArgs e)
+        {
+            GoToSettingsPage();
+        }
+
+        #endregion
+
+        #region Methods
 
         private void SetVisibility(bool serverConnected)
         {
@@ -95,5 +130,12 @@ namespace Komodex.WP7DACPRemote
                 connectingStatusControl.ShowProgress = true;
             }
         }
+
+        private void GoToSettingsPage()
+        {
+            NavigationService.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
+        }
+
+        #endregion
     }
 }

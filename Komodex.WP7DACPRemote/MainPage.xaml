@@ -49,7 +49,7 @@
             <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.pause.rest.png" Text="play/pause"/>
             <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.ff.rest.png" Text="next"/>
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="settings"/>
+                <shell:ApplicationBarMenuItem Text="settings" x:Name="mnuSettings" Click="mnuSettings_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
