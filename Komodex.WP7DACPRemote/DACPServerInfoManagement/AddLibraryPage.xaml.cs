@@ -47,7 +47,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             SetVisibility(true);
             server = new DACPServer(serverInfo.HostName, serverInfo.PairingCode);
             server.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(server_ServerUpdate);
-            server.GetServerInfo();
+            server.Start(false);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -88,8 +88,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                     case ServerUpdateType.ServerInfoResponse:
                         // Get the library name
                         serverInfo.LibraryName = server.LibraryName;
-                        // Validate the PIN
-                        server.Start(false);
                         break;
                     case ServerUpdateType.ServerConnected:
                         // PIN was correct

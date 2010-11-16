@@ -55,7 +55,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 return;
             }
 
-            if (DACPServerViewModel.Instance.Items.Count == 0)
+            if (!SuppressAutoOpenAddNewServerPage && DACPServerViewModel.Instance.Items.Count == 0)
             {
                 SuppressAutoOpenAddNewServerPage = true; // This needs to be set to false at some point
                 OpenAddNewServerPage();

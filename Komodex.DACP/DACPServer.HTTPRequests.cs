@@ -168,6 +168,8 @@ namespace Komodex.DACP
             }
 
             SendServerUpdate(ServerUpdateType.ServerInfoResponse);
+
+            SubmitLoginRequest();
         }
 
         #endregion

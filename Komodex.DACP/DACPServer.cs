@@ -62,11 +62,6 @@ namespace Komodex.DACP
 
         #region Public Methods
 
-        public void GetServerInfo()
-        {
-            SubmitServerInfoRequest();
-        }
-
         public void Start()
         {
             Start(UseDelayedResponseRequests);
@@ -76,12 +71,7 @@ namespace Komodex.DACP
         {
             UseDelayedResponseRequests = useDelayedResponseRequests;
 
-            // Get session ID
-            SubmitLoginRequest();
-
-            // Get play status
-
-            // Start timers, delayed-response requests, etc...
+            SubmitServerInfoRequest();
         }
 
         public void Stop()
