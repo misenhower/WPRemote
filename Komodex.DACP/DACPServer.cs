@@ -27,6 +27,7 @@ namespace Komodex.DACP
         #region Fields
 
         private bool UseDelayedResponseRequests = true;
+        private bool Stopped = false;
 
         #endregion
 
@@ -71,16 +72,26 @@ namespace Komodex.DACP
         {
             UseDelayedResponseRequests = useDelayedResponseRequests;
 
+            Stopped = false;
+
             SubmitServerInfoRequest();
         }
 
         public void Stop()
         {
+            Stopped = true;
             UseDelayedResponseRequests = false;
-            if (playStatusWebRequest != null)
-                playStatusWebRequest.Abort();
-            if (libraryUpdateWebRequest != null)
-                libraryUpdateWebRequest.Abort();
+
+            try
+            {
+                foreach (HttpWebRequest request in PendingHttpRequests)
+                {
+                    request.Abort();
+                }
+            }
+            catch { }
+
+            PendingHttpRequests.Clear();
         }
 
         #endregion

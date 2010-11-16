@@ -11,12 +11,15 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
+using System.Collections.Generic;
 
 namespace Komodex.DACP
 {
     public partial class DACPServer
     {
         #region HTTP Management
+
+        protected List<HttpWebRequest> PendingHttpRequests = new List<HttpWebRequest>();
 
         /// <summary>
         /// Submits a HTTP request to the DACP server
@@ -44,6 +47,8 @@ namespace Komodex.DACP
                 // Send HTTP request
                 webRequest.BeginGetResponse(callback, requestInfo);
 
+                PendingHttpRequests.Add(webRequest);
+
                 return webRequest;
             }
             catch (Exception e)
@@ -58,12 +63,19 @@ namespace Komodex.DACP
         {
             try
             {
-                // Get the HTTPRequestState object
+                // Get the HTTPRequestInfo object
                 HTTPRequestInfo requestInfo = (HTTPRequestInfo)result.AsyncState;
 
                 Utility.DebugWrite("Got HTTP response for: " + requestInfo.WebRequest.RequestUri);
 
                 WebResponse response = requestInfo.WebRequest.EndGetResponse(result);
+
+                if (Stopped)
+                    return;
+
+                if (PendingHttpRequests.Contains(requestInfo.WebRequest))
+                    PendingHttpRequests.Remove(requestInfo.WebRequest);
+
                 Stream responseStream = response.GetResponseStream();
                 BinaryReader br = new BinaryReader(responseStream);
                 MemoryStream data = new MemoryStream();
@@ -113,7 +125,8 @@ namespace Komodex.DACP
             catch (Exception e)
             {
                 Utility.DebugWrite("Caught exception: " + e.Message);
-                SendServerUpdate(ServerUpdateType.Error);
+                if (!Stopped)
+                    SendServerUpdate(ServerUpdateType.Error);
             }
         }
 
