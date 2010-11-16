@@ -17,6 +17,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
     public partial class AddLibraryPage : PhoneApplicationPage
     {
         DACPServerInfo serverInfo = null;
+        DACPServer server = null;
 
         public AddLibraryPage()
         {
@@ -26,6 +27,25 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             DataContext = serverInfo;
         }
 
+        #region AppBar Button Handlers
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SetVisibility(true);
+            server = new DACPServer(serverInfo.HostName, serverInfo.PairingCode);
+            server.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(server_ServerUpdate);
+            server.GetServerInfo();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        #endregion
+
+        #region Control Event Handlers
+
         private void tbPIN_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow numeric characters
@@ -33,17 +53,34 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
             if (!validCharacter)
                 e.Handled = true;
-
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        #endregion
+
+        #region Server Validation
+
+        void SetVisibility(bool isConnecting)
         {
-            //DACPServer server = new DACPServer(tbHost.Text, tbp)
+            connectingStatusControl.ShowProgress = isConnecting;
+            ApplicationBar.IsVisible = !isConnecting;
+            ContentPanel.Visibility = (isConnecting) ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        void server_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            NavigationService.GoBack();
+            switch (e.Type)
+            {
+                case ServerUpdateType.ServerInfoResponse:
+                    break;
+                case ServerUpdateType.Error:
+                    MessageBox.Show("Could not connect to library. Please check your settings and try again.");
+                    SetVisibility(false);
+                    break;
+                default:
+                    break;
+            }
         }
+
+        #endregion
     }
 }
