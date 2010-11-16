@@ -68,12 +68,23 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 e.Handled = true;
         }
 
+        private void connectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (server != null)
+            {
+                server.Stop();
+                server = null;
+            }
+            SetVisibility(false);
+        }
+
         #endregion
 
         #region Server Validation
 
         void SetVisibility(bool isConnecting)
         {
+            connectingStatusControl.ShowConnecting = isConnecting;
             connectingStatusControl.ShowProgress = isConnecting;
             ApplicationBar.IsVisible = !isConnecting;
             ContentPanel.Visibility = (isConnecting) ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
