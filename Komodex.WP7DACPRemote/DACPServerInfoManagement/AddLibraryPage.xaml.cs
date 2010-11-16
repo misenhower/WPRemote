@@ -29,8 +29,20 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         #region AppBar Button Handlers
 
+        private void UpdateBoundData()
+        {
+            try
+            {
+                TextBox tb = (TextBox)FocusManager.GetFocusedElement();
+                var binding = tb.GetBindingExpression(TextBox.TextProperty);
+                binding.UpdateSource();
+            }
+            catch { }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
+            UpdateBoundData();
             SetVisibility(true);
             server = new DACPServer(serverInfo.HostName, serverInfo.PairingCode);
             server.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(server_ServerUpdate);
@@ -68,17 +80,27 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         void server_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            switch (e.Type)
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                case ServerUpdateType.ServerInfoResponse:
-                    break;
-                case ServerUpdateType.Error:
-                    MessageBox.Show("Could not connect to library. Please check your settings and try again.");
-                    SetVisibility(false);
-                    break;
-                default:
-                    break;
-            }
+                switch (e.Type)
+                {
+                    case ServerUpdateType.ServerInfoResponse:
+                        // Get the library name
+                        serverInfo.LibraryName = server.LibraryName;
+                        // Validate the PIN
+                        server.Start(false);
+                        break;
+                    case ServerUpdateType.ServerConnected:
+                        // PIN was correct
+                        break;
+                    case ServerUpdateType.Error:
+                        MessageBox.Show("Could not connect to library. Please check your settings and try again.");
+                        SetVisibility(false);
+                        break;
+                    default:
+                        break;
+                }
+            });
         }
 
         #endregion

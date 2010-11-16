@@ -49,9 +49,8 @@ namespace Komodex.DACP
             catch (Exception e)
             {
                 Utility.DebugWrite("Caught exception: " + e.Message);
-                // TODO: Signal the main application
-                // Just exiting for now
-                throw e;
+                SendServerUpdate(ServerUpdateType.Error);
+                return null;
             }
         }
 
@@ -108,12 +107,10 @@ namespace Komodex.DACP
                         break;
                 }
             }
-            catch (WebException e)
+            catch (Exception e)
             {
                 Utility.DebugWrite("Caught exception: " + e.Message);
-                // TODO: Signal the main application
-                // Just exiting for now
-                throw e;
+                SendServerUpdate(ServerUpdateType.Error);
             }
         }
 
@@ -245,7 +242,8 @@ namespace Komodex.DACP
 
             SubmitAlbumArtRequest(); // TODO: Need to be a bit more efficient about this, perhaps by doing this in the PropertyChanged event
             SubmitVolumeStatusRequest();
-            SubmitPlayStatusRequest();
+            if (UseDelayedResponseRequests)
+                SubmitPlayStatusRequest();
         }
 
         #endregion

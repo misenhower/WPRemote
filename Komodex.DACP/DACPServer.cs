@@ -26,6 +26,7 @@ namespace Komodex.DACP
 
         #region Fields
 
+        private bool UseDelayedResponseRequests = true;
 
         #endregion
 
@@ -68,12 +69,25 @@ namespace Komodex.DACP
 
         public void Start()
         {
+            Start(UseDelayedResponseRequests);
+        }
+
+        public void Start(bool useDelayedResponseRequests)
+        {
+            UseDelayedResponseRequests = useDelayedResponseRequests;
+
             // Get session ID
             SubmitLoginRequest();
 
             // Get play status
 
             // Start timers, delayed-response requests, etc...
+        }
+
+        public void Stop()
+        {
+            UseDelayedResponseRequests = false;
+            playStatusWebRequest.Abort();
         }
 
         #endregion
