@@ -110,12 +110,12 @@ namespace Komodex.DACP
                 if (_PlayState == value)
                     return;
                 _PlayState = value;
-                SendPropertyChanged("PlayStatus");
-                SendPropertyChanged("PlayStatusBool");
+                SendPropertyChanged("PlayState");
+                SendPropertyChanged("PlayStateBool");
             }
         }
 
-        public bool PlayStatusBool
+        public bool PlayStateBool
         {
             get { return (PlayState == PlayStates.Playing); }
         }
