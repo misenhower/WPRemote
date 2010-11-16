@@ -31,6 +31,17 @@ namespace Komodex.WP7DACPRemote
         private readonly Uri iconPlay = new Uri("/icons/appbar.transport.play.rest.png", UriKind.Relative);
         private readonly Uri iconPause = new Uri("/icons/appbar.transport.pause.rest.png", UriKind.Relative);
 
+        #region Static Properties
+
+        private static bool _SuppressAutoOpenServerListPage = false;
+        public static bool SuppressAutoOpenServerListPage
+        {
+            get { return _SuppressAutoOpenServerListPage; }
+            set { _SuppressAutoOpenServerListPage = value; }
+        }
+
+        #endregion
+
         #region Properties
 
         private DACPServer _Server = null;
@@ -70,7 +81,11 @@ namespace Komodex.WP7DACPRemote
 
             if (serverInfo == null)
             {
-                GoToSettingsPage();
+                if (!SuppressAutoOpenServerListPage)
+                {
+                    SuppressAutoOpenServerListPage = true;
+                    GoToSettingsPage();
+                }
             }
             else
             {
