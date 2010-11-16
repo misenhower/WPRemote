@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO.IsolatedStorage;
+using System.Linq;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
@@ -61,6 +62,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             Save();
+        }
+
+        public DACPServerInfo CurrentDACPServer
+        {
+            get { return Items.FirstOrDefault(si => si.ID == SelectedServerGuid); }
         }
 
         private const string SelectedServerGuidKey = "SelectedServerGuid";

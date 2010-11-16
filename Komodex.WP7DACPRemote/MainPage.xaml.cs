@@ -26,6 +26,7 @@ namespace Komodex.WP7DACPRemote
             btnPlayPause = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
         }
 
+        DACPServerViewModel viewModel = DACPServerViewModel.Instance;
         private ApplicationBarIconButton btnPlayPause = null;
         private readonly Uri iconPlay = new Uri("/icons/appbar.transport.play.rest.png", UriKind.Relative);
         private readonly Uri iconPause = new Uri("/icons/appbar.transport.pause.rest.png", UriKind.Relative);
@@ -65,9 +66,7 @@ namespace Komodex.WP7DACPRemote
 
             SetVisibility(false);
 
-            DACPServerViewModel viewModel = DACPServerViewModel.Instance;
-
-            DACPServerInfo serverInfo = viewModel.Items.FirstOrDefault(si => si.ID == viewModel.SelectedServerGuid);
+            DACPServerInfo serverInfo = viewModel.CurrentDACPServer;
 
             if (serverInfo == null)
             {
@@ -122,6 +121,9 @@ namespace Komodex.WP7DACPRemote
             {
                 case "PlayState":
                     UpdatePlayPauseButton();
+                    break;
+                case "LibraryName":
+                    viewModel.CurrentDACPServer.LibraryName = Server.LibraryName;
                     break;
                 default:
                     break;
