@@ -10,14 +10,20 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Komodex.DACP;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
     public partial class AddLibraryPage : PhoneApplicationPage
     {
+        DACPServerInfo serverInfo = null;
+
         public AddLibraryPage()
         {
             InitializeComponent();
+
+            serverInfo = new DACPServerInfo();
+            DataContext = serverInfo;
         }
 
         private void tbPIN_KeyDown(object sender, KeyEventArgs e)
@@ -28,6 +34,16 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             if (!validCharacter)
                 e.Handled = true;
 
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            //DACPServer server = new DACPServer(tbHost.Text, tbp)
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
