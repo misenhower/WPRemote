@@ -91,11 +91,14 @@ namespace Komodex.DACP
                 // Determine the type of response
                 switch (requestInfo.ResponseCode)
                 {
-                    case "msrv":
+                    case "msrv": // Server info response
                         ProcessServerInfoResponse(requestInfo);
                         break;
                     case "mlog": // Login response
                         ProcessLoginResponse(requestInfo);
+                        break;
+                    case "mupd": // Library update response
+                        ProcessLibraryUpdateResponse(requestInfo);
                         break;
                     case "cmst": // Play status response
                         ProcessPlayStatusResponse(requestInfo);
@@ -188,10 +191,45 @@ namespace Komodex.DACP
                 }
             }
 
+
             if (UseDelayedResponseRequests)
+            {
+                SubmitLibraryUpdateRequest();
                 SubmitPlayStatusRequest();
+            }
 
             SendServerUpdate(ServerUpdateType.ServerConnected);
+        }
+
+        #endregion
+
+        #region Update
+
+        protected int libraryUpdateRevisionNumber = 1;
+        protected HttpWebRequest libraryUpdateWebRequest = null;
+
+        protected void SubmitLibraryUpdateRequest()
+        {
+            if (libraryUpdateWebRequest != null)
+                return; // Slightly different behavior than the PlayStatus update because I'm not quite sure where this is needed yet
+
+            string url = "/update?revision-number=" + libraryUpdateRevisionNumber + "&daap-no-disconnect=1&session-id=" + SessionID;
+            libraryUpdateWebRequest = SubmitHTTPRequest(url);
+        }
+
+        protected void ProcessLibraryUpdateResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                if (kvp.Key == "musr")
+                {
+                    libraryUpdateRevisionNumber = kvp.Value.GetInt32Value();
+                    break;
+                }
+            }
+
+            if (UseDelayedResponseRequests)
+                SubmitLibraryUpdateRequest();
         }
 
         #endregion

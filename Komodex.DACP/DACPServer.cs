@@ -89,6 +89,8 @@ namespace Komodex.DACP
             UseDelayedResponseRequests = false;
             if (playStatusWebRequest != null)
                 playStatusWebRequest.Abort();
+            if (libraryUpdateWebRequest != null)
+                libraryUpdateWebRequest.Abort();
         }
 
         #endregion
