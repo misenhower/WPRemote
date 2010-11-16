@@ -24,7 +24,54 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             DataContext = DACPServerViewModel.Instance;
         }
 
+        #region Static Properties
+
+        private static bool _GoBackOnNextActivate = false;
+        public static bool GoBackOnNextActivate
+        {
+            get { return _GoBackOnNextActivate; }
+            set { _GoBackOnNextActivate = value; }
+        }
+
+        private static bool _SuppressAutoOpenAddNewServerPage = false;
+        public static bool SuppressAutoOpenAddNewServerPage
+        {
+            get { return _SuppressAutoOpenAddNewServerPage; }
+            set { _SuppressAutoOpenAddNewServerPage = value; }
+        }
+
+        #endregion
+
+        #region Overrides
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (GoBackOnNextActivate)
+            {
+                GoBackOnNextActivate = false;
+                NavigationService.GoBack();
+                return;
+            }
+
+            if (DACPServerViewModel.Instance.Items.Count == 0)
+            {
+                SuppressAutoOpenAddNewServerPage = true; // This needs to be set to false at some point
+                OpenAddNewServerPage();
+            }
+        }
+
+        #endregion
+
+        #region Button/Action Event Handlers
+
         private void btnNew_Click(object sender, EventArgs e)
+        {
+            OpenAddNewServerPage();
+        }
+
+        private void OpenAddNewServerPage()
         {
             NavigationService.Navigate(new Uri("/DACPServerInfoManagement/AddLibraryPage.xaml", UriKind.Relative));
         }
@@ -40,6 +87,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             if (serverInfo != null)
                 DACPServerViewModel.Instance.Items.Remove(serverInfo);
         }
+
+        #endregion
 
     }
 }

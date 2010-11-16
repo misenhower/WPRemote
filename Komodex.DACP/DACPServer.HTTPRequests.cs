@@ -187,7 +187,9 @@ namespace Komodex.DACP
                     break;
                 }
             }
-            SubmitPlayStatusRequest();
+
+            if (UseDelayedResponseRequests)
+                SubmitPlayStatusRequest();
 
             SendServerUpdate(ServerUpdateType.ServerConnected);
         }

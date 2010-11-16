@@ -24,6 +24,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             InitializeComponent();
 
             serverInfo = new DACPServerInfo();
+            serverInfo.ID = Guid.NewGuid();
             DataContext = serverInfo;
         }
 
@@ -92,6 +93,12 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         break;
                     case ServerUpdateType.ServerConnected:
                         // PIN was correct
+                        server.Stop();
+                        server = null;
+                        DACPServerViewModel.Instance.Items.Add(serverInfo);
+                        DACPServerViewModel.Instance.SelectedServerGuid = serverInfo.ID;
+                        LibraryChooserPage.GoBackOnNextActivate = true;
+                        NavigationService.GoBack();
                         break;
                     case ServerUpdateType.Error:
                         MessageBox.Show("Could not connect to library. Please check your settings and try again.");
