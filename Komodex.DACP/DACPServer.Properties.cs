@@ -111,7 +111,13 @@ namespace Komodex.DACP
                     return;
                 _PlayState = value;
                 SendPropertyChanged("PlayStatus");
+                SendPropertyChanged("PlayStatusBool");
             }
+        }
+
+        public bool PlayStatusBool
+        {
+            get { return (PlayState == PlayStates.Playing); }
         }
 
         private bool _ShuffleState = false;
