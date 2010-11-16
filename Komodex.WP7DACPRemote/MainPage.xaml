@@ -19,7 +19,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
         <my:ConnectingStatusControl ShowProgress="False" LibraryName="{Binding LibraryName}" x:Name="connectingStatusControl" />
         <!--Pivot Control-->
-        <controls:Pivot Title="MY APPLICATION" Name="pivotControl">
+        <controls:Pivot Title="{Binding Path=LibraryName}" Name="pivotControl">
             <!--Pivot item one-->
             <controls:PivotItem Header="now playing">
                 <Grid>
