@@ -88,6 +88,20 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 DACPServerViewModel.Instance.Items.Remove(serverInfo);
         }
 
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox listBox = (ListBox)sender;
+
+            DACPServerInfo serverInfo = listBox.SelectedItem as DACPServerInfo;
+
+            if (serverInfo != null)
+            {
+                DACPServerViewModel.Instance.SelectedServerGuid = serverInfo.ID;
+                NavigationService.GoBack();
+            }
+        }
+
         #endregion
 
     }
