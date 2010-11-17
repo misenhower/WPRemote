@@ -16,9 +16,14 @@ namespace Komodex.DACP
 {
     public partial class DACPServer
     {
-        private DACPServer() { }
+        private DACPServer()
+        {
+            timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
+            timerTrackTimeUpdate.Tick += new EventHandler(timerTrackTimeUpdate_Tick);
+        }
 
         public DACPServer(string hostName, string pairingKey)
+            : this()
         {
             HostName = hostName;
             PairingKey = pairingKey;

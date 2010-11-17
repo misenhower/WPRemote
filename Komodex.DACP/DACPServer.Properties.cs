@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Komodex.DACP
 {
@@ -118,13 +119,24 @@ namespace Komodex.DACP
         public int TrackTimeRemaining
         {
             get { return _TrackTimeRemaining; }
+            //protected set
             set
             {
                 if (_TrackTimeRemaining == value)
                     return;
+
+                if (value < 0)
+                    value = 0;
+
                 _TrackTimeRemaining = value;
                 SendPropertyChanged("TrackTimeRemaining");
             }
+        }
+
+        private DispatcherTimer timerTrackTimeUpdate = new DispatcherTimer();
+        void timerTrackTimeUpdate_Tick(object sender, EventArgs e)
+        {
+            TrackTimeRemaining -= 1000;
         }
 
         #endregion

@@ -265,6 +265,11 @@ namespace Komodex.DACP
 
         protected void ProcessPlayStatusResponse(HTTPRequestInfo requestInfo)
         {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                timerTrackTimeUpdate.Stop();
+            });
+
             foreach (var kvp in requestInfo.ResponseNodes)
             {
                 switch (kvp.Key)
@@ -301,6 +306,11 @@ namespace Komodex.DACP
                 }
             }
 
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (PlayState == PlayStates.Playing)
+                    timerTrackTimeUpdate.Start();
+            });
             SubmitAlbumArtRequest(); // TODO: Need to be a bit more efficient about this, perhaps by doing this in the PropertyChanged event
             SubmitVolumeStatusRequest();
             if (UseDelayedResponseRequests)
