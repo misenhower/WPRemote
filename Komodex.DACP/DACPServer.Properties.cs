@@ -99,6 +99,36 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Play Position
+
+        private int _TrackTimeTotal = 0;
+        public int TrackTimeTotal
+        {
+            get { return _TrackTimeTotal; }
+            protected set
+            {
+                if (_TrackTimeTotal == value)
+                    return;
+                _TrackTimeTotal = value;
+                SendPropertyChanged("TrackTimeTotal");
+            }
+        }
+
+        private int _TrackTimeRemaining = 0;
+        public int TrackTimeRemaining
+        {
+            get { return _TrackTimeRemaining; }
+            set
+            {
+                if (_TrackTimeRemaining == value)
+                    return;
+                _TrackTimeRemaining = value;
+                SendPropertyChanged("TrackTimeRemaining");
+            }
+        }
+
+        #endregion
+
         #region Program Status
 
         private PlayStates _PlayState = PlayStates.Stopped;

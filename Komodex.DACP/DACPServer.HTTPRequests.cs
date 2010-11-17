@@ -290,6 +290,12 @@ namespace Komodex.DACP
                     case "carp": // Repeat status
                         RepeatState = (RepeatStates)kvp.Value[0];
                         break;
+                    case "cast":
+                        TrackTimeTotal = kvp.Value.GetInt32Value();
+                        break;
+                    case "cant":
+                        TrackTimeRemaining = kvp.Value.GetInt32Value();
+                        break;
                     default:
                         break;
                 }
