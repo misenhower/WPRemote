@@ -1,1 +1,20 @@
-<Komodex_DACP:DACPServer xmlns:Komodex_DACP="clr-namespace:Komodex.DACP;assembly=Komodex.DACP" CurrentAlbum="Curabitur maecenas aenean vestibulum" CurrentSongName="Phasellus class sed aliquam dis" CurrentArtist="Cras nam duis" HostName="Curae mauris adipiscing praesent accumsan" IsConnected="True" LibraryName="Bibendum parturient est" PairingKey="Consequat donec nullam" PlayState="Paused" RepeatState="RepeatOne" SessionID="63" ShuffleState="False" Volume="50"/>
+<Komodex_DACP:DACPServer xmlns:Komodex_DACP="clr-namespace:Komodex.DACP;assembly=Komodex.DACP" xmlns="http://schemas.microsoft.com/client/2007" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Komodex_DACP_Library="clr-namespace:Komodex.DACP.Library;assembly=Komodex.DACP" CurrentAlbum="Nam curabitur phasellus consequat" CurrentSongName="Aenean sed convallis dis maecenas" CurrentArtist="Cras vestibulum adipiscing" CurrentTrackTimeRemaining="58" DatabaseID="44" HostName="Praesent duis" IsConnected="True" LibraryName="Congue blandit" PlayStateBool="False" PairingKey="Cursus dictum commodo lectus" PlayState="Playing" RepeatState="None" SessionID="93" ShuffleState="True" TrackTimeRemaining="31" TrackTimeTotal="51" TrackTimeUpdatedAt="11/18/2010 13:57:21" Volume="11">
+	<Komodex_DACP:DACPServer.CurrentAlbumArt>
+		<BitmapImage CreateOptions="IgnoreImageCache"/>
+	</Komodex_DACP:DACPServer.CurrentAlbumArt>
+	<Komodex_DACP:DACPServer.ID>
+		<System:Guid/>
+	</Komodex_DACP:DACPServer.ID>
+	<Komodex_DACP:DACPServer.LibraryArtists>
+		<Komodex_DACP_Library:Artist ArtistName="Class dignissim accumsan"/>
+		<Komodex_DACP_Library:Artist ArtistName="Aliquam bibendum"/>
+		<Komodex_DACP_Library:Artist ArtistName="Integer nunc"/>
+		<Komodex_DACP_Library:Artist ArtistName="Mauris elementum quisque est"/>
+		<Komodex_DACP_Library:Artist ArtistName="Hac vivamus amet"/>
+		<Komodex_DACP_Library:Artist ArtistName="Leo dictumst facilisis eleifend"/>
+		<Komodex_DACP_Library:Artist ArtistName="Nullam aptent mus parturient aliquam"/>
+		<Komodex_DACP_Library:Artist ArtistName="Vestibulum facilisi nec curae"/>
+		<Komodex_DACP_Library:Artist ArtistName="Faucibus donec aliquet"/>
+		<Komodex_DACP_Library:Artist ArtistName="Auctor vestibulum"/>
+	</Komodex_DACP:DACPServer.LibraryArtists>
+</Komodex_DACP:DACPServer>
