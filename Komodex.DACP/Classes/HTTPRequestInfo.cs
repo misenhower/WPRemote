@@ -23,6 +23,8 @@ namespace Komodex.DACP
 
         public HttpWebRequest WebRequest { get; protected set; }
 
+        public IDACPResponseHandler ResponseHandler { get; set; }
+
         public string ResponseCode { get; set; }
 
         private byte[] _ResponseBody = null;

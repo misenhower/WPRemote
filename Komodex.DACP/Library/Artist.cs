@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace Komodex.DACP.Library
 {
-    public class Artist
+    public class Artist : IDACPResponseHandler
     {
         private Artist()
         { }
@@ -48,6 +48,15 @@ namespace Komodex.DACP.Library
                         break;
                 }
             }
+        }
+
+        #endregion
+
+        #region IDACPResponseHandler Members
+
+        public void ProcessResponse(HTTPRequestInfo requestInfo)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

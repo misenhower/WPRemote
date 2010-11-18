@@ -26,7 +26,7 @@ namespace Komodex.DACP
         /// </summary>
         /// <param name="url">The URL request (e.g., "/server-info").</param>
         /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
-        protected HttpWebRequest SubmitHTTPRequest(string url, AsyncCallback callback = null)
+        protected HttpWebRequest SubmitHTTPRequest(string url, AsyncCallback callback = null, IDACPResponseHandler responseHandler = null)
         {
             Utility.DebugWrite("Submitting HTTP request for: " + url);
 
@@ -43,6 +43,7 @@ namespace Komodex.DACP
 
                 // Create a new HTTPRequestState object
                 HTTPRequestInfo requestInfo = new HTTPRequestInfo(webRequest);
+                requestInfo.ResponseHandler = responseHandler;
 
                 // Send HTTP request
                 webRequest.BeginGetResponse(callback, requestInfo);
@@ -100,32 +101,39 @@ namespace Komodex.DACP
                 requestInfo.ResponseCode = parsedResponseNode.Key;
                 requestInfo.ResponseBody = parsedResponseNode.Value;
 
-                // Determine the type of response
-                switch (requestInfo.ResponseCode)
+                if (requestInfo.ResponseHandler != null)
                 {
-                    case "msrv": // Server info response
-                        ProcessServerInfoResponse(requestInfo);
-                        break;
-                    case "mlog": // Login response
-                        ProcessLoginResponse(requestInfo);
-                        break;
-                    case "mupd": // Library update response
-                        ProcessLibraryUpdateResponse(requestInfo);
-                        break;
-                    case "cmst": // Play status response
-                        ProcessPlayStatusResponse(requestInfo);
-                        break;
-                    case "cmgt": // Volume status response (TODO: and maybe others?)
-                        ProcessVolumeStatusResponse(requestInfo);
-                        break;
-                    case "avdb": // Databases
-                        ProcessDatabasesResponse(requestInfo);
-                        break;
-                    case "agar": // Artist response
-                        ProcessArtistsResponse(requestInfo);
-                        break;
-                    default:
-                        break;
+                    requestInfo.ResponseHandler.ProcessResponse(requestInfo);
+                }
+                else
+                {
+                    // Determine the type of response
+                    switch (requestInfo.ResponseCode)
+                    {
+                        case "msrv": // Server info response
+                            ProcessServerInfoResponse(requestInfo);
+                            break;
+                        case "mlog": // Login response
+                            ProcessLoginResponse(requestInfo);
+                            break;
+                        case "mupd": // Library update response
+                            ProcessLibraryUpdateResponse(requestInfo);
+                            break;
+                        case "cmst": // Play status response
+                            ProcessPlayStatusResponse(requestInfo);
+                            break;
+                        case "cmgt": // Volume status response (TODO: and maybe others?)
+                            ProcessVolumeStatusResponse(requestInfo);
+                            break;
+                        case "avdb": // Databases
+                            ProcessDatabasesResponse(requestInfo);
+                            break;
+                        case "agar": // Artist response
+                            ProcessArtistsResponse(requestInfo);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             catch (Exception e)
