@@ -29,7 +29,7 @@
                     </Grid.RowDefinitions>
                     <Image HorizontalAlignment="Left" Name="image1" Stretch="UniformToFill" VerticalAlignment="Top" Width="300" Height="292" Source="{Binding Path=CurrentAlbumArt}" />
                     <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Name="stackPanel1" VerticalAlignment="Stretch">
-                        <Slider Name="slider1" Width="460" Value="{Binding Path=TrackTimeRemaining, Mode=TwoWay}" Maximum="{Binding Path=TrackTimeTotal}" IsDirectionReversed="True" />
+                        <Slider Name="slider1" Width="460" Value="{Binding Path=CurrentTrackTimeRemaining, Mode=TwoWay}" Maximum="{Binding Path=TrackTimeTotal}" IsDirectionReversed="True" />
                         <TextBlock Height="30" Name="textBlock1" Text="{Binding Path=CurrentArtist}" />
                         <TextBlock Height="30" Name="textBlock2" Text="{Binding Path=CurrentSongName}" FontWeight="Bold" />
                         <TextBlock Height="30" Name="textBlock3" Text="{Binding Path=CurrentAlbum}" />

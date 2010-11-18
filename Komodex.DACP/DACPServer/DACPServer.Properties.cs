@@ -119,8 +119,7 @@ namespace Komodex.DACP
         public int TrackTimeRemaining
         {
             get { return _TrackTimeRemaining; }
-            //protected set
-            set
+            protected set
             {
                 if (_TrackTimeRemaining == value)
                     return;
@@ -130,13 +129,40 @@ namespace Komodex.DACP
 
                 _TrackTimeRemaining = value;
                 SendPropertyChanged("TrackTimeRemaining");
+                SendPropertyChanged("CurrentTimeRemaining");
             }
+        }
+
+        private DateTime _TrackTimeUpdatedAt = DateTime.MinValue;
+        public DateTime TrackTimeUpdatedAt
+        {
+            get { return _TrackTimeUpdatedAt; }
+            protected set
+            {
+                if (_TrackTimeUpdatedAt == value)
+                    return;
+                _TrackTimeUpdatedAt = value;
+                SendPropertyChanged("TrackTimeUpdatedAt");
+            }
+        }
+
+        public int CurrentTrackTimeRemaining
+        {
+            get
+            {
+                double adjustedMilliseconds = (DateTime.Now - TrackTimeUpdatedAt).TotalMilliseconds;
+                if (adjustedMilliseconds > int.MaxValue || adjustedMilliseconds < int.MinValue)
+                    return TrackTimeRemaining;
+
+                return TrackTimeRemaining - (int)adjustedMilliseconds;
+            }
+            set { } // TODO
         }
 
         private DispatcherTimer timerTrackTimeUpdate = new DispatcherTimer();
         void timerTrackTimeUpdate_Tick(object sender, EventArgs e)
         {
-            TrackTimeRemaining -= 1000;
+            SendPropertyChanged("CurrentTrackTimeRemaining");
         }
 
         #endregion

@@ -315,6 +315,7 @@ namespace Komodex.DACP
                         TrackTimeTotal = kvp.Value.GetInt32Value();
                         break;
                     case "cant":
+                        TrackTimeUpdatedAt = DateTime.Now;
                         TrackTimeRemaining = kvp.Value.GetInt32Value();
                         break;
                     default:
