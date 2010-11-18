@@ -18,17 +18,20 @@ namespace Komodex.DACP.Library
 
         public Artist(DACPServer server, string name)
         {
+            Server = server;
             ArtistName = name;
         }
 
         public Artist(DACPServer server, byte[] data)
         {
+            Server = server;
             ParseByteData(data);
         }
 
         #region Properties
 
         public string ArtistName { get; protected set; }
+        public DACPServer Server { get; protected set; }
 
         #endregion
 

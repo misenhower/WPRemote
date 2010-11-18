@@ -11,8 +11,8 @@ using System.Windows.Shapes;
 
 namespace Komodex.DACP
 {
-    interface IDACPResponseHandler
+    public interface IDACPResponseHandler
     {
-        public void ProcessResponse(HTTPRequestInfo requestInfo);
+        void ProcessResponse(HTTPRequestInfo requestInfo);
     }
 }
