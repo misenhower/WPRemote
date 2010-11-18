@@ -162,6 +162,11 @@ namespace Komodex.WP7DACPRemote
             DACPServer.SendPlayPauseCommand();
         }
 
+        private void pivotControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetDataForPivotItem();
+        }
+
         #endregion
 
         #region Methods
@@ -190,6 +195,8 @@ namespace Komodex.WP7DACPRemote
                 ApplicationBar.IsVisible = true;
                 connectingStatusControl.ShowConnecting = false;
                 connectingStatusControl.ShowProgress = false;
+
+                GetDataForPivotItem();
             }
         }
 
@@ -198,6 +205,19 @@ namespace Komodex.WP7DACPRemote
             NavigationService.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
         }
 
+        private void GetDataForPivotItem()
+        {
+            if (DACPServer == null || !DACPServer.IsConnected)
+                return;
+
+            if (pivotControl.SelectedItem == pivotArtists)
+            {
+                if (DACPServer.LibraryArtists == null || DACPServer.LibraryArtists.Count == 0)
+                    DACPServer.GetArtists();
+            }
+        }
+
         #endregion
+
     }
 }

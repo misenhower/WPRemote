@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Linq;
+using System.Collections.ObjectModel;
+using Komodex.DACP.Library;
 
 namespace Komodex.DACP
 {
@@ -17,6 +19,19 @@ namespace Komodex.DACP
         #region Properties
 
         public int DatabaseID { get; protected set; }
+
+        private ObservableCollection<Artist> _LibraryArtists = null;
+        public ObservableCollection<Artist> LibraryArtists
+        {
+            get { return _LibraryArtists; }
+            protected set
+            {
+                if (_LibraryArtists == value)
+                    return;
+                _LibraryArtists = value;
+                SendPropertyChanged("LibraryArtists");
+            }
+        }
 
         #endregion
 
@@ -58,8 +73,17 @@ namespace Komodex.DACP
 
         #region Artists
 
+        private bool retrievingArtists = false;
+
+        public void GetArtists()
+        {
+            if (!retrievingArtists)
+                SubmitArtistsRequest();
+        }
+
         protected void SubmitArtistsRequest()
         {
+            retrievingArtists = true;
             string url = "/databases/" + DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
                 + "&type=music"
@@ -73,7 +97,27 @@ namespace Komodex.DACP
 
         protected void ProcessArtistsResponse(HTTPRequestInfo requestInfo)
         {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        ObservableCollection<Artist> libraryArtists = new ObservableCollection<Artist>();
 
+                        var artistNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var artistData in artistNodes)
+                        {
+                            libraryArtists.Add(new Artist(this, artistData.Value));
+                        }
+
+                        LibraryArtists = libraryArtists;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            retrievingArtists = false;
         }
 
         #endregion
