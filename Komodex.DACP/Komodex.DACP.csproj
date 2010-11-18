@@ -57,6 +57,7 @@
     <Compile Include="Classes\ServerUpdateEventArgs.cs" />
     <Compile Include="Classes\Utility.cs" />
     <Compile Include="DACPServer\DACPServer.cs" />
+    <Compile Include="Library\Album.cs" />
     <Compile Include="Library\Artist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

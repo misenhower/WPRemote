@@ -8,10 +8,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Artist : IDACPResponseHandler
+    public class Artist : IDACPResponseHandler, INotifyPropertyChanged
     {
         private Artist()
         { }
@@ -19,7 +21,7 @@ namespace Komodex.DACP.Library
         public Artist(DACPServer server, string name)
         {
             Server = server;
-            ArtistName = name;
+            Name = name;
         }
 
         public Artist(DACPServer server, byte[] data)
@@ -30,8 +32,21 @@ namespace Komodex.DACP.Library
 
         #region Properties
 
-        public string ArtistName { get; protected set; }
+        public string Name { get; protected set; }
         public DACPServer Server { get; protected set; }
+
+        private ObservableCollection<Album> _Albums = null;
+        public ObservableCollection<Album> Albums
+        {
+            get { return _Albums; }
+            protected set
+            {
+                if (_Albums == value)
+                    return;
+                _Albums = value;
+                SendPropertyChanged("Albums");
+            }
+        }
 
         #endregion
 
@@ -45,7 +60,7 @@ namespace Komodex.DACP.Library
                 switch (kvp.Key)
                 {
                     case "minm":
-                        ArtistName = kvp.Value.GetStringValue();
+                        Name = kvp.Value.GetStringValue();
                         break;
                     default:
                         break;
@@ -59,8 +74,87 @@ namespace Komodex.DACP.Library
 
         public void ProcessResponse(HTTPRequestInfo requestInfo)
         {
-            throw new NotImplementedException();
+            switch (requestInfo.ResponseCode)
+            {
+                case "agal": // Albums
+                    ProcessAlbumsResponse(requestInfo);
+                    break;
+                default:
+                    break;
+            }
         }
+
+        #endregion
+
+        #region HTTP Requests and Responses
+
+        #region Albums
+
+        private bool retrievingAlbums = false;
+
+        public void GetAlbums()
+        {
+            if (!retrievingAlbums)
+                SubmitAlbumsRequest();
+        }
+
+        protected void SubmitAlbumsRequest()
+        {
+            retrievingAlbums = true;
+            string url = "/databases/" + Server.DatabaseID + "/groups"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
+                + "&type=music"
+                + "&group-type=albums"
+                + "&sort=album"
+                + "&include-sort-headers=1"
+                + "&query=(('daap.songartist:" + Name + "','daap.songalbumartist:" + Name + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
+                + "&session-id=" + Server.SessionID;
+            Server.SubmitHTTPRequest(url, null, this);
+        }
+
+        protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        ObservableCollection<Album> albums = new ObservableCollection<Album>();
+
+                        var albumNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var albumData in albumNodes)
+                        {
+                            albums.Add(new Album(Server, albumData.Value));
+                        }
+
+                        Albums = albums;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            retrievingAlbums = false;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Notify Property Changed
+
+        protected void SendPropertyChanged(string propertyName)
+        {
+            // TODO: Is this the best way to execute this on the UI thread?
+            if (PropertyChanged != null)
+                Deployment.Current.Dispatcher.BeginInvoke(() => { PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); });
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
 
         #endregion
     }

@@ -122,21 +122,8 @@ namespace Komodex.DACP
 
         #endregion
 
-        #region Album
-        /*
-        protected void SubmitAlbumRequest(int infoSomeType)
-        {
-            string url = "/databases/" + DatabaseID + "/groups"
-                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
-                + "&type=music"
-                + "&group-type=albums"
-                + "&sort=album"
-                + "&include-sort-headers=1"
-                + "&query=(('daap.songartist:Puscifer','daap.songalbumartist:Puscifer')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
-                + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url);
-        }
-        */
+        #region Albums
+
         #endregion
 
         #endregion

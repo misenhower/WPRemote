@@ -18,7 +18,7 @@
 		<DataTemplate x:Key="ArtistTemplate">
 			<StackPanel Orientation="Horizontal" Margin="12,6,12,12">
 				<Button Content="Button" Template="{StaticResource PlayButton}"/>
-				<TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+				<TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
 			</StackPanel>
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
