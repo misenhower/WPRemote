@@ -48,13 +48,13 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DACPServer.Properties.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="HTTPRequestInfo.cs" />
-    <Compile Include="DACPServer.HTTPRequests.cs" />
-    <Compile Include="ServerUpdateEventArgs.cs" />
-    <Compile Include="Utility.cs" />
-    <Compile Include="DACPServer.cs" />
+    <Compile Include="DACPServer\DACPServer.Properties.cs" />
+    <Compile Include="Classes\Enums.cs" />
+    <Compile Include="Classes\HTTPRequestInfo.cs" />
+    <Compile Include="DACPServer\DACPServer.HTTPRequests.cs" />
+    <Compile Include="Classes\ServerUpdateEventArgs.cs" />
+    <Compile Include="Classes\Utility.cs" />
+    <Compile Include="DACPServer\DACPServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
