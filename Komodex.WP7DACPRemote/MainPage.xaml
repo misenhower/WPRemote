@@ -17,7 +17,7 @@
 	<phone:PhoneApplicationPage.Resources>
 		<DataTemplate x:Key="ArtistTemplate">
 			<StackPanel>
-				<TextBlock Text="{Binding ArtistName}"/>
+				<TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
 			</StackPanel>
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
@@ -46,7 +46,7 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="artists" Name="pivotArtists">
                 <Grid >
-                	<ListBox ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryArtists}" Margin="8,19,45,44"/>
+                	<ListBox ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryArtists}"/>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
