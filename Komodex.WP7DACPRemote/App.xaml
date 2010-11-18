@@ -7,6 +7,12 @@
 
     <!--Application Resources-->
     <Application.Resources>
+    	<ControlTemplate x:Key="PlayButton" TargetType="Button">
+            <Canvas Width="48" Height="48">
+                <Path Data="F1M84.127,709.4629L70.558,719.8039L70.558,699.2159z" Fill="{StaticResource PhoneForegroundBrush}" Stretch="Fill" Height="20" Width="14" Canvas.Left="19" Canvas.Top="14" UseLayoutRounding="False" />
+                <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="3" Width="48" Height="48" />
+            </Canvas>
+    	</ControlTemplate>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

@@ -16,7 +16,8 @@
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
 	<phone:PhoneApplicationPage.Resources>
 		<DataTemplate x:Key="ArtistTemplate">
-			<StackPanel>
+			<StackPanel Orientation="Horizontal" Margin="12,6,12,12">
+				<Button Content="Button" Template="{StaticResource PlayButton}"/>
 				<TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
 			</StackPanel>
 		</DataTemplate>
