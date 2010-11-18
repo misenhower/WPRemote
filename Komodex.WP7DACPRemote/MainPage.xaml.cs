@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerInfoManagement;
 using Microsoft.Phone.Shell;
+using Komodex.WP7DACPRemote.DACPServerManagement;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -44,25 +45,23 @@ namespace Komodex.WP7DACPRemote
 
         #region Properties
 
-        private DACPServer _Server = null;
-        private DACPServer Server
+        private DACPServer DACPServer
         {
-            get { return _Server; }
+            get { return DataContext as DACPServer; }
             set
             {
-                if (_Server != null)
+                if (DACPServer != null)
                 {
-                    _Server.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServerUpdate);
-                    _Server.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
+                    DACPServer.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
+                    DACPServer.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
                 }
 
-                _Server = value;
-                DataContext = _Server;
+                DataContext = value;
 
-                if (_Server != null)
+                if (DACPServer != null)
                 {
-                    _Server.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(DACPServerUpdate);
-                    _Server.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
+                    DACPServer.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
+                    DACPServer.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
                 }
             }
         }
@@ -75,11 +74,12 @@ namespace Komodex.WP7DACPRemote
         {
             base.OnNavigatedTo(e);
 
-            SetVisibility(false);
+            if (DACPServer != DACPServerManager.Server)
+                DACPServer = DACPServerManager.Server;
 
-            DACPServerInfo serverInfo = viewModel.CurrentDACPServer;
+            SetVisibility();
 
-            if (serverInfo == null)
+            if (DACPServer == null)
             {
                 if (!SuppressAutoOpenServerListPage)
                 {
@@ -87,30 +87,13 @@ namespace Komodex.WP7DACPRemote
                     GoToSettingsPage();
                 }
             }
-            else
-            {
-                Server = new DACPServer(serverInfo.HostName, serverInfo.PairingCode);
-                Server.LibraryName = serverInfo.LibraryName;
-                Server.Start();
-            }
-        }
-
-        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-
-            if (Server != null)
-            {
-                Server.Stop();
-                Server = null;
-            }
         }
 
         #endregion
 
         #region Event Handlers
 
-        void DACPServerUpdate(object sender, ServerUpdateEventArgs e)
+        void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
@@ -119,7 +102,7 @@ namespace Komodex.WP7DACPRemote
                     case ServerUpdateType.ServerInfoResponse:
                         break;
                     case ServerUpdateType.ServerConnected:
-                        SetVisibility(true);
+                        SetVisibility();
                         break;
                     case ServerUpdateType.Error:
                         GoToSettingsPage();
@@ -130,15 +113,12 @@ namespace Komodex.WP7DACPRemote
             });
         }
 
-        void Server_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case "PlayState":
                     UpdatePlayPauseButton();
-                    break;
-                case "LibraryName":
-                    viewModel.CurrentDACPServer.LibraryName = Server.LibraryName;
                     break;
                 default:
                     break;
@@ -147,7 +127,7 @@ namespace Komodex.WP7DACPRemote
 
         private void UpdatePlayPauseButton()
         {
-            if (Server.PlayState == PlayStates.Playing)
+            if (DACPServer.PlayState == PlayStates.Playing)
                 btnPlayPause.IconUri = iconPause;
             else
                 btnPlayPause.IconUri = iconPlay;
@@ -169,58 +149,52 @@ namespace Komodex.WP7DACPRemote
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            Server.SendPrevItemCommand();
+            DACPServer.SendPrevItemCommand();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            Server.SendNextItemCommand();
+            DACPServer.SendNextItemCommand();
         }
 
         private void btnPlayPause_Click(object sender, EventArgs e)
         {
-            Server.SendPlayPauseCommand();
+            DACPServer.SendPlayPauseCommand();
         }
 
         #endregion
 
         #region Methods
 
-        private void SetVisibility(bool serverConnected)
+        private void SetVisibility()
         {
-            if (serverConnected)
+            if (DACPServer == null)
+            {
+                pivotControl.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = false;
+                connectingStatusControl.ShowConnecting = true;
+                connectingStatusControl.ShowProgress = false;
+                connectingStatusControl.LibraryConnectionText = "Tap \"Change Library\" to select or add a new library.";
+            }
+            else if (!DACPServer.IsConnected)
+            {
+                pivotControl.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = false;
+                connectingStatusControl.ShowConnecting = true;
+                connectingStatusControl.ShowProgress = true;
+                connectingStatusControl.LibraryConnectionText = "Connecting to Library";
+            }
+            else // We're connected
             {
                 pivotControl.Visibility = System.Windows.Visibility.Visible;
                 ApplicationBar.IsVisible = true;
                 connectingStatusControl.ShowConnecting = false;
                 connectingStatusControl.ShowProgress = false;
             }
-            else
-            {
-                pivotControl.Visibility = System.Windows.Visibility.Collapsed;
-                ApplicationBar.IsVisible = false;
-                connectingStatusControl.ShowConnecting = true;
-                if (viewModel.CurrentDACPServer == null)
-                {
-                    connectingStatusControl.ShowProgress = false;
-                    connectingStatusControl.LibraryConnectionText = "Tap \"Change Library\" to select or add a new library.";
-                }
-                else
-                {
-                    connectingStatusControl.ShowProgress = true;
-                    connectingStatusControl.LibraryConnectionText = "Connecting to Library";
-                }
-            }
         }
 
         private void GoToSettingsPage()
         {
-            if (Server != null)
-            {
-                Server.Stop();
-                Server = null;
-            }
-
             NavigationService.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
         }
 

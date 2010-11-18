@@ -202,18 +202,25 @@ namespace Komodex.DACP
                 if (kvp.Key == "mlid")
                 {
                     SessionID = kvp.Value.GetInt32Value();
+                    IsConnected = true;
                     break;
                 }
             }
 
-
-            if (UseDelayedResponseRequests)
+            if (IsConnected)
             {
-                SubmitLibraryUpdateRequest();
-                SubmitPlayStatusRequest();
-            }
+                if (UseDelayedResponseRequests)
+                {
+                    SubmitLibraryUpdateRequest();
+                    SubmitPlayStatusRequest();
+                }
 
-            SendServerUpdate(ServerUpdateType.ServerConnected);
+                SendServerUpdate(ServerUpdateType.ServerConnected);
+            }
+            else
+            {
+                SendServerUpdate(ServerUpdateType.Error);
+            }
         }
 
         #endregion

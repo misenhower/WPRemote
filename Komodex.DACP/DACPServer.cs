@@ -22,11 +22,18 @@ namespace Komodex.DACP
             timerTrackTimeUpdate.Tick += new EventHandler(timerTrackTimeUpdate_Tick);
         }
 
-        public DACPServer(string hostName, string pairingKey)
+        public DACPServer(Guid id, string hostName, string pairingKey)
             : this()
         {
+            ID = id;
             HostName = hostName;
             PairingKey = pairingKey;
+        }
+
+        public DACPServer(string hostName, string pairingKey)
+            : this(Guid.Empty, hostName, pairingKey)
+        {
+
         }
 
         #region Fields
@@ -37,6 +44,8 @@ namespace Komodex.DACP
         #endregion
 
         #region Properties
+
+        public Guid ID { get; protected set; }
 
         private string _HostName = null;
         public string HostName

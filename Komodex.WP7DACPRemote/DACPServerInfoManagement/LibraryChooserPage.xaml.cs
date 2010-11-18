@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Unsupported;
+using Komodex.WP7DACPRemote.DACPServerManagement;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
@@ -97,7 +98,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
             if (serverInfo != null)
             {
-                DACPServerViewModel.Instance.SelectedServerGuid = serverInfo.ID;
+                DACPServerManager.ConnectToServer(serverInfo.ID);
                 NavigationService.GoBack();
             }
         }

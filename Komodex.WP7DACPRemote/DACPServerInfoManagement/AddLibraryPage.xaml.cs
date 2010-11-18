@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
+using Komodex.WP7DACPRemote.DACPServerManagement;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
@@ -43,7 +44,10 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // Make sure the newly entered data has been bound to the DACPServerInfo object
             UpdateBoundData();
+
+            // Validate the server info
             SetVisibility(true);
             server = new DACPServer(serverInfo.HostName, serverInfo.PairingCode);
             server.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(server_ServerUpdate);
@@ -105,7 +109,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         server.Stop();
                         server = null;
                         DACPServerViewModel.Instance.Items.Add(serverInfo);
-                        DACPServerViewModel.Instance.SelectedServerGuid = serverInfo.ID;
+                        DACPServerManager.ConnectToServer(serverInfo.ID);
                         LibraryChooserPage.GoBackOnNextActivate = true;
                         NavigationService.GoBack();
                         break;

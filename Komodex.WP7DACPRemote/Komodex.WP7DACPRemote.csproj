@@ -75,6 +75,7 @@
     <Compile Include="DACPServerInfoManagement\LibraryChooserPage.xaml.cs">
       <DependentUpon>LibraryChooserPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DACPServerManagement\DACPServerManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
