@@ -118,6 +118,9 @@ namespace Komodex.DACP
                     case "cmgt": // Volume status response (TODO: and maybe others?)
                         ProcessVolumeStatusResponse(requestInfo);
                         break;
+                    case "avdb": // Databases
+                        ProcessDatabasesResponse(requestInfo);
+                        break;
                     default:
                         break;
                 }
@@ -213,6 +216,7 @@ namespace Komodex.DACP
                 {
                     SubmitLibraryUpdateRequest();
                     SubmitPlayStatusRequest();
+                    SubmitDatabasesRequest();
                 }
 
                 SendServerUpdate(ServerUpdateType.ServerConnected);
