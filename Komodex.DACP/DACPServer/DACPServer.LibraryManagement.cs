@@ -19,6 +19,7 @@ namespace Komodex.DACP
         #region Properties
 
         public int DatabaseID { get; protected set; }
+        public int BasePlaylistID { get; protected set; }
 
         private ObservableCollection<Artist> _LibraryArtists = null;
         public ObservableCollection<Artist> LibraryArtists
@@ -65,8 +66,44 @@ namespace Komodex.DACP
                             break;
                     }
                 }
+
+                SubmitPlaylistsRequest();
             }
             catch { }
+        }
+
+        #endregion
+
+        #region Playlists
+
+        protected void SubmitPlaylistsRequest()
+        {
+            string url = "/databases/" + DatabaseID + "/containers"
+                + "?meta=dmap.itemname,dmap.itemcount,dmap.itemid,dmap.persistentid,daap.baseplaylist,com.apple.itunes.special-playlist,com.apple.itunes.smart-playlist,com.apple.itunes.saved-genius,dmap.parentcontainerid,dmap.editcommandssupported,com.apple.itunes.jukebox-current,daap.songcontentdescription"
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        protected void ProcessPlaylistsResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        // TODO: Retain playlist info
+                        var playlistNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var playlistData in playlistNodes)
+                        {
+                            Playlist pl = new Playlist(this, playlistData.Value);
+                            if (pl.BasePlaylist)
+                                BasePlaylistID = pl.ID;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         #endregion

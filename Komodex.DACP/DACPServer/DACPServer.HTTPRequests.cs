@@ -128,6 +128,9 @@ namespace Komodex.DACP
                         case "avdb": // Databases
                             ProcessDatabasesResponse(requestInfo);
                             break;
+                        case "aply": // Playlists
+                            ProcessPlaylistsResponse(requestInfo);
+                            break;
                         case "agar": // Artist response
                             ProcessArtistsResponse(requestInfo);
                             break;
