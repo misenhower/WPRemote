@@ -18,10 +18,12 @@ namespace Komodex.DACP.Library
         private Album()
         { }
 
-        public Album(DACPServer server, string name)
+        public Album(DACPServer server, string name, string artistName, UInt64 persistentID)
         {
             Server = server;
             Name = name;
+            //ArtistName = artistName;
+            PersistentID = persistentID;
         }
 
         public Album(DACPServer server, byte[] data)
@@ -33,6 +35,8 @@ namespace Komodex.DACP.Library
         #region Properties
 
         public string Name { get; protected set; }
+        //public string ArtistName { get; protected set; }
+        public UInt64 PersistentID { get; protected set; }
         public DACPServer Server { get; protected set; }
 
         private ObservableCollection<Song> _Songs = null;
@@ -59,8 +63,11 @@ namespace Komodex.DACP.Library
             {
                 switch (kvp.Key)
                 {
-                    case "minm":
+                    case "minm": // Name
                         Name = kvp.Value.GetStringValue();
+                        break;
+                    case "mper": // Persistent ID
+                        PersistentID = (UInt64)kvp.Value.GetInt64Value();
                         break;
                     default:
                         break;
@@ -74,7 +81,14 @@ namespace Komodex.DACP.Library
 
         public void ProcessResponse(HTTPRequestInfo requestInfo)
         {
-            throw new NotImplementedException();
+            switch (requestInfo.ResponseCode)
+            {
+                case "apso": // Songs
+                    ProcessSongsResponse(requestInfo);
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
@@ -94,13 +108,40 @@ namespace Komodex.DACP.Library
         private void SubmitSongsRequest()
         {
             retrievingSongs = true;
-            string url = string.Empty;
+            string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylistID + "/items"
+                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
+                + "&type=music"
+                + "&sort=album"
+                //+ "&query=(('daap.songartist:ARTISTNAME','daap.songalbumartist:ARTISTNAME')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:7944369672639832826')"
+                + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
+                + "&session-id=" + Server.SessionID;
+
             Server.SubmitHTTPRequest(url, null, this);
         }
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
         {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        ObservableCollection<Song> songs = new ObservableCollection<Song>();
 
+                        var songNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var songData in songNodes)
+                        {
+                            songs.Add(new Song(songData.Value));
+                        }
+
+                        Songs = songs;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            retrievingSongs = false;
         }
 
         #endregion
