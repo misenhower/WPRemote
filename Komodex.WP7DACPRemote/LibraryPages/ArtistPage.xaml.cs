@@ -53,7 +53,10 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             string artistName = NavigationContext.QueryString["name"] as string;
             if (string.IsNullOrEmpty(artistName))
+            {
                 NavigationService.GoBack();
+                return;
+            }
 
             Artist = new Artist(DACPServerManager.Server, artistName);
             Artist.GetAlbums();
@@ -65,6 +68,23 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ListBox listBox = (ListBox)sender;
+
+            Album album = listBox.SelectedItem as Album;
+
+            if (album != null)
+            {
+                GoToAlbumPage(album.Name, "TODO", album.PersistentID);
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void GoToAlbumPage(string albumName, string artistName, UInt64 albumID)
+        {
+            NavigationService.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?name=" + albumName + "&artist=" + artistName + "&id=" + albumID, UriKind.Relative));
         }
 
         #endregion

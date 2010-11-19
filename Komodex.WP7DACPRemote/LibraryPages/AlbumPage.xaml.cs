@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Komodex.DACP.Library;
+using Komodex.WP7DACPRemote.DACPServerManagement;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -19,5 +21,60 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             InitializeComponent();
         }
+
+        #region Properties
+
+        private Album Album
+        {
+            get { return DataContext as Album; }
+            set
+            {
+                if (Album != null)
+                {
+
+                }
+
+                DataContext = value;
+
+                if (Album != null)
+                {
+
+                }
+            }
+        }
+
+        #endregion
+
+        #region Overrides
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            var queryString = NavigationContext.QueryString;
+
+            string albumName = queryString["name"];
+            string artistName = queryString["artist"];
+            string albumIDString = queryString["id"];
+
+            if (string.IsNullOrEmpty(albumName) || string.IsNullOrEmpty(artistName) || string.IsNullOrEmpty(albumIDString))
+            {
+                NavigationService.GoBack();
+                return;
+            }
+
+            UInt64 albumID;
+
+            if (!UInt64.TryParse(albumIDString, out albumID))
+            {
+                NavigationService.GoBack();
+                return;
+            }
+
+            Album = new Album(DACPServerManager.Server, albumName, artistName, albumID);
+            Album.GetSongs();
+        }
+
+        #endregion
     }
 }
