@@ -14,6 +14,7 @@ using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerInfoManagement;
 using Microsoft.Phone.Shell;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using Komodex.DACP.Library;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -167,6 +168,18 @@ namespace Komodex.WP7DACPRemote
             GetDataForPivotItem();
         }
 
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox listBox = (ListBox)sender;
+
+            Artist artist = listBox.SelectedItem as Artist;
+
+            if (artist != null)
+            {
+                GoToArtistPage(artist.Name);
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -215,6 +228,11 @@ namespace Komodex.WP7DACPRemote
                 if (DACPServer.LibraryArtists == null || DACPServer.LibraryArtists.Count == 0)
                     DACPServer.GetArtists();
             }
+        }
+
+        private void GoToArtistPage(string artistName)
+        {
+            NavigationService.Navigate(new Uri("/LibraryPages/ArtistPage.xaml?name=" + artistName, UriKind.Relative));
         }
 
         #endregion

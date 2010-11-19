@@ -47,7 +47,7 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="artists" Name="pivotArtists">
                 <Grid >
-                	<ListBox ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryArtists}"/>
+                	<ListBox ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryArtists}" SelectionChanged="ListBox_SelectionChanged" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
