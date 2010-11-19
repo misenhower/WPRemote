@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using System.Windows.Data;
 using System.Globalization;
 
-namespace Komodex.WP7DACPRemote.ThirdParty
+namespace Komodex.WP7DACPRemote.Converters
 {
     public sealed class BooleanToVisibilityConverter : IValueConverter
     {
