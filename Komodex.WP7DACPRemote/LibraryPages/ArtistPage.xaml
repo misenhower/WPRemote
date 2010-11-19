@@ -12,19 +12,28 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/ArtistSampleData.xaml}">
+	<phone:PhoneApplicationPage.Resources>
+		<DataTemplate x:Key="AlbumTemplate">
+			<StackPanel>
+				<TextBlock Text="{Binding Name}"/>
+			</StackPanel>
+		</DataTemplate>
+	</phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="MY APPLICATION">
+        <controls:Pivot Title="{Binding Name}">
             <!--Pivot item one-->
-            <controls:PivotItem Header="item1">
-                <Grid/>
+            <controls:PivotItem Header="albums">
+                <Grid>
+                	<ListBox ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}"/>
+                </Grid>
             </controls:PivotItem>
 
             <!--Pivot item two-->
-            <controls:PivotItem Header="item2">
+            <controls:PivotItem Header="songs">
                 <Grid/>
             </controls:PivotItem>
         </controls:Pivot>
