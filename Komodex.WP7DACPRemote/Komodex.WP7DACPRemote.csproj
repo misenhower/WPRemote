@@ -162,6 +162,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <DesignData Include="SampleData\AlbumSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
     <DesignData Include="SampleData\ArtistSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>

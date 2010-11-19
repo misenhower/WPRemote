@@ -1,0 +1,149 @@
+<Komodex_DACP_Library:Album xmlns:Komodex_DACP_Library="clr-namespace:Komodex.DACP.Library;assembly=Komodex.DACP" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Komodex_DACP="clr-namespace:Komodex.DACP;assembly=Komodex.DACP" xmlns="http://schemas.microsoft.com/client/2007" Name="Vestibulum nam curabitur adipiscing sed">
+	<Komodex_DACP_Library:Album.PersistentID>
+		<System:UInt64/>
+	</Komodex_DACP_Library:Album.PersistentID>
+	<Komodex_DACP_Library:Album.Server>
+		<Komodex_DACP:DACPServer BasePlaylistID="46" CurrentAlbum="Aliquam maecenas" CurrentSongName="Praesent class accumsan vivamus bibendum" CurrentArtist="Parturient integer quisque aenean mauris" CurrentTrackTimeRemaining="82" DatabaseID="23" HostName="Phasellus cras" IsConnected="True" LibraryName="Adipiscing sed parturient inceptos" PlayStateBool="False" PairingKey="Sodales vulputate libero curae" PlayState="Stopped" RepeatState="RepeatAll" SessionID="88" ShuffleState="True" TrackTimeRemaining="73" TrackTimeTotal="71" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="43">
+			<Komodex_DACP:DACPServer.CurrentAlbumArt>
+				<BitmapImage CreateOptions="IgnoreImageCache"/>
+			</Komodex_DACP:DACPServer.CurrentAlbumArt>
+			<Komodex_DACP:DACPServer.ID>
+				<System:Guid/>
+			</Komodex_DACP:DACPServer.ID>
+			<Komodex_DACP:DACPServer.LibraryArtists>
+				<Komodex_DACP_Library:Artist Name="Blandit auctor eleifend">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Vestibulum dis dictumst curae"/>
+						<Komodex_DACP_Library:Album Name="Nullam aliquam aliquet donec"/>
+						<Komodex_DACP_Library:Album Name="Etiam fusce duis consequat aptent"/>
+						<Komodex_DACP_Library:Album Name="Vestibulum lorem adipiscing nunc"/>
+						<Komodex_DACP_Library:Album Name="Amet convallis parturient vestibulum"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="78" CurrentAlbum="Congue est dignissim" CurrentSongName="Cursus leo facilisi" CurrentArtist="Ante hac elementum vestibulum" CurrentTrackTimeRemaining="65" DatabaseID="67" HostName="Adipiscing commodo arcu facilisis" IsConnected="False" LibraryName="Morbi dictum conubia nulla" PlayStateBool="True" PairingKey="Lectus faucibus libero fermentum" PlayState="Playing" RepeatState="RepeatAll" SessionID="29" ShuffleState="False" TrackTimeRemaining="52" TrackTimeTotal="50" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="29"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+				<Komodex_DACP_Library:Artist Name="Ipsum hendrerit inceptos">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Mus ligula proin augue litora"/>
+						<Komodex_DACP_Library:Album Name="Luctus parturient"/>
+						<Komodex_DACP_Library:Album Name="Fringilla dolor fames cubilia nec"/>
+						<Komodex_DACP_Library:Album Name="Habitasse magnis"/>
+						<Komodex_DACP_Library:Album Name="Habitant felis diam mattis"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="72" CurrentAlbum="Interdum non himenaeos" CurrentSongName="Montes lobortis eget penatibus" CurrentArtist="Imperdiet mauris malesuada mollis" CurrentTrackTimeRemaining="73" DatabaseID="98" HostName="Justo dapibus per" IsConnected="True" LibraryName="Nostra porttitor nascetur" PlayStateBool="False" PairingKey="Ornare egestas platea" PlayState="Paused" RepeatState="RepeatAll" SessionID="84" ShuffleState="True" TrackTimeRemaining="96" TrackTimeTotal="98" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="35"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+				<Komodex_DACP_Library:Artist Name="Vel sagittis gravida rutrum senectus">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Lacus lorem"/>
+						<Komodex_DACP_Library:Album Name="Pharetra sed elit sem vestibulum"/>
+						<Komodex_DACP_Library:Album Name="Placerat magna sit"/>
+						<Komodex_DACP_Library:Album Name="Vestibulum massa pulvinar enim metus"/>
+						<Komodex_DACP_Library:Album Name="Primis euismod feugiat"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="27" CurrentAlbum="Erat sociosqu" CurrentSongName="Sapien morbi semper iaculis nam" CurrentArtist="Tincidunt eros" CurrentTrackTimeRemaining="27" DatabaseID="55" HostName="Tristique neque sociis taciti tellus" IsConnected="False" LibraryName="Ultricies suscipit tempor venenatis torquent" PlayStateBool="True" PairingKey="Nibh lacinia nisi tempus" PlayState="Playing" RepeatState="RepeatAll" SessionID="88" ShuffleState="False" TrackTimeRemaining="55" TrackTimeTotal="17" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="22"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+				<Komodex_DACP_Library:Artist Name="Consequat aenean">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Ultrices tortor vehicula"/>
+						<Komodex_DACP_Library:Album Name="Adipiscing netus nisl turpis"/>
+						<Komodex_DACP_Library:Album Name="Vulputate parturient curabitur"/>
+						<Komodex_DACP_Library:Album Name="Volutpat varius"/>
+						<Komodex_DACP_Library:Album Name="Nulla porta phasellus laoreet purus"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="53" CurrentAlbum="Vestibulum natoque" CurrentSongName="Elementum maecenas facilisis fermentum nunc" CurrentArtist="Risus convallis vestibulum sed dignissim" CurrentTrackTimeRemaining="88" DatabaseID="45" HostName="Dis adipiscing odio" IsConnected="True" LibraryName="Est fringilla" PlayStateBool="False" PairingKey="Praesent mauris orci nullam" PlayState="Paused" RepeatState="None" SessionID="68" ShuffleState="True" TrackTimeRemaining="13" TrackTimeTotal="41" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="44"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+				<Komodex_DACP_Library:Artist Name="Congue etiam imperdiet">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Posuere parturient velit potenti habitasse"/>
+						<Komodex_DACP_Library:Album Name="Vestibulum aptent vitae accumsan"/>
+						<Komodex_DACP_Library:Album Name="Class auctor"/>
+						<Komodex_DACP_Library:Album Name="Curae hac pede vestibulum donec"/>
+						<Komodex_DACP_Library:Album Name="Bibendum hendrerit himenaeos"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="21" CurrentAlbum="Leo mus pretium rhoncus" CurrentSongName="Adipiscing malesuada parturient" CurrentArtist="Sodales nec quam" CurrentTrackTimeRemaining="63" DatabaseID="35" HostName="Dictumst non fusce viverra" IsConnected="False" LibraryName="Per quis urna" PlayStateBool="True" PairingKey="Cras lorem aliquam vestibulum cursus" PlayState="Stopped" RepeatState="RepeatAll" SessionID="67" ShuffleState="False" TrackTimeRemaining="27" TrackTimeTotal="39" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="18"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+				<Komodex_DACP_Library:Artist Name="Vestibulum proin lectus">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Dictum vestibulum"/>
+						<Komodex_DACP_Library:Album Name="Sed eleifend morbi"/>
+						<Komodex_DACP_Library:Album Name="Penatibus duis adipiscing"/>
+						<Komodex_DACP_Library:Album Name="Integer facilisi nunc"/>
+						<Komodex_DACP_Library:Album Name="Porttitor parturient nulla"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="82" CurrentAlbum="Libero sem faucibus quisque ligula" CurrentSongName="Luctus vivamus inceptos" CurrentArtist="Habitant sit vestibulum litora augue" CurrentTrackTimeRemaining="38" DatabaseID="81" HostName="Amet interdum tincidunt" IsConnected="True" LibraryName="Aliquam lobortis nascetur magnis" PlayStateBool="False" PairingKey="Tristique ultricies" PlayState="Stopped" RepeatState="RepeatAll" SessionID="26" ShuffleState="True" TrackTimeRemaining="21" TrackTimeTotal="37" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="56"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+				<Komodex_DACP_Library:Artist Name="Ante vel consequat">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Mattis venenatis vulputate dolor adipiscing"/>
+						<Komodex_DACP_Library:Album Name="Parturient mauris aliquet"/>
+						<Komodex_DACP_Library:Album Name="Curabitur fames vestibulum pharetra"/>
+						<Komodex_DACP_Library:Album Name="Phasellus mollis felis"/>
+						<Komodex_DACP_Library:Album Name="Vestibulum adipiscing"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="98" CurrentAlbum="Convallis blandit placerat" CurrentSongName="Nostra conubia arcu elementum" CurrentArtist="Ipsum dignissim commodo montes nam" CurrentTrackTimeRemaining="88" DatabaseID="11" HostName="Pulvinar sagittis senectus parturient" IsConnected="False" LibraryName="Facilisis sed" PlayStateBool="True" PairingKey="Fermentum dis ornare vestibulum cubilia" PlayState="Stopped" RepeatState="None" SessionID="76" ShuffleState="False" TrackTimeRemaining="86" TrackTimeTotal="35" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="68"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+				<Komodex_DACP_Library:Artist Name="Elit enim hac erat">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Diam sociosqu vestibulum justo eget"/>
+						<Komodex_DACP_Library:Album Name="Platea suscipit torquent"/>
+						<Komodex_DACP_Library:Album Name="Dapibus primis adipiscing parturient fringilla"/>
+						<Komodex_DACP_Library:Album Name="Est rutrum sapien"/>
+						<Komodex_DACP_Library:Album Name="Lacus semper sociis"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="94" CurrentAlbum="Leo eros" CurrentSongName="Vestibulum taciti adipiscing" CurrentArtist="Habitasse lorem nibh vestibulum magna" CurrentTrackTimeRemaining="78" DatabaseID="40" HostName="Mus egestas ultrices parturient" IsConnected="True" LibraryName="Massa nisi" PlayStateBool="False" PairingKey="Euismod hendrerit vestibulum" PlayState="Playing" RepeatState="RepeatOne" SessionID="91" ShuffleState="True" TrackTimeRemaining="74" TrackTimeTotal="11" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="34"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+				<Komodex_DACP_Library:Artist Name="Tempor malesuada netus">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Vehicula metus volutpat maecenas himenaeos"/>
+						<Komodex_DACP_Library:Album Name="Vestibulum morbi praesent feugiat"/>
+						<Komodex_DACP_Library:Album Name="Gravida nec imperdiet"/>
+						<Komodex_DACP_Library:Album Name="Neque non iaculis adipiscing"/>
+						<Komodex_DACP_Library:Album Name="Per tellus nisl"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="76" CurrentAlbum="Lacinia laoreet sed" CurrentSongName="Parturient nulla" CurrentArtist="Accumsan tempus penatibus natoque" CurrentTrackTimeRemaining="32" DatabaseID="61" HostName="Porttitor porta" IsConnected="False" LibraryName="Nunc tortor" PlayStateBool="True" PairingKey="Tincidunt turpis varius vestibulum aenean" PlayState="Playing" RepeatState="RepeatAll" SessionID="48" ShuffleState="False" TrackTimeRemaining="18" TrackTimeTotal="84" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="60"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+				<Komodex_DACP_Library:Artist Name="Sit posuere vel aptent">
+					<Komodex_DACP_Library:Artist.Albums>
+						<Komodex_DACP_Library:Album Name="Tristique odio ultricies purus"/>
+						<Komodex_DACP_Library:Album Name="Risus orci bibendum"/>
+						<Komodex_DACP_Library:Album Name="Mauris sem"/>
+						<Komodex_DACP_Library:Album Name="Vestibulum pede venenatis nullam velit"/>
+						<Komodex_DACP_Library:Album Name="Quam vitae dictumst"/>
+					</Komodex_DACP_Library:Artist.Albums>
+					<Komodex_DACP_Library:Artist.Server>
+						<Komodex_DACP:DACPServer BasePlaylistID="19" CurrentAlbum="Auctor nam" CurrentSongName="Congue urna eleifend" CurrentArtist="Potenti class quis" CurrentTrackTimeRemaining="72" DatabaseID="26" HostName="Facilisi cursus faucibus dictum" IsConnected="True" LibraryName="Habitant pretium rhoncus lectus" PlayStateBool="False" PairingKey="Cras duis" PlayState="Paused" RepeatState="RepeatOne" SessionID="78" ShuffleState="True" TrackTimeRemaining="69" TrackTimeTotal="26" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="44"/>
+					</Komodex_DACP_Library:Artist.Server>
+				</Komodex_DACP_Library:Artist>
+			</Komodex_DACP:DACPServer.LibraryArtists>
+		</Komodex_DACP:DACPServer>
+	</Komodex_DACP_Library:Album.Server>
+	<Komodex_DACP_Library:Album.Songs>
+		<Komodex_DACP_Library:Song Name="Dis est hac"/>
+		<Komodex_DACP_Library:Song Name="Leo donec curabitur phasellus"/>
+		<Komodex_DACP_Library:Song Name="Vestibulum ligula"/>
+		<Komodex_DACP_Library:Song Name="Nunc etiam mus amet"/>
+		<Komodex_DACP_Library:Song Name="Interdum viverra consequat litora aliquam"/>
+		<Komodex_DACP_Library:Song Name="Integer fusce"/>
+		<Komodex_DACP_Library:Song Name="Lobortis nascetur quisque"/>
+		<Komodex_DACP_Library:Song Name="Vestibulum vivamus convallis"/>
+		<Komodex_DACP_Library:Song Name="Pharetra nec aliquam"/>
+		<Komodex_DACP_Library:Song Name="Dignissim luctus elementum facilisis"/>
+	</Komodex_DACP_Library:Album.Songs>
+</Komodex_DACP_Library:Album>
