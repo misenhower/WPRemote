@@ -28,7 +28,7 @@
             <!--Pivot item one-->
             <controls:PivotItem Header="albums">
                 <Grid>
-                	<ListBox ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}"/>
+                	<ListBox ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}" SelectionChanged="ListBox_SelectionChanged" />
                 </Grid>
             </controls:PivotItem>
 

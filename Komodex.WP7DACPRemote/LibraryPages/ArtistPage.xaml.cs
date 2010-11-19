@@ -60,5 +60,13 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         }
 
         #endregion
+
+        #region Actions
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        #endregion
     }
 }
