@@ -9,44 +9,27 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Album : IDACPResponseHandler,INotifyPropertyChanged
+    public class Song : INotifyPropertyChanged
     {
-        private Album()
+        private Song()
         { }
 
-        public Album(DACPServer server, string name)
+        public Song(string name)
         {
-            Server = server;
             Name = name;
         }
 
-        public Album(DACPServer server, byte[] data)
+        public Song(byte[] data)
         {
-            Server = server;
             ParseByteData(data);
         }
 
         #region Properties
 
         public string Name { get; protected set; }
-        public DACPServer Server { get; protected set; }
-
-        private ObservableCollection<Song> _Songs = null;
-        public ObservableCollection<Song> Songs
-        {
-            get { return _Songs; }
-            protected set
-            {
-                if (_Songs == value)
-                    return;
-                _Songs = value;
-                SendPropertyChanged("Songs");
-            }
-        }
 
         #endregion
 
@@ -67,43 +50,6 @@ namespace Komodex.DACP.Library
                 }
             }
         }
-
-        #endregion
-
-        #region IDACPResponseHandler Members
-
-        public void ProcessResponse(HTTPRequestInfo requestInfo)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region HTTP Requests and Responses
-
-        #region Songs
-
-        private bool retrievingSongs = false;
-
-        public void GetSongs()
-        {
-            if (!retrievingSongs)
-                SubmitSongsRequest();
-        }
-
-        private void SubmitSongsRequest()
-        {
-            retrievingSongs = true;
-            string url = string.Empty;
-            Server.SubmitHTTPRequest(url, null, this);
-        }
-
-        protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
-        {
-
-        }
-
-        #endregion
 
         #endregion
 
