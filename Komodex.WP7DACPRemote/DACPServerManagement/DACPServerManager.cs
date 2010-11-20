@@ -15,6 +15,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 {
     public static class DACPServerManager
     {
+        #region Properties
+
         private static DACPServer _Server = null;
         public static DACPServer Server
         {
@@ -29,6 +31,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             {
                 if (_Server != null)
                 {
+                    _Server.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(Server_ServerUpdate);
                     _Server.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
                     _Server.Stop();
                 }
@@ -37,10 +40,13 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
                 if (_Server != null)
                 {
+                    _Server.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(Server_ServerUpdate);
                     _Server.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
                 }
             }
         }
+
+        #endregion
 
         #region Public Methods
 
@@ -70,6 +76,21 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         #endregion
 
         #region Event Handlers
+
+        static void Server_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        {
+            switch (e.Type)
+            {
+                case ServerUpdateType.ServerInfoResponse:
+                    break;
+                case ServerUpdateType.ServerConnected:
+                    break;
+                case ServerUpdateType.Error:
+                    break;
+                default:
+                    break;
+            }
+        }
 
         static void Server_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
