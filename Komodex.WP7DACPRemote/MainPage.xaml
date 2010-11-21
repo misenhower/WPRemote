@@ -14,18 +14,17 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
-	<phone:PhoneApplicationPage.Resources>
-		<DataTemplate x:Key="ArtistTemplate">
-			<StackPanel Orientation="Horizontal" Margin="12,6,12,12">
-				<Button Content="Button" Template="{StaticResource PlayButton}"/>
-				<TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-			</StackPanel>
-		</DataTemplate>
-	</phone:PhoneApplicationPage.Resources>
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ArtistTemplate">
+            <StackPanel Orientation="Horizontal" Margin="12,6,12,12">
+                <Button Content="Button" Template="{StaticResource PlayButton}"/>
+                <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+            </StackPanel>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <my:ConnectingStatusControl ShowConnecting="False" ShowProgress="False" LibraryName="{Binding LibraryName}" x:Name="connectingStatusControl" ButtonClick="connectingStatusControl_ButtonClick" />
         <!--Pivot Control-->
         <controls:Pivot Title="{Binding Path=LibraryName}" Name="pivotControl" SelectionChanged="pivotControl_SelectionChanged">
             <!--Pivot item one-->
@@ -47,7 +46,7 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="artists" Name="pivotArtists">
                 <Grid >
-                	<ListBox ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryArtists}" SelectionChanged="ListBox_SelectionChanged" />
+                    <ListBox ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryArtists}" SelectionChanged="ListBox_SelectionChanged" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

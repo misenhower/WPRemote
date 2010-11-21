@@ -75,10 +75,11 @@ namespace Komodex.WP7DACPRemote
         {
             base.OnNavigatedTo(e);
 
-            if (DACPServer != DACPServerManager.Server)
-                DACPServer = DACPServerManager.Server;
+            DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
 
-            SetVisibility();
+            DACPServer = DACPServerManager.Server;
+
+            GetDataForPivotItem();
 
             if (DACPServer == null)
             {
@@ -90,9 +91,24 @@ namespace Komodex.WP7DACPRemote
             }
         }
 
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            DACPServerManager.ServerChanged -= new EventHandler(DACPServerManager_ServerChanged);
+            DACPServer = null;
+
+        }
+
         #endregion
 
         #region Event Handlers
+
+        void DACPServerManager_ServerChanged(object sender, EventArgs e)
+        {
+            DACPServer = DACPServerManager.Server;
+        }
 
         void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
@@ -103,7 +119,7 @@ namespace Komodex.WP7DACPRemote
                     case ServerUpdateType.ServerInfoResponse:
                         break;
                     case ServerUpdateType.ServerConnected:
-                        SetVisibility();
+                        GetDataForPivotItem();
                         break;
                     case ServerUpdateType.Error:
                         GoToSettingsPage();
@@ -183,35 +199,6 @@ namespace Komodex.WP7DACPRemote
         #endregion
 
         #region Methods
-
-        private void SetVisibility()
-        {
-            if (DACPServer == null)
-            {
-                pivotControl.Visibility = System.Windows.Visibility.Collapsed;
-                ApplicationBar.IsVisible = false;
-                connectingStatusControl.ShowConnecting = true;
-                connectingStatusControl.ShowProgress = false;
-                connectingStatusControl.LibraryConnectionText = "Tap \"Change Library\" to select or add a new library.";
-            }
-            else if (!DACPServer.IsConnected)
-            {
-                pivotControl.Visibility = System.Windows.Visibility.Collapsed;
-                ApplicationBar.IsVisible = false;
-                connectingStatusControl.ShowConnecting = true;
-                connectingStatusControl.ShowProgress = true;
-                connectingStatusControl.LibraryConnectionText = "Connecting to Library";
-            }
-            else // We're connected
-            {
-                pivotControl.Visibility = System.Windows.Visibility.Visible;
-                ApplicationBar.IsVisible = true;
-                connectingStatusControl.ShowConnecting = false;
-                connectingStatusControl.ShowProgress = false;
-
-                GetDataForPivotItem();
-            }
-        }
 
         private void GoToSettingsPage()
         {

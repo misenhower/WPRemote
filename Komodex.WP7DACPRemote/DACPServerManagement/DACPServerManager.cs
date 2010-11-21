@@ -20,13 +20,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         private static DACPServer _Server = null;
         public static DACPServer Server
         {
-            get
-            {
-                if (_Server == null && DACPServerViewModel.Instance.CurrentDACPServer != null)
-                    ConnectToServer();
-
-                return _Server;
-            }
+            get { return _Server; }
             private set
             {
                 if (_Server != null)
@@ -43,6 +37,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     _Server.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(Server_ServerUpdate);
                     _Server.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
                 }
+
+                SendServerChanged();
             }
         }
 
@@ -103,6 +99,18 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 return;
 
             serverInfo.LibraryName = server.LibraryName;
+        }
+
+        #endregion
+
+        #region Events
+
+        public static event EventHandler ServerChanged;
+
+        private static void SendServerChanged()
+        {
+            if (ServerChanged != null)
+                ServerChanged(null, new EventArgs());
         }
 
         #endregion
