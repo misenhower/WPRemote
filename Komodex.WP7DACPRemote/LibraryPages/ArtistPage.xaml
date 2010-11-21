@@ -24,17 +24,19 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="{Binding Name}">
+        <controls:Pivot x:Name="pivotControl" Title="{Binding Name}" SelectionChanged="Pivot_SelectionChanged">
             <!--Pivot item one-->
-            <controls:PivotItem Header="albums">
+            <controls:PivotItem x:Name="pivotAlbums" Header="albums">
                 <Grid>
-                	<ListBox ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}" SelectionChanged="ListBox_SelectionChanged" />
+                	<ListBox x:Name="lbAlbums" ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}" SelectionChanged="lbAlbums_SelectionChanged" />
                 </Grid>
             </controls:PivotItem>
 
             <!--Pivot item two-->
-            <controls:PivotItem Header="songs">
-                <Grid/>
+            <controls:PivotItem x:Name="pivotSongs" Header="songs">
+                <Grid>
+                    <ListBox x:Name="lbSongs" ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" />
+                </Grid>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>

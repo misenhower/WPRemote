@@ -60,13 +60,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             Artist = new Artist(DACPServerManager.Server, artistName);
             Artist.GetAlbums();
+            Artist.GetSongs();
         }
 
         #endregion
 
         #region Actions
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lbAlbums_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox listBox = (ListBox)sender;
 
@@ -78,6 +79,24 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
         }
 
+        private void lbSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox listBox = (ListBox)sender;
+
+            Song song = listBox.SelectedItem as Song;
+
+            if (song != null)
+            {
+                Artist.SendPlaySongCommand(song);
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+        }
+
+        private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetDataForPivotItem();
+        }
+
         #endregion
 
         #region Methods
@@ -85,6 +104,23 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         private void GoToAlbumPage(string albumName, string artistName, UInt64 albumID)
         {
             NavigationService.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?name=" + albumName + "&artist=" + artistName + "&id=" + albumID, UriKind.Relative));
+        }
+
+        private void GetDataForPivotItem()
+        {
+            if (Artist == null || Artist.Server == null || !Artist.Server.IsConnected)
+                return;
+
+            if (pivotControl.SelectedItem == pivotAlbums)
+            {
+                if (Artist.Albums == null || Artist.Albums.Count == 0)
+                    Artist.GetAlbums();
+            }
+            else if (pivotControl.SelectedItem == pivotSongs)
+            {
+                if (Artist.Songs == null || Artist.Songs.Count == 0)
+                    Artist.GetSongs();
+            }
         }
 
         #endregion

@@ -48,6 +48,19 @@ namespace Komodex.DACP.Library
             }
         }
 
+        private ObservableCollection<Song> _Songs = null;
+        public ObservableCollection<Song> Songs
+        {
+            get { return _Songs; }
+            set
+            {
+                if (_Songs == value)
+                    return;
+                _Songs = value;
+                SendPropertyChanged("Songs");
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -78,6 +91,9 @@ namespace Komodex.DACP.Library
             {
                 case "agal": // Albums
                     ProcessAlbumsResponse(requestInfo);
+                    break;
+                case "apso": // Songs
+                    ProcessSongsResponse(requestInfo);
                     break;
                 default:
                     break;
@@ -135,6 +151,78 @@ namespace Komodex.DACP.Library
             }
 
             retrievingAlbums = false;
+        }
+
+        #endregion
+
+        #region Songs
+
+        private bool retrievingSongs = false;
+
+        public void GetSongs()
+        {
+            if (!retrievingSongs)
+                SubmitSongsRequest();
+        }
+
+        protected void SubmitSongsRequest()
+        {
+            retrievingSongs = true;
+            string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylistID + "/items"
+                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
+                + "&type=music"
+                + "&sort=name"
+                + "&include-sort-headers=1"
+                + "&query=(('daap.songartist:" + Name + "','daap.songalbumartist:" + Name + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
+                + "&session-id=" + Server.SessionID;
+            Server.SubmitHTTPRequest(url, null, this);
+        }
+
+        protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        ObservableCollection<Song> songs = new ObservableCollection<Song>();
+
+                        var songNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var songData in songNodes)
+                        {
+                            songs.Add(new Song(songData.Value));
+                        }
+
+                        Songs = songs;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        }
+
+        #endregion
+
+        #region Play Song Command
+
+        public void SendPlaySongCommand(Song song)
+        {
+            try
+            {
+                int songIndex = Songs.IndexOf(song);
+
+                string url = "/ctrl-int/1/cue?command=play"
+                    + "&query=(('daap.songartist:" + Name + "','daap.songalbumartist:" + Name + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
+                    + "&index=" + songIndex
+                    + "&sort=name"
+                    //+ "&srcdatabase=0xC2C1E50F13CF1F5C"
+                    +"&clear-first=1"
+                    + "&session-id=" + Server.SessionID;
+
+                Server.SubmitHTTPRequest(url);
+            }
+            catch { }
         }
 
         #endregion
