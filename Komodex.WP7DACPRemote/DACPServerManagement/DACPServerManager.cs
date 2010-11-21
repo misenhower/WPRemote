@@ -83,45 +83,48 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             }
         }
 
-        private static void ShowPopup()
+        private static void UpdatePopupDisplay()
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 if (ConnectingPopup == null)
                     return;
 
-                if (ConnectingPopup.IsOpen)
+                PhoneApplicationPage currentPage = GetCurrentPhoneApplicationPage();
+                if (currentPage == null)
                     return;
 
-                PhoneApplicationPage currentPage = GetCurrentPhoneApplicationPage();
-                if (currentPage != null)
+                bool connecting = (Server == null || !Server.IsConnected);
+                bool canShow = !(currentPage is LibraryChooserPage || currentPage is AddLibraryPage);
+
+                if (canShow)
                 {
-                    applicationBarWasOpen = currentPage.ApplicationBar.IsVisible;
-                    currentPage.ApplicationBar.IsVisible = false;
+                    if (connecting)
+                    {
+                        if (!ConnectingPopup.IsOpen)
+                        {
+                            applicationBarWasOpen = currentPage.ApplicationBar.IsVisible;
+                            currentPage.ApplicationBar.IsVisible = false;
+
+                            ConnectingPopup.IsOpen = true;
+                        }
+                    }
+                    else
+                    {
+                        if (ConnectingPopup.IsOpen)
+                        {
+                            ConnectingPopup.IsOpen = false;
+
+                            if (applicationBarWasOpen)
+                                currentPage.ApplicationBar.IsVisible = true;
+
+                        }
+                    }
                 }
-
-                ConnectingPopup.IsOpen = true;
-            });
-        }
-
-        private static void HidePopup()
-        {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (ConnectingPopup == null)
-                    return;
-
-                if (!ConnectingPopup.IsOpen)
-                    return;
-
-                ConnectingPopup.IsOpen = false;
-
-                if (applicationBarWasOpen){
-                PhoneApplicationPage currentPage = GetCurrentPhoneApplicationPage();
-                if (currentPage != null)
-                    currentPage.ApplicationBar.IsVisible = true;            
+                else
+                {
+                    ConnectingPopup.IsOpen = false;
                 }
-
             });
         }
 
@@ -143,14 +146,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             get
             {
                 if (_RootVisual == null)
-                {
                     _RootVisual = Application.Current.RootVisual as PhoneApplicationFrame;
-                    if (_RootVisual != null)
-                    {
-                        _RootVisual.OrientationChanged += new EventHandler<OrientationChangedEventArgs>(_RootVisual_OrientationChanged);
-                        _RootVisual.SizeChanged += new SizeChangedEventHandler(_RootVisual_SizeChanged);
-                    }
-                }
                 
                 return _RootVisual;
             }
@@ -164,14 +160,35 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             return RootVisual.Content as PhoneApplicationPage;
         }
 
-        static void _RootVisual_SizeChanged(object sender, SizeChangedEventArgs e)
+        static void RootVisual_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             UpdatePopupSize(e.NewSize.Width, e.NewSize.Height);
         }
 
-        static void _RootVisual_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        static void RootVisual_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
             UpdatePopupSize();
+        }
+
+        static void RootVisual_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            if (Server != null && Server.IsConnected)
+                return;
+
+            if (applicationBarWasOpen)
+            {
+                PhoneApplicationPage currentPage = GetCurrentPhoneApplicationPage();
+                if (currentPage != null)
+                    currentPage.ApplicationBar.IsVisible = true;
+            }
+        }
+
+        static void RootVisual_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            if (Server != null && Server.IsConnected)
+                return;
+
+            UpdatePopupDisplay();
         }
 
         private static void UpdatePopupSize()
@@ -201,6 +218,11 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
             firstLoadDone = true;
 
+            RootVisual.OrientationChanged += new EventHandler<OrientationChangedEventArgs>(RootVisual_OrientationChanged);
+            RootVisual.SizeChanged += new SizeChangedEventHandler(RootVisual_SizeChanged);
+            RootVisual.Navigating += new System.Windows.Navigation.NavigatingCancelEventHandler(RootVisual_Navigating);
+            RootVisual.Navigated += new System.Windows.Navigation.NavigatedEventHandler(RootVisual_Navigated);
+
             if (DACPServerViewModel.Instance.CurrentDACPServer == null)
                 return;
 
@@ -215,8 +237,9 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         public static void ConnectToServer()
         {
-            ShowPopup();
             Server = null;
+
+            UpdatePopupDisplay();
 
             DACPServerInfo serverInfo = DACPServerViewModel.Instance.CurrentDACPServer;
 
@@ -240,7 +263,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 case ServerUpdateType.ServerInfoResponse:
                     break;
                 case ServerUpdateType.ServerConnected:
-                    HidePopup();
+                    UpdatePopupDisplay();
                     break;
                 case ServerUpdateType.Error:
                     // Need to have an auto-reconnect feature but it needs to know when auto-reconnect has already been attempted
