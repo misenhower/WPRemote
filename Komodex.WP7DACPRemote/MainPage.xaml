@@ -46,7 +46,12 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="artists" Name="pivotArtists">
                 <Grid >
-                    <ListBox ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryArtists}" SelectionChanged="ListBox_SelectionChanged" />
+                    <ListBox x:Name="lbArtists" ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryArtists}" SelectionChanged="lbArtists_SelectionChanged" />
+                </Grid>
+            </controls:PivotItem>
+            <controls:PivotItem Header="albums" Name="pivotAlbums">
+                <Grid >
+                    <ListBox x:Name="lbAlbums" ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryAlbums}" SelectionChanged="lbAlbums_SelectionChanged" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

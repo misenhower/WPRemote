@@ -186,7 +186,7 @@ namespace Komodex.WP7DACPRemote
             GetDataForPivotItem();
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lbArtists_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox listBox = (ListBox)sender;
 
@@ -197,6 +197,19 @@ namespace Komodex.WP7DACPRemote
                 GoToArtistPage(artist.Name);
             }
         }
+
+        private void lbAlbums_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox listBox = (ListBox)sender;
+
+            Album album = listBox.SelectedItem as Album;
+
+            if (album != null)
+            {
+                GoToAlbumPage(album.Name, "TODO", album.PersistentID);
+            }
+        }
+
 
         #endregion
 
@@ -217,11 +230,21 @@ namespace Komodex.WP7DACPRemote
                 if (DACPServer.LibraryArtists == null || DACPServer.LibraryArtists.Count == 0)
                     DACPServer.GetArtists();
             }
+            else if (pivotControl.SelectedItem == pivotAlbums)
+            {
+                if (DACPServer.LibraryAlbums == null || DACPServer.LibraryAlbums.Count == 0)
+                    DACPServer.GetAlbums();
+            }
         }
 
         private void GoToArtistPage(string artistName)
         {
             NavigationService.Navigate(new Uri("/LibraryPages/ArtistPage.xaml?name=" + artistName, UriKind.Relative));
+        }
+
+        private void GoToAlbumPage(string albumName, string artistName, UInt64 albumID)
+        {
+            NavigationService.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?name=" + albumName + "&artist=" + artistName + "&id=" + albumID, UriKind.Relative));
         }
 
         #endregion

@@ -131,8 +131,11 @@ namespace Komodex.DACP
                         case "aply": // Playlists
                             ProcessPlaylistsResponse(requestInfo);
                             break;
-                        case "agar": // Artist response
+                        case "agar": // Artists response
                             ProcessArtistsResponse(requestInfo);
+                            break;
+                        case "agal": // Albums response
+                            ProcessAlbumsResponse(requestInfo);
                             break;
                         default:
                             break;

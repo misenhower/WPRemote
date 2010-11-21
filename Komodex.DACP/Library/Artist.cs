@@ -198,8 +198,8 @@ namespace Komodex.DACP.Library
                     default:
                         break;
                 }
-
             }
+            retrievingSongs = false;
         }
 
         #endregion

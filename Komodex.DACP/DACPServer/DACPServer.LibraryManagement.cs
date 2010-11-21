@@ -34,6 +34,19 @@ namespace Komodex.DACP
             }
         }
 
+        private ObservableCollection<Album> _LibraryAlbums = null;
+        public ObservableCollection<Album> LibraryAlbums
+        {
+            get { return _LibraryAlbums; }
+            protected set
+            {
+                if (_LibraryAlbums == value)
+                    return;
+                _LibraryAlbums = value;
+                SendPropertyChanged("LibraryAlbums");
+            }
+        }
+
         #endregion
 
         #region Requests and Responses
@@ -160,6 +173,52 @@ namespace Komodex.DACP
         #endregion
 
         #region Albums
+
+        private bool retrievingAlbums = false;
+
+        public void GetAlbums()
+        {
+            if (!retrievingAlbums)
+                SubmitAlbumsRequest();
+        }
+
+        protected void SubmitAlbumsRequest()
+        {
+            retrievingAlbums = true;
+            string url = "/databases/" + DatabaseID + "/groups"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
+                + "&type=music"
+                + "&group-type=albums"
+                + "&sort=album"
+                + "&include-sort-headers=1"
+                + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        ObservableCollection<Album> libraryAlbums = new ObservableCollection<Album>();
+
+                        var albumNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var albumData in albumNodes)
+                        {
+                            libraryAlbums.Add(new Album(this, albumData.Value));
+                        }
+
+                        LibraryAlbums = libraryAlbums;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            retrievingAlbums = false;
+        }
 
         #endregion
 
