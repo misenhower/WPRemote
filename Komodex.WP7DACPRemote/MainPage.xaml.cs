@@ -75,6 +75,8 @@ namespace Komodex.WP7DACPRemote
         {
             base.OnNavigatedTo(e);
 
+            DACPServerManager.DoFirstLoad();
+
             DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
 
             DACPServer = DACPServerManager.Server;
@@ -122,7 +124,7 @@ namespace Komodex.WP7DACPRemote
                         GetDataForPivotItem();
                         break;
                     case ServerUpdateType.Error:
-                        GoToSettingsPage();
+                        //GoToSettingsPage();
                         break;
                     default:
                         break;

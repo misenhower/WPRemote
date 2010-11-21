@@ -10,6 +10,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerInfoManagement;
+using System.Windows.Controls.Primitives;
+using Komodex.WP7DACPRemote.Controls;
+using Microsoft.Phone.Controls;
 
 namespace Komodex.WP7DACPRemote.DACPServerManagement
 {
@@ -44,7 +47,71 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         #endregion
 
+        #region Popup
+
+        private static Popup connectingPopup = null;
+        private static ConnectingStatusControl connectingStatusControl = null;
+
+        private static void ShowPopup()
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (connectingPopup == null)
+                {
+                    connectingPopup = new Popup();
+
+
+                    if (connectingStatusControl == null)
+                    {
+                        connectingStatusControl = new ConnectingStatusControl();
+                    }
+
+                    connectingPopup.Child = connectingStatusControl;
+                }
+
+                if (RootVisual != null)
+                {
+                    connectingStatusControl.Width = RootVisual.ActualWidth;
+                    connectingStatusControl.Height = RootVisual.ActualHeight;
+                }
+                connectingPopup.IsOpen = true;
+            });
+        }
+
+        private static void HidePopup()
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (connectingPopup != null)
+                    connectingPopup.IsOpen = false;
+            });
+        }
+
+        private static PhoneApplicationFrame _RootVisual = null;
+        private static PhoneApplicationFrame RootVisual
+        {
+            get
+            {
+                var x = Application.Current.RootVisual;
+                if (_RootVisual == null)
+                    _RootVisual = Application.Current.RootVisual as PhoneApplicationFrame;
+
+                return _RootVisual;
+            }
+        }
+
+        #endregion
+
         #region Public Methods
+
+        private static bool firstLoadDone = false;
+        public static void DoFirstLoad()
+        {
+            if (firstLoadDone)
+                return;
+            firstLoadDone = true;
+            ConnectToServer();
+        }
 
         public static void ConnectToServer(Guid serverID)
         {
@@ -54,8 +121,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         public static void ConnectToServer()
         {
-            // May need some kind of server changing event
-
+            ShowPopup();
             Server = null;
 
             DACPServerInfo serverInfo = DACPServerViewModel.Instance.CurrentDACPServer;
@@ -80,8 +146,12 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 case ServerUpdateType.ServerInfoResponse:
                     break;
                 case ServerUpdateType.ServerConnected:
+                    HidePopup();
                     break;
                 case ServerUpdateType.Error:
+                    // Need to have an auto-reconnect feature but it needs to know when auto-reconnect has already been attempted
+                    //ConnectToServer();
+                    Server = null;
                     break;
                 default:
                     break;
