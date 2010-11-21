@@ -1,7 +1,4 @@
 <Komodex_DACP_Library:Album xmlns:Komodex_DACP_Library="clr-namespace:Komodex.DACP.Library;assembly=Komodex.DACP" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Komodex_DACP="clr-namespace:Komodex.DACP;assembly=Komodex.DACP" xmlns="http://schemas.microsoft.com/client/2007" Name="Vestibulum nam curabitur adipiscing sed">
-	<Komodex_DACP_Library:Album.PersistentID>
-		<System:UInt64/>
-	</Komodex_DACP_Library:Album.PersistentID>
 	<Komodex_DACP_Library:Album.Server>
 		<Komodex_DACP:DACPServer BasePlaylistID="46" CurrentAlbum="Aliquam maecenas" CurrentSongName="Praesent class accumsan vivamus bibendum" CurrentArtist="Parturient integer quisque aenean mauris" CurrentTrackTimeRemaining="82" DatabaseID="23" HostName="Phasellus cras" IsConnected="True" LibraryName="Adipiscing sed parturient inceptos" PlayStateBool="False" PairingKey="Sodales vulputate libero curae" PlayState="Stopped" RepeatState="RepeatAll" SessionID="88" ShuffleState="True" TrackTimeRemaining="73" TrackTimeTotal="71" TrackTimeUpdatedAt="11/18/2010 19:01:49" Volume="43">
 			<Komodex_DACP:DACPServer.CurrentAlbumArt>

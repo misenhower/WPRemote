@@ -76,5 +76,22 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         }
 
         #endregion
+
+        #region Actions
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox listBox = (ListBox)sender;
+
+            Song song = listBox.SelectedItem as Song;
+
+            if (song != null)
+            {
+                Album.SendPlaySongCommand(song);
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+        }
+
+        #endregion
     }
 }

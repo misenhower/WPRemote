@@ -95,7 +95,7 @@ namespace Komodex.DACP.Library
 
         #region HTTP Requests and Responses
 
-        #region Songs
+        #region Song List
 
         private bool retrievingSongs = false;
 
@@ -142,6 +142,32 @@ namespace Komodex.DACP.Library
             }
 
             retrievingSongs = false;
+        }
+
+        #endregion
+
+        #region Play Song Command
+
+        public void SendPlaySongCommand(Song song)
+        {
+            try
+            {
+                int songIndex = Songs.IndexOf(song);
+
+                string url = "/ctrl-int/1/cue"
+                    + "?command=play"
+                    //+ "&query=(('daap.songartist:ARTISTNAME','daap.songalbumartist:ARTISTNAME')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:15136029990705338815')"
+                    + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
+                    + "&index=" + songIndex
+                    + "&sort=album"
+                    //+ "&srcdatabase=0xC2C1E50F13CF1F5C"
+                    + "&clear-first=1"
+                    + "&session-id=" + Server.SessionID;
+
+                Server.SubmitHTTPRequest(url);
+            }
+            catch { }
+
         }
 
         #endregion
