@@ -296,8 +296,11 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         private static void SendServerChanged()
         {
-            if (ServerChanged != null)
-                ServerChanged(null, new EventArgs());
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (ServerChanged != null)
+                    ServerChanged(null, new EventArgs());
+            });
         }
 
         #endregion
