@@ -49,32 +49,44 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         #region Popup
 
-        private static Popup connectingPopup = null;
-        private static ConnectingStatusControl connectingStatusControl = null;
+        private static Popup _ConnectingPopup = null;
+        private static Popup ConnectingPopup
+        {
+            get
+            {
+                if (_ConnectingPopup == null)
+                {
+                    _ConnectingPopup = new Popup();
+                    _ConnectingPopup.Child = ConnectingStatusControl;
+                }
+
+                return _ConnectingPopup;
+            }
+        }
+
+        private static ConnectingStatusControl _ConnectingStatusControl = null;
+        private static ConnectingStatusControl ConnectingStatusControl
+        {
+            get
+            {
+                if (_ConnectingStatusControl == null)
+                {
+                    _ConnectingStatusControl = new ConnectingStatusControl();
+                    UpdatePopupSize();
+                }
+
+                return _ConnectingStatusControl;
+            }
+        }
 
         private static void ShowPopup()
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                if (connectingPopup == null)
+                if (ConnectingPopup != null)
                 {
-                    connectingPopup = new Popup();
-
-
-                    if (connectingStatusControl == null)
-                    {
-                        connectingStatusControl = new ConnectingStatusControl();
-                    }
-
-                    connectingPopup.Child = connectingStatusControl;
+                    ConnectingPopup.IsOpen = true;
                 }
-
-                if (RootVisual != null)
-                {
-                    connectingStatusControl.Width = RootVisual.ActualWidth;
-                    connectingStatusControl.Height = RootVisual.ActualHeight;
-                }
-                connectingPopup.IsOpen = true;
             });
         }
 
@@ -82,8 +94,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                if (connectingPopup != null)
-                    connectingPopup.IsOpen = false;
+                if (ConnectingPopup != null)
+                    ConnectingPopup.IsOpen = false;
             });
         }
 
@@ -92,12 +104,43 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             get
             {
-                var x = Application.Current.RootVisual;
                 if (_RootVisual == null)
+                {
                     _RootVisual = Application.Current.RootVisual as PhoneApplicationFrame;
-
+                    if (_RootVisual != null)
+                    {
+                        _RootVisual.OrientationChanged += new EventHandler<OrientationChangedEventArgs>(_RootVisual_OrientationChanged);
+                        _RootVisual.SizeChanged += new SizeChangedEventHandler(_RootVisual_SizeChanged);
+                    }
+                }
+                
                 return _RootVisual;
             }
+        }
+
+        static void _RootVisual_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdatePopupSize(e.NewSize.Width, e.NewSize.Height);
+        }
+
+        static void _RootVisual_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        {
+            UpdatePopupSize();
+        }
+
+        private static void UpdatePopupSize()
+        {
+            if (RootVisual != null)
+                UpdatePopupSize(RootVisual.ActualWidth, RootVisual.ActualHeight);
+        }
+
+        private static void UpdatePopupSize(double width, double height)
+        {
+            if (ConnectingStatusControl == null)
+                return;
+
+            ConnectingStatusControl.Width = width;
+            ConnectingStatusControl.Height = height;
         }
 
         #endregion
@@ -109,7 +152,12 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             if (firstLoadDone)
                 return;
+
             firstLoadDone = true;
+
+            if (DACPServerViewModel.Instance.CurrentDACPServer == null)
+                return;
+
             ConnectToServer();
         }
 
