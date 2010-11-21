@@ -41,6 +41,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     _Server.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
                 }
 
+                UpdatePopupDisplay();
                 SendServerChanged();
             }
         }
