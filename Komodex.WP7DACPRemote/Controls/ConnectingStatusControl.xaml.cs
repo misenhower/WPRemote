@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Komodex.DACP;
+using Komodex.WP7DACPRemote.DACPServerManagement;
 
 namespace Komodex.WP7DACPRemote.Controls
 {
@@ -19,36 +21,50 @@ namespace Komodex.WP7DACPRemote.Controls
             InitializeComponent();
 
             LayoutRoot.DataContext = this;
+
+            DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
+            DACPServer = DACPServerManager.Server;
         }
 
-        public static readonly DependencyProperty ShowProgressProperty =
-            DependencyProperty.Register("ShowProgress", typeof(bool), typeof(ConnectingStatusControl),
+        #region Properties
+
+        private DACPServer _DACPServer = null;
+        protected DACPServer DACPServer
+        {
+            get { return _DACPServer; }
+            set
+            {
+                if (_DACPServer != null)
+                {
+                    _DACPServer.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
+                }
+
+                _DACPServer = value;
+
+
+                if (_DACPServer != null)
+                {
+                    _DACPServer.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
+                }
+
+                UpdateFromServer();
+            }
+        }
+
+        public static readonly DependencyProperty ShowProgressBarProperty =
+            DependencyProperty.Register("ShowProgressBar", typeof(bool), typeof(ConnectingStatusControl),
             new PropertyMetadata((bool)false));
 
-        public bool ShowProgress
+        public bool ShowProgressBar
         {
-            get { return (bool)GetValue(ShowProgressProperty); }
-            set { SetValue(ShowProgressProperty, value); }
+            get { return (bool)GetValue(ShowProgressBarProperty); }
+            set { SetValue(ShowProgressBarProperty, value); }
         }
-
-        public static readonly DependencyProperty ShowConnectingProperty =
-            DependencyProperty.Register("ShowConnecting", typeof(bool), typeof(ConnectingStatusControl),
-            new PropertyMetadata((bool)false));
-
-        public bool ShowConnecting
-        {
-            get { return (bool)GetValue(ShowConnectingProperty); }
-            set { SetValue(ShowConnectingProperty, value); }
-        }
-
-        public static readonly DependencyProperty LibraryNameProperty =
-            DependencyProperty.Register("LibraryName", typeof(string), typeof(ConnectingStatusControl),
-            new PropertyMetadata((string)string.Empty));
 
         public string LibraryName
         {
-            get { return (string)GetValue(LibraryNameProperty); }
-            set { SetValue(LibraryNameProperty, value); }
+            get { return tbLibraryName.Text; }
+            set { tbLibraryName.Text = value; }
         }
 
         public string LibraryConnectionText
@@ -56,6 +72,51 @@ namespace Komodex.WP7DACPRemote.Controls
             get { return tbLibraryConnectionText.Text; }
             set { tbLibraryConnectionText.Text = value; }
         }
+
+        #endregion
+
+        #region Event Handlers
+
+        void DACPServerManager_ServerChanged(object sender, EventArgs e)
+        {
+            DACPServer = DACPServerManager.Server;
+        }
+
+        void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        {
+            UpdateFromServer();
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void UpdateFromServer()
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (DACPServer == null)
+                {
+                    ShowProgressBar = false;
+                    LibraryConnectionText = "Tap \"Change Library\" to select or add a new library.";
+                    LibraryName = string.Empty;
+                }
+                else if (!DACPServer.IsConnected)
+                {
+                    ShowProgressBar = true;
+                    LibraryConnectionText = "Connecting to Library";
+                    LibraryName = DACPServer.LibraryName;
+                }
+                else // Connected, this control shouldn't be visible at all
+                {
+                    ShowProgressBar = false;
+                }
+            });
+        }
+
+        #endregion
+
+        #region Button
 
         public string ButtonText
         {
@@ -71,5 +132,6 @@ namespace Komodex.WP7DACPRemote.Controls
                 ButtonClick(sender, e);
         }
 
+        #endregion
     }
 }

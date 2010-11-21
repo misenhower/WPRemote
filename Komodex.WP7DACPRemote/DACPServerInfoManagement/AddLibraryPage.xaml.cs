@@ -88,8 +88,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         void SetVisibility(bool isConnecting)
         {
-            connectingStatusControl.ShowConnecting = isConnecting;
-            connectingStatusControl.ShowProgress = isConnecting;
+            //connectingStatusControl.ShowConnecting = isConnecting;
+            //connectingStatusControl.ShowProgress = isConnecting;
             ApplicationBar.IsVisible = !isConnecting;
             ContentPanel.Visibility = (isConnecting) ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
         }

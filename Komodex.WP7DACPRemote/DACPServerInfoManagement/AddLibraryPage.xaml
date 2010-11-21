@@ -26,8 +26,6 @@
             <TextBlock x:Name="ApplicationTitle" Text="ADD LIBRARY" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
 
-        <my:ConnectingStatusControl ShowConnecting="False" ShowProgress="False" x:Name="connectingStatusControl" Grid.Row="1" ButtonText="Cancel" ButtonClick="connectingStatusControl_ButtonClick" />
-
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
         	<Grid.RowDefinitions>
