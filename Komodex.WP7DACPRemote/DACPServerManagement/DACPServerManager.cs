@@ -49,6 +49,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         #region Popup
 
+        private static bool applicationBarWasOpen = false;
+
         private static Popup _ConnectingPopup = null;
         private static Popup ConnectingPopup
         {
@@ -83,10 +85,20 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                if (ConnectingPopup != null)
+                if (ConnectingPopup == null)
+                    return;
+
+                if (ConnectingPopup.IsOpen)
+                    return;
+
+                PhoneApplicationPage currentPage = GetCurrentPhoneApplicationPage();
+                if (currentPage != null)
                 {
-                    ConnectingPopup.IsOpen = true;
+                    applicationBarWasOpen = currentPage.ApplicationBar.IsVisible;
+                    currentPage.ApplicationBar.IsVisible = false;
                 }
+
+                ConnectingPopup.IsOpen = true;
             });
         }
 
@@ -94,8 +106,20 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                if (ConnectingPopup != null)
-                    ConnectingPopup.IsOpen = false;
+                if (ConnectingPopup == null)
+                    return;
+
+                if (!ConnectingPopup.IsOpen)
+                    return;
+
+                ConnectingPopup.IsOpen = false;
+
+                if (applicationBarWasOpen){
+                PhoneApplicationPage currentPage = GetCurrentPhoneApplicationPage();
+                if (currentPage != null)
+                    currentPage.ApplicationBar.IsVisible = true;            
+                }
+
             });
         }
 
@@ -116,6 +140,14 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 
                 return _RootVisual;
             }
+        }
+
+        private static PhoneApplicationPage GetCurrentPhoneApplicationPage()
+        {
+            if (RootVisual == null)
+                return null;
+
+            return RootVisual.Content as PhoneApplicationPage;
         }
 
         static void _RootVisual_SizeChanged(object sender, SizeChangedEventArgs e)
