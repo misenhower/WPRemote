@@ -75,6 +75,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 {
                     _ConnectingStatusControl = new ConnectingStatusControl();
                     UpdatePopupSize();
+
+                    _ConnectingStatusControl.ButtonClick += new RoutedEventHandler(ConnectingStatusControl_ButtonClick);
                 }
 
                 return _ConnectingStatusControl;
@@ -121,6 +123,18 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 }
 
             });
+        }
+
+        static void ConnectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (Server != null)
+            {
+                Server.Stop();
+                Server = null;
+            }
+
+            if (RootVisual != null)
+                RootVisual.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
         }
 
         private static PhoneApplicationFrame _RootVisual = null;
