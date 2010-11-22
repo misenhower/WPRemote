@@ -118,7 +118,7 @@ namespace Komodex.DACP.Library
         {
             retrievingAlbums = true;
             string url = "/databases/" + Server.DatabaseID + "/groups"
-                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
+                + "?meta=dmap.itemname,daap.songartist,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
                 + "&type=music"
                 + "&group-type=albums"
                 + "&sort=album"

@@ -73,7 +73,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             if (album != null)
             {
-                GoToAlbumPage(album.Name, "TODO", album.PersistentID);
+                GoToAlbumPage(album.Name, album.ArtistName, album.PersistentID);
             }
         }
 

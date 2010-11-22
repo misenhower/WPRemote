@@ -22,7 +22,7 @@ namespace Komodex.DACP.Library
         {
             Server = server;
             Name = name;
-            //ArtistName = artistName;
+            ArtistName = artistName;
             PersistentID = persistentID;
         }
 
@@ -35,7 +35,7 @@ namespace Komodex.DACP.Library
         #region Properties
 
         public string Name { get; protected set; }
-        //public string ArtistName { get; protected set; }
+        public string ArtistName { get; protected set; }
         public UInt64 PersistentID { get; protected set; }
         public DACPServer Server { get; protected set; }
 
@@ -65,6 +65,9 @@ namespace Komodex.DACP.Library
                 {
                     case "minm": // Name
                         Name = kvp.Value.GetStringValue();
+                        break;
+                    case "asaa": // Artist name
+                        ArtistName = kvp.Value.GetStringValue();
                         break;
                     case "mper": // Persistent ID
                         PersistentID = (UInt64)kvp.Value.GetInt64Value();
