@@ -47,11 +47,11 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="artists" Name="pivotArtists">
                 <Grid >
-                    <toolkit:LongListSelector x:Name="buddies" Background="Transparent" ItemsSource="{Binding LibraryArtists}"
+                    <toolkit:LongListSelector x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding LibraryArtists}"
                                               ItemTemplate="{StaticResource ArtistTemplate}"
                                               GroupItemTemplate="{StaticResource GroupItemTemplate}"
                                               GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                              >
+                                              SelectionChanged="lbArtists_SelectionChanged">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>

@@ -188,7 +188,7 @@ namespace Komodex.WP7DACPRemote
 
         private void lbArtists_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBox listBox = (ListBox)sender;
+            LongListSelector listBox = (LongListSelector)sender;
 
             Artist artist = listBox.SelectedItem as Artist;
 
