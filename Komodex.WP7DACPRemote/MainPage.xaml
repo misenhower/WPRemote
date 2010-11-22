@@ -17,10 +17,12 @@
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ArtistTemplate">
-            <StackPanel Orientation="Horizontal" Margin="12,6,12,12">
-                <Button Content="Button" Template="{StaticResource PlayButton}" />
-                <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-            </StackPanel>
+            <Border Padding="12,6,12,12" Background="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Button" Template="{StaticResource PlayButton}" />
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </StackPanel>
+            </Border>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
@@ -46,7 +48,7 @@
             </controls:PivotItem>
             <!--Pivot item two-->
             <controls:PivotItem Header="artists" Name="pivotArtists">
-                <Grid >
+                <Grid>
                     <toolkit:LongListSelector x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding LibraryArtists}"
                                               ItemTemplate="{StaticResource ArtistTemplate}"
                                               GroupItemTemplate="{StaticResource GroupItemTemplate}"
