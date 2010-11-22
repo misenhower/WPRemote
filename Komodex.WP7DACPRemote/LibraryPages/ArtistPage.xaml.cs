@@ -59,8 +59,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
 
             Artist = new Artist(DACPServerManager.Server, artistName);
-            Artist.GetAlbums();
-            Artist.GetSongs();
         }
 
         #endregion
