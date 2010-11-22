@@ -200,7 +200,7 @@ namespace Komodex.WP7DACPRemote
 
         private void lbAlbums_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBox listBox = (ListBox)sender;
+            LongListSelector listBox = (LongListSelector)sender;
 
             Album album = listBox.SelectedItem as Album;
 

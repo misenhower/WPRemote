@@ -69,7 +69,11 @@ namespace Komodex.DACP
 
         protected static char GetKeyChar(string input)
         {
-            char key = char.ToLower(input.Trim('\0').ToLower()[0]);
+            string formattedString = input.Trim('\0').ToLower();
+            if (string.IsNullOrEmpty(formattedString))
+                return '#';
+
+            char key = formattedString[0];
 
             if (key < 'a' || key > 'z')
                 key = '#';

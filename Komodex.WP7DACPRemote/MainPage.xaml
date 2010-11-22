@@ -24,6 +24,14 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+        <DataTemplate x:Key="AlbumTemplate">
+            <Border Padding="12,6,12,12" Background="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Button" Template="{StaticResource PlayButton}" />
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -64,7 +72,17 @@
             </controls:PivotItem>
             <controls:PivotItem Header="albums" Name="pivotAlbums">
                 <Grid >
-                    <ListBox x:Name="lbAlbums" ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryAlbums}" SelectionChanged="lbAlbums_SelectionChanged" />
+                    <toolkit:LongListSelector x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding LibraryAlbums}"
+                                              ItemTemplate="{StaticResource AlbumTemplate}"
+                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                              SelectionChanged="lbAlbums_SelectionChanged">
+                        <toolkit:LongListSelector.GroupItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </toolkit:LongListSelector.GroupItemsPanel>
+                    </toolkit:LongListSelector>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

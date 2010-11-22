@@ -35,8 +35,8 @@ namespace Komodex.DACP
             }
         }
 
-        private ObservableCollection<Album> _LibraryAlbums = null;
-        public ObservableCollection<Album> LibraryAlbums
+        private GroupedItems<Album> _LibraryAlbums = null;
+        public GroupedItems<Album> LibraryAlbums
         {
             get { return _LibraryAlbums; }
             protected set
@@ -202,25 +202,29 @@ namespace Komodex.DACP
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
         {
+            List<Album> albums = null;
+            List<KeyValuePair<string, byte[]>> headers = null;
+
             foreach (var kvp in requestInfo.ResponseNodes)
             {
                 switch (kvp.Key)
                 {
-                    case "mlcl":
-                        ObservableCollection<Album> libraryAlbums = new ObservableCollection<Album>();
-
+                    case "mlcl": // Items list
+                        albums = new List<Album>();
                         var albumNodes = Utility.GetResponseNodes(kvp.Value);
                         foreach (var albumData in albumNodes)
-                        {
-                            libraryAlbums.Add(new Album(this, albumData.Value));
-                        }
-
-                        LibraryAlbums = libraryAlbums;
+                            albums.Add(new Album(this, albumData.Value));
+                        break;
+                    case "mshl": // Headers
+                        headers = Utility.GetResponseNodes(kvp.Value);
                         break;
                     default:
                         break;
                 }
             }
+
+            LibraryAlbums = GroupedItems<Album>.Parse(albums, headers);
+
             retrievingAlbums = false;
         }
 
