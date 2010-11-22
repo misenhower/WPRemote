@@ -7,7 +7,8 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:localHelpers="clr-namespace:Komodex.WP7DACPRemote.Converters"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
+    xmlns:converters="clr-namespace:Komodex.WP7DACPRemote.Converters"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -17,7 +18,7 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ArtistTemplate">
             <StackPanel Orientation="Horizontal" Margin="12,6,12,12">
-                <Button Content="Button" Template="{StaticResource PlayButton}"/>
+                <Button Content="Button" Template="{StaticResource PlayButton}" />
                 <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
             </StackPanel>
         </DataTemplate>
@@ -46,7 +47,17 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="artists" Name="pivotArtists">
                 <Grid >
-                    <ListBox x:Name="lbArtists" ItemTemplate="{StaticResource ArtistTemplate}" ItemsSource="{Binding LibraryArtists}" SelectionChanged="lbArtists_SelectionChanged" />
+                    <toolkit:LongListSelector x:Name="buddies" Background="Transparent" ItemsSource="{Binding LibraryArtists}"
+                                              ItemTemplate="{StaticResource ArtistTemplate}"
+                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                              >
+                        <toolkit:LongListSelector.GroupItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </toolkit:LongListSelector.GroupItemsPanel>
+                    </toolkit:LongListSelector>
                 </Grid>
             </controls:PivotItem>
             <controls:PivotItem Header="albums" Name="pivotAlbums">

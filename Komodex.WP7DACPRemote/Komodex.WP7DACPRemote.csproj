@@ -67,6 +67,7 @@
     <Compile Include="Controls\ConnectingStatusControl.xaml.cs">
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanToAccentBrushConverter.cs" />
     <Compile Include="DACPServerInfoManagement\AddLibraryPage.xaml.cs">
       <DependentUpon>AddLibraryPage.xaml</DependentUpon>
     </Compile>
