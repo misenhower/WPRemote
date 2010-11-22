@@ -48,7 +48,9 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\GroupedItems.cs" />
     <Compile Include="Classes\IDACPResponseHandler.cs" />
+    <Compile Include="Classes\GroupItems.cs" />
     <Compile Include="DACPServer\DACPServer.LibraryManagement.cs" />
     <Compile Include="DACPServer\DACPServer.Properties.cs" />
     <Compile Include="Classes\Enums.cs" />

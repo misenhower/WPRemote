@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Linq;
 using System.Collections.ObjectModel;
 using Komodex.DACP.Library;
+using System.Collections.Generic;
 
 namespace Komodex.DACP
 {
@@ -21,8 +22,8 @@ namespace Komodex.DACP
         public int DatabaseID { get; protected set; }
         public int BasePlaylistID { get; protected set; }
 
-        private ObservableCollection<Artist> _LibraryArtists = null;
-        public ObservableCollection<Artist> LibraryArtists
+        private GroupedItems<Artist> _LibraryArtists = null;
+        public GroupedItems<Artist> LibraryArtists
         {
             get { return _LibraryArtists; }
             protected set
@@ -147,25 +148,28 @@ namespace Komodex.DACP
 
         protected void ProcessArtistsResponse(HTTPRequestInfo requestInfo)
         {
+            List<Artist> artists = null;
+            List<KeyValuePair<string, byte[]>> headers = null;
+
             foreach (var kvp in requestInfo.ResponseNodes)
             {
                 switch (kvp.Key)
                 {
-                    case "mlcl":
-                        ObservableCollection<Artist> libraryArtists = new ObservableCollection<Artist>();
-
+                    case "mlcl": // Items list
+                        artists = new List<Artist>();
                         var artistNodes = Utility.GetResponseNodes(kvp.Value);
                         foreach (var artistData in artistNodes)
-                        {
-                            libraryArtists.Add(new Artist(this, artistData.Value));
-                        }
-
-                        LibraryArtists = libraryArtists;
+                            artists.Add(new Artist(this, artistData.Value));
+                        break;
+                    case "mshl": // Headers
+                        headers = Utility.GetResponseNodes(kvp.Value);
                         break;
                     default:
                         break;
                 }
             }
+
+            LibraryArtists = GroupedItems<Artist>.Parse(artists, headers);
 
             retrievingArtists = false;
         }
