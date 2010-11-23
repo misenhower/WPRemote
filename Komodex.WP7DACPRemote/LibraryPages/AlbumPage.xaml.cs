@@ -53,9 +53,10 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             var queryString = NavigationContext.QueryString;
 
+            string albumIDString = queryString["id"];
             string albumName = queryString["name"];
             string artistName = queryString["artist"];
-            string albumIDString = queryString["id"];
+            string albumPersistentIDString = queryString["perid"];
 
             if (string.IsNullOrEmpty(albumName) || string.IsNullOrEmpty(artistName) || string.IsNullOrEmpty(albumIDString))
             {
@@ -63,15 +64,16 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 return;
             }
 
-            UInt64 albumID;
+            int albumID;
+            UInt64 albumPersistentID;
 
-            if (!UInt64.TryParse(albumIDString, out albumID))
+            if (!int.TryParse(albumIDString, out albumID) || !UInt64.TryParse(albumPersistentIDString, out albumPersistentID))
             {
                 NavigationService.GoBack();
                 return;
             }
 
-            Album = new Album(DACPServerManager.Server, albumName, artistName, albumID);
+            Album = new Album(DACPServerManager.Server, albumID, albumName, artistName, albumPersistentID);
             Album.GetSongs();
         }
 

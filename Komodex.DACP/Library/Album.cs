@@ -18,8 +18,9 @@ namespace Komodex.DACP.Library
         private Album()
         { }
 
-        public Album(DACPServer server, string name, string artistName, UInt64 persistentID)
+        public Album(DACPServer server, int id, string name, string artistName, UInt64 persistentID)
         {
+            ID = id;
             Server = server;
             Name = name;
             ArtistName = artistName;
@@ -34,6 +35,7 @@ namespace Komodex.DACP.Library
 
         #region Properties
 
+        public int ID { get; protected set; }
         public string Name { get; protected set; }
         private string _ArtistName = null;
         public string ArtistName
@@ -73,6 +75,9 @@ namespace Komodex.DACP.Library
             {
                 switch (kvp.Key)
                 {
+                    case "miid": // ID
+                        ID = kvp.Value.GetInt32Value();
+                        break;
                     case "minm": // Name
                         Name = kvp.Value.GetStringValue();
                         break;

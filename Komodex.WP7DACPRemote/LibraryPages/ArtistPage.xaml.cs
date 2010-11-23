@@ -73,7 +73,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             if (album != null)
             {
-                GoToAlbumPage(album.Name, album.ArtistName, album.PersistentID);
+                GoToAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
             }
         }
 
@@ -99,11 +99,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #region Methods
 
-        private void GoToAlbumPage(string albumName, string artistName, UInt64 albumID)
+        private void GoToAlbumPage(int albumID, string albumName, string artistName, UInt64 albumPersistentID)
         {
             albumName = Uri.EscapeDataString(albumName);
             artistName = Uri.EscapeDataString(artistName);
-            NavigationService.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?name=" + albumName + "&artist=" + artistName + "&id=" + albumID, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?id=" + albumID + "&name=" + albumName + "&artist=" + artistName + "&perid=" + albumPersistentID, UriKind.Relative));
         }
 
         private void GetDataForPivotItem()
