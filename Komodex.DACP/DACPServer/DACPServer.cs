@@ -61,7 +61,7 @@ namespace Komodex.DACP
         public string PairingKey { get; protected set; }
 
         private string _HTTPPrefix = null;
-        protected string HTTPPrefix
+        public string HTTPPrefix
         {
             get
             {

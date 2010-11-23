@@ -28,7 +28,7 @@
         <DataTemplate x:Key="AlbumTemplate">
             <Border Padding="12,6,12,12" Background="Transparent">
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Button" Template="{StaticResource PlayButton}" />
+                    <Image Stretch="UniformToFill" Width="55" Height="55" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" />
                     <StackPanel>
                         <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                         <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" />
