@@ -35,7 +35,17 @@ namespace Komodex.DACP.Library
         #region Properties
 
         public string Name { get; protected set; }
-        public string ArtistName { get; protected set; }
+        private string _ArtistName = null;
+        public string ArtistName
+        {
+            get { return _ArtistName; }
+            protected set
+            {
+                _ArtistName = value;
+                EncodedArtistName = Uri.EscapeDataString(Utility.EscapeSingleQuotes(ArtistName));
+            }
+        }
+        public string EncodedArtistName { get; protected set; }
         public UInt64 PersistentID { get; protected set; }
         public DACPServer Server { get; protected set; }
 
@@ -115,8 +125,7 @@ namespace Komodex.DACP.Library
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
                 + "&type=music"
                 + "&sort=album"
-                //+ "&query=(('daap.songartist:ARTISTNAME','daap.songalbumartist:ARTISTNAME')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:7944369672639832826')"
-                + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
+                + "&query=(('daap.songartist:" + EncodedArtistName + "','daap.songalbumartist:" + EncodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
                 + "&session-id=" + Server.SessionID;
 
             Server.SubmitHTTPRequest(url, null, this);
@@ -159,8 +168,7 @@ namespace Komodex.DACP.Library
 
                 string url = "/ctrl-int/1/cue"
                     + "?command=play"
-                    //+ "&query=(('daap.songartist:ARTISTNAME','daap.songalbumartist:ARTISTNAME')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:15136029990705338815')"
-                    + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
+                    + "&query=(('daap.songartist:" + EncodedArtistName + "','daap.songalbumartist:" + EncodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
                     + "&index=" + songIndex
                     + "&sort=album"
                     //+ "&srcdatabase=0xC2C1E50F13CF1F5C"
