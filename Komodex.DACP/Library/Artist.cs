@@ -32,7 +32,17 @@ namespace Komodex.DACP.Library
 
         #region Properties
 
-        public string Name { get; protected set; }
+        private string _Name = null;
+        public string Name
+        {
+            get { return _Name; }
+            protected set
+            {
+                _Name = value;
+                EncodedName = Uri.EscapeDataString(Utility.EscapeSingleQuotes(Name));
+            }
+        }
+        public string EncodedName { get; protected set; }
         public DACPServer Server { get; protected set; }
 
         private ObservableCollection<Album> _Albums = null;
@@ -123,7 +133,7 @@ namespace Komodex.DACP.Library
                 + "&group-type=albums"
                 + "&sort=album"
                 + "&include-sort-headers=1"
-                + "&query=(('daap.songartist:" + Name + "','daap.songalbumartist:" + Name + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
+                + "&query=(('daap.songartist:" + EncodedName + "','daap.songalbumartist:" + EncodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + Server.SessionID;
             Server.SubmitHTTPRequest(url, null, this);
         }
@@ -173,7 +183,7 @@ namespace Komodex.DACP.Library
                 + "&type=music"
                 + "&sort=name"
                 + "&include-sort-headers=1"
-                + "&query=(('daap.songartist:" + Name + "','daap.songalbumartist:" + Name + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
+                + "&query=(('daap.songartist:" + EncodedName + "','daap.songalbumartist:" + EncodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + "&session-id=" + Server.SessionID;
             Server.SubmitHTTPRequest(url, null, this);
         }
@@ -213,7 +223,7 @@ namespace Komodex.DACP.Library
                 int songIndex = Songs.IndexOf(song);
 
                 string url = "/ctrl-int/1/cue?command=play"
-                    + "&query=(('daap.songartist:" + Name + "','daap.songalbumartist:" + Name + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
+                    + "&query=(('daap.songartist:" + EncodedName + "','daap.songalbumartist:" + EncodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                     + "&index=" + songIndex
                     + "&sort=name"
                     //+ "&srcdatabase=0xC2C1E50F13CF1F5C"

@@ -50,6 +50,11 @@ namespace Komodex.DACP
             return result;
         }
 
+        public static string EscapeSingleQuotes(string input)
+        {
+            return input.Replace("'", "\\'");
+        }
+
         #region Extension Methods
 
         public static Int32 SwapBits(this Int32 value)

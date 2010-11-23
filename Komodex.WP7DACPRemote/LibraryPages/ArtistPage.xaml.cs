@@ -101,6 +101,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void GoToAlbumPage(string albumName, string artistName, UInt64 albumID)
         {
+            albumName = Uri.EscapeDataString(albumName);
+            artistName = Uri.EscapeDataString(artistName);
             NavigationService.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?name=" + albumName + "&artist=" + artistName + "&id=" + albumID, UriKind.Relative));
         }
 

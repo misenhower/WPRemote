@@ -239,11 +239,14 @@ namespace Komodex.WP7DACPRemote
 
         private void GoToArtistPage(string artistName)
         {
+            artistName = Uri.EscapeDataString(artistName);
             NavigationService.Navigate(new Uri("/LibraryPages/ArtistPage.xaml?name=" + artistName, UriKind.Relative));
         }
 
         private void GoToAlbumPage(string albumName, string artistName, UInt64 albumID)
         {
+            albumName = Uri.EscapeDataString(albumName);
+            artistName = Uri.EscapeDataString(artistName);
             NavigationService.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?name=" + albumName + "&artist=" + artistName + "&id=" + albumID, UriKind.Relative));
         }
 
