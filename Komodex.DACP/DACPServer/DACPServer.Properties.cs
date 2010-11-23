@@ -85,16 +85,17 @@ namespace Komodex.DACP
             }
         }
 
-        private BitmapImage _CurrentAlbumArt = null;
-        public BitmapImage CurrentAlbumArt
+        // This is set whenever the session id is modified
+        private string _CurrentAlbumArtURL = null;
+        public string CurrentAlbumArtURL
         {
-            get { return _CurrentAlbumArt; }
-            protected set
+            get { return _CurrentAlbumArtURL; }
+            set
             {
-                if (_CurrentAlbumArt == value)
+                if (_CurrentAlbumArtURL == value)
                     return;
-                _CurrentAlbumArt = value;
-                SendPropertyChanged("CurrentAlbumArt");
+                _CurrentAlbumArtURL = value;
+                SendPropertyChanged("CurrentAlbumArtURL");
             }
         }
 

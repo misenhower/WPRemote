@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
     xmlns:converters="clr-namespace:Komodex.WP7DACPRemote.Converters"
+    xmlns:delay="clr-namespace:Delay"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -48,7 +49,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Image HorizontalAlignment="Left" Name="image1" Stretch="UniformToFill" VerticalAlignment="Top" Width="300" Height="292" Source="{Binding Path=CurrentAlbumArt}" />
+                    <Image HorizontalAlignment="Left" Name="image1" Stretch="UniformToFill" VerticalAlignment="Top" Width="300" Height="292" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" />
                     <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Name="stackPanel1" VerticalAlignment="Stretch">
                         <Slider Name="slider1" Width="460" Value="{Binding Path=CurrentTrackTimeRemaining, Mode=TwoWay}" Maximum="{Binding Path=TrackTimeTotal}" IsDirectionReversed="True" />
                         <TextBlock Height="30" Name="textBlock1" Text="{Binding Path=CurrentArtist}" />

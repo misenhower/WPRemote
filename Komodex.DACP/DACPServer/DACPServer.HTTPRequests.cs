@@ -150,30 +150,6 @@ namespace Komodex.DACP
             }
         }
 
-        protected void HTTPImageCallback(IAsyncResult result)
-        {
-            try
-            {
-                HTTPRequestInfo requestInfo = (HTTPRequestInfo)result.AsyncState;
-
-                WebResponse response = requestInfo.WebRequest.EndGetResponse(result);
-                Stream responseStream = response.GetResponseStream();
-
-                BitmapImage image;
-                
-                // TODO: Find a better way
-                // BitmapImage objects need to be created in the UI thread
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    image = new BitmapImage();
-                    image.SetSource(responseStream);
-                    // For now, going to assume this is for the album art
-                    CurrentAlbumArt = image;
-                });
-            }
-            catch { }
-        }
-
         #endregion
 
         #region Requests and Responses
@@ -235,6 +211,8 @@ namespace Komodex.DACP
                     SubmitPlayStatusRequest();
                     SubmitDatabasesRequest();
                 }
+
+                CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?session-id=" + SessionID;
 
                 SendServerUpdate(ServerUpdateType.ServerConnected);
             }
@@ -340,21 +318,10 @@ namespace Komodex.DACP
                 if (PlayState == PlayStates.Playing)
                     timerTrackTimeUpdate.Start();
             });
-            SubmitAlbumArtRequest(); // TODO: Need to be a bit more efficient about this, perhaps by doing this in the PropertyChanged event
+            SendPropertyChanged("CurrentAlbumArtURL"); // TODO: Need to be a bit more efficient about this, perhaps by doing this in the PropertyChanged event
             SubmitVolumeStatusRequest();
             if (UseDelayedResponseRequests)
                 SubmitPlayStatusRequest();
-        }
-
-        #endregion
-
-        #region Album Art
-
-        protected void SubmitAlbumArtRequest()
-        {
-            //string url = "/ctrl-int/1/nowplayingartwork?mw=320&mh=320&session-id=" + SessionID;
-            string url = "/ctrl-int/1/nowplayingartwork?session-id=" + SessionID;
-            SubmitHTTPRequest(url, new AsyncCallback(HTTPImageCallback));
         }
 
         #endregion

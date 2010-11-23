@@ -1,4 +1,7 @@
-﻿// Copyright (C) Microsoft Corporation. All Rights Reserved.
+﻿// Adapted from:
+// http://blogs.msdn.com/b/delay/archive/2010/09/02/keep-a-low-profile-lowprofileimageloader-helps-the-windows-phone-7-ui-thread-stay-responsive-by-loading-images-in-the-background.aspx
+
+// Copyright (C) Microsoft Corporation. All Rights Reserved.
 // This code released under the terms of the Microsoft Public License
 // (Ms-PL, http://opensource.org/licenses/ms-pl.html).
 
@@ -122,10 +125,19 @@ namespace Delay
                 for (var i = 0; (i < pendingRequests.Count) && (i < WorkItemQuantum); i++)
                 {
                     var pendingRequest = pendingRequests.Dequeue();
+
+                    // Next line added because of data binding issues
+                    if (pendingRequest.Uri == null)
+                        continue;
+
                     if (pendingRequest.Uri.IsAbsoluteUri)
                     {
                         // Download from network
                         var webRequest = HttpWebRequest.CreateHttp(pendingRequest.Uri);
+                        // Next 2 lines added so iTunes will respond
+                        webRequest.Method = "POST";
+                        webRequest.Headers["Viewer-Only-Client"] = "1";
+
                         webRequest.AllowReadStreamBuffering = true; // Don't want to block this thread or the UI thread on network access
                         webRequest.BeginGetResponse(HandleGetResponseResult, new ResponseState(webRequest, pendingRequest.Image, pendingRequest.Uri));
                     }
