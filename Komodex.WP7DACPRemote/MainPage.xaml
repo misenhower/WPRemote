@@ -28,7 +28,9 @@
         <DataTemplate x:Key="AlbumTemplate">
             <Border Padding="0,6,12,12" Background="Transparent">
                 <StackPanel Orientation="Horizontal">
-                    <Image Stretch="UniformToFill" Width="175" Height="175" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" />
+                    <Border Background="{StaticResource PhoneChromeBrush}" Width="175" Height="175" HorizontalAlignment="Left">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" />
+                    </Border>
                     <StackPanel>
                         <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                         <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" />
@@ -49,7 +51,9 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Image HorizontalAlignment="Left" Name="image1" Stretch="UniformToFill" VerticalAlignment="Top" Width="300" Height="292" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" />
+                    <Border Background="{StaticResource PhoneChromeBrush}" Width="300" Height="300" HorizontalAlignment="Left">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" />
+                    </Border>
                     <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Name="stackPanel1" VerticalAlignment="Stretch">
                         <Slider Name="slider1" Width="460" Value="{Binding Path=CurrentTrackTimeRemaining, Mode=TwoWay}" Maximum="{Binding Path=TrackTimeTotal}" IsDirectionReversed="True" />
                         <TextBlock Height="30" Name="textBlock1" Text="{Binding Path=CurrentArtist}" />
