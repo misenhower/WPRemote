@@ -104,8 +104,11 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     {
                         if (!ConnectingPopup.IsOpen)
                         {
-                            applicationBarWasOpen = currentPage.ApplicationBar.IsVisible;
-                            currentPage.ApplicationBar.IsVisible = false;
+                            if (currentPage.ApplicationBar != null)
+                            {
+                                applicationBarWasOpen = currentPage.ApplicationBar.IsVisible;
+                                currentPage.ApplicationBar.IsVisible = false;
+                            }
 
                             ConnectingPopup.IsOpen = true;
                         }
@@ -116,7 +119,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                         {
                             ConnectingPopup.IsOpen = false;
 
-                            if (applicationBarWasOpen)
+                            if (applicationBarWasOpen && currentPage.ApplicationBar != null)
                                 currentPage.ApplicationBar.IsVisible = true;
 
                         }
@@ -179,7 +182,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             if (applicationBarWasOpen)
             {
                 PhoneApplicationPage currentPage = GetCurrentPhoneApplicationPage();
-                if (currentPage != null)
+                if (currentPage != null && currentPage.ApplicationBar != null)
                     currentPage.ApplicationBar.IsVisible = true;
             }
         }
