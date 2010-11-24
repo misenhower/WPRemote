@@ -214,6 +214,10 @@ namespace Delay
             var image = (Image)o;
             var uri = (Uri)e.NewValue;
 
+            // TODO: Will need to toggle this or integrate caching in some way
+            // This is used to avoid showing the wrong album art when image objects are reused in a list
+            image.Source = null;
+
             if (!IsEnabled || DesignerProperties.IsInDesignTool)
             {
                 // Avoid handing off to the worker thread (can cause problems for design tools)
