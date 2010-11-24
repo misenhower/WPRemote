@@ -90,7 +90,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             if (song != null)
             {
                 Album.SendPlaySongCommand(song);
-                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                NavigationManager.OpenMainPage();
             }
         }
 

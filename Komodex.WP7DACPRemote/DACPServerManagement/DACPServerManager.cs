@@ -141,7 +141,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             }
 
             if (RootVisual != null)
-                RootVisual.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
+                NavigationManager.OpenLibraryChooserPage();
         }
 
         private static PhoneApplicationFrame RootVisual { get; set; }

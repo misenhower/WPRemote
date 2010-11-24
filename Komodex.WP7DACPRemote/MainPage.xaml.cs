@@ -86,7 +86,7 @@ namespace Komodex.WP7DACPRemote
                 if (!SuppressAutoOpenServerListPage)
                 {
                     SuppressAutoOpenServerListPage = true;
-                    GoToSettingsPage();
+                    NavigationManager.OpenLibraryChooserPage();
                 }
             }
         }
@@ -147,12 +147,12 @@ namespace Komodex.WP7DACPRemote
 
         private void connectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
         {
-            GoToSettingsPage();
+            NavigationManager.OpenLibraryChooserPage();
         }
 
         private void mnuSettings_Click(object sender, EventArgs e)
         {
-            GoToSettingsPage();
+            NavigationManager.OpenLibraryChooserPage();
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
@@ -183,7 +183,7 @@ namespace Komodex.WP7DACPRemote
 
             if (artist != null)
             {
-                GoToArtistPage(artist.Name);
+                NavigationManager.OpenArtistPage(artist.Name);
             }
         }
 
@@ -195,7 +195,7 @@ namespace Komodex.WP7DACPRemote
 
             if (album != null)
             {
-                GoToAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
+                NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
             }
         }
 
@@ -203,11 +203,6 @@ namespace Komodex.WP7DACPRemote
         #endregion
 
         #region Methods
-
-        private void GoToSettingsPage()
-        {
-            NavigationService.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
-        }
 
         private void GetDataForPivotItem()
         {
@@ -224,19 +219,6 @@ namespace Komodex.WP7DACPRemote
                 if (DACPServer.LibraryAlbums == null || DACPServer.LibraryAlbums.Count == 0)
                     DACPServer.GetAlbums();
             }
-        }
-
-        private void GoToArtistPage(string artistName)
-        {
-            artistName = Uri.EscapeDataString(artistName);
-            NavigationService.Navigate(new Uri("/LibraryPages/ArtistPage.xaml?name=" + artistName, UriKind.Relative));
-        }
-
-        private void GoToAlbumPage(int albumID, string albumName, string artistName, UInt64 albumPersistentID)
-        {
-            albumName = Uri.EscapeDataString(albumName);
-            artistName = Uri.EscapeDataString(artistName);
-            NavigationService.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?id=" + albumID + "&name=" + albumName + "&artist=" + artistName + "&perid=" + albumPersistentID, UriKind.Relative));
         }
 
         #endregion

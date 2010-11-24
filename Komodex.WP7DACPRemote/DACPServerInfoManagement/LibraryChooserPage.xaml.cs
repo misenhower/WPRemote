@@ -59,7 +59,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             if (!SuppressAutoOpenAddNewServerPage && DACPServerViewModel.Instance.Items.Count == 0)
             {
                 SuppressAutoOpenAddNewServerPage = true; // This needs to be set to false at some point
-                OpenAddNewServerPage();
+                NavigationManager.OpenAddNewServerPage();
             }
         }
 
@@ -69,13 +69,9 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            OpenAddNewServerPage();
+            NavigationManager.OpenAddNewServerPage();
         }
 
-        private void OpenAddNewServerPage()
-        {
-            NavigationService.Navigate(new Uri("/DACPServerInfoManagement/AddLibraryPage.xaml", UriKind.Relative));
-        }
 
         private void mnuDelete_Click(object sender, RoutedEventArgs e)
         {

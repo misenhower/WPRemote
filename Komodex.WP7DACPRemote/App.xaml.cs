@@ -53,6 +53,7 @@ namespace Komodex.WP7DACPRemote
             InitializePhoneApplication();
 
             // Set up hooks
+            NavigationManager.DoFirstLoad(RootFrame);
             DACPServerManager.DoFirstLoad(RootFrame);
         }
 
