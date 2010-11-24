@@ -75,8 +75,6 @@ namespace Komodex.WP7DACPRemote
         {
             base.OnNavigatedTo(e);
 
-            DACPServerManager.DoFirstLoad();
-
             DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
 
             DACPServer = DACPServerManager.Server;

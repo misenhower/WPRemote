@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Komodex.WP7DACPRemote.DACPServerManagement;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -50,6 +51,9 @@ namespace Komodex.WP7DACPRemote
 
             // Phone-specific initialization
             InitializePhoneApplication();
+
+            // Set up hooks
+            DACPServerManager.DoFirstLoad(RootFrame);
         }
 
         // Code to execute when the application is launching (eg, from Start)

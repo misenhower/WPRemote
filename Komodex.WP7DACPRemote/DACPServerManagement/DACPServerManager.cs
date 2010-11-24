@@ -144,17 +144,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 RootVisual.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
         }
 
-        private static PhoneApplicationFrame _RootVisual = null;
-        private static PhoneApplicationFrame RootVisual
-        {
-            get
-            {
-                if (_RootVisual == null)
-                    _RootVisual = Application.Current.RootVisual as PhoneApplicationFrame;
-                
-                return _RootVisual;
-            }
-        }
+        private static PhoneApplicationFrame RootVisual { get; set; }
 
         private static PhoneApplicationPage GetCurrentPhoneApplicationPage()
         {
@@ -214,13 +204,9 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         #region Public Methods
 
-        private static bool firstLoadDone = false;
-        public static void DoFirstLoad()
+        public static void DoFirstLoad(PhoneApplicationFrame frame)
         {
-            if (firstLoadDone)
-                return;
-
-            firstLoadDone = true;
+            RootVisual = frame;
 
             RootVisual.OrientationChanged += new EventHandler<OrientationChangedEventArgs>(RootVisual_OrientationChanged);
             RootVisual.SizeChanged += new SizeChangedEventHandler(RootVisual_SizeChanged);
