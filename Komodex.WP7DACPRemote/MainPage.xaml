@@ -20,7 +20,7 @@
         <DataTemplate x:Key="ArtistTemplate">
             <Border Padding="12,6,12,12" Background="Transparent">
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Button" Template="{StaticResource PlayButton}" />
+                    <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="ArtistPlayButton_Click" />
                     <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                 </StackPanel>
             </Border>

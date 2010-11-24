@@ -175,8 +175,16 @@ namespace Komodex.WP7DACPRemote
             GetDataForPivotItem();
         }
 
+        private bool ignoreNextArtistSelection = false;
+
         private void lbArtists_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ignoreNextArtistSelection)
+            {
+                ignoreNextArtistSelection = false;
+                return;
+            }
+
             LongListSelector listBox = (LongListSelector)sender;
 
             Artist artist = listBox.SelectedItem as Artist;
@@ -184,6 +192,21 @@ namespace Komodex.WP7DACPRemote
             if (artist != null)
             {
                 NavigationManager.OpenArtistPage(artist.Name);
+            }
+        }
+
+        private void ArtistPlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            ignoreNextArtistSelection = true;
+
+            Button button = (Button)sender;
+
+            Artist artist = button.Tag as Artist;
+
+            if (artist != null)
+            {
+                artist.SendPlaySongCommand();
+                pivotControl.SelectedIndex = 0;
             }
         }
 
