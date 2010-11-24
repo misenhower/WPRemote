@@ -74,7 +74,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
 
             Album = new Album(DACPServerManager.Server, albumID, albumName, artistName, albumPersistentID);
-            Album.GetSongs();
+            if (Album.Server != null && Album.Server.IsConnected)
+                Album.GetSongs();
         }
 
         #endregion

@@ -94,6 +94,7 @@ namespace Komodex.DACP
         public void Stop()
         {
             Stopped = true;
+            IsConnected = false;
 
             try
             {

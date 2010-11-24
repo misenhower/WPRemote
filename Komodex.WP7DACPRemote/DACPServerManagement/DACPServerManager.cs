@@ -43,6 +43,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
                 UpdatePopupDisplay();
                 SendServerChanged();
+                NavigationManager.GoToFirstPage();
             }
         }
 
@@ -248,6 +249,9 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         static void Server_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
+            if (sender != Server)
+                return;
+
             switch (e.Type)
             {
                 case ServerUpdateType.ServerReconnecting:
@@ -264,6 +268,9 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         static void Server_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            if (sender != Server)
+                return;
+
             if (e.PropertyName != "LibraryName")
                 return;
 

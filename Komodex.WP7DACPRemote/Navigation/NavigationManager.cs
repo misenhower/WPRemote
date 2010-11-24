@@ -43,8 +43,22 @@ namespace Komodex.WP7DACPRemote
             if (RootVisual == null)
                 return;
 
-            NavigateToFirstPage = true;
-            RootVisual.GoBack();
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (RootVisual.CanGoBack)
+                {
+                    NavigateToFirstPage = true;
+                    try
+                    {
+                        RootVisual.GoBack();
+                    }
+                    catch { }
+                }
+                else
+                {
+                    NavigateToFirstPage = false;
+                }
+            });
         }
 
         public static void OpenMainPage()
