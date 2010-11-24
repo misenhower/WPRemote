@@ -43,6 +43,7 @@
                 <TextBox Height="71" Name="tbPIN" Text="{Binding Path=FormattedPIN, Mode=TwoWay}" Width="460" InputScope="TelephoneNumber" KeyDown="tbPIN_KeyDown" MaxLength="4" />
             </StackPanel>
         </Grid>
+        <my:ConnectingStatusControl x:Name="connectingStatusControl" Visibility="Collapsed" Grid.RowSpan="2" ButtonText="Cancel" ButtonClick="connectingStatusControl_ButtonClick" />
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

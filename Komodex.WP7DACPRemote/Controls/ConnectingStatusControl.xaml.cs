@@ -21,9 +21,16 @@ namespace Komodex.WP7DACPRemote.Controls
             InitializeComponent();
 
             LayoutRoot.DataContext = this;
+        }
 
-            DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
-            DACPServer = DACPServerManager.Server;
+        public ConnectingStatusControl(bool useServerManager)
+            : this()
+        {
+            if (useServerManager)
+            {
+                DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
+                DACPServer = DACPServerManager.Server;
+            }
         }
 
         #region Properties

@@ -74,7 +74,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             {
                 if (_ConnectingStatusControl == null)
                 {
-                    _ConnectingStatusControl = new ConnectingStatusControl();
+                    _ConnectingStatusControl = new ConnectingStatusControl(true);
                     UpdatePopupSize();
 
                     _ConnectingStatusControl.ButtonClick += new RoutedEventHandler(ConnectingStatusControl_ButtonClick);
