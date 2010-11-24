@@ -261,8 +261,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             switch (e.Type)
             {
-                case ServerUpdateType.ServerInfoResponse:
-                    break;
                 case ServerUpdateType.ServerConnected:
                     UpdatePopupDisplay();
                     break;

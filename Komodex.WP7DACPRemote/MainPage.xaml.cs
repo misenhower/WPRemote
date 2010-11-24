@@ -114,22 +114,13 @@ namespace Komodex.WP7DACPRemote
 
         void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            if (e.Type == ServerUpdateType.ServerConnected)
             {
-                switch (e.Type)
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    case ServerUpdateType.ServerInfoResponse:
-                        break;
-                    case ServerUpdateType.ServerConnected:
-                        GetDataForPivotItem();
-                        break;
-                    case ServerUpdateType.Error:
-                        //GoToSettingsPage();
-                        break;
-                    default:
-                        break;
-                }
-            });
+                    GetDataForPivotItem();
+                });
+            }
         }
 
         void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

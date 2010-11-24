@@ -23,8 +23,8 @@ namespace Komodex.DACP
 
     public enum ServerUpdateType
     {
-        ServerInfoResponse,
         ServerConnected,
+        ServerReconnecting,
         Error,
     }
 }

@@ -100,12 +100,9 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             {
                 switch (e.Type)
                 {
-                    case ServerUpdateType.ServerInfoResponse:
-                        // Get the library name
-                        serverInfo.LibraryName = server.LibraryName;
-                        break;
                     case ServerUpdateType.ServerConnected:
                         // PIN was correct
+                        serverInfo.LibraryName = server.LibraryName;
                         server.Stop();
                         server = null;
                         DACPServerViewModel.Instance.Items.Add(serverInfo);
