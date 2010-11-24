@@ -94,7 +94,6 @@ namespace Komodex.DACP
         public void Stop()
         {
             Stopped = true;
-            UseDelayedResponseRequests = false;
 
             try
             {
@@ -106,6 +105,42 @@ namespace Komodex.DACP
             catch { }
 
             PendingHttpRequests.Clear();
+        }
+
+        #endregion
+
+        #region Connection State
+
+        protected bool TryToReconnect = false;
+
+        protected void ConnectionEstablished()
+        {
+            if (IsConnected)
+                return;
+
+            TryToReconnect = true;
+            IsConnected = true;
+            SendServerUpdate(ServerUpdateType.ServerConnected);
+        }
+
+        protected void ConnectionError()
+        {
+            IsConnected = false;
+
+            if (!Stopped)
+            {
+                if (TryToReconnect)
+                {
+                    Stop();
+                    TryToReconnect = false;
+                    SendServerUpdate(ServerUpdateType.ServerReconnecting);
+                    Start();
+                }
+                else
+                {
+                    SendServerUpdate(ServerUpdateType.Error);
+                }
+            }
         }
 
         #endregion

@@ -118,6 +118,8 @@ namespace Komodex.DACP
                         break;
                 }
             }
+
+            ConnectionEstablished();
         }
 
         #endregion

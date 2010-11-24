@@ -55,7 +55,7 @@ namespace Komodex.DACP
             catch (Exception e)
             {
                 Utility.DebugWrite("Caught exception: " + e.Message);
-                SendServerUpdate(ServerUpdateType.Error);
+                ConnectionError();
                 return null;
             }
         }
@@ -145,8 +145,7 @@ namespace Komodex.DACP
             catch (Exception e)
             {
                 Utility.DebugWrite("Caught exception: " + e.Message);
-                if (!Stopped)
-                    SendServerUpdate(ServerUpdateType.Error);
+                ConnectionError();
             }
         }
 
@@ -191,32 +190,36 @@ namespace Komodex.DACP
 
         protected void ProcessLoginResponse(HTTPRequestInfo requestInfo)
         {
+            bool gotSessionID = false;
+
             foreach (var kvp in requestInfo.ResponseNodes)
             {
                 if (kvp.Key == "mlid")
                 {
                     SessionID = kvp.Value.GetInt32Value();
-                    IsConnected = true;
+                    gotSessionID = true;
                     break;
                 }
             }
 
-            if (IsConnected)
+            if (gotSessionID)
             {
-                if (UseDelayedResponseRequests)
+                if (!Stopped)
                 {
-                    SubmitLibraryUpdateRequest();
-                    SubmitPlayStatusRequest();
                     SubmitDatabasesRequest();
+                    if (UseDelayedResponseRequests)
+                    {
+                        SubmitLibraryUpdateRequest();
+                        SubmitPlayStatusRequest();
+                    }
                 }
 
-                CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?session-id=" + SessionID;
 
-                SendServerUpdate(ServerUpdateType.ServerConnected);
+                CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?session-id=" + SessionID;
             }
             else
             {
-                SendServerUpdate(ServerUpdateType.Error);
+                ConnectionError();
             }
         }
 
@@ -247,7 +250,7 @@ namespace Komodex.DACP
                 }
             }
 
-            if (UseDelayedResponseRequests)
+            if (UseDelayedResponseRequests && !Stopped)
                 SubmitLibraryUpdateRequest();
         }
 
@@ -318,7 +321,7 @@ namespace Komodex.DACP
             });
             SendPropertyChanged("CurrentAlbumArtURL"); // TODO: Need to be a bit more efficient about this, perhaps by doing this in the PropertyChanged event
             SubmitVolumeStatusRequest();
-            if (UseDelayedResponseRequests)
+            if (UseDelayedResponseRequests && !Stopped)
                 SubmitPlayStatusRequest();
         }
 

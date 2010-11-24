@@ -261,12 +261,11 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             switch (e.Type)
             {
+                case ServerUpdateType.ServerReconnecting:
                 case ServerUpdateType.ServerConnected:
                     UpdatePopupDisplay();
                     break;
                 case ServerUpdateType.Error:
-                    // Need to have an auto-reconnect feature but it needs to know when auto-reconnect has already been attempted
-                    //ConnectToServer();
                     Server = null;
                     break;
                 default:
