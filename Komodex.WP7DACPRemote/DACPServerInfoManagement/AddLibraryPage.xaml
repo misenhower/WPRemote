@@ -10,7 +10,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
@@ -33,14 +33,14 @@
         		<RowDefinition Height="*"/>
         	</Grid.RowDefinitions>
         	<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-        		<TextBlock TextWrapping="Wrap" Text="To add a library, download the Pairing Utility from the following website on your computer:"/>
-        		<TextBlock TextWrapping="Wrap" Text="http://komodex.com/pair" Style="{StaticResource PhoneTextAccentStyle}"/>
+        		<TextBlock TextWrapping="Wrap" Text="To pair this phone with a new iTunes library, download and run the Pairing Utility from our website:"/>
+        		<TextBlock TextWrapping="Wrap" Text="http://wp7remoteapp.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}"/>
         	</StackPanel>
             <StackPanel Grid.Row="1" HorizontalAlignment="Left" Name="stackPanel1" VerticalAlignment="Top">
                 <TextBlock Height="30" Name="textBlock1" Text="Host" Style="{StaticResource PhoneTextSmallStyle}" />
                 <TextBox Height="71" Name="tbHost" Text="{Binding HostName, Mode=TwoWay}" Width="460" InputScope="Url" />
                 <TextBlock Height="30" Name="textBlock2" Text="PIN" Style="{StaticResource PhoneTextSmallStyle}" />
-                <TextBox Height="71" Name="tbPIN" Text="{Binding Path=FormattedPIN, Mode=TwoWay}" Width="460" InputScope="TelephoneNumber" KeyDown="tbPIN_KeyDown" MaxLength="4" />
+                <TextBox Height="71" Name="tbPIN" Text="{Binding Path=FormattedPIN, Mode=TwoWay}" Width="460" InputScope="TelephoneNumber" KeyDown="tbPIN_KeyDown" KeyUp="tbPIN_KeyUp" MaxLength="4" />
             </StackPanel>
         </Grid>
         <my:ConnectingStatusControl x:Name="connectingStatusControl" Visibility="Collapsed" Grid.RowSpan="2" ButtonText="Cancel" ButtonClick="connectingStatusControl_ButtonClick" />

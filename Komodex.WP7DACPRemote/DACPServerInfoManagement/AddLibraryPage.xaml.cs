@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using System.Text.RegularExpressions;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
@@ -70,6 +71,22 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
             if (!validCharacter)
                 e.Handled = true;
+        }
+
+        private void tbPIN_KeyUp(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            int selectionStart = textBox.SelectionStart;
+            int textLen = textBox.Text.Length;
+
+            textBox.Text = Regex.Replace(textBox.Text, "\\D", string.Empty);
+
+            int newTextLen = textBox.Text.Length;
+            if (newTextLen < textLen && selectionStart > 0)
+                selectionStart--;
+
+            textBox.SelectionStart = selectionStart;
         }
 
         private void connectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
