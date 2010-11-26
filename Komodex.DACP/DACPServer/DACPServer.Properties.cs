@@ -112,7 +112,7 @@ namespace Komodex.DACP
                 if (_TrackTimeTotal == value)
                     return;
                 _TrackTimeTotal = value;
-                SendPropertyChanged("TrackTimeTotal");
+                SendTrackTimePropertyChanged();
             }
         }
 
@@ -129,8 +129,7 @@ namespace Komodex.DACP
                     value = 0;
 
                 _TrackTimeRemaining = value;
-                SendPropertyChanged("TrackTimeRemaining");
-                SendPropertyChanged("CurrentTimeRemaining");
+                SendTrackTimePropertyChanged();
             }
         }
 
@@ -160,10 +159,63 @@ namespace Komodex.DACP
             set { } // TODO
         }
 
+        public int CurrentTrackTimePosition
+        {
+            get { return TrackTimeTotal - CurrentTrackTimeRemaining; }
+        }
+
+        public double CurrentTrackTimePercentage
+        {
+            get
+            {
+                if (TrackTimeTotal == 0)
+                    return 0;
+                return ((double)CurrentTrackTimePosition / (double)TrackTimeTotal) * 100;
+            }
+        }
+
+        private const string timeFormat = "{0}:{1:00}";
+        private readonly string timeFormatHours = "{0}:{1:00}:{2:00}";
+
+        public string CurrentTrackTimePositionString
+        {
+            get
+            {
+                TimeSpan ts = TimeSpan.FromMilliseconds(CurrentTrackTimePosition);
+
+                if (ts.Hours > 0)
+                    return string.Format(timeFormatHours, ts.Hours, ts.Minutes, ts.Seconds);
+                return string.Format(timeFormat, ts.Minutes, ts.Seconds);
+            }
+        }
+
+        public string CurrentTrackTimeRemainingString
+        {
+            get
+            {
+                TimeSpan ts = TimeSpan.FromMilliseconds(CurrentTrackTimeRemaining);
+
+                if (ts.Hours > 0)
+                    return "-" + string.Format(timeFormatHours, ts.Hours, ts.Minutes, ts.Seconds);
+                return "-" + string.Format(timeFormat, ts.Minutes, ts.Seconds);
+            }
+        }
+
+        private void SendTrackTimePropertyChanged()
+        {
+            SendPropertyChanged("TrackTimeTotal");
+            SendPropertyChanged("TrackTimeRemaining");
+            SendPropertyChanged("CurrentTrackTimeRemaining");
+            SendPropertyChanged("CurrentTrackTimePosition");
+            SendPropertyChanged("CurrentTrackTimePercentage");
+            SendPropertyChanged("CurrentTrackTimePositionString");
+            SendPropertyChanged("CurrentTrackTimeRemainingString");
+        }
+
         private DispatcherTimer timerTrackTimeUpdate = new DispatcherTimer();
         void timerTrackTimeUpdate_Tick(object sender, EventArgs e)
         {
-            SendPropertyChanged("CurrentTrackTimeRemaining");
+            SendTrackTimePropertyChanged();
         }
 
         #endregion
