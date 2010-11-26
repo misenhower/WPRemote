@@ -123,7 +123,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         server = null;
                         DACPServerViewModel.Instance.Items.Add(serverInfo);
                         DACPServerManager.ConnectToServer(serverInfo.ID);
-                        LibraryChooserPage.GoBackOnNextActivate = true;
                         NavigationService.GoBack();
                         break;
                     case ServerUpdateType.Error:

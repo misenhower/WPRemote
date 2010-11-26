@@ -27,13 +27,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         #region Static Properties
 
-        private static bool _GoBackOnNextActivate = false;
-        public static bool GoBackOnNextActivate
-        {
-            get { return _GoBackOnNextActivate; }
-            set { _GoBackOnNextActivate = value; }
-        }
-
         private static bool _SuppressAutoOpenAddNewServerPage = false;
         public static bool SuppressAutoOpenAddNewServerPage
         {
@@ -48,13 +41,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            if (GoBackOnNextActivate)
-            {
-                GoBackOnNextActivate = false;
-                NavigationService.GoBack();
-                return;
-            }
 
             if (!SuppressAutoOpenAddNewServerPage && DACPServerViewModel.Instance.Items.Count == 0)
             {
