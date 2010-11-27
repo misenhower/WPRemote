@@ -55,18 +55,18 @@
                     <Border Grid.Row="0" Background="{StaticResource PhoneChromeBrush}" Width="300" Height="300" HorizontalAlignment="Left">
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" />
                     </Border>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Width="300" HorizontalAlignment="Left" Margin="0,2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ProgressBar Grid.Row="0" Grid.ColumnSpan="2" Value="{Binding Path=CurrentTrackTimePercentage}" Width="300" Padding="0" IsEnabled="True" />
+                        <ProgressBar Grid.Row="0" Grid.ColumnSpan="2" Value="{Binding Path=CurrentTrackTimePercentage}" Padding="0" IsEnabled="True" />
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=CurrentTrackTimePositionString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Left" />
-                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=CurrentTrackTimeRemainingString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Right" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=CurrentTrackTimeRemainingString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Right" />
                     </Grid>
                     <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Name="stackPanel1" VerticalAlignment="Stretch">
                         <TextBlock Height="30" Name="textBlock1" Text="{Binding Path=CurrentArtist}" />
