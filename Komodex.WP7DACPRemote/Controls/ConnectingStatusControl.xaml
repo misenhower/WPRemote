@@ -13,7 +13,7 @@
         <localHelpers:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}" Visibility="{Binding ShowConnecting, Converter={StaticResource booleanToVisibilityConverter}}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
