@@ -67,6 +67,28 @@ namespace Delay
         public static readonly DependencyProperty UriSourceProperty = DependencyProperty.RegisterAttached(
             "UriSource", typeof(Uri), typeof(LowProfileImageLoader), new PropertyMetadata(OnUriSourceChanged));
 
+
+        // ClearImageOnUriChange property added for album art lists
+        // This prevents the display of previous bitmaps when image controls are reused in a scrolling list
+        public static bool GetClearImageOnUriChange(Image obj)
+        {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
+            return (bool)obj.GetValue(ClearImageOnUriChangeProperty);
+        }
+
+        public static void SetClearImageOnUriChange(Image obj, bool value)
+        {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
+            obj.SetValue(ClearImageOnUriChangeProperty, value);
+        }
+
+        public static readonly DependencyProperty ClearImageOnUriChangeProperty = DependencyProperty.RegisterAttached(
+            "ClearImageOnUriChange", typeof(bool), typeof(LowProfileImageLoader), new PropertyMetadata(false));
+
         /// <summary>
         /// Gets or sets a value indicating whether low-profile image loading is enabled.
         /// </summary>
@@ -214,9 +236,8 @@ namespace Delay
             var image = (Image)o;
             var uri = (Uri)e.NewValue;
 
-            // TODO: Will need to toggle this or integrate caching in some way
-            // This is used to avoid showing the wrong album art when image objects are reused in a list
-            image.Source = null;
+            if (GetClearImageOnUriChange(image))
+                image.Source = null;
 
             if (!IsEnabled || DesignerProperties.IsInDesignTool)
             {
