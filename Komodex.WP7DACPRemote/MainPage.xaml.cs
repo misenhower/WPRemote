@@ -79,6 +79,8 @@ namespace Komodex.WP7DACPRemote
 
             DACPServer = DACPServerManager.Server;
 
+            UpdateApplicationBarVisibility();
+
             GetDataForPivotItem();
 
             if (DACPServer == null)
@@ -108,17 +110,17 @@ namespace Komodex.WP7DACPRemote
         void DACPServerManager_ServerChanged(object sender, EventArgs e)
         {
             DACPServer = DACPServerManager.Server;
+            UpdateApplicationBarVisibility();
         }
 
         void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            if (e.Type == ServerUpdateType.ServerConnected)
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
+                UpdateApplicationBarVisibility();
+                if (e.Type == ServerUpdateType.ServerConnected)
                     GetDataForPivotItem();
-                });
-            }
+            });
         }
 
         void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -226,6 +228,11 @@ namespace Komodex.WP7DACPRemote
         #endregion
 
         #region Methods
+
+        private void UpdateApplicationBarVisibility()
+        {
+            ApplicationBar.IsVisible = (DACPServer != null && DACPServer.IsConnected);
+        }
 
         private void GetDataForPivotItem()
         {

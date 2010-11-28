@@ -51,8 +51,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         #region Popup
 
-        private static bool applicationBarWasOpen = false;
-
         private static Popup _ConnectingPopup = null;
         private static Popup ConnectingPopup
         {
@@ -99,37 +97,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 bool connecting = (Server == null || !Server.IsConnected);
                 bool canShow = !(currentPage is LibraryChooserPage || currentPage is AddLibraryPage);
 
-                if (canShow)
-                {
-                    if (connecting)
-                    {
-                        if (!ConnectingPopup.IsOpen)
-                        {
-                            if (currentPage.ApplicationBar != null)
-                            {
-                                applicationBarWasOpen = currentPage.ApplicationBar.IsVisible;
-                                currentPage.ApplicationBar.IsVisible = false;
-                            }
-
-                            ConnectingPopup.IsOpen = true;
-                        }
-                    }
-                    else
-                    {
-                        if (ConnectingPopup.IsOpen)
-                        {
-                            ConnectingPopup.IsOpen = false;
-
-                            if (applicationBarWasOpen && currentPage.ApplicationBar != null)
-                                currentPage.ApplicationBar.IsVisible = true;
-
-                        }
-                    }
-                }
-                else
-                {
-                    ConnectingPopup.IsOpen = false;
-                }
+                ConnectingPopup.IsOpen = (connecting && canShow);
             });
         }
 
@@ -169,13 +137,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             if (Server != null && Server.IsConnected)
                 return;
-
-            if (applicationBarWasOpen)
-            {
-                PhoneApplicationPage currentPage = GetCurrentPhoneApplicationPage();
-                if (currentPage != null && currentPage.ApplicationBar != null)
-                    currentPage.ApplicationBar.IsVisible = true;
-            }
+            
         }
 
         static void RootVisual_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
