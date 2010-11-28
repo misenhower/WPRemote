@@ -18,7 +18,7 @@ using Komodex.DACP.Library;
 
 namespace Komodex.WP7DACPRemote
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : DACPServerBoundPhoneApplicationPage
     {
         public MainPage()
         {
@@ -44,45 +44,14 @@ namespace Komodex.WP7DACPRemote
 
         #endregion
 
-        #region Properties
-
-        private DACPServer DACPServer
-        {
-            get { return DataContext as DACPServer; }
-            set
-            {
-                if (DACPServer != null)
-                {
-                    DACPServer.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
-                    DACPServer.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
-                }
-
-                DataContext = value;
-
-                if (DACPServer != null)
-                {
-                    DACPServer.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
-                    DACPServer.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
-                }
-            }
-        }
-
-        #endregion
-
         #region Overrides
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
-
-            DACPServer = DACPServerManager.Server;
-
-            UpdateApplicationBarVisibility();
-
             GetDataForPivotItem();
-
+           
             if (DACPServer == null)
             {
                 if (!SuppressAutoOpenServerListPage)
@@ -93,38 +62,27 @@ namespace Komodex.WP7DACPRemote
             }
         }
 
-
-        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-
-            DACPServerManager.ServerChanged -= new EventHandler(DACPServerManager_ServerChanged);
-            DACPServer = null;
-
-        }
-
         #endregion
 
         #region Event Handlers
 
-        void DACPServerManager_ServerChanged(object sender, EventArgs e)
+        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            DACPServer = DACPServerManager.Server;
-            UpdateApplicationBarVisibility();
-        }
+            base.DACPServer_ServerUpdate(sender, e);
 
-        void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
-        {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            if (e.Type == ServerUpdateType.ServerConnected)
             {
-                UpdateApplicationBarVisibility();
-                if (e.Type == ServerUpdateType.ServerConnected)
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
                     GetDataForPivotItem();
-            });
+                });
+            }
         }
 
-        void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            base.DACPServer_PropertyChanged(sender, e);
+
             switch (e.PropertyName)
             {
                 case "PlayState":
@@ -228,11 +186,6 @@ namespace Komodex.WP7DACPRemote
         #endregion
 
         #region Methods
-
-        private void UpdateApplicationBarVisibility()
-        {
-            ApplicationBar.IsVisible = (DACPServer != null && DACPServer.IsConnected);
-        }
 
         private void GetDataForPivotItem()
         {
