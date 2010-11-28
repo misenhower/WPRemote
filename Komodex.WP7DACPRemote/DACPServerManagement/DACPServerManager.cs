@@ -18,6 +18,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 {
     public static class DACPServerManager
     {
+        private static bool showLibraryChooserOnNavigate = false;
+         
         #region Properties
 
         private static DACPServer _Server = null;
@@ -142,6 +144,12 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         static void RootVisual_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
+            if (showLibraryChooserOnNavigate)
+            {
+                showLibraryChooserOnNavigate = false;
+                NavigationManager.OpenLibraryChooserPage();
+            }
+
             if (Server != null && Server.IsConnected)
                 return;
 
@@ -177,9 +185,9 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             RootVisual.Navigated += new System.Windows.Navigation.NavigatedEventHandler(RootVisual_Navigated);
 
             if (DACPServerViewModel.Instance.CurrentDACPServer == null)
-                return;
-
-            ConnectToServer();
+                showLibraryChooserOnNavigate = true;
+            else
+                ConnectToServer();
         }
 
         public static void ConnectToServer(Guid serverID)

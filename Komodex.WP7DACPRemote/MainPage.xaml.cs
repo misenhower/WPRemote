@@ -33,16 +33,6 @@ namespace Komodex.WP7DACPRemote
         private readonly Uri iconPlay = new Uri("/icons/appbar.transport.play.rest.png", UriKind.Relative);
         private readonly Uri iconPause = new Uri("/icons/appbar.transport.pause.rest.png", UriKind.Relative);
 
-        #region Static Properties
-
-        private static bool _SuppressAutoOpenServerListPage = false;
-        public static bool SuppressAutoOpenServerListPage
-        {
-            get { return _SuppressAutoOpenServerListPage; }
-            set { _SuppressAutoOpenServerListPage = value; }
-        }
-
-        #endregion
 
         #region Overrides
 
@@ -51,15 +41,6 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedTo(e);
 
             GetDataForPivotItem();
-           
-            if (DACPServer == null)
-            {
-                if (!SuppressAutoOpenServerListPage)
-                {
-                    SuppressAutoOpenServerListPage = true;
-                    NavigationManager.OpenLibraryChooserPage();
-                }
-            }
         }
 
         #endregion
