@@ -87,6 +87,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Navigation\NavigationManager.cs" />
+    <Compile Include="NowPlayingPage.xaml.cs">
+      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageBases\DACPServerBoundPhoneApplicationPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converters\BooleanToStringConverter.cs" />
@@ -121,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NowPlayingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

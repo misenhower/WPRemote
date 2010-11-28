@@ -89,6 +89,11 @@ namespace Komodex.WP7DACPRemote
             RootVisual.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?id=" + albumID + "&name=" + albumName + "&artist=" + artistName + "&perid=" + albumPersistentID, UriKind.Relative));
         }
 
+        public static void OpenNowPlayingPage()
+        {
+            RootVisual.Navigate(new Uri("/NowPlayingPage.xaml", UriKind.Relative));
+        }
+
         #endregion
     }
 }

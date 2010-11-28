@@ -46,38 +46,6 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <controls:Pivot Title="{Binding Path=LibraryName}" Name="pivotControl" SelectionChanged="pivotControl_SelectionChanged">
-            <!--Pivot item one-->
-            <controls:PivotItem Header="now playing">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Border Grid.Row="0" Background="{StaticResource PhoneChromeBrush}" Width="300" Height="300" HorizontalAlignment="Left">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" />
-                    </Border>
-                    <Grid Grid.Row="1" Width="300" HorizontalAlignment="Left" Margin="0,2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ProgressBar Grid.Row="0" Grid.ColumnSpan="2" Value="{Binding Path=CurrentTrackTimePercentage}" Padding="0" IsEnabled="True" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=CurrentTrackTimePositionString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Left" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=CurrentTrackTimeRemainingString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Right" />
-                    </Grid>
-                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Name="stackPanel1" VerticalAlignment="Stretch">
-                        <TextBlock Height="30" Name="textBlock1" Text="{Binding Path=CurrentArtist}" />
-                        <TextBlock Height="30" Name="textBlock2" Text="{Binding Path=CurrentSongName}" FontWeight="Bold" />
-                        <TextBlock Height="30" Name="textBlock3" Text="{Binding Path=CurrentAlbum}" />
-                    </StackPanel>
-                </Grid>
-            </controls:PivotItem>
-            <!--Pivot item two-->
             <controls:PivotItem Header="artists" Name="pivotArtists">
                 <Grid>
                     <toolkit:LongListSelector x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding LibraryArtists}"
@@ -111,14 +79,11 @@
         </controls:Pivot>
     </Grid>
 
-    <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.rew.rest.png" Text="previous" Click="btnPrevious_Click" />
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.play.rest.png" Text="play/pause" Click="btnPlayPause_Click" />
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.ff.rest.png" Text="next" Click="btnNext_Click" />
+            <shell:ApplicationBarIconButton IconUri="/icons/appbar.nowplaying.png" Text="now playing" Click="btnNowPlaying_Click" />
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="settings" x:Name="mnuSettings" Click="mnuSettings_Click" />
+                <shell:ApplicationBarMenuItem Text="change library" x:Name="mnuSettings" Click="mnuSettings_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
