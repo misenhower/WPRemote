@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
-  <App xmlns="" ProductID="{6c3a2e1c-3cf5-4e3b-be75-c6a5a3b0c19f}" Title="Komodex.WP7DACPRemote" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Komodex.WP7DACPRemote author" Description="Sample description" Publisher="Komodex.WP7DACPRemote">
+  <App xmlns="" ProductID="{6c3a2e1c-3cf5-4e3b-be75-c6a5a3b0c19f}" Title="Remote" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Komodex Systems LLC" Description="Remote control for iTunes" Publisher="Komodex Systems LLC">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <!--<Capability Name="ID_CAP_GAMERSERVICES"/>-->
@@ -24,7 +24,7 @@
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>Komodex.WP7DACPRemote</Title>
+          <Title>Remote</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>
