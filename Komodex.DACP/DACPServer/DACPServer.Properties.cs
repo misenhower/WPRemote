@@ -154,7 +154,10 @@ namespace Komodex.DACP
                 if (adjustedMilliseconds > int.MaxValue || adjustedMilliseconds < int.MinValue)
                     return TrackTimeRemaining;
 
-                return TrackTimeRemaining - (int)adjustedMilliseconds;
+                int time = TrackTimeRemaining - (int)adjustedMilliseconds;
+                if (time < 0)
+                    return 0;
+                return time;
             }
             set { } // TODO
         }
