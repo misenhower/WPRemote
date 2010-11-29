@@ -57,6 +57,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             NavigationManager.OpenNowPlayingPage();
         }
 
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void mnuSettings_Click(object sender, EventArgs e)
         {
             NavigationManager.OpenLibraryChooserPage();
