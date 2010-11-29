@@ -192,6 +192,9 @@ namespace Delay
                     catch (WebException)
                     {
                         // Ignore web exceptions (ex: not found)
+
+                        // Enqueue a PendingCompletion with a null stream so any existing image is cleared out
+                        pendingCompletions.Enqueue(new PendingCompletion(responseState.Image, responseState.Uri, null));
                     }
                     // Yield to UI thread
                     Thread.Sleep(1);
@@ -206,6 +209,13 @@ namespace Delay
                         {
                             // Decode the image and set the source
                             var pendingCompletion = pendingCompletions.Dequeue();
+
+                            if (pendingCompletion.Stream == null)
+                            {
+                                pendingCompletion.Image.Source = null;
+                                continue;
+                            }
+
                             if (GetUriSource(pendingCompletion.Image) == pendingCompletion.Uri)
                             {
                                 var bitmap = new BitmapImage();

@@ -277,6 +277,12 @@ namespace Komodex.DACP
                 timerTrackTimeUpdate.Stop();
             });
 
+            string newSongName = null;
+            string newArtist = null;
+            string newAlbum = null;
+            int newTrackTimeTotal = 0;
+            int newTrackTimeRemaining = 0;
+
             foreach (var kvp in requestInfo.ResponseNodes)
             {
                 switch (kvp.Key)
@@ -285,13 +291,13 @@ namespace Komodex.DACP
                         playStatusRevisionNumber = kvp.Value.GetInt32Value();
                         break;
                     case "cann": // Song name
-                        CurrentSongName = kvp.Value.GetStringValue();
+                        newSongName = kvp.Value.GetStringValue();
                         break;
                     case "cana": // Artist
-                        CurrentArtist = kvp.Value.GetStringValue();
+                        newArtist = kvp.Value.GetStringValue();
                         break;
                     case "canl": // Album
-                        CurrentAlbum = kvp.Value.GetStringValue();
+                        newAlbum = kvp.Value.GetStringValue();
                         break;
                     case "caps": // Play status
                         PlayState = (PlayStates)kvp.Value[0];
@@ -303,16 +309,23 @@ namespace Komodex.DACP
                         RepeatState = (RepeatStates)kvp.Value[0];
                         break;
                     case "cast":
-                        TrackTimeTotal = kvp.Value.GetInt32Value();
+                        newTrackTimeTotal = kvp.Value.GetInt32Value();
                         break;
                     case "cant":
-                        TrackTimeUpdatedAt = DateTime.Now;
-                        TrackTimeRemaining = kvp.Value.GetInt32Value();
+                        newTrackTimeRemaining = kvp.Value.GetInt32Value();
                         break;
                     default:
                         break;
                 }
             }
+
+            // Set all the properties
+            CurrentSongName = newSongName;
+            CurrentArtist = newArtist;
+            CurrentAlbum = newAlbum;
+            TrackTimeTotal = newTrackTimeTotal;
+            TrackTimeRemaining = newTrackTimeRemaining;
+            TrackTimeUpdatedAt = DateTime.Now;
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
