@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using Microsoft.Phone.Shell;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -33,6 +34,58 @@ namespace Komodex.WP7DACPRemote
 
         #endregion
 
+        #region Standard Transport Application Bar
+
+        private ApplicationBarIconButton btnAppBarPreviousTrack = null;
+        private ApplicationBarIconButton btnAppBarPlayPause = null;
+        private ApplicationBarIconButton btnAppBarNextTrack = null;
+        private readonly Uri iconPlay = new Uri("/icons/appbar.transport.play.rest.png", UriKind.Relative);
+        private readonly Uri iconPause = new Uri("/icons/appbar.transport.pause.rest.png", UriKind.Relative);
+
+        protected bool UsesStandardTransportApplicationBar { get; private set; }
+
+        protected void InitializeStandardTransportApplicationBar()
+        {
+            btnAppBarPreviousTrack = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+            btnAppBarPreviousTrack.Click += new EventHandler(btnAppBarPreviousTrack_Click);
+            btnAppBarPlayPause = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+            btnAppBarPlayPause.Click += new EventHandler(btnAppBarPlayPause_Click);
+            btnAppBarNextTrack = (ApplicationBarIconButton)ApplicationBar.Buttons[2];
+            btnAppBarNextTrack.Click += new EventHandler(btnAppBarNextTrack_Click);
+
+            UsesStandardTransportApplicationBar = true;
+        }
+
+        private void UpdateTransportButtons()
+        {
+            if (!UsesStandardTransportApplicationBar)
+                return;
+
+            btnAppBarPreviousTrack.IsEnabled = btnAppBarPlayPause.IsEnabled = btnAppBarNextTrack.IsEnabled = (DACPServer.PlayState != PlayStates.Stopped);
+
+            if (DACPServer.PlayState == PlayStates.Playing)
+                btnAppBarPlayPause.IconUri = iconPause;
+            else
+                btnAppBarPlayPause.IconUri = iconPlay;
+        }
+
+        private void btnAppBarPreviousTrack_Click(object sender, EventArgs e)
+        {
+            DACPServer.SendPrevItemCommand();
+        }
+
+        private void btnAppBarNextTrack_Click(object sender, EventArgs e)
+        {
+            DACPServer.SendNextItemCommand();
+        }
+
+        private void btnAppBarPlayPause_Click(object sender, EventArgs e)
+        {
+            DACPServer.SendPlayPauseCommand();
+        }
+
+        #endregion
+
         #region Overrides
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -46,8 +99,8 @@ namespace Komodex.WP7DACPRemote
             else
                 AttachServerEvents();
 
+            UpdateTransportButtons();
             UpdateApplicationBarVisibility();
-
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -78,9 +131,9 @@ namespace Komodex.WP7DACPRemote
 
         protected virtual void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            // Do nothing
+            if (e.PropertyName == "PlayState")
+                UpdateTransportButtons();
         }
-
 
         #endregion
 

@@ -125,9 +125,9 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.rew.rest.png" Text="previous" Click="btnPrevious_Click" />
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.play.rest.png" Text="play/pause" Click="btnPlayPause_Click" />
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.ff.rest.png" Text="next" Click="btnNext_Click" />
+            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.rew.rest.png" Text="previous" />
+            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.play.rest.png" Text="play/pause" />
+            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.ff.rest.png" Text="next" />
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="change library" x:Name="mnuSettings" Click="mnuSettings_Click" />
             </shell:ApplicationBar.MenuItems>
