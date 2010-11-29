@@ -8,12 +8,43 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:delay="clr-namespace:Delay"
+    xmlns:msun="clr-namespace:Microsoft.Unsupported"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
+    msun:TiltEffect.IsTiltEnabled="True"
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
+	<app:DACPServerBoundPhoneApplicationPage.Resources>
+		<Style x:Key="BorderlessButtonStyle" TargetType="Button">
+			<Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
+            <Setter Property="Padding" Value="0,0,20,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Grid Background="Transparent">
+                            <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" Margin="{StaticResource PhoneTouchTargetOverhang}">
+                                <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style x:Key="ItemHeaderStyle" BasedOn="{StaticResource PhoneTextBlockBase}" TargetType="TextBlock">
+            <Setter Property="Margin" Value="12,0,12,6" />
+			<Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}"/>
+			<Setter Property="FontSize" Value="{StaticResource PhoneFontSizeExtraLarge}"/>
+		</Style>
+	</app:DACPServerBoundPhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -30,8 +61,33 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Button Content="TEMP - Now Playing" Height="72" HorizontalAlignment="Left" Margin="9,6,0,0" Name="btnNowPlaying" VerticalAlignment="Top" Width="380" Click="btnNowPlaying_Click" />
-            <Button Content="TEMP - Library" Height="72" HorizontalAlignment="Left" Margin="12,84,0,0" Name="btnLibrary" VerticalAlignment="Top" Width="380" Click="btnLibrary_Click" />
+            <StackPanel>
+                <Button Name="btnNowPlaying" Click="btnNowPlaying_Click" Style="{StaticResource BorderlessButtonStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Template="{StaticResource PlayButton}" />
+                        <TextBlock Text="now playing" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                        <TextBlock Text="Content here" Grid.Row="1" Grid.Column="1" />
+                    </Grid>
+                </Button>
+                <Button Name="btnLibrary" Click="btnLibrary_Click" Style="{StaticResource BorderlessButtonStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Template="{StaticResource PlayButton}" />
+                        <TextBlock Text="browse library" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                    </Grid>
+                </Button>
+            </StackPanel>
         </Grid>
     </Grid>
     
