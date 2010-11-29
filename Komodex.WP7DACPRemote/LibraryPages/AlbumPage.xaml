@@ -6,6 +6,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:delay="clr-namespace:Delay"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -14,9 +16,12 @@
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/AlbumSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="SongTemplate">
-            <StackPanel>
-                <TextBlock Text="{Binding Name}"/>
-            </StackPanel>
+            <Border Padding="12,6,12,12" Background="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </StackPanel>
+            </Border>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
@@ -35,7 +40,16 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="ListBox_SelectionChanged" />
+            <toolkit:LongListSelector IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="ListBox_SelectionChanged">
+                <toolkit:LongListSelector.ListHeader>
+                    <StackPanel Orientation="Horizontal" Margin="12,6,12,12">
+                        <Border Background="{StaticResource PhoneChromeBrush}" Width="175" Height="175" HorizontalAlignment="Left">
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                        </Border>
+                        <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                    </StackPanel>
+                </toolkit:LongListSelector.ListHeader>
+            </toolkit:LongListSelector>
         </Grid>
     </Grid>
  

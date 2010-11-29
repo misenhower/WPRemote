@@ -84,7 +84,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBox listBox = (ListBox)sender;
+            LongListSelector listBox = (LongListSelector)sender;
 
             Song song = listBox.SelectedItem as Song;
 
