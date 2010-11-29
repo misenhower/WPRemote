@@ -94,6 +94,11 @@ namespace Komodex.WP7DACPRemote
             RootVisual.Navigate(new Uri("/NowPlayingPage.xaml", UriKind.Relative));
         }
 
+        public static void OpenMainLibraryPage()
+        {
+            RootVisual.Navigate(new Uri("/LibraryPages/MainLibraryPage.xaml", UriKind.Relative));
+        }
+
         #endregion
     }
 }

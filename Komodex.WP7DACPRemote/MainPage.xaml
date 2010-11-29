@@ -1,91 +1,38 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
-    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"  
     x:Class="Komodex.WP7DACPRemote.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
-    xmlns:converters="clr-namespace:Komodex.WP7DACPRemote.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:delay="clr-namespace:Delay"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"  Orientation="Portrait"
+    SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
-    <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="ArtistTemplate">
-            <Border Padding="12,6,12,12" Background="Transparent">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="ArtistPlayButton_Click" />
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                </StackPanel>
-            </Border>
-        </DataTemplate>
-        <DataTemplate x:Key="AlbumTemplate">
-            <Border Padding="0,6,12,12" Background="Transparent">
-                <StackPanel Orientation="Horizontal">
-                    <Border Background="{StaticResource PhoneChromeBrush}" Width="175" Height="175" HorizontalAlignment="Left">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                    </Border>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                        <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" />
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-        </DataTemplate>
-    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <!--Pivot Control-->
-        <controls:Pivot Title="{Binding Path=LibraryName}" Name="pivotControl" SelectionChanged="pivotControl_SelectionChanged">
-            <controls:PivotItem Header="artists" Name="pivotArtists">
-                <Grid>
-                    <toolkit:LongListSelector x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding LibraryArtists}"
-                                              ItemTemplate="{StaticResource ArtistTemplate}"
-                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                              SelectionChanged="lbArtists_SelectionChanged">
-                        <toolkit:LongListSelector.GroupItemsPanel>
-                            <ItemsPanelTemplate>
-                                <toolkit:WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </toolkit:LongListSelector.GroupItemsPanel>
-                    </toolkit:LongListSelector>
-                </Grid>
-            </controls:PivotItem>
-            <controls:PivotItem Header="albums" Name="pivotAlbums">
-                <Grid >
-                    <toolkit:LongListSelector x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding LibraryAlbums}"
-                                              ItemTemplate="{StaticResource AlbumTemplate}"
-                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                              SelectionChanged="lbAlbums_SelectionChanged">
-                        <toolkit:LongListSelector.GroupItemsPanel>
-                            <ItemsPanelTemplate>
-                                <toolkit:WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </toolkit:LongListSelector.GroupItemsPanel>
-                    </toolkit:LongListSelector>
-                </Grid>
-            </controls:PivotItem>
-        </controls:Pivot>
-    </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.nowplaying.png" Text="now playing" Click="btnNowPlaying_Click" />
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="change library" x:Name="mnuSettings" Click="mnuSettings_Click" />
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=LibraryName}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="remote" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Button Content="TEMP - Now Playing" Height="72" HorizontalAlignment="Left" Margin="9,6,0,0" Name="btnNowPlaying" VerticalAlignment="Top" Width="380" Click="btnNowPlaying_Click" />
+            <Button Content="TEMP - Library" Height="72" HorizontalAlignment="Left" Margin="12,84,0,0" Name="btnLibrary" VerticalAlignment="Top" Width="380" Click="btnLibrary_Click" />
+        </Grid>
+    </Grid>
     
 </app:DACPServerBoundPhoneApplicationPage>
