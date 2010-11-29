@@ -78,6 +78,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             {
                 NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
             }
+
+            listBox.SelectedItem = null;
         }
 
         private void lbSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -91,6 +93,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 Artist.SendPlaySongCommand(song);
                 NavigationManager.OpenNowPlayingPage();
             }
+
+            listBox.SelectedItem = null;
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)

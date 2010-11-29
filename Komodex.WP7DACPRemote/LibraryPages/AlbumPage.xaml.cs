@@ -96,6 +96,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 Album.SendPlaySongCommand(song);
                 NavigationManager.OpenNowPlayingPage();
             }
+
+            listBox.SelectedItem = null;
         }
 
         #endregion
