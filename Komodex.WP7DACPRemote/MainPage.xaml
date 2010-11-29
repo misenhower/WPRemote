@@ -81,10 +81,9 @@
                             <Border Grid.Row="0" Background="{StaticResource PhoneChromeBrush}" Width="125" Height="125" HorizontalAlignment="Left">
                                 <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" />
                             </Border>
-                            <StackPanel Margin="6,0,0,0">
-                                <TextBlock Height="30" Text="{Binding Path=CurrentArtist}" />
-                                <TextBlock Height="30" Text="{Binding Path=CurrentSongName}" FontWeight="Bold" />
-                                <TextBlock Height="30" Text="{Binding Path=CurrentAlbum}" />
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=CurrentArtist}" Style="{StaticResource PhoneTextLargeStyle}" />
+                                <TextBlock Text="{Binding Path=CurrentSongName}" FontWeight="Normal" Style="{StaticResource PhoneTextNormalStyle}" FontSize="{StaticResource PhoneFontSizeMedium}" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>
