@@ -98,7 +98,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             if (artist != null)
             {
                 artist.SendPlaySongCommand();
-                pivotControl.SelectedIndex = 0;
+                NavigationManager.OpenNowPlayingPage();
             }
         }
 

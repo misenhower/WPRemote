@@ -89,7 +89,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             if (song != null)
             {
                 Artist.SendPlaySongCommand(song);
-                NavigationManager.OpenMainPage();
+                NavigationManager.OpenNowPlayingPage();
             }
         }
 
