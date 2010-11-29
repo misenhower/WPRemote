@@ -51,31 +51,34 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             base.OnNavigatedTo(e);
 
-            var queryString = NavigationContext.QueryString;
-
-            string albumIDString = queryString["id"];
-            string albumName = queryString["name"];
-            string artistName = queryString["artist"];
-            string albumPersistentIDString = queryString["perid"];
-
-            if (string.IsNullOrEmpty(albumName) || string.IsNullOrEmpty(artistName) || string.IsNullOrEmpty(albumIDString))
+            if (Album == null)
             {
-                NavigationService.GoBack();
-                return;
+                var queryString = NavigationContext.QueryString;
+
+                string albumIDString = queryString["id"];
+                string albumName = queryString["name"];
+                string artistName = queryString["artist"];
+                string albumPersistentIDString = queryString["perid"];
+
+                if (string.IsNullOrEmpty(albumName) || string.IsNullOrEmpty(artistName) || string.IsNullOrEmpty(albumIDString))
+                {
+                    NavigationService.GoBack();
+                    return;
+                }
+
+                int albumID;
+                UInt64 albumPersistentID;
+
+                if (!int.TryParse(albumIDString, out albumID) || !UInt64.TryParse(albumPersistentIDString, out albumPersistentID))
+                {
+                    NavigationService.GoBack();
+                    return;
+                }
+
+                Album = new Album(DACPServerManager.Server, albumID, albumName, artistName, albumPersistentID);
+                if (Album.Server != null && Album.Server.IsConnected)
+                    Album.GetSongs();
             }
-
-            int albumID;
-            UInt64 albumPersistentID;
-
-            if (!int.TryParse(albumIDString, out albumID) || !UInt64.TryParse(albumPersistentIDString, out albumPersistentID))
-            {
-                NavigationService.GoBack();
-                return;
-            }
-
-            Album = new Album(DACPServerManager.Server, albumID, albumName, artistName, albumPersistentID);
-            if (Album.Server != null && Album.Server.IsConnected)
-                Album.GetSongs();
         }
 
         #endregion

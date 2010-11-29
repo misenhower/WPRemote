@@ -51,14 +51,17 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             base.OnNavigatedTo(e);
 
-            string artistName = NavigationContext.QueryString["name"] as string;
-            if (string.IsNullOrEmpty(artistName))
+            if (Artist == null)
             {
-                NavigationService.GoBack();
-                return;
-            }
+                string artistName = NavigationContext.QueryString["name"] as string;
+                if (string.IsNullOrEmpty(artistName))
+                {
+                    NavigationService.GoBack();
+                    return;
+                }
 
-            Artist = new Artist(DACPServerManager.Server, artistName);
+                Artist = new Artist(DACPServerManager.Server, artistName);
+            }
         }
 
         #endregion
