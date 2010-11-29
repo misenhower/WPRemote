@@ -75,18 +75,20 @@
                         </Grid.ColumnDefinitions>
                         <ContentControl Template="{StaticResource iTunesIconButton}" />
                         <TextBlock Text="now playing" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
-                        <!--<Grid Grid.Row="1" Grid.Column="1">
-                            
-                        </Grid>-->
-                        <StackPanel Orientation="Horizontal" Margin="0,6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                            <Border Grid.Row="0" Background="{StaticResource PhoneChromeBrush}" Width="125" Height="125" HorizontalAlignment="Left">
+                        <Grid Margin="0,6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="125" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Background="{StaticResource PhoneChromeBrush}" Width="125" Height="125" HorizontalAlignment="Left">
                                 <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" />
                             </Border>
-                            <StackPanel>
+                            <StackPanel Grid.Column="1">
                                 <TextBlock Text="{Binding Path=CurrentArtist}" Style="{StaticResource PhoneTextLargeStyle}" />
                                 <TextBlock Text="{Binding Path=CurrentSongName}" FontWeight="Normal" Style="{StaticResource PhoneTextNormalStyle}" FontSize="{StaticResource PhoneFontSizeMedium}" />
                             </StackPanel>
-                        </StackPanel>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=CurrentTrackTimePositionOrPausedString}" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSubtleStyle}" />
+                        </Grid>
                     </Grid>
                 </Button>
                 <Button Name="btnLibrary" Click="btnLibrary_Click" Style="{StaticResource BorderlessButtonStyle}">
@@ -107,16 +109,6 @@
                         </Grid.ColumnDefinitions>
                         <ContentControl Template="{StaticResource SearchIconButton}" />
                         <TextBlock Text="search" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
-                    </Grid>
-                </Button>
-                <Button Name="btnSettings" Click="btnSettings_Click" Style="{StaticResource BorderlessButtonStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ContentControl Template="{StaticResource SettingsIconButton}" />
-                        <TextBlock Text="settings" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
             </StackPanel>

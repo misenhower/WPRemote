@@ -52,11 +52,6 @@ namespace Komodex.WP7DACPRemote
             
         }
 
-        private void btnSettings_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationManager.OpenLibraryChooserPage();
-        }
-
         private void mnuSettings_Click(object sender, EventArgs e)
         {
             NavigationManager.OpenLibraryChooserPage();

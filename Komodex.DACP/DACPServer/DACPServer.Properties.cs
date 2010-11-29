@@ -204,6 +204,23 @@ namespace Komodex.DACP
             }
         }
 
+        public string CurrentTrackTimePositionOrPausedString
+        {
+            get
+            {
+                switch (PlayState)
+                {
+                    case PlayStates.Playing:
+                        return CurrentTrackTimePositionString;
+                    case PlayStates.Paused:
+                        return "paused";
+                    case PlayStates.Stopped:
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
         private void SendTrackTimePropertyChanged()
         {
             SendPropertyChanged("TrackTimeTotal");
@@ -213,6 +230,7 @@ namespace Komodex.DACP
             SendPropertyChanged("CurrentTrackTimePercentage");
             SendPropertyChanged("CurrentTrackTimePositionString");
             SendPropertyChanged("CurrentTrackTimeRemainingString");
+            SendPropertyChanged("CurrentTrackTimePositionOrPausedString");
         }
 
         private DispatcherTimer timerTrackTimeUpdate = new DispatcherTimer();
@@ -236,6 +254,7 @@ namespace Komodex.DACP
                 _PlayState = value;
                 SendPropertyChanged("PlayState");
                 SendPropertyChanged("PlayStateBool");
+                SendTrackTimePropertyChanged();
             }
         }
 
