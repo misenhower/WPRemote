@@ -23,19 +23,11 @@ namespace Komodex.WP7DACPRemote
             get { return DataContext as DACPServer; }
             set
             {
-                if (DACPServer != null)
-                {
-                    DACPServer.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
-                    DACPServer.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
-                }
+                DetachServerEvents();
 
                 DataContext = value;
 
-                if (DACPServer != null)
-                {
-                    DACPServer.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
-                    DACPServer.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
-                }
+                AttachServerEvents();
             }
         }
 
@@ -49,7 +41,10 @@ namespace Komodex.WP7DACPRemote
 
             DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
 
-            DACPServer = DACPServerManager.Server;
+            if (DACPServer != DACPServerManager.Server)
+                DACPServer = DACPServerManager.Server;
+            else
+                AttachServerEvents();
 
             UpdateApplicationBarVisibility();
 
@@ -60,7 +55,7 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedFrom(e);
 
             DACPServerManager.ServerChanged -= new EventHandler(DACPServerManager_ServerChanged);
-            DACPServer = null;
+            DetachServerEvents();
         }
 
         #endregion
@@ -97,6 +92,24 @@ namespace Komodex.WP7DACPRemote
                 return;
 
             ApplicationBar.IsVisible = (DACPServer != null && DACPServer.IsConnected);
+        }
+
+        private void AttachServerEvents()
+        {
+            if (DACPServer != null)
+            {
+                DACPServer.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
+                DACPServer.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
+            }
+        }
+
+        private void DetachServerEvents()
+        {
+            if (DACPServer != null)
+            {
+                DACPServer.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
+                DACPServer.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
+            }
         }
 
         #endregion
