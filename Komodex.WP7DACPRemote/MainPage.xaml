@@ -24,7 +24,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
-            <Setter Property="Padding" Value="0,0,20,0"/>
+            <Setter Property="Padding" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Stretch" />
 			<Setter Property="Template">
@@ -74,7 +74,19 @@
                         </Grid.ColumnDefinitions>
                         <Button Template="{StaticResource PlayButton}" />
                         <TextBlock Text="now playing" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
-                        <TextBlock Text="Content here" Grid.Row="1" Grid.Column="1" />
+                        <!--<Grid Grid.Row="1" Grid.Column="1">
+                            
+                        </Grid>-->
+                        <StackPanel Orientation="Horizontal" Margin="12,6,0,0" Grid.Row="1" Grid.Column="1">
+                            <Border Grid.Row="0" Background="{StaticResource PhoneChromeBrush}" Width="125" Height="125" HorizontalAlignment="Left">
+                                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" />
+                            </Border>
+                            <StackPanel Margin="6,0,0,0">
+                                <TextBlock Height="30" Text="{Binding Path=CurrentArtist}" />
+                                <TextBlock Height="30" Text="{Binding Path=CurrentSongName}" FontWeight="Bold" />
+                                <TextBlock Height="30" Text="{Binding Path=CurrentAlbum}" />
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
                 </Button>
                 <Button Name="btnLibrary" Click="btnLibrary_Click" Style="{StaticResource BorderlessButtonStyle}">
@@ -85,6 +97,26 @@
                         </Grid.ColumnDefinitions>
                         <Button Template="{StaticResource PlayButton}" />
                         <TextBlock Text="browse library" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                    </Grid>
+                </Button>
+                <Button Style="{StaticResource BorderlessButtonStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Template="{StaticResource PlayButton}" />
+                        <TextBlock Text="search" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                    </Grid>
+                </Button>
+                <Button Style="{StaticResource BorderlessButtonStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Template="{StaticResource PlayButton}" />
+                        <TextBlock Text="settings" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
             </StackPanel>
