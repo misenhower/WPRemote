@@ -1,4 +1,5 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls" 
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
     x:Class="Komodex.WP7DACPRemote.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -72,7 +73,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Template="{StaticResource PlayButton}" />
+                        <ContentControl Template="{StaticResource iTunesIconButton}" />
                         <TextBlock Text="now playing" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                         <!--<Grid Grid.Row="1" Grid.Column="1">
                             
@@ -94,7 +95,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Template="{StaticResource PlayButton}" />
+                        <ContentControl Template="{StaticResource BrowseLibraryIconButton}" />
                         <TextBlock Text="browse library" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
@@ -104,7 +105,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Template="{StaticResource PlayButton}" />
+                        <ContentControl Template="{StaticResource SearchIconButton}" />
                         <TextBlock Text="search" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
@@ -114,7 +115,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Template="{StaticResource PlayButton}" />
+                        <ContentControl Template="{StaticResource SettingsIconButton}" />
                         <TextBlock Text="settings" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>

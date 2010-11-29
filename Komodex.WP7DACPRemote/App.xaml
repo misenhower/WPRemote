@@ -17,6 +17,64 @@
             </Canvas>
     	</ControlTemplate>
 
+        <!-- Icon Control Templates -->
+        <ControlTemplate x:Key="iTunesIconButton" TargetType="ContentControl">
+            <Canvas Width="48" Height="48">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/custom.appbar.itunes.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
+        <ControlTemplate x:Key="BrowseLibraryIconButton" TargetType="ContentControl">
+            <Canvas Width="48" Height="48">
+                <!--<Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/custom.appbar.itunes.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>-->
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SearchIconButton" TargetType="ContentControl">
+            <Canvas Width="48" Height="48">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/appbar.feature.search.rest.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SettingsIconButton" TargetType="ContentControl">
+            <Canvas Width="48" Height="48">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/appbar.feature.settings.rest.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
+
         <!-- Converters -->
         <converters:BooleanToAccentBrushConverter x:Name="booleanToAccentBrushConverter" />
 
