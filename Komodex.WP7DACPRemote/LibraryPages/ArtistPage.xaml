@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:delay="clr-namespace:Delay"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -14,11 +15,27 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/ArtistSampleData.xaml}">
 	<phone:PhoneApplicationPage.Resources>
-		<DataTemplate x:Key="AlbumTemplate">
-			<StackPanel>
-				<TextBlock Text="{Binding Name}"/>
-			</StackPanel>
-		</DataTemplate>
+        <DataTemplate x:Key="AlbumTemplate">
+            <Border Padding="12,6,12,12" Background="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Border Background="{StaticResource PhoneChromeBrush}" Width="175" Height="175" HorizontalAlignment="Left">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    </Border>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                        <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="SongTemplate">
+            <Border Padding="12,6,12,12" Background="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -35,7 +52,7 @@
             <!--Pivot item two-->
             <controls:PivotItem x:Name="pivotSongs" Header="songs">
                 <Grid>
-                    <ListBox x:Name="lbSongs" ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" />
+                    <ListBox x:Name="lbSongs" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

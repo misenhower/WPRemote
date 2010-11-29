@@ -28,7 +28,7 @@
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="AlbumTemplate">
-            <Border Padding="0,6,12,12" Background="Transparent">
+            <Border Padding="12,6,12,12" Background="Transparent">
                 <StackPanel Orientation="Horizontal">
                     <Border Background="{StaticResource PhoneChromeBrush}" Width="175" Height="175" HorizontalAlignment="Left">
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />

@@ -33,7 +33,7 @@
         </DataTemplate>
         
         <DataTemplate x:Name="GroupHeaderTemplate">
-            <Border Background="Transparent">
+            <Border Background="Transparent" Padding="12,0,0,0">
                 <Border Background="{StaticResource PhoneAccentBrush}" Width="75" Height="75" HorizontalAlignment="Left">
                     <TextBlock Text="{Binding Key}" 
                         Foreground="{StaticResource PhoneForegroundBrush}" 
