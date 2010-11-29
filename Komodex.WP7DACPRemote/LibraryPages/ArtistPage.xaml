@@ -30,10 +30,19 @@
         </DataTemplate>
         <DataTemplate x:Key="SongTemplate">
             <Border Padding="12,6,12,12" Background="Transparent">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Button" Grid.Row="0" Grid.Column="0" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                </Grid>
             </Border>
         </DataTemplate>
 	</phone:PhoneApplicationPage.Resources>

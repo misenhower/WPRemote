@@ -30,6 +30,8 @@ namespace Komodex.DACP.Library
         #region Properties
 
         public string Name { get; protected set; }
+        public string ArtistName { get; protected set; }
+        public string AlbumName { get; protected set; }
 
         #endregion
 
@@ -42,8 +44,14 @@ namespace Komodex.DACP.Library
             {
                 switch (kvp.Key)
                 {
-                    case "minm":
+                    case "minm": // Name
                         Name = kvp.Value.GetStringValue();
+                        break;
+                    case "asar": // Artist name
+                        ArtistName = kvp.Value.GetStringValue();
+                        break;
+                    case "asal": // Album name
+                        AlbumName = kvp.Value.GetStringValue();
                         break;
                     default:
                         break;
