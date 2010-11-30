@@ -91,8 +91,17 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             {
                 string uri = toOrFrom.OriginalString;
 
-                if (uri.Contains("MainLibraryPage") || uri.Contains("ArtistPage"))
-                    return GetContinuumAnimation(LayoutRoot, animationType);
+                if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
+                {
+                    if (uri.Contains("MainLibraryPage") || uri.Contains("ArtistPage"))
+                        return GetContinuumAnimation(LayoutRoot, animationType);
+                }
+                else if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
+                {
+                    if (uri.Contains("ArtistPage"))
+                        return GetContinuumAnimation(btnArtist, animationType);
+                }
+                
             }
 
             return base.GetAnimation(animationType, toOrFrom);
@@ -101,6 +110,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         #endregion
 
         #region Actions
+
+        private void btnArtist_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationManager.OpenArtistPage(Album.ArtistName);
+        }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
