@@ -15,7 +15,7 @@ using System.Diagnostics;
 
 namespace Komodex.DACP
 {
-    public static class Utility
+    internal static class Utility
     {
         public static void DebugWrite(string message)
         {
