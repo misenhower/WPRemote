@@ -32,7 +32,7 @@
         	<Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
         	<Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
-            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeExtraLarge}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
             <Setter Property="Padding" Value="0"/>
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
@@ -40,7 +40,7 @@
         		<Setter.Value>
         			<ControlTemplate TargetType="Button">
         				<Grid Background="Transparent">
-        					<Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" Margin="{StaticResource PhoneTouchTargetOverhang}">
+        					<Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0">
         						<ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
         					</Border>
         				</Grid>
@@ -76,7 +76,7 @@
                             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                         </Border>
                         <Button Grid.Column="1" Style="{StaticResource BorderlessButtonStyle}">
-                            <TextBlock Text="{Binding ArtistName}" TextWrapping="Wrap" MaxHeight="115" />
+                            <TextBlock Text="{Binding ArtistName}" TextWrapping="Wrap" MaxHeight="115" Style="{StaticResource PhoneTextExtraLargeStyle}" />
                         </Button>
                     </Grid>
                 </toolkit:LongListSelector.ListHeader>
