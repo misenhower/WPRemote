@@ -12,14 +12,18 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP.Library;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using Clarity.Phone.Controls;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
-    public partial class AlbumPage : PhoneApplicationPage
+    public partial class AlbumPage : AnimatedBasePage
     {
         public AlbumPage()
         {
             InitializeComponent();
+
+            AnimationContext = LayoutRoot;
         }
 
         #region Properties
@@ -81,6 +85,19 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
         }
 
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            if (toOrFrom != null)
+            {
+                string uri = toOrFrom.OriginalString;
+
+                if (uri.Contains("MainLibraryPage") || uri.Contains("ArtistPage"))
+                    return GetContinuumAnimation(LayoutRoot, animationType);
+            }
+
+            return base.GetAnimation(animationType, toOrFrom);
+        }
+
         #endregion
 
         #region Actions
@@ -98,6 +115,29 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
 
             listBox.SelectedItem = null;
+        }
+
+        #endregion
+
+        #region Methods
+
+        private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
+        {
+            if (listSelector.SelectedItem != null)
+            {
+                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
+                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
+
+                if (animationType == AnimationType.NavigateBackwardIn)
+                    listSelector.SelectedItem = null;
+
+                if (contentPresenter != null)
+                {
+                    return GetContinuumAnimation(contentPresenter, animationType);
+                }
+            }
+
+            return base.GetAnimation(animationType, toOrFrom);
         }
 
         #endregion

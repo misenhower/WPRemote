@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP.Library;
 using Komodex.DACP;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -31,6 +32,21 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             base.OnNavigatedTo(e);
 
             GetDataForPivotItem();
+        }
+
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            if (toOrFrom != null)
+            {
+                string uri = toOrFrom.OriginalString;
+
+                if (uri.Contains("ArtistPage"))
+                    return GetListSelectorAnimation(lbArtists, animationType, toOrFrom);
+                if (uri.Contains("AlbumPage"))
+                    return GetListSelectorAnimation(lbAlbums, animationType, toOrFrom);
+            }
+
+            return base.GetAnimation(animationType, toOrFrom);
         }
 
         #endregion
@@ -92,8 +108,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             {
                 NavigationManager.OpenArtistPage(artist.Name);
             }
-
-            listBox.SelectedItem = null;
         }
 
         private void ArtistPlayButton_Click(object sender, RoutedEventArgs e)
@@ -121,8 +135,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             {
                 NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
             }
-
-            listBox.SelectedItem = null;
         }
 
         #endregion
@@ -146,6 +158,25 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
         }
 
+        private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
+        {
+            if (listSelector.SelectedItem != null)
+            {
+                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
+                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
+
+                if (animationType == AnimationType.NavigateBackwardIn)
+                    listSelector.SelectedItem = null;
+
+                if (contentPresenter != null)
+                {
+                    return GetContinuumAnimation(contentPresenter, animationType);
+                }
+            }
+
+            return base.GetAnimation(animationType, toOrFrom);
+        }
+        
         #endregion
     }
 }

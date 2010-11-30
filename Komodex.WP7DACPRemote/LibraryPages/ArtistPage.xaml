@@ -1,4 +1,5 @@
-﻿<phone:PhoneApplicationPage 
+﻿<cc:AnimatedBasePage
+    xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.ArtistPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,13 +9,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:delay="clr-namespace:Delay"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/ArtistSampleData.xaml}">
-	<phone:PhoneApplicationPage.Resources>
+    <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="AlbumTemplate">
             <Border Padding="12,6,12,12" Background="Transparent">
                 <StackPanel Orientation="Horizontal">
@@ -45,7 +47,7 @@
                 </Grid>
             </Border>
         </DataTemplate>
-	</phone:PhoneApplicationPage.Resources>
+    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -54,14 +56,14 @@
             <!--Pivot item one-->
             <controls:PivotItem x:Name="pivotAlbums" Header="albums">
                 <Grid>
-                	<ListBox x:Name="lbAlbums" ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}" SelectionChanged="lbAlbums_SelectionChanged" />
+                    <toolkit:LongListSelector x:Name="lbAlbums" IsFlatList="True" ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}" SelectionChanged="lbAlbums_SelectionChanged" />
                 </Grid>
             </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem x:Name="pivotSongs" Header="songs">
                 <Grid>
-                    <ListBox x:Name="lbSongs" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" />
+                    <toolkit:LongListSelector x:Name="lbSongs" IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
@@ -79,4 +81,4 @@
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>-->
     
-</phone:PhoneApplicationPage>
+</cc:AnimatedBasePage>

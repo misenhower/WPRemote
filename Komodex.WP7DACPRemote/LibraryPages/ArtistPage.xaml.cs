@@ -12,14 +12,18 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP.Library;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using Clarity.Phone.Controls;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
-    public partial class ArtistPage : PhoneApplicationPage
+    public partial class ArtistPage : AnimatedBasePage
     {
         public ArtistPage()
         {
             InitializeComponent();
+
+            AnimationContext = LayoutRoot;
         }
 
         #region Properties
@@ -64,13 +68,28 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
         }
 
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            if (toOrFrom != null)
+            {
+                string uri = toOrFrom.OriginalString;
+
+                if (uri.Contains("AlbumPage"))
+                    return GetListSelectorAnimation(lbAlbums, animationType, toOrFrom);
+                if (uri.Contains("MainLibraryPage"))
+                    return GetContinuumAnimation(LayoutRoot, animationType);
+            }
+
+            return base.GetAnimation(animationType, toOrFrom);
+        }
+
         #endregion
 
         #region Actions
 
         private void lbAlbums_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBox listBox = (ListBox)sender;
+            LongListSelector listBox = (LongListSelector)sender;
 
             Album album = listBox.SelectedItem as Album;
 
@@ -78,13 +97,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             {
                 NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
             }
-
-            listBox.SelectedItem = null;
         }
 
         private void lbSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBox listBox = (ListBox)sender;
+            LongListSelector listBox = (LongListSelector)sender;
 
             Song song = listBox.SelectedItem as Song;
 
@@ -121,6 +138,25 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 if (Artist.Songs == null || Artist.Songs.Count == 0)
                     Artist.GetSongs();
             }
+        }
+
+        private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
+        {
+            if (listSelector.SelectedItem != null)
+            {
+                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
+                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
+
+                if (animationType == AnimationType.NavigateBackwardIn)
+                    listSelector.SelectedItem = null;
+
+                if (contentPresenter != null)
+                {
+                    return GetContinuumAnimation(contentPresenter, animationType);
+                }
+            }
+
+            return base.GetAnimation(animationType, toOrFrom);
         }
 
         #endregion
