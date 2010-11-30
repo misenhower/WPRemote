@@ -325,7 +325,6 @@ namespace Komodex.DACP
             CurrentAlbum = newAlbum;
             TrackTimeTotal = newTrackTimeTotal;
             TrackTimeRemaining = newTrackTimeRemaining;
-            TrackTimeUpdatedAt = DateTime.Now;
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
@@ -380,6 +379,9 @@ namespace Komodex.DACP
 
         public void SendPrevItemCommand()
         {
+            // If the track doesn't change, iTunes won't send a status update
+            TrackTimeRemaining = TrackTimeTotal;
+
             string url = "/ctrl-int/1/previtem?session-id=" + SessionID;
             SubmitHTTPRequest(url);
         }

@@ -116,35 +116,26 @@ namespace Komodex.DACP
             }
         }
 
+        private DateTime _trackTimeUpdatedAt = DateTime.MinValue;
         private int _TrackTimeRemaining = 0;
         public int TrackTimeRemaining
         {
             get { return _TrackTimeRemaining; }
             protected set
             {
-                if (_TrackTimeRemaining == value)
-                    return;
+                // Removing this for now because of issue with repeated SendPrevItemCommand calls
+                //if (_TrackTimeRemaining == value)
+                //    return;
 
                 if (value < 0)
                     value = 0;
 
                 _TrackTimeRemaining = value;
+                _trackTimeUpdatedAt = DateTime.Now;
                 SendTrackTimePropertyChanged();
             }
         }
 
-        private DateTime _TrackTimeUpdatedAt = DateTime.MinValue;
-        public DateTime TrackTimeUpdatedAt
-        {
-            get { return _TrackTimeUpdatedAt; }
-            protected set
-            {
-                if (_TrackTimeUpdatedAt == value)
-                    return;
-                _TrackTimeUpdatedAt = value;
-                SendPropertyChanged("TrackTimeUpdatedAt");
-            }
-        }
 
         public int CurrentTrackTimeRemaining
         {
@@ -153,7 +144,7 @@ namespace Komodex.DACP
                 if (PlayState != PlayStates.Playing)
                     return TrackTimeRemaining;
 
-                double adjustedMilliseconds = (DateTime.Now - TrackTimeUpdatedAt).TotalMilliseconds;
+                double adjustedMilliseconds = (DateTime.Now - _trackTimeUpdatedAt).TotalMilliseconds;
                 if (adjustedMilliseconds > int.MaxValue || adjustedMilliseconds < int.MinValue)
                     return TrackTimeRemaining;
 
