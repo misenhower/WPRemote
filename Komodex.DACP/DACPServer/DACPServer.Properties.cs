@@ -177,7 +177,7 @@ namespace Komodex.DACP
             }
         }
 
-        private const string timeFormat = "{0}:{1:00}";
+        private readonly string timeFormat = "{0}:{1:00}";
         private readonly string timeFormatHours = "{0}:{1:00}:{2:00}";
 
         public string CurrentTrackTimePositionString
