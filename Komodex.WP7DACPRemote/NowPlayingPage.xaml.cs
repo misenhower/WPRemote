@@ -22,6 +22,8 @@ namespace Komodex.WP7DACPRemote
             InitializeComponent();
 
             InitializeStandardTransportApplicationBar();
+
+            AnimationContext = LayoutRoot;
         }
 
         #region Overrides

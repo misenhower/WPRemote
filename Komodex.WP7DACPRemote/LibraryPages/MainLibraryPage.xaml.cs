@@ -20,6 +20,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         public MainLibraryPage()
         {
             InitializeComponent();
+
+            AnimationContext = LayoutRoot;
         }
 
         #region Overrides

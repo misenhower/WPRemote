@@ -12,10 +12,11 @@ using Microsoft.Phone.Controls;
 using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Microsoft.Phone.Shell;
+using Clarity.Phone.Controls;
 
 namespace Komodex.WP7DACPRemote
 {
-    public class DACPServerBoundPhoneApplicationPage : PhoneApplicationPage
+    public class DACPServerBoundPhoneApplicationPage : AnimatedBasePage
     {
         #region Properties
 
@@ -61,9 +62,18 @@ namespace Komodex.WP7DACPRemote
             if (!UsesStandardTransportApplicationBar)
                 return;
 
-            btnAppBarPreviousTrack.IsEnabled = btnAppBarPlayPause.IsEnabled = btnAppBarNextTrack.IsEnabled = (DACPServer.PlayState != PlayStates.Stopped);
+            bool isStopped = true;
+            bool isPlaying = false;
 
-            if (DACPServer.PlayState == PlayStates.Playing)
+            if (DACPServer != null)
+            {
+                isStopped = (DACPServer.PlayState == PlayStates.Stopped);
+                isPlaying = (DACPServer.PlayState == PlayStates.Playing);
+            }
+
+            btnAppBarPreviousTrack.IsEnabled = btnAppBarPlayPause.IsEnabled = btnAppBarNextTrack.IsEnabled = !isStopped;
+
+            if (isPlaying)
                 btnAppBarPlayPause.IconUri = iconPause;
             else
                 btnAppBarPlayPause.IconUri = iconPlay;

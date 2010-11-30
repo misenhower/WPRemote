@@ -195,6 +195,10 @@
       <Project>{A51EFB9B-7F1C-4237-AFA0-CB61340036A3}</Project>
       <Name>Komodex.DACP</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\Clarity.PageTransitions\Clarity.PageTransitions.csproj">
+      <Project>{E93D0C03-BC16-4F65-821D-3F823AEAA2DC}</Project>
+      <Name>Clarity.PageTransitions</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <DesignData Include="SampleData\AlbumSampleData.xaml">
