@@ -10,7 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
     xmlns:delay="clr-namespace:Delay"
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -58,6 +58,9 @@
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
+                        <toolkit:LongListSelector.ListFooter>
+                            <Border Height="72" />
+                        </toolkit:LongListSelector.ListFooter>
                     </toolkit:LongListSelector>
                 </Grid>
             </controls:PivotItem>
@@ -73,6 +76,9 @@
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
+                        <toolkit:LongListSelector.ListFooter>
+                            <Border Height="72" />
+                        </toolkit:LongListSelector.ListFooter>
                     </toolkit:LongListSelector>
                 </Grid>
             </controls:PivotItem>
@@ -80,7 +86,7 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5">
             <shell:ApplicationBarIconButton IconUri="/icons/custom.appbar.itunes.png" Text="now playing" Click="btnNowPlaying_Click" />
             <shell:ApplicationBarIconButton IconUri="/icons/appbar.feature.search.rest.png" Text="search" Click="btnSearch_Click" />
             <shell:ApplicationBar.MenuItems>
