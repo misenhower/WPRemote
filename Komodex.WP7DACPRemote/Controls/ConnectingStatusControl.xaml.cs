@@ -105,7 +105,7 @@ namespace Komodex.WP7DACPRemote.Controls
                 if (DACPServer == null)
                 {
                     ShowProgressBar = false;
-                    LibraryConnectionText = "Tap \"Change Library\" to select or add a new library.";
+                    LibraryConnectionText = "Tap \"Choose Library\" to select or add a new library.";
                     LibraryName = string.Empty;
                 }
                 else if (!DACPServer.IsConnected)

@@ -23,6 +23,6 @@
             <TextBlock Name="tbLibraryConnectionText" Text="Connecting to Library" TextAlignment="Center" TextWrapping="Wrap" />
             <TextBlock Name="tbLibraryName" Style="{StaticResource PhoneTextAccentStyle}" TextAlignment="Center" />
         </StackPanel>
-        <Button Content="Change Library..." Grid.Row="1" Height="72" HorizontalAlignment="Center" Name="btnAction" VerticalAlignment="Center" Margin="0,0,0,30" Click="btnAction_Click" />
+        <Button Content="Choose Library..." Grid.Row="1" Height="72" HorizontalAlignment="Center" Name="btnAction" VerticalAlignment="Center" Margin="0,0,0,30" Click="btnAction_Click" />
     </Grid>
 </UserControl>

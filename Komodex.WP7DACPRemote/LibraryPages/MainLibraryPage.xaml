@@ -90,7 +90,7 @@
             <shell:ApplicationBarIconButton IconUri="/icons/custom.appbar.itunes.png" Text="now playing" Click="btnNowPlaying_Click" />
             <shell:ApplicationBarIconButton IconUri="/icons/appbar.feature.search.rest.png" Text="search" Click="btnSearch_Click" />
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="change library" x:Name="mnuSettings" Click="mnuSettings_Click" />
+                <shell:ApplicationBarMenuItem Text="choose library" x:Name="mnuSettings" Click="mnuSettings_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
