@@ -281,7 +281,7 @@ namespace Komodex.DACP
             string newArtist = null;
             string newAlbum = null;
             int newTrackTimeTotal = 0;
-            int newTrackTimeRemaining = 0;
+            int? newTrackTimeRemaining = null;
 
             foreach (var kvp in requestInfo.ResponseNodes)
             {
@@ -308,10 +308,10 @@ namespace Komodex.DACP
                     case "carp": // Repeat status
                         RepeatState = (RepeatStates)kvp.Value[0];
                         break;
-                    case "cast":
+                    case "cast": // Track length (ms)
                         newTrackTimeTotal = kvp.Value.GetInt32Value();
                         break;
-                    case "cant":
+                    case "cant": // Remaining track length (ms)
                         newTrackTimeRemaining = kvp.Value.GetInt32Value();
                         break;
                     default:
@@ -324,7 +324,7 @@ namespace Komodex.DACP
             CurrentArtist = newArtist;
             CurrentAlbum = newAlbum;
             TrackTimeTotal = newTrackTimeTotal;
-            TrackTimeRemaining = newTrackTimeRemaining;
+            TrackTimeRemaining = newTrackTimeRemaining ?? newTrackTimeTotal;
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {

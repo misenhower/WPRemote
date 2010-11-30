@@ -209,6 +209,9 @@ namespace Komodex.DACP
                     case PlayStates.Paused:
                         return "paused";
                     case PlayStates.Stopped:
+                        if (CurrentSongName != null)
+                            return "paused";
+                        goto default;
                     default:
                         return string.Empty;
                 }

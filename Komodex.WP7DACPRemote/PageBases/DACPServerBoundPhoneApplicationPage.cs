@@ -67,7 +67,7 @@ namespace Komodex.WP7DACPRemote
 
             if (DACPServer != null)
             {
-                isStopped = (DACPServer.PlayState == PlayStates.Stopped);
+                isStopped = (DACPServer.PlayState == PlayStates.Stopped && DACPServer.CurrentSongName == null);
                 isPlaying = (DACPServer.PlayState == PlayStates.Playing);
             }
 
