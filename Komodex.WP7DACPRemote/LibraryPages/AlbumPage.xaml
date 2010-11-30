@@ -1,4 +1,5 @@
 ﻿<cc:AnimatedBasePage
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls" 
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.AlbumPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -20,10 +21,12 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="SongTemplate">
             <Border Padding="12,6,12,12" Background="Transparent">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                </StackPanel>
+                <my:FakeButton>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    </StackPanel>
+                </my:FakeButton>
             </Border>
         </DataTemplate>
         <Style x:Key="BorderlessButtonStyle" TargetType="Button">

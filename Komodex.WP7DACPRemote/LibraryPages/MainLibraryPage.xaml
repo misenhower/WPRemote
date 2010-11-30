@@ -1,4 +1,5 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.MainLibraryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -10,6 +11,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
     xmlns:delay="clr-namespace:Delay"
+    xmlns:msun="clr-namespace:Microsoft.Unsupported"
+    msun:TiltEffect.IsTiltEnabled="True"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -20,25 +23,29 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ArtistTemplate">
-            <Border Padding="12,6,12,12" Background="Transparent">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="ArtistPlayButton_Click" />
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                </StackPanel>
-            </Border>
+            <my:FakeButton>
+                <Border Padding="12,6,12,12" Background="Transparent">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="ArtistPlayButton_Click" />
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    </StackPanel>
+                </Border>
+            </my:FakeButton>
         </DataTemplate>
         <DataTemplate x:Key="AlbumTemplate">
-            <Border Padding="12,6,12,12" Background="Transparent">
-                <StackPanel Orientation="Horizontal">
-                    <Border Background="{StaticResource PhoneChromeBrush}" Width="175" Height="175" HorizontalAlignment="Left">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                    </Border>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                        <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" />
+            <my:FakeButton>
+                <Border Padding="12,6,12,12" Background="Transparent">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="{StaticResource PhoneChromeBrush}" Width="175" Height="175" HorizontalAlignment="Left">
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                        </Border>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                            <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Border>
+                </Border>
+            </my:FakeButton>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 

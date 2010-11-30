@@ -36,7 +36,7 @@ namespace Microsoft.Unsupported
         static TiltEffect()
         {
             // For extra fun, add this to the list: typeof(Microsoft.Phone.Controls.PhoneApplicationPage)
-            TiltableItems = new List<Type>() { typeof(ButtonBase), typeof(ListBoxItem), };
+            TiltableItems = new List<Type>() { typeof(ButtonBase), typeof(ListBoxItem), typeof(Komodex.WP7DACPRemote.Controls.FakeButton), };
             UseLogarithmicEase = false;
         }
 
