@@ -51,12 +51,12 @@ namespace Komodex.DACP
             }
         }
 
+#if DEBUG
+
         private void PrintDebugBytes()
         {
             PrintDebugBytes(ResponseCode, ResponseBody, 1);
         }
-
-#if DEBUG
 
         private void PrintDebugBytes(string code, byte[] body, int tabLevel)
         {
