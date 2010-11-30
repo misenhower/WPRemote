@@ -1,4 +1,5 @@
-﻿<phone:PhoneApplicationPage 
+﻿<cc:AnimatedBasePage
+    xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"  
     x:Class="Komodex.WP7DACPRemote.DACPServerInfoManagement.AddLibraryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -54,4 +55,4 @@
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
-</phone:PhoneApplicationPage>
+</cc:AnimatedBasePage>

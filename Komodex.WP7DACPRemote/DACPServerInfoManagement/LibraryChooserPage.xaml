@@ -1,4 +1,6 @@
-﻿<phone:PhoneApplicationPage xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"  
+﻿<cc:AnimatedBasePage
+    xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"  
     x:Class="Komodex.WP7DACPRemote.DACPServerInfoManagement.LibraryChooserPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,11 +8,13 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:msun="clr-namespace:Microsoft.Unsupported"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
+    msun:TiltEffect.IsTiltEnabled="True"
     shell:SystemTray.IsVisible="True">
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="DACPServerInfoTemplate">
@@ -35,19 +39,20 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="CHOOSE A LIBRARY" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <!--<TextBlock x:Name="PageTitle" Text="choose a library" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
+            <TextBlock x:Name="ApplicationTitle" Text="REMOTE" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="choose library" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Items}" Margin="0" ItemTemplate="{StaticResource DACPServerInfoTemplate}" SelectionChanged="ListBox_SelectionChanged" /></Grid>
+            <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Items}" Margin="0" ItemTemplate="{StaticResource DACPServerInfoTemplate}" SelectionChanged="ListBox_SelectionChanged" />
+        </Grid>
     </Grid>
- 
+
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/icons/appbar.new.rest.png" Text="add" x:Name="btnNew" Click="btnNew_Click" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
-</phone:PhoneApplicationPage>
+</cc:AnimatedBasePage>

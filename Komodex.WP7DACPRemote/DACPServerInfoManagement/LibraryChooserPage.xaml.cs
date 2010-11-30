@@ -12,17 +12,20 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Unsupported;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using Clarity.Phone.Controls;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
-    public partial class LibraryChooserPage : PhoneApplicationPage
+    public partial class LibraryChooserPage : AnimatedBasePage
     {
         public LibraryChooserPage()
         {
             InitializeComponent();
 
-            TiltEffect.SetIsTiltEnabled(this, true);
             DataContext = DACPServerViewModel.Instance;
+
+            AnimationContext = LayoutRoot;
         }
 
         #region Static Properties
@@ -40,13 +43,14 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
-
             if (!SuppressAutoOpenAddNewServerPage && DACPServerViewModel.Instance.Items.Count == 0)
             {
                 SuppressAutoOpenAddNewServerPage = true; // This needs to be set to false at some point
                 NavigationManager.OpenAddNewServerPage();
+                return;
             }
+
+            base.OnNavigatedTo(e);
         }
 
         #endregion

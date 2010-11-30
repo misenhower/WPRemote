@@ -13,10 +13,11 @@ using Microsoft.Phone.Controls;
 using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using System.Text.RegularExpressions;
+using Clarity.Phone.Controls;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
-    public partial class AddLibraryPage : PhoneApplicationPage
+    public partial class AddLibraryPage : AnimatedBasePage
     {
         DACPServerInfo serverInfo = null;
         DACPServer server = null;
@@ -28,6 +29,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             serverInfo = new DACPServerInfo();
             serverInfo.ID = Guid.NewGuid();
             DataContext = serverInfo;
+
+            AnimationContext = LayoutRoot;
         }
 
         #region AppBar Button Handlers
