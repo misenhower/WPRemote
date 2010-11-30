@@ -295,32 +295,39 @@ namespace Clarity.Phone.Controls
             AnimationsComplete(_currentAnimationType);
         }
 
-        public AnimatorHelperBase GetContinuumAnimation(FrameworkElement element, AnimationType animationType)
+        public AnimatorHelperBase GetContinuumAnimation(FrameworkElement element, AnimationType animationType, bool findTextBlock = true)
         {
-            TextBlock nameText;
+            FrameworkElement actionElement;
 
-            if (element is TextBlock)
-                nameText = element as TextBlock;
+            if (findTextBlock)
+            {
+                if (element is TextBlock)
+                    actionElement = element as TextBlock;
+                else
+                    actionElement = element.GetVisualDescendants().OfType<TextBlock>().FirstOrDefault();
+            }
             else
-                nameText = element.GetVisualDescendants().OfType<TextBlock>().FirstOrDefault();
+            {
+                actionElement = element;
+            }
 
-            if (nameText != null)
+            if (actionElement != null)
             {
                 if (animationType == AnimationType.NavigateForwardIn)
                 {
-                    return new ContinuumForwardInAnimator() { RootElement = nameText, LayoutRoot = AnimationContext };
+                    return new ContinuumForwardInAnimator() { RootElement = actionElement, LayoutRoot = AnimationContext };
                 }
                 if (animationType == AnimationType.NavigateForwardOut)
                 {
-                    return new ContinuumForwardOutAnimator() { RootElement = nameText, LayoutRoot = AnimationContext };
+                    return new ContinuumForwardOutAnimator() { RootElement = actionElement, LayoutRoot = AnimationContext };
                 }
                 if (animationType == AnimationType.NavigateBackwardIn)
                 {
-                    return new ContinuumBackwardInAnimator() { RootElement = nameText, LayoutRoot = AnimationContext };
+                    return new ContinuumBackwardInAnimator() { RootElement = actionElement, LayoutRoot = AnimationContext };
                 }
                 if (animationType == AnimationType.NavigateBackwardOut)
                 {
-                    return new ContinuumBackwardOutAnimator() { RootElement = nameText, LayoutRoot = AnimationContext };
+                    return new ContinuumBackwardOutAnimator() { RootElement = actionElement, LayoutRoot = AnimationContext };
                 }
             }
             return null;
