@@ -72,7 +72,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             Guid itemGuid = (Guid)menuItem.Tag;
             DACPServerInfo serverInfo = DACPServerViewModel.Instance.Items.FirstOrDefault(si => si.ID == itemGuid);
             if (serverInfo != null)
+            {
                 DACPServerViewModel.Instance.Items.Remove(serverInfo);
+                if (DACPServerManager.Server != null && DACPServerManager.Server.ID == serverInfo.ID)
+                    DACPServerManager.ConnectToServer(true);
+            }
         }
 
 

@@ -21,7 +21,6 @@
             <StackPanel>
                 <toolkit:ContextMenuService.ContextMenu>
                     <toolkit:ContextMenu>
-                        <toolkit:MenuItem Header="edit" Name="mnuEdit" Tag="{Binding ID}" />
                         <toolkit:MenuItem Header="delete" Name="mnuDelete" Tag="{Binding ID}" Click="mnuDelete_Click" />
                     </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
