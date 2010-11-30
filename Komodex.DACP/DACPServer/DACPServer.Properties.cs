@@ -150,6 +150,9 @@ namespace Komodex.DACP
         {
             get
             {
+                if (PlayState != PlayStates.Playing)
+                    return TrackTimeRemaining;
+
                 double adjustedMilliseconds = (DateTime.Now - TrackTimeUpdatedAt).TotalMilliseconds;
                 if (adjustedMilliseconds > int.MaxValue || adjustedMilliseconds < int.MinValue)
                     return TrackTimeRemaining;
