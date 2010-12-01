@@ -63,6 +63,8 @@
                 ItemTemplate="{StaticResource ArtistTemplate}"
                 GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
                 GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
+                GroupViewOpened="LongListSelector_GroupViewOpened"
+                GroupViewClosing="LongListSelector_GroupViewClosing"
                 SelectionChanged="lbSearchResults_SelectionChanged" />
         </Grid>
     </Grid>

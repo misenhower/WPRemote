@@ -59,6 +59,8 @@
                                               ItemTemplate="{StaticResource ArtistTemplate}"
                                               GroupItemTemplate="{StaticResource GroupItemTemplate}"
                                               GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                              GroupViewOpened="LongListSelector_GroupViewOpened"
+                                              GroupViewClosing="LongListSelector_GroupViewClosing"
                                               SelectionChanged="lbArtists_SelectionChanged">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
@@ -77,6 +79,8 @@
                                               ItemTemplate="{StaticResource AlbumTemplate}"
                                               GroupItemTemplate="{StaticResource GroupItemTemplate}"
                                               GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                              GroupViewOpened="LongListSelector_GroupViewOpened"
+                                              GroupViewClosing="LongListSelector_GroupViewClosing"
                                               SelectionChanged="lbAlbums_SelectionChanged">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
