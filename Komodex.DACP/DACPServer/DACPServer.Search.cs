@@ -54,9 +54,16 @@ namespace Komodex.DACP
                 albumSearchRequestInfo = null;
             }
 
+            if (artistSearchRequestInfo != null)
+            {
+                artistSearchRequestInfo.WebRequest.Abort();
+                artistSearchRequestInfo = null;
+            }
+
             string escapedSearchString = Uri.EscapeDataString(Utility.EscapeSingleQuotes(searchString));
 
             SubmitAlbumSearchRequest(escapedSearchString);
+            SubmitArtistSearchRequest(escapedSearchString);
         }
 
         #endregion
@@ -111,6 +118,55 @@ namespace Komodex.DACP
                 var searchResults = new ObservableCollection<GroupItems<ILibraryItem>>();
                 searchResults.Add(albums);
                 searchResults.Add(_SearchResults[1]);
+                searchResults.Add(_SearchResults[2]);
+                SearchResults = searchResults;
+            });
+        }
+
+        #endregion
+
+        #region Artists
+
+        private HTTPRequestInfo artistSearchRequestInfo = null;
+
+        protected void SubmitArtistSearchRequest(string escapedSearchString)
+        {
+            string url = "/databases/" + DatabaseID + "/groups"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
+                + "&type=music"
+                + "&group-type=artists"
+                + "&sort=album"
+                + "&include-sort-headers=1"
+                + "&query=('daap.songartist:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songartist!:')"
+                + "&session-id=" + SessionID;
+            artistSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessArtistSearchResponse));
+        }
+
+        protected void ProcessArtistSearchResponse(HTTPRequestInfo requestInfo)
+        {
+            if (requestInfo != artistSearchRequestInfo)
+                return;
+
+            var artists = new GroupItems<ILibraryItem>(searchResultArtistHeaderText);
+
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                if (kvp.Key == "mlcl")
+                {
+                    var artistNodes = Utility.GetResponseNodes(kvp.Value);
+                    foreach (var artistData in artistNodes)
+                        artists.Add(new Artist(this, artistData.Value));
+                }
+            }
+
+            if (artists.Count == 0)
+                return;
+
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                var searchResults = new ObservableCollection<GroupItems<ILibraryItem>>();
+                searchResults.Add(_SearchResults[0]);
+                searchResults.Add(artists);
                 searchResults.Add(_SearchResults[2]);
                 SearchResults = searchResults;
             });
