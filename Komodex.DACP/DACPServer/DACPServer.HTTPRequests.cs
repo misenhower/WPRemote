@@ -15,18 +15,21 @@ using System.Collections.Generic;
 
 namespace Komodex.DACP
 {
+    public delegate void HTTPResponseHandler(HTTPRequestInfo requestInfo);
+
     public partial class DACPServer
     {
         #region HTTP Management
 
         protected List<HttpWebRequest> PendingHttpRequests = new List<HttpWebRequest>();
 
+
         /// <summary>
         /// Submits a HTTP request to the DACP server
         /// </summary>
         /// <param name="url">The URL request (e.g., "/server-info").</param>
         /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
-        public HttpWebRequest SubmitHTTPRequest(string url, AsyncCallback callback = null, IDACPResponseHandler responseHandler = null)
+        public HttpWebRequest SubmitHTTPRequest(string url, AsyncCallback callback = null, IDACPResponseHandler responseHandler = null, HTTPResponseHandler responseHandlerDelegate = null)
         {
             Utility.DebugWrite("Submitting HTTP request for: " + url);
 
@@ -44,6 +47,7 @@ namespace Komodex.DACP
                 // Create a new HTTPRequestState object
                 HTTPRequestInfo requestInfo = new HTTPRequestInfo(webRequest);
                 requestInfo.ResponseHandler = responseHandler;
+                requestInfo.ResponseHandlerDelegate = responseHandlerDelegate;
 
                 // Send HTTP request
                 webRequest.BeginGetResponse(callback, requestInfo);
@@ -104,6 +108,10 @@ namespace Komodex.DACP
                 if (requestInfo.ResponseHandler != null)
                 {
                     requestInfo.ResponseHandler.ProcessResponse(requestInfo);
+                }
+                else if (requestInfo.ResponseHandlerDelegate != null)
+                {
+                    requestInfo.ResponseHandlerDelegate(requestInfo);
                 }
                 else
                 {
