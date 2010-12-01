@@ -73,6 +73,11 @@ namespace Komodex.DACP
             SubmitSongSearchRequest(escapedSearchString);
         }
 
+        public void ClearSearchResults()
+        {
+            SearchResults = null;
+        }
+
         #endregion
 
         #region Responses and Requests

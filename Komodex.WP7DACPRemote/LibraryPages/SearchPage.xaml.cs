@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.Windows.Threading;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -20,13 +21,45 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             InitializeComponent();
 
             AnimationContext = LayoutRoot;
+
+            searchTimer.Interval = TimeSpan.FromMilliseconds(250);
+            searchTimer.Tick += new EventHandler(searchTimer_Tick);
         }
+
+        protected DispatcherTimer searchTimer = new DispatcherTimer();
+
+        #region Overrides
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            searchTimer.Stop();
+
+            base.OnNavigatedFrom(e);
+        }
+
+        #endregion
+
+        #region Actions
 
         private void tbSearchString_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-
-            DACPServer.GetSearchResults(textBox.Text);
+            searchTimer.Stop();
+            DACPServer.ClearSearchResults();
+            searchTimer.Start();
         }
+
+        #endregion
+
+        #region Event Handlers
+
+        void searchTimer_Tick(object sender, EventArgs e)
+        {
+            searchTimer.Stop();
+
+            DACPServer.GetSearchResults(tbSearchString.Text);
+        }
+
+        #endregion
+
     }
 }

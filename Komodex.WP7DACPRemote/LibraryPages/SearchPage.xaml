@@ -51,7 +51,7 @@
             <StackPanel>
                 <TextBlock x:Name="ApplicationTitle" Text="SEARCH LIBRARY" Style="{StaticResource PhoneTextNormalStyle}"/>
 
-                <TextBox TextChanged="tbSearchString_TextChanged" />
+                <TextBox TextChanged="tbSearchString_TextChanged" Name="tbSearchString" />
             </StackPanel>
             <toolkit:LongListSelector x:Name="lbSearchResults" Background="Transparent" ItemsSource="{Binding SearchResults}" Grid.Row="1" 
                 ItemTemplate="{StaticResource ArtistTemplate}"
