@@ -29,7 +29,7 @@ namespace Komodex.DACP
         /// </summary>
         /// <param name="url">The URL request (e.g., "/server-info").</param>
         /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
-        public HttpWebRequest SubmitHTTPRequest(string url, AsyncCallback callback = null, IDACPResponseHandler responseHandler = null, HTTPResponseHandler responseHandlerDelegate = null)
+        public HTTPRequestInfo SubmitHTTPRequest(string url, AsyncCallback callback = null, IDACPResponseHandler responseHandler = null, HTTPResponseHandler responseHandlerDelegate = null)
         {
             Utility.DebugWrite("Submitting HTTP request for: " + url);
 
@@ -54,7 +54,7 @@ namespace Komodex.DACP
 
                 PendingHttpRequests.Add(webRequest);
 
-                return webRequest;
+                return requestInfo;
             }
             catch (Exception e)
             {
@@ -236,15 +236,15 @@ namespace Komodex.DACP
         #region Update
 
         protected int libraryUpdateRevisionNumber = 1;
-        protected HttpWebRequest libraryUpdateWebRequest = null;
+        protected HTTPRequestInfo libraryUpdateRequestInfo = null;
 
         protected void SubmitLibraryUpdateRequest()
         {
-            if (libraryUpdateWebRequest != null)
+            if (libraryUpdateRequestInfo != null)
                 return; // Slightly different behavior than the PlayStatus update because I'm not quite sure where this is needed yet
 
             string url = "/update?revision-number=" + libraryUpdateRevisionNumber + "&daap-no-disconnect=1&session-id=" + SessionID;
-            libraryUpdateWebRequest = SubmitHTTPRequest(url);
+            libraryUpdateRequestInfo = SubmitHTTPRequest(url);
         }
 
         protected void ProcessLibraryUpdateResponse(HTTPRequestInfo requestInfo)
@@ -267,15 +267,15 @@ namespace Komodex.DACP
         #region Play Status
 
         protected int playStatusRevisionNumber = 1;
-        protected HttpWebRequest playStatusWebRequest = null;
+        protected HTTPRequestInfo playStatusRequestInfo = null;
 
         protected void SubmitPlayStatusRequest()
         {
-            if (playStatusWebRequest != null)
-                playStatusWebRequest.Abort();
+            if (playStatusRequestInfo != null)
+                playStatusRequestInfo.WebRequest.Abort();
 
             string url = "/ctrl-int/1/playstatusupdate?revision-number=" + playStatusRevisionNumber + "&session-id=" + SessionID;
-            playStatusWebRequest = SubmitHTTPRequest(url);
+            playStatusRequestInfo = SubmitHTTPRequest(url);
         }
 
         protected void ProcessPlayStatusResponse(HTTPRequestInfo requestInfo)
