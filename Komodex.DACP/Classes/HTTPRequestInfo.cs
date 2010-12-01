@@ -27,6 +27,8 @@ namespace Komodex.DACP
 
         public HTTPResponseHandler ResponseHandlerDelegate { get; set; }
 
+        public object ActionObject { get; set; }
+
         public string ResponseCode { get; set; }
 
         private byte[] _ResponseBody = null;

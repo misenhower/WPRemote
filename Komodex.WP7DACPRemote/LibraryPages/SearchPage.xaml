@@ -53,7 +53,7 @@
 
                 <TextBox TextChanged="tbSearchString_TextChanged" Name="tbSearchString" />
             </StackPanel>
-            <toolkit:LongListSelector x:Name="lbSearchResults" Background="Transparent" ItemsSource="{Binding SearchResults}" Grid.Row="1" 
+            <toolkit:LongListSelector x:Name="lbSearchResults" Background="Transparent" Grid.Row="1" 
                 ItemTemplate="{StaticResource ArtistTemplate}"
                 GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
                 GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"

@@ -44,7 +44,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         private void tbSearchString_TextChanged(object sender, TextChangedEventArgs e)
         {
             searchTimer.Stop();
-            DACPServer.ClearSearchResults();
+            lbSearchResults.ItemsSource = null;
             searchTimer.Start();
         }
 
@@ -56,7 +56,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             searchTimer.Stop();
 
-            DACPServer.GetSearchResults(tbSearchString.Text);
+            lbSearchResults.ItemsSource = DACPServer.GetSearchResults(tbSearchString.Text); ;
         }
 
         #endregion
