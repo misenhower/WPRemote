@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using System.Windows.Threading;
 using Komodex.DACP.Library;
 using Clarity.Phone.Controls.Animations;
+using Komodex.DACP;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -86,7 +87,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
             else if (selectedItem is Song)
             {
-
+                Song song = (Song)selectedItem;
+                SearchResultSet resultSet = (SearchResultSet)listBox.ItemsSource;
+                resultSet.SendPlaySongCommand(song);
+                listBox.SelectedItem = null;
+                NavigationManager.OpenNowPlayingPage();
             }
         }
 

@@ -25,12 +25,13 @@ namespace Komodex.DACP
 
         public SearchResultSet GetSearchResults(string searchString)
         {
-            string escapedSearchString = Uri.EscapeDataString(Utility.EscapeSingleQuotes(searchString));
+            string escapedSearchString = Uri.EscapeDataString(Utility.EscapeSingleQuotes(searchString.Trim()));
 
             var searchResults = new SearchResultSet(this, escapedSearchString);
             searchResults.Add(new GroupItems<ILibraryItem>(searchResultAlbumHeaderText));
             searchResults.Add(new GroupItems<ILibraryItem>(searchResultArtistHeaderText));
             searchResults.Add(new GroupItems<ILibraryItem>(searchResultSongHeaderText));
+            searchResults.SongGroup = searchResults[2];
 
             if (albumSearchRequestInfo != null)
             {
@@ -196,6 +197,7 @@ namespace Komodex.DACP
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 resultSet[2] = songs;
+                resultSet.SongGroup = songs;
             });
         }
 
