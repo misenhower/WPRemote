@@ -152,6 +152,9 @@ namespace Komodex.DACP
             }
             catch (Exception e)
             {
+                if (e is WebException && ((WebException)e).Status == WebExceptionStatus.RequestCanceled)
+                    return;
+
                 Utility.DebugWrite("Caught exception: " + e.Message);
                 ConnectionError();
             }
