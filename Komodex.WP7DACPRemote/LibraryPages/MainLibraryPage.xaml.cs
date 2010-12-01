@@ -77,7 +77,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
+            NavigationManager.OpenSearchPage();
         }
 
         private void mnuSettings_Click(object sender, EventArgs e)

@@ -101,7 +101,17 @@
             </Border>
         </DataTemplate>
 
-
+        <DataTemplate x:Key="LongGroupItemTemplate">
+            <Border Background="{StaticResource PhoneAccentBrush}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}"/>
+            </Border>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="LongGroupHeaderTemplate">
+            <Border Background="{StaticResource PhoneAccentBrush}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}"/>
+            </Border>
+        </DataTemplate>
 
     </Application.Resources>
 
