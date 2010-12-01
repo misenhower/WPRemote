@@ -17,9 +17,9 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     msun:TiltEffect.IsTiltEnabled="True"
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
-	<app:DACPServerBoundPhoneApplicationPage.Resources>
-		<Style x:Key="BorderlessButtonStyle" TargetType="Button">
-			<Setter Property="Background" Value="{StaticResource PhoneChromeBrush}"/>
+    <app:DACPServerBoundPhoneApplicationPage.Resources>
+        <Style x:Key="BorderlessButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PhoneChromeBrush}"/>
             <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
             <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -28,24 +28,24 @@
             <Setter Property="Padding" Value="12,6" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Stretch" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Grid Background="Transparent">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
                             <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" Margin="{StaticResource PhoneTouchTargetOverhang}">
                                 <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Border>
-						</Grid>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-		<Style x:Key="ItemHeaderStyle" BasedOn="{StaticResource PhoneTextBlockBase}" TargetType="TextBlock">
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ItemHeaderStyle" BasedOn="{StaticResource PhoneTextBlockBase}" TargetType="TextBlock">
             <Setter Property="Margin" Value="12,0,12,6" />
-			<Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}"/>
-			<Setter Property="FontSize" Value="{StaticResource PhoneFontSizeExtraLarge}"/>
-		</Style>
-	</app:DACPServerBoundPhoneApplicationPage.Resources>
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeExtraLarge}"/>
+        </Style>
+    </app:DACPServerBoundPhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -81,7 +81,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Border Grid.Column="0" Background="{StaticResource PhoneChromeBrush}" Width="125" Height="125" HorizontalAlignment="Left">
-                                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" />
+                                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
                             </Border>
                             <StackPanel Grid.Column="1">
                                 <TextBlock Text="{Binding Path=CurrentArtist}" Style="{StaticResource PhoneTextLargeStyle}" />

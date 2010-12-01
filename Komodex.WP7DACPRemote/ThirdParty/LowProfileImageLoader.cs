@@ -89,6 +89,27 @@ namespace Delay
         public static readonly DependencyProperty ClearImageOnUriChangeProperty = DependencyProperty.RegisterAttached(
             "ClearImageOnUriChange", typeof(bool), typeof(LowProfileImageLoader), new PropertyMetadata(false));
 
+        // DisableCache property added to manually disable the web request cache on certain images
+        // This is used for the "now playing" art
+        public static bool GetDisableCache(Image obj)
+        {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
+            return (bool)obj.GetValue(DisableCacheProperty);
+        }
+
+        public static void SetDisableCache(Image obj, bool value)
+        {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
+            obj.SetValue(DisableCacheProperty, value);
+        }
+
+        public static readonly DependencyProperty DisableCacheProperty = DependencyProperty.RegisterAttached(
+            "DisableCache", typeof(bool), typeof(LowProfileImageLoader), new PropertyMetadata(false));
+
         /// <summary>
         /// Gets or sets a value indicating whether low-profile image loading is enabled.
         /// </summary>
@@ -156,8 +177,9 @@ namespace Delay
                     {
                         // Download from network
                         var webRequest = HttpWebRequest.CreateHttp(pendingRequest.Uri);
-                        // Next 2 lines added so iTunes will respond
-                        webRequest.Method = "POST";
+                        // Next 3 lines added so iTunes will respond
+                        if (pendingRequest.BypassCache)
+                            webRequest.Method = "POST";
                         webRequest.Headers["Viewer-Only-Client"] = "1";
 
                         webRequest.AllowReadStreamBuffering = true; // Don't want to block this thread or the UI thread on network access
@@ -245,6 +267,7 @@ namespace Delay
         {
             var image = (Image)o;
             var uri = (Uri)e.NewValue;
+            var bypassCache = GetDisableCache(image);
 
             if (GetClearImageOnUriChange(image))
                 image.Source = null;
@@ -259,7 +282,7 @@ namespace Delay
                 lock (_syncBlock)
                 {
                     // Enqueue the request
-                    _pendingRequests.Enqueue(new PendingRequest(image, uri));
+                    _pendingRequests.Enqueue(new PendingRequest(image, uri, bypassCache));
                     Monitor.Pulse(_syncBlock);
                 }
             }
@@ -279,10 +302,12 @@ namespace Delay
         {
             public Image Image { get; private set; }
             public Uri Uri { get; private set; }
-            public PendingRequest(Image image, Uri uri)
+            public bool BypassCache { get; private set; }
+            public PendingRequest(Image image, Uri uri, bool bypassCache)
             {
                 Image = image;
                 Uri = uri;
+                BypassCache = bypassCache;
             }
         }
 
