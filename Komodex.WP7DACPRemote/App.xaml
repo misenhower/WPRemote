@@ -102,14 +102,14 @@
         </DataTemplate>
 
         <DataTemplate x:Key="LongGroupItemTemplate">
-            <Border Background="{StaticResource PhoneAccentBrush}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+            <Border Background="{Binding HasItems, Converter={StaticResource booleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
                 <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}"/>
             </Border>
         </DataTemplate>
         
         <DataTemplate x:Key="LongGroupHeaderTemplate">
-            <Border Background="{StaticResource PhoneAccentBrush}" Padding="{StaticResource PhoneTouchTargetOverhang}">
-                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}"/>
+            <Border Background="Transparent">
+                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextBlockBase}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneAccentBrush}" />
             </Border>
         </DataTemplate>
 

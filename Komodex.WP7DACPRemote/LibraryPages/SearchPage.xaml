@@ -9,6 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:delay="clr-namespace:Delay"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -19,10 +20,15 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ArtistTemplate">
             <my:FakeButton>
-                <Border Padding="12,6,12,12" Background="Transparent">
+                <Border Padding="12,6" Background="Transparent">
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Button" Template="{StaticResource PlayButton}" />
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                        <Border Background="{StaticResource PhoneChromeBrush}" Width="75" Height="75" HorizontalAlignment="Left">
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextBlockBase}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                            <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                        </StackPanel>
                     </StackPanel>
                 </Border>
             </my:FakeButton>
