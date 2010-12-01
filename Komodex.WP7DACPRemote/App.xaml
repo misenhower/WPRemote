@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:converters="clr-namespace:Komodex.WP7DACPRemote.Converters"
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
     >
 
     <!--Application Resources-->
@@ -91,14 +92,16 @@
         </DataTemplate>
         
         <DataTemplate x:Name="GroupHeaderTemplate">
-            <Border Background="Transparent" Padding="12,0,0,0">
-                <Border Background="{StaticResource PhoneAccentBrush}" Width="75" Height="75" HorizontalAlignment="Left">
-                    <TextBlock Text="{Binding Key}" 
-                        Foreground="{StaticResource PhoneForegroundBrush}" 
-                        Style="{StaticResource PhoneTextExtraLargeStyle}"
-                        VerticalAlignment="Bottom"/>
+            <my:FakeButton>
+                <Border Background="Transparent" Padding="12,0,0,0">
+                    <Border Background="{StaticResource PhoneAccentBrush}" Width="75" Height="75" HorizontalAlignment="Left">
+                        <TextBlock Text="{Binding Key}" 
+                            Foreground="{StaticResource PhoneForegroundBrush}" 
+                            Style="{StaticResource PhoneTextExtraLargeStyle}"
+                            VerticalAlignment="Bottom"/>
+                    </Border>
                 </Border>
-            </Border>
+            </my:FakeButton>
         </DataTemplate>
 
         <DataTemplate x:Key="LongGroupItemTemplate">
@@ -108,9 +111,11 @@
         </DataTemplate>
         
         <DataTemplate x:Key="LongGroupHeaderTemplate">
-            <Border Background="Transparent">
-                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextBlockBase}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneAccentBrush}" />
-            </Border>
+            <my:FakeButton>
+                <Border Background="Transparent">
+                    <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextBlockBase}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneAccentBrush}" />
+                </Border>
+            </my:FakeButton>
         </DataTemplate>
 
     </Application.Resources>
