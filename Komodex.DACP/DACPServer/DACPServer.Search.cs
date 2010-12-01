@@ -23,9 +23,11 @@ namespace Komodex.DACP
 
         #region Public Methods
 
-        public ObservableCollection<GroupItems<ILibraryItem>> GetSearchResults(string searchString)
+        public SearchResultSet GetSearchResults(string searchString)
         {
-            var searchResults = new ObservableCollection<GroupItems<ILibraryItem>>();
+            string escapedSearchString = Uri.EscapeDataString(Utility.EscapeSingleQuotes(searchString));
+
+            var searchResults = new SearchResultSet(this, escapedSearchString);
             searchResults.Add(new GroupItems<ILibraryItem>(searchResultAlbumHeaderText));
             searchResults.Add(new GroupItems<ILibraryItem>(searchResultArtistHeaderText));
             searchResults.Add(new GroupItems<ILibraryItem>(searchResultSongHeaderText));
@@ -48,8 +50,6 @@ namespace Komodex.DACP
                 songSearchRequestInfo = null;
             }
 
-            string escapedSearchString = Uri.EscapeDataString(Utility.EscapeSingleQuotes(searchString));
-
             SubmitAlbumSearchRequest(escapedSearchString, searchResults);
             SubmitArtistSearchRequest(escapedSearchString, searchResults);
             SubmitSongSearchRequest(escapedSearchString, searchResults);
@@ -65,7 +65,7 @@ namespace Komodex.DACP
 
         private HTTPRequestInfo albumSearchRequestInfo = null;
 
-        protected void SubmitAlbumSearchRequest(string escapedSearchString, ObservableCollection<GroupItems<ILibraryItem>> searchResults)
+        protected void SubmitAlbumSearchRequest(string escapedSearchString, SearchResultSet resultSet)
         {
             string url = "/databases/" + DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
@@ -75,7 +75,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=('daap.songalbum:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + SessionID;
-            albumSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessAlbumSearchResponse), searchResults);
+            albumSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessAlbumSearchResponse), resultSet);
         }
 
         protected void ProcessAlbumSearchResponse(HTTPRequestInfo requestInfo)
@@ -83,7 +83,7 @@ namespace Komodex.DACP
             if (requestInfo != albumSearchRequestInfo)
                 return;
 
-            var searchResults = (ObservableCollection<GroupItems<ILibraryItem>>)requestInfo.ActionObject;
+            var resultSet = (SearchResultSet)requestInfo.ActionObject;
 
             var albums = new GroupItems<ILibraryItem>(searchResultAlbumHeaderText);
 
@@ -102,7 +102,7 @@ namespace Komodex.DACP
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                searchResults[0] = albums;
+                resultSet[0] = albums;
             });
         }
 
@@ -112,7 +112,7 @@ namespace Komodex.DACP
 
         private HTTPRequestInfo artistSearchRequestInfo = null;
 
-        protected void SubmitArtistSearchRequest(string escapedSearchString, ObservableCollection<GroupItems<ILibraryItem>> searchResults)
+        protected void SubmitArtistSearchRequest(string escapedSearchString, SearchResultSet resultSet)
         {
             string url = "/databases/" + DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
@@ -122,7 +122,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=('daap.songartist:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songartist!:')"
                 + "&session-id=" + SessionID;
-            artistSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessArtistSearchResponse), searchResults);
+            artistSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessArtistSearchResponse), resultSet);
         }
 
         protected void ProcessArtistSearchResponse(HTTPRequestInfo requestInfo)
@@ -130,7 +130,7 @@ namespace Komodex.DACP
             if (requestInfo != artistSearchRequestInfo)
                 return;
 
-            var searchResults = (ObservableCollection<GroupItems<ILibraryItem>>)requestInfo.ActionObject;
+            var resultSet = (SearchResultSet)requestInfo.ActionObject;
 
             var artists = new GroupItems<ILibraryItem>(searchResultArtistHeaderText);
 
@@ -149,7 +149,7 @@ namespace Komodex.DACP
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                searchResults[1] = artists;
+                resultSet[1] = artists;
             });
         }
 
@@ -159,7 +159,7 @@ namespace Komodex.DACP
 
         private HTTPRequestInfo songSearchRequestInfo = null;
 
-        protected void SubmitSongSearchRequest(string escapedSearchString, ObservableCollection<GroupItems<ILibraryItem>> searchResults)
+        protected void SubmitSongSearchRequest(string escapedSearchString, SearchResultSet resultSet)
         {
             string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylistID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
@@ -168,7 +168,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=('dmap.itemname:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + "&session-id=" + SessionID;
-            songSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessSongSearchResponse), searchResults);
+            songSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessSongSearchResponse), resultSet);
         }
 
         protected void ProcessSongSearchResponse(HTTPRequestInfo requestInfo)
@@ -176,7 +176,7 @@ namespace Komodex.DACP
             if (requestInfo != songSearchRequestInfo)
                 return;
 
-            var searchResults = (ObservableCollection<GroupItems<ILibraryItem>>)requestInfo.ActionObject;
+            var resultSet = (SearchResultSet)requestInfo.ActionObject;
 
             var songs = new GroupItems<ILibraryItem>(searchResultSongHeaderText);
 
@@ -195,7 +195,7 @@ namespace Komodex.DACP
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                searchResults[2] = songs;
+                resultSet[2] = songs;
             });
         }
 
