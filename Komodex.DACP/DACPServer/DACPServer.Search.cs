@@ -105,7 +105,6 @@ namespace Komodex.DACP
                 return;
 
             var albums = new GroupItems<ILibraryItem>(searchResultAlbumHeaderText);
-            //var albums = _SearchResults[0];
 
             foreach (var kvp in requestInfo.ResponseNodes)
             {
@@ -120,18 +119,9 @@ namespace Komodex.DACP
             if (albums.Count == 0)
                 return;
 
-            //SendPropertyChanged("SearchResults");
-
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                // The entire SearchResults list is replaced because of an issue with the LongListSelector
-                // Replacing a single element triggers a NotSupportedException
-                // TODO: Find a better way
-                var searchResults = new ObservableCollection<GroupItems<ILibraryItem>>();
-                searchResults.Add(albums);
-                searchResults.Add(_SearchResults[1]);
-                searchResults.Add(_SearchResults[2]);
-                SearchResults = searchResults;
+                _SearchResults[0] = albums;
             });
         }
 
@@ -176,11 +166,7 @@ namespace Komodex.DACP
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                var searchResults = new ObservableCollection<GroupItems<ILibraryItem>>();
-                searchResults.Add(_SearchResults[0]);
-                searchResults.Add(artists);
-                searchResults.Add(_SearchResults[2]);
-                SearchResults = searchResults;
+                _SearchResults[1] = artists;
             });
         }
 
@@ -224,11 +210,7 @@ namespace Komodex.DACP
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                var searchResults = new ObservableCollection<GroupItems<ILibraryItem>>();
-                searchResults.Add(_SearchResults[0]);
-                searchResults.Add(_SearchResults[1]);
-                searchResults.Add(songs);
-                SearchResults = searchResults;
+                _SearchResults[2] = songs;
             });
         }
 
