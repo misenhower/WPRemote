@@ -22,7 +22,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             AnimationContext = LayoutRoot;
 
-            searchTimer.Interval = TimeSpan.FromMilliseconds(250);
+            searchTimer.Interval = TimeSpan.FromMilliseconds(100);
             searchTimer.Tick += new EventHandler(searchTimer_Tick);
         }
 
