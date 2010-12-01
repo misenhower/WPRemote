@@ -17,18 +17,22 @@ namespace Komodex.DACP.Library
         private Song()
         { }
 
-        public Song(string name)
-        {
-            Name = name;
-        }
+        //public Song(DACPServer server, string name)
+        //{
+        //    Server = server;
+        //    Name = name;
+        //}
 
-        public Song(byte[] data)
+        public Song(DACPServer server, byte[] data)
         {
+            Server = server;
             ParseByteData(data);
         }
 
         #region Properties
 
+        public DACPServer Server { get; protected set; }
+        public int ID { get; protected set; }
         public string Name { get; protected set; }
         public string ArtistName { get; protected set; }
         public string AlbumName { get; protected set; }
@@ -40,7 +44,11 @@ namespace Komodex.DACP.Library
 
         public string AlbumArtURL
         {
-            get { return null; }
+            get
+            {
+                return Server.HTTPPrefix + "/databases/" + Server.DatabaseID + "/items/" + ID
+                    + "/extra_data/artwork?mw=75&mh=75&group-type=albums&session-id=" + Server.SessionID;
+            }
         }
 
         #endregion
@@ -54,6 +62,9 @@ namespace Komodex.DACP.Library
             {
                 switch (kvp.Key)
                 {
+                    case "miid": // ID
+                        ID = kvp.Value.GetInt32Value();
+                        break;
                     case "minm": // Name
                         Name = kvp.Value.GetStringValue();
                         break;

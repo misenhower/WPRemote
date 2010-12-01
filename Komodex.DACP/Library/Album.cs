@@ -162,7 +162,7 @@ namespace Komodex.DACP.Library
                         var songNodes = Utility.GetResponseNodes(kvp.Value);
                         foreach (var songData in songNodes)
                         {
-                            songs.Add(new Song(songData.Value));
+                            songs.Add(new Song(Server, songData.Value));
                         }
 
                         Songs = songs;
