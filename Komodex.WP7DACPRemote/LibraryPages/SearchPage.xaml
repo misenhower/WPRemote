@@ -63,8 +63,7 @@
                 ItemTemplate="{StaticResource ArtistTemplate}"
                 GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
                 GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
-                 />
-            <!-- need selectionchanged -->
+                SelectionChanged="lbSearchResults_SelectionChanged" />
         </Grid>
     </Grid>
 
