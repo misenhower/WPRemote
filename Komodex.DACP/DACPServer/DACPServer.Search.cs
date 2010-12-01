@@ -60,10 +60,17 @@ namespace Komodex.DACP
                 artistSearchRequestInfo = null;
             }
 
+            if (songSearchRequestInfo != null)
+            {
+                songSearchRequestInfo.WebRequest.Abort();
+                songSearchRequestInfo = null;
+            }
+
             string escapedSearchString = Uri.EscapeDataString(Utility.EscapeSingleQuotes(searchString));
 
             SubmitAlbumSearchRequest(escapedSearchString);
             SubmitArtistSearchRequest(escapedSearchString);
+            SubmitSongSearchRequest(escapedSearchString);
         }
 
         #endregion
@@ -168,6 +175,54 @@ namespace Komodex.DACP
                 searchResults.Add(_SearchResults[0]);
                 searchResults.Add(artists);
                 searchResults.Add(_SearchResults[2]);
+                SearchResults = searchResults;
+            });
+        }
+
+        #endregion
+
+        #region Songs
+
+        private HTTPRequestInfo songSearchRequestInfo = null;
+
+        protected void SubmitSongSearchRequest(string escapedSearchString)
+        {
+            string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylistID + "/items"
+                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
+                + "&type=music"
+                + "&sort=name"
+                + "&include-sort-headers=1"
+                + "&query=('dmap.itemname:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
+                + "&session-id=" + SessionID;
+            songSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessSongSearchResponse));
+        }
+
+        protected void ProcessSongSearchResponse(HTTPRequestInfo requestInfo)
+        {
+            if (requestInfo != songSearchRequestInfo)
+                return;
+
+            var songs = new GroupItems<ILibraryItem>(searchResultSongHeaderText);
+
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                if (kvp.Key == "mlcl")
+                {
+                    var songNodes = Utility.GetResponseNodes(kvp.Value);
+                    foreach (var songData in songNodes)
+                        songs.Add(new Song(songData.Value));
+                }
+            }
+
+            if (songs.Count == 0)
+                return;
+
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                var searchResults = new ObservableCollection<GroupItems<ILibraryItem>>();
+                searchResults.Add(_SearchResults[0]);
+                searchResults.Add(_SearchResults[1]);
+                searchResults.Add(songs);
                 SearchResults = searchResults;
             });
         }
