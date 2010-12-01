@@ -13,7 +13,7 @@ using System.Collections.ObjectModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Album : IDACPResponseHandler,INotifyPropertyChanged
+    public class Album : ILibraryItem, IDACPResponseHandler
     {
         private Album()
         { }
@@ -62,6 +62,11 @@ namespace Komodex.DACP.Library
                 _Songs = value;
                 SendPropertyChanged("Songs");
             }
+        }
+
+        public string SecondLine
+        {
+            get { return ArtistName; }
         }
 
         public string AlbumArtURL

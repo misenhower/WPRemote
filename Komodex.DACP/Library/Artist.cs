@@ -13,7 +13,7 @@ using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Artist : IDACPResponseHandler, INotifyPropertyChanged
+    public class Artist : ILibraryItem, IDACPResponseHandler
     {
         private Artist()
         { }
@@ -32,6 +32,8 @@ namespace Komodex.DACP.Library
 
         #region Properties
 
+        public DACPServer Server { get; protected set; }
+
         private string _Name = null;
         public string Name
         {
@@ -43,7 +45,15 @@ namespace Komodex.DACP.Library
             }
         }
         public string EncodedName { get; protected set; }
-        public DACPServer Server { get; protected set; }
+
+        public string SecondLine
+        {
+            get { return null; }
+        }
+        public string AlbumArtURL
+        {
+            get { return null; }
+        }
 
         private ObservableCollection<Album> _Albums = null;
         public ObservableCollection<Album> Albums

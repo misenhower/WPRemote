@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Song : INotifyPropertyChanged
+    public class Song : ILibraryItem
     {
         private Song()
         { }
@@ -32,6 +32,16 @@ namespace Komodex.DACP.Library
         public string Name { get; protected set; }
         public string ArtistName { get; protected set; }
         public string AlbumName { get; protected set; }
+
+        public string SecondLine
+        {
+            get { return ArtistName; }
+        }
+
+        public string AlbumArtURL
+        {
+            get { return null; }
+        }
 
         #endregion
 
