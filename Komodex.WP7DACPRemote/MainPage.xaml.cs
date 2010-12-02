@@ -50,9 +50,15 @@ namespace Komodex.WP7DACPRemote
         private void UpdateVisualState(bool useTransitions = true)
         {
             if (DACPServer == null || (DACPServer.PlayState == DACP.PlayStates.Stopped && DACPServer.CurrentSongName == null))
+            {
                 VisualStateManager.GoToState(this, "StoppedState", useTransitions);
+                btnNowPlaying.IsEnabled = false;
+            }
             else
+            {
                 VisualStateManager.GoToState(this, "PlayingState", useTransitions);
+                btnNowPlaying.IsEnabled = true;
+            }
         }
 
         #endregion

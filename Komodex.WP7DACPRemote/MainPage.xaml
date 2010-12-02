@@ -52,10 +52,28 @@
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="PlayStates">
                 <VisualStateGroup.Transitions>
-                    <VisualTransition GeneratedDuration="0:0:0.4">
-                        <VisualTransition.GeneratedEasingFunction>
-                            <CircleEase EasingMode="EaseInOut"/>
-                        </VisualTransition.GeneratedEasingFunction>
+                    <VisualTransition GeneratedDuration="0:0:0.4"/>
+                    <VisualTransition From="PlayingState" GeneratedDuration="0:0:0.4" To="StoppedState">
+                    	<Storyboard>
+                    		<DoubleAnimation Duration="0:0:0.4" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid"/>
+                    		<DoubleAnimation Duration="0:0:0.4" To="63" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid1">
+                    			<DoubleAnimation.EasingFunction>
+                    				<CircleEase EasingMode="EaseInOut"/>
+                    			</DoubleAnimation.EasingFunction>
+                    		</DoubleAnimation>
+                    		<DoubleAnimation Duration="0:0:0.4" To="0.5" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid1"/>
+                    	</Storyboard>
+                    </VisualTransition>
+                    <VisualTransition From="StoppedState" GeneratedDuration="0:0:0.4" To="PlayingState">
+                    	<Storyboard>
+                    		<DoubleAnimation Duration="0:0:0.4" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid1">
+                    			<DoubleAnimation.EasingFunction>
+                                    <CircleEase EasingMode="EaseInOut"/>
+                    			</DoubleAnimation.EasingFunction>
+                    		</DoubleAnimation>
+                    		<DoubleAnimation Duration="0:0:0.4" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid"/>
+                    		<DoubleAnimation Duration="0:0:0.4" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid1"/>
+                    	</Storyboard>
                     </VisualTransition>
                 </VisualStateGroup.Transitions>
                 <VisualState x:Name="PlayingState">
@@ -74,6 +92,7 @@
                         </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimation Duration="0" To="63" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid1" d:IsOptimized="True"/>
                         <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0" To="0.5" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid1" d:IsOptimized="True"/>
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
