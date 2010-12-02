@@ -41,6 +41,11 @@ namespace Komodex.WP7DACPRemote
             NavigationManager.OpenLibraryChooserPage();
         }
 
+        private void btnArtist_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationManager.OpenArtistPage(DACPServer.CurrentArtist);
+        }
+
         #endregion
 
     }

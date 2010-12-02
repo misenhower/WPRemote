@@ -33,14 +33,26 @@ namespace Komodex.WP7DACPRemote
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            UpdateVisualState(false);
             base.OnNavigatedTo(e);
+            UpdateVisualState(false);
         }
 
         protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             base.DACPServer_PropertyChanged(sender, e);
             UpdateVisualState();
+        }
+
+        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        {
+            base.DACPServer_ServerUpdate(sender, e);
+            Deployment.Current.Dispatcher.BeginInvoke(() => UpdateVisualState());
+        }
+
+        protected override void DACPServerManager_ServerChanged(object sender, EventArgs e)
+        {
+            base.DACPServerManager_ServerChanged(sender, e);
+            Deployment.Current.Dispatcher.BeginInvoke(() => UpdateVisualState());
         }
 
         #endregion
