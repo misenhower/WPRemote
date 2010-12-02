@@ -49,6 +49,35 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="PlayStates">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0:0:0.4">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <CircleEase EasingMode="EaseInOut"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="PlayingState">
+                    <Storyboard>
+                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="StoppedState">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Duration="0" To="63" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid1" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -64,7 +93,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,-12">
             <StackPanel>
                 <Button Name="btnNowPlaying" Click="btnNowPlaying_Click" Style="{StaticResource BorderlessButtonStyle}">
-                    <Grid>
+                    <Grid x:Name="grid1" Height="200">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -75,12 +104,12 @@
                         </Grid.ColumnDefinitions>
                         <ContentControl Template="{StaticResource iTunesIconButton}" />
                         <TextBlock Text="now playing" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
-                        <Grid Margin="0,6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid x:Name="grid" Margin="0,6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="125" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Border Grid.Column="0" Background="{StaticResource PhoneChromeBrush}" Width="125" Height="125" HorizontalAlignment="Left">
+                            <Border Grid.Column="0" Width="125" Height="125" HorizontalAlignment="Left" Background="{StaticResource PhoneChromeBrush}">
                                 <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
                             </Border>
                             <StackPanel Grid.Column="1">

@@ -31,9 +31,29 @@ namespace Komodex.WP7DACPRemote
 
         #region Overrides
 
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            UpdateVisualState(false);
+            base.OnNavigatedTo(e);
+        }
+
+        protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            base.DACPServer_PropertyChanged(sender, e);
+            UpdateVisualState();
+        }
+
         #endregion
 
         #region Methods
+
+        private void UpdateVisualState(bool useTransitions = true)
+        {
+            if (DACPServer == null || (DACPServer.PlayState == DACP.PlayStates.Stopped && DACPServer.CurrentSongName == null))
+                VisualStateManager.GoToState(this, "StoppedState", useTransitions);
+            else
+                VisualStateManager.GoToState(this, "PlayingState", useTransitions);
+        }
 
         #endregion
 
