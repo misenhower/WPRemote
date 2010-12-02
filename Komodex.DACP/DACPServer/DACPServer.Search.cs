@@ -33,6 +33,17 @@ namespace Komodex.DACP
             searchResults.Add(new GroupItems<ILibraryItem>(searchResultSongHeaderText));
             searchResults.SongGroup = searchResults[2];
 
+            StopSearch();
+
+            SubmitAlbumSearchRequest(escapedSearchString, searchResults);
+            SubmitArtistSearchRequest(escapedSearchString, searchResults);
+            SubmitSongSearchRequest(escapedSearchString, searchResults);
+
+            return searchResults;
+        }
+
+        public void StopSearch()
+        {
             if (albumSearchRequestInfo != null)
             {
                 albumSearchRequestInfo.WebRequest.Abort();
@@ -50,12 +61,6 @@ namespace Komodex.DACP
                 songSearchRequestInfo.WebRequest.Abort();
                 songSearchRequestInfo = null;
             }
-
-            SubmitAlbumSearchRequest(escapedSearchString, searchResults);
-            SubmitArtistSearchRequest(escapedSearchString, searchResults);
-            SubmitSongSearchRequest(escapedSearchString, searchResults);
-
-            return searchResults;
         }
 
         #endregion

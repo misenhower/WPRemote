@@ -78,6 +78,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         private void tbSearchString_TextChanged(object sender, TextChangedEventArgs e)
         {
             searchTimer.Stop();
+            DACPServer.StopSearch();
             lbSearchResults.ItemsSource = null;
             searchTimer.Start();
         }
