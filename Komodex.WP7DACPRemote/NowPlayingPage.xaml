@@ -8,13 +8,38 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:delay="clr-namespace:Delay"
+    xmlns:msun="clr-namespace:Microsoft.Unsupported"
+    msun:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
-
+    shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="BorderlessButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0">
+                                <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -23,23 +48,36 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,6">
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding LibraryName}" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="185" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Background="{StaticResource PhoneChromeBrush}" Width="300" Height="300" HorizontalAlignment="Left">
+                <Button Margin="0,0,0,10" Style="{StaticResource BorderlessButtonStyle}" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Bottom">
+                    <StackPanel>
+                        <TextBlock Text="{Binding CurrentArtist}"
+                               TextWrapping="Wrap" MaxHeight="132"
+                               Margin="12,0"
+                               FontSize="64" LineHeight="66" LineStackingStrategy="BlockLineHeight"
+                               FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                        <TextBlock Text="{Binding CurrentAlbum}"
+                               Margin="12,0"
+                               FontSize="36" LineHeight="38" LineStackingStrategy="BlockLineHeight"
+                               FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                    </StackPanel>
+                </Button>
+                <Border Grid.Row="1" Background="{StaticResource PhoneChromeBrush}" Width="300" Height="300" HorizontalAlignment="Left" Margin="12,0">
                     <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
                 </Border>
-                <Grid Grid.Row="1" Width="300" HorizontalAlignment="Left" Margin="0,2">
+                <Grid Grid.Row="2" Width="300" HorizontalAlignment="Left" Margin="12,2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -52,10 +90,11 @@
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=CurrentTrackTimePositionString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Left" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=CurrentTrackTimeRemainingString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Right" />
                 </Grid>
-                <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Name="stackPanel1" VerticalAlignment="Stretch">
-                    <TextBlock Height="30" Name="textBlock1" Text="{Binding Path=CurrentArtist}" />
-                    <TextBlock Height="30" Name="textBlock2" Text="{Binding Path=CurrentSongName}" FontWeight="Bold" />
-                    <TextBlock Height="30" Name="textBlock3" Text="{Binding Path=CurrentAlbum}" />
+                <StackPanel Grid.Row="3" HorizontalAlignment="Stretch" Name="stackPanel1" VerticalAlignment="Stretch">
+                    <TextBlock Text="{Binding CurrentSongName}"
+                               FontSize="36"
+                               Style="{StaticResource PhoneTextBlockBase}"
+                               FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                 </StackPanel>
             </Grid>
         </Grid>
