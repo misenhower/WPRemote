@@ -227,7 +227,7 @@ namespace Komodex.DACP
                 }
 
 
-                CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?session-id=" + SessionID;
+                CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?mw=300&mh=300&session-id=" + SessionID;
             }
             else
             {
