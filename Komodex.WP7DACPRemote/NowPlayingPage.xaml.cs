@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Komodex.DACP;
 using System.Windows.Threading;
+using System.Windows.Media.Imaging;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -29,6 +30,9 @@ namespace Komodex.WP7DACPRemote
             playControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
             playControlDisplayTimer.Tick += new EventHandler(playControlDisplayTimer_Tick);
         }
+
+        private readonly BitmapImage iconRepeat = new BitmapImage(new Uri("/icons/custom.appbar.repeat.png", UriKind.Relative));
+        private readonly BitmapImage iconRepeatOne = new BitmapImage(new Uri("/icons/custom.appbar.repeatone.png", UriKind.Relative));
 
         #region Overrides
 
@@ -93,6 +97,7 @@ namespace Komodex.WP7DACPRemote
 
             // Repeat button
             btnRepeat.Opacity = (DACPServer.RepeatState != RepeatStates.None) ? 1.0 : 0.5;
+            imgRepeat.Source = (DACPServer.RepeatState != RepeatStates.RepeatOne) ? iconRepeat : iconRepeatOne;
 
             // Shuffle button
             btnShuffle.Opacity = (DACPServer.ShuffleState) ? 1.0 : 0.5;

@@ -104,8 +104,18 @@
                     </Border>
                     <Border Background="#CC000000" Name="bdrPlayControls" Opacity="0" MouseLeftButtonDown="bdrPlayControls_MouseLeftButtonDown">
                         <StackPanel x:Name="stackPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button Name="btnRepeat" Template="{StaticResource PlayButton}" Click="btnRepeat_Click" Margin="25,0" />
-                            <Button Name="btnShuffle" Template="{StaticResource PlayButton}" Click="btnShuffle_Click" Margin="25,0" />
+                            <Button Name="btnRepeat" Template="{StaticResource EmptyButton}" Click="btnRepeat_Click" Margin="25,0">
+                                <Grid Width="48" Height="48">
+                                    <Image Name="imgRepeat" Source="/icons/custom.appbar.repeat.png" />
+                                    <Image Source="/icons/appbar.basecircle.rest.png" />
+                                </Grid>
+                            </Button>
+                            <Button Name="btnShuffle" Template="{StaticResource EmptyButton}" Click="btnShuffle_Click" Margin="25,0">
+                                <Grid Width="48" Height="48">
+                                    <Image Source="/icons/custom.appbar.shuffle.png" />
+                                    <Image Source="/icons/appbar.basecircle.rest.png" />
+                                </Grid>
+                            </Button>
                         </StackPanel>
                     </Border>
                 </Grid>

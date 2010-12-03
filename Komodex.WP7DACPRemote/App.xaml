@@ -17,6 +17,8 @@
                 <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="3" Width="48" Height="48" />
             </Canvas>
     	</ControlTemplate>
+        
+        <ControlTemplate x:Key="EmptyButton" TargetType="Button" />
 
         <!-- Icon Control Templates -->
         <ControlTemplate x:Key="iTunesIconButton" TargetType="ContentControl">
