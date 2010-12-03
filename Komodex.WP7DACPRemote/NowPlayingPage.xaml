@@ -14,7 +14,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    MouseLeftButtonDown="Page_MouseLeftButtonDown"
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
         <Style x:Key="BorderlessButtonStyle" TargetType="Button">
@@ -42,6 +43,19 @@
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="PlayControlsStateGroup">
+    			<VisualStateGroup.Transitions>
+    				<VisualTransition GeneratedDuration="0:0:0.2"/>
+    			</VisualStateGroup.Transitions>
+    			<VisualState x:Name="PlayControlsHiddenState"/>
+    			<VisualState x:Name="PlayControlsVisibleState">
+    				<Storyboard>
+    					<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="bdrPlayControls" d:IsOptimized="True"/>
+    				</Storyboard>
+    			</VisualState>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -74,9 +88,12 @@
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                     </StackPanel>
                 </Button>
-                <Border Grid.Row="1" Background="{StaticResource PhoneChromeBrush}" Width="300" Height="300" HorizontalAlignment="Left" Margin="12,0">
-                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
-                </Border>
+                <Grid Grid.Row="1" Width="300" Height="300" HorizontalAlignment="Left" Margin="12,0">
+                    <Border Background="{StaticResource PhoneChromeBrush}">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
+                    </Border>
+                    <Border Background="#CC000000" Name="bdrPlayControls" Opacity="0" MouseLeftButtonDown="bdrPlayControls_MouseLeftButtonDown" />
+                </Grid>
                 <Grid Grid.Row="2" Width="300" HorizontalAlignment="Left" Margin="12,2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
