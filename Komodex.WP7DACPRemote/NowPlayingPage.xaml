@@ -48,7 +48,17 @@
     			<VisualStateGroup.Transitions>
     				<VisualTransition GeneratedDuration="0:0:0.2"/>
     			</VisualStateGroup.Transitions>
-    			<VisualState x:Name="PlayControlsHiddenState"/>
+    			<VisualState x:Name="PlayControlsHiddenState">
+    				<Storyboard>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="stackPanel">
+    						<DiscreteObjectKeyFrame KeyTime="0">
+    							<DiscreteObjectKeyFrame.Value>
+    								<Visibility>Collapsed</Visibility>
+    							</DiscreteObjectKeyFrame.Value>
+    						</DiscreteObjectKeyFrame>
+    					</ObjectAnimationUsingKeyFrames>
+    				</Storyboard>
+    			</VisualState>
     			<VisualState x:Name="PlayControlsVisibleState">
     				<Storyboard>
     					<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="bdrPlayControls" d:IsOptimized="True"/>
@@ -92,7 +102,12 @@
                     <Border Background="{StaticResource PhoneChromeBrush}">
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
                     </Border>
-                    <Border Background="#CC000000" Name="bdrPlayControls" Opacity="0" MouseLeftButtonDown="bdrPlayControls_MouseLeftButtonDown" />
+                    <Border Background="#CC000000" Name="bdrPlayControls" Opacity="0" MouseLeftButtonDown="bdrPlayControls_MouseLeftButtonDown">
+                        <StackPanel x:Name="stackPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Name="btnRepeat" Template="{StaticResource PlayButton}" Click="btnRepeat_Click" Margin="25,0" />
+                            <Button Name="btnShuffle" Template="{StaticResource PlayButton}" Click="btnShuffle_Click" Margin="25,0" />
+                        </StackPanel>
+                    </Border>
                 </Grid>
                 <Grid Grid.Row="2" Width="300" HorizontalAlignment="Left" Margin="12,2">
                     <Grid.RowDefinitions>

@@ -269,7 +269,7 @@ namespace Komodex.DACP
                 if (_ShuffleState == value)
                     return;
                 _ShuffleState = value;
-                SendPropertyChanged("ShuffleStatus");
+                SendPropertyChanged("ShuffleState");
             }
         }
 
@@ -282,7 +282,7 @@ namespace Komodex.DACP
                 if (_RepeatState == value)
                     return;
                 _RepeatState = value;
-                SendPropertyChanged("RepeatStatus");
+                SendPropertyChanged("RepeatState");
             }
         }
 

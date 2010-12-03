@@ -36,6 +36,15 @@ namespace Komodex.WP7DACPRemote
         {
             base.OnNavigatedTo(e);
             HidePlayControls(false);
+            UpdateRepeatShuffleButtons();
+        }
+
+        protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            base.DACPServer_PropertyChanged(sender, e);
+
+            if (e.PropertyName == "ShuffleState" || e.PropertyName == "RepeatState")
+                UpdateRepeatShuffleButtons();
         }
 
         #endregion
@@ -61,6 +70,32 @@ namespace Komodex.WP7DACPRemote
         {
             playControlDisplayTimer.Stop();
             VisualStateManager.GoToState(this, "PlayControlsHiddenState", useTransitions);
+        }
+
+        private void btnRepeat_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPlayControls();
+            if (DACPServer != null && DACPServer.IsConnected)
+                DACPServer.SendRepeatStateCommand();
+        }
+
+        private void btnShuffle_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPlayControls();
+            if (DACPServer != null && DACPServer.IsConnected)
+                DACPServer.SendShuffleStateCommand();
+        }
+
+        private void UpdateRepeatShuffleButtons()
+        {
+            if (DACPServer == null || !DACPServer.IsConnected)
+                return;
+
+            // Repeat button
+            btnRepeat.Opacity = (DACPServer.RepeatState != RepeatStates.None) ? 1.0 : 0.5;
+
+            // Shuffle button
+            btnShuffle.Opacity = (DACPServer.ShuffleState) ? 1.0 : 0.5;
         }
 
         #endregion

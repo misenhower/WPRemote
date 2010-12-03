@@ -398,11 +398,40 @@ namespace Komodex.DACP
             SubmitHTTPRequest(url);
         }
 
+        /// <summary>
+        /// Toggles the shuffle state
+        /// </summary>
+        public void SendShuffleStateCommand()
+        {
+            SendShuffleStateCommand(!ShuffleState);
+        }
+
         public void SendShuffleStateCommand(bool shuffleState)
         {
             int intState = (shuffleState) ? 1 : 0;
             string url = "/ctrl-int/1/setproperty?dacp.shufflestate=" + intState + "&session-id=" + SessionID;
             SubmitHTTPRequest(url);
+            ShuffleState = shuffleState;
+        }
+
+        /// <summary>
+        /// Cycles through the repeat states
+        /// </summary>
+        public void SendRepeatStateCommand()
+        {
+            switch (RepeatState)
+            {
+                case RepeatStates.None:
+                    SendRepeatStateCommand(RepeatStates.RepeatAll);
+                    break;
+                case RepeatStates.RepeatAll:
+                    SendRepeatStateCommand(RepeatStates.RepeatOne);
+                    break;
+                case RepeatStates.RepeatOne:
+                default:
+                    SendRepeatStateCommand(RepeatStates.None);
+                    break;
+            }
         }
 
         public void SendRepeatStateCommand(RepeatStates repeatState)
@@ -410,6 +439,7 @@ namespace Komodex.DACP
             int intState = (int)repeatState;
             string url = "/ctrl-int/1/setproperty?dacp.repeatstate=" + intState + "&session-id=" + SessionID;
             SubmitHTTPRequest(url);
+            RepeatState = repeatState;
         }
 
         #endregion
