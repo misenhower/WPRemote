@@ -34,30 +34,53 @@ namespace Komodex.WP7DACPRemote
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            UpdateBindings();
             UpdateVisualState(false);
         }
 
         protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             base.DACPServer_PropertyChanged(sender, e);
+            UpdateBindings();
             UpdateVisualState();
         }
 
         protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
             base.DACPServer_ServerUpdate(sender, e);
-            Deployment.Current.Dispatcher.BeginInvoke(() => UpdateVisualState());
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                UpdateBindings();
+                UpdateVisualState();
+            });
         }
 
         protected override void DACPServerManager_ServerChanged(object sender, EventArgs e)
         {
             base.DACPServerManager_ServerChanged(sender, e);
-            Deployment.Current.Dispatcher.BeginInvoke(() => UpdateVisualState());
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                UpdateBindings();
+                UpdateVisualState();
+            });
         }
 
         #endregion
 
         #region Methods
+
+        private void UpdateBindings()
+        {
+            // Page title
+            if (DACPServer == null || string.IsNullOrEmpty(DACPServer.LibraryName))
+                ApplicationTitle.Text = "REMOTE";
+            else
+                ApplicationTitle.Text = DACPServer.LibraryName;
+
+            // Panel visibility
+            ContentPanel.Visibility = (DACPServer != null && DACPServer.IsConnected) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            FirstStartPanel.Visibility = (DACPServer == null) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+        }
 
         private void UpdateVisualState(bool useTransitions = true)
         {
@@ -95,6 +118,11 @@ namespace Komodex.WP7DACPRemote
         private void mnuSettings_Click(object sender, EventArgs e)
         {
             NavigationManager.OpenLibraryChooserPage();
+        }
+
+        private void btnAddLibrary_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationManager.OpenAddNewServerPage();
         }
 
         #endregion
