@@ -34,7 +34,7 @@
         		<RowDefinition Height="*"/>
         	</Grid.RowDefinitions>
         	<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-        		<TextBlock TextWrapping="Wrap" Text="To pair this pohone with a new iTunes library, download the Pairing Utility from our website:" Style="{StaticResource PhoneTextNormalStyle}"/>
+        		<TextBlock TextWrapping="Wrap" Text="To pair this device with a new iTunes library, download the Pairing Utility from our website:" Style="{StaticResource PhoneTextNormalStyle}"/>
         		<TextBlock TextWrapping="Wrap" Text="http://wp7remoteapp.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}"/>
         	</StackPanel>
             <StackPanel Grid.Row="1" HorizontalAlignment="Left" Name="stackPanel1" VerticalAlignment="Top">
