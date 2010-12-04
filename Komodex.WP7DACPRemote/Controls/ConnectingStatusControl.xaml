@@ -13,11 +13,12 @@
         <localHelpers:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}" >
+    <Grid x:Name="LayoutRoot" Background="Transparent" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Border Background="{StaticResource PhoneBackgroundBrush}" Opacity="0.85" Grid.RowSpan="2" />
         <StackPanel HorizontalAlignment="Center" Name="stackPanel1" VerticalAlignment="Center">
             <ProgressBar Height="4" Name="progressBar1" Width="460" IsIndeterminate="{Binding ShowProgressBar}" Visibility="{Binding ShowProgressBar, Converter={StaticResource booleanToVisibilityConverter}}" />
             <TextBlock Name="tbLibraryConnectionText" Text="Connecting to Library" TextAlignment="Center" TextWrapping="Wrap" />

@@ -18,9 +18,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 {
     public static class DACPServerManager
     {
-        private static bool _showLibraryChooserOnNavigate = false;
         private static bool _suppressNavigateToHome = false;
-
 
         #region Properties
 
@@ -103,8 +101,12 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
                 bool connecting = (Server == null || !Server.IsConnected);
                 bool canShow = !(currentPage is LibraryChooserPage || currentPage is AddLibraryPage);
+                bool hasServers = (DACPServerViewModel.Instance.Items.Count > 0);
 
-                ConnectingPopup.IsOpen = (connecting && canShow);
+                if (currentPage is MainPage)
+                    ConnectingPopup.IsOpen = (connecting && canShow && hasServers);
+                else
+                    ConnectingPopup.IsOpen = (connecting && canShow);
             });
         }
 
@@ -145,12 +147,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         static void RootVisual_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (_showLibraryChooserOnNavigate)
-            {
-                _showLibraryChooserOnNavigate = false;
-                NavigationManager.OpenLibraryChooserPage();
-            }
-
             if (Server != null && Server.IsConnected)
                 return;
 
@@ -185,9 +181,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             RootVisual.Navigating += new System.Windows.Navigation.NavigatingCancelEventHandler(RootVisual_Navigating);
             RootVisual.Navigated += new System.Windows.Navigation.NavigatedEventHandler(RootVisual_Navigated);
 
-            if (DACPServerViewModel.Instance.CurrentDACPServer == null)
-                _showLibraryChooserOnNavigate = true;
-            else
+            if (DACPServerViewModel.Instance.CurrentDACPServer != null)
                 ConnectToServer();
         }
 

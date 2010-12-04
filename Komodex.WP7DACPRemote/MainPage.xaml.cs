@@ -79,7 +79,7 @@ namespace Komodex.WP7DACPRemote
 
             // Panel visibility
             ContentPanel.Visibility = (DACPServer != null && DACPServer.IsConnected) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            FirstStartPanel.Visibility = (DACPServer == null) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            FirstStartPanel.Visibility = (DACPServer == null && DACPServerViewModel.Instance.Items.Count == 0) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
         private void UpdateVisualState(bool useTransitions = true)
