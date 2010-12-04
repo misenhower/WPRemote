@@ -76,16 +76,17 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Grid x:Name="HorizontalTemplate" Margin="{StaticResource PhoneHorizontalMargin}">
+                            <Grid x:Name="HorizontalTemplate" Margin="12,0,-24,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="0"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Rectangle x:Name="HorizontalTrack" Grid.ColumnSpan="3" Fill="{TemplateBinding Background}" Height="12" IsHitTestVisible="False" Margin="0,22,0,50" Opacity="0.2"/>
-                                <Rectangle x:Name="HorizontalFill" Grid.Column="0" Fill="{TemplateBinding Foreground}" Height="12" IsHitTestVisible="False" Margin="0,22,0,50"/>
+                                <Rectangle x:Name="HorizontalTrack" Grid.ColumnSpan="3" Fill="{TemplateBinding Background}" Height="12" IsHitTestVisible="False" Opacity="0.2" Margin="0,0,12,0"/>
+                                <Rectangle x:Name="HorizontalFill" Grid.Column="0" Fill="{TemplateBinding Foreground}" Height="12" IsHitTestVisible="False"/>
                                 <RepeatButton x:Name="HorizontalTrackLargeChangeDecreaseRepeatButton" Grid.Column="0" IsTabStop="False" Template="{StaticResource PhoneSimpleRepeatButton}"/>
                                 <RepeatButton x:Name="HorizontalTrackLargeChangeIncreaseRepeatButton" Grid.Column="2" IsTabStop="False" Template="{StaticResource PhoneSimpleRepeatButton}"/>
+                                <Rectangle Grid.Column="2" Fill="{StaticResource PhoneBackgroundBrush}" Stroke="{StaticResource PhoneForegroundBrush}" Width="13" Height="28" HorizontalAlignment="Left" Margin="-6,0,0,0" StrokeThickness="6"/>
                                 <Thumb x:Name="HorizontalThumb" Grid.Column="1" Margin="-1,0,0,0" RenderTransformOrigin="0.5,0.5" Template="{StaticResource PhoneSimpleThumb}" Width="1">
                                     <Thumb.RenderTransform>
                                         <ScaleTransform ScaleY="1" ScaleX="32"/>
@@ -217,7 +218,10 @@
                                Style="{StaticResource PhoneTextBlockBase}"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                 </StackPanel>
-                <Slider Grid.Row="4" Maximum="100" Value="{Binding Path=Volume, Mode=TwoWay}" Margin="0,0,12,0" Style="{StaticResource VolumeSliderStyle}" />
+                <Slider Grid.Row="4" Height="48" Margin="0,0,36,72" 
+                        Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100"
+                        Style="{StaticResource VolumeSliderStyle}"
+                        VerticalAlignment="Center" />
             </Grid>
         </Grid>
     </Grid>
