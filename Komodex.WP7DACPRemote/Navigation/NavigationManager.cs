@@ -23,16 +23,20 @@ namespace Komodex.WP7DACPRemote
             RootVisual.Navigated += new System.Windows.Navigation.NavigatedEventHandler(RootVisual_Navigated);
         }
 
-        private static bool NavigateToFirstPage = false;
+        private static bool _NavigatingToFirstPage = false;
+        public static bool NavigatingToFirstPage
+        {
+            get { return _NavigatingToFirstPage; }
+        }
 
         static void RootVisual_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (NavigateToFirstPage)
+            if (_NavigatingToFirstPage)
             {
                 if (RootVisual.CanGoBack)
                     RootVisual.GoBack();
                 else
-                    NavigateToFirstPage = false;
+                    _NavigatingToFirstPage = false;
             }
         }
 
@@ -47,7 +51,7 @@ namespace Komodex.WP7DACPRemote
             {
                 if (RootVisual.CanGoBack)
                 {
-                    NavigateToFirstPage = true;
+                    _NavigatingToFirstPage = true;
                     try
                     {
                         RootVisual.GoBack();
@@ -56,7 +60,7 @@ namespace Komodex.WP7DACPRemote
                 }
                 else
                 {
-                    NavigateToFirstPage = false;
+                    _NavigatingToFirstPage = false;
                 }
             });
         }
