@@ -107,6 +107,11 @@ namespace Komodex.WP7DACPRemote
 
         #region Actions
 
+        private void btnLibrary_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationManager.OpenMainLibraryPage();
+        }
+
         private void mnuSettings_Click(object sender, EventArgs e)
         {
             NavigationManager.OpenLibraryChooserPage();

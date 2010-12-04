@@ -72,8 +72,12 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,6">
-            <TextBlock x:Name="ApplicationTitle" Text="{Binding LibraryName}" Style="{StaticResource PhoneTextNormalStyle}"/>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0">
+            <Button Template="{StaticResource EmptyButton}" Click="btnLibrary_Click">
+                <Border Background="{StaticResource PhoneAccentBrush}">
+                    <TextBlock x:Name="ApplicationTitle" Margin="12,17,0,6" Text="{Binding LibraryName}" Style="{StaticResource PhoneTextNormalStyle}"/>
+                </Border>
+            </Button>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
