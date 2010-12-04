@@ -70,6 +70,7 @@
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FakeButton.cs" />
+    <Compile Include="Controls\MemoryCounters.cs" />
     <Compile Include="Converters\BooleanToAccentBrushConverter.cs" />
     <Compile Include="DACPServerInfoManagement\AddLibraryPage.xaml.cs">
       <DependentUpon>AddLibraryPage.xaml</DependentUpon>
