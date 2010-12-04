@@ -109,7 +109,7 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,-12">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,-12" d:IsHidden="True">
             <StackPanel>
                 <Button Name="btnNowPlaying" Click="btnNowPlaying_Click" Style="{StaticResource BorderlessButtonStyle}">
                     <Grid x:Name="grid1" Height="200">
@@ -162,21 +162,16 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="FirstStartPanel" Grid.Row="1" Margin="12,-12">
-            <Grid Margin="12,64,12,0" Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
+            <Grid Margin="12,48,12,0" Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
                     <TextBlock Text="welcome" Style="{StaticResource ItemHeaderStyle}" />
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap">
-                        To pair this application with your iTunes library for the first time, download the Pairing Utility from our website:
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="To pair with iTunes for the first time, download the Pairing Utility from our website:"/>
                     <TextBlock TextWrapping="Wrap" Text="http://wp7remoteapp.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Padding="0,0,0,12" />
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap">
-                        When pairing has been completed, the Pairing Utility will display the computer's host name and a PIN.
-                        Tap the Add Library button to enter these values and connect to iTunes.
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="When pairing has been completed, tap on &quot;Add Library&quot; below to connect to iTunes."/>
                 </StackPanel>
                 <Button Grid.Row="1" Content="Add Library" HorizontalAlignment="Center" Margin="12" Click="btnAddLibrary_Click" />
             </Grid>
