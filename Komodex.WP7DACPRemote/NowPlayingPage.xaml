@@ -148,8 +148,8 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0">
             <Button Template="{StaticResource EmptyButton}" Click="btnLibrary_Click">
-                <Border Background="{StaticResource PhoneAccentBrush}">
-                    <TextBlock x:Name="ApplicationTitle" Margin="12,17,0,6" Text="{Binding LibraryName}" Style="{StaticResource PhoneTextNormalStyle}"/>
+                <Border>
+                    <TextBlock x:Name="ApplicationTitle" Margin="24,17,0,6" Text="{Binding LibraryName}" Style="{StaticResource PhoneTextNormalStyle}"/>
                 </Border>
             </Button>
         </StackPanel>
@@ -163,6 +163,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="72" />
                 </Grid.RowDefinitions>
                 <Button Margin="0,0,0,10" Style="{StaticResource BorderlessButtonStyle}" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Bottom" Click="btnArtist_Click">
                     <StackPanel>
@@ -218,7 +219,7 @@
                                Style="{StaticResource PhoneTextBlockBase}"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                 </StackPanel>
-                <Slider Grid.Row="4" Height="48" Margin="0,0,36,72" 
+                <Slider Grid.Row="4" Height="48" Margin="0,0,36,0" 
                         Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100"
                         Style="{StaticResource VolumeSliderStyle}"
                         VerticalAlignment="Center" />
