@@ -129,7 +129,13 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         NavigationService.GoBack();
                         break;
                     case ServerUpdateType.Error:
-                        MessageBox.Show("Could not connect to library. Please check your settings and try again.");
+                        if (e.ErrorType == ServerErrorType.UnsupportedVersion)
+                            MessageBox.Show("This application currently requires iTunes version 10.0.1 or higher. "
+                                + "Please upgrade to the latest version of iTunes to continue.", "iTunes Version Error", MessageBoxButton.OK);
+                        else if (e.ErrorType == ServerErrorType.InvalidPIN)
+                            MessageBox.Show("Could not connect to iTunes. Please check the PIN and try again.", "PIN Error", MessageBoxButton.OK);
+                        else
+                            MessageBox.Show("Could not connect to iTunes. Please check the hostname and PIN and try again.", "Connection Error", MessageBoxButton.OK);
                         SetVisibility(false);
                         break;
                     default:

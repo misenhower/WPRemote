@@ -22,7 +22,7 @@ namespace Komodex.DACP
         public bool IsConnected
         {
             get { return _IsConnected; }
-            set
+            protected set
             {
                 if (_IsConnected == value)
                     return;
@@ -41,6 +41,19 @@ namespace Komodex.DACP
                     return;
                 _LibraryName = value;
                 SendPropertyChanged("LibraryName");
+            }
+        }
+
+        private int _ServerVersion = 0;
+        public int ServerVersion
+        {
+            get { return _ServerVersion; }
+            protected set
+            {
+                if (_ServerVersion == value)
+                    return;
+                _ServerVersion = value;
+                SendPropertyChanged("ServerVersion");
             }
         }
 
@@ -336,8 +349,11 @@ namespace Komodex.DACP
         protected void SendPropertyChanged(string propertyName)
         {
             // TODO: Is this the best way to execute this on the UI thread?
-            if (PropertyChanged != null)
-                Deployment.Current.Dispatcher.BeginInvoke(() => { PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); });
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            });
 
         }
 

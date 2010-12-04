@@ -126,6 +126,11 @@ namespace Komodex.DACP
 
         protected void ConnectionError()
         {
+            ConnectionError(ServerErrorType.General);
+        }
+
+        protected void ConnectionError(ServerErrorType errorType)
+        {
             IsConnected = false;
 
             if (!Stopped)
@@ -139,7 +144,7 @@ namespace Komodex.DACP
                 }
                 else
                 {
-                    SendServerUpdate(ServerUpdateType.Error);
+                    SendServerUpdate(ServerUpdateType.Error, errorType);
                 }
             }
         }
@@ -154,6 +159,12 @@ namespace Komodex.DACP
         {
             if (ServerUpdate != null)
                 ServerUpdate(this, new ServerUpdateEventArgs(type));
+        }
+
+        protected void SendServerUpdate(ServerUpdateType type, ServerErrorType errorType)
+        {
+            if (ServerUpdate != null)
+                ServerUpdate(this, new ServerUpdateEventArgs(type, errorType));
         }
 
         #endregion

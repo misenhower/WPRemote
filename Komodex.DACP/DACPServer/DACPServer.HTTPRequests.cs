@@ -157,7 +157,11 @@ namespace Komodex.DACP
                     return;
 
                 Utility.DebugWrite("Caught exception: " + e.Message);
-                ConnectionError();
+
+                if (ServerVersion > 0 && SessionID == 0)
+                    ConnectionError(ServerErrorType.InvalidPIN);
+                else
+                    ConnectionError();
             }
         }
 
@@ -182,12 +186,18 @@ namespace Komodex.DACP
                     case "minm": // Library name
                         LibraryName = kvp.Value.GetStringValue();
                         break;
+                    case "aeSV": // Server Version
+                        ServerVersion = kvp.Value.GetInt32Value();
+                        break;
                     default:
                         break;
                 }
             }
 
-            SubmitLoginRequest();
+            if (ServerVersion < 196611)
+                ConnectionError(ServerErrorType.UnsupportedVersion);
+            else
+                SubmitLoginRequest();
         }
 
         #endregion
