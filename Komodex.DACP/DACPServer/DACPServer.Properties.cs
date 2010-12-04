@@ -290,7 +290,7 @@ namespace Komodex.DACP
         public int Volume
         {
             get { return _Volume; }
-            protected set
+            set
             {
                 if (_Volume == value)
                     return;
@@ -303,7 +303,14 @@ namespace Komodex.DACP
                     _Volume = value;
 
                 SendPropertyChanged("Volume");
+                SendVolumeUpdate();
             }
+        }
+
+        protected void SendVolumeUpdate()
+        {
+            string url = "/ctrl-int/1/setproperty?dmcp.volume=" + _Volume + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
         }
 
         #endregion

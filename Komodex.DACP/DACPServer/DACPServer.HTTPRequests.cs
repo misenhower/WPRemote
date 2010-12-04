@@ -365,7 +365,7 @@ namespace Komodex.DACP
             {
                 if (kvp.Key == "cmvo")
                 {
-                    Volume = (byte)kvp.Value.GetInt32Value();
+                    _Volume = (byte)kvp.Value.GetInt32Value();
                     break;
                 }
             }
