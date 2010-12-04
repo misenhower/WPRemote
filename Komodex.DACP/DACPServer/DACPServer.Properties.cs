@@ -169,6 +169,22 @@ namespace Komodex.DACP
                     return 0;
                 return ((double)CurrentTrackTimePosition / (double)TrackTimeTotal) * 100;
             }
+            set
+            {
+                if (TrackTimeTotal == 0)
+                    return;
+
+                double percentage = value / 100d;
+                int newPos = (int)(percentage * TrackTimeTotal);
+                TrackTimeRemaining = TrackTimeTotal - newPos;
+                SendTrackTimeUpdate(newPos);
+            }
+        }
+
+        protected void SendTrackTimeUpdate(int position)
+        {
+            string url = "/ctrl-int/1/setproperty?dacp.playingtime=" + position + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
         }
 
         private readonly string timeFormat = "{0}:{1:00}";
