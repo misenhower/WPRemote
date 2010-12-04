@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <Border Background="{StaticResource PhoneBackgroundBrush}" Opacity="0.85" Grid.RowSpan="2" />
         <StackPanel HorizontalAlignment="Center" Name="stackPanel1" VerticalAlignment="Center">
-            <ProgressBar Height="4" Name="progressBar1" Width="460" IsIndeterminate="{Binding ShowProgressBar}" Visibility="{Binding ShowProgressBar, Converter={StaticResource booleanToVisibilityConverter}}" />
+            <ProgressBar Height="4" Name="progressBar1" Width="460" IsIndeterminate="{Binding ShowProgressBar}" Visibility="{Binding ShowProgressBar, Converter={StaticResource booleanToVisibilityConverter}}" Style="{StaticResource PerformanceProgressBar}" />
             <TextBlock Name="tbLibraryConnectionText" Text="Connecting to Library" TextAlignment="Center" TextWrapping="Wrap" />
             <TextBlock Name="tbLibraryName" Style="{StaticResource PhoneTextAccentStyle}" TextAlignment="Center" />
         </StackPanel>
