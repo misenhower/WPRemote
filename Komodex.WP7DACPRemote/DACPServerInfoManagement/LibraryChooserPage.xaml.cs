@@ -28,6 +28,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             AnimationContext = LayoutRoot;
         }
 
+        private bool _deletedConnectedServer = false;
+
         #region Static Properties
 
         private static bool _SuppressAutoOpenAddNewServerPage = false;
@@ -53,6 +55,17 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             base.OnNavigatedTo(e);
         }
 
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnBackKeyPress(e);
+
+            if (_deletedConnectedServer)
+            {
+                _deletedConnectedServer = false;
+                NavigationManager.GoToFirstPage();
+            }
+        }
+
         #endregion
 
         #region Button/Action Event Handlers
@@ -75,10 +88,12 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             {
                 DACPServerViewModel.Instance.Items.Remove(serverInfo);
                 if (DACPServerManager.Server != null && DACPServerManager.Server.ID == serverInfo.ID)
+                {
+                    _deletedConnectedServer = true;
                     DACPServerManager.ConnectToServer(true);
+                }
             }
         }
-
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
