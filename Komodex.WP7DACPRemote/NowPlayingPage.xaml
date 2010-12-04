@@ -81,7 +81,7 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="185" />
@@ -93,11 +93,11 @@
                     <StackPanel>
                         <TextBlock Text="{Binding CurrentArtist}"
                                TextWrapping="Wrap" MaxHeight="132"
-                               Margin="12,0"
+                               Margin="12,0,0,0"
                                FontSize="64" LineHeight="66" LineStackingStrategy="BlockLineHeight"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                         <TextBlock Text="{Binding CurrentAlbum}"
-                               Margin="12,0"
+                               Margin="12,0,0,0"
                                FontSize="36" LineHeight="38" LineStackingStrategy="BlockLineHeight"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                     </StackPanel>
@@ -138,6 +138,7 @@
                 </Grid>
                 <StackPanel Grid.Row="3" HorizontalAlignment="Stretch" Name="stackPanel1" VerticalAlignment="Stretch">
                     <TextBlock Text="{Binding CurrentSongName}"
+                               Margin="12,0,0,0"
                                FontSize="36"
                                Style="{StaticResource PhoneTextBlockBase}"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
