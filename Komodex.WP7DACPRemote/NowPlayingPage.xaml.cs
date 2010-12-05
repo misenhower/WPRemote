@@ -41,6 +41,15 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedTo(e);
             HidePlayControls(false);
             UpdateRepeatShuffleButtons();
+
+            GestureListener.IgnoreTouchFrameReported = true;
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            GestureListener.IgnoreTouchFrameReported = false;
         }
 
         protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
