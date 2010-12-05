@@ -110,12 +110,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             if (ignoreNextArtistSelection)
             {
                 ignoreNextArtistSelection = false;
+                lbArtists.SelectedItem = null;
                 return;
             }
 
-            LongListSelector listBox = (LongListSelector)sender;
-
-            Artist artist = listBox.SelectedItem as Artist;
+            Artist artist = lbArtists.SelectedItem as Artist;
 
             if (artist != null)
             {
@@ -138,15 +137,37 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
         }
 
+        private bool ignoreNextAlbumSelection = false;
+
         private void lbAlbums_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            LongListSelector listBox = (LongListSelector)sender;
+            if (ignoreNextAlbumSelection)
+            {
+                ignoreNextAlbumSelection = false;
+                lbAlbums.SelectedItem = null;
+                return;
+            }
 
-            Album album = listBox.SelectedItem as Album;
+            Album album = lbAlbums.SelectedItem as Album;
 
             if (album != null)
             {
                 NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
+            }
+        }
+
+        private void AlbumPlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            ignoreNextAlbumSelection = true;
+
+            Button button = (Button)sender;
+
+            Album album = button.Tag as Album;
+
+            if (album != null)
+            {
+                album.SendPlaySongCommand();
+                NavigationManager.OpenNowPlayingPage();
             }
         }
 

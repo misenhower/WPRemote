@@ -20,6 +20,16 @@
     	</ControlTemplate>
         
         <ControlTemplate x:Key="EmptyButton" TargetType="Button" />
+        
+        <ControlTemplate x:Key="AlbumButton" TargetType="Button">
+            <Grid Background="{StaticResource PhoneChromeBrush}">
+                <ContentControl x:Name="ContentContainer" Content="{TemplateBinding Content}" />
+                <Canvas Width="43" Height="43" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Margin="0,10,10,0">
+                    <Ellipse StrokeThickness="3" Width="43" Height="43" Fill="#26000000" Stroke="White" />
+                    <Path Data="F1M84.127,709.4629L70.558,719.8039L70.558,699.2159z" Stretch="Fill" Height="18" Width="12" Canvas.Left="17" Canvas.Top="12" UseLayoutRounding="False" Fill="White" />
+                </Canvas>
+            </Grid>
+        </ControlTemplate>
 
         <!-- Icon Control Templates -->
         <ControlTemplate x:Key="iTunesIconButton" TargetType="ContentControl">

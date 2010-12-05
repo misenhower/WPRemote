@@ -179,25 +179,33 @@ namespace Komodex.DACP.Library
 
         #region Play Song Command
 
+        public void SendPlaySongCommand()
+        {
+            SendPlaySongCommand(0);
+        }
+
         public void SendPlaySongCommand(Song song)
         {
             try
             {
                 int songIndex = Songs.IndexOf(song);
-
-                string url = "/ctrl-int/1/cue"
-                    + "?command=play"
-                    + "&query=(('daap.songartist:" + EncodedArtistName + "','daap.songalbumartist:" + EncodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
-                    + "&index=" + songIndex
-                    + "&sort=album"
-                    //+ "&srcdatabase=0xC2C1E50F13CF1F5C"
-                    + "&clear-first=1"
-                    + "&session-id=" + Server.SessionID;
-
-                Server.SubmitHTTPRequest(url);
+                SendPlaySongCommand(songIndex);
             }
             catch { }
+        }
 
+        protected void SendPlaySongCommand(int index)
+        {
+            string url = "/ctrl-int/1/cue"
+                + "?command=play"
+                + "&query=(('daap.songartist:" + EncodedArtistName + "','daap.songalbumartist:" + EncodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
+                + "&index=" + index
+                + "&sort=album"
+                //+ "&srcdatabase=0xC2C1E50F13CF1F5C"
+                + "&clear-first=1"
+                + "&session-id=" + Server.SessionID;
+
+            Server.SubmitHTTPRequest(url);
         }
 
         #endregion

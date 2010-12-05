@@ -36,9 +36,9 @@
             <my:FakeButton>
                 <Border Padding="12,6,12,12" Background="Transparent">
                     <StackPanel Orientation="Horizontal">
-                        <Border Background="{StaticResource PhoneChromeBrush}" Width="175" Height="175" HorizontalAlignment="Left">
+                        <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="AlbumPlayButton_Click">
                             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                        </Border>
+                        </Button>
                         <StackPanel>
                             <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                             <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" />
