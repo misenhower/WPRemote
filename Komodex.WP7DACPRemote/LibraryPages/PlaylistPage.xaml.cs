@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Clarity.Phone.Controls;
 using Komodex.DACP.Library;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -68,6 +69,19 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 if (Playlist.Server != null && Playlist.Server.IsConnected)
                     Playlist.GetSongs();
             }
+        }
+
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            if (toOrFrom != null)
+            {
+                string uri = toOrFrom.OriginalString;
+
+                if (uri.Contains("MainLibraryPage"))
+                    return GetContinuumAnimation(PageTitle, animationType);
+            }
+
+            return base.GetAnimation(animationType, toOrFrom);
         }
 
         #endregion
