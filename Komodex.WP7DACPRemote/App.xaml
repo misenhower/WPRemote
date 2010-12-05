@@ -144,7 +144,7 @@
                         <unsupported:RelativeAnimatingContentControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                             <unsupported:RelativeAnimatingContentControl.Resources>
                                 <ExponentialEase EasingMode="EaseOut" Exponent="1" x:Key="ProgressBarEaseOut"/>
-                                <ExponentialEase EasingMode="EaseOut" Exponent="1" x:Key="ProgressBarEaseIn"/>
+                                <ExponentialEase EasingMode="EaseIn" Exponent="1" x:Key="ProgressBarEaseIn"/>
                             </unsupported:RelativeAnimatingContentControl.Resources>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
@@ -167,33 +167,33 @@
                                             </ObjectAnimationUsingKeyFrames>
                                             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.0" Storyboard.TargetProperty="X" Storyboard.TargetName="R1TT">
                                                 <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="0.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" EasingFunction="{StaticResource ProgressBarEaseOut}"/>
                                                 <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="66.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" EasingFunction="{StaticResource ProgressBarEaseIn}"/>
                                             </DoubleAnimationUsingKeyFrames>
                                             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.2" Storyboard.TargetProperty="X" Storyboard.TargetName="R2TT">
                                                 <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="0.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" EasingFunction="{StaticResource ProgressBarEaseOut}"/>
                                                 <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="66.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" EasingFunction="{StaticResource ProgressBarEaseIn}"/>
                                             </DoubleAnimationUsingKeyFrames>
                                             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.4" Storyboard.TargetProperty="X" Storyboard.TargetName="R3TT">
                                                 <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="0.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" EasingFunction="{StaticResource ProgressBarEaseOut}"/>
                                                 <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="66.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" EasingFunction="{StaticResource ProgressBarEaseIn}"/>
                                             </DoubleAnimationUsingKeyFrames>
                                             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.6" Storyboard.TargetProperty="X" Storyboard.TargetName="R4TT">
                                                 <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="0.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" EasingFunction="{StaticResource ProgressBarEaseOut}"/>
                                                 <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="66.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" EasingFunction="{StaticResource ProgressBarEaseIn}"/>
                                             </DoubleAnimationUsingKeyFrames>
                                             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.8" Storyboard.TargetProperty="X" Storyboard.TargetName="R5TT">
                                                 <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="0.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="33.1" EasingFunction="{StaticResource ProgressBarEaseOut}"/>
                                                 <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="66.1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="100.1" EasingFunction="{StaticResource ProgressBarEaseIn}"/>
                                             </DoubleAnimationUsingKeyFrames>
                                             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="R1">
                                                 <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
