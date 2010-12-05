@@ -131,6 +131,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             listBox.SelectedItem = null;
         }
 
+        private void AlbumPlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            Album.SendPlaySongCommand();
+            NavigationManager.OpenNowPlayingPage();
+        }
+
         #endregion
 
         #region Methods
