@@ -1,0 +1,105 @@
+﻿<cc:AnimatedBasePage
+    xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
+    x:Class="Komodex.WP7DACPRemote.About"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:msun="clr-namespace:Microsoft.Unsupported"
+    msun:TiltEffect.IsTiltEnabled="True"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="REMOTE" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <StackPanel Background="{StaticResource PhoneChromeBrush}" Margin="12,0,12,12">
+            	<TextBlock TextWrapping="Wrap" Text="Remote" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+            	<TextBlock TextWrapping="Wrap" Text="for Windows Phone 7" Style="{StaticResource PhoneTextTitle3Style}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}" Name="tbAppVersion" Margin="12,0,12,12" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Background="{StaticResource PhoneChromeBrush}" Margin="12">
+                <TextBlock TextWrapping="Wrap" Text="iTunes Information" Style="{StaticResource PhoneTextTitle2Style}"/>
+                <TextBlock TextWrapping="Wrap" Text="Not connected" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,12,12" Name="tbiTunesNotConnected" />
+                <Grid Margin="0,12,0,12" Name="gridiTunesInfo">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Version:" />
+
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesVersion" />
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Background="{StaticResource PhoneChromeBrush}" Margin="12">
+                <TextBlock TextWrapping="Wrap" Text="Device Information" Style="{StaticResource PhoneTextTitle2Style}"/>
+                <Grid Margin="0,12,0,12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Manufacturer:" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Device:" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Firmware:" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="HW Version:" />
+
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbManufacturer" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbDevice" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbFirmware" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbHardwareVersion" />
+                </Grid>
+            </StackPanel>
+
+            <Button Grid.Row="4" Template="{StaticResource EmptyButton}" Margin="12,0,12,24" Click="btnLogo_Click">
+                <Grid Height="65" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Fill="{StaticResource PhoneAccentBrush}" Width="12" />
+                    <Image Grid.Column="1" Source="/Komodex.WP7DACPRemote;component/Images/komodex-logo-65px.png" Margin="12,0" />
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="http://komodex.com" Style="{StaticResource PhoneTextBlockBase}" />
+                </Grid>
+            </Button>
+        </Grid>
+    </Grid>
+
+</cc:AnimatedBasePage>

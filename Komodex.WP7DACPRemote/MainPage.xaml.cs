@@ -120,6 +120,11 @@ namespace Komodex.WP7DACPRemote
             NavigationManager.OpenLibraryChooserPage();
         }
 
+        private void mnuAbout_Click(object sender, EventArgs e)
+        {
+            NavigationManager.OpenAboutPage();
+        }
+
         private void btnAddLibrary_Click(object sender, RoutedEventArgs e)
         {
             NavigationManager.OpenAddNewServerPage();

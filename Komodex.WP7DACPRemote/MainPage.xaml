@@ -185,6 +185,7 @@
             <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.ff.rest.png" Text="next" />
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="choose library" x:Name="mnuSettings" Click="mnuSettings_Click" />
+                <shell:ApplicationBarMenuItem Text="about" Click="mnuAbout_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
