@@ -22,6 +22,19 @@ namespace Komodex.DACP
         public int DatabaseID { get; protected set; }
         public int BasePlaylistID { get; protected set; }
 
+        private List<Playlist> _LibraryPlaylists = null;
+        public List<Playlist> LibraryPlaylists
+        {
+            get { return _LibraryPlaylists; }
+            set
+            {
+                if (_LibraryPlaylists == value)
+                    return;
+                _LibraryPlaylists = value;
+                SendPropertyChanged("LibraryPlaylists");
+            }
+        }
+
         private GroupedItems<Artist> _LibraryArtists = null;
         public GroupedItems<Artist> LibraryArtists
         {
@@ -105,14 +118,25 @@ namespace Komodex.DACP
                 switch (kvp.Key)
                 {
                     case "mlcl":
-                        // TODO: Retain playlist info
+                        var playlists = new List<Playlist>();
                         var playlistNodes = Utility.GetResponseNodes(kvp.Value);
                         foreach (var playlistData in playlistNodes)
                         {
                             Playlist pl = new Playlist(this, playlistData.Value);
                             if (pl.BasePlaylist)
+                            {
                                 BasePlaylistID = pl.ID;
+                            }
+                            else if (pl.SpecialPlaylistType != 0)
+                            {
+                                // Handle special playlist
+                            }
+                            else
+                            {
+                                playlists.Add(pl);
+                            }
                         }
+                        LibraryPlaylists = playlists;
                         break;
                     default:
                         break;
