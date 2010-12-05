@@ -95,7 +95,11 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Rectangle Fill="{StaticResource PhoneAccentBrush}" Width="12" />
-                    <Image Grid.Column="1" Source="/Komodex.WP7DACPRemote;component/Images/komodex-logo-65px.png" Margin="12,0" />
+                    <Rectangle Grid.Column="1" Fill="{StaticResource PhoneForegroundBrush}" Margin="12,0" Width="188">
+                        <Rectangle.OpacityMask>
+                            <ImageBrush ImageSource="/Komodex.WP7DACPRemote;component/Images/komodex-logo-65px.png" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
                     <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="http://komodex.com" Style="{StaticResource PhoneTextBlockBase}" />
                 </Grid>
             </Button>
