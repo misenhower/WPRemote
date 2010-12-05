@@ -9,10 +9,6 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}">
     
-    <UserControl.Resources>
-        <localHelpers:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
-    </UserControl.Resources>
-
     <Grid x:Name="LayoutRoot" Background="Transparent" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
