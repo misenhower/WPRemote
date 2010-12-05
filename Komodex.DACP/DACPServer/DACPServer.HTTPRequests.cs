@@ -21,7 +21,7 @@ namespace Komodex.DACP
     {
         #region HTTP Management
 
-        protected List<HttpWebRequest> PendingHttpRequests = new List<HttpWebRequest>();
+        protected List<HTTPRequestInfo> PendingHttpRequests = new List<HTTPRequestInfo>();
 
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Komodex.DACP
         /// </summary>
         /// <param name="url">The URL request (e.g., "/server-info").</param>
         /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
-        public HTTPRequestInfo SubmitHTTPRequest(string url, AsyncCallback callback = null, IDACPResponseHandler responseHandler = null, HTTPResponseHandler responseHandlerDelegate = null, object actionObject = null)
+        public HTTPRequestInfo SubmitHTTPRequest(string url, AsyncCallback callback = null, IDACPResponseHandler responseHandler = null, HTTPResponseHandler responseHandlerDelegate = null, object actionObject = null, bool isDataRetrieval = false)
         {
             Utility.DebugWrite("Submitting HTTP request for: " + url);
 
@@ -49,11 +49,15 @@ namespace Komodex.DACP
                 requestInfo.ResponseHandler = responseHandler;
                 requestInfo.ResponseHandlerDelegate = responseHandlerDelegate;
                 requestInfo.ActionObject = actionObject;
+                requestInfo.IsDataRetrieval = isDataRetrieval;
 
                 // Send HTTP request
                 webRequest.BeginGetResponse(callback, requestInfo);
 
-                PendingHttpRequests.Add(webRequest);
+                PendingHttpRequests.Add(requestInfo);
+
+                if (isDataRetrieval)
+                    UpdateGettingData(true);
 
                 return requestInfo;
             }
@@ -67,20 +71,20 @@ namespace Komodex.DACP
 
         protected void HTTPByteCallback(IAsyncResult result)
         {
+            // Get the HTTPRequestInfo object
+            HTTPRequestInfo requestInfo = (HTTPRequestInfo)result.AsyncState;
+
+            Utility.DebugWrite("Got HTTP response for: " + requestInfo.WebRequest.RequestUri);
+
+            if (PendingHttpRequests.Contains(requestInfo))
+                PendingHttpRequests.Remove(requestInfo);
+
             try
             {
-                // Get the HTTPRequestInfo object
-                HTTPRequestInfo requestInfo = (HTTPRequestInfo)result.AsyncState;
-
-                Utility.DebugWrite("Got HTTP response for: " + requestInfo.WebRequest.RequestUri);
-
                 WebResponse response = requestInfo.WebRequest.EndGetResponse(result);
 
                 if (Stopped)
                     return;
-
-                if (PendingHttpRequests.Contains(requestInfo.WebRequest))
-                    PendingHttpRequests.Remove(requestInfo.WebRequest);
 
                 Stream responseStream = response.GetResponseStream();
                 BinaryReader br = new BinaryReader(responseStream);
@@ -163,6 +167,8 @@ namespace Komodex.DACP
                 else
                     ConnectionError();
             }
+
+            UpdateGettingData();
         }
 
         #endregion

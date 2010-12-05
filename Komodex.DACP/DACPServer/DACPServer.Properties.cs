@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using System.Linq;
 
 namespace Komodex.DACP
 {
@@ -55,6 +56,27 @@ namespace Komodex.DACP
                 _ServerVersion = value;
                 SendPropertyChanged("ServerVersion");
             }
+        }
+
+        private bool _GettingData = false;
+        public bool GettingData
+        {
+            get { return _GettingData; }
+            private set
+            {
+                if (_GettingData == value)
+                    return;
+                _GettingData = value;
+                SendPropertyChanged("GettingData");
+            }
+        }
+
+        private void UpdateGettingData(bool setToTrue = false)
+        {
+            if (setToTrue)
+                GettingData = true;
+            else
+                GettingData = PendingHttpRequests.Any(hri => hri.IsDataRetrieval);
         }
 
         #endregion

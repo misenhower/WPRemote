@@ -98,9 +98,9 @@ namespace Komodex.DACP
 
             try
             {
-                foreach (HttpWebRequest request in PendingHttpRequests)
+                foreach (HTTPRequestInfo request in PendingHttpRequests)
                 {
-                    request.Abort();
+                    request.WebRequest.Abort();
                 }
             }
             catch { }

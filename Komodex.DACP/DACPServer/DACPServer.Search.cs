@@ -81,7 +81,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=('daap.songalbum:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + SessionID;
-            albumSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessAlbumSearchResponse), resultSet);
+            albumSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessAlbumSearchResponse), resultSet, true);
         }
 
         protected void ProcessAlbumSearchResponse(HTTPRequestInfo requestInfo)
@@ -128,7 +128,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=('daap.songartist:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songartist!:')"
                 + "&session-id=" + SessionID;
-            artistSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessArtistSearchResponse), resultSet);
+            artistSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessArtistSearchResponse), resultSet, true);
         }
 
         protected void ProcessArtistSearchResponse(HTTPRequestInfo requestInfo)
@@ -174,7 +174,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=('dmap.itemname:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + "&session-id=" + SessionID;
-            songSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessSongSearchResponse), resultSet);
+            songSearchRequestInfo = SubmitHTTPRequest(url, null, null, new HTTPResponseHandler(ProcessSongSearchResponse), resultSet, true);
         }
 
         protected void ProcessSongSearchResponse(HTTPRequestInfo requestInfo)

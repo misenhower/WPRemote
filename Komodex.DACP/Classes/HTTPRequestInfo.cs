@@ -23,6 +23,8 @@ namespace Komodex.DACP
 
         public HttpWebRequest WebRequest { get; protected set; }
 
+        public bool IsDataRetrieval { get; set; }
+
         public IDACPResponseHandler ResponseHandler { get; set; }
 
         public HTTPResponseHandler ResponseHandlerDelegate { get; set; }
