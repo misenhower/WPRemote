@@ -22,7 +22,7 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="AlbumTemplate">
             <my:FakeButton>
-                <Border Padding="12,6,12,12" Background="Transparent">
+                <Border Padding="12,6,0,12" Background="Transparent">
                     <StackPanel Orientation="Horizontal">
                         <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="AlbumPlayButton_Click">
                             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
@@ -37,7 +37,7 @@
         </DataTemplate>
         <DataTemplate x:Key="SongTemplate">
             <my:FakeButton>
-                <Border Padding="12,6,12,12" Background="Transparent">
+                <Border Padding="12,6,0,12" Background="Transparent">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -48,8 +48,8 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Button Content="Button" Grid.Row="0" Grid.Column="0" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                        <TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,0,0" />
+                        <TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
                     </Grid>
                 </Border>
             </my:FakeButton>
@@ -63,14 +63,14 @@
             <!--Pivot item one-->
             <controls:PivotItem x:Name="pivotAlbums" Header="albums">
                 <Grid>
-                    <toolkit:LongListSelector x:Name="lbAlbums" IsFlatList="True" ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}" SelectionChanged="lbAlbums_SelectionChanged" />
+                    <toolkit:LongListSelector x:Name="lbAlbums" IsFlatList="True" ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}" SelectionChanged="lbAlbums_SelectionChanged" Margin="0,0,-12,0" />
                 </Grid>
             </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem x:Name="pivotSongs" Header="songs">
                 <Grid>
-                    <toolkit:LongListSelector x:Name="lbSongs" IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" />
+                    <toolkit:LongListSelector x:Name="lbSongs" IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" Margin="0,0,-12,0" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

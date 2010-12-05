@@ -20,11 +20,11 @@
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/AlbumSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="SongTemplate">
-            <Border Padding="12,6,12,12" Background="Transparent">
+            <Border Padding="12,6,0,12" Background="Transparent">
                 <my:FakeButton>
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
                     </StackPanel>
                 </my:FakeButton>
             </Border>
@@ -62,13 +62,13 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="{Binding Name}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding Name}" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0,0,0" />
             <TextBlock x:Name="PageTitle" Text="album" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:LongListSelector IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="ListBox_SelectionChanged">
+            <toolkit:LongListSelector IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="ListBox_SelectionChanged" Margin="0,0,-12,0">
                 <toolkit:LongListSelector.ListHeader>
                     <Border Background="Transparent">
                         <Grid Margin="12,6,12,12">
