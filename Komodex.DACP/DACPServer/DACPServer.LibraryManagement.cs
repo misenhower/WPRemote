@@ -20,6 +20,7 @@ namespace Komodex.DACP
         #region Properties
 
         public int DatabaseID { get; protected set; }
+        public UInt64 DatabasePersistentID { get; protected set; }
         public int BasePlaylistID { get; protected set; }
 
         private List<Playlist> _LibraryPlaylists = null;
@@ -88,6 +89,9 @@ namespace Komodex.DACP
                     {
                         case "miid":
                             DatabaseID = kvp.Value.GetInt32Value();
+                            break;
+                        case "mper":
+                            DatabasePersistentID = (UInt64)kvp.Value.GetInt64Value();
                             break;
                         default:
                             break;

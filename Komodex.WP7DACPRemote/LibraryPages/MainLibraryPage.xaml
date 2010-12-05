@@ -47,6 +47,25 @@
                 </Border>
             </my:FakeButton>
         </DataTemplate>
+        <DataTemplate x:Key="PlaylistTemplate">
+            <my:FakeButton>
+                <Border Padding="12,6,0,12" Background="Transparent">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="PlaylistPlayButton_Click" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding ItemCountString}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                    </Grid>
+                </Border>
+            </my:FakeButton>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -89,6 +108,19 @@
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
+                        <toolkit:LongListSelector.ListFooter>
+                            <Border Height="72" />
+                        </toolkit:LongListSelector.ListFooter>
+                    </toolkit:LongListSelector>
+                </Grid>
+            </controls:PivotItem>
+            <controls:PivotItem Header="playlists" Name="pivotPlaylists">
+                <Grid>
+                    <toolkit:LongListSelector x:Name="lbPlaylists" Background="Transparent" ItemsSource="{Binding LibraryPlaylists}"
+                                              IsFlatList="True"
+                                              Margin="0,0,-12,0"
+                                              ItemTemplate="{StaticResource PlaylistTemplate}"
+                                              SelectionChanged="lbPlaylists_SelectionChanged">
                         <toolkit:LongListSelector.ListFooter>
                             <Border Height="72" />
                         </toolkit:LongListSelector.ListFooter>

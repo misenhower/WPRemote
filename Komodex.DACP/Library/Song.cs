@@ -33,9 +33,14 @@ namespace Komodex.DACP.Library
 
         public DACPServer Server { get; protected set; }
         public int ID { get; protected set; }
+        public int ContainerItemID { get; protected set; }
         public string Name { get; protected set; }
         public string ArtistName { get; protected set; }
         public string AlbumName { get; protected set; }
+        public string ArtistAndAlbum
+        {
+            get { return ArtistName + " – " + AlbumName; }
+        }
 
         public string SecondLine
         {
@@ -64,6 +69,9 @@ namespace Komodex.DACP.Library
                 {
                     case "miid": // ID
                         ID = kvp.Value.GetInt32Value();
+                        break;
+                    case "mcti": // Container item ID
+                        ContainerItemID = kvp.Value.GetInt32Value();
                         break;
                     case "minm": // Name
                         Name = kvp.Value.GetStringValue();

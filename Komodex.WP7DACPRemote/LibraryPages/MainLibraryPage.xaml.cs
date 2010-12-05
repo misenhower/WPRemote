@@ -103,6 +103,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             GetDataForPivotItem();
         }
 
+        #region Artists
+
         private bool ignoreNextArtistSelection = false;
 
         private void lbArtists_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -137,6 +139,10 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
         }
 
+        #endregion
+
+        #region Albums
+
         private bool ignoreNextAlbumSelection = false;
 
         private void lbAlbums_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -170,6 +176,45 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 NavigationManager.OpenNowPlayingPage();
             }
         }
+
+        #endregion
+
+        #region Playlists
+
+        private bool ignoreNextPlaylistSelection = false;
+
+        private void lbPlaylists_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ignoreNextPlaylistSelection)
+            {
+                ignoreNextPlaylistSelection = false;
+                lbPlaylists.SelectedItem = null;
+                return;
+            }
+
+            Playlist playlist = lbPlaylists.SelectedItem as Playlist;
+
+            if (playlist != null)
+                NavigationManager.OpenPlaylistPage(playlist.ID, playlist.Name, playlist.PersistentID);
+        }
+
+        private void PlaylistPlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            ignoreNextPlaylistSelection = true;
+
+            Button button = (Button)sender;
+
+            Playlist playlist = button.Tag as Playlist;
+
+            if (playlist != null)
+            {
+                playlist.SendPlaySongCommand();
+                NavigationManager.OpenNowPlayingPage();
+            }
+        }
+
+
+        #endregion
 
         #endregion
 
