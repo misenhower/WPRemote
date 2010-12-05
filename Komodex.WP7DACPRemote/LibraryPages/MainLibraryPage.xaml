@@ -128,6 +128,8 @@
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
+
+        <ProgressBar VerticalAlignment="Top" IsIndeterminate="{Binding GettingData}" Visibility="{Binding GettingData,Converter={StaticResource booleanToVisibilityConverter}}" Style="{StaticResource PerformanceProgressBar}" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>

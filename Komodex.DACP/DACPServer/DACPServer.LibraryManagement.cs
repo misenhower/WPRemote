@@ -173,7 +173,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songartist!:')"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, null, null, null, null, true);
         }
 
         protected void ProcessArtistsResponse(HTTPRequestInfo requestInfo)
@@ -227,7 +227,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, null, null, null, null, true);
         }
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
