@@ -15,10 +15,13 @@ namespace Komodex.WP7DACPRemote
 {
     public class StateUtils
     {
+        public const string SavedStateKey = "PageStatePreserved";
+
         // A List of Actions that will be executed on the first render. This is used to scroll
         // the ScrollViewer to the correct offset.
         static List<Action> workItems;
 
+        #region TextBox
 
         /// <summary>
         /// Saves the contents and selection location of a TextBox to the state dictionary.
@@ -44,6 +47,10 @@ namespace Komodex.WP7DACPRemote
             textBox.SelectionLength = TryGetValue<int>(state, textBox.Name + "_SelectionLength", 0);
         }
 
+        #endregion
+
+        #region CheckBox
+
         /// <summary>
         /// Saves the checked state of a CheckBox to the state dictionary.
         /// </summary>
@@ -63,6 +70,10 @@ namespace Komodex.WP7DACPRemote
         {
             checkBox.IsChecked = TryGetValue<bool>(state, checkBox.Name + "_IsChecked", defaultValue);
         }
+
+        #endregion
+
+        #region Slider
 
         /// <summary>
         /// Saves the value of a Slider to the state dictionary.
@@ -84,6 +95,10 @@ namespace Komodex.WP7DACPRemote
             slider.Value = TryGetValue<double>(state, slider.Name + "_Value", defaultValue);
         }
 
+        #endregion
+
+        #region RadioButton
+
         /// <summary>
         /// Saves the checked state of a RadioButton to the state dictionary.
         /// </summary>
@@ -103,6 +118,10 @@ namespace Komodex.WP7DACPRemote
         {
             radioButton.IsChecked = TryGetValue<bool>(state, radioButton.Name + "_IsChecked", defaultValue);
         }
+        
+        #endregion
+
+        #region ScrollViewer
 
         /// <summary>
         /// Saves the scroll offset of a ScrollViewer to the state dictionary.
@@ -133,6 +152,10 @@ namespace Komodex.WP7DACPRemote
                 ScheduleOnNextRender(delegate { scrollViewer.ScrollToVerticalOffset(offset); });
             }
         }
+        
+        #endregion
+
+        #region Focus State
 
         /// <summary>
         /// Saves the name of the control that has focus to the state dictionary.
@@ -191,6 +214,10 @@ namespace Komodex.WP7DACPRemote
                 }
             }
         }
+        
+        #endregion
+
+        #region Helpers
 
         /// <summary>
         /// Helper method to retrieve a value from the state dictionary.
@@ -263,6 +290,6 @@ namespace Komodex.WP7DACPRemote
             }
         }
 
-
+        #endregion
     }
 }

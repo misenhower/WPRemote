@@ -38,6 +38,29 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         #region Overrides
 
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            StateUtils.PreserveState(State, tbHost);
+            StateUtils.PreserveState(State, tbPIN);
+            //StateUtils.PreserveFocusState(State, ContentPanel);
+
+            State[StateUtils.SavedStateKey] = true;
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (State.ContainsKey(StateUtils.SavedStateKey))
+            {
+                StateUtils.RestoreState(State, tbHost, string.Empty);
+                StateUtils.RestoreState(State, tbPIN, string.Empty);
+                //StateUtils.RestoreFocusState(State, ContentPanel);
+            }
+        }
+
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             if (server != null)
