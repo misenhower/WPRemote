@@ -10,10 +10,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Phone.Controls;
 
 namespace Komodex.WP7DACPRemote
 {
-    public class StateUtils
+    public static class StateUtils
     {
         public const string SavedStateKey = "PageStatePreserved";
 
@@ -28,11 +29,11 @@ namespace Komodex.WP7DACPRemote
         /// </summary>
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="textBox">The TextBox to be preserved.</param>
-        public static void PreserveState(IDictionary<string, object> state, TextBox textBox)
+        public static void PreserveState(this PhoneApplicationPage page, TextBox textBox)
         {
-            state[textBox.Name + "_Text"] = textBox.Text;
-            state[textBox.Name + "_SelectionStart"] = textBox.SelectionStart;
-            state[textBox.Name + "_SelectionLength"] = textBox.SelectionLength;
+            page.State[textBox.Name + "_Text"] = textBox.Text;
+            page.State[textBox.Name + "_SelectionStart"] = textBox.SelectionStart;
+            page.State[textBox.Name + "_SelectionLength"] = textBox.SelectionLength;
         }
         /// <summary>
         /// Restores the contents and selection location of a TextBox from the page's state dictionary.
@@ -40,11 +41,11 @@ namespace Komodex.WP7DACPRemote
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="textBox">The TextBox to be restored.</param>
         /// <param name="defaultValue">A default value that is used if the saved value cannot be retrieved.</param>
-        public static void RestoreState(IDictionary<string, object> state, TextBox textBox, string defaultValue)
+        public static void RestoreState(this PhoneApplicationPage page, TextBox textBox, string defaultValue)
         {
-            textBox.Text = TryGetValue<string>(state, textBox.Name + "_Text", defaultValue);
-            textBox.SelectionStart = TryGetValue<int>(state, textBox.Name + "_SelectionStart", textBox.Text.Length);
-            textBox.SelectionLength = TryGetValue<int>(state, textBox.Name + "_SelectionLength", 0);
+            textBox.Text = TryGetValue<string>(page.State, textBox.Name + "_Text", defaultValue);
+            textBox.SelectionStart = TryGetValue<int>(page.State, textBox.Name + "_SelectionStart", textBox.Text.Length);
+            textBox.SelectionLength = TryGetValue<int>(page.State, textBox.Name + "_SelectionLength", 0);
         }
 
         #endregion
@@ -56,9 +57,9 @@ namespace Komodex.WP7DACPRemote
         /// </summary>
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="checkBox">The CheckBox to be preserved.</param>
-        public static void PreserveState(IDictionary<string, object> state, CheckBox checkBox)
+        public static void PreserveState(this PhoneApplicationPage page, CheckBox checkBox)
         {
-            state[checkBox.Name + "_IsChecked"] = checkBox.IsChecked;
+            page.State[checkBox.Name + "_IsChecked"] = checkBox.IsChecked;
         }
         /// <summary>
         /// Restores the checked state of a CheckBox from the page's state dictionary.
@@ -66,9 +67,9 @@ namespace Komodex.WP7DACPRemote
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="checkBox">The CheckBox to be restored.</param>
         /// <param name="defaultValue">A default value that is used if the saved value cannot be retrieved.</param>
-        public static void RestoreState(IDictionary<string, object> state, CheckBox checkBox, bool defaultValue)
+        public static void RestoreState(this PhoneApplicationPage page, CheckBox checkBox, bool defaultValue)
         {
-            checkBox.IsChecked = TryGetValue<bool>(state, checkBox.Name + "_IsChecked", defaultValue);
+            checkBox.IsChecked = TryGetValue<bool>(page.State, checkBox.Name + "_IsChecked", defaultValue);
         }
 
         #endregion
@@ -80,9 +81,9 @@ namespace Komodex.WP7DACPRemote
         /// </summary>
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="slider">The Slider to be preserved.</param>
-        public static void PreserveState(IDictionary<string, object> state, Slider slider)
+        public static void PreserveState(this PhoneApplicationPage page, Slider slider)
         {
-            state[slider.Name + "_Value"] = slider.Value;
+            page.State[slider.Name + "_Value"] = slider.Value;
         }
         /// <summary>
         /// Restores the value of a Slider from the page's state dictionary.
@@ -90,9 +91,9 @@ namespace Komodex.WP7DACPRemote
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="slider">The Slider to be restored.</param>
         /// <param name="defaultValue">A default value that is used if the saved value cannot be retrieved.</param>
-        public static void RestoreState(IDictionary<string, object> state, Slider slider, double defaultValue)
+        public static void RestoreState(this PhoneApplicationPage page, Slider slider, double defaultValue)
         {
-            slider.Value = TryGetValue<double>(state, slider.Name + "_Value", defaultValue);
+            slider.Value = TryGetValue<double>(page.State, slider.Name + "_Value", defaultValue);
         }
 
         #endregion
@@ -104,9 +105,9 @@ namespace Komodex.WP7DACPRemote
         /// </summary>
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="radioButton">The RadioButton to be preserved.</param>
-        public static void PreserveState(IDictionary<string, object> state, RadioButton radioButton)
+        public static void PreserveState(this PhoneApplicationPage page, RadioButton radioButton)
         {
-            state[radioButton.Name + "_IsChecked"] = radioButton.IsChecked;
+            page.State[radioButton.Name + "_IsChecked"] = radioButton.IsChecked;
         }
         /// <summary>
         /// Restores the checked state of a RadioButton from the page's state dictionary.
@@ -114,9 +115,9 @@ namespace Komodex.WP7DACPRemote
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="radioButton">The RadioButton to be restored.</param>
         /// <param name="defaultValue">A default value that is used if the saved value cannot be retrieved.</param>
-        public static void RestoreState(IDictionary<string, object> state, RadioButton radioButton, bool defaultValue)
+        public static void RestoreState(this PhoneApplicationPage page, RadioButton radioButton, bool defaultValue)
         {
-            radioButton.IsChecked = TryGetValue<bool>(state, radioButton.Name + "_IsChecked", defaultValue);
+            radioButton.IsChecked = TryGetValue<bool>(page.State, radioButton.Name + "_IsChecked", defaultValue);
         }
         
         #endregion
@@ -128,10 +129,10 @@ namespace Komodex.WP7DACPRemote
         /// </summary>
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="scrollViewer">The ScrollViewer to be preserved.</param>
-        public static void PreserveState(IDictionary<string, object> state, ScrollViewer scrollViewer)
+        public static void PreserveState(this PhoneApplicationPage page, ScrollViewer scrollViewer)
         {
-            state[scrollViewer.Name + "_HorizontalOffset"] = scrollViewer.VerticalOffset;
-            state[scrollViewer.Name + "_VerticalOffset"] = scrollViewer.VerticalOffset;
+            page.State[scrollViewer.Name + "_HorizontalOffset"] = scrollViewer.VerticalOffset;
+            page.State[scrollViewer.Name + "_VerticalOffset"] = scrollViewer.VerticalOffset;
         }
         /// <summary>
         /// Retrieves the saved scroll offset from the state dictionary and creates a delegate to
@@ -139,14 +140,14 @@ namespace Komodex.WP7DACPRemote
         /// </summary>
         /// <param name="state"></param>
         /// <param name="scrollViewer"></param>
-        public static void RestoreState(IDictionary<string, object> state, ScrollViewer scrollViewer)
+        public static void RestoreState(this PhoneApplicationPage page, ScrollViewer scrollViewer)
         {
-            double offset = TryGetValue<double>(state, scrollViewer.Name + "_HorizontalOffset", 0);
+            double offset = TryGetValue<double>(page.State, scrollViewer.Name + "_HorizontalOffset", 0);
             if (offset > 0)
             {
                 ScheduleOnNextRender(delegate { scrollViewer.ScrollToHorizontalOffset(offset); });
             }
-            offset = TryGetValue<double>(state, scrollViewer.Name + "_VerticalOffset", 0);
+            offset = TryGetValue<double>(page.State, scrollViewer.Name + "_VerticalOffset", 0);
             if (offset > 0)
             {
                 ScheduleOnNextRender(delegate { scrollViewer.ScrollToVerticalOffset(offset); });
@@ -162,7 +163,7 @@ namespace Komodex.WP7DACPRemote
         /// </summary>
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="parent">The parent element for which focus is being saved.</param>
-        public static void PreserveFocusState(IDictionary<string, object> state, FrameworkElement parent)
+        public static void PreserveFocusState(this PhoneApplicationPage page, FrameworkElement parent)
         {
             // Determine which control currently has focus.
             Control focusedControl = FocusManager.GetFocusedElement() as Control;
@@ -170,7 +171,7 @@ namespace Komodex.WP7DACPRemote
             // If no control has focus, store null in the State dictionary.
             if (focusedControl == null)
             {
-                state["FocusedControlName"] = null;
+                page.State["FocusedControlName"] = null;
             }
             else
             {
@@ -180,12 +181,12 @@ namespace Komodex.WP7DACPRemote
                 // If the control isn't found within the parent, store null in the State dictionary.
                 if (foundFE == null)
                 {
-                    state["FocusedElementName"] = null;
+                    page.State["FocusedElementName"] = null;
                 }
                 else
                 {
                     // otherwise store the name of the control with focus.
-                    state["FocusedElementName"] = focusedControl.Name;
+                    page.State["FocusedElementName"] = focusedControl.Name;
                 }
             }
         }
@@ -196,10 +197,10 @@ namespace Komodex.WP7DACPRemote
         /// </summary>
         /// <param name="state">The calling page's state dictionary.</param>
         /// <param name="parent">The parent element for which focus is being restored.</param>
-        public static void RestoreFocusState(IDictionary<string, object> state, FrameworkElement parent)
+        public static void RestoreFocusState(this PhoneApplicationPage page, FrameworkElement parent)
         {
             // Get the name of the control that should have focus.
-            string focusedName = TryGetValue<string>(state, "FocusedElementName", null);
+            string focusedName = TryGetValue<string>(page.State, "FocusedElementName", null);
 
             // Check to see if the name is null or empty
             if (!String.IsNullOrEmpty(focusedName))

@@ -42,8 +42,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         {
             base.OnNavigatedFrom(e);
 
-            StateUtils.PreserveState(State, tbHost);
-            StateUtils.PreserveState(State, tbPIN);
+            this.PreserveState(tbHost);
+            this.PreserveState(tbPIN);
             //StateUtils.PreserveFocusState(State, ContentPanel);
 
             State[StateUtils.SavedStateKey] = true;
@@ -55,8 +55,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
             if (State.ContainsKey(StateUtils.SavedStateKey))
             {
-                StateUtils.RestoreState(State, tbHost, string.Empty);
-                StateUtils.RestoreState(State, tbPIN, string.Empty);
+                this.RestoreState(tbHost, string.Empty);
+                this.RestoreState(tbPIN, string.Empty);
                 //StateUtils.RestoreFocusState(State, ContentPanel);
             }
         }
