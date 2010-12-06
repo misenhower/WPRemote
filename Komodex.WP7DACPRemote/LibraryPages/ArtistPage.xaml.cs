@@ -42,17 +42,18 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             base.OnNavigatedTo(e);
 
-            if (Artist == null)
-            {
-                string artistName = NavigationContext.QueryString["name"] as string;
-                if (string.IsNullOrEmpty(artistName))
-                {
-                    NavigationService.GoBack();
-                    return;
-                }
+            string artistName = NavigationContext.QueryString["name"];
 
+            if (Artist == null)
                 Artist = new Artist(DACPServerManager.Server, artistName);
-            }
+        }
+
+        protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        {
+            base.DACPServer_ServerUpdate(sender, e);
+
+            if (e.Type == DACP.ServerUpdateType.ServerConnected)
+                Deployment.Current.Dispatcher.BeginInvoke(() => { GetDataForPivotItem(); });
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
