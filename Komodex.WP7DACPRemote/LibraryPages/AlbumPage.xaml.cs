@@ -17,7 +17,7 @@ using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
-    public partial class AlbumPage : AnimatedBasePage
+    public partial class AlbumPage : DACPServerBoundPhoneApplicationPage
     {
         public AlbumPage()
         {
@@ -30,21 +30,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private Album Album
         {
-            get { return DataContext as Album; }
-            set
-            {
-                if (Album != null)
-                {
-
-                }
-
-                DataContext = value;
-
-                if (Album != null)
-                {
-
-                }
-            }
+            get { return LayoutRoot.DataContext as Album; }
+            set { LayoutRoot.DataContext = value; }
         }
 
         #endregion

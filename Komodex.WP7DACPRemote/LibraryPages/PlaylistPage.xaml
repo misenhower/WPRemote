@@ -1,5 +1,6 @@
-﻿<cc:AnimatedBasePage
-    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls" 
+﻿<app:DACPServerBoundPhoneApplicationPage
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
+    xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.PlaylistPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -59,4 +60,4 @@
         </Grid>
     </Grid>
  
-</cc:AnimatedBasePage>
+</app:DACPServerBoundPhoneApplicationPage>
