@@ -43,7 +43,19 @@ namespace Komodex.WP7DACPRemote
             UpdateRepeatShuffleButtons();
 
             GestureListener.IgnoreTouchFrameReported = true;
+
+            if (ShouldGoBack())
+                AnimationContext = null;
         }
+
+        protected override void AnimationsComplete(Clarity.Phone.Controls.Animations.AnimationType animationType)
+        {
+            base.AnimationsComplete(animationType);
+
+            if (ShouldGoBack())
+                NavigationService.GoBack();
+        }
+
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
@@ -58,6 +70,9 @@ namespace Komodex.WP7DACPRemote
 
             if (e.PropertyName == "ShuffleState" || e.PropertyName == "RepeatState")
                 UpdateRepeatShuffleButtons();
+
+            if (ShouldGoBack())
+                NavigationService.GoBack();
         }
 
         #endregion
@@ -150,6 +165,15 @@ namespace Komodex.WP7DACPRemote
         private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             HidePlayControls();
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected bool ShouldGoBack()
+        {
+            return (DACPServer == null || (DACPServer.PlayState == DACP.PlayStates.Stopped && DACPServer.CurrentSongName == null));
         }
 
         #endregion
