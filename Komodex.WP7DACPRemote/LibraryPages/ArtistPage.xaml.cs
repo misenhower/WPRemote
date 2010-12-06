@@ -176,7 +176,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 }
             }
 
-            return base.GetAnimation(animationType, toOrFrom);
+            return GetContinuumAnimation(LayoutRoot, animationType);
         }
 
         #endregion

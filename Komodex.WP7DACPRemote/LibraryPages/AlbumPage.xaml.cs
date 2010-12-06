@@ -124,25 +124,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #region Methods
 
-        private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
-        {
-            if (listSelector.SelectedItem != null)
-            {
-                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
-                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
-
-                if (animationType == AnimationType.NavigateBackwardIn)
-                    listSelector.SelectedItem = null;
-
-                if (contentPresenter != null)
-                {
-                    return GetContinuumAnimation(contentPresenter, animationType);
-                }
-            }
-
-            return base.GetAnimation(animationType, toOrFrom);
-        }
-
         #endregion
     }
 }
