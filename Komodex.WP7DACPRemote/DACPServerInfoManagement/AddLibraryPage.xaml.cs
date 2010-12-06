@@ -67,6 +67,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         #region Control Event Handlers
 
+        private void mnuAbout_Click(object sender, EventArgs e)
+        {
+            NavigationManager.OpenAboutPage();
+        }
+
         private void tbPIN_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow numeric characters

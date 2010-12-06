@@ -121,6 +121,16 @@ namespace Komodex.WP7DACPRemote
             NavigationManager.OpenMainLibraryPage();
         }
 
+        private void mnuBrowse_Click(object sender, EventArgs e)
+        {
+            NavigationManager.OpenMainLibraryPage();
+        }
+
+        private void mnuSearch_Click(object sender, EventArgs e)
+        {
+            NavigationManager.OpenSearchPage();
+        }
+
         private void mnuSettings_Click(object sender, EventArgs e)
         {
             NavigationManager.OpenLibraryChooserPage();

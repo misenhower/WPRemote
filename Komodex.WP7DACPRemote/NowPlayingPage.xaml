@@ -300,7 +300,9 @@
             <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.play.rest.png" Text="play/pause" />
             <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.ff.rest.png" Text="next" />
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="choose library" x:Name="mnuSettings" Click="mnuSettings_Click" />
+                <shell:ApplicationBarMenuItem Text="browse library" Click="mnuBrowse_Click" />
+                <shell:ApplicationBarMenuItem Text="search" Click="mnuSearch_Click" />
+                <shell:ApplicationBarMenuItem Text="choose library" Click="mnuSettings_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
