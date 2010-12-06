@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Phone.Controls;
+using System.Linq;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -43,9 +44,9 @@ namespace Komodex.WP7DACPRemote
         /// <param name="defaultValue">A default value that is used if the saved value cannot be retrieved.</param>
         public static void RestoreState(this PhoneApplicationPage page, TextBox textBox, string defaultValue)
         {
-            textBox.Text = TryGetValue<string>(page.State, textBox.Name + "_Text", defaultValue);
-            textBox.SelectionStart = TryGetValue<int>(page.State, textBox.Name + "_SelectionStart", textBox.Text.Length);
-            textBox.SelectionLength = TryGetValue<int>(page.State, textBox.Name + "_SelectionLength", 0);
+            textBox.Text = page.TryGetStateValue<string>(textBox.Name + "_Text", defaultValue);
+            textBox.SelectionStart = page.TryGetStateValue<int>(textBox.Name + "_SelectionStart", textBox.Text.Length);
+            textBox.SelectionLength = page.TryGetStateValue<int>(textBox.Name + "_SelectionLength", 0);
         }
 
         #endregion
@@ -69,7 +70,7 @@ namespace Komodex.WP7DACPRemote
         /// <param name="defaultValue">A default value that is used if the saved value cannot be retrieved.</param>
         public static void RestoreState(this PhoneApplicationPage page, CheckBox checkBox, bool defaultValue)
         {
-            checkBox.IsChecked = TryGetValue<bool>(page.State, checkBox.Name + "_IsChecked", defaultValue);
+            checkBox.IsChecked = page.TryGetStateValue<bool>(checkBox.Name + "_IsChecked", defaultValue);
         }
 
         #endregion
@@ -93,7 +94,7 @@ namespace Komodex.WP7DACPRemote
         /// <param name="defaultValue">A default value that is used if the saved value cannot be retrieved.</param>
         public static void RestoreState(this PhoneApplicationPage page, Slider slider, double defaultValue)
         {
-            slider.Value = TryGetValue<double>(page.State, slider.Name + "_Value", defaultValue);
+            slider.Value = page.TryGetStateValue<double>(slider.Name + "_Value", defaultValue);
         }
 
         #endregion
@@ -117,7 +118,7 @@ namespace Komodex.WP7DACPRemote
         /// <param name="defaultValue">A default value that is used if the saved value cannot be retrieved.</param>
         public static void RestoreState(this PhoneApplicationPage page, RadioButton radioButton, bool defaultValue)
         {
-            radioButton.IsChecked = TryGetValue<bool>(page.State, radioButton.Name + "_IsChecked", defaultValue);
+            radioButton.IsChecked = page.TryGetStateValue<bool>(radioButton.Name + "_IsChecked", defaultValue);
         }
         
         #endregion
@@ -142,12 +143,12 @@ namespace Komodex.WP7DACPRemote
         /// <param name="scrollViewer"></param>
         public static void RestoreState(this PhoneApplicationPage page, ScrollViewer scrollViewer)
         {
-            double offset = TryGetValue<double>(page.State, scrollViewer.Name + "_HorizontalOffset", 0);
+            double offset = page.TryGetStateValue<double>(scrollViewer.Name + "_HorizontalOffset", 0);
             if (offset > 0)
             {
                 ScheduleOnNextRender(delegate { scrollViewer.ScrollToHorizontalOffset(offset); });
             }
-            offset = TryGetValue<double>(page.State, scrollViewer.Name + "_VerticalOffset", 0);
+            offset = page.TryGetStateValue<double>(scrollViewer.Name + "_VerticalOffset", 0);
             if (offset > 0)
             {
                 ScheduleOnNextRender(delegate { scrollViewer.ScrollToVerticalOffset(offset); });
@@ -200,7 +201,7 @@ namespace Komodex.WP7DACPRemote
         public static void RestoreFocusState(this PhoneApplicationPage page, FrameworkElement parent)
         {
             // Get the name of the control that should have focus.
-            string focusedName = TryGetValue<string>(page.State, "FocusedElementName", null);
+            string focusedName = page.TryGetStateValue<string>("FocusedElementName", null);
 
             // Check to see if the name is null or empty
             if (!String.IsNullOrEmpty(focusedName))
@@ -218,6 +219,20 @@ namespace Komodex.WP7DACPRemote
         
         #endregion
 
+        #region Pivot
+
+        public static void PreserveState(this PhoneApplicationPage page, Pivot pivot)
+        {
+            page.State[pivot.Name + "_SelectedIndex"] = pivot.SelectedIndex;
+        }
+
+        public static void RestoreState(this PhoneApplicationPage page, Pivot pivot, int defaultIndex)
+        {
+            pivot.SelectedIndex = page.TryGetStateValue<int>(pivot.Name + "_SelectedIndex", defaultIndex);
+        }
+
+        #endregion
+
         #region Helpers
 
         /// <summary>
@@ -228,13 +243,13 @@ namespace Komodex.WP7DACPRemote
         /// <param name="name">The key name for the value to be retrieved.</param>
         /// <param name="defaultValue">The default value returned if the requested value is not found.</param>
         /// <returns></returns>
-        private static T TryGetValue<T>(IDictionary<string, object> state, string name, T defaultValue)
+        public static T TryGetStateValue<T>(this PhoneApplicationPage page, string name, T defaultValue)
         {
-            if (state.ContainsKey(name))
+            if (page.State.ContainsKey(name))
             {
-                if (state[name] != null)
+                if (page.State[name] != null)
                 {
-                    return (T)state[name];
+                    return (T)page.State[name];
                 }
             }
             return defaultValue;

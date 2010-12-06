@@ -31,7 +31,20 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             base.OnNavigatedTo(e);
 
+            if (State.ContainsKey(StateUtils.SavedStateKey))
+            {
+                this.RestoreState(pivotControl, 0);
+            }
+
             GetDataForPivotItem();
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            this.PreserveState(pivotControl);
+            State[StateUtils.SavedStateKey] = true;
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
