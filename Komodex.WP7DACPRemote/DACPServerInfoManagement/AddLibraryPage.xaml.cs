@@ -72,6 +72,12 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             NavigationManager.OpenAboutPage();
         }
 
+        private void tbHost_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Tab)
+                tbPIN.Focus();
+        }
+
         private void tbPIN_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow numeric characters
