@@ -115,6 +115,7 @@
     <Compile Include="ThirdParty\RelativeAnimatingContentControl.cs" />
     <Compile Include="ThirdParty\TiltEffect.cs" />
     <Compile Include="Utility\DeviceInfo.cs" />
+    <Compile Include="Utility\StateUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
