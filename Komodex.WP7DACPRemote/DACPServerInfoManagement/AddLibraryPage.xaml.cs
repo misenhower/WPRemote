@@ -95,11 +95,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void SaveServer()
         {
-            // Remove focus from textbox
-            Focus();
-
             // Make sure the newly entered data has been bound to the DACPServerInfo object
             UpdateBoundData();
+
+            // Remove focus from textbox
+            Focus();
 
             // Validate the server info
             SetVisibility(true);
