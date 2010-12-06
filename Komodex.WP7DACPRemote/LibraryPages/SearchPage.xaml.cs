@@ -38,6 +38,19 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             searchTimer.Stop();
 
             base.OnNavigatedFrom(e);
+
+            this.PreserveState(tbSearchString);
+            State[StateUtils.SavedStateKey] = true;
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (State.ContainsKey(StateUtils.SavedStateKey))
+            {
+                this.RestoreState(tbSearchString, string.Empty);
+            }
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
