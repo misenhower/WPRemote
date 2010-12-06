@@ -83,6 +83,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             searchTimer.Start();
         }
 
+        private void tbSearchString_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                lbSearchResults.Focus();
+        }
+
         private void lbSearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LongListSelector listBox = (LongListSelector)sender;
