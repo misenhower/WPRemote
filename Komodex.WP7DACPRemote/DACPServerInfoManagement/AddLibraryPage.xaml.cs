@@ -31,7 +31,26 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             DataContext = serverInfo;
 
             AnimationContext = LayoutRoot;
+
+            // Setting this.IsTabStop = true so we can set focus to it later
+            IsTabStop = true;
         }
+
+        #region Overrides
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (server != null)
+            {
+                StopServer();
+                e.Cancel = true;
+                return;
+            }
+
+            base.OnBackKeyPress(e);
+        }
+
+        #endregion
 
         #region AppBar Button Handlers
 
@@ -48,6 +67,14 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            SaveServer();
+        }
+
+        private void SaveServer()
+        {
+            // Remove focus from textbox
+            Focus();
+
             // Make sure the newly entered data has been bound to the DACPServerInfo object
             UpdateBoundData();
 
@@ -101,9 +128,17 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 selectionStart--;
 
             textBox.SelectionStart = selectionStart;
+
+            if (e.Key == Key.Enter)
+                SaveServer();
         }
 
         private void connectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            StopServer();
+        }
+
+        private void StopServer()
         {
             if (server != null)
             {
@@ -148,6 +183,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         else
                             MessageBox.Show("Could not connect to iTunes. Please check the hostname and PIN and try again.", "Connection Error", MessageBoxButton.OK);
                         SetVisibility(false);
+                        server = null;
                         break;
                     default:
                         break;

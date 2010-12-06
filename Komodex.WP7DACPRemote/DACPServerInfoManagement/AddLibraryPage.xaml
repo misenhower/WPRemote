@@ -41,7 +41,7 @@
                 <TextBlock Height="30" Name="textBlock1" Text="Host" Style="{StaticResource PhoneTextSmallStyle}" />
                 <TextBox Height="71" Name="tbHost" Text="{Binding HostName, Mode=TwoWay}" Width="460" InputScope="Url" KeyUp="tbHost_KeyUp" />
                 <TextBlock Height="30" Name="textBlock2" Text="PIN" Style="{StaticResource PhoneTextSmallStyle}" />
-                <TextBox Height="71" Name="tbPIN" Text="{Binding Path=FormattedPIN, Mode=TwoWay}" Width="460" InputScope="TelephoneNumber" KeyDown="tbPIN_KeyDown" KeyUp="tbPIN_KeyUp" MaxLength="4" />
+                <TextBox Height="71" Name="tbPIN" Text="{Binding Path=FormattedPIN, Mode=TwoWay}" Width="460" InputScope="Number" KeyDown="tbPIN_KeyDown" KeyUp="tbPIN_KeyUp" MaxLength="4" />
             </StackPanel>
         </Grid>
         <my:ConnectingStatusControl x:Name="connectingStatusControl" Visibility="Collapsed" Grid.RowSpan="2" ButtonText="Cancel" ButtonClick="connectingStatusControl_ButtonClick" />
