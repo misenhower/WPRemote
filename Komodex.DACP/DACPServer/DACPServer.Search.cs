@@ -35,9 +35,12 @@ namespace Komodex.DACP
 
             StopSearch();
 
-            SubmitAlbumSearchRequest(escapedSearchString, searchResults);
-            SubmitArtistSearchRequest(escapedSearchString, searchResults);
-            SubmitSongSearchRequest(escapedSearchString, searchResults);
+            if (!string.IsNullOrEmpty(escapedSearchString))
+            {
+                SubmitAlbumSearchRequest(escapedSearchString, searchResults);
+                SubmitArtistSearchRequest(escapedSearchString, searchResults);
+                SubmitSongSearchRequest(escapedSearchString, searchResults);
+            }
 
             return searchResults;
         }
@@ -61,6 +64,8 @@ namespace Komodex.DACP
                 songSearchRequestInfo.WebRequest.Abort();
                 songSearchRequestInfo = null;
             }
+
+            UpdateGettingData();
         }
 
         #endregion
