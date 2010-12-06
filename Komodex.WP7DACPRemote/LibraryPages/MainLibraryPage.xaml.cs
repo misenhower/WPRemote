@@ -43,6 +43,19 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             base.OnNavigatedFrom(e);
 
+            // Album scroll retention
+            //object lbAlbumsFirstItem = lbAlbums.GetItemsInView().FirstOrDefault();
+            //if (lbAlbumsFirstItem is Album)
+            //{
+            //    Album lbAlbumsAlbum = (Album)lbAlbumsFirstItem;
+            //    State[lbAlbums.Name + "_FirstItem"] = lbAlbumsAlbum.PersistentID;
+            //}
+            //else if (lbAlbumsFirstItem is GroupItems<Album>)
+            //{
+            //    GroupItems<Album> lbAlbumsGroup = (GroupItems<Album>)lbAlbumsFirstItem;
+            //    State[lbAlbums.Name + "_FirstItem"] = lbAlbumsGroup.Key;
+            //}
+
             this.PreserveState(pivotControl);
             State[StateUtils.SavedStateKey] = true;
         }
