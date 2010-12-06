@@ -10,6 +10,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:delay="clr-namespace:Delay"
     xmlns:msun="clr-namespace:Microsoft.Unsupported"
     msun:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -22,20 +23,16 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="SongTemplate">
             <my:FakeButton>
-                <Border Padding="12,6,0,12" Background="Transparent">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Content="Button" Grid.Row="0" Grid.Column="0" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,0,0" />
-                        <TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding ArtistAndAlbum}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
-                    </Grid>
+                <Border Padding="12,6,0,6" Background="Transparent">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="{StaticResource PhoneChromeBrush}" Width="75" Height="75" HorizontalAlignment="Left">
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                            <TextBlock Text="{Binding ArtistAndAlbum}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                        </StackPanel>
+                    </StackPanel>
                 </Border>
             </my:FakeButton>
         </DataTemplate>
