@@ -26,6 +26,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             AnimationContext = LayoutRoot;
         }
 
+        protected Button btnArtist = null;
+
+        protected int albumID;
+        protected UInt64 albumPersistentID;
+        protected string albumName, artistName;
+
         #region Properties
 
         private Album Album
@@ -42,34 +48,23 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             base.OnNavigatedTo(e);
 
+            var queryString = NavigationContext.QueryString;
+
+            albumID = int.Parse(queryString["id"]);
+            albumPersistentID = UInt64.Parse(queryString["perid"]);
+            albumName = queryString["name"];
+            artistName = queryString["artist"];
+
             if (Album == null)
-            {
-                var queryString = NavigationContext.QueryString;
+                SetAlbum();
+        }
 
-                string albumIDString = queryString["id"];
-                string albumName = queryString["name"];
-                string artistName = queryString["artist"];
-                string albumPersistentIDString = queryString["perid"];
+        protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        {
+            base.DACPServer_ServerUpdate(sender, e);
 
-                if (string.IsNullOrEmpty(albumName) || string.IsNullOrEmpty(artistName) || string.IsNullOrEmpty(albumIDString))
-                {
-                    NavigationService.GoBack();
-                    return;
-                }
-
-                int albumID;
-                UInt64 albumPersistentID;
-
-                if (!int.TryParse(albumIDString, out albumID) || !UInt64.TryParse(albumPersistentIDString, out albumPersistentID))
-                {
-                    NavigationService.GoBack();
-                    return;
-                }
-
-                Album = new Album(DACPServerManager.Server, albumID, albumName, artistName, albumPersistentID);
-                if (Album.Server != null && Album.Server.IsConnected)
-                    Album.GetSongs();
-            }
+            if (e.Type == DACP.ServerUpdateType.ServerConnected)
+                Deployment.Current.Dispatcher.BeginInvoke(() => { SetAlbum(); });
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
@@ -100,6 +95,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void btnArtist_Click(object sender, RoutedEventArgs e)
         {
+            btnArtist = sender as Button;
             NavigationManager.OpenArtistPage(Album.ArtistName);
         }
 
@@ -127,6 +123,13 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         #endregion
 
         #region Methods
+
+        private void SetAlbum()
+        {
+            Album = new Album(DACPServerManager.Server, albumID, albumName, artistName, albumPersistentID);
+            if (Album.Server != null && Album.Server.IsConnected)
+                Album.GetSongs();
+        }
 
         private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
         {

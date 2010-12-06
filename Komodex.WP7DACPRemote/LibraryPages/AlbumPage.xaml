@@ -52,6 +52,23 @@
         		</Setter.Value>
         	</Setter>
         </Style>
+
+        <DataTemplate x:Key="ListHeaderTemplate">
+            <Border Background="Transparent" DataContext="{Binding ElementName=LayoutRoot, Path=DataContext}">
+                <Grid Margin="12,6,12,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="175" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Click="AlbumPlayButton_Click">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    </Button>
+                    <Button Name="btnArtist" Grid.Column="1" Style="{StaticResource BorderlessButtonStyle}" Click="btnArtist_Click">
+                        <TextBlock Text="{Binding Path=ArtistName}" TextWrapping="Wrap" MaxHeight="115" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                    </Button>
+                </Grid>
+            </Border>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -69,37 +86,12 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:LongListSelector IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="ListBox_SelectionChanged" Margin="0,0,-12,0">
-                <toolkit:LongListSelector.ListHeader>
-                    <Border Background="Transparent">
-                        <Grid Margin="12,6,12,12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="175" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Click="AlbumPlayButton_Click">
-                                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                            </Button>
-                            <Button Name="btnArtist" Grid.Column="1" Style="{StaticResource BorderlessButtonStyle}" Click="btnArtist_Click">
-                                <TextBlock Text="{Binding ArtistName}" TextWrapping="Wrap" MaxHeight="115" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                            </Button>
-                        </Grid>
-                    </Border>
-                </toolkit:LongListSelector.ListHeader>
-            </toolkit:LongListSelector>
+            <toolkit:LongListSelector Name="lbSongs" Margin="0,0,-12,0"
+                ItemsSource="{Binding Songs}" IsFlatList="True"
+                ListHeaderTemplate="{StaticResource ListHeaderTemplate}"
+                ItemTemplate="{StaticResource SongTemplate}"
+                SelectionChanged="ListBox_SelectionChanged" />
         </Grid>
     </Grid>
  
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
-
 </app:DACPServerBoundPhoneApplicationPage>
