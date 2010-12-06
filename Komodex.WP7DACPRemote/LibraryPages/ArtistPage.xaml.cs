@@ -44,8 +44,21 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             string artistName = NavigationContext.QueryString["name"];
 
+            if (State.ContainsKey(StateUtils.SavedStateKey))
+            {
+                this.RestoreState(pivotControl, 0);
+            }
+
             if (Artist == null)
                 Artist = new Artist(DACPServerManager.Server, artistName);
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            this.PreserveState(pivotControl);
+            State[StateUtils.SavedStateKey] = true;
         }
 
         protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
