@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Reflection;
-using Komodex.WP7DACPRemote.Utility;
+using Komodex.WP7DACPRemote.Utilities;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Komodex.DACP;
 using Microsoft.Phone.Tasks;

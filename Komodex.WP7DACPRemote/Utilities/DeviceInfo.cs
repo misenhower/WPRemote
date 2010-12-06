@@ -10,7 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Info;
 
-namespace Komodex.WP7DACPRemote.Utility
+namespace Komodex.WP7DACPRemote.Utilities
 {
     public static class DeviceInfo
     {

@@ -114,8 +114,9 @@
     <Compile Include="ThirdParty\LowProfileImageLoader.cs" />
     <Compile Include="ThirdParty\RelativeAnimatingContentControl.cs" />
     <Compile Include="ThirdParty\TiltEffect.cs" />
-    <Compile Include="Utility\DeviceInfo.cs" />
-    <Compile Include="Utility\StateUtils.cs" />
+    <Compile Include="Utilities\DeviceInfo.cs" />
+    <Compile Include="Utilities\StateUtils.cs" />
+    <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
