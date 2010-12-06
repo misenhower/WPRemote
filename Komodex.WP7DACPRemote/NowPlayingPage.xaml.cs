@@ -34,6 +34,8 @@ namespace Komodex.WP7DACPRemote
         private readonly BitmapImage iconRepeat = new BitmapImage(new Uri("/icons/custom.appbar.repeat.png", UriKind.Relative));
         private readonly BitmapImage iconRepeatOne = new BitmapImage(new Uri("/icons/custom.appbar.repeatone.png", UriKind.Relative));
 
+        private bool closing = false;
+
         #region Overrides
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -44,15 +46,21 @@ namespace Komodex.WP7DACPRemote
 
             GestureListener.IgnoreTouchFrameReported = true;
 
-            if (ShouldGoBack())
-                AnimationContext = null;
+            if (State.ContainsKey(StateUtils.SavedStateKey))
+            {
+                if (ShouldGoBack())
+                {
+                    closing = true;
+                    AnimationContext = null;
+                }
+            }
         }
 
         protected override void AnimationsComplete(Clarity.Phone.Controls.Animations.AnimationType animationType)
         {
             base.AnimationsComplete(animationType);
 
-            if (ShouldGoBack())
+            if (closing)
                 NavigationService.GoBack();
         }
 
@@ -62,6 +70,8 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedFrom(e);
 
             GestureListener.IgnoreTouchFrameReported = false;
+
+            State[StateUtils.SavedStateKey] = true;
         }
 
         protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
