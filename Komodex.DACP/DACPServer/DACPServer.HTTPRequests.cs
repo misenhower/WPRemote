@@ -200,7 +200,7 @@ namespace Komodex.DACP
                 }
             }
 
-            if (ServerVersion < 196611)
+            if (ServerVersion < 196612)
                 ConnectionError(ServerErrorType.UnsupportedVersion);
             else
                 SubmitLoginRequest();

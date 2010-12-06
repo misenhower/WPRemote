@@ -199,7 +199,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         break;
                     case ServerUpdateType.Error:
                         if (e.ErrorType == ServerErrorType.UnsupportedVersion)
-                            MessageBox.Show("This application currently requires iTunes version 10.0.1 or higher. "
+                            MessageBox.Show("This application currently requires iTunes version 10.1 or higher. "
                                 + "Please upgrade to the latest version of iTunes to continue.", "iTunes Version Error", MessageBoxButton.OK);
                         else if (e.ErrorType == ServerErrorType.InvalidPIN)
                             MessageBox.Show("Could not connect to iTunes. Please check the PIN and try again.", "PIN Error", MessageBoxButton.OK);
