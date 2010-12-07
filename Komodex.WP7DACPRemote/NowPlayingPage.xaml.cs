@@ -29,11 +29,15 @@ namespace Komodex.WP7DACPRemote
 
             repeatShuffleControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
             repeatShuffleControlDisplayTimer.Tick += new EventHandler(repeatShuffleControlDisplayTimer_Tick);
+
+            goBackTimer.Interval = TimeSpan.FromMilliseconds(500);
+            goBackTimer.Tick += new EventHandler(goBackTimer_Tick);
         }
 
         private readonly BitmapImage iconRepeat = new BitmapImage(new Uri("/icons/custom.appbar.repeat.png", UriKind.Relative));
         private readonly BitmapImage iconRepeatOne = new BitmapImage(new Uri("/icons/custom.appbar.repeatone.png", UriKind.Relative));
 
+        private DispatcherTimer goBackTimer = new DispatcherTimer();
         private bool closing = false;
 
         #region Overrides
@@ -64,9 +68,10 @@ namespace Komodex.WP7DACPRemote
                 NavigationService.GoBack();
         }
 
-
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
+            goBackTimer.Stop();
+
             base.OnNavigatedFrom(e);
 
             GestureListener.IgnoreTouchFrameReported = false;
@@ -81,8 +86,12 @@ namespace Komodex.WP7DACPRemote
             if (e.PropertyName == "ShuffleState" || e.PropertyName == "RepeatState")
                 UpdateRepeatShuffleButtons();
 
-            if (ShouldGoBack())
-                NavigationService.GoBack();
+            if (e.PropertyName == "PlayState" || e.PropertyName == "CurrentSongName")
+            {
+                goBackTimer.Stop();
+                if (ShouldGoBack())
+                    goBackTimer.Start();
+            }
         }
 
         #endregion
@@ -183,10 +192,18 @@ namespace Komodex.WP7DACPRemote
 
         protected bool ShouldGoBack()
         {
-            return (DACPServer == null || (DACPServer.PlayState == DACP.PlayStates.Stopped && DACPServer.CurrentSongName == null));
+            return (DACPServer != null && DACPServer.IsConnected && DACPServer.PlayState == DACP.PlayStates.Stopped && DACPServer.CurrentSongName == null);
         }
 
         #endregion
 
+        #region Event Handlers
+
+        void goBackTimer_Tick(object sender, EventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        #endregion
     }
 }
