@@ -133,32 +133,20 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #region Artists
 
-        private bool ignoreNextArtistSelection = false;
-
-        private void lbArtists_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ArtistButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ignoreNextArtistSelection)
-            {
-                ignoreNextArtistSelection = false;
-                lbArtists.SelectedItem = null;
-                return;
-            }
-
-            Artist artist = lbArtists.SelectedItem as Artist;
+            Artist artist = ((Button)sender).Tag as Artist;
 
             if (artist != null)
             {
+                lbArtists.SelectedItem = artist;
                 NavigationManager.OpenArtistPage(artist.Name);
             }
         }
 
         private void ArtistPlayButton_Click(object sender, RoutedEventArgs e)
         {
-            ignoreNextArtistSelection = true;
-
-            Button button = (Button)sender;
-
-            Artist artist = button.Tag as Artist;
+            Artist artist = ((Button)sender).Tag as Artist;
 
             if (artist != null)
             {
@@ -171,32 +159,20 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #region Albums
 
-        private bool ignoreNextAlbumSelection = false;
-
-        private void lbAlbums_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AlbumButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ignoreNextAlbumSelection)
-            {
-                ignoreNextAlbumSelection = false;
-                lbAlbums.SelectedItem = null;
-                return;
-            }
-
-            Album album = lbAlbums.SelectedItem as Album;
+            Album album = ((Button)sender).Tag as Album;
 
             if (album != null)
             {
+                lbAlbums.SelectedItem = album;
                 NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
             }
         }
 
         private void AlbumPlayButton_Click(object sender, RoutedEventArgs e)
         {
-            ignoreNextAlbumSelection = true;
-
-            Button button = (Button)sender;
-
-            Album album = button.Tag as Album;
+            Album album = ((Button)sender).Tag as Album;
 
             if (album != null)
             {
@@ -209,30 +185,20 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #region Playlists
 
-        private bool ignoreNextPlaylistSelection = false;
-
-        private void lbPlaylists_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PlaylistButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ignoreNextPlaylistSelection)
-            {
-                ignoreNextPlaylistSelection = false;
-                lbPlaylists.SelectedItem = null;
-                return;
-            }
-
-            Playlist playlist = lbPlaylists.SelectedItem as Playlist;
+            Playlist playlist = ((Button)sender).Tag as Playlist;
 
             if (playlist != null)
+            {
+                lbPlaylists.SelectedItem = playlist;
                 NavigationManager.OpenPlaylistPage(playlist.ID, playlist.Name, playlist.PersistentID);
+            }
         }
 
         private void PlaylistPlayButton_Click(object sender, RoutedEventArgs e)
         {
-            ignoreNextPlaylistSelection = true;
-
-            Button button = (Button)sender;
-
-            Playlist playlist = button.Tag as Playlist;
+            Playlist playlist = ((Button)sender).Tag as Playlist;
 
             if (playlist != null)
             {
@@ -240,7 +206,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 NavigationManager.OpenNowPlayingPage();
             }
         }
-
 
         #endregion
 
