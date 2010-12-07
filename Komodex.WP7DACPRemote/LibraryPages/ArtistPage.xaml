@@ -22,7 +22,7 @@
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/ArtistSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="AlbumTemplate">
-            <my:FakeButton>
+            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="AlbumButton_Click">
                 <Border Padding="12,6,0,12" Background="Transparent">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -38,10 +38,10 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-            </my:FakeButton>
+            </Button>
         </DataTemplate>
         <DataTemplate x:Key="SongTemplate">
-            <my:FakeButton>
+            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="SongPlayButton_Click">
                 <Border Padding="12,6,0,12" Background="Transparent">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -57,7 +57,7 @@
                         <TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
                     </Grid>
                 </Border>
-            </my:FakeButton>
+            </Button>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
@@ -68,14 +68,20 @@
             <!--Pivot item one-->
             <controls:PivotItem x:Name="pivotAlbums" Header="albums">
                 <Grid>
-                    <toolkit:LongListSelector x:Name="lbAlbums" IsFlatList="True" ItemTemplate="{StaticResource AlbumTemplate}" ItemsSource="{Binding Albums}" SelectionChanged="lbAlbums_SelectionChanged" Margin="0,0,-12,0" />
+                    <toolkit:LongListSelector x:Name="lbAlbums" Margin="0,0,-12,0"
+                                              ItemsSource="{Binding Albums}" IsFlatList="True"
+                                              ItemTemplate="{StaticResource AlbumTemplate}"
+                                              />
                 </Grid>
             </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem x:Name="pivotSongs" Header="songs">
                 <Grid>
-                    <toolkit:LongListSelector x:Name="lbSongs" IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" Margin="0,0,-12,0" />
+                    <toolkit:LongListSelector x:Name="lbSongs" Margin="0,0,-12,0"
+                                              ItemsSource="{Binding Songs}" IsFlatList="True" 
+                                              ItemTemplate="{StaticResource SongTemplate}"
+                                              />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
