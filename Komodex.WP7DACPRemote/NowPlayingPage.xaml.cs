@@ -27,8 +27,8 @@ namespace Komodex.WP7DACPRemote
 
             AnimationContext = LayoutRoot;
 
-            playControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
-            playControlDisplayTimer.Tick += new EventHandler(playControlDisplayTimer_Tick);
+            repeatShuffleControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
+            repeatShuffleControlDisplayTimer.Tick += new EventHandler(repeatShuffleControlDisplayTimer_Tick);
         }
 
         private readonly BitmapImage iconRepeat = new BitmapImage(new Uri("/icons/custom.appbar.repeat.png", UriKind.Relative));
@@ -41,7 +41,7 @@ namespace Komodex.WP7DACPRemote
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            HidePlayControls(false);
+            HideRepeatShuffleControls(false);
             UpdateRepeatShuffleButtons();
 
             GestureListener.IgnoreTouchFrameReported = true;
@@ -89,37 +89,37 @@ namespace Komodex.WP7DACPRemote
 
         #region Play Control Management
 
-        protected DispatcherTimer playControlDisplayTimer = new DispatcherTimer();
+        protected DispatcherTimer repeatShuffleControlDisplayTimer = new DispatcherTimer();
 
-        void playControlDisplayTimer_Tick(object sender, EventArgs e)
+        void repeatShuffleControlDisplayTimer_Tick(object sender, EventArgs e)
         {
-            playControlDisplayTimer.Stop();
-            HidePlayControls();
+            repeatShuffleControlDisplayTimer.Stop();
+            HideRepeatShuffleControls();
         }
 
-        private void ShowPlayControls(bool useTransitions = true)
+        private void ShowRepeatShuffleControls(bool useTransitions = true)
         {
-            playControlDisplayTimer.Stop();
-            VisualStateManager.GoToState(this, "PlayControlsVisibleState", useTransitions);
-            playControlDisplayTimer.Start();
+            repeatShuffleControlDisplayTimer.Stop();
+            VisualStateManager.GoToState(this, "RepeatShuffleControlsVisibleState", useTransitions);
+            repeatShuffleControlDisplayTimer.Start();
         }
 
-        private void HidePlayControls(bool useTransitions = true)
+        private void HideRepeatShuffleControls(bool useTransitions = true)
         {
-            playControlDisplayTimer.Stop();
-            VisualStateManager.GoToState(this, "PlayControlsHiddenState", useTransitions);
+            repeatShuffleControlDisplayTimer.Stop();
+            VisualStateManager.GoToState(this, "RepeatShuffleControlsHiddenState", useTransitions);
         }
 
         private void btnRepeat_Click(object sender, RoutedEventArgs e)
         {
-            ShowPlayControls();
+            ShowRepeatShuffleControls();
             if (DACPServer != null && DACPServer.IsConnected)
                 DACPServer.SendRepeatStateCommand();
         }
 
         private void btnShuffle_Click(object sender, RoutedEventArgs e)
         {
-            ShowPlayControls();
+            ShowRepeatShuffleControls();
             if (DACPServer != null && DACPServer.IsConnected)
                 DACPServer.SendShuffleStateCommand();
         }
@@ -166,15 +166,15 @@ namespace Komodex.WP7DACPRemote
             NavigationManager.OpenArtistPage(DACPServer.CurrentArtist);
         }
 
-        private void bdrPlayControls_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void bdrRepeatShuffleControls_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ShowPlayControls();
+            ShowRepeatShuffleControls();
             e.Handled = true;
         }
 
         private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            HidePlayControls();
+            HideRepeatShuffleControls();
         }
 
         #endregion

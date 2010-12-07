@@ -185,11 +185,11 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="PlayControlsStateGroup">
+            <VisualStateGroup x:Name="RepeatShuffleControlsStateGroup">
                 <VisualStateGroup.Transitions>
                     <VisualTransition GeneratedDuration="0:0:0.2"/>
                 </VisualStateGroup.Transitions>
-                <VisualState x:Name="PlayControlsHiddenState">
+                <VisualState x:Name="RepeatShuffleControlsHiddenState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="stackPanel">
                             <DiscreteObjectKeyFrame KeyTime="0">
@@ -200,9 +200,9 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="PlayControlsVisibleState">
+                <VisualState x:Name="RepeatShuffleControlsVisibleState">
                     <Storyboard>
-                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="bdrPlayControls" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="bdrRepeatShuffleControls" d:IsOptimized="True"/>
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
@@ -249,7 +249,7 @@
                     <Border Background="{StaticResource PhoneChromeBrush}">
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
                     </Border>
-                    <Border Background="#CC000000" Name="bdrPlayControls" Opacity="0" MouseLeftButtonDown="bdrPlayControls_MouseLeftButtonDown">
+                    <Border Background="#CC000000" Name="bdrRepeatShuffleControls" Opacity="0" MouseLeftButtonDown="bdrRepeatShuffleControls_MouseLeftButtonDown">
                         <StackPanel x:Name="stackPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Button Name="btnRepeat" Template="{StaticResource EmptyButton}" Click="btnRepeat_Click" Margin="25,0">
                                 <Grid Width="48" Height="48">
