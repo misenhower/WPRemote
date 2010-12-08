@@ -56,5 +56,9 @@
             <toolkit:LongListSelector x:Name="lbSongs" IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" Margin="0,0,-12,0" />
         </Grid>
     </Grid>
- 
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5" />
+    </phone:PhoneApplicationPage.ApplicationBar>
+
 </app:DACPServerBoundPhoneApplicationPage>
