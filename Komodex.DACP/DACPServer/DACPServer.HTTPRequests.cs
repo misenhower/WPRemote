@@ -195,6 +195,12 @@ namespace Komodex.DACP
                     case "aeSV": // Server Version
                         ServerVersion = kvp.Value.GetInt32Value();
                         break;
+                    case "mpro": // DMAP Version
+                        ServerDMAPVersion = kvp.Value.GetInt32Value();
+                        break;
+                    case "apro": // DAAP Version
+                        ServerDAAPVersion = kvp.Value.GetInt32Value();
+                        break;
                     default:
                         break;
                 }

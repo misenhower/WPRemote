@@ -58,6 +58,32 @@ namespace Komodex.DACP
             }
         }
 
+        private int _ServerDMAPVersion = 0;
+        public int ServerDMAPVersion
+        {
+            get { return _ServerDMAPVersion; }
+            protected set
+            {
+                if (_ServerDMAPVersion == value)
+                    return;
+                _ServerDMAPVersion = value;
+                SendPropertyChanged("ServerDMAPVersion");
+            }
+        }
+
+        private int _ServerDAAPVersion = 0;
+        public int ServerDAAPVersion
+        {
+            get { return _ServerDAAPVersion; }
+            protected set
+            {
+                if (_ServerDAAPVersion == value)
+                    return;
+                _ServerDAAPVersion = value;
+                SendPropertyChanged("ServerDAAPVersion");
+            }
+        }
+
         private bool _GettingData = false;
         public bool GettingData
         {

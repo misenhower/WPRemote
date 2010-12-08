@@ -51,14 +51,20 @@
                 <Grid Margin="0,12,0,12" Name="gridiTunesInfo">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="140" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Version:" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DMAP:" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DAAP:" />
 
                     <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesVersion" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDMAPVersion" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDAAPVersion" />
                 </Grid>
             </StackPanel>
 

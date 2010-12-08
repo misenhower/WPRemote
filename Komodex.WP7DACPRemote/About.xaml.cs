@@ -45,7 +45,9 @@ namespace Komodex.WP7DACPRemote
                 tbiTunesNotConnected.Visibility = System.Windows.Visibility.Collapsed;
                 gridiTunesInfo.Visibility = System.Windows.Visibility.Visible;
 
-                tbiTunesVersion.Text = server.ServerVersion.ToString();
+                tbiTunesVersion.Text = server.ServerVersion.ToString("x").ToUpper();
+                tbiTunesDMAPVersion.Text = server.ServerDMAPVersion.ToString("x").ToUpper();
+                tbiTunesDAAPVersion.Text = server.ServerDAAPVersion.ToString("x").ToUpper();
             }
             else
             {
