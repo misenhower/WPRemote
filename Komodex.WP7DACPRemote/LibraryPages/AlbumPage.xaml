@@ -55,7 +55,7 @@
 
         <DataTemplate x:Key="ListHeaderTemplate">
             <Border Background="Transparent" DataContext="{Binding ElementName=LayoutRoot, Path=DataContext}">
-                <Grid Margin="12,6,12,12">
+                <Grid Margin="12,6,0,12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="175" />
                         <ColumnDefinition Width="*" />
