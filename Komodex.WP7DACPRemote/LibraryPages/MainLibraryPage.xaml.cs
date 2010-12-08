@@ -25,10 +25,9 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             AnimationContext = LayoutRoot;
 
-            appBarNowPlayingButton = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+            InitializeStandardAppNavApplicationBar(true, false, true);
+            AddChooseLibraryApplicationBarMenuItem();
         }
-
-        protected ApplicationBarIconButton appBarNowPlayingButton = null;
 
         #region Overrides
 
@@ -42,7 +41,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
 
             GetDataForPivotItem();
-            UpdateNowPlayingButton();
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -96,14 +94,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             base.OnBackKeyPress(e);
         }
 
-        protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            base.DACPServer_PropertyChanged(sender, e);
-
-            if (e.PropertyName == "PlayState")
-                UpdateNowPlayingButton();
-        }
-
         #endregion
 
         #region Event Handlers
@@ -124,21 +114,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         #endregion
 
         #region Actions
-
-        private void btnNowPlaying_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenNowPlayingPage();
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenSearchPage();
-        }
-
-        private void mnuSettings_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenLibraryChooserPage();
-        }
 
         private void pivotControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -261,11 +236,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
 
             return GetContinuumAnimation(LayoutRoot, animationType);
-        }
-
-        private void UpdateNowPlayingButton()
-        {
-            appBarNowPlayingButton.IsEnabled = (DACPServer != null && DACPServer.IsConnected && !(DACPServer.PlayState == PlayStates.Stopped && DACPServer.CurrentSongName == null));
         }
 
         #endregion

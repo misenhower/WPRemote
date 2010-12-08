@@ -27,6 +27,9 @@ namespace Komodex.WP7DACPRemote
             InitializeStandardPlayTransportApplicationBar();
 
             AnimationContext = LayoutRoot;
+
+            AddChooseLibraryApplicationBarMenuItem();
+            AddAboutApplicationBarMenuItem();
         }
 
         #region Overrides
@@ -113,16 +116,6 @@ namespace Komodex.WP7DACPRemote
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             NavigationManager.OpenSearchPage();
-        }
-
-        private void mnuSettings_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenLibraryChooserPage();
-        }
-
-        private void mnuAbout_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenAboutPage();
         }
 
         private void btnAddLibrary_Click(object sender, RoutedEventArgs e)

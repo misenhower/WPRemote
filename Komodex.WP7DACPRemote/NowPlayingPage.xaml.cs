@@ -27,6 +27,8 @@ namespace Komodex.WP7DACPRemote
 
             AnimationContext = LayoutRoot;
 
+            AddChooseLibraryApplicationBarMenuItem();
+
             repeatShuffleControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
             repeatShuffleControlDisplayTimer.Tick += new EventHandler(repeatShuffleControlDisplayTimer_Tick);
 
@@ -163,11 +165,6 @@ namespace Komodex.WP7DACPRemote
         private void mnuSearch_Click(object sender, EventArgs e)
         {
             NavigationManager.OpenSearchPage();
-        }
-
-        private void mnuSettings_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenLibraryChooserPage();
         }
 
         private void btnArtist_Click(object sender, RoutedEventArgs e)
