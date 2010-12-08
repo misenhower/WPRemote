@@ -35,7 +35,7 @@ namespace Komodex.WP7DACPRemote
 
         #endregion
 
-        #region Standard Transport Application Bar
+        #region Standard Play Transport Application Bar
 
         private ApplicationBarIconButton btnAppBarPreviousTrack = null;
         private ApplicationBarIconButton btnAppBarPlayPause = null;
@@ -43,23 +43,35 @@ namespace Komodex.WP7DACPRemote
         private readonly Uri iconPlay = new Uri("/icons/appbar.transport.play.rest.png", UriKind.Relative);
         private readonly Uri iconPause = new Uri("/icons/appbar.transport.pause.rest.png", UriKind.Relative);
 
-        protected bool UsesStandardTransportApplicationBar { get; private set; }
+        protected bool UsesStandardPlayTransportApplicationBar { get; private set; }
 
-        protected void InitializeStandardTransportApplicationBar()
+        protected void InitializeStandardPlayTransportApplicationBar()
         {
-            btnAppBarPreviousTrack = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+            // Previous track
+            btnAppBarPreviousTrack = new ApplicationBarIconButton(new Uri("/icons/appbar.transport.rew.rest.png", UriKind.Relative));
+            btnAppBarPreviousTrack.Text = "previous";
             btnAppBarPreviousTrack.Click += new EventHandler(btnAppBarPreviousTrack_Click);
-            btnAppBarPlayPause = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
-            btnAppBarPlayPause.Click += new EventHandler(btnAppBarPlayPause_Click);
-            btnAppBarNextTrack = (ApplicationBarIconButton)ApplicationBar.Buttons[2];
-            btnAppBarNextTrack.Click += new EventHandler(btnAppBarNextTrack_Click);
+            ApplicationBar.Buttons.Add(btnAppBarPreviousTrack);
 
-            UsesStandardTransportApplicationBar = true;
+            // Play/pause
+            btnAppBarPlayPause = new ApplicationBarIconButton(iconPlay);
+            btnAppBarPlayPause.Text = "play/pause";
+            btnAppBarPlayPause.Click += new EventHandler(btnAppBarPlayPause_Click);
+            ApplicationBar.Buttons.Add(btnAppBarPlayPause);
+
+            // Next track
+            btnAppBarNextTrack = new ApplicationBarIconButton(new Uri("/icons/appbar.transport.ff.rest.png", UriKind.Relative));
+            btnAppBarNextTrack.Text = "next";
+            btnAppBarNextTrack.Click += new EventHandler(btnAppBarNextTrack_Click);
+            ApplicationBar.Buttons.Add(btnAppBarNextTrack);
+
+            // Set the flag
+            UsesStandardPlayTransportApplicationBar = true;
         }
 
         private void UpdateTransportButtons()
         {
-            if (!UsesStandardTransportApplicationBar)
+            if (!UsesStandardPlayTransportApplicationBar)
                 return;
 
             bool isStopped = true;

@@ -296,9 +296,6 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5">
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.rew.rest.png" Text="previous" />
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.play.rest.png" Text="play/pause" />
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.transport.ff.rest.png" Text="next" />
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="browse library" Click="mnuBrowse_Click" />
                 <shell:ApplicationBarMenuItem Text="search" Click="mnuSearch_Click" />
