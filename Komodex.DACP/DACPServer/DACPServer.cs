@@ -47,6 +47,11 @@ namespace Komodex.DACP
             PairingKey = pairingKey;
         }
 
+        public static string GetAssemblyName()
+        {
+            return System.Reflection.Assembly.GetExecutingAssembly().FullName;
+        }
+
         #region Fields
 
         private bool UseDelayedResponseRequests = true;

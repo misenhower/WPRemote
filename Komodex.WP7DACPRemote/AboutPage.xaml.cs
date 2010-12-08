@@ -98,6 +98,7 @@ namespace Komodex.WP7DACPRemote
             if (assemblyInfoCount-- == 0)
             {
                 MessageBox.Show(Assembly.GetExecutingAssembly().FullName);
+                MessageBox.Show(DACPServer.GetAssemblyName());
                 MessageBox.Show(Assembly.GetCallingAssembly().FullName);
             }
         }
