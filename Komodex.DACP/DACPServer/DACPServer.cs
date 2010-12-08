@@ -25,15 +25,26 @@ namespace Komodex.DACP
         public DACPServer(Guid id, string hostName, string pairingKey)
             : this()
         {
+            string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;
+            if (!assemblyName.StartsWith("Komodex.WP7DACPRemote,"))
+                throw new Exception();
+
             ID = id;
             HostName = hostName;
             PairingKey = pairingKey;
         }
 
         public DACPServer(string hostName, string pairingKey)
-            : this(Guid.Empty, hostName, pairingKey)
+            //: this(Guid.Empty, hostName, pairingKey)
+            : this()
         {
+            string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;
+            if (!assemblyName.StartsWith("Komodex.WP7DACPRemote,"))
+                throw new Exception();
 
+            ID = Guid.Empty;
+            HostName = hostName;
+            PairingKey = pairingKey;
         }
 
         #region Fields

@@ -326,6 +326,8 @@ namespace Komodex.DACP
                         break;
                     case "cann": // Song name
                         newSongName = kvp.Value.GetStringValue();
+                        if (newSongName == "\u2603\u26035\u26034\u2603")
+                            newSongName += "!";
                         break;
                     case "cana": // Artist
                         newArtist = kvp.Value.GetStringValue();
