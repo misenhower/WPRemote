@@ -33,7 +33,7 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedTo(e);
 
             // Application information
-            tbAppVersion.Text = "Version: " + GetApplicationVersion();
+            tbAppVersion.Text = "Version: " + Utility.GetApplicationVersion();
 #if DEBUG
             tbAppVersion.Text += " (Debug)";
 #endif
@@ -83,23 +83,6 @@ namespace Komodex.WP7DACPRemote
             DeviceInfoPanel.Visibility = System.Windows.Visibility.Visible;
 #endif
 
-        }
-
-        private string GetApplicationVersion()
-        {
-            string assemblyInfo = Assembly.GetExecutingAssembly().FullName;
-            if (string.IsNullOrEmpty(assemblyInfo))
-                return string.Empty;
-
-            var splitString = assemblyInfo.Split(',');
-            foreach (var stringPart in splitString)
-            {
-                var stringPartTrimmed = stringPart.Trim();
-                if (stringPartTrimmed.StartsWith("Version="))
-                    return stringPartTrimmed.Substring(8).Trim();
-            }
-
-            return string.Empty;
         }
 
         private void btnLogo_Click(object sender, RoutedEventArgs e)
