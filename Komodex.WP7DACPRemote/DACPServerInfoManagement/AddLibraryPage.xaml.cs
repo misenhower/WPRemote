@@ -36,6 +36,10 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             IsTabStop = true;
         }
 
+        private int iTunesVersion = 0;
+        private int iTunesDMAPVersion = 0;
+        private int iTunesDAAPVersion = 0;
+
         #region Overrides
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -101,6 +105,9 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             // Remove focus from textbox
             Focus();
 
+            // Clear cached version numbers
+            iTunesVersion = iTunesDMAPVersion = iTunesDAAPVersion = 0;
+
             // Validate the server info
             SetVisibility(true);
             server = new DACPServer(serverInfo.HostName, serverInfo.PairingCode);
@@ -119,7 +126,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void mnuAbout_Click(object sender, EventArgs e)
         {
-            NavigationManager.OpenAboutPage();
+            NavigationManager.OpenAboutPage(iTunesVersion, iTunesDMAPVersion, iTunesDAAPVersion);
         }
 
         private void tbHost_KeyUp(object sender, KeyEventArgs e)
@@ -198,6 +205,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         NavigationService.GoBack();
                         break;
                     case ServerUpdateType.Error:
+                        // Cache the version info
+                        iTunesVersion = server.ServerVersion;
+                        iTunesDMAPVersion = server.ServerDMAPVersion;
+                        iTunesDAAPVersion = server.ServerDAAPVersion;
+
                         if (e.ErrorType == ServerErrorType.UnsupportedVersion)
                             MessageBox.Show("This application currently requires iTunes version 10.1 or higher. "
                                 + "Please upgrade to the latest version of iTunes to continue.", "iTunes Version Error", MessageBoxButton.OK);

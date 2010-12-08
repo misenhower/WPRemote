@@ -40,7 +40,24 @@ namespace Komodex.WP7DACPRemote
 
             // iTunes information
             DACPServer server = DACPServerManager.Server;
-            if (server != null && server.IsConnected)
+
+            if (NavigationContext.QueryString.ContainsKey("version"))
+            {
+                tbiTunesNotConnected.Visibility = System.Windows.Visibility.Visible;
+                gridiTunesInfo.Visibility = System.Windows.Visibility.Visible;
+
+                tbiTunesNotConnected.Text = "From last connection attempt";
+
+                var queryString = NavigationContext.QueryString;
+                int iTunesVersion = int.Parse(queryString["version"]);
+                int iTunesDMAPVersion = int.Parse(queryString["dmap"]);
+                int iTunesDAAPVersion = int.Parse(queryString["daap"]);
+
+                tbiTunesVersion.Text = iTunesVersion.ToString("x").ToUpper();
+                tbiTunesDMAPVersion.Text = iTunesDMAPVersion.ToString("x").ToUpper();
+                tbiTunesDAAPVersion.Text = iTunesDAAPVersion.ToString("x").ToUpper();
+            }
+            else if (server != null && server.IsConnected)
             {
                 tbiTunesNotConnected.Visibility = System.Windows.Visibility.Collapsed;
                 gridiTunesInfo.Visibility = System.Windows.Visibility.Visible;
@@ -49,6 +66,7 @@ namespace Komodex.WP7DACPRemote
                 tbiTunesDMAPVersion.Text = server.ServerDMAPVersion.ToString("x").ToUpper();
                 tbiTunesDAAPVersion.Text = server.ServerDAAPVersion.ToString("x").ToUpper();
             }
+
             else
             {
                 tbiTunesNotConnected.Visibility = System.Windows.Visibility.Visible;
