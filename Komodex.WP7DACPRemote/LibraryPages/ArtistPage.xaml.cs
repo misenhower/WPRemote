@@ -25,8 +25,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             AnimationContext = LayoutRoot;
 
-            InitializeStandardAppNavApplicationBar();
-            AddChooseLibraryApplicationBarMenuItem();
+            //InitializeStandardAppNavApplicationBar();
+            //AddChooseLibraryApplicationBarMenuItem();
         }
 
         #region Properties
