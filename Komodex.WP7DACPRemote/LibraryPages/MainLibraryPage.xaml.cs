@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Komodex.DACP.Library;
 using Komodex.DACP;
 using Clarity.Phone.Controls.Animations;
+using Microsoft.Phone.Shell;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -23,7 +24,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             InitializeComponent();
 
             AnimationContext = LayoutRoot;
+
+            appBarNowPlayingButton = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
         }
+
+        protected ApplicationBarIconButton appBarNowPlayingButton = null;
 
         #region Overrides
 
@@ -37,6 +42,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
 
             GetDataForPivotItem();
+            UpdateNowPlayingButton();
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -88,6 +94,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
 
             base.OnBackKeyPress(e);
+        }
+
+        protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            base.DACPServer_PropertyChanged(sender, e);
+
+            if (e.PropertyName == "PlayState")
+                UpdateNowPlayingButton();
         }
 
         #endregion
@@ -248,7 +262,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             return GetContinuumAnimation(LayoutRoot, animationType);
         }
-        
+
+        private void UpdateNowPlayingButton()
+        {
+            appBarNowPlayingButton.IsEnabled = (DACPServer != null && DACPServer.IsConnected && !(DACPServer.PlayState == PlayStates.Stopped && DACPServer.CurrentSongName == null));
+        }
+
         #endregion
 
         #region Group View Management
