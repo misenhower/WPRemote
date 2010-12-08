@@ -62,7 +62,7 @@
                 </Grid>
             </StackPanel>
 
-            <StackPanel Grid.Row="2" Background="{StaticResource PhoneChromeBrush}" Margin="12">
+            <StackPanel Name="DeviceInfoPanel" Grid.Row="2" Background="{StaticResource PhoneChromeBrush}" Margin="12" Visibility="Collapsed">
                 <TextBlock TextWrapping="Wrap" Text="Device Information" Style="{StaticResource PhoneTextTitle2Style}"/>
                 <Grid Margin="0,12,0,12">
                     <Grid.RowDefinitions>

@@ -53,11 +53,15 @@ namespace Komodex.WP7DACPRemote
                 gridiTunesInfo.Visibility = System.Windows.Visibility.Collapsed;
             }
 
+#if DEBUG
             // Device information
             tbManufacturer.Text = DeviceInfo.DeviceManufacturer;
             tbDevice.Text = DeviceInfo.DeviceName;
             tbFirmware.Text = DeviceInfo.DeviceFirmwareVersion;
             tbHardwareVersion.Text = DeviceInfo.DeviceHardwareVersion;
+
+            DeviceInfoPanel.Visibility = System.Windows.Visibility.Visible;
+#endif
 
         }
 

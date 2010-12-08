@@ -12,6 +12,7 @@ using Microsoft.Phone.Info;
 
 namespace Komodex.WP7DACPRemote.Utilities
 {
+#if DEBUG
     public static class DeviceInfo
     {
         private static string _DeviceManufacturer = null;
@@ -94,4 +95,5 @@ namespace Komodex.WP7DACPRemote.Utilities
             }
         }
     }
+#endif
 }
