@@ -100,7 +100,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     return;
 
                 bool connecting = (Server == null || !Server.IsConnected);
-                bool canShow = !(currentPage is LibraryChooserPage || currentPage is AddLibraryPage);
+                bool canShow = !(currentPage is LibraryChooserPage || currentPage is AddLibraryPage || currentPage is AboutPage);
                 bool hasServers = (DACPServerViewModel.Instance.Items.Count > 0);
 
                 if (currentPage is MainPage)

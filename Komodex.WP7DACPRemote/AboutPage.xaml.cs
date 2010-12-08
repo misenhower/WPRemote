@@ -19,9 +19,9 @@ using Clarity.Phone.Controls;
 
 namespace Komodex.WP7DACPRemote
 {
-    public partial class About : AnimatedBasePage
+    public partial class AboutPage : AnimatedBasePage
     {
-        public About()
+        public AboutPage()
         {
             InitializeComponent();
 

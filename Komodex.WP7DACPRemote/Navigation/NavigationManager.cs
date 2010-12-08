@@ -116,7 +116,7 @@ namespace Komodex.WP7DACPRemote
 
         public static void OpenAboutPage()
         {
-            RootVisual.Navigate(new Uri("/About.xaml", UriKind.Relative));
+            RootVisual.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
 
         #endregion
