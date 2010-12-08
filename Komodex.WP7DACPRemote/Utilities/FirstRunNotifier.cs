@@ -27,8 +27,11 @@ namespace Komodex.WP7DACPRemote
         private static void SendFirstRunNotification()
         {
             string version = Utility.GetApplicationVersion();
-            string url = "http://sys.komodex.com/notify/?p=remote&v=" + version;
-
+            string url = "http://sys.komodex.com/wp7/notify/?p=remote&v=" + version;
+#if DEBUG
+            url += "&d=1";
+            // TODO: Could also include device info
+#endif
             try
             {
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
