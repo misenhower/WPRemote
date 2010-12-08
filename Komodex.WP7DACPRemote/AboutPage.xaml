@@ -38,12 +38,14 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            
-            <StackPanel Background="{StaticResource PhoneChromeBrush}" Margin="12,0,12,12">
-            	<TextBlock TextWrapping="Wrap" Text="Remote" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-            	<TextBlock TextWrapping="Wrap" Text="for Windows Phone 7" Style="{StaticResource PhoneTextTitle3Style}"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}" Name="tbAppVersion" Margin="12,0,12,12" />
-            </StackPanel>
+
+            <Button Template="{StaticResource EmptyButton}" Click="btnAssemblyInfo_Click" msun:TiltEffect.SuppressTilt="True">
+                <StackPanel Background="{StaticResource PhoneChromeBrush}" Margin="12,0,12,12">
+                    <TextBlock TextWrapping="Wrap" Text="Remote" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock TextWrapping="Wrap" Text="for Windows Phone 7" Style="{StaticResource PhoneTextTitle3Style}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}" Name="tbAppVersion" Margin="12,0,12,12" />
+                </StackPanel>
+            </Button>
 
             <StackPanel Grid.Row="1" Background="{StaticResource PhoneChromeBrush}" Margin="12">
                 <TextBlock TextWrapping="Wrap" Text="iTunes Information" Style="{StaticResource PhoneTextTitle2Style}"/>

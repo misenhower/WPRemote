@@ -92,5 +92,15 @@ namespace Komodex.WP7DACPRemote
             t.Show();
         }
 
+        int assemblyInfoCount = 25;
+        private void btnAssemblyInfo_Click(object sender, RoutedEventArgs e)
+        {
+            if (assemblyInfoCount-- == 0)
+            {
+                MessageBox.Show(Assembly.GetExecutingAssembly().FullName);
+                MessageBox.Show(Assembly.GetCallingAssembly().FullName);
+            }
+        }
+
     }
 }
