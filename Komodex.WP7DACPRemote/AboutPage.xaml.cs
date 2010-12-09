@@ -88,7 +88,7 @@ namespace Komodex.WP7DACPRemote
         private void btnLogo_Click(object sender, RoutedEventArgs e)
         {
             WebBrowserTask t = new WebBrowserTask();
-            t.URL = "http://komodex.com";
+            t.URL = "http://komodex.com/wp7remote";
             t.Show();
         }
 
