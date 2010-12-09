@@ -84,6 +84,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             base.OnBackKeyPress(e);
         }
 
+        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        {
+            base.DACPServer_ServerUpdate(sender, e);
+
+            if (e.Type == DACP.ServerUpdateType.ServerConnected)
+                Deployment.Current.Dispatcher.BeginInvoke(() => { StartSearch(); });
+        }
+
         #endregion
 
         #region Actions
@@ -91,9 +99,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         private void tbSearchString_TextChanged(object sender, TextChangedEventArgs e)
         {
             searchTimer.Stop();
-            DACPServer.StopSearch();
-            lbSearchResults.ItemsSource = null;
-            searchTimer.Start();
+            if (DACPServer != null && DACPServer.IsConnected)
+            {
+                DACPServer.StopSearch();
+                lbSearchResults.ItemsSource = null;
+                searchTimer.Start();
+            }
         }
 
         private void tbSearchString_KeyUp(object sender, KeyEventArgs e)
@@ -136,12 +147,18 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             searchTimer.Stop();
 
-            lbSearchResults.ItemsSource = DACPServer.GetSearchResults(tbSearchString.Text); ;
+            StartSearch();
         }
 
         #endregion
 
         #region Methods
+
+        private void StartSearch()
+        {
+            if (DACPServer != null && DACPServer.IsConnected)
+                lbSearchResults.ItemsSource = DACPServer.GetSearchResults(tbSearchString.Text);
+        }
 
         private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
         {
