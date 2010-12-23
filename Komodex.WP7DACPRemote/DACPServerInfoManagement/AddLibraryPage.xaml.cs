@@ -216,7 +216,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         else if (e.ErrorType == ServerErrorType.InvalidPIN)
                             MessageBox.Show("Could not connect to iTunes. Please check the PIN and try again.", "PIN Error", MessageBoxButton.OK);
                         else
-                            MessageBox.Show("Could not connect to iTunes. Please check the hostname and PIN and try again.", "Connection Error", MessageBoxButton.OK);
+                            MessageBox.Show("Could not connect to iTunes. Please make sure your phone is connected to a Wi-fi network "
+                                + "and check the value entered in the hostname field.", "Connection Error", MessageBoxButton.OK);
                         SetVisibility(false);
                         server = null;
                         break;
