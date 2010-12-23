@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE dotfuscator SYSTEM "http://www.preemptive.com/dotfuscator/dtd/dotfuscator_v2.3.dtd">
+<dotfuscator version="2.3">
+  <!--This is application generated code. Do not edit manually.-->
+  <input>
+    <loadpaths>
+      <file dir="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\Silverlight\v4.0\Profile\WindowsPhone" />
+    </loadpaths>
+    <asmlist>
+      <package refid="31def4f3-23c5-476a-8957-856cf1feb0be">
+        <file dir="C:\Users\ike\Documents\Visual Studio 2010\Projects\WP7DACPRemote\Komodex.WP7DACPRemote\Bin\Release" name="Komodex.WP7DACPRemote.xap" />
+        <asmlist>
+          <inputassembly refid="f0259487-dcd4-48c9-ae1d-07d2cc3d20b0">
+            <option>honoroas</option>
+            <option>stripoa</option>
+            <option>library</option>
+            <option>transformxaml</option>
+            <file dir="" name="Clarity.PageTransitions.dll" />
+          </inputassembly>
+          <inputassembly refid="fafcd909-6c3a-47c7-9302-18617d4dbb03">
+            <option>honoroas</option>
+            <option>stripoa</option>
+            <option>library</option>
+            <option>transformxaml</option>
+            <file dir="" name="Komodex.DACP.dll" />
+          </inputassembly>
+          <inputassembly refid="f988ab70-1ad9-49d9-99ca-6bde86da8c40">
+            <option>honoroas</option>
+            <option>stripoa</option>
+            <option>library</option>
+            <option>transformxaml</option>
+            <file dir="" name="Komodex.WP7DACPRemote.dll" />
+          </inputassembly>
+        </asmlist>
+      </package>
+    </asmlist>
+  </input>
+  <output>
+    <file dir="${configdir}\Dotfuscated" />
+  </output>
+  <renaming>
+    <option>disable</option>
+    <option>xmlserialization</option>
+    <mapping>
+      <mapoutput overwrite="false">
+        <file dir="${configdir}\Dotfuscated" name="Map.xml" />
+      </mapoutput>
+    </mapping>
+    <referencerulelist>
+      <referencerule rulekey="{6655B10A-FD58-462d-8D4F-5B1316DFF0FF}" />
+      <referencerule rulekey="{229FD6F8-5BCC-427b-8F72-A7A413ECDF1A}" />
+      <referencerule rulekey="{2B7E7C8C-A39A-4db8-9DFC-6AFD38509061}" />
+      <referencerule rulekey="{494EA3BA-B947-44B5-BEE8-A11CC85AAF9B}" />
+      <referencerule rulekey="{89769974-93E9-4e71-8D92-BE70E855ACFC}" />
+      <referencerule rulekey="{7D9C8B02-2383-420f-8740-A9760394C2C1}" />
+    </referencerulelist>
+  </renaming>
+  <controlflow level="high" />
+  <stringencrypt>
+    <option>disable</option>
+    <includelist>
+      <assembly>
+        <packageref refid="31def4f3-23c5-476a-8957-856cf1feb0be" />
+        <file dir="" name="Komodex.DACP.dll" />
+      </assembly>
+      <assembly>
+        <packageref refid="31def4f3-23c5-476a-8957-856cf1feb0be" />
+        <file dir="" name="Komodex.WP7DACPRemote.dll" />
+      </assembly>
+    </includelist>
+  </stringencrypt>
+  <linking />
+  <premark>
+    <assemblylist />
+    <encoding name="6bit-a" />
+  </premark>
+  <sos mergeruntime="true">
+    <option>disable</option>
+    <option>sendanalytics</option>
+    <option>dontsendtamper</option>
+  </sos>
+  <smartobfuscation>
+    <smartobfuscationreport verbosity="all" overwrite="false" />
+  </smartobfuscation>
+</dotfuscator>
