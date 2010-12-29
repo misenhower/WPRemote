@@ -33,11 +33,6 @@ namespace Komodex.DACP
         {
             Utility.DebugWrite("Submitting HTTP request for: " + url);
 
-            AsyncCallback callback = null;
-            // Set up callback if none was specified
-            if (callback == null)
-                callback = new AsyncCallback(HTTPByteCallback);
-
             try
             {
                 // Set up HTTPWebRequest
@@ -52,7 +47,7 @@ namespace Komodex.DACP
                 requestInfo.IsDataRetrieval = isDataRetrieval;
 
                 // Send HTTP request
-                webRequest.BeginGetResponse(callback, requestInfo);
+                webRequest.BeginGetResponse(new AsyncCallback(HTTPByteCallback), requestInfo);
 
                 PendingHttpRequests.Add(requestInfo);
 
