@@ -20,14 +20,28 @@ namespace Komodex.WP7DACPRemote
 
         public static void CheckFirstRun()
         {
-            if (!isolatedSettings.Contains(kFirstRunKey))
+            if (isolatedSettings.Contains(kFirstRunKey))
+            {
+                string previousVersion = isolatedSettings[kFirstRunKey] as string;
+                if (previousVersion != Utility.GetApplicationVersion())
+                    SendFirstRunNotification();
+            }
+            else
+            {
                 SendFirstRunNotification();
+            }
         }
 
         private static void SendFirstRunNotification()
         {
             string version = Utility.GetApplicationVersion();
             string url = "http://sys.komodex.com/wp7/notify/?p=remote&v=" + version;
+
+            if (isolatedSettings.Contains(kFirstRunKey))
+                url += "&t=u";
+            else
+                url += "&t=n";
+
 #if DEBUG
             url += "&d=1";
             // TODO: Could also include device info
@@ -51,7 +65,7 @@ namespace Komodex.WP7DACPRemote
 
                 response.GetResponseStream();
 
-                isolatedSettings[kFirstRunKey] = true;
+                isolatedSettings[kFirstRunKey] = Utility.GetApplicationVersion();
                 isolatedSettings.Save();
             }
             catch { }
