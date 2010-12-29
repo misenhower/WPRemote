@@ -37,10 +37,14 @@ namespace Komodex.WP7DACPRemote
             string version = Utility.GetApplicationVersion();
             string url = "http://sys.komodex.com/wp7/notify/?p=remote&v=" + version;
 
-            if (isolatedSettings.Contains(kFirstRunKey))
-                url += "&t=u";
-            else
+            if (!isolatedSettings.Contains(kFirstRunKey))
                 url += "&t=n";
+            else
+            {
+                url += "&t=u";
+                if (isolatedSettings[kFirstRunKey] is string)
+                    url += "&pv=" + (string)isolatedSettings[kFirstRunKey];
+            }
 
 #if DEBUG
             url += "&d=1";
