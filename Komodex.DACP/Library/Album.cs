@@ -13,7 +13,7 @@ using System.Collections.ObjectModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Album : ILibraryItem, IDACPResponseHandler
+    public class Album : ILibraryItem
     {
         private Album()
         { }
@@ -109,22 +109,6 @@ namespace Komodex.DACP.Library
 
         #endregion
 
-        #region IDACPResponseHandler Members
-
-        public void ProcessResponse(HTTPRequestInfo requestInfo)
-        {
-            switch (requestInfo.ResponseCode)
-            {
-                case "apso": // Songs
-                    ProcessSongsResponse(requestInfo);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        #endregion
-
         #region HTTP Requests and Responses
 
         #region Song List
@@ -147,7 +131,7 @@ namespace Komodex.DACP.Library
                 + "&query=(('daap.songartist:" + EncodedArtistName + "','daap.songalbumartist:" + EncodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
                 + "&session-id=" + Server.SessionID;
 
-            Server.SubmitHTTPRequest(url, null, this);
+            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse));
         }
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)

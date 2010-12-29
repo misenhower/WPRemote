@@ -29,10 +29,11 @@ namespace Komodex.DACP
         /// </summary>
         /// <param name="url">The URL request (e.g., "/server-info").</param>
         /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
-        public HTTPRequestInfo SubmitHTTPRequest(string url, AsyncCallback callback = null, IDACPResponseHandler responseHandler = null, HTTPResponseHandler responseHandlerDelegate = null, object actionObject = null, bool isDataRetrieval = false)
+        public HTTPRequestInfo SubmitHTTPRequest(string url, HTTPResponseHandler responseHandlerDelegate = null, object actionObject = null, bool isDataRetrieval = false)
         {
             Utility.DebugWrite("Submitting HTTP request for: " + url);
 
+            AsyncCallback callback = null;
             // Set up callback if none was specified
             if (callback == null)
                 callback = new AsyncCallback(HTTPByteCallback);
@@ -46,7 +47,6 @@ namespace Komodex.DACP
 
                 // Create a new HTTPRequestState object
                 HTTPRequestInfo requestInfo = new HTTPRequestInfo(webRequest);
-                requestInfo.ResponseHandler = responseHandler;
                 requestInfo.ResponseHandlerDelegate = responseHandlerDelegate;
                 requestInfo.ActionObject = actionObject;
                 requestInfo.IsDataRetrieval = isDataRetrieval;
@@ -110,11 +110,7 @@ namespace Komodex.DACP
                 requestInfo.ResponseCode = parsedResponseNode.Key;
                 requestInfo.ResponseBody = parsedResponseNode.Value;
 
-                if (requestInfo.ResponseHandler != null)
-                {
-                    requestInfo.ResponseHandler.ProcessResponse(requestInfo);
-                }
-                else if (requestInfo.ResponseHandlerDelegate != null)
+                if (requestInfo.ResponseHandlerDelegate != null)
                 {
                     requestInfo.ResponseHandlerDelegate(requestInfo);
                 }

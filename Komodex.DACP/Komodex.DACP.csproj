@@ -49,7 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\GroupedItems.cs" />
-    <Compile Include="Classes\IDACPResponseHandler.cs" />
     <Compile Include="Classes\GroupItems.cs" />
     <Compile Include="Library\SearchResultSet.cs" />
     <Compile Include="DACPServer\DACPServer.LibraryManagement.cs" />

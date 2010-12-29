@@ -13,7 +13,7 @@ using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Artist : ILibraryItem, IDACPResponseHandler
+    public class Artist : ILibraryItem
     {
         private Artist()
         { }
@@ -103,25 +103,6 @@ namespace Komodex.DACP.Library
 
         #endregion
 
-        #region IDACPResponseHandler Members
-
-        public void ProcessResponse(HTTPRequestInfo requestInfo)
-        {
-            switch (requestInfo.ResponseCode)
-            {
-                case "agal": // Albums
-                    ProcessAlbumsResponse(requestInfo);
-                    break;
-                case "apso": // Songs
-                    ProcessSongsResponse(requestInfo);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        #endregion
-
         #region HTTP Requests and Responses
 
         #region Albums
@@ -145,7 +126,7 @@ namespace Komodex.DACP.Library
                 + "&include-sort-headers=1"
                 + "&query=(('daap.songartist:" + EncodedName + "','daap.songalbumartist:" + EncodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + Server.SessionID;
-            Server.SubmitHTTPRequest(url, null, this);
+            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumsResponse));
         }
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
@@ -195,7 +176,7 @@ namespace Komodex.DACP.Library
                 + "&include-sort-headers=1"
                 + "&query=(('daap.songartist:" + EncodedName + "','daap.songalbumartist:" + EncodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + "&session-id=" + Server.SessionID;
-            Server.SubmitHTTPRequest(url, null, this);
+            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse));
         }
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
