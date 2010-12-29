@@ -111,45 +111,7 @@ namespace Komodex.DACP
                 requestInfo.ResponseBody = parsedResponseNode.Value;
 
                 if (requestInfo.ResponseHandlerDelegate != null)
-                {
                     requestInfo.ResponseHandlerDelegate(requestInfo);
-                }
-                else
-                {
-                    // Determine the type of response
-                    switch (requestInfo.ResponseCode)
-                    {
-                        case "msrv": // Server info response
-                            ProcessServerInfoResponse(requestInfo);
-                            break;
-                        case "mlog": // Login response
-                            ProcessLoginResponse(requestInfo);
-                            break;
-                        case "mupd": // Library update response
-                            ProcessLibraryUpdateResponse(requestInfo);
-                            break;
-                        case "cmst": // Play status response
-                            ProcessPlayStatusResponse(requestInfo);
-                            break;
-                        case "cmgt": // Volume status response (TODO: and maybe others?)
-                            ProcessVolumeStatusResponse(requestInfo);
-                            break;
-                        case "avdb": // Databases
-                            ProcessDatabasesResponse(requestInfo);
-                            break;
-                        case "aply": // Playlists
-                            ProcessPlaylistsResponse(requestInfo);
-                            break;
-                        case "agar": // Artists response
-                            ProcessArtistsResponse(requestInfo);
-                            break;
-                        case "agal": // Albums response
-                            ProcessAlbumsResponse(requestInfo);
-                            break;
-                        default:
-                            break;
-                    }
-                }
             }
             catch (Exception e)
             {
@@ -176,7 +138,7 @@ namespace Komodex.DACP
         protected void SubmitServerInfoRequest()
         {
             string url = "/server-info";
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessServerInfoResponse));
         }
 
         protected void ProcessServerInfoResponse(HTTPRequestInfo requestInfo)
@@ -215,7 +177,7 @@ namespace Komodex.DACP
         protected void SubmitLoginRequest()
         {
             string url = "/login?pairing-guid=0x" + PairingKey;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessLoginResponse));
         }
 
         protected void ProcessLoginResponse(HTTPRequestInfo requestInfo)
@@ -266,7 +228,7 @@ namespace Komodex.DACP
                 return; // Slightly different behavior than the PlayStatus update because I'm not quite sure where this is needed yet
 
             string url = "/update?revision-number=" + libraryUpdateRevisionNumber + "&daap-no-disconnect=1&session-id=" + SessionID;
-            libraryUpdateRequestInfo = SubmitHTTPRequest(url);
+            libraryUpdateRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessLibraryUpdateResponse));
         }
 
         protected void ProcessLibraryUpdateResponse(HTTPRequestInfo requestInfo)
@@ -297,7 +259,7 @@ namespace Komodex.DACP
                 playStatusRequestInfo.WebRequest.Abort();
 
             string url = "/ctrl-int/1/playstatusupdate?revision-number=" + playStatusRevisionNumber + "&session-id=" + SessionID;
-            playStatusRequestInfo = SubmitHTTPRequest(url);
+            playStatusRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPlayStatusResponse));
         }
 
         protected void ProcessPlayStatusResponse(HTTPRequestInfo requestInfo)
@@ -376,7 +338,7 @@ namespace Komodex.DACP
         protected void SubmitVolumeStatusRequest()
         {
             string url = "/ctrl-int/1/getproperty?properties=dmcp.volume&session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessVolumeStatusResponse));
         }
 
         protected void ProcessVolumeStatusResponse(HTTPRequestInfo requestInfo)

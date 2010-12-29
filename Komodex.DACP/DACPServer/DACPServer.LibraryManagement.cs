@@ -71,7 +71,7 @@ namespace Komodex.DACP
         protected void SubmitDatabasesRequest()
         {
             string url = "/databases?session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessDatabasesResponse));
         }
 
         protected void ProcessDatabasesResponse(HTTPRequestInfo requestInfo)
@@ -112,7 +112,7 @@ namespace Komodex.DACP
             string url = "/databases/" + DatabaseID + "/containers"
                 + "?meta=dmap.itemname,dmap.itemcount,dmap.itemid,dmap.persistentid,daap.baseplaylist,com.apple.itunes.special-playlist,com.apple.itunes.smart-playlist,com.apple.itunes.saved-genius,dmap.parentcontainerid,dmap.editcommandssupported,com.apple.itunes.jukebox-current,daap.songcontentdescription"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPlaylistsResponse));
         }
 
         protected void ProcessPlaylistsResponse(HTTPRequestInfo requestInfo)
@@ -173,7 +173,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songartist!:')"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, null, null, true);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessArtistsResponse), null, true);
         }
 
         protected void ProcessArtistsResponse(HTTPRequestInfo requestInfo)
@@ -227,7 +227,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, null, null, true);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumsResponse), null, true);
         }
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
