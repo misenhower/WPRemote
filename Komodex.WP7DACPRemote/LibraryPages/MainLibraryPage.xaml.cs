@@ -180,6 +180,9 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             if (playlist != null)
             {
+                if (playlist.ItemCount <= 0)
+                    return;
+
                 lbPlaylists.SelectedItem = playlist;
                 NavigationManager.OpenPlaylistPage(playlist.ID, playlist.Name, playlist.PersistentID);
             }
@@ -191,6 +194,9 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             if (playlist != null)
             {
+                if (playlist.ItemCount <= 0)
+                    return;
+
                 playlist.SendPlaySongCommand();
                 NavigationManager.OpenNowPlayingPage();
             }
