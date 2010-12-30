@@ -15,8 +15,7 @@ namespace Komodex.DACP.Library
 {
     public abstract class LibraryGroupElementBase : LibraryElementBase
     {
-        public DACPServer Server { get; protected set; }
-
+        
         protected override bool ProcessByteKVP(KeyValuePair<string, byte[]> kvp)
         {
             if (base.ProcessByteKVP(kvp))
@@ -28,5 +27,6 @@ namespace Komodex.DACP.Library
                     return false;
             }
         }
+
     }
 }

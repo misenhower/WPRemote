@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Song : ILibraryElement
+    public class Song : LibraryElementBase
     {
         private Song()
         { }
@@ -31,10 +31,7 @@ namespace Komodex.DACP.Library
 
         #region Properties
 
-        public DACPServer Server { get; protected set; }
-        public int ID { get; protected set; }
         public int ContainerItemID { get; protected set; }
-        public string Name { get; protected set; }
         public string ArtistName { get; protected set; }
         public string AlbumName { get; protected set; }
         public string ArtistAndAlbum
@@ -42,12 +39,12 @@ namespace Komodex.DACP.Library
             get { return ArtistName + " – " + AlbumName; }
         }
 
-        public string SecondLine
+        public override string SecondLine
         {
             get { return ArtistName; }
         }
 
-        public string AlbumArtURL
+        public override string AlbumArtURL
         {
             get
             {
@@ -60,53 +57,26 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        private void ParseByteData(byte[] data)
+        protected override bool ProcessByteKVP(System.Collections.Generic.KeyValuePair<string, byte[]> kvp)
         {
-            var nodes = Utility.GetResponseNodes(data);
-            foreach (var kvp in nodes)
+            if (base.ProcessByteKVP(kvp))
+                return true;
+
+            switch (kvp.Key)
             {
-                switch (kvp.Key)
-                {
-                    case "miid": // ID
-                        ID = kvp.Value.GetInt32Value();
-                        break;
-                    case "mcti": // Container item ID
-                        ContainerItemID = kvp.Value.GetInt32Value();
-                        break;
-                    case "minm": // Name
-                        Name = kvp.Value.GetStringValue();
-                        break;
-                    case "asar": // Artist name
-                        ArtistName = kvp.Value.GetStringValue();
-                        break;
-                    case "asal": // Album name
-                        AlbumName = kvp.Value.GetStringValue();
-                        break;
-                    default:
-                        break;
-                }
+                case "mcti": // Container item ID
+                    ContainerItemID = kvp.Value.GetInt32Value();
+                    return true;
+                case "asar": // Artist name
+                    ArtistName = kvp.Value.GetStringValue();
+                    return true;
+                case "asal": // Album name
+                    AlbumName = kvp.Value.GetStringValue();
+                    return true;
+                default:
+                    return false;
             }
         }
-
-        #endregion
-
-        #region Notify Property Changed
-
-        protected void SendPropertyChanged(string propertyName)
-        {
-            // TODO: Is this the best way to execute this on the UI thread?
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            });
-        }
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
 
         #endregion
     }

@@ -15,6 +15,14 @@ namespace Komodex.DACP.Library
 {
     public abstract class LibraryElementBase : ILibraryElement
     {
+        #region Properties
+
+        public DACPServer Server { get; protected set; }
+
+        #endregion
+
+        #region Methods
+
         protected void ParseByteData(byte[] data)
         {
             var nodes = Utility.GetResponseNodes(data);
@@ -36,6 +44,8 @@ namespace Komodex.DACP.Library
                     return false;
             }
         }
+
+        #endregion
 
         #region ILibraryElement Members
 
