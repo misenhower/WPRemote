@@ -14,6 +14,7 @@ using Komodex.DACP.Library;
 using Komodex.DACP;
 using Clarity.Phone.Controls.Animations;
 using Microsoft.Phone.Shell;
+using Clarity.Phone.Extensions;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -27,7 +28,15 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             InitializeStandardAppNavApplicationBar(true, false, true);
             AddChooseLibraryApplicationBarMenuItem();
+
+            // "More" Appbar button
+            var AppBarMoreButton = new ApplicationBarIconButton(new Uri("/icons/custom.appbar.moredots.png", UriKind.Relative));
+            AppBarMoreButton.Text = "more";
+            AppBarMoreButton.Click += new EventHandler(AppBarMoreButton_Click);
+            ApplicationBar.Buttons.Add(AppBarMoreButton);
         }
+
+        DialogService moreDialog = null;
 
         #region Overrides
 
@@ -91,6 +100,13 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 return;
             }
 
+            if (moreDialog != null && moreDialog.IsOpen)
+            {
+                moreDialog.Hide();
+                e.Cancel = true;
+                return;
+            }
+
             base.OnBackKeyPress(e);
         }
 
@@ -142,6 +158,18 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 artist.SendPlaySongCommand();
                 NavigationManager.OpenNowPlayingPage();
             }
+        }
+
+        void AppBarMoreButton_Click(object sender, EventArgs e)
+        {
+            if (moreDialog != null)
+                moreDialog.Hide();
+
+            moreDialog = new DialogService();
+            moreDialog.PopupContainer = MorePopup;
+            moreDialog.Child = new LibraryViewDialog();
+            moreDialog.AnimationType = DialogService.AnimationTypes.Slide;
+            moreDialog.Show();
         }
 
         #endregion

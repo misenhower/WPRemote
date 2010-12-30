@@ -124,6 +124,11 @@ namespace Komodex.WP7DACPRemote
             RootVisual.Navigate(new Uri("/AboutPage.xaml?version=" + iTunesVersion + "&dmap=" + iTunesDMAPVersion + "&daap=" + iTunesDAAPVersion, UriKind.Relative));
         }
 
+        public static void OpenVideosPage()
+        {
+            RootVisual.Navigate(new Uri("/LibraryPages/VideosPage.xaml", UriKind.Relative));
+        }
+
         #endregion
     }
 }

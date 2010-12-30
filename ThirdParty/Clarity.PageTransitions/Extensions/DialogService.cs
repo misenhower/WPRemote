@@ -115,7 +115,7 @@ namespace Clarity.Phone.Extensions
         public Brush BackgroundBrush { get; set; }
 
         internal ApplicationBar AppBar { get; set; }
-        internal bool IsOpen { get; set; }
+        public bool IsOpen { get; protected set; }
 
         public event EventHandler Closed;
         public event EventHandler Opened;
@@ -137,7 +137,7 @@ namespace Clarity.Phone.Extensions
             }
         }
 
-        internal static ContentPresenter PopupContainer
+        internal static ContentPresenter GlobalPopupContainer
         {
             get
             {
@@ -148,6 +148,21 @@ namespace Clarity.Phone.Extensions
                 }
 
                 return _popupContainer;
+            }
+        }
+
+        private ContentPresenter _thisPopupContainer = null;
+        public ContentPresenter PopupContainer
+        {
+            get
+            {
+                if (_thisPopupContainer == null)
+                    return GlobalPopupContainer;
+                return _thisPopupContainer;
+            }
+            set
+            {
+                _thisPopupContainer = value;
             }
         }
 
