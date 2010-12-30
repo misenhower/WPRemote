@@ -197,7 +197,7 @@ namespace Komodex.DACP
                 {
                     var songNodes = Utility.GetResponseNodes(kvp.Value);
                     foreach (var songData in songNodes)
-                        songs.Add(new Song(this, songData.Value));
+                        songs.Add(new MediaItem(this, songData.Value));
                 }
             }
 

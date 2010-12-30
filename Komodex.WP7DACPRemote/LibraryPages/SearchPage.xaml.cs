@@ -129,9 +129,9 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 Artist artist = (Artist)selectedItem;
                 NavigationManager.OpenArtistPage(artist.Name);
             }
-            else if (selectedItem is Song)
+            else if (selectedItem is MediaItem)
             {
-                Song song = (Song)selectedItem;
+                MediaItem song = (MediaItem)selectedItem;
                 SearchResultSet resultSet = (SearchResultSet)listBox.ItemsSource;
                 resultSet.SendPlaySongCommand(song);
                 listBox.SelectedItem = null;

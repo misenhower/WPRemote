@@ -12,9 +12,9 @@ using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Song : LibraryElementBase
+    public class MediaItem : LibraryElementBase
     {
-        private Song()
+        private MediaItem()
         { }
 
         //public Song(DACPServer server, string name)
@@ -23,7 +23,7 @@ namespace Komodex.DACP.Library
         //    Name = name;
         //}
 
-        public Song(DACPServer server, byte[] data)
+        public MediaItem(DACPServer server, byte[] data)
         {
             Server = server;
             ParseByteData(data);

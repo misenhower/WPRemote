@@ -44,7 +44,7 @@ namespace Komodex.DACP.Library
 
         #region Play Song Command
 
-        public void SendPlaySongCommand(Song song)
+        public void SendPlaySongCommand(MediaItem song)
         {
             try
             {

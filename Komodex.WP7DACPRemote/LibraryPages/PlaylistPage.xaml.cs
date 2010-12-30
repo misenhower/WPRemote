@@ -93,7 +93,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void lbSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Song song = lbSongs.SelectedItem as Song;
+            MediaItem song = lbSongs.SelectedItem as MediaItem;
 
             if (song != null)
             {

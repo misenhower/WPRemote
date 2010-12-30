@@ -53,8 +53,8 @@ namespace Komodex.DACP.Library
         }
         public bool SmartPlaylist { get; protected set; }
 
-        private ObservableCollection<Song> _Songs = null;
-        public ObservableCollection<Song> Songs
+        private ObservableCollection<MediaItem> _Songs = null;
+        public ObservableCollection<MediaItem> Songs
         {
             get { return _Songs; }
             protected set
@@ -138,12 +138,12 @@ namespace Komodex.DACP.Library
                 switch (kvp.Key)
                 {
                     case "mlcl":
-                        ObservableCollection<Song> songs = new ObservableCollection<Song>();
+                        ObservableCollection<MediaItem> songs = new ObservableCollection<MediaItem>();
 
                         var songNodes = Utility.GetResponseNodes(kvp.Value);
                         foreach (var songData in songNodes)
                         {
-                            songs.Add(new Song(Server, songData.Value));
+                            songs.Add(new MediaItem(Server, songData.Value));
                         }
 
                         Songs = songs;
@@ -163,7 +163,7 @@ namespace Komodex.DACP.Library
             SendPlaySongCommand(0);
         }
 
-        public void SendPlaySongCommand(Song song)
+        public void SendPlaySongCommand(MediaItem song)
         {
             SendPlaySongCommand(song.ContainerItemID);
         }

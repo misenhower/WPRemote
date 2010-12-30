@@ -106,7 +106,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             LongListSelector listBox = (LongListSelector)sender;
 
-            Song song = listBox.SelectedItem as Song;
+            MediaItem song = listBox.SelectedItem as MediaItem;
 
             if (song != null)
             {

@@ -125,7 +125,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void SongPlayButton_Click(object sender, RoutedEventArgs e)
         {
-            Song song = ((Button)sender).Tag as Song;
+            MediaItem song = ((Button)sender).Tag as MediaItem;
 
             if (song != null)
             {
