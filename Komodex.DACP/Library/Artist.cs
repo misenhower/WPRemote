@@ -13,47 +13,27 @@ using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Artist : ILibraryItem
+    public class Artist : LibraryGroup
     {
         private Artist()
+            : base()
         { }
 
         public Artist(DACPServer server, string name)
+            : this()
         {
             Server = server;
             Name = name;
         }
 
         public Artist(DACPServer server, byte[] data)
+            : this()
         {
             Server = server;
             ParseByteData(data);
         }
 
         #region Properties
-
-        public DACPServer Server { get; protected set; }
-
-        private string _Name = null;
-        public string Name
-        {
-            get { return _Name; }
-            protected set
-            {
-                _Name = value;
-                EncodedName = Uri.EscapeDataString(Utility.EscapeSingleQuotes(Name));
-            }
-        }
-        public string EncodedName { get; protected set; }
-
-        public string SecondLine
-        {
-            get { return null; }
-        }
-        public string AlbumArtURL
-        {
-            get { return null; }
-        }
 
         private ObservableCollection<Album> _Albums = null;
         public ObservableCollection<Album> Albums
@@ -118,13 +98,14 @@ namespace Komodex.DACP.Library
         protected void SubmitAlbumsRequest()
         {
             retrievingAlbums = true;
+            string encodedName = Utility.QueryEncodeString(Name);
             string url = "/databases/" + Server.DatabaseID + "/groups"
                 + "?meta=dmap.itemname,daap.songartist,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
                 + "&type=music"
                 + "&group-type=albums"
                 + "&sort=album"
                 + "&include-sort-headers=1"
-                + "&query=(('daap.songartist:" + EncodedName + "','daap.songalbumartist:" + EncodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
+                + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + Server.SessionID;
             Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumsResponse));
         }
@@ -169,12 +150,13 @@ namespace Komodex.DACP.Library
         protected void SubmitSongsRequest()
         {
             retrievingSongs = true;
+            string encodedName = Utility.QueryEncodeString(Name);
             string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylistID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
                 + "&type=music"
                 + "&sort=name"
                 + "&include-sort-headers=1"
-                + "&query=(('daap.songartist:" + EncodedName + "','daap.songalbumartist:" + EncodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
+                + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + "&session-id=" + Server.SessionID;
             Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse));
         }
@@ -224,8 +206,9 @@ namespace Komodex.DACP.Library
 
         protected void SendPlaySongCommand(int index)
         {
+            string encodedName = Utility.QueryEncodeString(Name);
             string url = "/ctrl-int/1/cue?command=play"
-                + "&query=(('daap.songartist:" + EncodedName + "','daap.songalbumartist:" + EncodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
+                + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + "&index=" + index
                 + "&sort=name"
                 //+ "&srcdatabase=0xC2C1E50F13CF1F5C"
@@ -239,24 +222,5 @@ namespace Komodex.DACP.Library
 
         #endregion
 
-        #region Notify Property Changed
-
-        protected void SendPropertyChanged(string propertyName)
-        {
-            // TODO: Is this the best way to execute this on the UI thread?
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            });
-        }
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #endregion
     }
 }

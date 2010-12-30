@@ -14,6 +14,7 @@ namespace Komodex.DACP.Library
 {
     public interface ILibraryItem : INotifyPropertyChanged
     {
+        int ID { get; }
         string Name { get; }
         string SecondLine { get; }
         string AlbumArtURL { get; }

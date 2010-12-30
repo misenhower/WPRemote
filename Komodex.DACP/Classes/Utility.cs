@@ -55,6 +55,11 @@ namespace Komodex.DACP
             return input.Replace("'", "\\'");
         }
 
+        public static string QueryEncodeString(string input)
+        {
+            return Uri.EscapeDataString(Utility.EscapeSingleQuotes(input));
+        }
+
         #region Extension Methods
 
         public static Int32 SwapBits(this Int32 value)

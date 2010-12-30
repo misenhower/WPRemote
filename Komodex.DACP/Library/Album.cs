@@ -13,12 +13,14 @@ using System.Collections.ObjectModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Album : ILibraryItem
+    public class Album : LibraryGroup
     {
         private Album()
+            : base()
         { }
 
         public Album(DACPServer server, int id, string name, string artistName, UInt64 persistentID)
+            : this()
         {
             ID = id;
             Server = server;
@@ -28,6 +30,7 @@ namespace Komodex.DACP.Library
         }
 
         public Album(DACPServer server, byte[] data)
+            : this()
         {
             Server = server;
             ParseByteData(data);
@@ -35,21 +38,14 @@ namespace Komodex.DACP.Library
 
         #region Properties
 
-        public int ID { get; protected set; }
-        public string Name { get; protected set; }
-        private string _ArtistName = null;
-        public string ArtistName
+        public string ArtistName { get; protected set; }
+
+        public override string SecondLine
         {
-            get { return _ArtistName; }
-            protected set
-            {
-                _ArtistName = value;
-                EncodedArtistName = Uri.EscapeDataString(Utility.EscapeSingleQuotes(ArtistName));
-            }
+            get { return ArtistName; }
         }
-        public string EncodedArtistName { get; protected set; }
+
         public UInt64 PersistentID { get; protected set; }
-        public DACPServer Server { get; protected set; }
 
         private ObservableCollection<Song> _Songs = null;
         public ObservableCollection<Song> Songs
@@ -64,12 +60,7 @@ namespace Komodex.DACP.Library
             }
         }
 
-        public string SecondLine
-        {
-            get { return ArtistName; }
-        }
-
-        public string AlbumArtURL
+        public override string AlbumArtURL
         {
             get
             {
@@ -124,11 +115,12 @@ namespace Komodex.DACP.Library
         private void SubmitSongsRequest()
         {
             retrievingSongs = true;
+            string encodedArtistName = Utility.QueryEncodeString(ArtistName);
             string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylistID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
                 + "&type=music"
                 + "&sort=album"
-                + "&query=(('daap.songartist:" + EncodedArtistName + "','daap.songalbumartist:" + EncodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
+                + "&query=(('daap.songartist:" + encodedArtistName + "','daap.songalbumartist:" + encodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
                 + "&session-id=" + Server.SessionID;
 
             Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse));
@@ -180,9 +172,10 @@ namespace Komodex.DACP.Library
 
         protected void SendPlaySongCommand(int index)
         {
+            string encodedArtistName = Utility.QueryEncodeString(ArtistName);
             string url = "/ctrl-int/1/cue"
                 + "?command=play"
-                + "&query=(('daap.songartist:" + EncodedArtistName + "','daap.songalbumartist:" + EncodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
+                + "&query=(('daap.songartist:" + encodedArtistName + "','daap.songalbumartist:" + encodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
                 + "&index=" + index
                 + "&sort=album"
                 //+ "&srcdatabase=0xC2C1E50F13CF1F5C"
@@ -196,24 +189,5 @@ namespace Komodex.DACP.Library
 
         #endregion
 
-        #region Notify Property Changed
-
-        protected void SendPropertyChanged(string propertyName)
-        {
-            // TODO: Is this the best way to execute this on the UI thread?
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            });
-        }
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #endregion
     }
 }
