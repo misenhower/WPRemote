@@ -62,6 +62,19 @@ namespace Komodex.DACP
             }
         }
 
+        private GroupedItems<MediaItem> _LibraryMovies = null;
+        public GroupedItems<MediaItem> LibraryMovies
+        {
+            get { return _LibraryMovies; }
+            protected set
+            {
+                if (_LibraryMovies == value)
+                    return;
+                _LibraryMovies = value;
+                SendPropertyChanged("LibraryMovies");
+            }
+        }
+
         #endregion
 
         #region Requests and Responses
@@ -257,6 +270,60 @@ namespace Komodex.DACP
 
             retrievingAlbums = false;
         }
+
+        #endregion
+
+        #region Movies
+
+        private bool retrievingMovies = false;
+
+        public void GetMovies()
+        {
+            if (!retrievingMovies)
+                SubmitMoviesRequest();
+        }
+
+        protected void SubmitMoviesRequest()
+        {
+            retrievingMovies = true;
+            string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylistID + "/items"
+                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songtime,com.apple.itunes.content-rating"
+                + "&type=music"
+                + "&sort=name"
+                + "&include-sort-headers=1"
+                + "&query='com.apple.itunes.mediakind:2'"
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessMoviesResponse), null, true);
+        }
+
+        protected void ProcessMoviesResponse(HTTPRequestInfo requestInfo)
+        {
+            List<MediaItem> movies = null;
+            List<KeyValuePair<string, byte[]>> headers = null;
+
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl": // Items list
+                        movies = new List<MediaItem>();
+                        var movieNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var movieData in movieNodes)
+                            movies.Add(new MediaItem(this, movieData.Value));
+                        break;
+                    case "mshl": // Headers
+                        headers = Utility.GetResponseNodes(kvp.Value);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            LibraryMovies = GroupedItems<MediaItem>.Parse(movies, headers);
+
+            retrievingAlbums = false;
+        }
+
 
         #endregion
 
