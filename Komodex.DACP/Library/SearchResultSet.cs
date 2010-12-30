@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 
 namespace Komodex.DACP.Library
 {
-    public class SearchResultSet : ObservableCollection<GroupItems<ILibraryItem>>
+    public class SearchResultSet : ObservableCollection<GroupItems<ILibraryElement>>
     {
         public SearchResultSet(DACPServer server, string searchString)
         {
@@ -25,8 +25,8 @@ namespace Komodex.DACP.Library
         public DACPServer Server { get; protected set; }
         public string SearchString { get; protected set; }
 
-        private GroupItems<ILibraryItem> _SongGroup = null;
-        public GroupItems<ILibraryItem> SongGroup
+        private GroupItems<ILibraryElement> _SongGroup = null;
+        public GroupItems<ILibraryElement> SongGroup
         {
             get { return _SongGroup; }
             set

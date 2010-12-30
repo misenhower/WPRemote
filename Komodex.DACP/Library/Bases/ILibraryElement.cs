@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public interface ILibraryItem : INotifyPropertyChanged
+    public interface ILibraryElement : INotifyPropertyChanged
     {
         int ID { get; }
         string Name { get; }

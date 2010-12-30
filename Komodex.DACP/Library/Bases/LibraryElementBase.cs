@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Komodex.DACP.Library
 {
-    public abstract class LibraryElementBase : ILibraryItem
+    public abstract class LibraryElementBase : ILibraryElement
     {
         protected void ParseByteData(byte[] data)
         {
@@ -37,7 +37,7 @@ namespace Komodex.DACP.Library
             }
         }
 
-        #region ILibraryItem Members
+        #region ILibraryElement Members
 
         public virtual int ID { get; protected set; }
 

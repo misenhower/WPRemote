@@ -28,9 +28,9 @@ namespace Komodex.DACP
             string escapedSearchString = Uri.EscapeDataString(Utility.EscapeSingleQuotes(searchString.Trim()));
 
             var searchResults = new SearchResultSet(this, escapedSearchString);
-            searchResults.Add(new GroupItems<ILibraryItem>(searchResultAlbumHeaderText));
-            searchResults.Add(new GroupItems<ILibraryItem>(searchResultArtistHeaderText));
-            searchResults.Add(new GroupItems<ILibraryItem>(searchResultSongHeaderText));
+            searchResults.Add(new GroupItems<ILibraryElement>(searchResultAlbumHeaderText));
+            searchResults.Add(new GroupItems<ILibraryElement>(searchResultArtistHeaderText));
+            searchResults.Add(new GroupItems<ILibraryElement>(searchResultSongHeaderText));
             searchResults.SongGroup = searchResults[2];
 
             StopSearch();
@@ -96,7 +96,7 @@ namespace Komodex.DACP
 
             var resultSet = (SearchResultSet)requestInfo.ActionObject;
 
-            var albums = new GroupItems<ILibraryItem>(searchResultAlbumHeaderText);
+            var albums = new GroupItems<ILibraryElement>(searchResultAlbumHeaderText);
 
             foreach (var kvp in requestInfo.ResponseNodes)
             {
@@ -143,7 +143,7 @@ namespace Komodex.DACP
 
             var resultSet = (SearchResultSet)requestInfo.ActionObject;
 
-            var artists = new GroupItems<ILibraryItem>(searchResultArtistHeaderText);
+            var artists = new GroupItems<ILibraryElement>(searchResultArtistHeaderText);
 
             foreach (var kvp in requestInfo.ResponseNodes)
             {
@@ -189,7 +189,7 @@ namespace Komodex.DACP
 
             var resultSet = (SearchResultSet)requestInfo.ActionObject;
 
-            var songs = new GroupItems<ILibraryItem>(searchResultSongHeaderText);
+            var songs = new GroupItems<ILibraryElement>(searchResultSongHeaderText);
 
             foreach (var kvp in requestInfo.ResponseNodes)
             {

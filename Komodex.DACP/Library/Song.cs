@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Song : ILibraryItem
+    public class Song : ILibraryElement
     {
         private Song()
         { }
