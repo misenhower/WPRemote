@@ -13,10 +13,8 @@ using System.Collections.Generic;
 
 namespace Komodex.DACP.Library
 {
-    public abstract class LibraryGroup : ILibraryItem
+    public abstract class LibraryElementBase : ILibraryItem
     {
-        public DACPServer Server { get; protected set; }
-
         protected void ParseByteData(byte[] data)
         {
             var nodes = Utility.GetResponseNodes(data);
@@ -36,7 +34,6 @@ namespace Komodex.DACP.Library
                     return true;
                 default:
                     return false;
-
             }
         }
 

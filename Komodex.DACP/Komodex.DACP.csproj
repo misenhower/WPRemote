@@ -50,7 +50,8 @@
   <ItemGroup>
     <Compile Include="Classes\GroupedItems.cs" />
     <Compile Include="Classes\GroupItems.cs" />
-    <Compile Include="Library\LibraryGroup.cs" />
+    <Compile Include="Library\Bases\LibraryElementBase.cs" />
+    <Compile Include="Library\Bases\LibraryGroupElementBase.cs" />
     <Compile Include="Library\SearchResultSet.cs" />
     <Compile Include="DACPServer\DACPServer.LibraryManagement.cs" />
     <Compile Include="DACPServer\DACPServer.Properties.cs" />

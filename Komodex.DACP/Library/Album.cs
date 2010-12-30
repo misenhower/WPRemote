@@ -13,7 +13,7 @@ using System.Collections.ObjectModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Album : LibraryGroup
+    public class Album : LibraryGroupElementBase
     {
         private Album()
             : base()

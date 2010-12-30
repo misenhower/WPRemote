@@ -13,7 +13,7 @@ using System.ComponentModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Artist : LibraryGroup
+    public class Artist : LibraryGroupElementBase
     {
         private Artist()
             : base()
