@@ -65,22 +65,6 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        private void ParseByteData(byte[] data)
-        {
-            var nodes = Utility.GetResponseNodes(data);
-            foreach (var kvp in nodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "minm":
-                        Name = kvp.Value.GetStringValue();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
         #endregion
 
         #region HTTP Requests and Responses

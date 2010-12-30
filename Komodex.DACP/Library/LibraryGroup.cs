@@ -9,12 +9,36 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Komodex.DACP.Library
 {
     public abstract class LibraryGroup : ILibraryItem
     {
         public DACPServer Server { get; protected set; }
+
+        protected void ParseByteData(byte[] data)
+        {
+            var nodes = Utility.GetResponseNodes(data);
+            foreach (var kvp in nodes)
+                ProcessByteKVP(kvp);
+        }
+
+        protected virtual bool ProcessByteKVP(KeyValuePair<string, byte[]> kvp)
+        {
+            switch (kvp.Key)
+            {
+                case "miid": // ID
+                    ID = kvp.Value.GetInt32Value();
+                    return true;
+                case "minm": // Name
+                    Name = kvp.Value.GetStringValue();
+                    return true;
+                default:
+                    return false;
+
+            }
+        }
 
         #region ILibraryItem Members
 

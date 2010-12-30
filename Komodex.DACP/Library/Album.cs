@@ -73,28 +73,21 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        private void ParseByteData(byte[] data)
+        protected override bool ProcessByteKVP(System.Collections.Generic.KeyValuePair<string, byte[]> kvp)
         {
-            var nodes = Utility.GetResponseNodes(data);
-            foreach (var kvp in nodes)
+            if (base.ProcessByteKVP(kvp))
+                return true;
+
+            switch (kvp.Key)
             {
-                switch (kvp.Key)
-                {
-                    case "miid": // ID
-                        ID = kvp.Value.GetInt32Value();
-                        break;
-                    case "minm": // Name
-                        Name = kvp.Value.GetStringValue();
-                        break;
-                    case "asaa": // Artist name
-                        ArtistName = kvp.Value.GetStringValue();
-                        break;
-                    case "mper": // Persistent ID
-                        PersistentID = (UInt64)kvp.Value.GetInt64Value();
-                        break;
-                    default:
-                        break;
-                }
+                case "asaa": // Artist name
+                    ArtistName = kvp.Value.GetStringValue();
+                    return true;
+                case "mper": // Persistent ID
+                    PersistentID = (UInt64)kvp.Value.GetInt64Value();
+                    return true;
+                default:
+                    return false;
             }
         }
 
