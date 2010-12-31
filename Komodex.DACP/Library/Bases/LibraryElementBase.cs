@@ -15,6 +15,16 @@ namespace Komodex.DACP.Library
 {
     public abstract class LibraryElementBase : ILibraryElement
     {
+        protected LibraryElementBase()
+        { }
+
+        protected LibraryElementBase(DACPServer server, byte[] data)
+            : this()
+        {
+            Server = server;
+            ParseByteData(data);
+        }
+
         #region Properties
 
         public DACPServer Server { get; protected set; }

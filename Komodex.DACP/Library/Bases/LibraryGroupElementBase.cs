@@ -15,7 +15,14 @@ namespace Komodex.DACP.Library
 {
     public abstract class LibraryGroupElementBase : LibraryElementBase
     {
-        
+        protected LibraryGroupElementBase()
+            : base()
+        { }
+
+        protected LibraryGroupElementBase(DACPServer server, byte[] data)
+            : base(server, data)
+        { }
+
         protected override bool ProcessByteKVP(KeyValuePair<string, byte[]> kvp)
         {
             if (base.ProcessByteKVP(kvp))

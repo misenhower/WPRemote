@@ -18,11 +18,8 @@ namespace Komodex.DACP.Library
         { }
 
         public VideoMediaItem(DACPServer server, byte[] data)
-            : this()
-        {
-            Server = server;
-            ParseByteData(data);
-        }
+            : base(server, data)
+        { }
 
         #region Properties
 

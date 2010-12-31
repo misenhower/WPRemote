@@ -24,11 +24,8 @@ namespace Komodex.DACP.Library
         //}
 
         public MediaItem(DACPServer server, byte[] data)
-            : this()
-        {
-            Server = server;
-            ParseByteData(data);
-        }
+            : base(server, data)
+        { }
 
         #region Properties
 
