@@ -88,6 +88,19 @@ namespace Komodex.DACP
             }
         }
 
+        private GroupedItems<Podcast> _LibraryPodcasts = null;
+        public GroupedItems<Podcast> LibraryPodcasts
+        {
+            get { return _LibraryPodcasts; }
+            protected set
+            {
+                if (_LibraryPodcasts == value)
+                    return;
+                _LibraryPodcasts = value;
+                SendPropertyChanged("LibraryPodcasts");
+            }
+        }
+
         #endregion
 
         #region Requests and Responses
@@ -320,6 +333,39 @@ namespace Komodex.DACP
             }
 
             retrievingTVShows = false;
+        }
+
+        #endregion
+
+        #region Podcasts
+
+        private bool retrievingPodcasts = false;
+
+        public void GetPodcasts()
+        {
+            if (!retrievingPodcasts)
+                SubmitPodcastsRequest();
+        }
+
+        protected void SubmitPodcastsRequest()
+        {
+            retrievingPodcasts = true;
+            string url = "/databases/" + DatabaseID + "/groups"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songtime,daap.songhasbeenplayed,daap.songdatereleased,daap.sortartist,daap.songcontentdescription"
+                + "&type=music"
+                + "&group-type=albums"
+                + "&sort=album"
+                + "&include-sort-headers=1"
+                + "&query=(('com.apple.itunes.mediakind:4','com.apple.itunes.mediakind:36','com.apple.itunes.mediakind:6','com.apple.itunes.mediakind:7')+'daap.songalbum!:')"
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPodcastsResponse), null, true);
+        }
+
+        protected void ProcessPodcastsResponse(HTTPRequestInfo requestInfo)
+        {
+            LibraryPodcasts = GroupedItems<Podcast>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Podcast(this, bytes));
+
+            retrievingPodcasts = false;
         }
 
         #endregion
