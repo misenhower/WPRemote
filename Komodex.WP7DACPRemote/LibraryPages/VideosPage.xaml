@@ -67,8 +67,20 @@
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="item2">
-                <Grid/>
+            <controls:PivotItem Name="pivotTVShows" Header="tv shows">
+                <Grid>
+                    <toolkit:LongListSelector x:Name="lbTVShows" Background="Transparent" ItemsSource="{Binding LibraryTVShows}"
+                                              Margin="0,0,-12,0"
+                                              IsFlatList="True"
+                                              ItemTemplate="{StaticResource MovieTemplate}"
+                                              ListFooterTemplate="{StaticResource ListFooter}">
+                        <toolkit:LongListSelector.GroupItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </toolkit:LongListSelector.GroupItemsPanel>
+                    </toolkit:LongListSelector>
+                </Grid>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>

@@ -14,7 +14,7 @@ namespace Komodex.DACP.Library
 {
     public class MediaItem : LibraryElementBase
     {
-        private MediaItem()
+        protected MediaItem()
         { }
 
         //public Song(DACPServer server, string name)
@@ -24,6 +24,7 @@ namespace Komodex.DACP.Library
         //}
 
         public MediaItem(DACPServer server, byte[] data)
+            : this()
         {
             Server = server;
             ParseByteData(data);

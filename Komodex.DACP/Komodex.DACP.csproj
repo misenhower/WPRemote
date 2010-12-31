@@ -67,6 +67,7 @@
     <Compile Include="Library\Bases\ILibraryElement.cs" />
     <Compile Include="Library\Playlist.cs" />
     <Compile Include="Library\MediaItem.cs" />
+    <Compile Include="Library\VideoMediaItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

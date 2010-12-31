@@ -101,6 +101,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 if (DACPServer.LibraryMovies == null || DACPServer.LibraryMovies.Count == 0)
                     DACPServer.GetMovies();
             }
+            else if (pivotControl.SelectedItem == pivotTVShows)
+            {
+                if (DACPServer.LibraryTVShows == null || DACPServer.LibraryTVShows.Count == 0)
+                    DACPServer.GetTVShows();
+            }
         }
 
         #endregion

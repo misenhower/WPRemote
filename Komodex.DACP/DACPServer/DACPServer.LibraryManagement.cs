@@ -62,8 +62,8 @@ namespace Komodex.DACP
             }
         }
 
-        private GroupedItems<MediaItem> _LibraryMovies = null;
-        public GroupedItems<MediaItem> LibraryMovies
+        private GroupedItems<VideoMediaItem> _LibraryMovies = null;
+        public GroupedItems<VideoMediaItem> LibraryMovies
         {
             get { return _LibraryMovies; }
             protected set
@@ -72,6 +72,19 @@ namespace Komodex.DACP
                     return;
                 _LibraryMovies = value;
                 SendPropertyChanged("LibraryMovies");
+            }
+        }
+
+        private ObservableCollection<VideoMediaItem> _LibraryTVShows = null;
+        public ObservableCollection<VideoMediaItem> LibraryTVShows
+        {
+            get { return _LibraryTVShows; }
+            protected set
+            {
+                if (_LibraryTVShows == value)
+                    return;
+                _LibraryTVShows = value;
+                SendPropertyChanged("LibraryTVShows");
             }
         }
 
@@ -256,11 +269,58 @@ namespace Komodex.DACP
 
         protected void ProcessMoviesResponse(HTTPRequestInfo requestInfo)
         {
-            LibraryMovies = GroupedItems<MediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new MediaItem(this, bytes));
+            LibraryMovies = GroupedItems<VideoMediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new VideoMediaItem(this, bytes));
 
-            retrievingAlbums = false;
+            retrievingMovies = false;
         }
 
+
+        #endregion
+
+        #region TV Shows
+
+        private bool retrievingTVShows = false;
+
+        public void GetTVShows()
+        {
+            if (!retrievingTVShows)
+                SubmitTVShowsRequest();
+        }
+
+        protected void SubmitTVShowsRequest()
+        {
+            retrievingTVShows = true;
+            string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylist.ID + "/items"
+                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdisabled,com.apple.itunes.mediakind,daap.songtime,daap.songhasbeenplayed,daap.songdatereleased,daap.songdateadded,com.apple.itunes.series-name,daap.sortartist,daap.songalbum,com.apple.itunes.season-num,com.apple.itunes.episode-sort,com.apple.itunes.is-hd-video"
+                + "&type=music"
+                + "&sort=album"
+                + "&query='com.apple.itunes.mediakind:64'"
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessTVShowsResponse), null, true);
+        }
+
+        protected void ProcessTVShowsResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        ObservableCollection<VideoMediaItem> tvShows = new ObservableCollection<VideoMediaItem>();
+
+                        var tvShowNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var tvShowData in tvShowNodes)
+                            tvShows.Add(new VideoMediaItem(this, tvShowData.Value));
+
+                        LibraryTVShows = tvShows;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            retrievingTVShows = false;
+        }
 
         #endregion
 
