@@ -9,25 +9,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Microsoft.Phone.Controls;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
-    public partial class LibraryViewDialog : UserControl
+    public partial class PodcastsPage : DACPServerBoundPhoneApplicationPage
     {
-        public LibraryViewDialog()
+        public PodcastsPage()
         {
             InitializeComponent();
-        }
 
-        private void btnVideos_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationManager.OpenVideosPage();
+            AnimationContext = LayoutRoot;
         }
-
-        private void btnPodcasts_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationManager.OpenPodcastsPage();
-        }
-
     }
 }

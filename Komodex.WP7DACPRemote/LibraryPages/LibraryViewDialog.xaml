@@ -62,6 +62,17 @@
                     <TextBlock Text="videos" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                 </Grid>
             </Button>
+            <Button Name="btnPodcasts" Click="btnPodcasts_Click" Style="{StaticResource BorderlessButtonStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ContentControl Template="{StaticResource SearchIconButton}" />
+                    <TextBlock Text="podcasts" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                </Grid>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
