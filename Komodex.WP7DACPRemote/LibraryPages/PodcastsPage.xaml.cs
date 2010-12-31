@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Komodex.DACP;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -21,5 +22,76 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             AnimationContext = LayoutRoot;
         }
+
+        #region Overrides
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            GetPodcasts();
+        }
+
+        protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        {
+            base.DACPServer_ServerUpdate(sender, e);
+
+            if (e.Type == ServerUpdateType.ServerConnected)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    GetPodcasts();
+                });
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected void GetPodcasts()
+        {
+            if (DACPServer == null || !DACPServer.IsConnected)
+                return;
+
+            if (DACPServer.LibraryPodcasts == null || DACPServer.LibraryPodcasts.Count == 0)
+                DACPServer.GetPodcasts();
+        }
+
+        #endregion
+
+        #region Actions
+
+        private void PodcastButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PodcastPlayButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region Group View Management
+
+        private LongListSelector openedGroupViewSelector = null;
+
+        private void LongListSelector_GroupViewOpened(object sender, GroupViewOpenedEventArgs e)
+        {
+            openedGroupViewSelector = (LongListSelector)sender;
+
+            Utility.LongListSelectorGroupAnimationHelper((LongListSelector)sender, e);
+        }
+
+        private void LongListSelector_GroupViewClosing(object sender, GroupViewClosingEventArgs e)
+        {
+            openedGroupViewSelector = null;
+
+            Utility.LongListSelectorGroupAnimationHelper((LongListSelector)sender, e);
+        }
+
+        #endregion
     }
 }

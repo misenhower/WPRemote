@@ -7,13 +7,42 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
+    xmlns:delay="clr-namespace:Delay"
+    xmlns:msun="clr-namespace:Microsoft.Unsupported"
+    msun:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
-
+    
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="PodcastTemplate">
+            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="PodcastPlayButton_Click">
+                <Border Padding="12,6,0,12" Background="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="175" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="PodcastButton_Click">
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                        </Button>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
+                            <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Button>
+        </DataTemplate>
+        <DataTemplate x:Key="ListFooter">
+            <Border Height="72" />
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -28,7 +57,22 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,0,0">
+            <toolkit:LongListSelector x:Name="lbPodcasts" Background="Transparent" ItemsSource="{Binding LibraryPodcasts}"
+                                              Margin="0,0,-12,0"
+                                              ItemTemplate="{StaticResource PodcastTemplate}"
+                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                              ListFooterTemplate="{StaticResource ListFooter}"
+                                              GroupViewOpened="LongListSelector_GroupViewOpened"
+                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                <toolkit:LongListSelector.GroupItemsPanel>
+                    <ItemsPanelTemplate>
+                        <toolkit:WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </toolkit:LongListSelector.GroupItemsPanel>
+            </toolkit:LongListSelector>
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
