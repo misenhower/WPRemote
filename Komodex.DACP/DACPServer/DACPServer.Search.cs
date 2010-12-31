@@ -172,7 +172,7 @@ namespace Komodex.DACP
 
         protected void SubmitSongSearchRequest(string escapedSearchString, SearchResultSet resultSet)
         {
-            string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylistID + "/items"
+            string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
                 + "&type=music"
                 + "&sort=name"

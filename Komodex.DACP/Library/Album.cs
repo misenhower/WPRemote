@@ -109,7 +109,7 @@ namespace Komodex.DACP.Library
         {
             retrievingSongs = true;
             string encodedArtistName = Utility.QueryEncodeString(ArtistName);
-            string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylistID + "/items"
+            string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
                 + "&type=music"
                 + "&sort=album"

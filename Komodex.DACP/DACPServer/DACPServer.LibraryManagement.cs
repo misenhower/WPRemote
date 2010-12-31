@@ -21,7 +21,7 @@ namespace Komodex.DACP
 
         public int DatabaseID { get; protected set; }
         public UInt64 DatabasePersistentID { get; protected set; }
-        public int BasePlaylistID { get; protected set; }
+        public Playlist BasePlaylist { get; protected set; }
 
         private List<Playlist> _LibraryPlaylists = null;
         public List<Playlist> LibraryPlaylists
@@ -142,7 +142,7 @@ namespace Komodex.DACP
                             Playlist pl = new Playlist(this, playlistData.Value);
                             if (pl.BasePlaylist)
                             {
-                                BasePlaylistID = pl.ID;
+                                BasePlaylist = pl;
                             }
                             else if (pl.SpecialPlaylistType != 0)
                             {
@@ -244,7 +244,7 @@ namespace Komodex.DACP
         protected void SubmitMoviesRequest()
         {
             retrievingMovies = true;
-            string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylistID + "/items"
+            string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songtime,com.apple.itunes.content-rating"
                 + "&type=music"
                 + "&sort=name"

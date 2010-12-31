@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
+using Komodex.DACP.Library;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -77,7 +78,13 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void MoviePlayButton_Click(object sender, RoutedEventArgs e)
         {
+            MediaItem movie = ((Button)sender).Tag as MediaItem;
 
+            if (movie != null)
+            {
+                movie.SendPlayMediaItemCommand();
+                NavigationManager.OpenNowPlayingPage();
+            }
         }
 
         #endregion
