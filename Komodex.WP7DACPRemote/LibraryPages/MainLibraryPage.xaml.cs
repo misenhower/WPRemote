@@ -165,11 +165,24 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             if (moreDialog != null)
                 moreDialog.Hide();
 
+            // Disable all the listboxes because of a z-order issue with the group headers
+            lbArtists.IsEnabled = false;
+            lbAlbums.IsEnabled = false;
+            lbPlaylists.IsEnabled = false;
+
             moreDialog = new DialogService();
             moreDialog.PopupContainer = MorePopup;
             moreDialog.Child = new LibraryViewDialog();
             moreDialog.AnimationType = DialogService.AnimationTypes.Slide;
+            moreDialog.Closed += new EventHandler(moreDialog_Closed);
             moreDialog.Show();
+        }
+
+        void moreDialog_Closed(object sender, EventArgs e)
+        {
+            lbArtists.IsEnabled = true;
+            lbAlbums.IsEnabled = true;
+            lbPlaylists.IsEnabled = true;
         }
 
         #endregion
