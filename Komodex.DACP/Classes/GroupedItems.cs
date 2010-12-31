@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.Linq;
+using Komodex.DACP.Library;
 
 namespace Komodex.DACP
 {
@@ -27,6 +28,32 @@ namespace Komodex.DACP
                 this.Add(itemsInGroup);
                 itemLookup.Add(c, itemsInGroup);
             }
+        }
+
+        public static GroupedItems<T> HandleResponseNodes(List<KeyValuePair<string, byte[]>> responseNodes, Func<byte[],T> itemGenerator)
+        {
+            List<T> items = null;
+            List<KeyValuePair<string, byte[]>> headers = null;
+
+            foreach (var kvp in responseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl": // Items list
+                        items = new List<T>();
+                        var itemNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var itemData in itemNodes)
+                            items.Add(itemGenerator(itemData.Value));
+                        break;
+                    case "mshl": // Headers
+                        headers = Utility.GetResponseNodes(kvp.Value);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return Parse(items, headers);
         }
 
         public static GroupedItems<T> Parse(List<T> items, List<KeyValuePair<string, byte[]>> headers)

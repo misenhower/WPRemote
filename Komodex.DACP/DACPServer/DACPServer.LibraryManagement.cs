@@ -191,28 +191,7 @@ namespace Komodex.DACP
 
         protected void ProcessArtistsResponse(HTTPRequestInfo requestInfo)
         {
-            List<Artist> artists = null;
-            List<KeyValuePair<string, byte[]>> headers = null;
-
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "mlcl": // Items list
-                        artists = new List<Artist>();
-                        var artistNodes = Utility.GetResponseNodes(kvp.Value);
-                        foreach (var artistData in artistNodes)
-                            artists.Add(new Artist(this, artistData.Value));
-                        break;
-                    case "mshl": // Headers
-                        headers = Utility.GetResponseNodes(kvp.Value);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            LibraryArtists = GroupedItems<Artist>.Parse(artists, headers);
+            LibraryArtists = GroupedItems<Artist>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Artist(this, bytes));
 
             retrievingArtists = false;
         }
@@ -245,28 +224,7 @@ namespace Komodex.DACP
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
         {
-            List<Album> albums = null;
-            List<KeyValuePair<string, byte[]>> headers = null;
-
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "mlcl": // Items list
-                        albums = new List<Album>();
-                        var albumNodes = Utility.GetResponseNodes(kvp.Value);
-                        foreach (var albumData in albumNodes)
-                            albums.Add(new Album(this, albumData.Value));
-                        break;
-                    case "mshl": // Headers
-                        headers = Utility.GetResponseNodes(kvp.Value);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            LibraryAlbums = GroupedItems<Album>.Parse(albums, headers);
+            LibraryAlbums = GroupedItems<Album>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Album(this, bytes));
 
             retrievingAlbums = false;
         }
@@ -298,28 +256,7 @@ namespace Komodex.DACP
 
         protected void ProcessMoviesResponse(HTTPRequestInfo requestInfo)
         {
-            List<MediaItem> movies = null;
-            List<KeyValuePair<string, byte[]>> headers = null;
-
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "mlcl": // Items list
-                        movies = new List<MediaItem>();
-                        var movieNodes = Utility.GetResponseNodes(kvp.Value);
-                        foreach (var movieData in movieNodes)
-                            movies.Add(new MediaItem(this, movieData.Value));
-                        break;
-                    case "mshl": // Headers
-                        headers = Utility.GetResponseNodes(kvp.Value);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            LibraryMovies = GroupedItems<MediaItem>.Parse(movies, headers);
+            LibraryMovies = GroupedItems<MediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new MediaItem(this, bytes));
 
             retrievingAlbums = false;
         }
