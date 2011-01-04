@@ -134,6 +134,13 @@ namespace Komodex.WP7DACPRemote
             RootVisual.Navigate(new Uri("/LibraryPages/PodcastsPage.xaml", UriKind.Relative));
         }
 
+        public static void OpenPodcastPage(int podcastID, string podcastName, UInt64 podcastPersistentID)
+        {
+            podcastName = Uri.EscapeDataString(podcastName);
+            RootVisual.Navigate(new Uri("/LibraryPages/PodcastPage.xaml?id=" + podcastID + "&name=" + podcastName + "&perid=" + podcastPersistentID, UriKind.Relative));
+        }
+
+
         #endregion
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
+using Komodex.DACP.Library;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -64,7 +65,13 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void PodcastButton_Click(object sender, RoutedEventArgs e)
         {
+            Podcast podcast = ((Button)sender).Tag as Podcast;
 
+            if (podcast != null)
+            {
+                lbPodcasts.SelectedItem = podcast;
+                NavigationManager.OpenPodcastPage(podcast.ID, podcast.Name, podcast.PersistentID);
+            }
         }
 
         private void PodcastPlayButton_Click(object sender, RoutedEventArgs e)
