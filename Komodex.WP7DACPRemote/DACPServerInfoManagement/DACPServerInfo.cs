@@ -35,6 +35,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 if (_HostName == value)
                     return;
                 _HostName = value;
+                if (_HostName != null)
+                    _HostName = _HostName.Trim();
                 SendPropertyChanged("HostName");
             }
         }
