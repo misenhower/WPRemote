@@ -8,12 +8,24 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="682" d:DesignWidth="480">
+    d:DesignHeight="682" d:DesignWidth="480" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
 
     <UserControl.Resources>
         <DataTemplate x:Key="SpeakerTemplate">
             <Border Padding="12,6,0,12" Background="Transparent">
-                <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0" Grid.RowSpan="2" IsChecked="{Binding Active}" VerticalAlignment="Top" />
+                    <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextLargeStyle}" />
+                    <Slider Grid.Column="1" Grid.Row="1" Maximum="100" Value="{Binding Volume}" />
+                </Grid>
             </Border>
         </DataTemplate>
     </UserControl.Resources>
@@ -29,7 +41,7 @@
             <!--<TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
         </StackPanel>
 
-        <toolkit:LongListSelector Name="lbSpeakers" Margin="0,0,-12,0" Grid.Row="1"
+        <toolkit:LongListSelector Name="lbSpeakers" Margin="0,0,0,0" Grid.Row="1"
                 ItemsSource="{Binding Speakers}" IsFlatList="True"
                 ItemTemplate="{StaticResource SpeakerTemplate}" />
     </Grid>
