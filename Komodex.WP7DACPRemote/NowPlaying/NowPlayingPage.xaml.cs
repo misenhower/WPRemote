@@ -15,7 +15,7 @@ using Komodex.DACP;
 using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 
-namespace Komodex.WP7DACPRemote
+namespace Komodex.WP7DACPRemote.NowPlaying
 {
     public partial class NowPlayingPage : DACPServerBoundPhoneApplicationPage
     {

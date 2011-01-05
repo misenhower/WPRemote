@@ -101,7 +101,7 @@ namespace Komodex.WP7DACPRemote
 
         public static void OpenNowPlayingPage()
         {
-            RootVisual.Navigate(new Uri("/NowPlayingPage.xaml", UriKind.Relative));
+            RootVisual.Navigate(new Uri("/NowPlaying/NowPlayingPage.xaml", UriKind.Relative));
         }
 
         public static void OpenMainLibraryPage()
