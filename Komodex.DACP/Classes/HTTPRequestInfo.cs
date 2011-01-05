@@ -107,6 +107,7 @@ namespace Komodex.DACP
         private List<string> containerNodes = new List<string>(new string[]{
             "msrv", "msml", "mlog", "cmst",
             "mlcl", "abar", "mshl", "mlit",
+            "mdcl",
         });
 #endif
 
