@@ -48,8 +48,10 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AirPlaySpeaker.cs" />
     <Compile Include="Classes\GroupedItems.cs" />
     <Compile Include="Classes\GroupItems.cs" />
+    <Compile Include="DACPServer\DACPServer.AirPlaySpeakers.cs" />
     <Compile Include="Library\Bases\LibraryElementBase.cs" />
     <Compile Include="Library\Bases\LibraryGroupElementBase.cs" />
     <Compile Include="Library\Podcast.cs" />

@@ -322,6 +322,7 @@ namespace Komodex.DACP
             });
             SendPropertyChanged("CurrentAlbumArtURL"); // TODO: Need to be a bit more efficient about this, perhaps by doing this in the PropertyChanged event
             SubmitVolumeStatusRequest();
+            SubmitGetSpeakersRequest();
             if (UseDelayedResponseRequests && !Stopped)
                 SubmitPlayStatusRequest();
         }
