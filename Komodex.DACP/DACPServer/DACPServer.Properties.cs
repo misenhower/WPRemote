@@ -379,9 +379,20 @@ namespace Komodex.DACP
                 else
                     _Volume = value;
 
-                SendPropertyChanged("Volume");
+                SendVolumePropertyChanged();
                 SendVolumeUpdate();
             }
+        }
+
+        internal void SendVolumePropertyChanged()
+        {
+            SendPropertyChanged("Volume");
+
+            if (Speakers == null)
+                return;
+
+            foreach (AirPlaySpeaker speaker in Speakers)
+                speaker.SendAdjustedVolumeUpdate();
         }
 
         protected void SendVolumeUpdate()

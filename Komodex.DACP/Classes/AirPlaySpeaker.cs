@@ -16,6 +16,8 @@ namespace Komodex.DACP
     {
         #region Properties
 
+        public DACPServer Server { get; internal set; }
+
         private string _Name = string.Empty;
         public string Name
         {
@@ -65,7 +67,33 @@ namespace Komodex.DACP
                     return;
                 _Volume = value;
                 SendPropertyChanged("Volume");
+                SendAdjustedVolumeUpdate();
             }
+        }
+
+        public int BindableVolume
+        {
+            get
+            {
+                if (Server.Volume == 100)
+                    return Volume;
+
+                double volumePercentage = (double)Volume / 100;
+                return (int)((double)Server.Volume * volumePercentage);
+            }
+            set
+            {
+                // TODO
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        internal void SendAdjustedVolumeUpdate()
+        {
+            SendPropertyChanged("BindableVolume");
         }
 
         #endregion
