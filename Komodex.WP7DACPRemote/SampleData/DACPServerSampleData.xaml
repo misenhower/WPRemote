@@ -3,10 +3,10 @@
 		<System:Guid/>
 	</Komodex_DACP:DACPServer.ID>
     <Komodex_DACP:DACPServer.Speakers>
-        <Komodex_DACP:AirPlaySpeaker Active="False" Name="Turpis consequat feugiat" Volume="73"/>
-        <Komodex_DACP:AirPlaySpeaker Active="True" Name="Sit vel convallis" Volume="68"/>
-        <Komodex_DACP:AirPlaySpeaker Active="False" Name="Orci dignissim metus" Volume="34"/>
-        <Komodex_DACP:AirPlaySpeaker Active="True" Name="Varius morbi" Volume="71"/>
-        <Komodex_DACP:AirPlaySpeaker Active="False" Name="Gravida iaculis elementum" Volume="87"/>
+        <Komodex_DACP:AirPlaySpeaker BindableActive="False" Name="Turpis consequat feugiat" BindableVolume="73"/>
+        <Komodex_DACP:AirPlaySpeaker BindableActive="True" Name="Sit vel convallis" BindableVolume="68"/>
+        <Komodex_DACP:AirPlaySpeaker BindableActive="False" Name="Orci dignissim metus" BindableVolume="34"/>
+        <Komodex_DACP:AirPlaySpeaker BindableActive="True" Name="Varius morbi" BindableVolume="71"/>
+        <Komodex_DACP:AirPlaySpeaker BindableActive="False" Name="Gravida iaculis elementum" BindableVolume="87"/>
     </Komodex_DACP:DACPServer.Speakers>
 </Komodex_DACP:DACPServer>
