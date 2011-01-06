@@ -67,7 +67,7 @@ namespace Komodex.DACP
                     return;
                 _Volume = value;
                 SendPropertyChanged("Volume");
-                SendAdjustedVolumeUpdate();
+                SendAdjustedVolumePropertyChanged();
             }
         }
 
@@ -83,7 +83,22 @@ namespace Komodex.DACP
             }
             set
             {
-                // TODO
+                if (BindableVolume == value)
+                    return;
+
+                if (value <= Server.AirPlayVolumeSwitchPoint)
+                {
+                    double volumePercentage = (double)value / (double)Server.Volume;
+                    Volume = (int)(volumePercentage * 100);
+                    SendSimpleVolumeUpdate();
+
+                }
+                else
+                {
+                    Server.AirPlayMasterVolumeManipulation(value);
+                    SendExtendedVolumeUpdate();
+                }
+
             }
         }
 
@@ -91,7 +106,25 @@ namespace Komodex.DACP
 
         #region Methods
 
-        internal void SendAdjustedVolumeUpdate()
+        protected void SendSimpleVolumeUpdate()
+        {
+            string url = "/ctrl-int/1/setproperty"
+                + "?speaker-id=" + ID
+                + "&dmcp.volume=" + Volume
+                + "&session-id=" + Server.SessionID;
+            Server.SubmitHTTPRequest(url);
+        }
+
+        protected void SendExtendedVolumeUpdate()
+        {
+            string url = "/ctrl-int/1/setproperty"
+                + "?dmcp.volume=" + Server.Volume
+                + "&include-speaker-id=" + ID
+                + "&session-id=" + Server.SessionID;
+            Server.SubmitHTTPRequest(url);
+        }
+
+        internal void SendAdjustedVolumePropertyChanged()
         {
             SendPropertyChanged("BindableVolume");
         }

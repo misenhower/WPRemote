@@ -16,6 +16,8 @@ namespace Komodex.DACP
 {
     public partial class DACPServer
     {
+        internal int AirPlayVolumeSwitchPoint = 0;
+
         #region Properties
 
         private ObservableCollection<AirPlaySpeaker> _Speakers = null;
@@ -121,5 +123,34 @@ namespace Komodex.DACP
         #endregion
 
         #endregion
+
+        #region Methods
+
+        public void AirPlaySpeakerManipulationStarted(AirPlaySpeaker speaker)
+        {
+            AirPlaySpeaker otherSpeaker = (from s in Speakers
+                                           where s != speaker
+                                           orderby s.BindableVolume descending
+                                           select s).FirstOrDefault();
+
+            if (otherSpeaker != null)
+                AirPlayVolumeSwitchPoint = otherSpeaker.BindableVolume;
+            else
+                AirPlayVolumeSwitchPoint = 0;
+        }
+
+        public void AirPlaySpeakerManipulationStopped()
+        {
+            SubmitGetSpeakersRequest();
+        }
+
+        internal void AirPlayMasterVolumeManipulation(int newVolume)
+        {
+            _Volume = newVolume;
+            SendPropertyChanged("Volume");
+        }
+
+        #endregion
+
     }
 }

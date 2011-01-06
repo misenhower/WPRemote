@@ -22,9 +22,13 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <CheckBox Grid.Column="0" Grid.RowSpan="2" IsChecked="{Binding Active}" VerticalAlignment="Top" />
+                    <CheckBox Grid.Column="0" Grid.RowSpan="2" IsChecked="{Binding Path=Active, Mode=TwoWay}" VerticalAlignment="Top" />
                     <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextLargeStyle}" />
-                    <Slider Grid.Column="1" Grid.Row="1" Maximum="100" Value="{Binding BindableVolume}" />
+                    <Slider Grid.Column="1" Grid.Row="1"
+                            Tag="{Binding BindsDirectlyToSource=True}"
+                            Value="{Binding Path=BindableVolume, Mode=TwoWay}" Maximum="100"
+                            ManipulationStarted="Slider_ManipulationStarted"
+                            ManipulationCompleted="Slider_ManipulationCompleted" />
                 </Grid>
             </Border>
         </DataTemplate>

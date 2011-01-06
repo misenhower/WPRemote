@@ -384,7 +384,7 @@ namespace Komodex.DACP
             }
         }
 
-        internal void SendVolumePropertyChanged()
+        protected void SendVolumePropertyChanged()
         {
             SendPropertyChanged("Volume");
 
@@ -392,7 +392,7 @@ namespace Komodex.DACP
                 return;
 
             foreach (AirPlaySpeaker speaker in Speakers)
-                speaker.SendAdjustedVolumeUpdate();
+                speaker.SendAdjustedVolumePropertyChanged();
         }
 
         protected void SendVolumeUpdate()

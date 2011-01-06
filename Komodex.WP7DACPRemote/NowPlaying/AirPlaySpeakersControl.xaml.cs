@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Komodex.DACP;
 
 namespace Komodex.WP7DACPRemote.NowPlaying
 {
@@ -17,6 +18,19 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         public AirPlaySpeakersControl()
         {
             InitializeComponent();
+        }
+
+        private void Slider_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+            AirPlaySpeaker speaker = ((Slider)sender).Tag as AirPlaySpeaker;
+
+            if (speaker != null)
+                ((DACPServer)DataContext).AirPlaySpeakerManipulationStarted(speaker);
+        }
+
+        private void Slider_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+            ((DACPServer)DataContext).AirPlaySpeakerManipulationStopped();
         }
     }
 }
