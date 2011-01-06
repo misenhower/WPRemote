@@ -97,13 +97,13 @@ namespace Komodex.DACP
                 byte[] byteResult = data.GetBuffer();
 
                 var parsedResponse = Utility.GetResponseNodes(byteResult, true);
-                if (parsedResponse.Count == 0)
-                    return;
+                if (parsedResponse.Count > 0)
+                {
+                    var parsedResponseNode = parsedResponse[0];
 
-                var parsedResponseNode = parsedResponse[0];
-
-                requestInfo.ResponseCode = parsedResponseNode.Key;
-                requestInfo.ResponseBody = parsedResponseNode.Value;
+                    requestInfo.ResponseCode = parsedResponseNode.Key;
+                    requestInfo.ResponseBody = parsedResponseNode.Value;
+                }
 
                 if (requestInfo.ResponseHandlerDelegate != null)
                     requestInfo.ResponseHandlerDelegate(requestInfo);
