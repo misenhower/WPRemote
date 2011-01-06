@@ -238,7 +238,7 @@
             </Grid>
         </Grid>
         <!--<my:AirPlaySpeakersControl Grid.Row="0" Grid.RowSpan="2" Margin="0,0,0,150" />-->
-        <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" />
+        <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" Grid.RowSpan="2" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
