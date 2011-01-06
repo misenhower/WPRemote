@@ -14,11 +14,14 @@ using Microsoft.Phone.Shell;
 using Komodex.DACP;
 using System.Windows.Threading;
 using System.Windows.Media.Imaging;
+using Clarity.Phone.Extensions;
 
 namespace Komodex.WP7DACPRemote.NowPlaying
 {
     public partial class NowPlayingPage : DACPServerBoundPhoneApplicationPage
     {
+        protected DialogService AirPlayDialog = null;
+
         public NowPlayingPage()
         {
             InitializeComponent();
@@ -94,6 +97,18 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                 if (ShouldGoBack())
                     goBackTimer.Start();
             }
+        }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (AirPlayDialog != null && AirPlayDialog.IsOpen)
+            {
+                AirPlayDialog.Hide();
+                e.Cancel = true;
+                return;
+            }
+
+            base.OnBackKeyPress(e);
         }
 
         #endregion
@@ -183,6 +198,16 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             HideRepeatShuffleControls();
         }
 
+        private void mnuAirPlay_Click(object sender, EventArgs e)
+        {
+            ShowAirPlayDialog();
+        }
+
+        private void btnAirPlay_Click(object sender, RoutedEventArgs e)
+        {
+            ShowAirPlayDialog();
+        }
+
         #endregion
 
         #region Methods
@@ -190,6 +215,18 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         protected bool ShouldGoBack()
         {
             return (DACPServer != null && DACPServer.IsConnected && DACPServer.PlayState == DACP.PlayStates.Stopped && DACPServer.CurrentSongName == null);
+        }
+
+        protected void ShowAirPlayDialog()
+        {
+            if (AirPlayDialog != null)
+                AirPlayDialog.Hide();
+
+            AirPlayDialog = new DialogService();
+            AirPlayDialog.PopupContainer = MorePopup;
+            AirPlayDialog.Child = new AirPlaySpeakersControl();
+            AirPlayDialog.AnimationType = DialogService.AnimationTypes.Slide;
+            AirPlayDialog.Show(false);
         }
 
         #endregion

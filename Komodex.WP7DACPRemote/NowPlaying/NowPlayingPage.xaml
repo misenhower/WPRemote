@@ -1,4 +1,5 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.NowPlaying" 
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
     x:Class="Komodex.WP7DACPRemote.NowPlaying.NowPlayingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -286,12 +287,32 @@
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=CurrentTrackTimeRemainingString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Right" />
                     <Slider Grid.Row="0" Grid.ColumnSpan="2" Height="4" Style="{StaticResource PlayPositionSliderStyle}" Value="{Binding Path=CurrentTrackTimePercentage, Mode=TwoWay}" Margin="-12,0,12,0" Maximum="100" LargeChange="5" />
                 </Grid>
-                <Slider Grid.Row="4" Height="48" Margin="0,0,36,0" 
-                        Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
-                        Style="{StaticResource VolumeSliderStyle}"
-                        VerticalAlignment="Center" />
+                <Grid Grid.Row="4" Height="48" Margin="0,0,12,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <!--<Button Grid.Column="0" Content="X" />-->
+                    <!--<Button Grid.Column="2" Content="X" />-->
+                    <Border BorderThickness="3" BorderBrush="Red" Width="50" Grid.Column="0" />
+                    
+                    <Border Grid.Column="1" Margin="0,0,-12,0">
+                        <Slider Height="48" Margin="0,0,36,0" 
+                            Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
+                            Style="{StaticResource VolumeSliderStyle}"
+                            VerticalAlignment="Center" />
+                    </Border>
+                    
+                    <Border BorderThickness="3" BorderBrush="Red" Width="50" Grid.Column="2">
+                        <Button Content="AP" Name="btnAirPlay" Click="btnAirPlay_Click" />
+                    </Border>
+                </Grid>
+                
             </Grid>
         </Grid>
+        <!--<my:AirPlaySpeakersControl Grid.Row="0" Grid.RowSpan="2" Margin="0,0,0,150" />-->
+        <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
@@ -299,6 +320,7 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="browse library" Click="mnuBrowse_Click" />
                 <shell:ApplicationBarMenuItem Text="search" Click="mnuSearch_Click" />
+                <shell:ApplicationBarMenuItem Text="airplay" x:Name="mnuAirPlay" Click="mnuAirPlay_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
