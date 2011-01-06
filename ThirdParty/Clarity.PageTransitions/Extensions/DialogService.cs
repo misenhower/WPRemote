@@ -212,7 +212,7 @@ namespace Clarity.Phone.Extensions
         /// <summary>
         /// Shows the context menu.
         /// </summary>
-        public void Show()
+        public void Show(bool hideAppBar = true)
         {
             IsOpen = true;
 
@@ -235,7 +235,7 @@ namespace Clarity.Phone.Extensions
                 {
                     _showStoryboard.Begin();
 
-                    if (_page != null)
+                    if (hideAppBar && _page != null)
                     {
 
                         _page.ApplicationBar = AppBar;
