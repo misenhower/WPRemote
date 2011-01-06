@@ -122,6 +122,24 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Set Active Speakers
+
+        internal void SubmitSetActiveSpeakersRequest()
+        {
+            string speakers = string.Join(",", Speakers.Where(s => s.Active).Select(s => "0x" + s.ID.ToString("x")).ToArray());
+            string url = "/ctrl-int/1/setspeakers"
+                + "?speaker-id=" + speakers
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSetActiveSpeakersResponse));
+        }
+
+        protected void ProcessSetActiveSpeakersResponse(HTTPRequestInfo requestInfo)
+        {
+            SubmitGetSpeakersRequest();
+        }
+
+        #endregion
+
         #endregion
 
         #region Methods

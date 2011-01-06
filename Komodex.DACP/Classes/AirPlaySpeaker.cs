@@ -54,6 +54,19 @@ namespace Komodex.DACP
                     return;
                 _Active = value;
                 SendPropertyChanged("Active");
+                SendPropertyChanged("BindableActive");
+            }
+        }
+
+        public bool BindableActive
+        {
+            get { return _Active; }
+            set
+            {
+                if (_Active == value)
+                    return;
+                Active = value;
+                Server.SubmitSetActiveSpeakersRequest();
             }
         }
 
