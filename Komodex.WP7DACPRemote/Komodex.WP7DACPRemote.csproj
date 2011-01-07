@@ -69,6 +69,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AirPlaySpeakerControl.xaml.cs">
+      <DependentUpon>AirPlaySpeakerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ConnectingStatusControl.xaml.cs">
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AirPlaySpeakerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

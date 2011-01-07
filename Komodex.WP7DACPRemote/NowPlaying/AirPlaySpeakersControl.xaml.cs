@@ -10,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
+using Komodex.WP7DACPRemote.Controls;
+using System.Collections.Specialized;
+using System.Collections.ObjectModel;
 
 namespace Komodex.WP7DACPRemote.NowPlaying
 {
@@ -20,29 +23,62 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             InitializeComponent();
         }
 
-        #region Checkbox
-
-        private void AirPlaySpeakerCheckBox_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            CheckBox checkBox = (CheckBox)sender;
-            //checkBox.IsEnabled = false;
+            Speakers = ((DACPServer)DataContext).Speakers;
+            ReloadSpeakerList();
+            Speakers.CollectionChanged += new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
         }
 
-        #endregion
+        ObservableCollection<AirPlaySpeaker> Speakers = null;
+        Dictionary<AirPlaySpeaker, AirPlaySpeakerControl> SpeakerControls = new Dictionary<AirPlaySpeaker, AirPlaySpeakerControl>();
 
-        #region Slider
+        #region List Management
 
-        private void Slider_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        protected void ReloadSpeakerList()
         {
-            AirPlaySpeaker speaker = ((Slider)sender).Tag as AirPlaySpeaker;
+            AirPlaySpeakerStackPanel.Children.Clear();
+            SpeakerControls.Clear();
 
-            if (speaker != null)
-                ((DACPServer)DataContext).AirPlaySpeakerManipulationStarted(speaker);
+            foreach (AirPlaySpeaker speaker in Speakers)
+                AddSpeaker(speaker);
         }
 
-        private void Slider_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        private void AddSpeaker(AirPlaySpeaker speaker)
         {
-            ((DACPServer)DataContext).AirPlaySpeakerManipulationStopped();
+            AirPlaySpeakerControl speakerControl = new AirPlaySpeakerControl(speaker);
+            SpeakerControls.Add(speaker, speakerControl);
+            AirPlaySpeakerStackPanel.Children.Add(speakerControl);
+        }
+
+        private void RemoveSpeaker(AirPlaySpeaker speaker)
+        {
+            if (SpeakerControls.ContainsKey(speaker))
+            {
+                AirPlaySpeakerControl speakerControl = SpeakerControls[speaker];
+                if (AirPlaySpeakerStackPanel.Children.Contains(speakerControl))
+                    AirPlaySpeakerStackPanel.Children.Remove(speakerControl);
+            }
+        }
+
+        void Speakers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            ReloadSpeakerList();
+            /* TODO:
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+            */
         }
 
         #endregion
