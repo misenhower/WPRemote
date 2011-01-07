@@ -27,6 +27,9 @@
                     <Slider Grid.Column="1" Grid.Row="1"
                             Tag="{Binding BindsDirectlyToSource=True}"
                             Value="{Binding Path=BindableVolume, Mode=TwoWay}" Maximum="100"
+                            Style="{StaticResource AltVolumeSliderStyle}" Margin="0,0,36,0"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Background="{StaticResource PhoneBackgroundBrush}"
                             ManipulationStarted="Slider_ManipulationStarted"
                             ManipulationCompleted="Slider_ManipulationCompleted" />
                 </Grid>
@@ -38,6 +41,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
@@ -48,5 +52,10 @@
         <toolkit:LongListSelector Name="lbSpeakers" Margin="0,0,0,0" Grid.Row="1"
                 ItemsSource="{Binding Speakers}" IsFlatList="True"
                 ItemTemplate="{StaticResource SpeakerTemplate}" />
+
+        <Slider Height="48" Margin="0,0,36,150" Grid.Row="2"
+            Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
+            Style="{StaticResource VolumeSliderStyle}"
+            VerticalAlignment="Center" />
     </Grid>
 </UserControl>
