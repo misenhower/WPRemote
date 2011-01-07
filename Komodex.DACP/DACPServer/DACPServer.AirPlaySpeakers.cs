@@ -107,9 +107,7 @@ namespace Komodex.DACP
                     AirPlaySpeaker speaker = Speakers.FirstOrDefault(s => s.ID == id);
                     if (speaker == null)
                     {
-                        speaker = new AirPlaySpeaker();
-                        speaker.Server = this;
-                        speaker.ID = id;
+                        speaker = new AirPlaySpeaker(this, id);
                         Speakers.Add(speaker);
                     }
 

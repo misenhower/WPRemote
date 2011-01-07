@@ -14,6 +14,12 @@ namespace Komodex.DACP
 {
     public class AirPlaySpeaker : INotifyPropertyChanged
     {
+        public AirPlaySpeaker(DACPServer server, UInt64 id)
+        {
+            Server = server;
+            ID = id;
+        }
+
         #region Properties
 
         public DACPServer Server { get; internal set; }
@@ -35,7 +41,7 @@ namespace Komodex.DACP
         public UInt64 ID
         {
             get { return _ID; }
-            set
+            protected set
             {
                 if (_ID == value)
                     return;
