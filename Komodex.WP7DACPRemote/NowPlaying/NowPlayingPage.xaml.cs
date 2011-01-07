@@ -21,6 +21,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
     public partial class NowPlayingPage : DACPServerBoundPhoneApplicationPage
     {
         protected DialogService AirPlayDialog = null;
+        protected AirPlaySpeakersControl AirPlaySpeakersControl = null;
 
         public NowPlayingPage()
         {
@@ -245,9 +246,13 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             if (AirPlayDialog != null)
                 AirPlayDialog.Hide();
 
+            // TODO: Make sure the AirPlaySpeakersControl doesn't need to be re-created
+            if (AirPlaySpeakersControl == null)
+                AirPlaySpeakersControl = new NowPlaying.AirPlaySpeakersControl(DACPServer);
+
             AirPlayDialog = new DialogService();
             AirPlayDialog.PopupContainer = MorePopup;
-            AirPlayDialog.Child = new AirPlaySpeakersControl();
+            AirPlayDialog.Child = AirPlaySpeakersControl;
             AirPlayDialog.AnimationType = DialogService.AnimationTypes.Slide;
             AirPlayDialog.Show(false);
         }

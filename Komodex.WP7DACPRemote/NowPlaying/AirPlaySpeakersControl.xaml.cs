@@ -18,14 +18,15 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 {
     public partial class AirPlaySpeakersControl : UserControl
     {
-        public AirPlaySpeakersControl()
+        protected AirPlaySpeakersControl()
         {
             InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        public AirPlaySpeakersControl(DACPServer server)
+            : this()
         {
-            Speakers = ((DACPServer)DataContext).Speakers;
+            Speakers = server.Speakers;
             ReloadSpeakerList();
             Speakers.CollectionChanged += new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
         }
