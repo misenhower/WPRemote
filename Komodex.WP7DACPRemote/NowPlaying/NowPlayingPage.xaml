@@ -211,7 +211,9 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=CurrentTrackTimePositionString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Left" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=CurrentTrackTimeRemainingString}" FontSize="{StaticResource PhoneFontSizeSmall}" HorizontalAlignment="Right" />
-                    <Slider Grid.Row="0" Grid.ColumnSpan="2" Height="4" Style="{StaticResource PlayPositionSliderStyle}" Value="{Binding Path=CurrentTrackTimePercentage, Mode=TwoWay}" Margin="-12,0,12,0" Maximum="100" LargeChange="5" />
+                    <Slider Grid.Row="0" Grid.ColumnSpan="2" Height="4" Margin="-12,0,12,0"
+                            Value="{Binding Path=CurrentTrackTimePercentage, Mode=TwoWay}" Maximum="100" LargeChange="5"
+                            Style="{StaticResource PlayPositionSliderStyle}" />
                 </Grid>
                 <Grid Grid.Row="4" Height="48" Margin="0,0,12,0">
                     <Grid.ColumnDefinitions>
@@ -219,15 +221,13 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <!--<Button Grid.Column="0" Content="X" />-->
-                    <!--<Button Grid.Column="2" Content="X" />-->
                     <Border BorderThickness="3" BorderBrush="Red" Width="50" Grid.Column="0" />
                     
                     <Border Grid.Column="1" Margin="0,0,-12,0">
                         <Slider Height="48" Margin="0,0,36,0" 
-                            Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
-                            Style="{StaticResource VolumeSliderStyle}"
-                            VerticalAlignment="Center" />
+                                Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
+                                Style="{StaticResource VolumeSliderStyle}"
+                                VerticalAlignment="Center" />
                     </Border>
                     
                     <Border BorderThickness="3" BorderBrush="Red" Width="50" Grid.Column="2">
@@ -237,7 +237,6 @@
                 
             </Grid>
         </Grid>
-        <!--<my:AirPlaySpeakersControl Grid.Row="0" Grid.RowSpan="2" Margin="0,0,0,150" />-->
         <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" Grid.RowSpan="2" />
     </Grid>
 
