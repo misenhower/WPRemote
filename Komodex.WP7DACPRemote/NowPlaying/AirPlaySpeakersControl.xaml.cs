@@ -20,6 +20,18 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             InitializeComponent();
         }
 
+        #region Checkbox
+
+        private void AirPlaySpeakerCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            //checkBox.IsEnabled = false;
+        }
+
+        #endregion
+
+        #region Slider
+
         private void Slider_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
             AirPlaySpeaker speaker = ((Slider)sender).Tag as AirPlaySpeaker;
@@ -32,5 +44,17 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         {
             ((DACPServer)DataContext).AirPlaySpeakerManipulationStopped();
         }
+
+        #endregion
+
+        #region Methods
+
+        public void AirPlaySpeakerUpdate()
+        {
+
+        }
+
+        #endregion
+
     }
 }

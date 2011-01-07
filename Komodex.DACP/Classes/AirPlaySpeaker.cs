@@ -58,14 +58,36 @@ namespace Komodex.DACP
             }
         }
 
-        public bool BindableActive
+        private bool _WaitingForResponse =false;
+        internal bool WaitingForResponse
         {
-            get { return _Active; }
+            get { return _WaitingForResponse; }
+            set
+            {
+                if (_WaitingForResponse == value)
+                    return;
+                _WaitingForResponse = value;
+                // Shouldn't need to send property changed for WaitingForResponse.
+                SendPropertyChanged("BindableActive");
+            }
+        }
+
+        public bool? BindableActive
+        {
+            get
+            {
+                if (_WaitingForResponse)
+                    return null;
+                return _Active;
+            }
             set
             {
                 if (_Active == value)
                     return;
-                Active = value;
+                if (!value.HasValue)
+                    return;
+                Active = value.Value;
+                WaitingForResponse = true;
                 Server.SubmitSetActiveSpeakersRequest();
             }
         }

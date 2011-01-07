@@ -111,6 +111,29 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             base.OnBackKeyPress(e);
         }
 
+        protected override void DACPServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
+        {
+            base.DACPServer_AirPlaySpeakerUpdate(sender, e);
+
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (DACPServer.Speakers != null && DACPServer.Speakers.Count > 1)
+                {
+                    // Enable AirPlay button
+                }
+                else
+                {
+                    // Disable AirPlay button
+                }
+
+                if (AirPlayDialog != null && AirPlayDialog.IsOpen)
+                {
+                    AirPlaySpeakersControl apControl = (AirPlaySpeakersControl)AirPlayDialog.Child;
+                    apControl.AirPlaySpeakerUpdate();
+                }
+            });
+        }
+
         #endregion
 
         #region Play Control Management

@@ -165,9 +165,11 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <CheckBox IsChecked="{Binding BindableActive, Mode=TwoWay}"
+                    <CheckBox Name="ActiveCheckBox"
+                              IsChecked="{Binding BindableActive, Mode=TwoWay}"
                               Grid.RowSpan="2" VerticalAlignment="Top"
-                              Style="{StaticResource AirPlayCheckBoxStyle}" />
+                              Style="{StaticResource AirPlayCheckBoxStyle}"
+                              Click="AirPlaySpeakerCheckBox_Click" />
                     <TextBlock Grid.Column="1" Text="{Binding Name}"
                                Margin="6,10,0,6"
                                FontWeight="Bold" FontSize="{StaticResource PhoneFontSizeMediumLarge}" />
