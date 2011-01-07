@@ -54,6 +54,7 @@ namespace Komodex.DACP
 
             string name;
             UInt64 id;
+            bool hasPassword;
             bool primary;
             bool active;
             int volume;
@@ -64,6 +65,7 @@ namespace Komodex.DACP
                 {
                     name = string.Empty;
                     id = 0;
+                    hasPassword = false;
                     primary = false;
                     active = false;
                     volume = 0;
@@ -79,6 +81,9 @@ namespace Komodex.DACP
                                 break;
                             case "msma": // Speaker ID
                                 id = (UInt64)speakerKvp.Value.GetInt64Value();
+                                break;
+                            case "cahp": // Has Password
+                                hasPassword = (speakerKvp.Value[0] > 0);
                                 break;
                             case "cavd": // Primary (non-remote) speaker
                                 primary = (speakerKvp.Value[0] > 0);
@@ -108,6 +113,7 @@ namespace Komodex.DACP
                         Speakers.Add(speaker);
                     }
 
+                    speaker.HasPassword = hasPassword;
                     speaker.Name = name;
                     speaker.Active = active;
                     speaker.Volume = volume;

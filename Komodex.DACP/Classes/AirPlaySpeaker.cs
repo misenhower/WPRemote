@@ -44,6 +44,19 @@ namespace Komodex.DACP
             }
         }
 
+        private bool _HasPassword = false;
+        public bool HasPassword
+        {
+            get { return _HasPassword; }
+            set
+            {
+                if (_HasPassword == value)
+                    return;
+                _HasPassword = value;
+                SendPropertyChanged("HasPassword");
+            }
+        }
+
         private bool _Active = false;
         public bool Active
         {
