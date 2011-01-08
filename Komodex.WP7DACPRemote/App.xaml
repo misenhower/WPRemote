@@ -371,7 +371,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Rectangle x:Name="HorizontalTrack" Grid.ColumnSpan="3" Fill="{TemplateBinding Background}" Height="12" IsHitTestVisible="False" Margin="0,0,12,0" Opacity="0.5" />
-                                <Rectangle x:Name="HorizontalFillX" Grid.Column="0" Fill="{TemplateBinding Foreground}" Height="12" IsHitTestVisible="False" Opacity="0.4" />
+                                <Rectangle x:Name="HorizontalFill" Grid.Column="0" Fill="{TemplateBinding Foreground}" Height="12" IsHitTestVisible="False" Opacity="0.4" />
                                 <RepeatButton x:Name="HorizontalTrackLargeChangeDecreaseRepeatButton" Grid.Column="0" IsTabStop="False" Template="{StaticResource PhoneSimpleRepeatButton}"/>
                                 <RepeatButton x:Name="HorizontalTrackLargeChangeIncreaseRepeatButton" Grid.Column="2" IsTabStop="False" Template="{StaticResource PhoneSimpleRepeatButton}"/>
                                 <Rectangle Grid.Column="2" Fill="{StaticResource PhoneBackgroundBrush}" Stroke="{StaticResource PhoneForegroundBrush}" Width="13" Height="28" HorizontalAlignment="Left" Margin="-6,0,0,0" StrokeThickness="6"/>
