@@ -56,44 +56,22 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         #region Popup
 
-        private static Popup _ConnectingPopup = null;
-        private static Popup ConnectingPopup
-        {
-            get
-            {
-                if (_ConnectingPopup == null)
-                {
-                    _ConnectingPopup = new Popup();
-                    _ConnectingPopup.Child = ConnectingStatusControl;
-                }
+        private static Popup ConnectingPopup = null;
 
-                return _ConnectingPopup;
-            }
-        }
-
-        private static ConnectingStatusControl _ConnectingStatusControl = null;
-        private static ConnectingStatusControl ConnectingStatusControl
-        {
-            get
-            {
-                if (_ConnectingStatusControl == null)
-                {
-                    _ConnectingStatusControl = new ConnectingStatusControl(true);
-                    UpdatePopupSize();
-
-                    _ConnectingStatusControl.ButtonClick += new RoutedEventHandler(ConnectingStatusControl_ButtonClick);
-                }
-
-                return _ConnectingStatusControl;
-            }
-        }
+        private static ConnectingStatusControl ConnectingStatusControl = null;
 
         private static void UpdatePopupDisplay()
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 if (ConnectingPopup == null)
-                    return;
+                {
+                    ConnectingStatusControl = new ConnectingStatusControl(true);
+                    UpdatePopupSize();
+                    ConnectingStatusControl.ButtonClick += new RoutedEventHandler(ConnectingStatusControl_ButtonClick);
+                    ConnectingPopup = new Popup();
+                    ConnectingPopup.Child = ConnectingStatusControl;
+                }
 
                 PhoneApplicationPage currentPage = GetCurrentPhoneApplicationPage();
                 if (currentPage == null)
