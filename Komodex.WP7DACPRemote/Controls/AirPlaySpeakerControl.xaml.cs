@@ -31,7 +31,7 @@ namespace Komodex.WP7DACPRemote.Controls
 
         void AirPlaySpeaker_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Active")
+            if (e.PropertyName == "BindableActive")
                 UpdateVisualState();
         }
 
@@ -71,10 +71,10 @@ namespace Komodex.WP7DACPRemote.Controls
 
         protected void UpdateVisualState(bool useTransitions = true)
         {
-            if (AirPlaySpeaker.Active == null)
+            if (AirPlaySpeaker.BindableActive == null)
                 return;
 
-            if (AirPlaySpeaker.Active == true)
+            if (AirPlaySpeaker.BindableActive == true)
                 VisualStateManager.GoToState(this, "SpeakerActiveState", useTransitions);
             else
                 VisualStateManager.GoToState(this, "SpeakerInactiveState", useTransitions);
