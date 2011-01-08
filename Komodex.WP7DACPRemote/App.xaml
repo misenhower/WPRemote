@@ -98,6 +98,7 @@
         <!-- Converters -->
         <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <converters:BooleanToAccentBrushConverter x:Name="booleanToAccentBrushConverter" />
+        <converters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />
 
         <!-- Grouped ListBox Templates -->
         <DataTemplate x:Key="GroupItemTemplate">
