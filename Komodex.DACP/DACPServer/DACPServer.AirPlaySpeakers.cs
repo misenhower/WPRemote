@@ -137,7 +137,7 @@ namespace Komodex.DACP
             string url = "/ctrl-int/1/setspeakers"
                 + "?speaker-id=" + speakers
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSetActiveSpeakersResponse));
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSetActiveSpeakersResponse), null, true);
         }
 
         protected void ProcessSetActiveSpeakersResponse(HTTPRequestInfo requestInfo)
