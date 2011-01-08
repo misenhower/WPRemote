@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
+using System.ComponentModel;
 
 namespace Komodex.WP7DACPRemote.Controls
 {
@@ -24,6 +25,14 @@ namespace Komodex.WP7DACPRemote.Controls
             : this()
         {
             AirPlaySpeaker = speaker;
+            UpdateVisualState(false);
+            AirPlaySpeaker.PropertyChanged += new PropertyChangedEventHandler(AirPlaySpeaker_PropertyChanged);
+        }
+
+        void AirPlaySpeaker_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Active")
+                UpdateVisualState();
         }
 
         #region Properties
@@ -54,6 +63,21 @@ namespace Komodex.WP7DACPRemote.Controls
         private void Slider_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
             AirPlaySpeaker.Server.AirPlaySpeakerManipulationStopped();
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected void UpdateVisualState(bool useTransitions = true)
+        {
+            if (AirPlaySpeaker.Active == null)
+                return;
+
+            if (AirPlaySpeaker.Active == true)
+                VisualStateManager.GoToState(this, "SpeakerActiveState", useTransitions);
+            else
+                VisualStateManager.GoToState(this, "SpeakerInactiveState", useTransitions);
         }
 
         #endregion
