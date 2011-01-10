@@ -30,7 +30,37 @@ namespace Komodex.WP7DACPRemote
 
             AddChooseLibraryApplicationBarMenuItem();
             AddAboutApplicationBarMenuItem();
+
+#if DEBUG
+            UpdateDebugDataMenuItem();
+#endif
         }
+
+#if DEBUG
+        ApplicationBarMenuItem debugDataMenuItem = null;
+
+        private void UpdateDebugDataMenuItem()
+        {
+            if (debugDataMenuItem == null)
+            {
+                debugDataMenuItem = new ApplicationBarMenuItem("diagnostic data");
+                debugDataMenuItem.Click += new EventHandler(debugDataMenuItem_Click);
+                ApplicationBar.MenuItems.Add(debugDataMenuItem);
+            }
+
+            if (((App)App.Current).EnableDiagnosticData == true)
+                debugDataMenuItem.Text = "hide diagnostic data";
+            else
+                debugDataMenuItem.Text = "show diagnostic data";
+        }
+
+        void debugDataMenuItem_Click(object sender, EventArgs e)
+        {
+            App app = (App)App.Current;
+            app.EnableDiagnosticData = !app.EnableDiagnosticData;
+            UpdateDebugDataMenuItem();
+        }
+#endif
 
         #region Overrides
 

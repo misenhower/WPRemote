@@ -23,6 +23,22 @@ namespace Komodex.WP7DACPRemote.Controls
         private static TextBlock memoryTotalText = null;
         private static DispatcherTimer timer = null;
 
+        public static bool EnableMemoryCounters
+        {
+            get
+            {
+                if (memoryPopup == null)
+                    return false;
+                return memoryPopup.IsOpen;
+            }
+            set
+            {
+                if (value)
+                    Show();
+                else
+                    Hide();
+            }
+        }
 
         public static void Show()
         {

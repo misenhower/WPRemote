@@ -61,6 +61,18 @@ namespace Komodex.WP7DACPRemote
             DACPServerManager.DoFirstLoad(RootFrame);
         }
 
+#if DEBUG
+        public bool EnableDiagnosticData
+        {
+            get { return Application.Current.Host.Settings.EnableFrameRateCounter; }
+            set
+            {
+                Application.Current.Host.Settings.EnableFrameRateCounter = value;
+                Komodex.WP7DACPRemote.Controls.MemoryCounters.EnableMemoryCounters = value;
+            }
+        }
+#endif
+
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
