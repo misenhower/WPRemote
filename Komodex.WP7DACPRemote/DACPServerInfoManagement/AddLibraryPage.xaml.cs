@@ -14,6 +14,7 @@ using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using System.Text.RegularExpressions;
 using Clarity.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
@@ -34,6 +35,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
             // Setting this.IsTabStop = true so we can set focus to it later
             IsTabStop = true;
+
+            UpdateAppBar();
         }
 
         private int iTunesVersion = 0;
@@ -63,6 +66,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 this.RestoreState(tbPIN, string.Empty);
                 //StateUtils.RestoreFocusState(State, ContentPanel);
             }
+
+            UpdateAppBar();
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -99,6 +104,9 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void SaveServer()
         {
+            if (!HasValidData())
+                return;
+
             // Make sure the newly entered data has been bound to the DACPServerInfo object
             UpdateBoundData();
 
@@ -133,6 +141,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         {
             if (e.Key == Key.Enter || e.Key == Key.Tab)
                 tbPIN.Focus();
+
+            UpdateAppBar();
         }
 
         private void tbPIN_KeyDown(object sender, KeyEventArgs e)
@@ -161,6 +171,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
             if (e.Key == Key.Enter)
                 SaveServer();
+
+            UpdateAppBar();
         }
 
         private void connectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
@@ -225,6 +237,24 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         break;
                 }
             });
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected void UpdateAppBar()
+        {
+            ApplicationBarIconButton saveButton = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+
+            saveButton.IsEnabled = HasValidData();
+        }
+
+        protected bool HasValidData()
+        {
+            //return (!string.IsNullOrEmpty(serverInfo.HostName) && serverInfo.PIN.HasValue && serverInfo.PIN.Value != 0);
+            //return (!string.IsNullOrEmpty(tbHost.Text.Trim()) && !string.IsNullOrEmpty(tbPIN.Text.Trim()));
+            return (!string.IsNullOrEmpty(tbHost.Text.Trim()) && tbPIN.Text.Length == 4);
         }
 
         #endregion
