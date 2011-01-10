@@ -175,6 +175,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             UpdateAppBar();
         }
 
+        private void tbPIN_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateAppBar();
+        }
+
         private void connectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
         {
             StopServer();
