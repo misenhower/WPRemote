@@ -28,7 +28,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         }
 
         private string _HostName = null;
-        public string HostName{
+        public string HostName
+        {
             get { return _HostName; }
             set
             {
@@ -42,7 +43,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         }
 
         private string _LibraryName = null;
-        public string LibraryName {
+        public string LibraryName
+        {
             get { return _LibraryName; }
             set
             {
@@ -94,6 +96,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         public string PairingCode
         {
             get { return string.Format("{0:0000}{0:0000}{0:0000}{0:0000}", PIN); }
+        }
+
+        public string SecondLine
+        {
+            get { return string.Format("Host: {0}, PIN: {1}", HostName, PIN); }
         }
 
         #region Notify Property Changed

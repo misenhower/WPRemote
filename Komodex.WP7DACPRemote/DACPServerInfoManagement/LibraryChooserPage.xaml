@@ -24,7 +24,10 @@
                         <toolkit:MenuItem Header="delete" Name="mnuDelete" Tag="{Binding ID}" Click="mnuDelete_Click" />
                     </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
-                <TextBlock Text="{Binding LibraryName}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,6,12,12" />
+                <StackPanel Margin="12,6,-12,12">
+                    <TextBlock Text="{Binding LibraryName}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSmallStyle}" />
+                </StackPanel>
             </StackPanel>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
@@ -44,7 +47,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Items}" Margin="0" ItemTemplate="{StaticResource DACPServerInfoTemplate}" SelectionChanged="ListBox_SelectionChanged" />
+            <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Items}" Margin="0,0,-12,0" ItemTemplate="{StaticResource DACPServerInfoTemplate}" SelectionChanged="ListBox_SelectionChanged" />
         </Grid>
     </Grid>
 
