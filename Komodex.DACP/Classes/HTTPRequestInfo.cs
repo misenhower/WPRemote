@@ -39,7 +39,7 @@ namespace Komodex.DACP
             {
                 _ResponseBody = value;
 #if DEBUG
-                PrintDebugBytes();
+                //PrintDebugBytes();
 #endif
             }
         }
