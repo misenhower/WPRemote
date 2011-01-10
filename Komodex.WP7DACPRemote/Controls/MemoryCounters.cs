@@ -33,7 +33,11 @@ namespace Komodex.WP7DACPRemote.Controls
                 // Border
                 Border bdr = new Border();
                 bdr.Background = (Brush)App.Current.Resources["PhoneBackgroundBrush"];
-                bdr.Margin = new Thickness(0, 30, 0, 0);
+                bdr.Margin = new Thickness(481, 415, 0, 0);
+
+                RotateTransform rt = new RotateTransform();
+                rt.Angle = 90;
+                bdr.RenderTransform = rt;
 
                 // StackPanel
                 StackPanel sp = new StackPanel();
@@ -44,21 +48,21 @@ namespace Komodex.WP7DACPRemote.Controls
                 memoryCurrentText.FontSize = 15;
                 memoryCurrentText.FontWeight = FontWeights.Bold;
                 memoryCurrentText.Foreground = (Brush)App.Current.Resources["PhoneForegroundBrush"];
-                memoryCurrentText.Width = 125;
+                memoryCurrentText.Width = 100;
                 sp.Children.Add(memoryCurrentText);
 
                 memoryPeakText = new TextBlock();
                 memoryPeakText.FontSize = 15;
                 memoryPeakText.FontWeight = FontWeights.Bold;
                 memoryPeakText.Foreground = (Brush)App.Current.Resources["PhoneForegroundBrush"];
-                memoryPeakText.Width = 125;
+                memoryPeakText.Width = 100;
                 sp.Children.Add(memoryPeakText);
 
                 memoryTotalText = new TextBlock();
                 memoryTotalText.FontSize = 15;
                 memoryTotalText.FontWeight = FontWeights.Bold;
                 memoryTotalText.Foreground = (Brush)App.Current.Resources["PhoneForegroundBrush"];
-                memoryTotalText.Width = 125;
+                memoryTotalText.Width = 100;
                 sp.Children.Add(memoryTotalText);
 
                 bdr.Child = sp;
