@@ -20,6 +20,9 @@ namespace Komodex.DACP
         {
             timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
             timerTrackTimeUpdate.Tick += new EventHandler(timerTrackTimeUpdate_Tick);
+
+            playStatusWatchdogTimer.Interval = TimeSpan.FromSeconds(45);
+            playStatusWatchdogTimer.Tick += new EventHandler(playStatusWatchdogTimer_Tick);
         }
 
         public DACPServer(Guid id, string hostName, string pairingKey)

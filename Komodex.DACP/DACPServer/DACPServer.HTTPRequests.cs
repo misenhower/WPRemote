@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
+using System.Windows.Threading;
 
 namespace Komodex.DACP
 {
@@ -114,6 +115,9 @@ namespace Komodex.DACP
                 {
                     WebException webException = (WebException)e;
 
+                    Utility.DebugWrite("Caught web exception: " + webException.Message);
+                    Utility.DebugWrite("WebException Status: " + webException.Status.ToString());
+
                     if (webException.Status == WebExceptionStatus.RequestCanceled)
                         return;
 
@@ -121,17 +125,15 @@ namespace Komodex.DACP
                     // this timeout, so if this is a WebException for the Play Status request, we need to handle
                     // the error differently.  When this timeout occurs, iTunes will also end the current session.
                     // Also, it appears that the web exception's status will NOT be set to WebExceptionStatus.Timeout
-                    if (webException.Status == WebExceptionStatus.UnknownError && requestInfo.ResponseHandlerDelegate.Method.Name == "ProcessPlayStatusResponse")
+                    // To get around the session ending issue, I am re-requesting the play status every 45 seconds.
+                    if (webException.Status == WebExceptionStatus.UnknownError
+                        && requestInfo.ResponseHandlerDelegate != null
+                        && requestInfo.ResponseHandlerDelegate.Method.Name == "ProcessPlayStatusResponse")
                     {
                         Utility.DebugWrite("Caught timed out play status response.");
 
-                        // If this happens, iTunes will have already ended our session
-                        // TODO: Find a better way of dealing with this.
                         if (UseDelayedResponseRequests && !Stopped)
-                        {
-                            SubmitLoginRequest();
                             return;
-                        }
                     }
                 }
 
@@ -269,14 +271,32 @@ namespace Komodex.DACP
 
         protected int playStatusRevisionNumber = 1;
         protected HTTPRequestInfo playStatusRequestInfo = null;
+        protected DispatcherTimer playStatusWatchdogTimer = new DispatcherTimer();
 
         protected void SubmitPlayStatusRequest()
         {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                playStatusWatchdogTimer.Stop();
+            });
+
             if (playStatusRequestInfo != null)
                 playStatusRequestInfo.WebRequest.Abort();
 
             string url = "/ctrl-int/1/playstatusupdate?revision-number=" + playStatusRevisionNumber + "&session-id=" + SessionID;
             playStatusRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPlayStatusResponse));
+
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                playStatusWatchdogTimer.Start();
+            });
+        }
+
+        void playStatusWatchdogTimer_Tick(object sender, EventArgs e)
+        {
+            // Set the playStatusRequestInfo object to null so SubmitPlayStatusRequest doesn't attempt to abort that request
+            playStatusRequestInfo = null;
+            SubmitPlayStatusRequest();
         }
 
         // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well
