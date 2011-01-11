@@ -110,8 +110,30 @@ namespace Komodex.DACP
             }
             catch (Exception e)
             {
-                if (e is WebException && ((WebException)e).Status == WebExceptionStatus.RequestCanceled)
-                    return;
+                if (e is WebException)
+                {
+                    WebException webException = (WebException)e;
+
+                    if (webException.Status == WebExceptionStatus.RequestCanceled)
+                        return;
+
+                    // HTTPWebRequests appear to have a timeout of 60 seconds.  I have not found a way to extend
+                    // this timeout, so if this is a WebException for the Play Status request, we need to handle
+                    // the error differently.  When this timeout occurs, iTunes will also end the current session.
+                    // Also, it appears that the web exception's status will NOT be set to WebExceptionStatus.Timeout
+                    if (webException.Status == WebExceptionStatus.UnknownError && requestInfo.ResponseHandlerDelegate.Method.Name == "ProcessPlayStatusResponse")
+                    {
+                        Utility.DebugWrite("Caught timed out play status response.");
+
+                        // If this happens, iTunes will have already ended our session
+                        // TODO: Find a better way of dealing with this.
+                        if (UseDelayedResponseRequests && !Stopped)
+                        {
+                            SubmitLoginRequest();
+                            return;
+                        }
+                    }
+                }
 
                 Utility.DebugWrite("Caught exception: " + e.Message);
 
@@ -257,6 +279,7 @@ namespace Komodex.DACP
             playStatusRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPlayStatusResponse));
         }
 
+        // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well
         protected void ProcessPlayStatusResponse(HTTPRequestInfo requestInfo)
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
