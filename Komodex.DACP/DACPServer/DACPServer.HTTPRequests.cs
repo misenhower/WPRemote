@@ -294,9 +294,12 @@ namespace Komodex.DACP
 
         void playStatusWatchdogTimer_Tick(object sender, EventArgs e)
         {
-            // Set the playStatusRequestInfo object to null so SubmitPlayStatusRequest doesn't attempt to abort that request
-            playStatusRequestInfo = null;
-            SubmitPlayStatusRequest();
+            if (UseDelayedResponseRequests && !Stopped)
+            {
+                // Set the playStatusRequestInfo object to null so SubmitPlayStatusRequest doesn't attempt to abort that request
+                playStatusRequestInfo = null;
+                SubmitPlayStatusRequest();
+            }
         }
 
         // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well
