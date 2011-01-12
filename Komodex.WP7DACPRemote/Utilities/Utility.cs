@@ -10,11 +10,14 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Reflection;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace Komodex.WP7DACPRemote
 {
     public static class Utility
     {
+        #region Application Version
+
         public static string GetApplicationVersion()
         {
             string assemblyInfo = Assembly.GetExecutingAssembly().FullName;
@@ -31,6 +34,31 @@ namespace Komodex.WP7DACPRemote
 
             return string.Empty;
         }
+
+        #endregion
+
+        #region Network Info
+
+        public static bool CheckNetworkConnectivity(bool notifyUser = true)
+        {
+            NetworkInterfaceType interfaceType = NetworkInterface.NetworkInterfaceType;
+
+            switch (interfaceType)
+            {
+                case NetworkInterfaceType.Wireless80211:
+                    return true;
+                case NetworkInterfaceType.Ethernet:
+                    MessageBox.Show("Could not connect to iTunes. Please disconnect the USB cable between your phone and computer and try again.", "Network Connection Error", MessageBoxButton.OK);
+                    return false;
+                default:
+                    MessageBox.Show("Please make sure your phone is connected to a Wi-fi network and try again.", "Wi-fi Connection Error", MessageBoxButton.OK);
+                    return false;
+            }
+        }
+
+        #endregion
+
+        #region LongListSelector helpers
 
         public static void LongListSelectorGroupAnimationHelper(LongListSelector sender, GroupViewOpenedEventArgs e)
         {
@@ -79,5 +107,7 @@ namespace Komodex.WP7DACPRemote
 
             list.ScrollToGroup(e.SelectedGroup);
         }
+
+        #endregion
     }
 }
