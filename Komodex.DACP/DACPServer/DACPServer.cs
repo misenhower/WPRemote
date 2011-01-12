@@ -104,6 +104,7 @@ namespace Komodex.DACP
         public void Start(bool useDelayedResponseRequests)
         {
             UseDelayedResponseRequests = useDelayedResponseRequests;
+            playStatusRevisionNumber = 1;
 
             Stopped = false;
 

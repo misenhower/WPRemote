@@ -85,6 +85,19 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             State[StateUtils.SavedStateKey] = true;
         }
 
+        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        {
+            base.DACPServer_ServerUpdate(sender, e);
+
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (AirPlayDialog != null && AirPlayDialog.IsOpen)
+                    AirPlayDialog.Hide();
+                AirPlayDialog = null;
+                AirPlaySpeakersControl = null;
+            });
+        }
+
         protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             base.DACPServer_PropertyChanged(sender, e);
@@ -246,7 +259,6 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             if (AirPlayDialog != null)
                 AirPlayDialog.Hide();
 
-            // TODO: Make sure the AirPlaySpeakersControl doesn't need to be re-created
             if (AirPlaySpeakersControl == null)
                 AirPlaySpeakersControl = new NowPlaying.AirPlaySpeakersControl(DACPServer);
 
