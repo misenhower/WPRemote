@@ -128,7 +128,7 @@ namespace Komodex.DACP.Library
                 + "&type=music"
                 + "&session-id=" + Server.SessionID;
 
-            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse));
+            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse), null, true);
         }
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)

@@ -88,7 +88,7 @@ namespace Komodex.DACP.Library
                 + "&include-sort-headers=1"
                 + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + Server.SessionID;
-            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumsResponse));
+            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumsResponse), null, true);
         }
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
@@ -139,7 +139,7 @@ namespace Komodex.DACP.Library
                 + "&include-sort-headers=1"
                 + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + "&session-id=" + Server.SessionID;
-            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse));
+            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse), null, true);
         }
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
