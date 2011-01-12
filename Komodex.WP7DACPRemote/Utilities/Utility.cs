@@ -102,7 +102,7 @@ namespace Komodex.WP7DACPRemote
                     list.CloseGroupView();
                 };
                 animation.Begin();
-                e.Handled = true;
+                e.Cancel = true;
             }
 
             list.ScrollToGroup(e.SelectedGroup);

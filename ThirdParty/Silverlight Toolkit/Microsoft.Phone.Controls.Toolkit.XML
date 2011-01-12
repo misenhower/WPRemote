@@ -549,6 +549,94 @@
             The value of the conversion to the specified type.
             </returns>
         </member>
+        <member name="T:Microsoft.Phone.Controls.TimePickerPage">
+            <summary>
+            Represents a page used by the TimePicker control that allows the user to choose a time (hour/minute/am/pm).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase">
+            <summary>
+            Represents a base class for pages that work with DateTimePickerBase to allow users to choose a date/time.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.Primitives.IDateTimePickerPage">
+            <summary>
+            Represents an interface for DatePicker/TimePicker to use for communicating with a picker page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Phone.Controls.Primitives.IDateTimePickerPage.Value">
+            <summary>
+            Gets or sets the DateTime to show in the picker page and to set when the user makes a selection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.InitializeDateTimePickerPage(Microsoft.Phone.Controls.Primitives.LoopingSelector,Microsoft.Phone.Controls.Primitives.LoopingSelector,Microsoft.Phone.Controls.Primitives.LoopingSelector)">
+            <summary>
+            Initializes the DateTimePickerPageBase class; must be called from the subclass's constructor.
+            </summary>
+            <param name="primarySelector">Primary selector.</param>
+            <param name="secondarySelector">Secondary selector.</param>
+            <param name="tertiarySelector">Tertiary selector.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.OnBackKeyPress(System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Called when the Back key is pressed.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.GetSelectorsOrderedByCulturePattern">
+            <summary>
+            Gets a sequence of LoopingSelector parts ordered according to culture string for date/time formatting.
+            </summary>
+            <returns>LoopingSelectors ordered by culture-specific priority.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.GetSelectorsOrderedByCulturePattern(System.String,System.Char[],Microsoft.Phone.Controls.Primitives.LoopingSelector[])">
+            <summary>
+            Gets a sequence of LoopingSelector parts ordered according to culture string for date/time formatting.
+            </summary>
+            <param name="pattern">Culture-specific date/time format string.</param>
+            <param name="patternCharacters">Date/time format string characters for the primary/secondary/tertiary LoopingSelectors.</param>
+            <param name="selectors">Instances for the primary/secondary/tertiary LoopingSelectors.</param>
+            <returns>LoopingSelectors ordered by culture-specific priority.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs)">
+            <summary>
+            Called when a page is no longer the active page in a frame.
+            </summary>
+            <param name="e">An object that contains the event data.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs)">
+            <summary>
+            Called when a page becomes the active page in a frame.
+            </summary>
+            <param name="e">An object that contains the event data.</param>
+        </member>
+        <member name="P:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.Value">
+            <summary>
+            Gets or sets the DateTime to show in the picker page and to set when the user makes a selection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TimePickerPage.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TimePickerPage.#ctor">
+            <summary>
+            Initializes a new instance of the TimePickerPage control.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TimePickerPage.GetSelectorsOrderedByCulturePattern">
+            <summary>
+            Gets a sequence of LoopingSelector parts ordered according to culture string for date/time formatting.
+            </summary>
+            <returns>LoopingSelectors ordered by culture-specific priority.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TimePickerPage.OnOrientationChanged(Microsoft.Phone.Controls.OrientationChangedEventArgs)">
+            <summary>
+            Handles changes to the page's Orientation property.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
         <member name="T:Microsoft.Phone.Controls.GestureService">
             <summary>
             The GestureService class is the helper for getting and setting GestureListeners
@@ -4023,6 +4111,26 @@
             <see cref="T:Microsoft.Phone.Controls.NavigationTransition"/>.
             </summary>
         </member>
+        <member name="M:Microsoft.Phone.Controls.NavigationTransition.OnBeginTransition">
+            <summary>
+            Triggers <see cref="E:Microsoft.Phone.Controls.NavigationTransition.BeginTransition"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.NavigationTransition.OnEndTransition">
+            <summary>
+            Triggers <see cref="E:Microsoft.Phone.Controls.NavigationTransition.EndTransition"/>.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Phone.Controls.NavigationTransition.BeginTransition">
+            <summary>
+            The navigation transition will begin.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Phone.Controls.NavigationTransition.EndTransition">
+            <summary>
+            The navigation transition has ended.
+            </summary>
+        </member>
         <member name="P:Microsoft.Phone.Controls.NavigationTransition.Backward">
             <summary>
             Gets or sets the backward
@@ -4219,16 +4327,6 @@
             Occurs when the
             <see cref="T:System.Windows.Controls.Primitives.ToggleButton"/>
             is clicked.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Phone.Controls.Primitives.IDateTimePickerPage">
-            <summary>
-            Represents an interface for DatePicker/TimePicker to use for communicating with a picker page.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Phone.Controls.Primitives.IDateTimePickerPage.Value">
-            <summary>
-            Gets or sets the DateTime to show in the picker page and to set when the user makes a selection.
             </summary>
         </member>
         <member name="T:Microsoft.Phone.Controls.Extensions">
@@ -4477,7 +4575,7 @@
             The selected group. Will be null if the back button was pressed.
             </summary>
         </member>
-        <member name="P:Microsoft.Phone.Controls.GroupViewClosingEventArgs.Handled">
+        <member name="P:Microsoft.Phone.Controls.GroupViewClosingEventArgs.Cancel">
             <summary>
             Set this to true if the application will handle the popup closing and scrolling to the group.
             </summary>
@@ -4986,6 +5084,12 @@
             Indicates whether a navigation is forward.
             </summary>
         </member>
+        <member name="F:Microsoft.Phone.Controls.TransitionFrame._useFirstAsNew">
+            <summary>
+            Determines whether to set the new content to the first or second
+            <see cref="T:System.Windows.Controls.ContentPresenter"/>.
+            </summary>
+        </member>
         <member name="F:Microsoft.Phone.Controls.TransitionFrame._firstContentPresenter">
             <summary>
             The first <see cref="T:System.Windows.Controls.ContentPresenter"/>.
@@ -4996,10 +5100,14 @@
             The second <see cref="T:System.Windows.Controls.ContentPresenter"/>.
             </summary>
         </member>
-        <member name="F:Microsoft.Phone.Controls.TransitionFrame._useFirstContentPresenter">
+        <member name="F:Microsoft.Phone.Controls.TransitionFrame._oldContentPresenter">
             <summary>
-            Determines whether to set the new content to the first or second
-            <see cref="T:System.Windows.Controls.ContentPresenter"/>.
+            The old <see cref="T:System.Windows.Controls.ContentPresenter"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TransitionFrame._newContentPresenter">
+            <summary>
+            The new <see cref="T:System.Windows.Controls.ContentPresenter"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Phone.Controls.TransitionFrame.#ctor">
@@ -5014,46 +5122,6 @@
             In simplest terms, this means the method is called just before a UI element displays in an application.
             </summary>
         </member>
-        <member name="M:Microsoft.Phone.Controls.TransitionFrame.BackwardIn(System.Windows.UIElement)">
-            <summary>
-            Gets the backward in
-            <see cref="T:Microsoft.Phone.Controls.ITransition"/>
-            for the
-            <see cref="T:System.Windows.UIElement"/>.
-            </summary>
-            <param name="element">The <see cref="T:System.Windows.UIElement"/>.</param>
-            <returns>The <see cref="T:Microsoft.Phone.Controls.ITransition"/>.</returns>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.TransitionFrame.BackwardOut(System.Windows.UIElement)">
-            <summary>
-            Gets the backward out
-            <see cref="T:Microsoft.Phone.Controls.ITransition"/>
-            for the
-            <see cref="T:System.Windows.UIElement"/>.
-            </summary>
-            <param name="element">The <see cref="T:System.Windows.UIElement"/>.</param>
-            <returns>The <see cref="T:Microsoft.Phone.Controls.ITransition"/>.</returns>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.TransitionFrame.ForwardIn(System.Windows.UIElement)">
-            <summary>
-            Gets the forward in
-            <see cref="T:Microsoft.Phone.Controls.ITransition"/>
-            for the
-            <see cref="T:System.Windows.UIElement"/>.
-            </summary>
-            <param name="element">The <see cref="T:System.Windows.UIElement"/>.</param>
-            <returns>The <see cref="T:Microsoft.Phone.Controls.ITransition"/>.</returns>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.TransitionFrame.ForwardOut(System.Windows.UIElement)">
-            <summary>
-            Gets the forward out
-            <see cref="T:Microsoft.Phone.Controls.ITransition"/>
-            for the
-            <see cref="T:System.Windows.UIElement"/>.
-            </summary>
-            <param name="element">The <see cref="T:System.Windows.UIElement"/>.</param>
-            <returns>The <see cref="T:Microsoft.Phone.Controls.ITransition"/>.</returns>
-        </member>
         <member name="M:Microsoft.Phone.Controls.TransitionFrame.OnContentChanged(System.Object,System.Object)">
             <summary>
             Called when the value of the
@@ -5063,13 +5131,12 @@
             <param name="oldContent">The old <see cref="T:System.Object"/>.</param>
             <param name="newContent">The new <see cref="T:System.Object"/>.</param>
         </member>
-        <member name="M:Microsoft.Phone.Controls.TransitionFrame.TransitionNewElement(System.Windows.Controls.ContentPresenter,System.Windows.Controls.ContentPresenter,Microsoft.Phone.Controls.ITransition)">
+        <member name="M:Microsoft.Phone.Controls.TransitionFrame.TransitionNewElement(Microsoft.Phone.Controls.ITransition,Microsoft.Phone.Controls.NavigationInTransition)">
             <summary>
             Transitions the new <see cref="T:System.Windows.UIElement"/>.
             </summary>
-            <param name="oldContentPresenter">The old <see cref="T:System.Windows.Controls.ContentPresenter"/>.</param>
-            <param name="newContentPresenter">The new <see cref="T:System.Windows.Controls.ContentPresenter"/>.</param>
-            <param name="transition">The <see cref="T:Microsoft.Phone.Controls.ITransition"/>.</param>
+            <param name="newTransition">The <see cref="T:Microsoft.Phone.Controls.ITransition"/> for the new <see cref="T:System.Windows.UIElement"/>.</param>
+            <param name="navigationInTransition">The <see cref="T:Microsoft.Phone.Controls.NavigationInTransition"/>  for the new <see cref="T:System.Windows.UIElement"/>.</param>
         </member>
         <member name="T:Microsoft.Phone.Controls.GestureListener">
             <summary>
@@ -5174,57 +5241,6 @@
         <member name="T:Microsoft.Phone.Controls.DatePickerPage">
             <summary>
             Represents a page used by the DatePicker control that allows the user to choose a date (day/month/year).
-            </summary>
-        </member>
-        <member name="T:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase">
-            <summary>
-            Represents a base class for pages that work with DateTimePickerBase to allow users to choose a date/time.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.InitializeDateTimePickerPage(Microsoft.Phone.Controls.Primitives.LoopingSelector,Microsoft.Phone.Controls.Primitives.LoopingSelector,Microsoft.Phone.Controls.Primitives.LoopingSelector)">
-            <summary>
-            Initializes the DateTimePickerPageBase class; must be called from the subclass's constructor.
-            </summary>
-            <param name="primarySelector">Primary selector.</param>
-            <param name="secondarySelector">Secondary selector.</param>
-            <param name="tertiarySelector">Tertiary selector.</param>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.OnBackKeyPress(System.ComponentModel.CancelEventArgs)">
-            <summary>
-            Called when the Back key is pressed.
-            </summary>
-            <param name="e">Event arguments.</param>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.GetSelectorsOrderedByCulturePattern">
-            <summary>
-            Gets a sequence of LoopingSelector parts ordered according to culture string for date/time formatting.
-            </summary>
-            <returns>LoopingSelectors ordered by culture-specific priority.</returns>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.GetSelectorsOrderedByCulturePattern(System.String,System.Char[],Microsoft.Phone.Controls.Primitives.LoopingSelector[])">
-            <summary>
-            Gets a sequence of LoopingSelector parts ordered according to culture string for date/time formatting.
-            </summary>
-            <param name="pattern">Culture-specific date/time format string.</param>
-            <param name="patternCharacters">Date/time format string characters for the primary/secondary/tertiary LoopingSelectors.</param>
-            <param name="selectors">Instances for the primary/secondary/tertiary LoopingSelectors.</param>
-            <returns>LoopingSelectors ordered by culture-specific priority.</returns>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs)">
-            <summary>
-            Called when a page is no longer the active page in a frame.
-            </summary>
-            <param name="e">An object that contains the event data.</param>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs)">
-            <summary>
-            Called when a page becomes the active page in a frame.
-            </summary>
-            <param name="e">An object that contains the event data.</param>
-        </member>
-        <member name="P:Microsoft.Phone.Controls.Primitives.DateTimePickerPageBase.Value">
-            <summary>
-            Gets or sets the DateTime to show in the picker page and to set when the user makes a selection.
             </summary>
         </member>
         <member name="M:Microsoft.Phone.Controls.DatePickerPage.#ctor">
@@ -6637,33 +6653,6 @@
             <summary>
             Gets a ScrollViewer that is used to scroll the items in the
             ItemsHost.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Phone.Controls.TimePickerPage">
-            <summary>
-            Represents a page used by the TimePicker control that allows the user to choose a time (hour/minute/am/pm).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.TimePickerPage.#ctor">
-            <summary>
-            Initializes a new instance of the TimePickerPage control.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.TimePickerPage.GetSelectorsOrderedByCulturePattern">
-            <summary>
-            Gets a sequence of LoopingSelector parts ordered according to culture string for date/time formatting.
-            </summary>
-            <returns>LoopingSelectors ordered by culture-specific priority.</returns>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.TimePickerPage.OnOrientationChanged(Microsoft.Phone.Controls.OrientationChangedEventArgs)">
-            <summary>
-            Handles changes to the page's Orientation property.
-            </summary>
-            <param name="e">Event arguments.</param>
-        </member>
-        <member name="M:Microsoft.Phone.Controls.TimePickerPage.InitializeComponent">
-            <summary>
-            InitializeComponent
             </summary>
         </member>
         <member name="T:Microsoft.Phone.Controls.PhoneHelper">
