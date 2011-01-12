@@ -109,14 +109,22 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     ServerBusyPopup.Child = ServerBusyProgressBar;
                 }
 
-                // Set up progressbar bindings
-                Binding indeterminateBinding = new Binding("GettingData");
-                indeterminateBinding.Source = Server;
-                ServerBusyProgressBar.SetBinding(ProgressBar.IsIndeterminateProperty, indeterminateBinding);
-                Binding visibilityBinding = new Binding("GettingData");
-                visibilityBinding.Source = Server;
-                visibilityBinding.Converter = Application.Current.Resources["booleanToVisibilityConverter"] as IValueConverter;
-                ServerBusyProgressBar.SetBinding(ProgressBar.VisibilityProperty, visibilityBinding);
+                if (Server != null)
+                {
+                    // Set up progressbar bindings
+                    Binding indeterminateBinding = new Binding("GettingData");
+                    indeterminateBinding.Source = Server;
+                    ServerBusyProgressBar.SetBinding(ProgressBar.IsIndeterminateProperty, indeterminateBinding);
+                    Binding visibilityBinding = new Binding("GettingData");
+                    visibilityBinding.Source = Server;
+                    visibilityBinding.Converter = Application.Current.Resources["booleanToVisibilityConverter"] as IValueConverter;
+                    ServerBusyProgressBar.SetBinding(ProgressBar.VisibilityProperty, visibilityBinding);
+                }
+                else
+                {
+                    ServerBusyProgressBar.IsIndeterminate = false;
+                    ServerBusyProgressBar.Visibility = Visibility.Collapsed;
+                }
 
                 ServerBusyPopup.IsOpen = true;
             });
