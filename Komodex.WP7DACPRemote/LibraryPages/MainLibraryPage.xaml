@@ -127,7 +127,6 @@
             </controls:PivotItem>
         </controls:Pivot>
 
-        <ProgressBar VerticalAlignment="Top" IsIndeterminate="{Binding GettingData}" Visibility="{Binding GettingData,Converter={StaticResource booleanToVisibilityConverter}}" Style="{StaticResource PerformanceProgressBar}" />
         <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" />
     </Grid>
 
