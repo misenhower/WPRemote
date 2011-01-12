@@ -120,7 +120,8 @@ namespace Komodex.DACP
             }
 
             // Handle speakers that are no longer available
-            var removedSpeakers = Speakers.Where(s => !foundSpeakerIDs.Contains(s.ID));
+            // Need to call ToList() so the source collection doesn't change during enumeration
+            var removedSpeakers = Speakers.Where(s => !foundSpeakerIDs.Contains(s.ID)).ToList();
             foreach (AirPlaySpeaker removedSpeaker in removedSpeakers)
                 Speakers.Remove(removedSpeaker);
 

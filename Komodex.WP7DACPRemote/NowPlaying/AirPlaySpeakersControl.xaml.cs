@@ -64,22 +64,25 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
         void Speakers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ReloadSpeakerList();
-            /* TODO:
-            switch (e.Action)
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                case NotifyCollectionChangedAction.Add:
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    break;
-                default:
-                    break;
-            }
-            */
+                ReloadSpeakerList();
+                /* TODO:
+                switch (e.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        break;
+                    case NotifyCollectionChangedAction.Replace:
+                        break;
+                    case NotifyCollectionChangedAction.Reset:
+                        break;
+                    default:
+                        break;
+                }
+                */
+            });
         }
 
         #endregion
