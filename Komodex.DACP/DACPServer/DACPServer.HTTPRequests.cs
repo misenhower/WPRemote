@@ -293,10 +293,13 @@ namespace Komodex.DACP
         // Also, it appears that the web exception's status will NOT be set to WebExceptionStatus.Timeout
         // To get around the session ending issue, I am re-requesting the play status every 45 seconds.
 
+        protected HTTPRequestInfo canceledPlayStatusRequestInfo = null;
+
         void playStatusWatchdogTimer_Tick(object sender, EventArgs e)
         {
             if (UseDelayedResponseRequests && !Stopped)
             {
+                canceledPlayStatusRequestInfo = playStatusRequestInfo;
                 // Set the playStatusRequestInfo object to null so SubmitPlayStatusRequest doesn't attempt to abort that request
                 playStatusRequestInfo = null;
                 SubmitPlayStatusRequest();
@@ -306,6 +309,14 @@ namespace Komodex.DACP
         protected void HandlePlayStatusException(HTTPRequestInfo requestInfo, WebException e)
         {
             Utility.DebugWrite("Caught timed out play status response.");
+
+            if (canceledPlayStatusRequestInfo == null || requestInfo != canceledPlayStatusRequestInfo)
+            {
+                ConnectionError();
+                return;
+            }
+
+            canceledPlayStatusRequestInfo = null;
 
             if (e.Status != WebExceptionStatus.UnknownError)
                 ConnectionError();
