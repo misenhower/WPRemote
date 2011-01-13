@@ -149,7 +149,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             base.AttachServerEvents();
 
             if (DACPServer != null)
-                DACPServer.Speakers.CollectionChanged += new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
+                DACPServer.AirPlaySpeakerUpdate += new EventHandler(DACPServer_AirPlaySpeakerUpdate);
         }
 
         protected override void DetachServerEvents()
@@ -157,7 +157,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             base.DetachServerEvents();
 
             if (DACPServer != null)
-                DACPServer.Speakers.CollectionChanged -= new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
+                DACPServer.AirPlaySpeakerUpdate -= new EventHandler(DACPServer_AirPlaySpeakerUpdate);
         }
 
         #endregion
@@ -319,7 +319,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             NavigationService.GoBack();
         }
 
-        void Speakers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void DACPServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
