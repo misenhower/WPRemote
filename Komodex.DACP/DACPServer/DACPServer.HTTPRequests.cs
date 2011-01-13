@@ -30,7 +30,7 @@ namespace Komodex.DACP
         /// </summary>
         /// <param name="url">The URL request (e.g., "/server-info").</param>
         /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
-        public HTTPRequestInfo SubmitHTTPRequest(string url, HTTPResponseHandler responseHandlerDelegate = null, object actionObject = null, bool isDataRetrieval = false)
+        internal HTTPRequestInfo SubmitHTTPRequest(string url, HTTPResponseHandler responseHandlerDelegate = null, bool isDataRetrieval = false, Action<HTTPRequestInfo> additionalSettings = null)
         {
             Utility.DebugWrite("Submitting HTTP request for: " + url);
 
@@ -44,8 +44,9 @@ namespace Komodex.DACP
                 // Create a new HTTPRequestState object
                 HTTPRequestInfo requestInfo = new HTTPRequestInfo(webRequest);
                 requestInfo.ResponseHandlerDelegate = responseHandlerDelegate;
-                requestInfo.ActionObject = actionObject;
                 requestInfo.IsDataRetrieval = isDataRetrieval;
+                if (additionalSettings != null)
+                    additionalSettings(requestInfo);
 
                 // Send HTTP request
                 webRequest.BeginGetResponse(new AsyncCallback(HTTPByteCallback), requestInfo);

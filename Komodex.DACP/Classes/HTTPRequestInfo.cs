@@ -16,7 +16,7 @@ namespace Komodex.DACP
     {
         private HTTPRequestInfo() { }
 
-        public HTTPRequestInfo(HttpWebRequest webRequest)
+        internal HTTPRequestInfo(HttpWebRequest webRequest)
         {
             WebRequest = webRequest;
         }

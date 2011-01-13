@@ -113,7 +113,7 @@ namespace Komodex.DACP.Library
                 + "&query=(('daap.songartist:" + encodedArtistName + "','daap.songalbumartist:" + encodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
                 + "&session-id=" + Server.SessionID;
 
-            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse), null, true);
+            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse), true);
         }
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)

@@ -212,7 +212,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songartist!:')"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessArtistsResponse), null, true);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessArtistsResponse), true);
         }
 
         protected void ProcessArtistsResponse(HTTPRequestInfo requestInfo)
@@ -245,7 +245,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumsResponse), null, true);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumsResponse), true);
         }
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
@@ -277,7 +277,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query='com.apple.itunes.mediakind:2'"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessMoviesResponse), null, true);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessMoviesResponse), true);
         }
 
         protected void ProcessMoviesResponse(HTTPRequestInfo requestInfo)
@@ -309,7 +309,7 @@ namespace Komodex.DACP
                 + "&sort=album"
                 + "&query='com.apple.itunes.mediakind:64'"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessTVShowsResponse), null, true);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessTVShowsResponse), true);
         }
 
         protected void ProcessTVShowsResponse(HTTPRequestInfo requestInfo)
@@ -358,7 +358,7 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=(('com.apple.itunes.mediakind:4','com.apple.itunes.mediakind:36','com.apple.itunes.mediakind:6','com.apple.itunes.mediakind:7')+'daap.songalbum!:')"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPodcastsResponse), null, true);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPodcastsResponse), true);
         }
 
         protected void ProcessPodcastsResponse(HTTPRequestInfo requestInfo)
