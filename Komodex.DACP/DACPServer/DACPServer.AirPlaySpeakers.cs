@@ -138,7 +138,13 @@ namespace Komodex.DACP
             string url = "/ctrl-int/1/setspeakers"
                 + "?speaker-id=" + speakers
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSetActiveSpeakersResponse), true);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSetActiveSpeakersResponse), true, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandleSetActiveSpeakersException));
+        }
+
+        protected void HandleSetActiveSpeakersException(HTTPRequestInfo requestInfo, WebException e)
+        {
+            SendServerUpdate(ServerUpdateType.AirPlaySpeakerPassword);
+            SubmitGetSpeakersRequest();
         }
 
         protected void ProcessSetActiveSpeakersResponse(HTTPRequestInfo requestInfo)

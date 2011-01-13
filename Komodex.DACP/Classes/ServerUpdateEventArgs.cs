@@ -31,6 +31,7 @@ namespace Komodex.DACP
         ServerConnected,
         ServerReconnecting,
         Error,
+        AirPlaySpeakerPassword,
     }
 
     public enum ServerErrorType

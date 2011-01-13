@@ -89,12 +89,26 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         {
             base.DACPServer_ServerUpdate(sender, e);
 
+
+
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                if (AirPlayDialog != null && AirPlayDialog.IsOpen)
-                    AirPlayDialog.Hide();
-                AirPlayDialog = null;
-                AirPlaySpeakersControl = null;
+                switch (e.Type)
+                {
+                    case ServerUpdateType.ServerConnected:
+                    case ServerUpdateType.ServerReconnecting:
+                    case ServerUpdateType.Error:
+                        if (AirPlayDialog != null && AirPlayDialog.IsOpen)
+                            AirPlayDialog.Hide();
+                        AirPlayDialog = null;
+                        AirPlaySpeakersControl = null;
+                        break;
+                    case ServerUpdateType.AirPlaySpeakerPassword:
+                        MessageBox.Show("The remote speaker you selected requires a password.  Please enter it in iTunes.");
+                        break;
+                    default:
+                        break;
+                }
             });
         }
 
