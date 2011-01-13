@@ -245,7 +245,6 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="browse library" Click="mnuBrowse_Click" />
                 <shell:ApplicationBarMenuItem Text="search" Click="mnuSearch_Click" />
-                <shell:ApplicationBarMenuItem Text="airplay" x:Name="mnuAirPlay" Click="mnuAirPlay_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

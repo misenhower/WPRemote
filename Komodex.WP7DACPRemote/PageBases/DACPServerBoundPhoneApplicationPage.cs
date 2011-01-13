@@ -264,7 +264,7 @@ namespace Komodex.WP7DACPRemote
             ApplicationBar.IsVisible = (!NavigationManager.NavigatingToFirstPage && DACPServer != null && DACPServer.IsConnected);
         }
 
-        private void AttachServerEvents()
+        protected virtual void AttachServerEvents()
         {
             if (DACPServer != null)
             {
@@ -273,7 +273,7 @@ namespace Komodex.WP7DACPRemote
             }
         }
 
-        private void DetachServerEvents()
+        protected virtual void DetachServerEvents()
         {
             if (DACPServer != null)
             {

@@ -15,6 +15,7 @@ using Komodex.DACP;
 using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 using Clarity.Phone.Extensions;
+using System.Collections.Specialized;
 
 namespace Komodex.WP7DACPRemote.NowPlaying
 {
@@ -22,6 +23,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
     {
         protected DialogService AirPlayDialog = null;
         protected AirPlaySpeakersControl AirPlaySpeakersControl = null;
+        protected ApplicationBarMenuItem AirPlayMenuItem = null;
 
         public NowPlayingPage()
         {
@@ -38,6 +40,9 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
             goBackTimer.Interval = TimeSpan.FromMilliseconds(500);
             goBackTimer.Tick += new EventHandler(goBackTimer_Tick);
+
+            AirPlayMenuItem = new ApplicationBarMenuItem("airplay speakers");
+            AirPlayMenuItem.Click += new EventHandler(AirPlayMenuItem_Click);
         }
 
         private readonly BitmapImage iconRepeat = new BitmapImage(new Uri("/icons/custom.appbar.repeat.png", UriKind.Relative));
@@ -64,6 +69,8 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                     AnimationContext = null;
                 }
             }
+
+            UpdateAirPlayButtons();
         }
 
         protected override void AnimationsComplete(Clarity.Phone.Controls.Animations.AnimationType animationType)
@@ -88,8 +95,6 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
             base.DACPServer_ServerUpdate(sender, e);
-
-
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
@@ -137,6 +142,22 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             }
 
             base.OnBackKeyPress(e);
+        }
+
+        protected override void AttachServerEvents()
+        {
+            base.AttachServerEvents();
+
+            if (DACPServer != null)
+                DACPServer.Speakers.CollectionChanged += new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
+        }
+
+        protected override void DetachServerEvents()
+        {
+            base.DetachServerEvents();
+
+            if (DACPServer != null)
+                DACPServer.Speakers.CollectionChanged -= new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
         }
 
         #endregion
@@ -226,7 +247,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             HideRepeatShuffleControls();
         }
 
-        private void mnuAirPlay_Click(object sender, EventArgs e)
+        void AirPlayMenuItem_Click(object sender, EventArgs e)
         {
             ShowAirPlayDialog();
         }
@@ -260,6 +281,28 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             AirPlayDialog.Show(false);
         }
 
+        protected void UpdateAirPlayButtons()
+        {
+            if (DACPServer == null)
+                return;
+
+            if (DACPServer.Speakers.Count > 1)
+            {
+                btnAirPlay.Visibility = System.Windows.Visibility.Visible;
+                if (!ApplicationBar.MenuItems.Contains(AirPlayMenuItem))
+                    ApplicationBar.MenuItems.Add(AirPlayMenuItem);
+                    //ApplicationBar.MenuItems.Insert(ApplicationBar.MenuItems.Count - 2, AirPlayMenuItem);
+
+                // It looks like the application bar doesn't recognize the Insert method so I'm just going to use the Add method for now.
+            }
+            else
+            {
+                btnAirPlay.Visibility = System.Windows.Visibility.Collapsed;
+                if (ApplicationBar.MenuItems.Contains(AirPlayMenuItem))
+                    ApplicationBar.MenuItems.Remove(AirPlayMenuItem);
+            }
+        }
+
         #endregion
 
         #region Event Handlers
@@ -267,6 +310,14 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         void goBackTimer_Tick(object sender, EventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        void Speakers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                UpdateAirPlayButtons();
+            });
         }
 
         #endregion

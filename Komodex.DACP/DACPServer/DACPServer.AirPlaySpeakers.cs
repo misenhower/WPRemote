@@ -20,17 +20,10 @@ namespace Komodex.DACP
 
         #region Properties
 
-        private ObservableCollection<AirPlaySpeaker> _Speakers = null;
+        private ObservableCollection<AirPlaySpeaker> _Speakers = new ObservableCollection<AirPlaySpeaker>();
         public ObservableCollection<AirPlaySpeaker> Speakers
         {
             get { return _Speakers; }
-            protected set
-            {
-                if (_Speakers == value)
-                    return;
-                _Speakers = value;
-                SendPropertyChanged("Speakers");
-            }
         }
 
         #endregion
@@ -47,9 +40,6 @@ namespace Komodex.DACP
 
         protected void ProcessGetSpeakersResponse(HTTPRequestInfo requestInfo)
         {
-            if (Speakers == null)
-                Speakers = new ObservableCollection<AirPlaySpeaker>();
-
             List<UInt64> foundSpeakerIDs = new List<UInt64>();
 
             string name;
