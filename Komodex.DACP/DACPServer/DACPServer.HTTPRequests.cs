@@ -132,10 +132,7 @@ namespace Komodex.DACP
                     }
                 }
 
-                if (ServerVersion > 0 && SessionID == 0)
-                    ConnectionError(ServerErrorType.InvalidPIN);
-                else
-                    ConnectionError();
+                ConnectionError();
             }
             finally
             {
@@ -191,7 +188,12 @@ namespace Komodex.DACP
         protected void SubmitLoginRequest()
         {
             string url = "/login?pairing-guid=0x" + PairingKey;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessLoginResponse));
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessLoginResponse), false, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandleLoginException));
+        }
+
+        protected void HandleLoginException(HTTPRequestInfo requestInfo, WebException e)
+        {
+            ConnectionError(ServerErrorType.InvalidPIN);
         }
 
         protected void ProcessLoginResponse(HTTPRequestInfo requestInfo)
