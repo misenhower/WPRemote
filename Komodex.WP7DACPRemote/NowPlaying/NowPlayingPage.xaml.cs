@@ -268,6 +268,9 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
         protected void ShowAirPlayDialog()
         {
+            if (DACPServer == null || DACPServer.Speakers.Count <= 1)
+                return;
+
             if (AirPlayDialog != null)
                 AirPlayDialog.Hide();
 
@@ -294,6 +297,10 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                     //ApplicationBar.MenuItems.Insert(ApplicationBar.MenuItems.Count - 2, AirPlayMenuItem);
 
                 // It looks like the application bar doesn't recognize the Insert method so I'm just going to use the Add method for now.
+
+                // Set button opacity
+                bool airPlayEnabled = DACPServer.Speakers.Any(s => s.ID != 0 && s.Active);
+                btnAirPlay.Opacity = (airPlayEnabled) ? 1.0 : 0.5;
             }
             else
             {
