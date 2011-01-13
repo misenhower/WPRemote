@@ -17,6 +17,7 @@ using System.Windows.Threading;
 namespace Komodex.DACP
 {
     public delegate void HTTPResponseHandler(HTTPRequestInfo requestInfo);
+    public delegate void HTTPExceptionHandler(HTTPRequestInfo requestInfo, WebException e);
 
     public partial class DACPServer
     {
@@ -112,6 +113,8 @@ namespace Komodex.DACP
             }
             catch (Exception e)
             {
+                Utility.DebugWrite("Caught exception: " + e.Message);
+
                 if (e is WebException)
                 {
                     WebException webException = (WebException)e;
@@ -122,31 +125,22 @@ namespace Komodex.DACP
                     if (webException.Status == WebExceptionStatus.RequestCanceled)
                         return;
 
-                    // HTTPWebRequests appear to have a timeout of 60 seconds.  I have not found a way to extend
-                    // this timeout, so if this is a WebException for the Play Status request, we need to handle
-                    // the error differently.  When this timeout occurs, iTunes will also end the current session.
-                    // Also, it appears that the web exception's status will NOT be set to WebExceptionStatus.Timeout
-                    // To get around the session ending issue, I am re-requesting the play status every 45 seconds.
-                    if (webException.Status == WebExceptionStatus.UnknownError
-                        && requestInfo.ResponseHandlerDelegate != null
-                        && requestInfo.ResponseHandlerDelegate.Method.Name == "ProcessPlayStatusResponse")
+                    if (requestInfo.ExceptionHandlerDelegate != null)
                     {
-                        Utility.DebugWrite("Caught timed out play status response.");
-
-                        if (UseDelayedResponseRequests && !Stopped)
-                            return;
+                        requestInfo.ExceptionHandlerDelegate(requestInfo, webException);
+                        return;
                     }
                 }
-
-                Utility.DebugWrite("Caught exception: " + e.Message);
 
                 if (ServerVersion > 0 && SessionID == 0)
                     ConnectionError(ServerErrorType.InvalidPIN);
                 else
                     ConnectionError();
             }
-
-            UpdateGettingData();
+            finally
+            {
+                UpdateGettingData();
+            }
         }
 
         #endregion
@@ -285,13 +279,19 @@ namespace Komodex.DACP
                 playStatusRequestInfo.WebRequest.Abort();
 
             string url = "/ctrl-int/1/playstatusupdate?revision-number=" + playStatusRevisionNumber + "&session-id=" + SessionID;
-            playStatusRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPlayStatusResponse));
+            playStatusRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPlayStatusResponse), false, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandlePlayStatusException));
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 playStatusWatchdogTimer.Start();
             });
         }
+
+        // HTTPWebRequests appear to have a timeout of 60 seconds.  I have not found a way to extend
+        // this timeout, so if this is a WebException for the Play Status request, we need to handle
+        // the error differently.  When this timeout occurs, iTunes will also end the current session.
+        // Also, it appears that the web exception's status will NOT be set to WebExceptionStatus.Timeout
+        // To get around the session ending issue, I am re-requesting the play status every 45 seconds.
 
         void playStatusWatchdogTimer_Tick(object sender, EventArgs e)
         {
@@ -301,6 +301,14 @@ namespace Komodex.DACP
                 playStatusRequestInfo = null;
                 SubmitPlayStatusRequest();
             }
+        }
+
+        protected void HandlePlayStatusException(HTTPRequestInfo requestInfo, WebException e)
+        {
+            Utility.DebugWrite("Caught timed out play status response.");
+
+            if (e.Status != WebExceptionStatus.UnknownError)
+                ConnectionError();
         }
 
         // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well

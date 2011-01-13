@@ -26,6 +26,7 @@ namespace Komodex.DACP
         public bool IsDataRetrieval { get; set; }
 
         public HTTPResponseHandler ResponseHandlerDelegate { get; set; }
+        public HTTPExceptionHandler ExceptionHandlerDelegate { get; set; }
 
         public object ActionObject { get; set; }
 
