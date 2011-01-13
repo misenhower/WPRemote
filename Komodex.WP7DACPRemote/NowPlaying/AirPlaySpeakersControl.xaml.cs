@@ -87,14 +87,5 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
         #endregion
 
-        #region Methods
-
-        public void AirPlaySpeakerUpdate()
-        {
-
-        }
-
-        #endregion
-
     }
 }

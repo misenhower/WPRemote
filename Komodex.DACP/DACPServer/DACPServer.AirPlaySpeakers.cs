@@ -124,8 +124,6 @@ namespace Komodex.DACP
             var removedSpeakers = Speakers.Where(s => !foundSpeakerIDs.Contains(s.ID)).ToList();
             foreach (AirPlaySpeaker removedSpeaker in removedSpeakers)
                 Speakers.Remove(removedSpeaker);
-
-            SendAirPlaySpeakerUpdate();
         }
 
         #endregion
@@ -180,18 +178,6 @@ namespace Komodex.DACP
         {
             _Volume = newVolume;
             SendPropertyChanged("Volume");
-        }
-
-        #endregion
-
-        #region Events
-
-        public event EventHandler AirPlaySpeakerUpdate;
-
-        protected void SendAirPlaySpeakerUpdate()
-        {
-            if (AirPlaySpeakerUpdate != null)
-                AirPlaySpeakerUpdate(this, new EventArgs());
         }
 
         #endregion

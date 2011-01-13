@@ -252,11 +252,6 @@ namespace Komodex.WP7DACPRemote
             }
         }
 
-        protected virtual void DACPServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
-        {
-            // Do nothing, will be handled by child classes
-        }
-
         #endregion
 
         #region Methods
@@ -275,7 +270,6 @@ namespace Komodex.WP7DACPRemote
             {
                 DACPServer.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
                 DACPServer.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
-                DACPServer.AirPlaySpeakerUpdate += new EventHandler(DACPServer_AirPlaySpeakerUpdate);
             }
         }
 
@@ -285,7 +279,6 @@ namespace Komodex.WP7DACPRemote
             {
                 DACPServer.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
                 DACPServer.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(DACPServer_PropertyChanged);
-                DACPServer.AirPlaySpeakerUpdate -= new EventHandler(DACPServer_AirPlaySpeakerUpdate);
             }
         }
 
