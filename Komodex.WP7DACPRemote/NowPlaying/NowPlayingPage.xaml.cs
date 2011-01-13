@@ -38,7 +38,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             repeatShuffleControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
             repeatShuffleControlDisplayTimer.Tick += new EventHandler(repeatShuffleControlDisplayTimer_Tick);
 
-            goBackTimer.Interval = TimeSpan.FromMilliseconds(500);
+            goBackTimer.Interval = TimeSpan.FromSeconds(5);
             goBackTimer.Tick += new EventHandler(goBackTimer_Tick);
 
             AirPlayMenuItem = new ApplicationBarMenuItem("airplay speakers");
