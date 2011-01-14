@@ -95,6 +95,21 @@
             </Canvas>
         </ControlTemplate>
 
+        <ControlTemplate x:Key="AirPlayIconButton" TargetType="ContentControl">
+            <Canvas Width="48" Height="48">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/custom.appbar.airplay.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
+
         <!-- Converters -->
         <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <converters:BooleanToAccentBrushConverter x:Name="booleanToAccentBrushConverter" />

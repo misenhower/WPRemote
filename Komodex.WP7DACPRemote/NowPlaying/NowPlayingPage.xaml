@@ -226,7 +226,7 @@
                                 Style="{StaticResource VolumeSliderStyle}"
                                 VerticalAlignment="Center" />
                     </Border>
-                    <Button Grid.Column="1" Name="btnAirPlay" Click="btnAirPlay_Click" Template="{StaticResource SearchIconButton}" />
+                    <Button Grid.Column="1" Name="btnAirPlay" Click="btnAirPlay_Click" Template="{StaticResource AirPlayIconButton}" />
                 </Grid>
                 
             </Grid>
