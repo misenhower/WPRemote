@@ -325,7 +325,7 @@
                                 <Rectangle Grid.Column="2" Fill="{StaticResource PhoneBackgroundBrush}" Stroke="{StaticResource PhoneForegroundBrush}" Width="13" Height="28" HorizontalAlignment="Left" Margin="-6,0,0,0" StrokeThickness="6"/>
                                 <Thumb x:Name="HorizontalThumb" Grid.Column="1" Margin="-1,0,0,0" RenderTransformOrigin="0.5,0.5" Template="{StaticResource PhoneSimpleThumb}" Width="1">
                                     <Thumb.RenderTransform>
-                                        <ScaleTransform ScaleY="1" ScaleX="32"/>
+                                        <ScaleTransform ScaleY="1" ScaleX="115"/>
                                     </Thumb.RenderTransform>
                                 </Thumb>
                             </Grid>
@@ -393,7 +393,7 @@
                                 <Rectangle Grid.Column="2" Fill="{StaticResource PhoneBackgroundBrush}" Stroke="{StaticResource PhoneForegroundBrush}" Width="13" Height="28" HorizontalAlignment="Left" Margin="-6,0,0,0" StrokeThickness="6"/>
                                 <Thumb x:Name="HorizontalThumb" Grid.Column="1" Margin="-1,0,0,0" RenderTransformOrigin="0.5,0.5" Template="{StaticResource PhoneSimpleThumb}" Width="1">
                                     <Thumb.RenderTransform>
-                                        <ScaleTransform ScaleY="1" ScaleX="32"/>
+                                        <ScaleTransform ScaleY="1" ScaleX="115"/>
                                     </Thumb.RenderTransform>
                                 </Thumb>
                             </Grid>
