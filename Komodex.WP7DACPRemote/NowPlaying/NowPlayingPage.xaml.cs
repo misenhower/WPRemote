@@ -271,8 +271,8 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             if (DACPServer == null || DACPServer.Speakers.Count <= 1)
                 return;
 
-            if (AirPlayDialog != null)
-                AirPlayDialog.Hide();
+            if (AirPlayDialog != null && AirPlayDialog.IsOpen)
+                return;
 
             if (AirPlaySpeakersControl == null)
                 AirPlaySpeakersControl = new NowPlaying.AirPlaySpeakersControl(DACPServer);
