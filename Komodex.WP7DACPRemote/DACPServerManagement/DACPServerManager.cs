@@ -32,7 +32,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 if (_Server != null)
                 {
                     _Server.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(Server_ServerUpdate);
-                    _Server.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
                     _Server.Stop();
                 }
 
@@ -41,7 +40,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 if (_Server != null)
                 {
                     _Server.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(Server_ServerUpdate);
-                    _Server.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
                 }
 
                 UpdatePopupDisplay();
@@ -247,8 +245,11 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             switch (e.Type)
             {
                 case ServerUpdateType.ServerReconnecting:
+                    UpdatePopupDisplay();
+                    break;
                 case ServerUpdateType.ServerConnected:
                     UpdatePopupDisplay();
+                    UpdateSavedLibraryName();
                     break;
                 case ServerUpdateType.Error:
                     Server = null;
@@ -256,22 +257,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 default:
                     break;
             }
-        }
-
-        static void Server_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (sender != Server)
-                return;
-
-            if (e.PropertyName != "LibraryName")
-                return;
-
-            DACPServerInfo serverInfo = DACPServerViewModel.Instance.CurrentDACPServer;
-            DACPServer server = sender as DACPServer;
-            if (serverInfo == null || server == null || serverInfo.ID != server.ID)
-                return;
-
-            serverInfo.LibraryName = server.LibraryName;
         }
 
         #endregion
@@ -287,6 +272,22 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 if (ServerChanged != null)
                     ServerChanged(null, new EventArgs());
             });
+        }
+
+        #endregion
+
+        #region Methods
+
+        private static void UpdateSavedLibraryName()
+        {
+            if (Server == null || !Server.IsConnected)
+                return;
+
+            DACPServerInfo serverInfo = DACPServerViewModel.Instance.CurrentDACPServer;
+            if (serverInfo == null || serverInfo.ID != Server.ID)
+                return;
+
+            serverInfo.LibraryName = Server.LibraryName;
         }
 
         #endregion
