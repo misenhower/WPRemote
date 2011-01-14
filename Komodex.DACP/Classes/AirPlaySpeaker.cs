@@ -78,7 +78,7 @@ namespace Komodex.DACP
             }
         }
 
-        private bool _WaitingForResponse =false;
+        private bool _WaitingForResponse = false;
         internal bool WaitingForResponse
         {
             get { return _WaitingForResponse; }
@@ -122,24 +122,14 @@ namespace Komodex.DACP
                     return;
                 _Volume = value;
                 SendPropertyChanged("Volume");
-                SendAdjustedVolumePropertyChanged();
+                UpdateBindableVolume();
             }
         }
 
+        protected int _BindableVolume = 0;
         public int BindableVolume
         {
-            get
-            {
-                // If there are no other AirPlay speakers enabled, just return the server volume
-                if (!Server.Speakers.Any(s => s != this && s.Active))
-                    return Server.Volume;
-
-                if (Server.Volume == 100)
-                    return Volume;
-
-                double volumePercentage = (double)Volume / 100;
-                return (int)((double)Server.Volume * volumePercentage);
-            }
+            get { return _BindableVolume; }
             set
             {
                 if (BindableVolume == value)
@@ -183,8 +173,21 @@ namespace Komodex.DACP
             Server.SubmitHTTPRequest(url);
         }
 
-        internal void SendAdjustedVolumePropertyChanged()
+        internal void UpdateBindableVolume()
         {
+            // If there are no other AirPlay speakers enabled, just return the server volume
+            if (!Server.Speakers.Any(s => s != this && s.Active))
+                _BindableVolume = Server.Volume;
+
+            else if (Server.Volume == 100)
+                _BindableVolume = Volume;
+
+            else
+            {
+                double volumePercentage = (double)Volume / 100;
+                _BindableVolume = (int)((double)Server.Volume * volumePercentage);
+            }
+
             SendPropertyChanged("BindableVolume");
         }
 

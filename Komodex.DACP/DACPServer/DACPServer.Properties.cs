@@ -392,7 +392,7 @@ namespace Komodex.DACP
                 return;
 
             foreach (AirPlaySpeaker speaker in Speakers)
-                speaker.SendAdjustedVolumePropertyChanged();
+                speaker.UpdateBindableVolume();
         }
 
         protected void SendVolumeUpdate()
