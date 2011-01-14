@@ -222,6 +222,9 @@ namespace Komodex.DACP
             get { return TrackTimeTotal - CurrentTrackTimeRemaining; }
         }
 
+        private bool ignoringTrackTimeChanges = false;
+        private int sendTrackTimeChangeWhenFinished = -1;
+
         public double CurrentTrackTimePercentage
         {
             get
@@ -238,14 +241,31 @@ namespace Komodex.DACP
                 double percentage = value / 100d;
                 int newPos = (int)(percentage * TrackTimeTotal);
                 TrackTimeRemaining = TrackTimeTotal - newPos;
-                SendTrackTimeUpdate(newPos);
+
+                if (ignoringTrackTimeChanges)
+                    sendTrackTimeChangeWhenFinished = newPos;
+                else
+                    SendTrackTimeUpdate(newPos);
             }
         }
 
         protected void SendTrackTimeUpdate(int position)
         {
+            ignoringTrackTimeChanges = true;
             string url = "/ctrl-int/1/setproperty?dacp.playingtime=" + position + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSendTrackTimeUpdateResponse));
+        }
+
+        protected void ProcessSendTrackTimeUpdateResponse(HTTPRequestInfo requestInfo)
+        {
+            if (sendTrackTimeChangeWhenFinished >= 0)
+            {
+                int newPos = sendTrackTimeChangeWhenFinished;
+                sendTrackTimeChangeWhenFinished = -1;
+                SendTrackTimeUpdate(newPos);
+            }
+            else
+                ignoringTrackTimeChanges = false;
         }
 
         private readonly string timeFormat = "{0}:{1:00}";
