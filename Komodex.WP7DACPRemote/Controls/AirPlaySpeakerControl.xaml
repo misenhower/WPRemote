@@ -163,7 +163,7 @@
         <StaticResource ResourceKey="PhoneForegroundBrush"/>
     </UserControl.Foreground>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
+    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="SpeakerActiveStates">
                 <VisualStateGroup.Transitions>

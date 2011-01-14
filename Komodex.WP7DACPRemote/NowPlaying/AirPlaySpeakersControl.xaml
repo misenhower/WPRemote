@@ -17,6 +17,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Rectangle Fill="{StaticResource PhoneBackgroundBrush}" Grid.Row="0" Grid.RowSpan="2" Opacity="0.6" />
+
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
             <TextBlock x:Name="ApplicationTitle" Text="AIRPLAY SPEAKERS" Style="{StaticResource PhoneTextNormalStyle}"/>
             <!--<TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
@@ -26,9 +28,12 @@
             <StackPanel Name="AirPlaySpeakerStackPanel" />
         </ScrollViewer>
         
-        <Slider Height="48" Margin="0,0,36,150" Grid.Row="2"
-            Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
-            Style="{StaticResource VolumeSliderStyle}"
-            VerticalAlignment="Center" />
+        <StackPanel Grid.Row="2" Margin="12,12,0,0">
+            <TextBlock Text="MASTER VOLUME" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0,0,0" />
+            <Slider Height="48" Margin="0,0,36,150" Grid.Row="2"
+                Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
+                Style="{StaticResource VolumeSliderStyle}"
+                VerticalAlignment="Center" />
+        </StackPanel>
     </Grid>
 </UserControl>
