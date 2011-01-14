@@ -32,8 +32,17 @@ namespace Komodex.DACP
 
         #region Get Speakers
 
+        private bool gettingSpeakers = false;
+
+        public void GetSpeakers()
+        {
+            if (!gettingSpeakers)
+                SubmitGetSpeakersRequest();
+        }
+
         protected void SubmitGetSpeakersRequest()
         {
+            gettingSpeakers = true;
             string url = "/ctrl-int/1/getspeakers?session-id=" + SessionID;
             SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessGetSpeakersResponse));
         }
@@ -116,6 +125,7 @@ namespace Komodex.DACP
                 Speakers.Remove(removedSpeaker);
 
             SendAirPlaySpeakerUpdate();
+            gettingSpeakers = false;
         }
 
         #endregion
