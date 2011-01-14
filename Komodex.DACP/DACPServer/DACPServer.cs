@@ -59,6 +59,8 @@ namespace Komodex.DACP
 
         private bool UseDelayedResponseRequests = true;
         private bool Stopped = false;
+        internal string HTTPPrefix;
+        private bool IgnoreServerVersion = false;
 
         #endregion
 
@@ -73,22 +75,23 @@ namespace Komodex.DACP
             protected set
             {
                 _HostName = value;
-                _HTTPPrefix = null;
+                HTTPPrefix = null;
+                IgnoreServerVersion = false;
+                if (_HostName == null)
+                    return;
+
+                HTTPPrefix = "http://" + _HostName;
+
+                // If the hostname doesn't contain a colon, add the default DACP port
+                if (!_HostName.Contains(':'))
+                    HTTPPrefix += ":3689";
+                // Otherwise, assume the user is doing something special and disable server version checking
+                else
+                    IgnoreServerVersion = true;
             }
         }
 
         public string PairingKey { get; protected set; }
-
-        private string _HTTPPrefix = null;
-        public string HTTPPrefix
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_HTTPPrefix))
-                    _HTTPPrefix = "http://" + HostName + ":3689";
-                return _HTTPPrefix;
-            }
-        }
 
         public int SessionID { get; protected set; }
 
