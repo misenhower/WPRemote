@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Komodex.DACP
 {
@@ -129,6 +130,10 @@ namespace Komodex.DACP
         {
             get
             {
+                // If there are no other AirPlay speakers enabled, just return the server volume
+                if (!Server.Speakers.Any(s => s != this && s.Active))
+                    return Server.Volume;
+
                 if (Server.Volume == 100)
                     return Volume;
 

@@ -151,7 +151,7 @@ namespace Komodex.DACP
         public void AirPlaySpeakerManipulationStarted(AirPlaySpeaker speaker)
         {
             AirPlaySpeaker otherSpeaker = (from s in Speakers
-                                           where s != speaker
+                                           where s != speaker && s.Active
                                            orderby s.BindableVolume descending
                                            select s).FirstOrDefault();
 
