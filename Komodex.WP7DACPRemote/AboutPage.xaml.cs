@@ -36,6 +36,9 @@ namespace Komodex.WP7DACPRemote
             tbAppVersion.Text = "Version: " + Utility.GetApplicationVersion();
 #if DEBUG
             tbAppVersion.Text += " (Debug)";
+
+            copy1.Visibility = Visibility.Collapsed;
+            copy2.Visibility = Visibility.Collapsed;
 #endif
 
             // iTunes information

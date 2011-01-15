@@ -25,7 +25,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="REMOTE" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text=" " Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
@@ -96,22 +96,26 @@
                 </Grid>
             </StackPanel>
 
-            <Button Grid.Row="4" Template="{StaticResource EmptyButton}" Margin="12,0,12,24" Click="btnLogo_Click">
-                <Grid Height="65" Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Rectangle Fill="{StaticResource PhoneAccentBrush}" Width="12" />
-                    <Rectangle Grid.Column="1" Fill="{StaticResource PhoneForegroundBrush}" Margin="12,0" Width="188">
-                        <Rectangle.OpacityMask>
-                            <ImageBrush ImageSource="/Komodex.WP7DACPRemote;component/Images/komodex-logo-65px.png" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="http://komodex.com" Style="{StaticResource PhoneTextBlockBase}" />
-                </Grid>
-            </Button>
+            <StackPanel Grid.Row="4" Margin="0,0,0,12">
+                <Button Template="{StaticResource EmptyButton}" Margin="12,0,12,12" Click="btnLogo_Click">
+                    <Grid Height="65" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Fill="{StaticResource PhoneAccentBrush}" Width="12" />
+                        <Rectangle Grid.Column="1" Fill="{StaticResource PhoneForegroundBrush}" Margin="12,0" Width="188">
+                            <Rectangle.OpacityMask>
+                                <ImageBrush ImageSource="/Komodex.WP7DACPRemote;component/Images/komodex-logo-65px.png" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="http://komodex.com" Style="{StaticResource PhoneTextBlockBase}" />
+                    </Grid>
+                </Button>
+                <TextBlock Name="copy1" FontSize="16" Style="{StaticResource PhoneTextSmallStyle}" Text="Copyright 2011 Komodex Systems LLC. All rights reserved." />
+                <TextBlock Name="copy2" FontSize="16" Style="{StaticResource PhoneTextSmallStyle}" Text="All trademarks are the property of their respective owners." />
+            </StackPanel>
         </Grid>
     </Grid>
 
