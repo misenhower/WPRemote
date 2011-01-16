@@ -7,7 +7,8 @@
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}">
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="500" d:DesignWidth="480">
     
     <Grid x:Name="LayoutRoot" Background="Transparent" >
         <Grid.RowDefinitions>
@@ -15,8 +16,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Border Background="{StaticResource PhoneBackgroundBrush}" Opacity="0.85" Grid.RowSpan="2" />
-        <StackPanel HorizontalAlignment="Center" Name="stackPanel1" VerticalAlignment="Center">
-            <ProgressBar Height="4" Name="progressBar1" Width="460" IsIndeterminate="{Binding ShowProgressBar}" Visibility="{Binding ShowProgressBar, Converter={StaticResource booleanToVisibilityConverter}}" Style="{StaticResource PerformanceProgressBar}" />
+        <StackPanel VerticalAlignment="Center">
+            <ProgressBar Margin="0" Padding="0"
+                         IsIndeterminate="{Binding ShowProgressBar}"
+                         Visibility="{Binding ShowProgressBar, Converter={StaticResource booleanToVisibilityConverter}}"
+                         Style="{StaticResource PerformanceProgressBar}" />
             <TextBlock Name="tbLibraryConnectionText" Text="Connecting to Library" TextAlignment="Center" TextWrapping="Wrap" />
             <TextBlock Name="tbLibraryName" Style="{StaticResource PhoneTextAccentStyle}" TextAlignment="Center" />
         </StackPanel>
