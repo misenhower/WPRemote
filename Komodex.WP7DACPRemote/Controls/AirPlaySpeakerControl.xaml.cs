@@ -21,11 +21,12 @@ namespace Komodex.WP7DACPRemote.Controls
             InitializeComponent();
         }
 
-        public AirPlaySpeakerControl(AirPlaySpeaker speaker)
+        public AirPlaySpeakerControl(AirPlaySpeaker speaker, bool singleSelect)
             : this()
         {
             AirPlaySpeaker = speaker;
             UpdateVisualState(false);
+            SetSingleSelectMode(singleSelect, false);
             AirPlaySpeaker.PropertyChanged += new PropertyChangedEventHandler(AirPlaySpeaker_PropertyChanged);
         }
 
@@ -41,6 +42,11 @@ namespace Komodex.WP7DACPRemote.Controls
         {
             get { return DataContext as AirPlaySpeaker; }
             set { DataContext = value; }
+        }
+
+        public bool SingleSelectionMode
+        {
+            set { SetSingleSelectMode(value, true); }
         }
 
         #endregion
@@ -78,6 +84,14 @@ namespace Komodex.WP7DACPRemote.Controls
                 VisualStateManager.GoToState(this, "SpeakerActiveState", useTransitions);
             else
                 VisualStateManager.GoToState(this, "SpeakerInactiveState", useTransitions);
+        }
+
+        protected void SetSingleSelectMode(bool singleSelect, bool useTransitions = true)
+        {
+            if (singleSelect)
+                VisualStateManager.GoToState(this, "SingleSelectMode", useTransitions);
+            else
+                VisualStateManager.GoToState(this, "MultiSelectMode", useTransitions);
         }
 
         #endregion

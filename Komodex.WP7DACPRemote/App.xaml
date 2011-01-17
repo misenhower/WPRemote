@@ -164,6 +164,15 @@
                 </Rectangle>
             </Canvas>
         </ControlTemplate>
+        <ControlTemplate x:Key="AirPlayCheckedIcon" TargetType="ContentControl">
+            <Canvas Width="24" Height="21">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="24" Height="21" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/airplay.checked.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
 
         <!-- Converters -->
         <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />

@@ -47,7 +47,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
         private void AddSpeaker(AirPlaySpeaker speaker)
         {
-            AirPlaySpeakerControl speakerControl = new AirPlaySpeakerControl(speaker);
+            AirPlaySpeakerControl speakerControl = new AirPlaySpeakerControl(speaker, false);
             SpeakerControls.Add(speaker, speakerControl);
             AirPlaySpeakerStackPanel.Children.Add(speakerControl);
         }

@@ -169,22 +169,22 @@
                 <VisualStateGroup.Transitions>
                     <VisualTransition GeneratedDuration="0:0:0.2"/>
                     <VisualTransition From="SpeakerInactiveState" GeneratedDuration="0:0:0.2" To="SpeakerActiveState">
-                    	<Storyboard>
-                    		<DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid1">
-                    			<DoubleAnimation.EasingFunction>
-                    				<CircleEase EasingMode="EaseInOut"/>
-                    			</DoubleAnimation.EasingFunction>
-                    		</DoubleAnimation>
-                    	</Storyboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid1">
+                                <DoubleAnimation.EasingFunction>
+                                    <CircleEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
                     </VisualTransition>
                     <VisualTransition From="SpeakerActiveState" GeneratedDuration="0:0:0.2" To="SpeakerInactiveState">
-                    	<Storyboard>
-                    		<DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid1">
-                    			<DoubleAnimation.EasingFunction>
-                    				<CircleEase EasingMode="EaseInOut"/>
-                    			</DoubleAnimation.EasingFunction>
-                    		</DoubleAnimation>
-                    	</Storyboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid1">
+                                <DoubleAnimation.EasingFunction>
+                                    <CircleEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
                     </VisualTransition>
                 </VisualStateGroup.Transitions>
                 <VisualState x:Name="SpeakerInactiveState">
@@ -209,9 +209,47 @@
                 </VisualState>
                 <VisualState x:Name="SpeakerActiveState"/>
             </VisualStateGroup>
+            <VisualStateGroup x:Name="SelectionModes">
+                <VisualState x:Name="SingleSelectMode">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ActiveCheckBox">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid1">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="grid">
+                        	<DiscreteObjectKeyFrame KeyTime="0">
+                        		<DiscreteObjectKeyFrame.Value>
+                        			<Thickness>24,6,0,12</Thickness>
+                        		</DiscreteObjectKeyFrame.Value>
+                        	</DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="MultiSelectMode">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="border">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Border Margin="12,6,0,12" Background="Transparent" d:DataContext="{Binding Speakers[0]}">
-            <Grid x:Name="grid" VerticalAlignment="Top">
+        <Button Template="{StaticResource EmptyButton}" Background="Transparent" d:DataContext="{Binding Speakers[1]}">
+            <Grid x:Name="grid" VerticalAlignment="Top" Margin="12,6,0,12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -220,6 +258,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <CheckBox x:Name="ActiveCheckBox"
                               IsChecked="{Binding BindableActive, Mode=TwoWay}"
@@ -227,6 +266,12 @@
                               Grid.RowSpan="2" VerticalAlignment="Top"
                               Style="{StaticResource AirPlayCheckBoxStyle}"
                               Click="AirPlaySpeakerCheckBox_Click" Margin="0,0,0,-42" />
+                <Border x:Name="border" Grid.Column="3">
+                    <ContentControl VerticalAlignment="Center"
+                                    Margin="6,0,12,0"
+                                    Template="{StaticResource AirPlayCheckedIcon}"
+                                    Visibility="{Binding BindableActive, Converter={StaticResource booleanToVisibilityConverter}}" />
+                </Border>
                 <ContentControl Grid.Column="1" VerticalAlignment="Center"
                                 Margin="0,5,6,0"
                                 Template="{StaticResource AirPlaySpeakerIcon}"
@@ -248,7 +293,7 @@
                                     Template="{StaticResource AirPlayHasPasswordIcon}"
                                     Visibility="{Binding HasPassword, Converter={StaticResource booleanToVisibilityConverter}}" />
                 </Grid>
-                <Grid x:Name="grid1" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="48" VerticalAlignment="Top" Margin="0,0,36,0">
+                <Grid x:Name="grid1" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Height="48" VerticalAlignment="Top" Margin="0,0,36,0">
                     <Slider x:Name="slider"
                         Height="48" VerticalAlignment="Top" Width="376" Margin="-24,0"
                         Tag="{Binding BindsDirectlyToSource=True}"
@@ -260,6 +305,6 @@
                         ManipulationCompleted="Slider_ManipulationCompleted" />
                 </Grid>
             </Grid>
-        </Border>
+        </Button>
     </Grid>
 </UserControl>
