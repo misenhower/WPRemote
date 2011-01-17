@@ -335,6 +335,23 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Media Kind
+
+        private int _CurrentMediaKind = 0;
+        public int CurrentMediaKind
+        {
+            get { return _CurrentMediaKind; }
+            set
+            {
+                if (_CurrentMediaKind == value)
+                    return;
+                _CurrentMediaKind = value;
+                SendPropertyChanged("CurrentMediaKind");
+            }
+        }
+
+        #endregion
+
         #region Program Status
 
         private PlayStates _PlayState = PlayStates.Stopped;

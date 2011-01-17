@@ -337,6 +337,7 @@ namespace Komodex.DACP
             string newAlbum = null;
             int newTrackTimeTotal = 0;
             int? newTrackTimeRemaining = null;
+            int newMediaKind = 0;
 
             foreach (var kvp in requestInfo.ResponseNodes)
             {
@@ -371,6 +372,9 @@ namespace Komodex.DACP
                     case "cant": // Remaining track length (ms)
                         newTrackTimeRemaining = kvp.Value.GetInt32Value();
                         break;
+                    case "cmmk": // Media kind
+                        newMediaKind = kvp.Value.GetInt32Value();
+                        break;
                     default:
                         break;
                 }
@@ -382,6 +386,7 @@ namespace Komodex.DACP
             CurrentAlbum = newAlbum;
             TrackTimeTotal = newTrackTimeTotal;
             TrackTimeRemaining = newTrackTimeRemaining ?? newTrackTimeTotal;
+            CurrentMediaKind = newMediaKind;
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {

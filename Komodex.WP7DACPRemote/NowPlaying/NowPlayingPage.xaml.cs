@@ -58,6 +58,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             base.OnNavigatedTo(e);
             HideRepeatShuffleControls(false);
             UpdateRepeatShuffleButtons();
+            UpdateMediaKind();
 
             GestureListener.IgnoreTouchFrameReported = true;
 
@@ -121,15 +122,25 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         {
             base.DACPServer_PropertyChanged(sender, e);
 
-            if (e.PropertyName == "ShuffleState" || e.PropertyName == "RepeatState")
-                UpdateRepeatShuffleButtons();
-
-            if (e.PropertyName == "PlayState" || e.PropertyName == "CurrentSongName")
+            switch (e.PropertyName)
             {
-                goBackTimer.Stop();
-                if (ShouldGoBack())
-                    goBackTimer.Start();
+                case "ShuffleState":
+                case "RepeatState":
+                    UpdateRepeatShuffleButtons();
+                    break;
+                case "PlayState":
+                case "CurrentSongName":
+                    goBackTimer.Stop();
+                    if (ShouldGoBack())
+                        goBackTimer.Start();
+                    break;
+                case "CurrentMediaKind":
+                    UpdateMediaKind();
+                    break;
+                default:
+                    break;
             }
+
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -311,6 +322,14 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                 if (ApplicationBar.MenuItems.Contains(AirPlayMenuItem))
                     ApplicationBar.MenuItems.Remove(AirPlayMenuItem);
             }
+        }
+
+        protected void UpdateMediaKind()
+        {
+            if (DACPServer == null)
+                return;
+
+            btnArtist.IsEnabled = (DACPServer.CurrentMediaKind == 1);
         }
 
         #endregion

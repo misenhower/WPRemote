@@ -159,7 +159,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="72" />
                 </Grid.RowDefinitions>
-                <Button Margin="0,0,0,10" Style="{StaticResource BorderlessButtonStyle}" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Bottom" Click="btnArtist_Click">
+                <Button Name="btnArtist" Margin="0,0,0,10" Style="{StaticResource BorderlessButtonStyle}" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Bottom" Click="btnArtist_Click">
                     <StackPanel>
                         <TextBlock Text="{Binding CurrentArtist}"
                                TextWrapping="Wrap" MaxHeight="132"
