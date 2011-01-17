@@ -138,6 +138,14 @@ namespace Komodex.DACP
 
         #region Set Active Speakers
 
+        internal void SetSingleActiveSpeaker(AirPlaySpeaker speaker)
+        {
+            string url = "/ctrl-int/1/setspeakers"
+                + "?speaker-id=0x" + speaker.ID.ToString("x")
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSetActiveSpeakersResponse), true, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandleSetActiveSpeakersException));
+        }
+
         internal void SubmitSetActiveSpeakersRequest()
         {
             string speakers = string.Join(",", Speakers.Where(s => s.Active).Select(s => "0x" + s.ID.ToString("x")).ToArray());

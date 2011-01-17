@@ -248,7 +248,8 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Button Template="{StaticResource EmptyButton}" Background="Transparent" d:DataContext="{Binding Speakers[1]}">
+        <Button Template="{StaticResource EmptyButton}" Background="Transparent" d:DataContext="{Binding Speakers[1]}"
+                Name="SpeakerButton" Click="SpeakerButton_Click">
             <Border Background="Transparent">
                 <Grid x:Name="grid" VerticalAlignment="Top" Margin="12,6,0,12">
                     <Grid.RowDefinitions>

@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
 using System.ComponentModel;
+using Microsoft.Unsupported;
 
 namespace Komodex.WP7DACPRemote.Controls
 {
@@ -44,8 +45,10 @@ namespace Komodex.WP7DACPRemote.Controls
             set { DataContext = value; }
         }
 
+        private bool _SingleSelectMode = false;
         public bool SingleSelectionMode
         {
+            get { return _SingleSelectMode; }
             set { SetSingleSelectMode(value, true); }
         }
 
@@ -73,6 +76,18 @@ namespace Komodex.WP7DACPRemote.Controls
 
         #endregion
 
+        #region Actions
+
+        private void SpeakerButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!SingleSelectionMode)
+                return;
+
+            AirPlaySpeaker.SetSingleActiveSpeaker();
+        }
+
+        #endregion
+
         #region Methods
 
         protected void UpdateVisualState(bool useTransitions = true)
@@ -92,6 +107,10 @@ namespace Komodex.WP7DACPRemote.Controls
                 VisualStateManager.GoToState(this, "SingleSelectMode", useTransitions);
             else
                 VisualStateManager.GoToState(this, "MultiSelectMode", useTransitions);
+
+            TiltEffect.SetSuppressTilt(SpeakerButton, !singleSelect);
+
+            _SingleSelectMode = singleSelect;
         }
 
         #endregion

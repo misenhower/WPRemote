@@ -205,6 +205,11 @@ namespace Komodex.DACP
             SendPropertyChanged("BindableVolume");
         }
 
+        public void SetSingleActiveSpeaker()
+        {
+            Server.SetSingleActiveSpeaker(this);
+        }
+
         #endregion
 
         #region Notify Property Changed
