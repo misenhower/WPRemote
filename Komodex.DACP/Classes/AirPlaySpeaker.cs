@@ -64,6 +64,20 @@ namespace Komodex.DACP
             }
         }
 
+        private bool _HasVideo = false;
+        public bool HasVideo
+        {
+            get { return _HasVideo; }
+            set
+            {
+                if (_HasVideo == value)
+                    return;
+                _HasVideo = value;
+                SendPropertyChanged("HasVideo");
+            }
+        }
+
+
         private bool _Active = false;
         public bool Active
         {
