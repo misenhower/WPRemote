@@ -218,6 +218,7 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <CheckBox x:Name="ActiveCheckBox"
@@ -226,10 +227,28 @@
                               Grid.RowSpan="2" VerticalAlignment="Top"
                               Style="{StaticResource AirPlayCheckBoxStyle}"
                               Click="AirPlaySpeakerCheckBox_Click" Margin="0,0,0,-42" />
-                <TextBlock Grid.Column="1" Text="{Binding Name}"
+                <ContentControl Grid.Column="1" VerticalAlignment="Center"
+                                Margin="0,5,6,0"
+                                Template="{StaticResource AirPlaySpeakerIcon}"
+                                Visibility="{Binding HasVideo, Converter={StaticResource booleanToVisibilityConverter}, ConverterParameter=true}" />
+                <ContentControl Grid.Column="1" VerticalAlignment="Center"
+                                Margin="0,5,6,0"
+                                Template="{StaticResource AirPlayHasVideoIcon}"
+                                Visibility="{Binding HasVideo, Converter={StaticResource booleanToVisibilityConverter}}" />
+                <Grid Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Name}"
                                Margin="6,10,0,6"
                                FontWeight="Bold" FontSize="{StaticResource PhoneFontSizeMediumLarge}" />
-                <Grid x:Name="grid1" Grid.Row="1" Grid.Column="2" Height="48" VerticalAlignment="Top" Margin="0,0,36,0">
+                    <ContentControl Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                    Margin="6,3,12,0"
+                                    Template="{StaticResource AirPlayHasPasswordIcon}"
+                                    Visibility="{Binding HasPassword, Converter={StaticResource booleanToVisibilityConverter}}" />
+                </Grid>
+                <Grid x:Name="grid1" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="48" VerticalAlignment="Top" Margin="0,0,36,0">
                     <Slider x:Name="slider"
                         Height="48" VerticalAlignment="Top" Width="376" Margin="-24,0"
                         Tag="{Binding BindsDirectlyToSource=True}"

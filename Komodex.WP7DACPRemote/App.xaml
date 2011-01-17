@@ -137,6 +137,34 @@
             </Canvas>
         </ControlTemplate>
 
+        <ControlTemplate x:Key="AirPlayHasPasswordIcon" TargetType="ContentControl">
+            <Canvas Width="14" Height="18">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="14" Height="18" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/airplay.haspassword.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
+        <ControlTemplate x:Key="AirPlaySpeakerIcon" TargetType="ContentControl">
+            <Canvas Width="31" Height="26">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="31" Height="26" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/airplay.speaker.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
+        <ControlTemplate x:Key="AirPlayHasVideoIcon" TargetType="ContentControl">
+            <Canvas Width="31" Height="26">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="31" Height="26" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/airplay.hasvideo.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
+
         <!-- Converters -->
         <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <converters:BooleanToAccentBrushConverter x:Name="booleanToAccentBrushConverter" />
