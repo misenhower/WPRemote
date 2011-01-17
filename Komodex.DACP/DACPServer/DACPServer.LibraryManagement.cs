@@ -314,24 +314,26 @@ namespace Komodex.DACP
 
         protected void ProcessTVShowsResponse(HTTPRequestInfo requestInfo)
         {
+            ObservableCollection<VideoMediaItem> tvShows = new ObservableCollection<VideoMediaItem>();
+
             foreach (var kvp in requestInfo.ResponseNodes)
             {
                 switch (kvp.Key)
                 {
                     case "mlcl":
-                        ObservableCollection<VideoMediaItem> tvShows = new ObservableCollection<VideoMediaItem>();
+                        tvShows.Clear();
 
                         var tvShowNodes = Utility.GetResponseNodes(kvp.Value);
                         foreach (var tvShowData in tvShowNodes)
                             tvShows.Add(new VideoMediaItem(this, tvShowData.Value));
 
-                        LibraryTVShows = tvShows;
                         break;
                     default:
                         break;
                 }
             }
 
+            LibraryTVShows = tvShows;
             retrievingTVShows = false;
         }
 

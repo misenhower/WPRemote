@@ -32,15 +32,15 @@ namespace Komodex.DACP
 
         public static GroupedItems<T> HandleResponseNodes(List<KeyValuePair<string, byte[]>> responseNodes, Func<byte[],T> itemGenerator)
         {
-            List<T> items = null;
-            List<KeyValuePair<string, byte[]>> headers = null;
+            List<T> items = new List<T>();
+            List<KeyValuePair<string, byte[]>> headers = new List<KeyValuePair<string, byte[]>>();
 
             foreach (var kvp in responseNodes)
             {
                 switch (kvp.Key)
                 {
                     case "mlcl": // Items list
-                        items = new List<T>();
+                        items.Clear();
                         var itemNodes = Utility.GetResponseNodes(kvp.Value);
                         foreach (var itemData in itemNodes)
                             items.Add(itemGenerator(itemData.Value));
