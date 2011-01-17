@@ -58,7 +58,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     
-                    <ContentControl Template="{StaticResource SearchIconButton}" />
+                    <ContentControl Template="{StaticResource VideoIconButton}" />
                     <TextBlock Text="videos" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                 </Grid>
             </Button>
@@ -69,7 +69,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <ContentControl Template="{StaticResource SearchIconButton}" />
+                    <ContentControl Template="{StaticResource PodcastIconButton}" />
                     <TextBlock Text="podcasts" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                 </Grid>
             </Button>
