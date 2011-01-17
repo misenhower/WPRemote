@@ -11,6 +11,7 @@
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
     xmlns:msun="clr-namespace:Microsoft.Unsupported"
+    Loaded="DACPServerBoundPhoneApplicationPage_Loaded"
     msun:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"

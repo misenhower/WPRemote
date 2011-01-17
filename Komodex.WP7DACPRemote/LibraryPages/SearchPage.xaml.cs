@@ -29,6 +29,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             searchTimer.Tick += new EventHandler(searchTimer_Tick);
         }
 
+        private void DACPServerBoundPhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            tbSearchString.Focus();
+        }
+
         protected DispatcherTimer searchTimer = new DispatcherTimer();
 
         #region Overrides
