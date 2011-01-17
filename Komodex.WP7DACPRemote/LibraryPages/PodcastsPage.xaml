@@ -58,6 +58,9 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,0,0">
+            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
+                               Text="No podcasts were found in your iTunes library."
+                               Visibility="{Binding Path=LibraryPodcasts, Converter={StaticResource noListItemsVisibilityConverter}}" />
             <toolkit:LongListSelector x:Name="lbPodcasts" Background="Transparent" ItemsSource="{Binding LibraryPodcasts}"
                                               Margin="0,0,-12,0"
                                               ItemTemplate="{StaticResource PodcastTemplate}"

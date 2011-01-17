@@ -51,7 +51,7 @@
             <controls:PivotItem Name="pivotMovies" Header="movies">
                 <Grid>
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="No movies were found in your iTunes library"
+                               Text="No movies were found in your iTunes library."
                                Visibility="{Binding Path=LibraryMovies, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <toolkit:LongListSelector x:Name="lbMovies" Background="Transparent" ItemsSource="{Binding LibraryMovies}"
                                               Margin="0,0,-12,0"
@@ -73,7 +73,7 @@
             <controls:PivotItem Name="pivotTVShows" Header="tv shows">
                 <Grid>
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="No TV shows were found in your iTunes library"
+                               Text="No TV shows were found in your iTunes library."
                                Visibility="{Binding Path=LibraryTVShows, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <toolkit:LongListSelector x:Name="lbTVShows" Background="Transparent" ItemsSource="{Binding LibraryTVShows}"
                                               Margin="0,0,-12,0"
