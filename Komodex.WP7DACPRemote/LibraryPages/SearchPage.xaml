@@ -36,6 +36,9 @@
                 </Border>
             </my:FakeButton>
         </DataTemplate>
+        <DataTemplate x:Key="ListHeader">
+            <Border Height="1" />
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -52,6 +55,7 @@
             </StackPanel>
             <toolkit:LongListSelector x:Name="lbSearchResults" Background="Transparent" Grid.Row="1"
                 Margin="0,0,-12,0"
+                ListHeaderTemplate="{StaticResource ListHeader}"
                 ItemTemplate="{StaticResource ArtistTemplate}"
                 GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
                 GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
