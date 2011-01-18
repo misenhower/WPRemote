@@ -347,6 +347,25 @@ namespace Komodex.DACP
                     return;
                 _CurrentMediaKind = value;
                 SendPropertyChanged("CurrentMediaKind");
+                SendPropertyChanged("IsCurrentlyPlayingVideo");
+            }
+        }
+
+        public bool IsCurrentlyPlayingVideo
+        {
+            get
+            {
+                switch (CurrentMediaKind)
+                {
+                    case 2: // Movie
+                    case 32: // Music video
+                    case 6: // Podcast (video)
+                    case 36: // Podcast (video)
+                    case 2097154: // iTunes U (video)
+                        return true;
+                    default:
+                        return false;
+                }
             }
         }
 
