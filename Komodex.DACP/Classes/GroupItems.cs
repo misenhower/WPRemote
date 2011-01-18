@@ -8,11 +8,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Komodex.DACP
 {
-    public class GroupItems<T> : List<T>
+    public class GroupItems<T> : ObservableCollection<T>
     {
         public GroupItems(string key)
         {

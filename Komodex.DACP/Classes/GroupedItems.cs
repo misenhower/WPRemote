@@ -88,7 +88,10 @@ namespace Komodex.DACP
                     }
                 }
 
-                result.itemLookup[headerChar].AddRange(items.Skip(skip).Take(take));
+                var itemSubset = items.Skip(skip).Take(take);
+                var itemCollection = result.itemLookup[headerChar];
+                foreach (var item in itemSubset)
+                    itemCollection.Add(item);
             }
 
             return result;

@@ -113,7 +113,8 @@ namespace Komodex.DACP
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                resultSet[0] = albums;
+                foreach (var item in albums)
+                    resultSet[0].Add(item);
             });
         }
 
@@ -160,7 +161,8 @@ namespace Komodex.DACP
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                resultSet[1] = artists;
+                foreach (var item in artists)
+                    resultSet[1].Add(item);
             });
         }
 
@@ -206,8 +208,8 @@ namespace Komodex.DACP
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                resultSet[2] = songs;
-                resultSet.SongGroup = songs;
+                foreach (var item in songs)
+                    resultSet[2].Add(item);
             });
         }
 
