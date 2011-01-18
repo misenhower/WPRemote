@@ -34,6 +34,7 @@ namespace Komodex.DACP
                 searchResults.Add(SubmitAlbumSearchRequest(escapedSearchString));
                 searchResults.Add(SubmitArtistSearchRequest(escapedSearchString));
                 searchResults.Add(SubmitSongSearchRequest(escapedSearchString));
+                searchResults.Add(SubmitMovieSearchRequest(escapedSearchString));
             }
 
             return searchResults;
@@ -143,6 +144,36 @@ namespace Komodex.DACP
                 return;
 
             ProcessSearchResponse(requestInfo, bytes => new MediaItem(this, bytes));
+        }
+
+        #endregion
+
+        #region Movies
+
+        protected SearchResultSet SubmitMovieSearchRequest(string escapedSearchString)
+        {
+            string queryString = "('dmap.itemname:*" + escapedSearchString + "*'+'com.apple.itunes.mediakind:2')";
+
+            SearchResultSet movieResults = new SearchResultSet(this, "movies", queryString);
+
+            string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylist.ID + "/items"
+                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songtime,com.apple.itunes.content-rating"
+                + "&type=music"
+                + "&sort=name"
+                + "&include-sort-headers=1"
+                + "&query="+queryString
+                + "&session-id=" + SessionID;
+            currentSearchRequests.Add(SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessMovieSearchResponse), true, r => r.ActionObject = movieResults));
+
+            return movieResults;
+        }
+
+        protected void ProcessMovieSearchResponse(HTTPRequestInfo requestInfo)
+        {
+            if (!currentSearchRequests.Contains(requestInfo))
+                return;
+
+            ProcessSearchResponse(requestInfo, bytes => new VideoMediaItem(this, bytes));
         }
 
         #endregion
