@@ -135,6 +135,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 Artist artist = (Artist)selectedItem;
                 NavigationManager.OpenArtistPage(artist.Name);
             }
+            else if (selectedItem is Podcast)
+            {
+                Podcast podcast = (Podcast)selectedItem;
+                NavigationManager.OpenPodcastPage(podcast.ID, podcast.Name, podcast.PersistentID);
+            }
             else if (selectedItem is MediaItem)
             {
                 MediaItem mediaItem = (MediaItem)selectedItem;

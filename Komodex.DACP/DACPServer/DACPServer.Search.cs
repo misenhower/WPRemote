@@ -35,6 +35,7 @@ namespace Komodex.DACP
                 searchResults.Add(SubmitArtistSearchRequest(escapedSearchString));
                 searchResults.Add(SubmitSongSearchRequest(escapedSearchString));
                 searchResults.Add(SubmitMovieSearchRequest(escapedSearchString));
+                searchResults.Add(SubmitPodcastSearchRequest(escapedSearchString));
             }
 
             return searchResults;
@@ -174,6 +175,35 @@ namespace Komodex.DACP
                 return;
 
             ProcessSearchResponse(requestInfo, bytes => new VideoMediaItem(this, bytes));
+        }
+
+        #endregion
+
+        #region Podcasts
+
+        protected SearchResultSet SubmitPodcastSearchRequest(string escapedSearchString)
+        {
+            SearchResultSet podcastResults = new SearchResultSet(this, "podcasts");
+
+            string url = "/databases/" + DatabaseID + "/groups"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songtime,daap.songhasbeenplayed,daap.songdatereleased,daap.sortartist,daap.songcontentdescription"
+                + "&type=music"
+                + "&group-type=albums"
+                + "&sort=album"
+                + "&include-sort-headers=1"
+                + "&query=('daap.songalbum:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:4','com.apple.itunes.mediakind:36','com.apple.itunes.mediakind:6','com.apple.itunes.mediakind:7')+'daap.songalbum!:')"
+                + "&session-id=" + SessionID;
+            currentSearchRequests.Add(SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPodcastSearchResponse), true, r => r.ActionObject = podcastResults));
+
+            return podcastResults;
+        }
+
+        protected void ProcessPodcastSearchResponse(HTTPRequestInfo requestInfo)
+        {
+            if (!currentSearchRequests.Contains(requestInfo))
+                return;
+
+            ProcessSearchResponse(requestInfo, bytes => new Podcast(this, bytes));
         }
 
         #endregion
