@@ -109,6 +109,7 @@ namespace Komodex.DACP
             UseDelayedResponseRequests = useDelayedResponseRequests;
             playStatusRevisionNumber = 1;
             ignoringTrackTimeChanges = false;
+            ignoringVolumeChanges = false;
             sendTrackTimeChangeWhenFinished = -1;
 
             Stopped = false;

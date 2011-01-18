@@ -123,16 +123,18 @@ namespace Komodex.DACP
         }
 
         private string _CurrentArtist = null;
-        public string CurrentArtist {
+        public string CurrentArtist
+        {
             get { return _CurrentArtist; }
-            protected set {
+            protected set
+            {
                 if (_CurrentArtist == value)
                     return;
                 _CurrentArtist = value;
                 SendPropertyChanged("CurrentArtist");
             }
         }
-        
+
         private string _CurrentAlbum = null;
         public string CurrentAlbum
         {
@@ -419,6 +421,9 @@ namespace Komodex.DACP
             }
         }
 
+        private bool ignoringVolumeChanges = false;
+        private int sendVolumeChangeWhenFinished = -1;
+
         private int _Volume = 0;
         public int Volume
         {
@@ -436,7 +441,11 @@ namespace Komodex.DACP
                     _Volume = value;
 
                 SendVolumePropertyChanged();
-                SendVolumeUpdate();
+
+                if (ignoringVolumeChanges)
+                    sendVolumeChangeWhenFinished = _Volume;
+                else
+                    SendVolumeUpdate(_Volume);
             }
         }
 
@@ -451,10 +460,23 @@ namespace Komodex.DACP
                 speaker.UpdateBindableVolume();
         }
 
-        protected void SendVolumeUpdate()
+        protected void SendVolumeUpdate(int newVolume)
         {
-            string url = "/ctrl-int/1/setproperty?dmcp.volume=" + _Volume + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            ignoringVolumeChanges = true;
+            string url = "/ctrl-int/1/setproperty?dmcp.volume=" + newVolume + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSendVolumeUpdateResponse));
+        }
+
+        protected void ProcessSendVolumeUpdateResponse(HTTPRequestInfo requestInfo)
+        {
+            if (sendVolumeChangeWhenFinished >= 0)
+            {
+                int newVolume = sendVolumeChangeWhenFinished;
+                sendVolumeChangeWhenFinished = -1;
+                SendVolumeUpdate(newVolume);
+            }
+            else
+                ignoringVolumeChanges = false;
         }
 
         #endregion
