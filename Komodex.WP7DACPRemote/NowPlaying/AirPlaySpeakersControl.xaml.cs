@@ -31,6 +31,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             UpdateIsPlayingVideo();
             Server.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
             Server.Speakers.CollectionChanged += new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
+            Server.AirPlaySpeakerUpdate += new EventHandler(Server_AirPlaySpeakerUpdate);
         }
 
         DACPServer Server = null;
@@ -64,6 +65,11 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                 default:
                     break;
             }
+        }
+
+        void Server_AirPlaySpeakerUpdate(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvoke(() => UpdateMasterVolumeSlider());
         }
 
         void Speakers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -136,6 +142,22 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                 else
                     speaker.Value.Visibility = System.Windows.Visibility.Visible;
             }
+
+            UpdateMasterVolumeSlider();
+        }
+
+        private void UpdateMasterVolumeSlider()
+        {
+            bool enableMasterVolume = true;
+
+            if (Server.IsCurrentlyPlayingVideo)
+            {
+                var mainSpeaker = Server.Speakers.FirstOrDefault(s => s.ID == 0);
+                if (mainSpeaker != null)
+                    enableMasterVolume = mainSpeaker.Active;
+            }
+
+            MasterVolumeSlider.IsEnabled = enableMasterVolume;
         }
 
         #endregion

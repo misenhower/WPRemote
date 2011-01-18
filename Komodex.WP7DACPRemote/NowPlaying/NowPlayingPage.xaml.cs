@@ -322,6 +322,22 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                 if (ApplicationBar.MenuItems.Contains(AirPlayMenuItem))
                     ApplicationBar.MenuItems.Remove(AirPlayMenuItem);
             }
+
+            UpdateMasterVolumeSlider();
+        }
+
+        protected void UpdateMasterVolumeSlider()
+        {
+            bool enableMasterVolume = true;
+
+            if (DACPServer.IsCurrentlyPlayingVideo)
+            {
+                var mainSpeaker = DACPServer.Speakers.FirstOrDefault(s => s.ID == 0);
+                if (mainSpeaker != null)
+                    enableMasterVolume = mainSpeaker.Active;
+            }
+
+            MasterVolumeSlider.IsEnabled = enableMasterVolume;
         }
 
         protected void UpdateMediaKind()
@@ -330,6 +346,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                 return;
 
             btnArtist.IsEnabled = (DACPServer.CurrentMediaKind == 1);
+            UpdateMasterVolumeSlider();
         }
 
         #endregion
