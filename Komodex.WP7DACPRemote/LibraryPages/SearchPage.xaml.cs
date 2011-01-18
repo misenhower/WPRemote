@@ -14,6 +14,7 @@ using System.Windows.Threading;
 using Komodex.DACP.Library;
 using Clarity.Phone.Controls.Animations;
 using Komodex.DACP;
+using System.Collections.ObjectModel;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -136,11 +137,17 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
             else if (selectedItem is MediaItem)
             {
-                MediaItem song = (MediaItem)selectedItem;
-                SearchResultSet resultSet = (SearchResultSet)listBox.ItemsSource;
-                resultSet.SendPlaySongCommand(song);
-                listBox.SelectedItem = null;
-                NavigationManager.OpenNowPlayingPage();
+                MediaItem mediaItem = (MediaItem)selectedItem;
+
+                // Find the SearchResultSet object that contains this MediaItem
+                var searchResults = (ObservableCollection<SearchResultSet>)listBox.ItemsSource;
+                SearchResultSet resultSet = searchResults.FirstOrDefault(rs => rs.Contains(mediaItem));
+                if (resultSet != null)
+                {
+                    resultSet.SendPlayItemCommand(mediaItem);
+                    listBox.SelectedItem = null;
+                    NavigationManager.OpenNowPlayingPage();
+                }
             }
         }
 

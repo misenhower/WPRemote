@@ -12,48 +12,39 @@ using System.Collections.ObjectModel;
 
 namespace Komodex.DACP.Library
 {
-    public class SearchResultSet : ObservableCollection<GroupItems<ILibraryElement>>
+    public class SearchResultSet : GroupItems<ILibraryElement>
     {
-        public SearchResultSet(DACPServer server, string searchString)
+        public SearchResultSet(DACPServer server, string headerText, string queryString = null)
+            : base(headerText)
         {
             Server = server;
-            SearchString = searchString;
+            QueryString = queryString;
         }
 
         #region Properties
 
         public DACPServer Server { get; protected set; }
-        public string SearchString { get; protected set; }
-
-        private GroupItems<ILibraryElement> _SongGroup = null;
-        public GroupItems<ILibraryElement> SongGroup
-        {
-            get { return _SongGroup; }
-            set
-            {
-                if (!Contains(value))
-                    throw new ArgumentException("Argument must be contained in the list");
-
-                _SongGroup = value;
-            }
-        }
+        public string QueryString { get; protected set; }
 
         #endregion
 
         #region HTTP Requests and Responses
 
-        #region Play Song Command
+        #region Play Item Command
 
-        public void SendPlaySongCommand(MediaItem song)
+        public void SendPlayItemCommand(MediaItem item)
         {
+            if (string.IsNullOrEmpty(QueryString))
+                return;
+
             try
             {
-                int songIndex = SongGroup.IndexOf(song);
+                int itemIndex = IndexOf(item);
 
                 string url = "/ctrl-int/1/cue"
                     + "?command=play"
-                    + "&query=('dmap.itemname:*" + SearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
-                    + "&index=" + songIndex
+                    + "&query=" + QueryString
+                    + "&index=" + itemIndex
                     + "&sort=name"
                     + "&clear-first=1"
                     + "&session-id=" + Server.SessionID;
