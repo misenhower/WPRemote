@@ -363,6 +363,7 @@ namespace Komodex.DACP
                     case 32: // Music video
                     case 6: // Podcast (video)
                     case 36: // Podcast (video)
+                    case 64: // TV Shows
                     case 2097154: // iTunes U (video)
                         return true;
                     default:
