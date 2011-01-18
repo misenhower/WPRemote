@@ -26,39 +26,43 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         public AirPlaySpeakersControl(DACPServer server)
             : this()
         {
-            Speakers = server.Speakers;
+            Server = server;
             ReloadSpeakerList();
-            Speakers.CollectionChanged += new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
+            UpdateIsPlayingVideo();
+            Server.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
+            Server.Speakers.CollectionChanged += new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
         }
 
-        ObservableCollection<AirPlaySpeaker> Speakers = null;
+        DACPServer Server = null;
         Dictionary<AirPlaySpeaker, AirPlaySpeakerControl> SpeakerControls = new Dictionary<AirPlaySpeaker, AirPlaySpeakerControl>();
 
-        #region List Management
+        #region Properties
 
-        protected void ReloadSpeakerList()
+        private bool _SingleSelectMode = false;
+        public bool SingleSelectMode
         {
-            AirPlaySpeakerStackPanel.Children.Clear();
-            SpeakerControls.Clear();
-
-            foreach (AirPlaySpeaker speaker in Speakers)
-                AddSpeaker(speaker);
-        }
-
-        private void AddSpeaker(AirPlaySpeaker speaker)
-        {
-            AirPlaySpeakerControl speakerControl = new AirPlaySpeakerControl(speaker, false);
-            SpeakerControls.Add(speaker, speakerControl);
-            AirPlaySpeakerStackPanel.Children.Add(speakerControl);
-        }
-
-        private void RemoveSpeaker(AirPlaySpeaker speaker)
-        {
-            if (SpeakerControls.ContainsKey(speaker))
+            get { return _SingleSelectMode; }
+            set
             {
-                AirPlaySpeakerControl speakerControl = SpeakerControls[speaker];
-                if (AirPlaySpeakerStackPanel.Children.Contains(speakerControl))
-                    AirPlaySpeakerStackPanel.Children.Remove(speakerControl);
+                _SingleSelectMode = value;
+                foreach (var speaker in SpeakerControls)
+                    speaker.Value.SingleSelectionMode = value;
+            }
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        void Server_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "IsCurrentlyPlayingVideo":
+                    UpdateIsPlayingVideo();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -83,6 +87,55 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                 }
                 */
             });
+        }
+
+        #endregion
+
+        #region List Management
+
+        protected void ReloadSpeakerList()
+        {
+            AirPlaySpeakerStackPanel.Children.Clear();
+            SpeakerControls.Clear();
+
+            foreach (AirPlaySpeaker speaker in Server.Speakers)
+                AddSpeaker(speaker);
+        }
+
+        private void AddSpeaker(AirPlaySpeaker speaker)
+        {
+            AirPlaySpeakerControl speakerControl = new AirPlaySpeakerControl(speaker, SingleSelectMode);
+            if (Server.IsCurrentlyPlayingVideo && !speaker.HasVideo)
+                speakerControl.Visibility = System.Windows.Visibility.Collapsed;
+            SpeakerControls.Add(speaker, speakerControl);
+            AirPlaySpeakerStackPanel.Children.Add(speakerControl);
+        }
+
+        private void RemoveSpeaker(AirPlaySpeaker speaker)
+        {
+            if (SpeakerControls.ContainsKey(speaker))
+            {
+                AirPlaySpeakerControl speakerControl = SpeakerControls[speaker];
+                if (AirPlaySpeakerStackPanel.Children.Contains(speakerControl))
+                    AirPlaySpeakerStackPanel.Children.Remove(speakerControl);
+            }
+        }
+
+        private void UpdateIsPlayingVideo()
+        {
+            bool isPlayingVideo = Server.IsCurrentlyPlayingVideo;
+
+            // For now, just enable SingleSelectMode when we are playing video
+            // TODO: Handle separately
+            SingleSelectMode = isPlayingVideo;
+
+            foreach (var speaker in SpeakerControls)
+            {
+                if (isPlayingVideo && !speaker.Key.HasVideo)
+                    speaker.Value.Visibility = System.Windows.Visibility.Collapsed;
+                else
+                    speaker.Value.Visibility = System.Windows.Visibility.Visible;
+            }
         }
 
         #endregion
