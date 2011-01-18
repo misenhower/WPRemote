@@ -122,14 +122,14 @@ namespace Komodex.DACP
             Stopped = true;
             IsConnected = false;
 
-            try
+            foreach (HTTPRequestInfo request in PendingHttpRequests)
             {
-                foreach (HTTPRequestInfo request in PendingHttpRequests)
+                try
                 {
                     request.WebRequest.Abort();
                 }
+                catch { }
             }
-            catch { }
 
             PendingHttpRequests.Clear();
         }
