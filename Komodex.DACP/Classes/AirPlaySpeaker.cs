@@ -153,13 +153,27 @@ namespace Komodex.DACP
                 {
                     double volumePercentage = (double)value / (double)Server.Volume;
                     Volume = (int)(volumePercentage * 100);
-                    SendSimpleVolumeUpdate();
+
+                    if (ignoringVolumeChanges)
+                    {
+                        sendVolumeChangeWhenFinished = Volume;
+                        sendExtendedVolumeChangeWhenFinished = false;
+                    }
+                    else
+                        SendSimpleVolumeUpdate(Volume);
 
                 }
                 else
                 {
                     Server.AirPlayMasterVolumeManipulation(value);
-                    SendExtendedVolumeUpdate();
+
+                    if (ignoringVolumeChanges)
+                    {
+                        sendVolumeChangeWhenFinished = Server.Volume;
+                        sendExtendedVolumeChangeWhenFinished = true;
+                    }
+                    else
+                        SendExtendedVolumeUpdate(Server.Volume);
                 }
 
             }
@@ -169,22 +183,44 @@ namespace Komodex.DACP
 
         #region Methods
 
-        protected void SendSimpleVolumeUpdate()
+        private bool ignoringVolumeChanges = false;
+        private int sendVolumeChangeWhenFinished = -1;
+        private bool sendExtendedVolumeChangeWhenFinished = false;
+
+        protected void SendSimpleVolumeUpdate(int newVolume)
         {
+            ignoringVolumeChanges = true;
             string url = "/ctrl-int/1/setproperty"
                 + "?speaker-id=" + ID
-                + "&dmcp.volume=" + Volume
+                + "&dmcp.volume=" + newVolume
                 + "&session-id=" + Server.SessionID;
-            Server.SubmitHTTPRequest(url);
+            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessVolumeUpdateResponse));
         }
 
-        protected void SendExtendedVolumeUpdate()
+        protected void SendExtendedVolumeUpdate(int newVolume)
         {
+            ignoringVolumeChanges = true;
             string url = "/ctrl-int/1/setproperty"
-                + "?dmcp.volume=" + Server.Volume
+                + "?dmcp.volume=" + newVolume
                 + "&include-speaker-id=" + ID
                 + "&session-id=" + Server.SessionID;
-            Server.SubmitHTTPRequest(url);
+            Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessVolumeUpdateResponse));
+        }
+
+        protected void ProcessVolumeUpdateResponse(HTTPRequestInfo requestInfo)
+        {
+            if (sendVolumeChangeWhenFinished >= 0)
+            {
+                int newVolume = sendVolumeChangeWhenFinished;
+                sendVolumeChangeWhenFinished = -1;
+
+                if (sendExtendedVolumeChangeWhenFinished)
+                    SendExtendedVolumeUpdate(newVolume);
+                else
+                    SendSimpleVolumeUpdate(newVolume);
+            }
+            else
+                ignoringVolumeChanges = false;
         }
 
         internal void UpdateBindableVolume()
