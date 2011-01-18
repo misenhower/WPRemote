@@ -55,7 +55,6 @@ namespace Komodex.DACP
             UInt64 id;
             bool hasPassword;
             bool hasVideo;
-            bool primary;
             bool active;
             int volume;
 
@@ -67,7 +66,6 @@ namespace Komodex.DACP
                     id = 0;
                     hasPassword = false;
                     hasVideo = false;
-                    primary = false;
                     active = false;
                     volume = 0;
 
@@ -89,9 +87,6 @@ namespace Komodex.DACP
                             case "caiv": // Has Video
                                 hasVideo = true;
                                 break;
-                            case "cavd": // Primary (non-remote) speaker
-                                primary = (speakerKvp.Value[0] > 0);
-                                break;
                             case "caia": // Speaker active
                                 active = (speakerKvp.Value[0] > 0);
                                 break;
@@ -112,11 +107,11 @@ namespace Komodex.DACP
                     if (speaker == null)
                     {
                         speaker = new AirPlaySpeaker(this, id);
+                        speaker.HasVideo = (hasVideo || id == 0);
                         Speakers.Add(speaker);
                     }
 
                     speaker.HasPassword = hasPassword;
-                    speaker.HasVideo = (hasVideo || primary);
                     speaker.Name = name;
                     speaker.Active = active;
                     speaker.Volume = volume;
