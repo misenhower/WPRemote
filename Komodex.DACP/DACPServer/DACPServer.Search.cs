@@ -17,9 +17,7 @@ namespace Komodex.DACP
 {
     public partial class DACPServer
     {
-        private readonly string searchResultAlbumHeaderText = "albums";
-        private readonly string searchResultArtistHeaderText = "artists";
-        private readonly string searchResultSongHeaderText = "songs";
+        List<HTTPRequestInfo> currentSearchRequests = new List<HTTPRequestInfo>();
 
         #region Public Methods
 
@@ -43,23 +41,16 @@ namespace Komodex.DACP
 
         public void StopSearch()
         {
-            if (albumSearchRequestInfo != null)
+            foreach (HTTPRequestInfo requestInfo in currentSearchRequests)
             {
-                albumSearchRequestInfo.WebRequest.Abort();
-                albumSearchRequestInfo = null;
+                try
+                {
+                    requestInfo.WebRequest.Abort();
+                }
+                catch { }
             }
 
-            if (artistSearchRequestInfo != null)
-            {
-                artistSearchRequestInfo.WebRequest.Abort();
-                artistSearchRequestInfo = null;
-            }
-
-            if (songSearchRequestInfo != null)
-            {
-                songSearchRequestInfo.WebRequest.Abort();
-                songSearchRequestInfo = null;
-            }
+            currentSearchRequests.Clear();
 
             UpdateGettingData();
         }
@@ -70,11 +61,9 @@ namespace Komodex.DACP
 
         #region Albums
 
-        private HTTPRequestInfo albumSearchRequestInfo = null;
-
         protected SearchResultSet SubmitAlbumSearchRequest(string escapedSearchString)
         {
-            SearchResultSet albumResults = new SearchResultSet(this, searchResultAlbumHeaderText);
+            SearchResultSet albumResults = new SearchResultSet(this, "albums");
 
             string url = "/databases/" + DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
@@ -84,14 +73,14 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=('daap.songalbum:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
                 + "&session-id=" + SessionID;
-            albumSearchRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumSearchResponse), true, r => r.ActionObject = albumResults);
+            currentSearchRequests.Add(SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumSearchResponse), true, r => r.ActionObject = albumResults));
 
             return albumResults;
         }
 
         protected void ProcessAlbumSearchResponse(HTTPRequestInfo requestInfo)
         {
-            if (requestInfo != albumSearchRequestInfo)
+            if (!currentSearchRequests.Contains(requestInfo))
                 return;
 
             ProcessSearchResponse(requestInfo, bytes => new Album(this, bytes));
@@ -101,11 +90,9 @@ namespace Komodex.DACP
 
         #region Artists
 
-        private HTTPRequestInfo artistSearchRequestInfo = null;
-
         protected SearchResultSet SubmitArtistSearchRequest(string escapedSearchString)
         {
-            SearchResultSet artistResults = new SearchResultSet(this, searchResultArtistHeaderText);
+            SearchResultSet artistResults = new SearchResultSet(this, "artists");
 
             string url = "/databases/" + DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
@@ -115,14 +102,14 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=('daap.songartist:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songartist!:')"
                 + "&session-id=" + SessionID;
-            artistSearchRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessArtistSearchResponse), true, r => r.ActionObject = artistResults);
+            currentSearchRequests.Add(SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessArtistSearchResponse), true, r => r.ActionObject = artistResults));
 
             return artistResults;
         }
 
         protected void ProcessArtistSearchResponse(HTTPRequestInfo requestInfo)
         {
-            if (requestInfo != artistSearchRequestInfo)
+            if (!currentSearchRequests.Contains(requestInfo))
                 return;
 
             ProcessSearchResponse(requestInfo, bytes => new Artist(this, bytes));
@@ -132,13 +119,11 @@ namespace Komodex.DACP
 
         #region Songs
 
-        private HTTPRequestInfo songSearchRequestInfo = null;
-
         protected SearchResultSet SubmitSongSearchRequest(string escapedSearchString)
         {
             string queryString = "('dmap.itemname:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))";
 
-            SearchResultSet songResults = new SearchResultSet(this, searchResultSongHeaderText, queryString);
+            SearchResultSet songResults = new SearchResultSet(this, "songs", queryString);
 
             string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
@@ -147,14 +132,14 @@ namespace Komodex.DACP
                 + "&include-sort-headers=1"
                 + "&query=" + queryString
                 + "&session-id=" + SessionID;
-            songSearchRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongSearchResponse), true, r => r.ActionObject = songResults);
+            currentSearchRequests.Add(SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongSearchResponse), true, r => r.ActionObject = songResults));
 
             return songResults;
         }
 
         protected void ProcessSongSearchResponse(HTTPRequestInfo requestInfo)
         {
-            if (requestInfo != songSearchRequestInfo)
+            if (!currentSearchRequests.Contains(requestInfo))
                 return;
 
             ProcessSearchResponse(requestInfo, bytes => new MediaItem(this, bytes));
