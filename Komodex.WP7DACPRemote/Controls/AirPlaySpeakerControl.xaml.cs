@@ -84,6 +84,8 @@ namespace Komodex.WP7DACPRemote.Controls
                 return;
 
             AirPlaySpeaker.SetSingleActiveSpeaker();
+            if (SingleSpeakerClicked != null)
+                SingleSpeakerClicked(this, new EventArgs());
         }
 
         #endregion
@@ -114,5 +116,12 @@ namespace Komodex.WP7DACPRemote.Controls
         }
 
         #endregion
+
+        #region Events
+
+        public event EventHandler SingleSpeakerClicked;
+
+        #endregion
+
     }
 }

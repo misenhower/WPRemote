@@ -95,14 +95,21 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             });
         }
 
+        void SpeakerControl_SingleSpeakerClicked(object sender, EventArgs e)
+        {
+            if (SingleSpeakerClicked != null)
+                SingleSpeakerClicked(sender, new EventArgs());
+        }
+
         #endregion
 
         #region List Management
 
         protected void ReloadSpeakerList()
         {
-            AirPlaySpeakerStackPanel.Children.Clear();
-            SpeakerControls.Clear();
+            var tempSpeakerControls = SpeakerControls.Keys.ToList();
+            foreach (AirPlaySpeaker speaker in tempSpeakerControls)
+                RemoveSpeaker(speaker);
 
             foreach (AirPlaySpeaker speaker in Server.Speakers)
                 AddSpeaker(speaker);
@@ -113,6 +120,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             AirPlaySpeakerControl speakerControl = new AirPlaySpeakerControl(speaker, SingleSelectMode);
             if (Server.IsCurrentlyPlayingVideo && !speaker.HasVideo)
                 speakerControl.Visibility = System.Windows.Visibility.Collapsed;
+            speakerControl.SingleSpeakerClicked += new EventHandler(SpeakerControl_SingleSpeakerClicked);
             SpeakerControls.Add(speaker, speakerControl);
             AirPlaySpeakerStackPanel.Children.Add(speakerControl);
         }
@@ -122,8 +130,10 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             if (SpeakerControls.ContainsKey(speaker))
             {
                 AirPlaySpeakerControl speakerControl = SpeakerControls[speaker];
+                speakerControl.SingleSpeakerClicked -= new EventHandler(SpeakerControl_SingleSpeakerClicked);
                 if (AirPlaySpeakerStackPanel.Children.Contains(speakerControl))
                     AirPlaySpeakerStackPanel.Children.Remove(speakerControl);
+                SpeakerControls.Remove(speaker);
             }
         }
 
@@ -159,6 +169,12 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
             MasterVolumeSlider.IsEnabled = enableMasterVolume;
         }
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler SingleSpeakerClicked;
 
         #endregion
 

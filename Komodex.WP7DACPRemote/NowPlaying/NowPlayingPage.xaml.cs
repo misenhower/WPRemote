@@ -289,7 +289,10 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             DACPServer.GetSpeakers();
 
             if (AirPlaySpeakersControl == null)
+            {
                 AirPlaySpeakersControl = new NowPlaying.AirPlaySpeakersControl(DACPServer);
+                AirPlaySpeakersControl.SingleSpeakerClicked += new EventHandler(AirPlaySpeakersControl_SingleSpeakerClicked);
+            }
 
             AirPlayDialog = new DialogService();
             AirPlayDialog.PopupContainer = MorePopup;
@@ -364,6 +367,12 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             {
                 UpdateAirPlayButtons();
             });
+        }
+        
+        void AirPlaySpeakersControl_SingleSpeakerClicked(object sender, EventArgs e)
+        {
+            if (AirPlayDialog != null && AirPlayDialog.IsOpen)
+                AirPlayDialog.Hide();
         }
 
         #endregion
