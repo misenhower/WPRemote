@@ -62,13 +62,33 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 Deployment.Current.Dispatcher.BeginInvoke(() => { Podcast.GetEpisodes(); });
         }
 
+        protected override Clarity.Phone.Controls.Animations.AnimatorHelperBase GetAnimation(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
+        {
+            string uri = toOrFrom.OriginalString;
+
+            if (uri.Contains("PodcastsPage"))
+                return GetContinuumAnimation(LayoutRoot, animationType);
+            
+            return base.GetAnimation(animationType, toOrFrom);
+        }
+
         #endregion
 
         #region Actions
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            LongListSelector listBox = (LongListSelector)sender;
 
+            MediaItem episode = listBox.SelectedItem as MediaItem;
+
+            if (episode != null)
+            {
+                episode.SendPlayMediaItemCommand();
+                NavigationManager.OpenNowPlayingPage();
+            }
+
+            listBox.SelectedItem = null;
         }
 
         #endregion

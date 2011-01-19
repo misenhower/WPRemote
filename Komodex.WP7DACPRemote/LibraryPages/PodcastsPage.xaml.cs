@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
 using Komodex.DACP.Library;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -46,6 +47,19 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
         }
 
+        protected override Clarity.Phone.Controls.Animations.AnimatorHelperBase GetAnimation(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
+        {
+            string uri = toOrFrom.OriginalString;
+
+            if (uri.Contains("PodcastPage"))
+            {
+                if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
+                    return GetListSelectorAnimation(lbPodcasts, animationType, toOrFrom);
+            }
+            
+            return base.GetAnimation(animationType, toOrFrom);
+        }
+
         #endregion
 
         #region Methods
@@ -57,6 +71,25 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             if (DACPServer.LibraryPodcasts == null || DACPServer.LibraryPodcasts.Count == 0)
                 DACPServer.GetPodcasts();
+        }
+
+        private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
+        {
+            if (listSelector.SelectedItem != null)
+            {
+                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
+                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
+
+                if (animationType == AnimationType.NavigateBackwardIn)
+                    listSelector.SelectedItem = null;
+
+                if (contentPresenter != null)
+                {
+                    return GetContinuumAnimation(contentPresenter, animationType);
+                }
+            }
+
+            return GetContinuumAnimation(LayoutRoot, animationType);
         }
 
         #endregion
