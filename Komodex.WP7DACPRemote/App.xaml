@@ -194,7 +194,7 @@
         
         <DataTemplate x:Name="GroupHeaderTemplate">
             <my:FakeButton>
-                <Border Background="Transparent" Padding="12,0,0,0">
+                <Border Background="Transparent" Padding="12,6,0,6">
                     <Border Background="{StaticResource PhoneAccentBrush}" Width="75" Height="75" HorizontalAlignment="Left">
                         <TextBlock Text="{Binding Key}" 
                             Foreground="{StaticResource PhoneForegroundBrush}" 
