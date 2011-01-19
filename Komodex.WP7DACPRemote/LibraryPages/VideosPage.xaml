@@ -47,7 +47,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="{Binding Path=LibraryName}" Name="pivotControl" SelectionChanged="pivotControl_SelectionChanged">
+        <controls:Pivot Title="{Binding Path=LibraryName, Converter={StaticResource stringToUpperConverter}}" Name="pivotControl" SelectionChanged="pivotControl_SelectionChanged">
             <controls:PivotItem Name="pivotMovies" Header="movies">
                 <Grid>
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"

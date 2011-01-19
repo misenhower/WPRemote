@@ -179,6 +179,7 @@
         <converters:BooleanToAccentBrushConverter x:Name="booleanToAccentBrushConverter" />
         <converters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />
         <converters:NoListItemsVisibilityConverter x:Key="noListItemsVisibilityConverter" />
+        <converters:StringToUpperConverter x:Key="stringToUpperConverter" />
 
         <!-- Grouped ListBox Templates -->
         <DataTemplate x:Key="GroupItemTemplate">

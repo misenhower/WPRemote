@@ -107,8 +107,10 @@ namespace Komodex.WP7DACPRemote
             // Page title
             if (DACPServer == null || string.IsNullOrEmpty(DACPServer.LibraryName))
                 ApplicationTitle.Text = "REMOTE";
+            else if (!string.IsNullOrEmpty(DACPServer.LibraryName))
+                ApplicationTitle.Text = DACPServer.LibraryName.ToUpper();
             else
-                ApplicationTitle.Text = DACPServer.LibraryName;
+                ApplicationTitle.Text = string.Empty;
 
             // Panel visibility
             ContentPanel.Visibility = (DACPServer != null && DACPServer.IsConnected) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
