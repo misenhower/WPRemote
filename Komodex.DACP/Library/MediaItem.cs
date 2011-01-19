@@ -47,7 +47,7 @@ namespace Komodex.DACP.Library
             get
             {
                 return Server.HTTPPrefix + "/databases/" + Server.DatabaseID + "/items/" + ID
-                    + "/extra_data/artwork?mw=75&mh=75&group-type=albums&session-id=" + Server.SessionID;
+                    + "/extra_data/artwork?mw=175&mh=175&group-type=albums&session-id=" + Server.SessionID;
             }
         }
 
