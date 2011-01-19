@@ -66,7 +66,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             string uri = toOrFrom.OriginalString;
 
-            if (uri.Contains("PodcastsPage"))
+            if (uri.Contains("PodcastsPage") || uri.Contains("SearchPage"))
                 return GetContinuumAnimation(LayoutRoot, animationType);
             
             return base.GetAnimation(animationType, toOrFrom);
