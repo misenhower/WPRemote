@@ -27,7 +27,7 @@
                             <ColumnDefinition Width="175" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="PodcastPlayButton_Click">
+                        <Button Width="175" Height="175" Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="PodcastButton_Click">
                             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                         </Button>
                         <StackPanel Grid.Column="1">

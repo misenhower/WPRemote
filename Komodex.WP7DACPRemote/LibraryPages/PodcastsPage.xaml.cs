@@ -74,11 +74,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
         }
 
-        private void PodcastPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         #endregion
 
         #region Group View Management
