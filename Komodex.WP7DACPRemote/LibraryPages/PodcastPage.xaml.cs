@@ -54,6 +54,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
         }
 
+        protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        {
+            base.DACPServer_ServerUpdate(sender, e);
+
+            if (e.Type == DACP.ServerUpdateType.ServerConnected)
+                Deployment.Current.Dispatcher.BeginInvoke(() => { Podcast.GetEpisodes(); });
+        }
+
         #endregion
 
         #region Actions
