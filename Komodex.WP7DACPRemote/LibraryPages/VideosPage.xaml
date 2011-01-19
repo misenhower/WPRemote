@@ -77,9 +77,12 @@
                                Visibility="{Binding Path=LibraryTVShows, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <toolkit:LongListSelector x:Name="lbTVShows" Background="Transparent" ItemsSource="{Binding LibraryTVShows}"
                                               Margin="0,0,-12,0"
-                                              IsFlatList="True"
                                               ItemTemplate="{StaticResource MovieTemplate}"
-                                              ListFooterTemplate="{StaticResource ListFooter}">
+                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                              ListFooterTemplate="{StaticResource ListFooter}"
+                                              GroupViewOpened="LongListSelector_GroupViewOpened"
+                                              GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>

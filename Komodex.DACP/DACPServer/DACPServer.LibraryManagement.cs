@@ -75,8 +75,8 @@ namespace Komodex.DACP
             }
         }
 
-        private ObservableCollection<VideoMediaItem> _LibraryTVShows = null;
-        public ObservableCollection<VideoMediaItem> LibraryTVShows
+        private GroupedItems<VideoMediaItem> _LibraryTVShows = null;
+        public GroupedItems<VideoMediaItem> LibraryTVShows
         {
             get { return _LibraryTVShows; }
             protected set
@@ -307,6 +307,7 @@ namespace Komodex.DACP
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdisabled,com.apple.itunes.mediakind,daap.songtime,daap.songhasbeenplayed,daap.songdatereleased,daap.songdateadded,com.apple.itunes.series-name,daap.sortartist,daap.songalbum,com.apple.itunes.season-num,com.apple.itunes.episode-sort,com.apple.itunes.is-hd-video"
                 + "&type=music"
                 + "&sort=album"
+                + "&include-sort-headers=1"
                 + "&query='com.apple.itunes.mediakind:64'"
                 + "&session-id=" + SessionID;
             SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessTVShowsResponse), true);
@@ -314,26 +315,8 @@ namespace Komodex.DACP
 
         protected void ProcessTVShowsResponse(HTTPRequestInfo requestInfo)
         {
-            ObservableCollection<VideoMediaItem> tvShows = new ObservableCollection<VideoMediaItem>();
+            LibraryTVShows = GroupedItems<VideoMediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new VideoMediaItem(this, bytes));
 
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "mlcl":
-                        tvShows.Clear();
-
-                        var tvShowNodes = Utility.GetResponseNodes(kvp.Value);
-                        foreach (var tvShowData in tvShowNodes)
-                            tvShows.Add(new VideoMediaItem(this, tvShowData.Value));
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            LibraryTVShows = tvShows;
             retrievingTVShows = false;
         }
 
