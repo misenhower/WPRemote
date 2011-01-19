@@ -24,7 +24,7 @@
                         <toolkit:MenuItem Header="delete" Name="mnuDelete" Tag="{Binding ID}" Click="mnuDelete_Click" />
                     </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
-                <StackPanel Margin="12,6,-12,12">
+                <StackPanel Margin="0,6,-12,12">
                     <TextBlock Text="{Binding LibraryName}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
                     <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSmallStyle}" />
                 </StackPanel>
