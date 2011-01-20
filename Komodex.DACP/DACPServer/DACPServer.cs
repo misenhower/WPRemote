@@ -122,16 +122,25 @@ namespace Komodex.DACP
             Stopped = true;
             IsConnected = false;
 
-            foreach (HTTPRequestInfo request in PendingHttpRequests)
+            try
             {
-                try
-                {
-                    request.WebRequest.Abort();
-                }
-                catch { }
-            }
+                var tempRequests = PendingHttpRequests.ToList();
 
-            PendingHttpRequests.Clear();
+                foreach (HTTPRequestInfo request in tempRequests)
+                {
+                    try
+                    {
+                        request.WebRequest.Abort();
+                    }
+                    catch { }
+                }
+            }
+            catch { }
+
+            lock (PendingHttpRequests)
+            {
+                PendingHttpRequests.Clear();
+            }
         }
 
         #endregion
