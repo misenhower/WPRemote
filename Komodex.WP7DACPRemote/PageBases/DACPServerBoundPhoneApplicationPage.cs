@@ -245,10 +245,15 @@ namespace Komodex.WP7DACPRemote
 
         protected virtual void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "PlayState")
+            switch (e.PropertyName)
             {
-                UpdateTransportButtons();
-                UpdateAppNavButtons();
+                case "PlayState":
+                case "CurrentSongName":
+                    UpdateTransportButtons();
+                    UpdateAppNavButtons();
+                    break;
+                default:
+                    break;
             }
         }
 
