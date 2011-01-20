@@ -30,7 +30,7 @@
         
         <StackPanel Grid.Row="2" Margin="12,12,0,0">
             <TextBlock Text="MASTER VOLUME" Style="{StaticResource PhoneTextAppTitleStyle}" Margin="12,0,0,0" />
-            <Slider Name="MasterVolumeSlider" Height="48" Margin="0,0,36,150" Grid.Row="2"
+            <Slider Name="MasterVolumeSlider" Height="48" Margin="0,0,36,130" Grid.Row="2"
                 Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
                 Style="{StaticResource VolumeSliderStyle}"
                 VerticalAlignment="Center" />
