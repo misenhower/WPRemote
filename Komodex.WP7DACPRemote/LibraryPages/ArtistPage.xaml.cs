@@ -81,7 +81,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 if (uri.Contains("AlbumPage"))
                 {
                     if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
-                        return GetListSelectorAnimation(lbAlbums, animationType, toOrFrom);
+                        return this.GetListSelectorAnimation(lbAlbums, animationType);
                     else
                         return GetContinuumAnimation(LayoutRoot, animationType);
                 }
@@ -158,25 +158,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 if (Artist.Songs == null || Artist.Songs.Count == 0)
                     Artist.GetSongs();
             }
-        }
-
-        private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
-        {
-            if (listSelector.SelectedItem != null)
-            {
-                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
-                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
-
-                if (animationType == AnimationType.NavigateBackwardIn)
-                    listSelector.SelectedItem = null;
-
-                if (contentPresenter != null)
-                {
-                    return GetContinuumAnimation(contentPresenter, animationType);
-                }
-            }
-
-            return GetContinuumAnimation(LayoutRoot, animationType);
         }
 
         #endregion

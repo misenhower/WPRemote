@@ -80,11 +80,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 string uri = toOrFrom.OriginalString;
 
                 if (uri.Contains("ArtistPage"))
-                    return GetListSelectorAnimation(lbArtists, animationType, toOrFrom);
+                    return this.GetListSelectorAnimation(lbArtists, animationType);
                 if (uri.Contains("AlbumPage"))
-                    return GetListSelectorAnimation(lbAlbums, animationType, toOrFrom);
+                    return this.GetListSelectorAnimation(lbAlbums, animationType);
                 if (uri.Contains("PlaylistPage"))
-                    return GetListSelectorAnimation(lbPlaylists, animationType, toOrFrom);
+                    return this.GetListSelectorAnimation(lbPlaylists, animationType);
             }
 
             return base.GetAnimation(animationType, toOrFrom);
@@ -264,25 +264,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 if (DACPServer.LibraryAlbums == null || DACPServer.LibraryAlbums.Count == 0)
                     DACPServer.GetAlbums();
             }
-        }
-
-        private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
-        {
-            if (listSelector.SelectedItem != null)
-            {
-                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
-                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
-
-                if (animationType == AnimationType.NavigateBackwardIn)
-                    listSelector.SelectedItem = null;
-
-                if (contentPresenter != null)
-                {
-                    return GetContinuumAnimation(contentPresenter, animationType);
-                }
-            }
-
-            return GetContinuumAnimation(LayoutRoot, animationType);
         }
 
         #endregion

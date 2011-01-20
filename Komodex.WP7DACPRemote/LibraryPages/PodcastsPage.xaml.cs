@@ -54,7 +54,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             if (uri.Contains("PodcastPage"))
             {
                 if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
-                    return GetListSelectorAnimation(lbPodcasts, animationType, toOrFrom);
+                    return this.GetListSelectorAnimation(lbPodcasts, animationType);
             }
             
             return base.GetAnimation(animationType, toOrFrom);
@@ -84,25 +84,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             if (DACPServer.LibraryPodcasts == null || DACPServer.LibraryPodcasts.Count == 0)
                 DACPServer.GetPodcasts();
-        }
-
-        private AnimatorHelperBase GetListSelectorAnimation(LongListSelector listSelector, AnimationType animationType, Uri toOrFrom)
-        {
-            if (listSelector.SelectedItem != null)
-            {
-                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
-                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
-
-                if (animationType == AnimationType.NavigateBackwardIn)
-                    listSelector.SelectedItem = null;
-
-                if (contentPresenter != null)
-                {
-                    return GetContinuumAnimation(contentPresenter, animationType);
-                }
-            }
-
-            return GetContinuumAnimation(LayoutRoot, animationType);
         }
 
         #endregion

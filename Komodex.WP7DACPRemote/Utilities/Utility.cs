@@ -11,6 +11,9 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Reflection;
 using Microsoft.Phone.Net.NetworkInformation;
+using Clarity.Phone.Controls;
+using Clarity.Phone.Controls.Animations;
+using System.Linq;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -106,6 +109,25 @@ namespace Komodex.WP7DACPRemote
             }
 
             list.ScrollToGroup(e.SelectedGroup);
+        }
+
+        public static AnimatorHelperBase GetListSelectorAnimation(this AnimatedBasePage page, LongListSelector listSelector, AnimationType animationType)
+        {
+            if (listSelector.SelectedItem != null)
+            {
+                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
+                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
+
+                if (animationType == AnimationType.NavigateBackwardIn)
+                    listSelector.SelectedItem = null;
+
+                if (contentPresenter != null)
+                {
+                    return page.GetContinuumAnimation(contentPresenter, animationType);
+                }
+            }
+
+            return page.GetContinuumAnimation(page.AnimationContext, animationType);
         }
 
         #endregion
