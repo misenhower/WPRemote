@@ -46,6 +46,19 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             State[StateUtils.SavedStateKey] = true;
         }
 
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (openedGroupViewSelector != null)
+            {
+                openedGroupViewSelector.CloseGroupView();
+                openedGroupViewSelector = null;
+                e.Cancel = true;
+                return;
+            }
+
+            base.OnBackKeyPress(e);
+        }
+
         #endregion
 
         #region Event Handlers
