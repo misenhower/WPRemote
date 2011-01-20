@@ -71,7 +71,7 @@ namespace Komodex.WP7DACPRemote.Controls
 
         private void Slider_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
-            AirPlaySpeaker.Server.AirPlaySpeakerManipulationStopped();
+            AirPlaySpeaker.Server.AirPlaySpeakerManipulationStopped(AirPlaySpeaker);
         }
 
         #endregion

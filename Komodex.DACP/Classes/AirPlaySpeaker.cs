@@ -92,16 +92,16 @@ namespace Komodex.DACP
             }
         }
 
-        private bool _WaitingForResponse = false;
-        internal bool WaitingForResponse
+        private bool _WaitingForActiveResponse = false;
+        internal bool WaitingForActiveResponse
         {
-            get { return _WaitingForResponse; }
+            get { return _WaitingForActiveResponse; }
             set
             {
-                if (_WaitingForResponse == value)
+                if (_WaitingForActiveResponse == value)
                     return;
-                _WaitingForResponse = value;
-                // Shouldn't need to send property changed for WaitingForResponse.
+                _WaitingForActiveResponse = value;
+                // Shouldn't need to send property changed for WaitingForActiveResponse.
                 SendPropertyChanged("BindableActive");
             }
         }
@@ -110,7 +110,7 @@ namespace Komodex.DACP
         {
             get
             {
-                if (_WaitingForResponse)
+                if (_WaitingForActiveResponse)
                     return null;
                 return _Active;
             }
@@ -121,7 +121,7 @@ namespace Komodex.DACP
                 if (!value.HasValue)
                     return;
                 Active = value.Value;
-                WaitingForResponse = true;
+                WaitingForActiveResponse = true;
                 Server.SubmitSetActiveSpeakersRequest();
             }
         }
@@ -179,6 +179,11 @@ namespace Komodex.DACP
             }
         }
 
+        internal bool WaitingForVolumeResponse
+        {
+            get { return ignoringVolumeChanges; }
+        }
+
         #endregion
 
         #region Methods
@@ -220,7 +225,10 @@ namespace Komodex.DACP
                     SendSimpleVolumeUpdate(newVolume);
             }
             else
+            {
                 ignoringVolumeChanges = false;
+                Server.GetSpeakersIfNeeded();
+            }
         }
 
         internal void UpdateBindableVolume()

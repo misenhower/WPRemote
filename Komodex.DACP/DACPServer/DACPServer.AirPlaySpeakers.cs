@@ -17,6 +17,7 @@ namespace Komodex.DACP
     public partial class DACPServer
     {
         internal int AirPlayVolumeSwitchPoint = 0;
+        private bool needToGetSpeakers;
 
         #region Properties
 
@@ -115,7 +116,7 @@ namespace Komodex.DACP
                     speaker.Name = name;
                     speaker.Active = active;
                     speaker.Volume = volume;
-                    speaker.WaitingForResponse = false;
+                    speaker.WaitingForActiveResponse = false;
                 }
             }
 
@@ -169,6 +170,8 @@ namespace Komodex.DACP
 
         public void AirPlaySpeakerManipulationStarted(AirPlaySpeaker speaker)
         {
+            needToGetSpeakers = false;
+
             AirPlaySpeaker otherSpeaker = (from s in Speakers
                                            where s != speaker && s.Active
                                            orderby s.BindableVolume descending
@@ -180,9 +183,19 @@ namespace Komodex.DACP
                 AirPlayVolumeSwitchPoint = 0;
         }
 
-        public void AirPlaySpeakerManipulationStopped()
+        public void AirPlaySpeakerManipulationStopped(AirPlaySpeaker speaker)
         {
-            SubmitGetSpeakersRequest();
+            if (!speaker.WaitingForVolumeResponse)
+                SubmitGetSpeakersRequest();
+            else
+                needToGetSpeakers = true;
+        }
+
+        internal void GetSpeakersIfNeeded()
+        {
+            if (needToGetSpeakers)
+                SubmitGetSpeakersRequest();
+            needToGetSpeakers = false;
         }
 
         internal void AirPlayMasterVolumeManipulation(int newVolume)
