@@ -11,6 +11,11 @@
 
     <!--Application Resources-->
     <Application.Resources>
+        <Style x:Key="PhoneTextAppTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextBlockBase}">
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
+        </Style>
+
         <!-- Play Button with Circle -->
     	<ControlTemplate x:Key="PlayButton" TargetType="Button">
             <Canvas Width="48" Height="48" Background="Transparent">
