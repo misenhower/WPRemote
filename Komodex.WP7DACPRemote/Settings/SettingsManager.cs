@@ -77,6 +77,15 @@ namespace Komodex.WP7DACPRemote.Settings
                 _RunUnderLock = value;
                 SetValue(kRunUnderLockKey, _RunUnderLock);
                 SendPropertyChanged("RunUnderLock");
+                SendPropertyChanged("RunUnderLockTakesEffectNextRun");
+            }
+        }
+
+        public bool RunUnderLockTakesEffectNextRun
+        {
+            get
+            {
+                return (PhoneApplicationService.Current.ApplicationIdleDetectionMode == IdleDetectionMode.Disabled && !RunUnderLock);
             }
         }
 

@@ -33,8 +33,17 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:ToggleSwitch Header="Stay connected under lock screen"
-                                  IsChecked="{Binding RunUnderLock, Mode=TwoWay}" />
+            <StackPanel>
+                <toolkit:ToggleSwitch Header="Stay connected under lock screen"
+                                      IsChecked="{Binding RunUnderLock, Mode=TwoWay}" />
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}">
+                    Staying connected to iTunes while the phone is locked may use more battery life but will make resuming from the lock screen much faster.
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
+                           Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource booleanToVisibilityConverter}}">
+                    This change will take effect the next time you start Remote.
+                </TextBlock>
+            </StackPanel>
         </Grid>
     </Grid>
  
