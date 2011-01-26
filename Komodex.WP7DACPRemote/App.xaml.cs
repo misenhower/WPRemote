@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using Komodex.WP7DACPRemote.Settings;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -59,6 +60,9 @@ namespace Komodex.WP7DACPRemote
             // Set up hooks
             NavigationManager.DoFirstLoad(RootFrame);
             DACPServerManager.DoFirstLoad(RootFrame);
+
+            // Other initialization
+            SettingsManager.Current.Initialize();
         }
 
 #if DEBUG

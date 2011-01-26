@@ -197,6 +197,18 @@ namespace Komodex.WP7DACPRemote
             NavigationManager.OpenAboutPage();
         }
 
+        protected void AddSettingsApplicationBarMenuItem()
+        {
+            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem("settings");
+            menuItem.Click += new EventHandler(SettingsMenuItem_Click);
+            ApplicationBar.MenuItems.Add(menuItem);
+        }
+
+        void SettingsMenuItem_Click(object sender, EventArgs e)
+        {
+            NavigationManager.OpenSettingsPage();
+        }
+
         #endregion
 
         #region Overrides

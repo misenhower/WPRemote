@@ -30,6 +30,7 @@ namespace Komodex.WP7DACPRemote
 
             AddChooseLibraryApplicationBarMenuItem();
             AddAboutApplicationBarMenuItem();
+            AddSettingsApplicationBarMenuItem();
 
 #if DEBUG
             UpdateDebugDataMenuItem();
