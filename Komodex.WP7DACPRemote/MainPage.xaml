@@ -139,7 +139,7 @@
                         </Grid>
                     </Grid>
                 </Button>
-                <Button Name="btnLibrary" Click="btnLibrary_Click" Style="{StaticResource BorderlessButtonStyle}">
+                <Button Name="btnLibrary" Click="btnLibrary_Click" Style="{StaticResource BorderlessButtonStyle}" CacheMode="BitmapCache">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -149,7 +149,7 @@
                         <TextBlock Text="browse library" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
-                <Button Name="btnSearch" Click="btnSearch_Click" Style="{StaticResource BorderlessButtonStyle}">
+                <Button Name="btnSearch" Click="btnSearch_Click" Style="{StaticResource BorderlessButtonStyle}" CacheMode="BitmapCache">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
