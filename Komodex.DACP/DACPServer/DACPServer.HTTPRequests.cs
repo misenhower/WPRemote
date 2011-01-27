@@ -335,6 +335,7 @@ namespace Komodex.DACP
             string newSongName = null;
             string newArtist = null;
             string newAlbum = null;
+            UInt64 newAlbumPersistentID = 0;
             int newTrackTimeTotal = 0;
             int? newTrackTimeRemaining = null;
             int newMediaKind = 0;
@@ -356,6 +357,9 @@ namespace Komodex.DACP
                         break;
                     case "canl": // Album
                         newAlbum = kvp.Value.GetStringValue();
+                        break;
+                    case "asai":
+                        newAlbumPersistentID = (UInt64)kvp.Value.GetInt64Value();
                         break;
                     case "caps": // Play status
                         PlayState = (PlayStates)kvp.Value[0];
@@ -384,6 +388,7 @@ namespace Komodex.DACP
             CurrentSongName = newSongName;
             CurrentArtist = newArtist;
             CurrentAlbum = newAlbum;
+            CurrentAlbumPersistentID = newAlbumPersistentID;
             TrackTimeTotal = newTrackTimeTotal;
             TrackTimeRemaining = newTrackTimeRemaining ?? newTrackTimeTotal;
             CurrentMediaKind = newMediaKind;

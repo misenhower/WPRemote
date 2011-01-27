@@ -148,6 +148,19 @@ namespace Komodex.DACP
             }
         }
 
+        private UInt64 _CurrentAlbumPersistentID = 0;
+        public UInt64 CurrentAlbumPersistentID
+        {
+            get { return _CurrentAlbumPersistentID; }
+            protected set
+            {
+                if (_CurrentAlbumPersistentID == value)
+                    return;
+                _CurrentAlbumPersistentID = value;
+                SendPropertyChanged("CurrentAlbumPersistentID");
+            }
+        }
+
         // This is set whenever the session id is modified
         private string _CurrentAlbumArtURL = null;
         public string CurrentAlbumArtURL

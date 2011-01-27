@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 using Clarity.Phone.Extensions;
 using System.Collections.Specialized;
+using Komodex.WP7DACPRemote.Settings;
 
 namespace Komodex.WP7DACPRemote.NowPlaying
 {
@@ -244,7 +245,17 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
         private void btnArtist_Click(object sender, RoutedEventArgs e)
         {
-            NavigationManager.OpenArtistPage(DACPServer.CurrentArtist);
+            switch (SettingsManager.Current.ArtistClickAction)
+            {
+                case SettingsManager.ArtistClickActions.OpenArtistPage:
+                    NavigationManager.OpenArtistPage(DACPServer.CurrentArtist);
+                    break;
+                case SettingsManager.ArtistClickActions.OpenAlbumPage:
+                    NavigationManager.OpenAlbumPage(0, DACPServer.CurrentAlbum, DACPServer.CurrentArtist, DACPServer.CurrentAlbumPersistentID);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void bdrRepeatShuffleControls_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
