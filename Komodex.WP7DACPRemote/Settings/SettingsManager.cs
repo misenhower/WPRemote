@@ -11,6 +11,8 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.IO.IsolatedStorage;
 using Microsoft.Phone.Shell;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Komodex.WP7DACPRemote.Settings
 {
@@ -35,11 +37,12 @@ namespace Komodex.WP7DACPRemote.Settings
             _Initialized = true;
 
             RunUnderLock = GetValue<bool>(kRunUnderLockKey, true);
+            ArtistClickAction = Enum<ArtistClickActions>.ParseOrDefault(GetValue<string>(kArtistClickActionKey), ArtistClickActions.OpenArtistPage);
         }
 
         #region Methods
 
-        protected T GetValue<T>(string keyName, T defaultValue)
+        protected T GetValue<T>(string keyName, T defaultValue = default(T))
         {
             T returnValue;
             if (IsolatedSettings.TryGetValue<T>(keyName, out returnValue))
@@ -88,6 +91,76 @@ namespace Komodex.WP7DACPRemote.Settings
                 return (PhoneApplicationService.Current.ApplicationIdleDetectionMode == IdleDetectionMode.Disabled && !RunUnderLock);
             }
         }
+
+        #endregion
+
+        #region Artist Click Action
+
+        private static readonly string kArtistClickActionKey = "SettingsArtistClickAction";
+
+        private ObservableCollection<ArtistClickActionStruct> _ArtistClickActionStructs = null;
+        public ObservableCollection<ArtistClickActionStruct> ArtistClickActionStructs
+        {
+            get
+            {
+                if (_ArtistClickActionStructs == null)
+                {
+                    _ArtistClickActionStructs = new ObservableCollection<ArtistClickActionStruct>();
+                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenArtistPage, "open the artist page"));
+                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenAlbumPage, "open the album page"));
+                }
+                return _ArtistClickActionStructs;
+            }
+        }
+
+        private ArtistClickActions _ArtistClickAction = 0;
+        public ArtistClickActions ArtistClickAction
+        {
+            get { return _ArtistClickAction; }
+            set
+            {
+                if (_ArtistClickAction == value)
+                    return;
+                _ArtistClickAction = value;
+                SetValue(kArtistClickActionKey, _ArtistClickAction.ToString());
+                SendPropertyChanged("ArtistClickAction");
+                SendPropertyChanged("BindableClickAction");
+            }
+        }
+
+        public ArtistClickActionStruct BindableArtistClickAction
+        {
+            get { return ArtistClickActionStructs.First(a => a.ArtistClickAction == ArtistClickAction); }
+            set { ArtistClickAction = value.ArtistClickAction; }
+        }
+
+        #region Enum and Struct
+
+        public enum ArtistClickActions
+        {
+            OpenArtistPage,
+            OpenAlbumPage,
+        }
+
+        public struct ArtistClickActionStruct
+        {
+            public ArtistClickActionStruct(ArtistClickActions clickAction, string name)
+                : this()
+            {
+                ArtistClickAction = clickAction;
+                Name = name;
+            }
+
+            public ArtistClickActions ArtistClickAction { get; private set; }
+            public string Name { get; private set; }
+
+            public override string ToString()
+            {
+                return Name;
+            }
+        }
+
+        #endregion
 
         #endregion
 

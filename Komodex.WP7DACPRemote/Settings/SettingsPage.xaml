@@ -34,12 +34,18 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
+                <toolkit:ListPicker Header="Tap the currently playing artist name to" Name="lpArtistTap"
+                                    Margin="12,12,12,48"
+                                    ItemsSource="{Binding ArtistClickActionStructs}"
+                                    SelectedItem="{Binding BindableArtistClickAction, Mode=TwoWay}" />
+                
                 <toolkit:ToggleSwitch Header="Stay connected under lock screen"
-                                      IsChecked="{Binding RunUnderLock, Mode=TwoWay}" />
-                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}">
+                                      IsChecked="{Binding RunUnderLock, Mode=TwoWay}"
+                                      CacheMode="BitmapCache" />
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" CacheMode="BitmapCache">
                     Staying connected to iTunes while the phone is locked may use more battery life but will make resuming from the lock screen much faster.
                 </TextBlock>
-                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12" CacheMode="BitmapCache"
                            Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource booleanToVisibilityConverter}}">
                     This change will take effect the next time you start Remote.
                 </TextBlock>
