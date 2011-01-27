@@ -27,11 +27,18 @@ namespace Komodex.DACP.Library
             Name = name;
             ArtistName = artistName;
             PersistentID = persistentID;
+
+            if (id == 0)
+                GetAlbumID(true);
+            else
+                PersistAlbumID();
         }
 
         public Album(DACPServer server, byte[] data)
             : base(server, data)
-        { }
+        {
+            PersistAlbumID();
+        }
 
         #region Properties
 
@@ -85,6 +92,45 @@ namespace Komodex.DACP.Library
                     return true;
                 default:
                     return false;
+            }
+        }
+
+        #endregion
+
+        #region Album ID Persistence
+
+        protected Artist _artist = null;
+
+        protected void PersistAlbumID()
+        {
+            if (ID != 0)
+                Server.AlbumIDs[PersistentID] = ID;
+        }
+
+        protected void GetAlbumID(bool submitHttpRequestIfNeeded = false)
+        {
+            if (Server.AlbumIDs.ContainsKey(PersistentID))
+            {
+                ID = Server.AlbumIDs[PersistentID];
+                SendPropertyChanged("AlbumArtURL");
+            }
+            else if (submitHttpRequestIfNeeded)
+            {
+                // To get the DB ID of this album, create an Artist object for this album's ArtistName and get that artist's albums.
+                // It's not the most efficient way possible, but it works and reduces the amount of extra code needed for a special case.
+                // Also this may end up being more reasonable if object caching is implemented.
+                _artist = new Artist(Server, ArtistName);
+                _artist.PropertyChanged += new PropertyChangedEventHandler(artist_PropertyChanged);
+                _artist.GetAlbums();
+            }
+        }
+
+        void artist_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Albums")
+            {
+                GetAlbumID(false);
+                _artist.PropertyChanged -= new PropertyChangedEventHandler(artist_PropertyChanged);
             }
         }
 

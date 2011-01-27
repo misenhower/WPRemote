@@ -356,5 +356,15 @@ namespace Komodex.DACP
         #endregion
 
         #endregion
+
+        #region Album ID Persistence
+
+        private Dictionary<UInt64, int> _AlbumIDs = new Dictionary<ulong, int>();
+        internal Dictionary<UInt64, int> AlbumIDs
+        {
+            get { return _AlbumIDs; }
+        }
+
+        #endregion
     }
 }

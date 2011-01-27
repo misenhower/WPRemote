@@ -111,6 +111,7 @@ namespace Komodex.DACP
             ignoringTrackTimeChanges = false;
             ignoringVolumeChanges = false;
             sendTrackTimeChangeWhenFinished = -1;
+            AlbumIDs.Clear();
 
             Stopped = false;
 
