@@ -47,54 +47,58 @@
                 </StackPanel>
             </Button>
 
-            <StackPanel Grid.Row="1" Background="{StaticResource PhoneChromeBrush}" Margin="12">
-                <TextBlock TextWrapping="Wrap" Text="iTunes Information" Style="{StaticResource PhoneTextTitle2Style}"/>
-                <TextBlock TextWrapping="Wrap" Text="Not connected" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" Name="tbiTunesNotConnected" />
-                <Grid Margin="0,12,0,0" Name="gridiTunesInfo">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="140" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Version:" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DMAP:" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DAAP:" />
+            <Button Grid.Row="1" Template="{StaticResource EmptyButton}" Click="btniTunesInfo_Click" msun:TiltEffect.SuppressTilt="True">
+                <Grid>
+                    <StackPanel Name="iTunesInfoPanel" Background="{StaticResource PhoneChromeBrush}" Margin="12">
+                        <TextBlock TextWrapping="Wrap" Text="iTunes Information" Style="{StaticResource PhoneTextTitle2Style}"/>
+                        <TextBlock TextWrapping="Wrap" Text="Not connected" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" Name="tbiTunesNotConnected" />
+                        <Grid Margin="0,12,0,0" Name="gridiTunesInfo">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Version:" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DMAP:" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DAAP:" />
 
-                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesVersion" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDMAPVersion" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDAAPVersion" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesVersion" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDMAPVersion" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDAAPVersion" />
+                        </Grid>
+                        <Border Margin="0,0,0,12" />
+                    </StackPanel>
+
+                    <StackPanel Name="DeviceInfoPanel" Background="{StaticResource PhoneChromeBrush}" Margin="12" Visibility="Collapsed">
+                        <TextBlock TextWrapping="Wrap" Text="Device Information" Style="{StaticResource PhoneTextTitle2Style}"/>
+                        <Grid Margin="0,12,0,12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Manufacturer:" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Device:" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Firmware:" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="HW Version:" />
+
+                            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbManufacturer" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbDevice" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbFirmware" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbHardwareVersion" />
+                        </Grid>
+                    </StackPanel>
                 </Grid>
-                <Border Margin="0,0,0,12" />
-            </StackPanel>
-
-            <StackPanel Name="DeviceInfoPanel" Grid.Row="2" Background="{StaticResource PhoneChromeBrush}" Margin="12" Visibility="Collapsed">
-                <TextBlock TextWrapping="Wrap" Text="Device Information" Style="{StaticResource PhoneTextTitle2Style}"/>
-                <Grid Margin="0,12,0,12">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="140" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Manufacturer:" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Device:" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Firmware:" />
-                    <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="HW Version:" />
-
-                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbManufacturer" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbDevice" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbFirmware" />
-                    <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbHardwareVersion" />
-                </Grid>
-            </StackPanel>
+            </Button>
 
             <StackPanel Grid.Row="4" Margin="0,0,0,12">
                 <Button Template="{StaticResource EmptyButton}" Margin="12,0,12,12" Click="btnLogo_Click">

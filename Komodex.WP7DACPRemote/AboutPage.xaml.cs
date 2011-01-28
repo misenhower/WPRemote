@@ -36,9 +36,6 @@ namespace Komodex.WP7DACPRemote
             tbAppVersion.Text = "Version: " + Utility.GetApplicationVersion();
 #if DEBUG
             tbAppVersion.Text += " (Debug)";
-
-            copy1.Visibility = Visibility.Collapsed;
-            copy2.Visibility = Visibility.Collapsed;
 #endif
 
             // iTunes information
@@ -82,8 +79,6 @@ namespace Komodex.WP7DACPRemote
             tbDevice.Text = DeviceInfo.DeviceName;
             tbFirmware.Text = DeviceInfo.DeviceFirmwareVersion;
             tbHardwareVersion.Text = DeviceInfo.DeviceHardwareVersion;
-
-            DeviceInfoPanel.Visibility = System.Windows.Visibility.Visible;
 #endif
 
         }
@@ -104,6 +99,22 @@ namespace Komodex.WP7DACPRemote
                 MessageBox.Show(DACPServer.GetAssemblyName());
                 MessageBox.Show(Assembly.GetCallingAssembly().FullName);
             }
+        }
+
+        private void btniTunesInfo_Click(object sender, RoutedEventArgs e)
+        {
+#if DEBUG
+            if (DeviceInfoPanel.Visibility == System.Windows.Visibility.Visible)
+            {
+                DeviceInfoPanel.Visibility = System.Windows.Visibility.Collapsed;
+                iTunesInfoPanel.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                DeviceInfoPanel.Visibility = System.Windows.Visibility.Visible;
+                iTunesInfoPanel.Visibility = System.Windows.Visibility.Collapsed;
+            }
+#endif
         }
 
     }
