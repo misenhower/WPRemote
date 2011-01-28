@@ -7,6 +7,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:msun="clr-namespace:Microsoft.Unsupported"
     msun:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -99,7 +100,12 @@
                     </StackPanel>
                 </Grid>
             </Button>
-
+            
+            <toolkit:WrapPanel Grid.Row="3" Margin="12">
+                <TextBlock Text="Need help?" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                <HyperlinkButton Content="Contact us" HorizontalAlignment="Left" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnSupport_Click" />
+            </toolkit:WrapPanel>
+            
             <StackPanel Grid.Row="4" Margin="0,0,0,12">
                 <Button Template="{StaticResource EmptyButton}" Margin="12,0,12,12" Click="btnLogo_Click">
                     <Grid Height="65" Background="Transparent">

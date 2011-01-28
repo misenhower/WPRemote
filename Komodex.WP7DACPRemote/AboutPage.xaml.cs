@@ -117,5 +117,13 @@ namespace Komodex.WP7DACPRemote
 #endif
         }
 
+        private void btnSupport_Click(object sender, RoutedEventArgs e)
+        {
+            EmailComposeTask t = new EmailComposeTask();
+            t.To = "Komodex Support <info@komodex.com>";
+            t.Subject = "[Komodex] Remote v" + Utility.GetApplicationVersion() + " Support Request";
+            t.Show();
+        }
+
     }
 }
