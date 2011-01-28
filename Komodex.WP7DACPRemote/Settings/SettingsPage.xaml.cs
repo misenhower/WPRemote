@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.ComponentModel;
 
 namespace Komodex.WP7DACPRemote.Settings
 {
@@ -23,5 +24,21 @@ namespace Komodex.WP7DACPRemote.Settings
 
             ContentPanel.DataContext = SettingsManager.Current;
         }
+
+        #region Overrides
+
+        protected override void OnBackKeyPress(CancelEventArgs e)
+        {
+            if (lpArtistTap.ListPickerMode != ListPickerMode.Normal)
+            {
+                lpArtistTap.ListPickerMode = ListPickerMode.Normal;
+                e.Cancel = true;
+                return;
+            }
+
+            base.OnBackKeyPress(e);
+        }
+
+        #endregion
     }
 }

@@ -106,8 +106,8 @@ namespace Komodex.WP7DACPRemote.Settings
                 if (_ArtistClickActionStructs == null)
                 {
                     _ArtistClickActionStructs = new ObservableCollection<ArtistClickActionStruct>();
-                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenArtistPage, "open the artist page"));
-                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenAlbumPage, "open the album page"));
+                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenArtistPage, "open artist page"));
+                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenAlbumPage, "open album page"));
                 }
                 return _ArtistClickActionStructs;
             }

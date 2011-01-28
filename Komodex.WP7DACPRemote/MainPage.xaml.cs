@@ -29,8 +29,8 @@ namespace Komodex.WP7DACPRemote
             AnimationContext = LayoutRoot;
 
             AddChooseLibraryApplicationBarMenuItem();
-            AddAboutApplicationBarMenuItem();
             AddSettingsApplicationBarMenuItem();
+            AddAboutApplicationBarMenuItem();
 
 #if DEBUG
             UpdateDebugDataMenuItem();
