@@ -23,7 +23,11 @@ namespace Komodex.WP7DACPRemote.Utilities
 
     public static class CrashReporter
     {
+        // The URL crash reports will be sent to
+        private static readonly string ErrorReportURL = "http://sys.komodex.com/wp7/crashreporter/?p=remote";
+        // The filename for crash reports in the app's isolated storage area
         private static readonly string ErrorLogFilename = "ApplicationErrorLog.log";
+
         private static readonly string SeparatorDashes = "---------------------------------------------------------------------------";
 
         private static string ErrorLogContent = null;
@@ -65,6 +69,9 @@ namespace Komodex.WP7DACPRemote.Utilities
                         writer.WriteLine(SeparatorDashes);
                         writer.WriteLine("Application Exception");
 
+                        // Application name
+                        writer.WriteLine("-> Product: Remote");
+
                         // Application version
                         writer.Write("-> Version: " + Utility.GetApplicationVersion());
 #if DEBUG
@@ -73,11 +80,14 @@ namespace Komodex.WP7DACPRemote.Utilities
                         writer.WriteLine();
 
                         // Date and time
-                        writer.WriteLine("-> " + DateTime.Now.ToString());
+                        writer.WriteLine("-> Date: " + DateTime.Now.ToString());
 
                         // Exception type
                         if (type != null)
                             writer.WriteLine("-> Type: " + type);
+
+                        // Unique report ID
+                        writer.WriteLine("-> Report ID: " + Guid.NewGuid().ToString());
 
                         writer.WriteLine(SeparatorDashes);
 
@@ -131,9 +141,7 @@ namespace Komodex.WP7DACPRemote.Utilities
                     if (ErrorLogContent == null)
                         return;
 
-                    string url = "http://sys.komodex.com/wp7/troubleshooting/";
-
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ErrorReportURL);
                     request.ContentType = "application/x-www-form-urlencoded";
                     request.Method = "POST";
 
