@@ -119,9 +119,10 @@ namespace Komodex.WP7DACPRemote
             RootVisual.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
 
-        public static void OpenAboutPage(int iTunesVersion, int iTunesDMAPVersion, int iTunesDAAPVersion)
+        public static void OpenAboutPage(string iTunesVersion, int iTunesProtocolVersion, int iTunesDMAPVersion, int iTunesDAAPVersion)
         {
-            RootVisual.Navigate(new Uri("/AboutPage.xaml?version=" + iTunesVersion + "&dmap=" + iTunesDMAPVersion + "&daap=" + iTunesDAAPVersion, UriKind.Relative));
+            iTunesVersion = Uri.EscapeDataString(iTunesVersion);
+            RootVisual.Navigate(new Uri("/AboutPage.xaml?version=" + iTunesVersion + "&protocol=" + iTunesProtocolVersion + "&dmap=" + iTunesDMAPVersion + "&daap=" + iTunesDAAPVersion, UriKind.Relative));
         }
 
         public static void OpenVideosPage()

@@ -102,9 +102,10 @@ namespace Komodex.WP7DACPRemote.Utilities
                             else
                                 writer.WriteLine("Disconnected");
 
-                            writer.WriteLine("-> Version: " + server.ServerVersion);
-                            writer.WriteLine("-> DMAP: " + server.ServerDMAPVersion);
-                            writer.WriteLine("-> DAAP: " + server.ServerDAAPVersion);
+                            writer.WriteLine("-> Version: " + server.ServerVersionString);
+                            writer.WriteLine("-> Protocol: " + server.ServerVersion.ToString("x").ToUpper());
+                            writer.WriteLine("-> DMAP: " + server.ServerDMAPVersion.ToString("x").ToUpper());
+                            writer.WriteLine("-> DAAP: " + server.ServerDAAPVersion.ToString("x").ToUpper());
                         }
                         else
                         {

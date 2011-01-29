@@ -22,6 +22,7 @@ namespace Komodex.DACP
         }
 
         public HttpWebRequest WebRequest { get; protected set; }
+        public HttpWebResponse WebResponse { get; set; }
 
         public bool IsDataRetrieval { get; set; }
 

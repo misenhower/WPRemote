@@ -80,6 +80,7 @@ namespace Komodex.DACP
             try
             {
                 WebResponse response = requestInfo.WebRequest.EndGetResponse(result);
+                requestInfo.WebResponse = response as HttpWebResponse;
 
                 if (Stopped)
                     return;
@@ -154,6 +155,12 @@ namespace Komodex.DACP
 
         protected void ProcessServerInfoResponse(HTTPRequestInfo requestInfo)
         {
+            if (requestInfo.WebResponse != null && requestInfo.WebResponse.Headers != null)
+            {
+                // This will return null if the header doesn't exist
+                ServerVersionString = requestInfo.WebResponse.Headers["DAAP-Server"];
+            }
+
             foreach (var kvp in requestInfo.ResponseNodes)
             {
                 switch (kvp.Key)

@@ -49,11 +49,13 @@ namespace Komodex.WP7DACPRemote
                 tbiTunesNotConnected.Text = "From last connection attempt";
 
                 var queryString = NavigationContext.QueryString;
-                int iTunesVersion = int.Parse(queryString["version"]);
+                string iTunesVersion = queryString["version"];
+                int iTunesProtocolVersion = int.Parse(queryString["protocol"]);
                 int iTunesDMAPVersion = int.Parse(queryString["dmap"]);
                 int iTunesDAAPVersion = int.Parse(queryString["daap"]);
 
-                tbiTunesVersion.Text = iTunesVersion.ToString("x").ToUpper();
+                tbiTunesVersion.Text = iTunesVersion;
+                tbiTunesProtocolVersion.Text = iTunesProtocolVersion.ToString("x").ToUpper();
                 tbiTunesDMAPVersion.Text = iTunesDMAPVersion.ToString("x").ToUpper();
                 tbiTunesDAAPVersion.Text = iTunesDAAPVersion.ToString("x").ToUpper();
             }
@@ -62,16 +64,19 @@ namespace Komodex.WP7DACPRemote
                 tbiTunesNotConnected.Visibility = System.Windows.Visibility.Collapsed;
                 gridiTunesInfo.Visibility = System.Windows.Visibility.Visible;
 
-                tbiTunesVersion.Text = server.ServerVersion.ToString("x").ToUpper();
+                tbiTunesVersion.Text = server.ServerVersionString;
+                tbiTunesProtocolVersion.Text = server.ServerVersion.ToString("x").ToUpper();
                 tbiTunesDMAPVersion.Text = server.ServerDMAPVersion.ToString("x").ToUpper();
                 tbiTunesDAAPVersion.Text = server.ServerDAAPVersion.ToString("x").ToUpper();
             }
-
             else
             {
                 tbiTunesNotConnected.Visibility = System.Windows.Visibility.Visible;
                 gridiTunesInfo.Visibility = System.Windows.Visibility.Collapsed;
             }
+
+            if (string.IsNullOrEmpty(tbiTunesVersion.Text))
+                tbiTunesVersion.Text = "N/A";
 
 #if DEBUG
             // Device information

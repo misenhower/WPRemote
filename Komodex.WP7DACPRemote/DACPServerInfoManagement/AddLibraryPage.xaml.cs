@@ -39,7 +39,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             UpdateAppBar();
         }
 
-        private int iTunesVersion = 0;
+        private string iTunesVersion = null;
+        private int iTunesProtocolVersion = 0;
         private int iTunesDMAPVersion = 0;
         private int iTunesDAAPVersion = 0;
 
@@ -113,8 +114,9 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             // Remove focus from textbox
             Focus();
 
-            // Clear cached version numbers
-            iTunesVersion = iTunesDMAPVersion = iTunesDAAPVersion = 0;
+            // Clear cached version info
+            iTunesVersion = null;
+            iTunesProtocolVersion = iTunesDMAPVersion = iTunesDAAPVersion = 0;
 
             // Validate the server info
             SetVisibility(true);
@@ -134,7 +136,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void mnuAbout_Click(object sender, EventArgs e)
         {
-            NavigationManager.OpenAboutPage(iTunesVersion, iTunesDMAPVersion, iTunesDAAPVersion);
+            NavigationManager.OpenAboutPage(iTunesVersion ?? string.Empty, iTunesProtocolVersion, iTunesDMAPVersion, iTunesDAAPVersion);
         }
 
         private void tbHost_KeyUp(object sender, KeyEventArgs e)
@@ -223,7 +225,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         break;
                     case ServerUpdateType.Error:
                         // Cache the version info
-                        iTunesVersion = server.ServerVersion;
+                        iTunesVersion = server.ServerVersionString;
+                        iTunesProtocolVersion = server.ServerVersion;
                         iTunesDMAPVersion = server.ServerDMAPVersion;
                         iTunesDAAPVersion = server.ServerDAAPVersion;
 

@@ -58,18 +58,21 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Version:" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DMAP:" />
-                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DAAP:" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Protocol:" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DMAP:" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DAAP:" />
 
                             <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesVersion" />
-                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDMAPVersion" />
-                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDAAPVersion" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesProtocolVersion" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDMAPVersion" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDAAPVersion" />
                         </Grid>
                         <Border Margin="0,0,0,12" />
                     </StackPanel>
