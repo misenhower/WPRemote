@@ -14,6 +14,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Komodex.WP7DACPRemote.Settings;
+using Komodex.WP7DACPRemote.Utilities;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -56,6 +57,9 @@ namespace Komodex.WP7DACPRemote
 
             // Phone-specific initialization
             InitializePhoneApplication();
+            
+            // Error reporter initialization
+            CrashReporter.Initialize(RootFrame);
 
             // Set up hooks
             NavigationManager.DoFirstLoad(RootFrame);
