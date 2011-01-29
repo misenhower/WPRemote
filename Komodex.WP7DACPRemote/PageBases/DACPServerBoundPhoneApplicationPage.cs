@@ -35,6 +35,23 @@ namespace Komodex.WP7DACPRemote
 
         #endregion
 
+        #region General Appplication Bar Methods
+
+        protected void InitializeAppBar()
+        {
+            ApplicationBar.StateChanged += new EventHandler<ApplicationBarStateChangedEventArgs>(ApplicationBar_StateChanged);
+        }
+
+        void ApplicationBar_StateChanged(object sender, ApplicationBarStateChangedEventArgs e)
+        {
+            if (e.IsMenuVisible)
+                ApplicationBar.Opacity = 0.9;
+            else
+                ApplicationBar.Opacity = 0.5;
+        }
+
+        #endregion
+
         #region Standard Play Transport Application Bar
 
         private ApplicationBarIconButton AppBarPreviousTrackButton = null;

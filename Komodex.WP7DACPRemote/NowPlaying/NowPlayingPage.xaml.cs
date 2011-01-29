@@ -30,10 +30,11 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         {
             InitializeComponent();
 
-            InitializeStandardPlayTransportApplicationBar();
-
             AnimationContext = LayoutRoot;
 
+            // Application bar
+            InitializeAppBar();
+            InitializeStandardPlayTransportApplicationBar();
             AddChooseLibraryApplicationBarMenuItem();
 
             repeatShuffleControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);

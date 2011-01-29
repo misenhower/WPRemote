@@ -24,10 +24,12 @@ namespace Komodex.WP7DACPRemote
         {
             InitializeComponent();
 
-            InitializeStandardPlayTransportApplicationBar();
 
             AnimationContext = LayoutRoot;
 
+            // Application Bar
+            InitializeAppBar();
+            InitializeStandardPlayTransportApplicationBar();
             AddChooseLibraryApplicationBarMenuItem();
             AddSettingsApplicationBarMenuItem();
             AddAboutApplicationBarMenuItem();
