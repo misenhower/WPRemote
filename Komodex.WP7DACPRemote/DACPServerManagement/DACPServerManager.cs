@@ -20,6 +20,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
     public static class DACPServerManager
     {
         private static bool _suppressNavigateToHome = false;
+        private static bool _tryToReconnect = false;
 
         #region Properties
 
@@ -244,15 +245,22 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
             switch (e.Type)
             {
-                case ServerUpdateType.ServerReconnecting:
-                    UpdatePopupDisplay();
-                    break;
                 case ServerUpdateType.ServerConnected:
+                    _tryToReconnect = true;
                     UpdatePopupDisplay();
                     UpdateSavedLibraryName();
                     break;
                 case ServerUpdateType.Error:
-                    Server = null;
+                    if (_tryToReconnect && Server != null)
+                    {
+                        _tryToReconnect = false;
+                        Server.Start();
+                        UpdatePopupDisplay();
+                    }
+                    else
+                    {
+                        Server = null;
+                    }
                     break;
                 default:
                     break;

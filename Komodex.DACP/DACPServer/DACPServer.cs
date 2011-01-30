@@ -148,14 +148,11 @@ namespace Komodex.DACP
 
         #region Connection State
 
-        protected bool TryToReconnect = false;
-
         protected void ConnectionEstablished()
         {
             if (IsConnected)
                 return;
 
-            TryToReconnect = true;
             IsConnected = true;
             SendServerUpdate(ServerUpdateType.ServerConnected);
         }
@@ -171,17 +168,8 @@ namespace Komodex.DACP
 
             if (!Stopped)
             {
-                if (TryToReconnect)
-                {
-                    Stop();
-                    TryToReconnect = false;
-                    SendServerUpdate(ServerUpdateType.ServerReconnecting);
-                    Start();
-                }
-                else
-                {
-                    SendServerUpdate(ServerUpdateType.Error, errorType);
-                }
+                Stop();
+                SendServerUpdate(ServerUpdateType.Error, errorType);
             }
         }
 

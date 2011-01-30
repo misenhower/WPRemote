@@ -29,7 +29,6 @@ namespace Komodex.DACP
     public enum ServerUpdateType
     {
         ServerConnected,
-        ServerReconnecting,
         Error,
         AirPlaySpeakerPassword,
     }

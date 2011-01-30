@@ -104,7 +104,6 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                 switch (e.Type)
                 {
                     case ServerUpdateType.ServerConnected:
-                    case ServerUpdateType.ServerReconnecting:
                     case ServerUpdateType.Error:
                         if (AirPlayDialog != null && AirPlayDialog.IsOpen)
                             AirPlayDialog.Hide();
