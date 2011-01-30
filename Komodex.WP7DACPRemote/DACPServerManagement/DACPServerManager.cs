@@ -21,6 +21,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
     {
         private static bool _suppressNavigateToHome = false;
         private static bool _tryToReconnect = false;
+        private static bool _isObscured = false;
 
         #region Properties
 
@@ -194,6 +195,33 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         #endregion
 
+        #region Running Under Lock Screen
+
+        static void RootVisual_Obscured(object sender, ObscuredEventArgs e)
+        {
+            _isObscured = true;
+        }
+
+        static void RootVisual_Unobscured(object sender, EventArgs e)
+        {
+            if (Server != null && !Server.IsConnected)
+            {
+                if (_tryToReconnect)
+                {
+                    _tryToReconnect = false;
+                    Server.Start();
+                    UpdatePopupDisplay();
+                }
+                else
+                {
+                    Server = null;
+                }
+            }
+            _isObscured = false;
+        }
+
+        #endregion
+
         #region Public Methods
 
         public static void DoFirstLoad(PhoneApplicationFrame frame)
@@ -204,6 +232,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             RootVisual.SizeChanged += new SizeChangedEventHandler(RootVisual_SizeChanged);
             RootVisual.Navigating += new System.Windows.Navigation.NavigatingCancelEventHandler(RootVisual_Navigating);
             RootVisual.Navigated += new System.Windows.Navigation.NavigatedEventHandler(RootVisual_Navigated);
+            RootVisual.Obscured += new EventHandler<ObscuredEventArgs>(RootVisual_Obscured);
+            RootVisual.Unobscured += new EventHandler(RootVisual_Unobscured);
 
             if (DACPServerViewModel.Instance.CurrentDACPServer != null)
                 ConnectToServer();
@@ -251,6 +281,9 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     UpdateSavedLibraryName();
                     break;
                 case ServerUpdateType.Error:
+                    if (_isObscured)
+                        break;
+
                     if (_tryToReconnect && Server != null)
                     {
                         _tryToReconnect = false;
