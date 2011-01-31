@@ -126,7 +126,14 @@ namespace Komodex.WP7DACPRemote
         {
             EmailComposeTask t = new EmailComposeTask();
             t.To = "Komodex Support <info@komodex.com>";
-            t.Subject = "[Komodex] Remote v" + Utility.GetApplicationVersion() + " Support Request";
+            t.Subject = "[Komodex] Remote v" + Utility.GetApplicationVersion() + " Feedback";
+            t.Show();
+        }
+
+        private void btnTwitter_Click(object sender, RoutedEventArgs e)
+        {
+            WebBrowserTask t = new WebBrowserTask();
+            t.URL = "http://twitter.com/WP7remote";
             t.Show();
         }
 

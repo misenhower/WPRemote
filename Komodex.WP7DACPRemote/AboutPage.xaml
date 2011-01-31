@@ -103,11 +103,18 @@
                     </StackPanel>
                 </Grid>
             </Button>
-            
-            <toolkit:WrapPanel Grid.Row="3" Margin="12">
-                <TextBlock Text="Need help?" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
-                <HyperlinkButton Content="Contact us" HorizontalAlignment="Left" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnSupport_Click" />
-            </toolkit:WrapPanel>
+
+            <StackPanel Grid.Row="3" Margin="12,0,0,0">
+                <toolkit:WrapPanel Margin="0,0,0,12">
+                    <HyperlinkButton Content="Contact us" Margin="-12,0,-12,0" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnSupport_Click" />
+                    <TextBlock Text=" for support and feedback" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                </toolkit:WrapPanel>
+                <toolkit:WrapPanel>
+                    <TextBlock Text="Follow " FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                    <HyperlinkButton Content="@WP7Remote" Margin="-12,0,-12,0" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnTwitter_Click" />
+                    <TextBlock Text=" on Twitter" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                </toolkit:WrapPanel>
+            </StackPanel>
             
             <StackPanel Grid.Row="4" Margin="0,0,0,12">
                 <Button Template="{StaticResource EmptyButton}" Margin="12,0,12,12" Click="btnLogo_Click">
