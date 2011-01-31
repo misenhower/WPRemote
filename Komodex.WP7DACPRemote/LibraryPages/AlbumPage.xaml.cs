@@ -102,19 +102,15 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             NavigationManager.OpenArtistPage(Album.ArtistName);
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SongPlayButton_Click(object sender, RoutedEventArgs e)
         {
-            LongListSelector listBox = (LongListSelector)sender;
-
-            MediaItem song = listBox.SelectedItem as MediaItem;
+            MediaItem song = ((Button)sender).Tag as MediaItem;
 
             if (song != null)
             {
                 Album.SendPlaySongCommand(song);
                 NavigationManager.OpenNowPlayingPage();
             }
-
-            listBox.SelectedItem = null;
         }
 
         private void AlbumPlayButton_Click(object sender, RoutedEventArgs e)
