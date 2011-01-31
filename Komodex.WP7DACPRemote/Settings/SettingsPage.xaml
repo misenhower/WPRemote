@@ -43,7 +43,7 @@
                                       IsChecked="{Binding RunUnderLock, Mode=TwoWay}"
                                       CacheMode="BitmapCache" />
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" CacheMode="BitmapCache">
-                    Staying connected to iTunes while the phone is locked may use more battery life but will make resuming from the lock screen much faster.
+                    Staying connected to iTunes while the phone is locked will make resuming from the lock screen faster but may use more battery life.
                 </TextBlock>
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12" CacheMode="BitmapCache"
                            Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource booleanToVisibilityConverter}}">
