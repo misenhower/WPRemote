@@ -23,8 +23,11 @@ namespace Komodex.WP7DACPRemote.Utilities
 
     public static class CrashReporter
     {
-        // The URL crash reports will be sent to
+#if DEBUG
+        private static readonly string ErrorReportURL = "http://sys.komodex.com/wp7/crashreporter/?p=remote&d=1";
+#else
         private static readonly string ErrorReportURL = "http://sys.komodex.com/wp7/crashreporter/?p=remote";
+#endif
         // The filename for crash reports in the app's isolated storage area
         private static readonly string ErrorLogFilename = "ApplicationErrorLog.log";
 
