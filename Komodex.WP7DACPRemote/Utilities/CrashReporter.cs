@@ -70,7 +70,10 @@ namespace Komodex.WP7DACPRemote.Utilities
                     using (TextWriter writer = new StreamWriter(store.OpenFile(ErrorLogFilename, FileMode.Append)))
                     {
                         writer.WriteLine(SeparatorDashes);
-                        writer.WriteLine("Application Exception");
+                        if (!string.IsNullOrEmpty(type))
+                            writer.WriteLine(type);
+                        else
+                            writer.WriteLine("Application Error");
 
                         // Application name
                         writer.WriteLine("-> Product: Remote");
@@ -84,10 +87,6 @@ namespace Komodex.WP7DACPRemote.Utilities
 
                         // Date and time
                         writer.WriteLine("-> Date: " + DateTime.Now.ToString());
-
-                        // Exception type
-                        if (type != null)
-                            writer.WriteLine("-> Type: " + type);
 
                         // Unique report ID
                         writer.WriteLine("-> Report ID: " + Guid.NewGuid().ToString());
