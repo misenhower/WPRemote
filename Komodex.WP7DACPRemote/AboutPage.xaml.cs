@@ -19,7 +19,7 @@ using Clarity.Phone.Controls;
 
 namespace Komodex.WP7DACPRemote
 {
-    public partial class AboutPage : AnimatedBasePage
+    public partial class AboutPage : DACPServerBoundPhoneApplicationPage
     {
         public AboutPage()
         {
@@ -27,6 +27,8 @@ namespace Komodex.WP7DACPRemote
 
             AnimationContext = LayoutRoot;
         }
+
+        #region Overrides
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
@@ -36,11 +38,37 @@ namespace Komodex.WP7DACPRemote
             tbAppVersion.Text = "Version: " + Utility.GetApplicationVersion();
 #if DEBUG
             tbAppVersion.Text += " (Debug)";
+
+            // Device information
+            tbManufacturer.Text = DeviceInfo.DeviceManufacturer;
+            tbDevice.Text = DeviceInfo.DeviceName;
+            tbFirmware.Text = DeviceInfo.DeviceFirmwareVersion;
+            tbHardwareVersion.Text = DeviceInfo.DeviceHardwareVersion;
 #endif
 
-            // iTunes information
-            DACPServer server = DACPServerManager.Server;
+            UpdateServerInfo();
+        }
 
+        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        {
+            base.DACPServer_ServerUpdate(sender, e);
+
+            Dispatcher.BeginInvoke(() => UpdateServerInfo());
+        }
+
+        protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            base.DACPServer_PropertyChanged(sender, e);
+
+            UpdateServerInfo();
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void UpdateServerInfo()
+        {
             if (NavigationContext.QueryString.ContainsKey("version"))
             {
                 tbiTunesNotConnected.Visibility = System.Windows.Visibility.Visible;
@@ -59,15 +87,15 @@ namespace Komodex.WP7DACPRemote
                 tbiTunesDMAPVersion.Text = iTunesDMAPVersion.ToString("x").ToUpper();
                 tbiTunesDAAPVersion.Text = iTunesDAAPVersion.ToString("x").ToUpper();
             }
-            else if (server != null && server.IsConnected)
+            else if (DACPServer != null && DACPServer.IsConnected)
             {
                 tbiTunesNotConnected.Visibility = System.Windows.Visibility.Collapsed;
                 gridiTunesInfo.Visibility = System.Windows.Visibility.Visible;
 
-                tbiTunesVersion.Text = server.ServerVersionString;
-                tbiTunesProtocolVersion.Text = server.ServerVersion.ToString("x").ToUpper();
-                tbiTunesDMAPVersion.Text = server.ServerDMAPVersion.ToString("x").ToUpper();
-                tbiTunesDAAPVersion.Text = server.ServerDAAPVersion.ToString("x").ToUpper();
+                tbiTunesVersion.Text = DACPServer.ServerVersionString;
+                tbiTunesProtocolVersion.Text = DACPServer.ServerVersion.ToString("x").ToUpper();
+                tbiTunesDMAPVersion.Text = DACPServer.ServerDMAPVersion.ToString("x").ToUpper();
+                tbiTunesDAAPVersion.Text = DACPServer.ServerDAAPVersion.ToString("x").ToUpper();
             }
             else
             {
@@ -77,23 +105,11 @@ namespace Komodex.WP7DACPRemote
 
             if (string.IsNullOrEmpty(tbiTunesVersion.Text))
                 tbiTunesVersion.Text = "N/A";
-
-#if DEBUG
-            // Device information
-            tbManufacturer.Text = DeviceInfo.DeviceManufacturer;
-            tbDevice.Text = DeviceInfo.DeviceName;
-            tbFirmware.Text = DeviceInfo.DeviceFirmwareVersion;
-            tbHardwareVersion.Text = DeviceInfo.DeviceHardwareVersion;
-#endif
-
         }
 
-        private void btnLogo_Click(object sender, RoutedEventArgs e)
-        {
-            WebBrowserTask t = new WebBrowserTask();
-            t.URL = "http://komodex.com/wp7remote";
-            t.Show();
-        }
+        #endregion
+
+        #region Button/Link Actions
 
         int assemblyInfoCount = 25;
         private void btnAssemblyInfo_Click(object sender, RoutedEventArgs e)
@@ -136,6 +152,15 @@ namespace Komodex.WP7DACPRemote
             t.URL = "http://twitter.com/WP7remote";
             t.Show();
         }
+
+        private void btnLogo_Click(object sender, RoutedEventArgs e)
+        {
+            WebBrowserTask t = new WebBrowserTask();
+            t.URL = "http://komodex.com/wp7remote";
+            t.Show();
+        }
+
+        #endregion
 
     }
 }
