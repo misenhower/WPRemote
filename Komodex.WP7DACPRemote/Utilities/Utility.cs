@@ -21,21 +21,21 @@ namespace Komodex.WP7DACPRemote
     {
         #region Application Version
 
-        public static string GetApplicationVersion()
+        private static string _ApplicationVersion = null;
+        public static string ApplicationVersion
+        {
+            get
+            {
+                if (_ApplicationVersion == null)
+                    _ApplicationVersion = GetApplicationVersion();
+                return _ApplicationVersion;
+            }
+        }
+
+        private static string GetApplicationVersion()
         {
             string assemblyInfo = Assembly.GetExecutingAssembly().FullName;
-            if (string.IsNullOrEmpty(assemblyInfo))
-                return string.Empty;
-
-            var splitString = assemblyInfo.Split(',');
-            foreach (var stringPart in splitString)
-            {
-                var stringPartTrimmed = stringPart.Trim();
-                if (stringPartTrimmed.StartsWith("Version="))
-                    return stringPartTrimmed.Substring(8).Trim();
-            }
-
-            return string.Empty;
+            return assemblyInfo.Split('=')[1].Split(',')[0];
         }
 
         #endregion

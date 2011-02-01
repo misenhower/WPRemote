@@ -35,7 +35,7 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedTo(e);
 
             // Application information
-            tbAppVersion.Text = "Version: " + Utility.GetApplicationVersion();
+            tbAppVersion.Text = "Version: " + Utility.ApplicationVersion;
 #if DEBUG
             tbAppVersion.Text += " (Debug)";
 
@@ -142,7 +142,7 @@ namespace Komodex.WP7DACPRemote
         {
             EmailComposeTask t = new EmailComposeTask();
             t.To = "Komodex Support <info@komodex.com>";
-            t.Subject = "[Komodex] Remote v" + Utility.GetApplicationVersion() + " Feedback";
+            t.Subject = "[Komodex] Remote v" + Utility.ApplicationVersion + " Feedback";
             t.Show();
         }
 

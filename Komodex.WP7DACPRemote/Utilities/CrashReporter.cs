@@ -79,7 +79,7 @@ namespace Komodex.WP7DACPRemote.Utilities
                         writer.WriteLine("-> Product: Remote");
 
                         // Application version
-                        writer.Write("-> Version: " + Utility.GetApplicationVersion());
+                        writer.Write("-> Version: " + Utility.ApplicationVersion);
 #if DEBUG
                         writer.Write(" (Debug)");
 #endif
