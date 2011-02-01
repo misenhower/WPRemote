@@ -14,42 +14,49 @@ namespace Komodex.WP7DACPRemote
 {
     public static class FirstRunNotifier
     {
-        private static IsolatedStorageSettings isolatedSettings = IsolatedStorageSettings.ApplicationSettings;
+        // Notification URL parameters
+        private const string NotificationURL = "http://sys.komodex.com/wp7/notify/";
+        private const string ProductName = "remote";
 
-        private static readonly string kFirstRunKey = "FirstRunCompleted";
+        // Isolated storage key
+        private const string FirstRunKey = "FirstRunCompleted";
+        private static readonly IsolatedStorageSettings isolatedSettings = IsolatedStorageSettings.ApplicationSettings;
 
         public static void CheckFirstRun()
         {
-            if (isolatedSettings.Contains(kFirstRunKey))
-            {
-                string previousVersion = isolatedSettings[kFirstRunKey] as string;
-                if (previousVersion != Utility.ApplicationVersion)
-                    SendFirstRunNotification();
-            }
-            else
-            {
+            if (GetPreviousVersion() != Utility.ApplicationVersion)
                 SendFirstRunNotification();
-            }
         }
+
+        private static string GetPreviousVersion()
+        {
+            if (isolatedSettings.Contains(FirstRunKey))
+                return isolatedSettings[FirstRunKey] as string;
+            return null;
+        }
+
+        #region HTTP Request and Response
 
         private static void SendFirstRunNotification()
         {
-            string version = Utility.ApplicationVersion;
-            string url = "http://sys.komodex.com/wp7/notify/?p=remote&v=" + version;
+            // Build the URL
+            string url = NotificationURL + "?p=" + ProductName + "&v=" + Utility.ApplicationVersion;
 
-            if (!isolatedSettings.Contains(kFirstRunKey))
+            if (!isolatedSettings.Contains(FirstRunKey))
                 url += "&t=n";
             else
             {
                 url += "&t=u";
-                if (isolatedSettings[kFirstRunKey] is string)
-                    url += "&pv=" + (string)isolatedSettings[kFirstRunKey];
+                string previousVersion = GetPreviousVersion();
+                if (!string.IsNullOrEmpty(previousVersion))
+                    url += "&pv=" + previousVersion;
             }
 
 #if DEBUG
             url += "&d=1";
-            // TODO: Could also include device info
 #endif
+
+            // Submit the HTTP request
             try
             {
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -66,13 +73,15 @@ namespace Komodex.WP7DACPRemote
             try
             {
                 WebResponse response = webRequest.EndGetResponse(result);
-
                 response.GetResponseStream();
 
-                isolatedSettings[kFirstRunKey] = Utility.ApplicationVersion;
+                // Update the Isolated Storage settings
+                isolatedSettings[FirstRunKey] = Utility.ApplicationVersion;
                 isolatedSettings.Save();
             }
             catch { }
         }
+
+        #endregion
     }
 }
