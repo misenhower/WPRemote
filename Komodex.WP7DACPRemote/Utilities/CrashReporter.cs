@@ -119,8 +119,7 @@ namespace Komodex.WP7DACPRemote.Utilities
                         // Exception Info
                         writer.WriteLine("Exception Information:");
                         writer.WriteLine();
-                        writer.WriteLine(e.Message);
-                        writer.WriteLine(e.StackTrace);
+                        writer.WriteLine(e.ToString());
                     }
                 }
             }
