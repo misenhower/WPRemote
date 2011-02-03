@@ -18,21 +18,22 @@ using Komodex.DACP;
 
 namespace Komodex.WP7DACPRemote.Utilities
 {
+    // CrashReporter
+    // Matt Isenhower, Komodex Systems LLC
+    // http://blog.ike.to
     // Inspired by:
     // http://blogs.msdn.com/b/andypennell/archive/2010/11/01/error-reporting-on-windows-phone-7.aspx
 
     public static class CrashReporter
     {
-#if DEBUG
-        private static readonly string ErrorReportURL = "http://sys.komodex.com/wp7/crashreporter/?p=remote&d=1";
-#else
-        private static readonly string ErrorReportURL = "http://sys.komodex.com/wp7/crashreporter/?p=remote";
-#endif
-        // The filename for crash reports in the app's isolated storage area
-        private static readonly string ErrorLogFilename = "ApplicationErrorLog.log";
+        // Error Report URL parameters
+        private const string ErrorReportURL = "http://sys.komodex.com/wp7/crashreporter/";
+        private const string ProductName = "Remote";
 
-        private static readonly string SeparatorDashes = "---------------------------------------------------------------------------";
+        // The filename for crash reports in isolated storage 
+        private const string ErrorLogFilename = "ApplicationErrorLog.log";
 
+        private const string SeparatorDashes = "---------------------------------------------------------------------------";
         private static string ErrorLogContent = null;
 
         public static void Initialize(PhoneApplicationFrame frame)
@@ -70,13 +71,12 @@ namespace Komodex.WP7DACPRemote.Utilities
                     using (TextWriter writer = new StreamWriter(store.OpenFile(ErrorLogFilename, FileMode.Append)))
                     {
                         writer.WriteLine(SeparatorDashes);
-                        if (!string.IsNullOrEmpty(type))
-                            writer.WriteLine(type);
-                        else
-                            writer.WriteLine("Application Error");
+
+                        // Error type
+                        writer.WriteLine(type ?? "Application Error");
 
                         // Application name
-                        writer.WriteLine("-> Product: Remote");
+                        writer.WriteLine("-> Product: " + ProductName);
 
                         // Application version
                         writer.Write("-> Version: " + Utility.ApplicationVersion);
@@ -127,6 +127,10 @@ namespace Komodex.WP7DACPRemote.Utilities
             catch { }
         }
 
+        #endregion
+
+        #region HTTP Request and Response
+
         private static void SendExceptionLog()
         {
             try
@@ -144,7 +148,12 @@ namespace Komodex.WP7DACPRemote.Utilities
                     if (ErrorLogContent == null)
                         return;
 
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ErrorReportURL);
+                    string url = ErrorReportURL + "?p=" + ProductName;
+#if DEBUG
+                    url += "&d=1";
+#endif
+
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                     request.ContentType = "application/x-www-form-urlencoded";
                     request.Method = "POST";
 
@@ -153,10 +162,6 @@ namespace Komodex.WP7DACPRemote.Utilities
             }
             catch { }
         }
-
-        #endregion
-
-        #region HTTP Handlers
 
         private static void GetRequestStringCallback(IAsyncResult asyncResult)
         {
