@@ -35,16 +35,27 @@ namespace Komodex.WP7DACPRemote.Utilities
 
         private const string SeparatorDashes = "---------------------------------------------------------------------------";
         private static string ErrorLogContent = null;
+        private static PhoneApplicationFrame RootFrame = null;
+        private static bool IsObscured = false;
+        private static bool IsLocked = false;
 
         public static void Initialize(PhoneApplicationFrame frame)
         {
+            RootFrame = frame;
+
             // Hook into exception events
             App.Current.UnhandledException += new EventHandler<ApplicationUnhandledExceptionEventArgs>(App_UnhandledException);
-            frame.NavigationFailed += new NavigationFailedEventHandler(RootFrame_NavigationFailed);
+            RootFrame.NavigationFailed += new NavigationFailedEventHandler(RootFrame_NavigationFailed);
+
+            // Hook into obscured/unobscured events
+            RootFrame.Obscured += new EventHandler<ObscuredEventArgs>(RootFrame_Obscured);
+            RootFrame.Unobscured += new EventHandler(RootFrame_Unobscured);
 
             // Send previous log if it exists
             SendExceptionLog();
         }
+
+
 
         #region Events
 
@@ -56,6 +67,18 @@ namespace Komodex.WP7DACPRemote.Utilities
         static void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             LogException(e.Exception, "Navigation Failed");
+        }
+
+        static void RootFrame_Obscured(object sender, ObscuredEventArgs e)
+        {
+            IsObscured = true;
+            IsLocked = e.IsLocked;
+        }
+
+        static void RootFrame_Unobscured(object sender, EventArgs e)
+        {
+            IsObscured = false;
+            IsLocked = false;
         }
 
         #endregion
@@ -90,6 +113,12 @@ namespace Komodex.WP7DACPRemote.Utilities
 
                         // Unique report ID
                         writer.WriteLine("-> Report ID: " + Guid.NewGuid().ToString());
+
+                        writer.WriteLine(SeparatorDashes);
+
+                        writer.WriteLine("-> Current page: " + RootFrame.CurrentSource);
+                        writer.WriteLine("-> Obscured: " + ((IsObscured) ? "Yes" : "No"));
+                        writer.WriteLine("-> Locked: " + ((IsLocked) ? "Yes" : "No"));
 
                         writer.WriteLine(SeparatorDashes);
 
