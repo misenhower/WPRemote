@@ -79,7 +79,10 @@ namespace Komodex.WP7DACPRemote
 
         public static void LongListSelectorGroupAnimationHelper(LongListSelector sender, GroupViewClosingEventArgs e)
         {
-            LongListSelector list = (LongListSelector)sender;
+            if (sender == null)
+                throw new ArgumentNullException("sender");
+            if (e == null)
+                throw new ArgumentNullException("e");
 
             ItemContainerGenerator itemContainerGenerator = e.ItemsControl.ItemContainerGenerator;
             SwivelTransition swivel = new SwivelTransition();
@@ -102,13 +105,13 @@ namespace Komodex.WP7DACPRemote
             {
                 animation.Completed += delegate
                 {
-                    list.CloseGroupView();
+                    sender.CloseGroupView();
                 };
                 animation.Begin();
                 e.Cancel = true;
             }
 
-            list.ScrollToGroup(e.SelectedGroup);
+            sender.ScrollToGroup(e.SelectedGroup);
         }
 
         public static AnimatorHelperBase GetListSelectorAnimation(this AnimatedBasePage page, LongListSelector listSelector, AnimationType animationType)
