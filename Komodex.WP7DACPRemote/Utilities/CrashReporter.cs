@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Text;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Komodex.DACP;
+using System.Globalization;
 
 namespace Komodex.WP7DACPRemote.Utilities
 {
@@ -33,7 +34,8 @@ namespace Komodex.WP7DACPRemote.Utilities
         // The filename for crash reports in isolated storage 
         private const string ErrorLogFilename = "ApplicationErrorLog.log";
 
-        private const string SeparatorDashes = "---------------------------------------------------------------------------";
+        private static readonly string LargeDashes = new string('=', 80);
+        private static readonly string SmallDashes = new string('-', 80);
         private static string ErrorLogContent = null;
         private static PhoneApplicationFrame RootFrame = null;
         private static bool IsObscured = false;
@@ -54,8 +56,6 @@ namespace Komodex.WP7DACPRemote.Utilities
             // Send previous log if it exists
             SendExceptionLog();
         }
-
-
 
         #region Events
 
@@ -93,7 +93,7 @@ namespace Komodex.WP7DACPRemote.Utilities
                 {
                     using (TextWriter writer = new StreamWriter(store.OpenFile(ErrorLogFilename, FileMode.Append)))
                     {
-                        writer.WriteLine(SeparatorDashes);
+                        writer.WriteLine(LargeDashes);
 
                         // Error type
                         writer.WriteLine(type ?? "Application Error");
@@ -114,15 +114,16 @@ namespace Komodex.WP7DACPRemote.Utilities
                         // Unique report ID
                         writer.WriteLine("-> Report ID: " + Guid.NewGuid().ToString());
 
-                        writer.WriteLine(SeparatorDashes);
+                        writer.WriteLine(SmallDashes);
 
                         writer.WriteLine("-> OS Version: " + Environment.OSVersion.ToString());
                         writer.WriteLine("-> Framework: " + Environment.Version.ToString());
+                        writer.WriteLine("-> Culture: " + CultureInfo.CurrentCulture);
                         writer.WriteLine("-> Current page: " + RootFrame.CurrentSource);
                         writer.WriteLine("-> Obscured: " + ((IsObscured) ? "Yes" : "No"));
                         writer.WriteLine("-> Locked: " + ((IsLocked) ? "Yes" : "No"));
 
-                        writer.WriteLine(SeparatorDashes);
+                        writer.WriteLine(SmallDashes);
 
                         // iTunes Information
                         writer.WriteLine("iTunes Information");
@@ -145,12 +146,14 @@ namespace Komodex.WP7DACPRemote.Utilities
                             writer.WriteLine("-> No server connected");
                         }
 
-                        writer.WriteLine(SeparatorDashes);
+                        writer.WriteLine(SmallDashes);
 
                         // Exception Info
                         writer.WriteLine("Exception Information:");
                         writer.WriteLine();
                         writer.WriteLine(e.ToString());
+
+                        writer.WriteLine();
                     }
                 }
             }
