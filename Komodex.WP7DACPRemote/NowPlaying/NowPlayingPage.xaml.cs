@@ -74,6 +74,9 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             }
 
             UpdateAirPlayButtons();
+
+            ((PhoneApplicationFrame)App.Current.RootVisual).Obscured += new EventHandler<ObscuredEventArgs>(RootVisual_Obscured);
+            ((PhoneApplicationFrame)App.Current.RootVisual).Unobscured += new EventHandler(RootVisual_Unobscured);
         }
 
         protected override void AnimationsComplete(Clarity.Phone.Controls.Animations.AnimationType animationType)
@@ -86,6 +89,9 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
+            ((PhoneApplicationFrame)App.Current.RootVisual).Obscured -= new EventHandler<ObscuredEventArgs>(RootVisual_Obscured);
+            ((PhoneApplicationFrame)App.Current.RootVisual).Unobscured -= new EventHandler(RootVisual_Unobscured);
+
             goBackTimer.Stop();
 
             base.OnNavigatedFrom(e);
@@ -170,6 +176,24 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
             if (DACPServer != null)
                 DACPServer.AirPlaySpeakerUpdate -= new EventHandler(DACPServer_AirPlaySpeakerUpdate);
+        }
+
+        #endregion
+
+        #region Obscured/Unobscured
+
+        protected bool _isObscured = false;
+
+        void RootVisual_Obscured(object sender, ObscuredEventArgs e)
+        {
+            _isObscured = true;
+        }
+
+        void RootVisual_Unobscured(object sender, EventArgs e)
+        {
+            _isObscured = false;
+            if (ShouldGoBack())
+                goBackTimer.Start();
         }
 
         #endregion
@@ -375,7 +399,8 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
         void goBackTimer_Tick(object sender, EventArgs e)
         {
-            NavigationService.GoBack();
+            if (!_isObscured)
+                NavigationService.GoBack();
         }
 
         void DACPServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
