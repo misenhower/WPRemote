@@ -116,6 +116,8 @@ namespace Komodex.WP7DACPRemote.Utilities
 
                         writer.WriteLine(SeparatorDashes);
 
+                        writer.WriteLine("-> OS Version: " + Environment.OSVersion.ToString());
+                        writer.WriteLine("-> Framework: " + Environment.Version.ToString());
                         writer.WriteLine("-> Current page: " + RootFrame.CurrentSource);
                         writer.WriteLine("-> Obscured: " + ((IsObscured) ? "Yes" : "No"));
                         writer.WriteLine("-> Locked: " + ((IsLocked) ? "Yes" : "No"));
