@@ -116,7 +116,7 @@ namespace Komodex.WP7DACPRemote.Utilities
 
                         writer.WriteLine(SmallDashes);
 
-                        writer.WriteLine("-> OS Version: " + Environment.OSVersion.ToString());
+                        writer.WriteLine("-> OS Version: {0} ({1})", Environment.OSVersion, Microsoft.Devices.Environment.DeviceType);
                         writer.WriteLine("-> Framework: " + Environment.Version.ToString());
                         writer.WriteLine("-> Culture: " + CultureInfo.CurrentCulture);
                         writer.WriteLine("-> Current page: " + RootFrame.CurrentSource);
