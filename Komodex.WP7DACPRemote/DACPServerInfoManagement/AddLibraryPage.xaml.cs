@@ -147,6 +147,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             UpdateAppBar();
         }
 
+        private void tbHost_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateAppBar();
+        }
+
         private void tbPIN_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow numeric characters
@@ -158,8 +163,22 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void tbPIN_KeyUp(object sender, KeyEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
+            validatePIN((TextBox)sender);
 
+            if (e.Key == Key.Enter)
+                SaveServer();
+
+            UpdateAppBar();
+        }
+
+        private void tbPIN_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            validatePIN((TextBox)sender);
+            UpdateAppBar();
+        }
+
+        private void validatePIN(TextBox textBox)
+        {
             int selectionStart = textBox.SelectionStart;
             int textLen = textBox.Text.Length;
 
@@ -170,16 +189,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 selectionStart--;
 
             textBox.SelectionStart = selectionStart;
-
-            if (e.Key == Key.Enter)
-                SaveServer();
-
-            UpdateAppBar();
-        }
-
-        private void tbPIN_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpdateAppBar();
         }
 
         private void connectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
