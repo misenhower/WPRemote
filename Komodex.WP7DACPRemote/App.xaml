@@ -193,7 +193,7 @@
                     FontFamily="{StaticResource PhoneFontFamilySemiBold}"
                     FontSize="36"
                     Margin="{StaticResource PhoneTouchTargetOverhang}"
-                    Foreground="{StaticResource PhoneForegroundBrush}"
+                    Foreground="White"
                     VerticalAlignment="Bottom"/>
             </Border>
         </DataTemplate>
@@ -203,7 +203,7 @@
                 <Border Background="Transparent" Padding="12,6,0,6">
                     <Border Background="{StaticResource PhoneAccentBrush}" Width="75" Height="75" HorizontalAlignment="Left">
                         <TextBlock Text="{Binding Key}" 
-                            Foreground="{StaticResource PhoneForegroundBrush}" 
+                            Foreground="White" 
                             Style="{StaticResource PhoneTextExtraLargeStyle}"
                             VerticalAlignment="Bottom"/>
                     </Border>
@@ -213,7 +213,7 @@
 
         <DataTemplate x:Key="LongGroupItemTemplate">
             <Border Background="{Binding HasItems, Converter={StaticResource booleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
-                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}"/>
+                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="White" />
             </Border>
         </DataTemplate>
         
