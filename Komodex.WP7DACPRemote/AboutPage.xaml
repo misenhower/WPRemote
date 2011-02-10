@@ -52,7 +52,7 @@
             <Button Grid.Row="1" Template="{StaticResource EmptyButton}" Click="btniTunesInfo_Click" msun:TiltEffect.SuppressTilt="True">
                 <Grid>
                     <StackPanel Name="iTunesInfoPanel" Background="{StaticResource PhoneChromeBrush}" Margin="12">
-                        <TextBlock TextWrapping="Wrap" Text="iTunes Information" Style="{StaticResource PhoneTextTitle2Style}"/>
+                        <TextBlock TextWrapping="Wrap" Text="Library Information" Style="{StaticResource PhoneTextTitle2Style}"/>
                         <TextBlock TextWrapping="Wrap" Text="Not connected" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" Name="tbiTunesNotConnected" />
                         <Grid Margin="0,12,0,0" Name="gridiTunesInfo">
                             <Grid.RowDefinitions>

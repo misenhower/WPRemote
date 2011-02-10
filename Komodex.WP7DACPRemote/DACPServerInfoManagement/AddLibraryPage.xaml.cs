@@ -240,12 +240,12 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         iTunesDAAPVersion = server.ServerDAAPVersion;
 
                         if (e.ErrorType == ServerErrorType.UnsupportedVersion)
-                            MessageBox.Show("This application currently requires iTunes version 10.1 or higher. "
+                            MessageBox.Show("This application currently requires iTunes version 10.1 or later. "
                                 + "Please upgrade to the latest version of iTunes to continue.", "iTunes Version Error", MessageBoxButton.OK);
                         else if (e.ErrorType == ServerErrorType.InvalidPIN)
-                            MessageBox.Show("Could not connect to iTunes. Please check the PIN and try again.", "PIN Error", MessageBoxButton.OK);
+                            MessageBox.Show("Could not connect to the library. Please check the PIN and try again.", "PIN Error", MessageBoxButton.OK);
                         else if (Utility.CheckNetworkConnectivity())
-                            MessageBox.Show("Could not connect to iTunes. Please make sure your phone is connected to the correct Wi-fi network "
+                            MessageBox.Show("Could not connect to the library. Please make sure your phone is connected to the correct Wi-fi network "
                                 + "and check the value entered in the hostname field.", "Connection Error", MessageBoxButton.OK);
                         SetVisibility(false);
                         server = null;

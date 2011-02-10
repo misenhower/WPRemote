@@ -162,16 +162,16 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="FirstStartPanel" Grid.Row="1" Margin="12,-12">
-            <Grid Margin="12,48,12,0" Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
+            <Grid Margin="12,12,12,0" Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
                     <TextBlock Text="welcome" Style="{StaticResource ItemHeaderStyle}" />
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="To pair with iTunes for the first time, run the Pairing Utility on your computer.  This utility can be downloaded from our website at:"/>
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="To pair with iTunes or another compatible application for the first time, run the Pairing Utility on your computer.  This utility can be downloaded from our website at:"/>
                     <TextBlock TextWrapping="Wrap" Text="http://wp7remoteapp.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Padding="0,0,0,12" />
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="When pairing has been completed, tap on &quot;Add Library&quot; below to connect to iTunes."/>
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="When pairing has been completed, tap &quot;Add Library&quot; below to connect to your library."/>
                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="It will be necessary for your phone to be connected to a Wi-fi network to continue."/>
                 </StackPanel>
                 <Button Grid.Row="1" Content="Add Library" HorizontalAlignment="Center" Margin="12" Click="btnAddLibrary_Click" />

@@ -51,7 +51,7 @@ namespace Komodex.WP7DACPRemote
                 case NetworkInterfaceType.Wireless80211:
                     return true;
                 case NetworkInterfaceType.Ethernet:
-                    MessageBox.Show("Could not connect to iTunes. Please disconnect the USB cable between your phone and computer and try again.", "Network Connection Error", MessageBoxButton.OK);
+                    MessageBox.Show("Could not connect to your library. Please disconnect the USB cable between your phone and computer and try again.", "Network Connection Error", MessageBoxButton.OK);
                     return false;
                 default:
                     MessageBox.Show("Please make sure your phone is connected to a Wi-fi network and try again.", "Wi-fi Connection Error", MessageBoxButton.OK);

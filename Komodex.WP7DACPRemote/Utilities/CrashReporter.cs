@@ -125,8 +125,8 @@ namespace Komodex.WP7DACPRemote.Utilities
 
                         writer.WriteLine(SmallDashes);
 
-                        // iTunes Information
-                        writer.WriteLine("iTunes Information");
+                        // Library Information
+                        writer.WriteLine("Library Information");
                         DACPServer server = DACPServerManager.Server;
                         if (server != null)
                         {
