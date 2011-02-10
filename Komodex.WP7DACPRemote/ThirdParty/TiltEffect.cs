@@ -201,7 +201,9 @@ namespace Microsoft.Unsupported
         /// <param name="e">event args</param>
         static void TiltEffect_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
+#if DEBUG
             Debug.WriteLine("Started: " + e.ManipulationOrigin.X + ", " + e.ManipulationOrigin.Y);
+#endif
             TryStartTiltEffect(sender as FrameworkElement, e);
         }
 
@@ -212,7 +214,9 @@ namespace Microsoft.Unsupported
         /// <param name="e">event args</param>
         static void TiltEffect_ManipulationDelta(object sender, ManipulationDeltaEventArgs e)
         {
+#if DEBUG
             Debug.WriteLine("Delta: " + e.ManipulationOrigin.X + ", " + e.ManipulationOrigin.Y);
+#endif
             ContinueTiltEffect(sender as FrameworkElement, e);
         }
 
@@ -223,7 +227,9 @@ namespace Microsoft.Unsupported
         /// <param name="e">event args</param>
         static void TiltEffect_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
+#if DEBUG
             Debug.WriteLine("Completed: " + e.ManipulationOrigin.X + ", " + e.ManipulationOrigin.Y);
+#endif
             EndTiltEffect(currentTiltElement);
         }
 
@@ -293,7 +299,9 @@ namespace Microsoft.Unsupported
                 // Switch width and height in landscape mode
                 if ((frame.Orientation & PageOrientation.Landscape) == PageOrientation.Landscape)
                 {
+#if DEBUG
                     Debug.WriteLine("Switching container coordinates because it's the root frame");
+#endif
                     containerCenter = new Point(container.ActualHeight / 2, container.ActualWidth / 2);
                 }
                 else
@@ -309,7 +317,9 @@ namespace Microsoft.Unsupported
 
             Point transformedElementCenter = element.TransformToVisual(container).Transform(elementCenter);
             Point result = new Point(containerCenter.X - transformedElementCenter.X, containerCenter.Y - transformedElementCenter.Y);
+#if DEBUG
             Debug.WriteLine("Transforming center " + transformedElementCenter + " to " + containerCenter + "; got " + result);
+#endif
             return result;
         }
 
@@ -323,7 +333,9 @@ namespace Microsoft.Unsupported
         /// the container's center</param>
         static void BeginTiltEffect(FrameworkElement element, Point touchPoint, Point centerPoint, Point centerDelta)
         {
+#if DEBUG
             Debug.WriteLine("BeginTilt: " + touchPoint + " / " + centerPoint + " / " + centerDelta);
+#endif
 
             if (tiltReturnStoryboard != null)
                 StopTiltReturnStoryboardAndCleanup();
@@ -451,7 +463,9 @@ namespace Microsoft.Unsupported
             // If touch moved outside bounds of element, then pause the tilt (but don't cancel it)
             if (new Rect(0, 0, currentTiltElement.ActualWidth, currentTiltElement.ActualHeight).Contains(tiltTouchPoint) != true)
             {
+#if DEBUG
                 Debug.WriteLine("Pause at " + tiltTouchPoint.X + ", " + tiltTouchPoint.Y);
+#endif
                 PauseTiltEffect();
                 return;
             }
