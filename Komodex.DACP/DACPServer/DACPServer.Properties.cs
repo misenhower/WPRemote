@@ -408,13 +408,12 @@ namespace Komodex.DACP
             get { return _PlayState; }
             protected set
             {
+                if (value == 0)
+                    value = PlayStates.Stopped;
+
                 if (_PlayState == value)
                     return;
-
-                if (value == 0)
-                    _PlayState = PlayStates.Stopped;
-                else
-                    _PlayState = value;
+                _PlayState = value;
 
                 SendPropertyChanged("PlayState");
                 SendPropertyChanged("PlayStateBool");
