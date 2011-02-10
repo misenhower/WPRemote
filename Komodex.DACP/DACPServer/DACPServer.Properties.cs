@@ -410,7 +410,12 @@ namespace Komodex.DACP
             {
                 if (_PlayState == value)
                     return;
-                _PlayState = value;
+
+                if (value == 0)
+                    _PlayState = PlayStates.Stopped;
+                else
+                    _PlayState = value;
+
                 SendPropertyChanged("PlayState");
                 SendPropertyChanged("PlayStateBool");
                 SendTrackTimePropertyChanged();
