@@ -63,57 +63,6 @@ namespace Komodex.WP7DACPRemote
 
         #region LongListSelector helpers
 
-        public static void LongListSelectorGroupAnimationHelper(LongListSelector sender, GroupViewOpenedEventArgs e)
-        {
-            ItemContainerGenerator itemContainerGenerator = e.ItemsControl.ItemContainerGenerator;
-            SwivelTransition swivel = new SwivelTransition();
-            swivel.Mode = SwivelTransitionMode.ForwardIn;
-
-            foreach (var item in e.ItemsControl.Items)
-            {
-                UIElement element = (UIElement)itemContainerGenerator.ContainerFromItem(item);
-                ITransition animation = swivel.GetTransition(element);
-                animation.Begin();
-            }
-        }
-
-        public static void LongListSelectorGroupAnimationHelper(LongListSelector sender, GroupViewClosingEventArgs e)
-        {
-            if (sender == null)
-                throw new ArgumentNullException("sender");
-            if (e == null)
-                throw new ArgumentNullException("e");
-
-            ItemContainerGenerator itemContainerGenerator = e.ItemsControl.ItemContainerGenerator;
-            SwivelTransition swivel = new SwivelTransition();
-            swivel.Mode = SwivelTransitionMode.BackwardOut;
-
-            ITransition animation = null;
-
-            foreach (var item in e.ItemsControl.Items)
-            {
-                // Begin the previous item's animation
-                if (animation != null)
-                    animation.Begin();
-
-                UIElement element = (UIElement)itemContainerGenerator.ContainerFromItem(item);
-                animation = swivel.GetTransition(element);
-                animation.Begin();
-            }
-
-            if (animation != null)
-            {
-                animation.Completed += delegate
-                {
-                    sender.CloseGroupView();
-                };
-                animation.Begin();
-                e.Cancel = true;
-            }
-
-            sender.ScrollToGroup(e.SelectedGroup);
-        }
-
         public static AnimatorHelperBase GetListSelectorAnimation(this AnimatedBasePage page, LongListSelector listSelector, AnimationType animationType)
         {
             if (listSelector.SelectedItem != null)

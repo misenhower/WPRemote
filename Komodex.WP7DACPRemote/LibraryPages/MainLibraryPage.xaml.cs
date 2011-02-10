@@ -277,15 +277,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         private void LongListSelector_GroupViewOpened(object sender, GroupViewOpenedEventArgs e)
         {
             openedGroupViewSelector = (LongListSelector)sender;
-
-            Utility.LongListSelectorGroupAnimationHelper((LongListSelector)sender, e);
         }
 
         private void LongListSelector_GroupViewClosing(object sender, GroupViewClosingEventArgs e)
         {
             openedGroupViewSelector = null;
-
-            Utility.LongListSelectorGroupAnimationHelper((LongListSelector)sender, e);
         }
 
         #endregion

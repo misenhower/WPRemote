@@ -91,6 +91,7 @@
                                               GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
                                               ListFooterTemplate="{StaticResource ListFooter}"
                                               GroupViewOpened="LongListSelector_GroupViewOpened"
+                                              
                                               GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
