@@ -88,6 +88,12 @@ namespace Komodex.DACP
                         case 1:
                             debugText += string.Format(" 0x{0:x2} = {0}", kvp.Value[0]);
                             break;
+                        case 2:
+                            Int16 value = kvp.Value.GetInt16Value();
+                            debugText += string.Format(" 0x{0:x4} = {0}", value);
+                            if (value >= 32 && value <= 126)
+                                debugText += string.Format(" ({0})", (char)value);
+                            break;
                         case 4:
                             debugText += string.Format(" 0x{0:x8} = {0}", kvp.Value.GetInt32Value());
                             break;

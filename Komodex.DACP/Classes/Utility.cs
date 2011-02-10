@@ -62,6 +62,13 @@ namespace Komodex.DACP
 
         #region Extension Methods
 
+        public static Int16 SwapBits(this Int16 value)
+        {
+            UInt16 uvalue = (UInt16)value;
+            UInt16 swapped = (UInt16)((0x00FF) & (uvalue >> 8) | (0xFF00) & (uvalue << 8));
+            return (Int16)swapped;
+        }
+
         public static Int32 SwapBits(this Int32 value)
         {
             UInt32 uvalue = (UInt32)value;
@@ -84,6 +91,11 @@ namespace Komodex.DACP
                              | (0x00FF000000000000) & (uvalue << 40)
                              | (0xFF00000000000000) & (uvalue << 56));
             return (Int64)swapped;
+        }
+
+        public static Int16 GetInt16Value(this byte[] data)
+        {
+            return BitConverter.ToInt16(data, 0).SwapBits();
         }
 
         public static Int32 GetInt32Value(this byte[] data)

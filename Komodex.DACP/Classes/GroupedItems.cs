@@ -74,13 +74,13 @@ namespace Komodex.DACP
                 {
                     switch (node.Key)
                     {
-                        case "mshc":
+                        case "mshc": // Header character
                             headerChar = GetKeyChar(node.Value.GetStringValue());
                             break;
-                        case "mshi":
+                        case "mshi": // First index
                             skip = node.Value.GetInt32Value();
                             break;
-                        case "mshn":
+                        case "mshn": // Total count
                             take = node.Value.GetInt32Value();
                             break;
                         default:
