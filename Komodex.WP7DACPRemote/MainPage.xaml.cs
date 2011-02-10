@@ -77,8 +77,19 @@ namespace Komodex.WP7DACPRemote
         protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             base.DACPServer_PropertyChanged(sender, e);
-            UpdateBindings();
-            UpdateVisualState();
+
+            switch (e.PropertyName)
+            {
+                case "LibraryName":
+                case "IsConnected":
+                case "PlayState":
+                case "CurrentSongName":
+                    UpdateBindings();
+                    UpdateVisualState();
+                    break;
+                default:
+                    break;
+            }
         }
 
         protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
