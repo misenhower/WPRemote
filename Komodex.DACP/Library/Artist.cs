@@ -58,6 +58,15 @@ namespace Komodex.DACP.Library
             }
         }
 
+        public override string AlbumArtURL
+        {
+            get
+            {
+                return Server.HTTPPrefix + "/databases/" + Server.DatabaseID + "/groups/" + ID
+                    + "/extra_data/artwork?mw=175&mh=175&group-type=artists&session-id=" + Server.SessionID;
+            }
+        }
+
         #endregion
 
         #region Methods
