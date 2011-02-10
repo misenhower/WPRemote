@@ -52,7 +52,8 @@ namespace Komodex.DACP
                 // Send HTTP request
                 webRequest.BeginGetResponse(new AsyncCallback(HTTPByteCallback), requestInfo);
 
-                PendingHttpRequests.Add(requestInfo);
+                lock (PendingHttpRequests)
+                    PendingHttpRequests.Add(requestInfo);
 
                 if (isDataRetrieval)
                     UpdateGettingData(true);
@@ -74,8 +75,11 @@ namespace Komodex.DACP
 
             Utility.DebugWrite("Got HTTP response for: " + requestInfo.WebRequest.RequestUri);
 
-            if (PendingHttpRequests.Contains(requestInfo))
-                PendingHttpRequests.Remove(requestInfo);
+            lock (PendingHttpRequests)
+            {
+                if (PendingHttpRequests.Contains(requestInfo))
+                    PendingHttpRequests.Remove(requestInfo);
+            }
 
             try
             {

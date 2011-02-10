@@ -115,7 +115,10 @@ namespace Komodex.DACP
             if (setToTrue)
                 GettingData = true;
             else
-                GettingData = PendingHttpRequests.Any(hri => hri.IsDataRetrieval);
+            {
+                lock (PendingHttpRequests)
+                    GettingData = PendingHttpRequests.Any(hri => hri.IsDataRetrieval);
+            }
         }
 
         #endregion
