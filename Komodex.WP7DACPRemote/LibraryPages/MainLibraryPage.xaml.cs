@@ -99,6 +99,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 openedGroupViewSelector.CloseGroupView();
                 openedGroupViewSelector = null;
                 e.Cancel = true;
+                pivotControl.IsEnabled = true;
                 return;
             }
 
@@ -276,12 +277,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void LongListSelector_GroupViewOpened(object sender, GroupViewOpenedEventArgs e)
         {
+            pivotControl.IsEnabled = false;
             openedGroupViewSelector = (LongListSelector)sender;
         }
 
         private void LongListSelector_GroupViewClosing(object sender, GroupViewClosingEventArgs e)
         {
             openedGroupViewSelector = null;
+            pivotControl.IsEnabled = true;
         }
 
         #endregion
