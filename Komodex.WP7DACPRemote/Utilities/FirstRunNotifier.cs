@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.IO.IsolatedStorage;
+using Microsoft.Devices;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -51,6 +52,9 @@ namespace Komodex.WP7DACPRemote
                 if (!string.IsNullOrEmpty(previousVersion))
                     url += "&pv=" + previousVersion;
             }
+
+            if (Microsoft.Devices.Environment.DeviceType == DeviceType.Emulator)
+                url += "&e=1";
 
 #if DEBUG
             url += "&d=1";
