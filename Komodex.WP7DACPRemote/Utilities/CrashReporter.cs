@@ -123,9 +123,9 @@ namespace Komodex.WP7DACPRemote.Utilities
                             writer.WriteLine("-> Culture: " + CultureInfo.CurrentCulture);
                             writer.WriteLine("-> Current page: " + RootFrame.CurrentSource);
                         }
-                        catch (Exception e)
+                        catch (Exception ex)
                         {
-                            writer.WriteLine(" -> Error getting device/page info: " + e.ToString());
+                            writer.WriteLine(" -> Error getting device/page info: " + ex.ToString());
                         }
 
                         writer.WriteLine("-> Obscured: " + ((IsObscured) ? "Yes" : "No"));
