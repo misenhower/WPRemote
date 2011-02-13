@@ -272,13 +272,13 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             switch (SettingsManager.Current.ArtistClickAction)
             {
                 case SettingsManager.ArtistClickActions.OpenArtistPage:
-                    if (string.IsNullOrEmpty(DACPServer.CurrentArtist))
+                    if (DACPServer.CurrentArtist == null)
                         return;
                     NavigationManager.OpenArtistPage(DACPServer.CurrentArtist);
                     break;
 
                 case SettingsManager.ArtistClickActions.OpenAlbumPage:
-                    if (string.IsNullOrEmpty(DACPServer.CurrentArtist) || string.IsNullOrEmpty(DACPServer.CurrentAlbum) || DACPServer.CurrentAlbumPersistentID == 0)
+                    if (DACPServer.CurrentArtist == null || DACPServer.CurrentAlbum == null || DACPServer.CurrentAlbumPersistentID == 0)
                         return;
                     NavigationManager.OpenAlbumPage(0, DACPServer.CurrentAlbum, DACPServer.CurrentArtist, DACPServer.CurrentAlbumPersistentID);
                     break;

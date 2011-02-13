@@ -23,7 +23,12 @@ namespace Komodex.DACP.Library
 
         #region Properties
 
-        public string ShowName { get; protected set; }
+        private string _ShowName = null;
+        public string ShowName
+        {
+            get { return _ShowName ?? string.Empty; }
+            protected set { _ShowName = value; }
+        }
 
         #endregion
 

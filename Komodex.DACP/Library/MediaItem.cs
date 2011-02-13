@@ -30,11 +30,36 @@ namespace Komodex.DACP.Library
         #region Properties
 
         public int ContainerItemID { get; protected set; }
-        public string ArtistName { get; protected set; }
-        public string AlbumName { get; protected set; }
+
+        private string _ArtistName = null;
+        public string ArtistName
+        {
+            get { return _ArtistName ?? string.Empty; }
+            protected set { _ArtistName = value; }
+        }
+
+        private string _AlbumName = null;
+        public string AlbumName
+        {
+            get { return _AlbumName ?? string.Empty; }
+            protected set { _AlbumName = value; }
+        }
+
         public string ArtistAndAlbum
         {
-            get { return ArtistName + " – " + AlbumName; }
+            get
+            {
+                bool hasArtist = !string.IsNullOrEmpty(ArtistName);
+                bool hasAlbum = !string.IsNullOrEmpty(AlbumName);
+
+                if (hasArtist && hasAlbum)
+                    return ArtistName + " – " + AlbumName;
+                if (hasArtist)
+                    return ArtistName;
+                if (hasAlbum)
+                    return AlbumName;
+                return string.Empty;
+            }
         }
 
         public override string SecondLine

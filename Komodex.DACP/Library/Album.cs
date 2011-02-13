@@ -42,7 +42,12 @@ namespace Komodex.DACP.Library
 
         #region Properties
 
-        public string ArtistName { get; protected set; }
+        private string _ArtistName = null;
+        public string ArtistName
+        {
+            get { return _ArtistName ?? string.Empty; }
+            protected set { _ArtistName = value; }
+        }
 
         public override string SecondLine
         {

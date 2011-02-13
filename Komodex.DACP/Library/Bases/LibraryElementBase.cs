@@ -61,7 +61,12 @@ namespace Komodex.DACP.Library
 
         public virtual int ID { get; protected set; }
 
-        public virtual string Name { get; protected set; }
+        private string _Name = null;
+        public virtual string Name
+        {
+            get { return _Name ?? string.Empty; }
+            protected set { _Name = value; }
+        }
 
         public virtual string SecondLine
         {
