@@ -21,8 +21,8 @@ namespace Komodex.WP7DACPRemote.Utilities
 {
     // CrashReporter
     // Matt Isenhower, Komodex Systems LLC
-    // http://blog.ike.to
-    // Inspired by:
+    // http://blog.ike.to/2011/02/02/wp7-application-crash-reporter/
+    // Adapted from:
     // http://blogs.msdn.com/b/andypennell/archive/2010/11/01/error-reporting-on-windows-phone-7.aspx
 
     public static class CrashReporter
@@ -189,7 +189,7 @@ namespace Komodex.WP7DACPRemote.Utilities
                     if (ErrorLogContent == null)
                         return;
 
-                    string url = ErrorReportURL + "?p=" + ProductName;
+                    string url = ErrorReportURL + "?p=" + ProductName + "&v=" + Utility.ApplicationVersion;
 #if DEBUG
                     url += "&d=1";
 #endif
