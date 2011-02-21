@@ -10,20 +10,20 @@
     d:DesignHeight="48" d:DesignWidth="480">
     
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid HorizontalAlignment="Center" Name="starContainer">
+        <Grid HorizontalAlignment="Center" Name="starContainer" IsHitTestVisible="False">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="48" />
-                <ColumnDefinition Width="48" />
-                <ColumnDefinition Width="48" />
-                <ColumnDefinition Width="48" />
-                <ColumnDefinition Width="48" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="0" Name="star1" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
-            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="1" Name="star2" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
-            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="2" Name="star3" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
-            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="3" Name="star4" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
-            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="4" Name="star5" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
+            <ContentControl Template="{StaticResource StarIcon}" Grid.Column="0" Name="star1" />
+            <ContentControl Template="{StaticResource StarIcon}" Grid.Column="1" Name="star2" />
+            <ContentControl Template="{StaticResource StarIcon}" Grid.Column="2" Name="star3" />
+            <ContentControl Template="{StaticResource StarIcon}" Grid.Column="3" Name="star4" />
+            <ContentControl Template="{StaticResource StarIcon}" Grid.Column="4" Name="star5" />
         </Grid>
     </Grid>
 </UserControl>

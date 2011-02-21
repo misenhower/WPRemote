@@ -29,7 +29,7 @@ namespace Komodex.WP7DACPRemote.Controls
 
         #region Star Manipulation
 
-        private double zeroPointDistance = double.NaN;
+        private double zeroPointPosition = double.NaN;
         private double starWidth = 0;
         private int currentStars = 0;
 
@@ -38,50 +38,36 @@ namespace Komodex.WP7DACPRemote.Controls
             base.OnManipulationStarted(e);
 
             starWidth = star1.ActualWidth;
+            double starsWidth = starContainer.ActualWidth;
+            double layoutWidth = LayoutRoot.ActualWidth;
+            zeroPointPosition = (layoutWidth - starsWidth) / 2;
 
-            if (e.ManipulationContainer == LayoutRoot)
-            {
-                double starsWidth = starContainer.ActualWidth;
-                double layoutWidth = LayoutRoot.ActualWidth;
-                double zeroPoint = (layoutWidth - starsWidth) / 2;
-                zeroPointDistance = e.ManipulationOrigin.X - zeroPoint;
-
-                if (e.ManipulationOrigin.X <= layoutWidth / 2)
-                    SetStars(0, ContinuousUpdate);
-                else
-                    SetStars(5, ContinuousUpdate);
-            }
-            else
-            {
-                Border border = e.ManipulationContainer as Border;
-                if (border == null)
-                    return;
-
-                int starManipulation = (int)border.Tag;
-
-                zeroPointDistance = e.ManipulationOrigin.X + (starWidth * (starManipulation - 1));
-
-                SetStars(starManipulation, ContinuousUpdate);
-            }
+            SetStars(e.ManipulationOrigin.X);
         }
+
         protected override void OnManipulationDelta(ManipulationDeltaEventArgs e)
         {
             base.OnManipulationDelta(e);
 
-            if (double.IsNaN(zeroPointDistance))
-                return;
-
-            double newPos = zeroPointDistance + e.CumulativeManipulation.Translation.X;
-            int newStars = (int)Math.Ceiling(newPos / starWidth);
-
-            SetStars(newStars, ContinuousUpdate);
+            SetStars(e.ManipulationOrigin.X);
         }
+
         protected override void OnManipulationCompleted(ManipulationCompletedEventArgs e)
         {
             base.OnManipulationCompleted(e);
 
-            zeroPointDistance = double.NaN;
+            zeroPointPosition = double.NaN;
             Rating = currentStars;
+        }
+
+        private void SetStars(double x, bool setRatingProperty = false)
+        {
+            if (double.IsNaN(zeroPointPosition))
+                return;
+
+            double relativePos = x - zeroPointPosition;
+            int newStars = (int)Math.Ceiling(relativePos / starWidth);
+            SetStars(newStars, setRatingProperty);
         }
 
         private void SetStars(int count, bool setRatingProperty = false)

@@ -179,6 +179,13 @@
             </Canvas>
         </ControlTemplate>
 
+        <!-- Star Ratings -->
+        <ControlTemplate x:Key="StarIcon" TargetType="ContentControl">
+            <Grid Width="48" Height="48">
+                <Path Data="M19.96875,10.627293 L24.375,23.30698 L37.640625,23.30698 L27.09375,31.627293 L31.195313,44.236668 L19.96875,36.760105 L8.7890625,44.236668 L12.890625,31.627293 L2.34375,23.30698 L15.609375,23.30698 z" Width="45" Height="43" Fill="White" />
+            </Grid>
+        </ControlTemplate>
+        
         <!-- Converters -->
         <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <converters:BooleanToAccentBrushConverter x:Name="booleanToAccentBrushConverter" />
