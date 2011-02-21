@@ -343,6 +343,9 @@ namespace Komodex.DACP
                 timerTrackTimeUpdate.Stop();
             });
 
+            int newSongID = 0;
+            int newContainerID = 0;
+            int newContainerItemID = 0;
             string newSongName = null;
             string newArtist = null;
             string newAlbum = null;
@@ -357,6 +360,17 @@ namespace Komodex.DACP
                 {
                     case "cmsr": // Revision number
                         playStatusRevisionNumber = kvp.Value.GetInt32Value();
+                        break;
+                    case "canp": // Current song and container IDs
+                        byte[] value = kvp.Value;
+
+                        //byte[] dbID = { value[0], value[1], value[2], value[3] }; // We already have the current DB (for now)
+                        byte[] containerID = { value[4], value[5], value[6], value[7] };
+                        byte[] containerItemID = { value[8], value[9], value[10], value[11] };
+                        byte[] songID = { value[12], value[13], value[14], value[15] };
+                        newContainerID = containerID.GetInt32Value();
+                        newContainerItemID = containerItemID.GetInt32Value();
+                        newSongID = songID.GetInt32Value();
                         break;
                     case "cann": // Song name
                         newSongName = kvp.Value.GetStringValue();
@@ -396,6 +410,9 @@ namespace Komodex.DACP
             }
 
             // Set all the properties
+            CurrentSongID = newSongID;
+            CurrentContainerID = newContainerID;
+            CurrentContainerItemID = newContainerItemID;
             CurrentSongName = newSongName;
             CurrentArtist = newArtist;
             CurrentAlbum = newAlbum;
@@ -508,6 +525,21 @@ namespace Komodex.DACP
             string url = "/ctrl-int/1/setproperty?dacp.repeatstate=" + intState + "&session-id=" + SessionID;
             SubmitHTTPRequest(url);
             RepeatState = repeatState;
+        }
+
+        public void SendStarRatingCommand(int rating)
+        {
+            if (CurrentSongID != 0)
+                SendStarRatingCommand(rating, CurrentSongID);
+        }
+
+        public void SendStarRatingCommand(int rating, int songID)
+        {
+            string url = "/ctrl-int/1/setproperty"
+                + "?dacp.userrating=" + rating
+                + "&database-spec='dmap.persistentid:0x" + DatabaseID.ToString("x") + "'&item-spec='dmap.itemid:0x" + songID.ToString("x") + "'"
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
         }
 
         #endregion

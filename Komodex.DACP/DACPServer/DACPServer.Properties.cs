@@ -125,6 +125,45 @@ namespace Komodex.DACP
 
         #region Current Song
 
+        private int _CurrentSongID = 0;
+        public int CurrentSongID
+        {
+            get { return _CurrentSongID; }
+            protected set
+            {
+                if (_CurrentSongID == value)
+                    return;
+                _CurrentSongID = value;
+                SendPropertyChanged("CurrentSongID");
+            }
+        }
+
+        private int _CurrentContainerID = 0;
+        public int CurrentContainerID
+        {
+            get { return _CurrentContainerID; }
+            protected set
+            {
+                if (_CurrentContainerID == value)
+                    return;
+                _CurrentContainerID = value;
+                SendPropertyChanged("CurrentContainerID");
+            }
+        }
+
+        private int _CurrentContainerItemID = 0;
+        public int CurrentContainerItemID
+        {
+            get { return _CurrentContainerItemID; }
+            protected set
+            {
+                if (_CurrentContainerItemID == value)
+                    return;
+                _CurrentContainerItemID = value;
+                SendPropertyChanged("CurrentContainerItemID");
+            }
+        }
+
         private string _CurrentSongName = null;
         public string CurrentSongName
         {
