@@ -1,5 +1,5 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
-    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.NowPlaying" 
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls" 
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
     x:Class="Komodex.WP7DACPRemote.NowPlaying.NowPlayingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -177,19 +177,22 @@
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
                     </Border>
                     <Border Background="#CC000000" Name="bdrRepeatShuffleControls" Opacity="0" MouseLeftButtonDown="bdrRepeatShuffleControls_MouseLeftButtonDown">
-                        <StackPanel x:Name="stackPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button Name="btnRepeat" Template="{StaticResource EmptyButton}" Click="btnRepeat_Click" Margin="25,0">
-                                <Grid Width="48" Height="48">
-                                    <Image Name="imgRepeat" Source="/icons/custom.appbar.repeat.png" />
-                                    <Image Source="/icons/appbar.basecircle.rest.png" />
-                                </Grid>
-                            </Button>
-                            <Button Name="btnShuffle" Template="{StaticResource EmptyButton}" Click="btnShuffle_Click" Margin="25,0">
-                                <Grid Width="48" Height="48">
-                                    <Image Source="/icons/custom.appbar.shuffle.png" />
-                                    <Image Source="/icons/appbar.basecircle.rest.png" />
-                                </Grid>
-                            </Button>
+                        <StackPanel x:Name="stackPanel" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 25">
+                                <Button Name="btnRepeat" Template="{StaticResource EmptyButton}" Click="btnRepeat_Click" Margin="25,0">
+                                    <Grid Width="48" Height="48">
+                                        <Image Name="imgRepeat" Source="/icons/custom.appbar.repeat.png" />
+                                        <Image Source="/icons/appbar.basecircle.rest.png" />
+                                    </Grid>
+                                </Button>
+                                <Button Name="btnShuffle" Template="{StaticResource EmptyButton}" Click="btnShuffle_Click" Margin="25,0">
+                                    <Grid Width="48" Height="48">
+                                        <Image Source="/icons/custom.appbar.shuffle.png" />
+                                        <Image Source="/icons/appbar.basecircle.rest.png" />
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+                            <my:StarRating Height="48" Margin="0 25" />
                         </StackPanel>
                     </Border>
                 </Grid>

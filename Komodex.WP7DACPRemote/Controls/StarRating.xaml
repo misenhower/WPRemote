@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Komodex.WP7DACPRemote.Controls.StarRating"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="48" d:DesignWidth="480">
+    
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid HorizontalAlignment="Center" Name="starContainer">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48" />
+                <ColumnDefinition Width="48" />
+                <ColumnDefinition Width="48" />
+                <ColumnDefinition Width="48" />
+                <ColumnDefinition Width="48" />
+            </Grid.ColumnDefinitions>
+
+            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="0" Name="star1" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
+            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="1" Name="star2" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
+            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="2" Name="star3" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
+            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="3" Name="star4" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
+            <Border Background="{StaticResource PhoneAccentBrush}" Grid.Column="4" Name="star5" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="1" />
+        </Grid>
+    </Grid>
+</UserControl>
