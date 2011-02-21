@@ -13,6 +13,7 @@ using System.Linq;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Windows.Threading;
+using Komodex.DACP.Library;
 
 namespace Komodex.DACP
 {
@@ -409,6 +410,10 @@ namespace Komodex.DACP
                 }
             }
 
+            // If the song ID changed, refresh the album art
+            if (newSongID != CurrentSongID)
+                SendPropertyChanged("CurrentAlbumArtURL");
+
             // Set all the properties
             CurrentSongID = newSongID;
             CurrentContainerID = newContainerID;
@@ -426,7 +431,7 @@ namespace Komodex.DACP
                 if (PlayState == PlayStates.Playing)
                     timerTrackTimeUpdate.Start();
             });
-            SendPropertyChanged("CurrentAlbumArtURL"); // TODO: Need to be a bit more efficient about this, perhaps by doing this in the PropertyChanged event
+            SubmitUserRatingRequest();
             SubmitVolumeStatusRequest();
             SubmitGetSpeakersRequest();
             if (UseDelayedResponseRequests && !Stopped)
@@ -454,6 +459,76 @@ namespace Komodex.DACP
                     break;
                 }
             }
+        }
+
+        #endregion
+
+        #region User/Star Ratings
+
+        private int _ratingUpdatedForSongID = 0;
+
+        protected void SubmitUserRatingRequest()
+        {
+            if (CurrentSongID != _ratingUpdatedForSongID)
+            {
+                _ratingUpdatedForSongID = 0;
+                SetCurrentSongUserRatingFromServer(0);
+            }
+
+            string url = "/databases/" + DatabaseID + "/containers/" + CurrentContainerID + "/items"
+                + "?meta=dmap.itemid,dmap.containeritemid,daap.songuserrating"
+                + "&type=music"
+                + "&sort=album"
+                + "&query=('daap.songalbumid:" + CurrentAlbumPersistentID + "'+'dmap.itemid:" + CurrentSongID + "')"
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url, ProcessUserRatingResponse);
+        }
+
+        protected void ProcessUserRatingResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        var songNodes = Utility.GetResponseNodes(kvp.Value);
+                        foreach (var songData in songNodes)
+                        {
+                            MediaItem mediaItem = new MediaItem(this, songData.Value);
+                            if (mediaItem.ID == CurrentSongID)
+                            {
+                                _ratingUpdatedForSongID = CurrentSongID;
+                                SetCurrentSongUserRatingFromServer(mediaItem.UserRating);
+                                break;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void SetCurrentSongUserRatingFromServer(int serverValue)
+        {
+            int rating = serverValue / 20;
+            _CurrentSongUserRating = rating;
+            SendPropertyChanged("CurrentSongUserRating");
+        }
+
+        protected void SendUserRatingCommand(int rating)
+        {
+            if (CurrentSongID != 0)
+                SendUserRatingCommand(rating, CurrentSongID);
+        }
+
+        protected void SendUserRatingCommand(int rating, int songID)
+        {
+            string url = "/ctrl-int/1/setproperty"
+                + "?dacp.userrating=" + rating
+                + "&database-spec='dmap.persistentid:0x" + DatabaseID.ToString("x") + "'&item-spec='dmap.itemid:0x" + songID.ToString("x") + "'"
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
         }
 
         #endregion
@@ -525,21 +600,6 @@ namespace Komodex.DACP
             string url = "/ctrl-int/1/setproperty?dacp.repeatstate=" + intState + "&session-id=" + SessionID;
             SubmitHTTPRequest(url);
             RepeatState = repeatState;
-        }
-
-        public void SendStarRatingCommand(int rating)
-        {
-            if (CurrentSongID != 0)
-                SendStarRatingCommand(rating, CurrentSongID);
-        }
-
-        public void SendStarRatingCommand(int rating, int songID)
-        {
-            string url = "/ctrl-int/1/setproperty"
-                + "?dacp.userrating=" + rating
-                + "&database-spec='dmap.persistentid:0x" + DatabaseID.ToString("x") + "'&item-spec='dmap.itemid:0x" + songID.ToString("x") + "'"
-                + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url);
         }
 
         #endregion

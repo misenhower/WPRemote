@@ -192,7 +192,7 @@
                                     </Grid>
                                 </Button>
                             </StackPanel>
-                            <my:StarRating Height="48" Margin="0 25" />
+                            <my:StarRating Height="48" Margin="0 25" Rating="{Binding Path=CurrentSongUserRating, Mode=TwoWay}" />
                         </StackPanel>
                     </Border>
                 </Grid>

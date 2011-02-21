@@ -31,6 +31,8 @@ namespace Komodex.DACP.Library
 
         public int ContainerItemID { get; protected set; }
 
+        public int UserRating { get; protected set; }
+
         private string _ArtistName = null;
         public string ArtistName
         {
@@ -95,6 +97,9 @@ namespace Komodex.DACP.Library
                     return true;
                 case "asal": // Album name
                     AlbumName = kvp.Value.GetStringValue();
+                    return true;
+                case "asur": // User rating
+                    UserRating = kvp.Value[0];
                     return true;
                 default:
                     return false;

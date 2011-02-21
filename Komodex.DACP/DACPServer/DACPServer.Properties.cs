@@ -232,6 +232,32 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region User/Star Rating
+
+        private int _CurrentSongUserRating = 0;
+        public int CurrentSongUserRating
+        {
+            get { return _CurrentSongUserRating; }
+            set
+            {
+                if (value < 0)
+                    value = 0;
+                if (value > 5)
+                    value = 5;
+
+                if (_CurrentSongUserRating == value)
+                    return;
+
+                _CurrentSongUserRating = value;
+                SendPropertyChanged("CurrentSongUserRating");
+
+                int actualRating = value * 20; // 1 star is 20, 2 is 40, 3 is 60, 4 is 80, 5 is 100
+                SendUserRatingCommand(actualRating);
+            }
+        }
+
+        #endregion
+
         #region Play Position
 
         private int _TrackTimeTotal = 0;
