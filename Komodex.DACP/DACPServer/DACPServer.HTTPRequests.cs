@@ -475,13 +475,16 @@ namespace Komodex.DACP
                 SetCurrentSongUserRatingFromServer(0);
             }
 
+            if (CurrentContainerID == 0 || CurrentSongID == 0 || CurrentAlbumPersistentID == 0)
+                return;
+
             string url = "/databases/" + DatabaseID + "/containers/" + CurrentContainerID + "/items"
                 + "?meta=dmap.itemid,dmap.containeritemid,daap.songuserrating"
                 + "&type=music"
                 + "&sort=album"
                 + "&query=('daap.songalbumid:" + CurrentAlbumPersistentID + "'+'dmap.itemid:" + CurrentSongID + "')"
                 + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, ProcessUserRatingResponse);
+            SubmitHTTPRequest(url, ProcessUserRatingResponse, false, ri => ri.ExceptionHandlerDelegate = HandleUserRatingException);
         }
 
         protected void ProcessUserRatingResponse(HTTPRequestInfo requestInfo)
@@ -507,6 +510,12 @@ namespace Komodex.DACP
                         break;
                 }
             }
+        }
+
+        protected void HandleUserRatingException(HTTPRequestInfo requestInfo, WebException e)
+        {
+            _ratingUpdatedForSongID = 0;
+            SetCurrentSongUserRatingFromServer(0);
         }
 
         private void SetCurrentSongUserRatingFromServer(int serverValue)
