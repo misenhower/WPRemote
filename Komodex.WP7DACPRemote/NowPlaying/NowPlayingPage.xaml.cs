@@ -296,7 +296,6 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         private void bdrRepeatShuffleControls_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
             ShowRepeatShuffleControls();
-            e.Handled = true;
         }
 
         private void bdrRepeatShuffleControls_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
@@ -306,7 +305,9 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
         private void Page_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
-            HideRepeatShuffleControls();
+            // If the timer is running, the manipulation within the border has completed
+            if (repeatShuffleControlDisplayTimer.IsEnabled)
+                HideRepeatShuffleControls();
         }
 
         void AirPlayMenuItem_Click(object sender, EventArgs e)
