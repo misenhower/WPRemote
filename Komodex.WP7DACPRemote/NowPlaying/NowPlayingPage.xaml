@@ -16,7 +16,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    MouseLeftButtonDown="Page_MouseLeftButtonDown"
+    ManipulationStarted="Page_ManipulationStarted"
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
         <Style x:Key="BorderlessButtonStyle" TargetType="Button">
@@ -176,7 +176,7 @@
                     <Border Background="{StaticResource PhoneChromeBrush}">
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
                     </Border>
-                    <Border Background="#CC000000" Name="bdrRepeatShuffleControls" Opacity="0" MouseLeftButtonDown="bdrRepeatShuffleControls_MouseLeftButtonDown">
+                    <Border Background="#CC000000" Name="bdrRepeatShuffleControls" Opacity="0" MouseLeftButtonDown="bdrRepeatShuffleControls_MouseLeftButtonDown" ManipulationStarted="bdrRepeatShuffleControls_ManipulationStarted" ManipulationCompleted="bdrRepeatShuffleControls_ManipulationCompleted">
                         <StackPanel x:Name="stackPanel" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 25">
                                 <Button Name="btnRepeat" Template="{StaticResource EmptyButton}" Click="btnRepeat_Click" Margin="25,0">

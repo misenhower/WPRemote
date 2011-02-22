@@ -212,6 +212,11 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         {
             repeatShuffleControlDisplayTimer.Stop();
             VisualStateManager.GoToState(this, "RepeatShuffleControlsVisibleState", useTransitions);
+        }
+
+        private void StartHideRepeatShuffleControlsTimer()
+        {
+            repeatShuffleControlDisplayTimer.Stop();
             repeatShuffleControlDisplayTimer.Start();
         }
 
@@ -288,13 +293,18 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             }
         }
 
-        private void bdrRepeatShuffleControls_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void bdrRepeatShuffleControls_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
             ShowRepeatShuffleControls();
             e.Handled = true;
         }
 
-        private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void bdrRepeatShuffleControls_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+            StartHideRepeatShuffleControlsTimer();
+        }
+
+        private void Page_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
             HideRepeatShuffleControls();
         }
