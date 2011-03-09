@@ -1,5 +1,6 @@
 ﻿// Adapted from:
 // http://blogs.msdn.com/b/delay/archive/2010/09/02/keep-a-low-profile-lowprofileimageloader-helps-the-windows-phone-7-ui-thread-stay-responsive-by-loading-images-in-the-background.aspx
+// http://blogs.msdn.com/b/delay/archive/2011/03/03/quot-your-feedback-is-important-to-us-please-stay-on-the-line-quot-improving-windows-phone-7-application-performance-is-even-easier-with-these-lowprofileimageloader-and-deferredloadlistbox-updates.aspx
 
 // Copyright (C) Microsoft Corporation. All Rights Reserved.
 // This code released under the terms of the Microsoft Public License
@@ -136,10 +137,12 @@ namespace Delay
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Relevant exceptions don't have a common base class.")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Linear flow is easy to understand.")]
         private static void WorkerThreadProc(object unused)
         {
-            Queue<PendingRequest> pendingRequests = new Queue<PendingRequest>();
-            Queue<IAsyncResult> pendingResponses = new Queue<IAsyncResult>();
+            Random rand = new Random();
+            var pendingRequests = new List<PendingRequest>();
+            var pendingResponses = new Queue<IAsyncResult>();
             while (!_exiting)
             {
                 lock (_syncBlock)
@@ -156,7 +159,23 @@ namespace Delay
                     // Copy work items to private collections
                     while (0 < _pendingRequests.Count)
                     {
-                        pendingRequests.Enqueue(_pendingRequests.Dequeue());
+                        var pendingRequest = _pendingRequests.Dequeue();
+                        // Search for another pending request for the same Image element
+                        for (var i = 0; i < pendingRequests.Count; i++)
+                        {
+                            if (pendingRequests[i].Image == pendingRequest.Image)
+                            {
+                                // Found one; replace it
+                                pendingRequests[i] = pendingRequest;
+                                pendingRequest = null;
+                                break;
+                            }
+                        }
+                        if (null != pendingRequest)
+                        {
+                            // Unique request; add it
+                            pendingRequests.Add(pendingRequest);
+                        }
                     }
                     while (0 < _pendingResponses.Count)
                     {
@@ -165,9 +184,15 @@ namespace Delay
                 }
                 Queue<PendingCompletion> pendingCompletions = new Queue<PendingCompletion>();
                 // Process pending requests
-                for (var i = 0; (i < pendingRequests.Count) && (i < WorkItemQuantum); i++)
+                var count = pendingRequests.Count;
+                for (var i = 0; (0 < count) && (i < WorkItemQuantum); i++)
                 {
-                    var pendingRequest = pendingRequests.Dequeue();
+                    // Choose a random item to behave reasonably at both extremes (FIFO/FILO)
+                    var index = rand.Next(count);
+                    var pendingRequest = pendingRequests[index];
+                    pendingRequests[index] = pendingRequests[count - 1];
+                    pendingRequests.RemoveAt(count - 1);
+                    count--;
 
                     // Next line added because of data binding issues
                     if (pendingRequest.Uri == null)
@@ -177,6 +202,7 @@ namespace Delay
                     {
                         // Download from network
                         var webRequest = HttpWebRequest.CreateHttp(pendingRequest.Uri);
+
                         // Next 3 lines added so iTunes will respond
                         if (pendingRequest.BypassCache)
                             webRequest.Method = "POST";
@@ -202,7 +228,7 @@ namespace Delay
                     Thread.Sleep(1);
                 }
                 // Process pending responses
-                for (var i = 0; (i < pendingResponses.Count) && (i < WorkItemQuantum); i++)
+                for (var i = 0; (0 < pendingResponses.Count) && (i < WorkItemQuantum); i++)
                 {
                     var pendingResponse = pendingResponses.Dequeue();
                     var responseState = (ResponseState)pendingResponse.AsyncState;
