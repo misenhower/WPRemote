@@ -16,6 +16,7 @@ using System.Text;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Komodex.DACP;
 using System.Globalization;
+using Microsoft.Phone.Shell;
 
 namespace Komodex.WP7DACPRemote.Utilities
 {
@@ -128,6 +129,7 @@ namespace Komodex.WP7DACPRemote.Utilities
                             writer.WriteLine(" -> Error getting device/page info: " + ex.ToString());
                         }
 
+                        writer.WriteLine("-> Startup Mode: " + PhoneApplicationService.Current.StartupMode);
                         writer.WriteLine("-> Obscured: " + ((IsObscured) ? "Yes" : "No"));
                         writer.WriteLine("-> Locked: " + ((IsLocked) ? "Yes" : "No"));
 
