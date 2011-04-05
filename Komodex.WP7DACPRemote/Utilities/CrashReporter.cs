@@ -86,7 +86,16 @@ namespace Komodex.WP7DACPRemote.Utilities
 
         #region Methods
 
-        private static void LogException(Exception e, string type = null)
+        public static void LogException(Exception e, string type = null, bool sendImmediately = false)
+        {
+            // Exception Info
+            string exceptionInfo = "Exception Information:\r\n";
+            exceptionInfo += e.ToString();
+
+            LogMessage(exceptionInfo, type, sendImmediately);
+        }
+
+        public static void LogMessage(string message, string type = null, bool sendImmediately = false)
         {
             try
             {
@@ -158,16 +167,17 @@ namespace Komodex.WP7DACPRemote.Utilities
 
                         writer.WriteLine(SmallDashes);
 
-                        // Exception Info
-                        writer.WriteLine("Exception Information:");
-                        writer.WriteLine();
-                        writer.WriteLine(e.ToString());
+                        // Message Body
+                        writer.WriteLine(message);
 
                         writer.WriteLine();
                     }
                 }
             }
             catch { }
+
+            if (sendImmediately)
+                SendExceptionLog();
         }
 
         #endregion
