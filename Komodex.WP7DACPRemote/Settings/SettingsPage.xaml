@@ -39,7 +39,7 @@
                                     ItemsSource="{Binding ArtistClickActionStructs}"
                                     SelectedItem="{Binding BindableArtistClickAction, Mode=TwoWay}" />
                 
-                <toolkit:ToggleSwitch Header="Stay connected under lock screen"
+                <toolkit:ToggleSwitch Header="Stay connected under lock screen" Margin="0,0,0,-24"
                                       IsChecked="{Binding RunUnderLock, Mode=TwoWay}"
                                       CacheMode="BitmapCache" />
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" CacheMode="BitmapCache">
@@ -49,6 +49,10 @@
                            Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource booleanToVisibilityConverter}}">
                     This change will take effect the next time you start Remote.
                 </TextBlock>
+
+                <toolkit:ToggleSwitch Header="Extended error reporting" Margin="0,36,0,0"
+                                      IsChecked="{Binding ExtendedErrorReporting, Mode=TwoWay}"
+                                      CacheMode="BitmapCache" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -38,6 +38,7 @@ namespace Komodex.WP7DACPRemote.Settings
 
             RunUnderLock = GetValue<bool>(kRunUnderLockKey, true);
             ArtistClickAction = Enum<ArtistClickActions>.ParseOrDefault(GetValue<string>(kArtistClickActionKey), ArtistClickActions.OpenArtistPage);
+            ExtendedErrorReporting = GetValue<bool>(kExtendedErrorReportingKey, false);
         }
 
         #region Methods
@@ -161,6 +162,24 @@ namespace Komodex.WP7DACPRemote.Settings
         }
 
         #endregion
+
+        #endregion
+
+        #region Extended Error Reporting
+
+        private static readonly string kExtendedErrorReportingKey = "SettingsExtendedErrorReporting";
+
+        private bool _ExtendedErrorReporting = false;
+        public bool ExtendedErrorReporting
+        {
+            get { return _ExtendedErrorReporting; }
+            set
+            {
+                _ExtendedErrorReporting = value;
+                SetValue(kExtendedErrorReportingKey, _ExtendedErrorReporting);
+                SendPropertyChanged("ExtendedErrorReporting");
+            }
+        }
 
         #endregion
 

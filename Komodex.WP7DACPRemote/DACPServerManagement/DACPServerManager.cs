@@ -15,6 +15,7 @@ using Komodex.WP7DACPRemote.Controls;
 using Microsoft.Phone.Controls;
 using System.Windows.Data;
 using Komodex.WP7DACPRemote.Utilities;
+using Komodex.WP7DACPRemote.Settings;
 
 namespace Komodex.WP7DACPRemote.DACPServerManagement
 {
@@ -296,7 +297,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                         Server = null;
                     }
 
-                    if (e.ErrorType == ServerErrorType.General && !string.IsNullOrEmpty(e.ErrorDetails))
+                    if (SettingsManager.Current.ExtendedErrorReporting && e.ErrorType == ServerErrorType.General && !string.IsNullOrEmpty(e.ErrorDetails))
                         CrashReporter.LogMessage(e.ErrorDetails, "Caught DACP Server Error", true);
                     break;
                 default:
