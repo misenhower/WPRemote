@@ -213,11 +213,21 @@ namespace Komodex.DACP.Library
 
         protected void SendPlaySongCommand(int index)
         {
+            SendPlaySongCommand("&index=" + index);
+        }
+
+        public void SendShuffleSongsCommand()
+        {
+            SendPlaySongCommand("&dacp.shufflestate=1");
+        }
+
+        protected void SendPlaySongCommand(string input)
+        {
             string encodedArtistName = Utility.QueryEncodeString(ArtistName);
             string url = "/ctrl-int/1/cue"
                 + "?command=play"
                 + "&query=(('daap.songartist:" + encodedArtistName + "','daap.songalbumartist:" + encodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
-                + "&index=" + index
+                + input
                 + "&sort=album"
                 //+ "&srcdatabase=0xC2C1E50F13CF1F5C"
                 + "&clear-first=1"
