@@ -60,7 +60,7 @@ namespace Komodex.DACP
             return Uri.EscapeDataString(Utility.EscapeSingleQuotes(input));
         }
 
-        #region Extension Methods
+        #region DACP Data Extension Methods
 
         public static Int16 SwapBits(this Int16 value)
         {
@@ -111,6 +111,15 @@ namespace Komodex.DACP
         public static string GetStringValue(this byte[] data)
         {
             return Encoding.UTF8.GetString(data, 0, data.Length);
+        }
+
+        #endregion
+
+        #region Other Extension Methods
+
+        public static string GetPathAndQueryString(this Uri uri)
+        {
+            return uri.AbsolutePath + uri.Query;
         }
 
         #endregion

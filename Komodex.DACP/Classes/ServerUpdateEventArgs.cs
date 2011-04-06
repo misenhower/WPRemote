@@ -13,17 +13,16 @@ namespace Komodex.DACP
 {
     public class ServerUpdateEventArgs : EventArgs
     {
-        public ServerUpdateEventArgs(ServerUpdateType type)
-            : this(type, ServerErrorType.None) { }
-
-        public ServerUpdateEventArgs(ServerUpdateType type, ServerErrorType errorType)
+        public ServerUpdateEventArgs(ServerUpdateType type, ServerErrorType errorType = ServerErrorType.None, string errorDetails = null)
         {
             Type = type;
             ErrorType = errorType;
+            ErrorDetails = errorDetails;
         }
 
         public ServerUpdateType Type { get; protected set; }
         public ServerErrorType ErrorType { get; protected set; }
+        public string ErrorDetails { get; protected set; }
     }
 
     public enum ServerUpdateType

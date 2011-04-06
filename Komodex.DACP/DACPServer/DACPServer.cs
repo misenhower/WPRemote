@@ -157,19 +157,19 @@ namespace Komodex.DACP
             SendServerUpdate(ServerUpdateType.ServerConnected);
         }
 
-        protected void ConnectionError()
+        protected void ConnectionError(string errorDetails)
         {
-            ConnectionError(ServerErrorType.General);
+            ConnectionError(ServerErrorType.General, errorDetails);
         }
 
-        protected void ConnectionError(ServerErrorType errorType)
+        protected void ConnectionError(ServerErrorType errorType = ServerErrorType.General, string errorDetails = null)
         {
             IsConnected = false;
 
             if (!Stopped)
             {
                 Stop();
-                SendServerUpdate(ServerUpdateType.Error, errorType);
+                SendServerUpdate(ServerUpdateType.Error, errorType, errorDetails);
             }
         }
 
@@ -189,6 +189,12 @@ namespace Komodex.DACP
         {
             if (ServerUpdate != null)
                 ServerUpdate(this, new ServerUpdateEventArgs(type, errorType));
+        }
+
+        protected void SendServerUpdate(ServerUpdateType type, ServerErrorType errorType, string errorDetails)
+        {
+            if (ServerUpdate != null)
+                ServerUpdate(this, new ServerUpdateEventArgs(type, errorType, errorDetails));
         }
 
         #endregion

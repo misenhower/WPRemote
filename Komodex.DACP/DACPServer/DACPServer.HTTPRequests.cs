@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Windows.Threading;
 using Komodex.DACP.Library;
+using System.Text;
 
 namespace Komodex.DACP
 {
@@ -64,7 +65,10 @@ namespace Komodex.DACP
             catch (Exception e)
             {
                 Utility.DebugWrite("Caught exception: " + e.Message);
-                ConnectionError();
+                StringBuilder errorString = new StringBuilder("Error creating HTTP Request:\r\n");
+                errorString.AppendLine("URL: " + url);
+                errorString.AppendLine(e.ToString());
+                ConnectionError(errorString.ToString());
                 return null;
             }
         }
@@ -137,8 +141,10 @@ namespace Komodex.DACP
                         return;
                     }
                 }
-
-                ConnectionError();
+                StringBuilder errorString = new StringBuilder("HTTPByteCallback Error:\r\n");
+                errorString.AppendLine("URL: " + requestInfo.WebRequest.RequestUri.GetPathAndQueryString());
+                errorString.AppendLine(e.ToString());
+                ConnectionError(errorString.ToString());
             }
             finally
             {
