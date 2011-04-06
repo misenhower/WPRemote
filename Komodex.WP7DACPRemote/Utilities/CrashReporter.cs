@@ -126,17 +126,15 @@ namespace Komodex.WP7DACPRemote.Utilities
 
                         writer.WriteLine(SmallDashes);
 
+                        writer.WriteLine("-> OS Version: {0} ({1})", Environment.OSVersion, Microsoft.Devices.Environment.DeviceType);
+                        writer.WriteLine("-> Framework: " + Environment.Version.ToString());
+                        writer.WriteLine("-> Culture: " + CultureInfo.CurrentCulture);
+
                         try
                         {
-                            writer.WriteLine("-> OS Version: {0} ({1})", Environment.OSVersion, Microsoft.Devices.Environment.DeviceType);
-                            writer.WriteLine("-> Framework: " + Environment.Version.ToString());
-                            writer.WriteLine("-> Culture: " + CultureInfo.CurrentCulture);
                             writer.WriteLine("-> Current page: " + RootFrame.CurrentSource);
                         }
-                        catch (Exception ex)
-                        {
-                            writer.WriteLine(" -> Error getting device/page info: " + ex.ToString());
-                        }
+                        catch { } // If we're not in the UI thread, attempting to access RootFrame.CurrentSource will throw an UnauthorizedAccessException
 
                         writer.WriteLine("-> Startup Mode: " + PhoneApplicationService.Current.StartupMode);
                         writer.WriteLine("-> Obscured: " + ((IsObscured) ? "Yes" : "No"));
