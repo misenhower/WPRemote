@@ -617,6 +617,12 @@ namespace Komodex.DACP
             RepeatState = repeatState;
         }
 
+        public void SendShuffleAllSongsCommand()
+        {
+            string url = "/ctrl-int/1/cue?command=play&query=('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')&dacp.shufflestate=1&sort=artist&clear-first=1&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
         #endregion
 
     }

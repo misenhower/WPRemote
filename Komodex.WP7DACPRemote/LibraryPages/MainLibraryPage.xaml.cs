@@ -248,6 +248,19 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #endregion
 
+        #region Shuffle All Songs
+
+        private void mnuShuffle_Click(object sender, EventArgs e)
+        {
+            if (DACPServer != null && DACPServer.IsConnected)
+            {
+                DACPServer.SendShuffleAllSongsCommand();
+                NavigationManager.OpenNowPlayingPage();
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Methods

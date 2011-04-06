@@ -142,6 +142,9 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5">
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="shuffle all songs" Click="mnuShuffle_Click" />
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     
