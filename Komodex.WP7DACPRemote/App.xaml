@@ -206,6 +206,7 @@
         <converters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />
         <converters:NoListItemsVisibilityConverter x:Key="noListItemsVisibilityConverter" />
         <converters:StringToUpperConverter x:Key="stringToUpperConverter" />
+        <converters:CollapseIfLessThanTwoConverter x:Key="collapseIfLessThanTwoConverter" />
 
         <!-- Grouped ListBox Templates -->
         <DataTemplate x:Key="GroupItemTemplate">

@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Converters\BooleanToAccentBrushConverter.cs" />
     <Compile Include="Converters\DisableWhenNullConverter.cs" />
+    <Compile Include="Converters\CollapseIfLessThanTwoConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
     <Compile Include="Converters\StringToUpperConverter.cs" />
     <Compile Include="DACPServerInfoManagement\AddLibraryPage.xaml.cs">

@@ -70,7 +70,7 @@
                     <Button Name="btnArtist" Grid.Column="1" Style="{StaticResource BorderlessButtonStyle}" Click="btnArtist_Click">
                         <TextBlock Text="{Binding Path=ArtistName}" TextWrapping="Wrap" MaxHeight="115" Style="{StaticResource PhoneTextExtraLargeStyle}" />
                     </Button>
-                    <Border Padding="0,12,0,0" Background="Transparent" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Border Padding="0,12,0,0" Background="Transparent" Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}">
                         <Button Template="{StaticResource EmptyButton}" Click="ShuffleButton_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="Button" Template="{StaticResource ShuffleIconButton}" Click="ShuffleButton_Click" />
