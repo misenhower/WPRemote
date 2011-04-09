@@ -637,6 +637,68 @@
             </summary>
             <param name="e">Event arguments.</param>
         </member>
+        <member name="T:Microsoft.Phone.Controls.PerformanceProgressBar">
+            <summary>
+            A progress bar implementation for a smoother appearance of the 
+            indeterminate states, with the added behavior that after the behavior
+            is no longer needed, it smoothly fades out the dots for a less jarring
+            experience. No exposed Value property.
+            </summary>
+            <remarks>
+            Important - this control is not intended for regular progress 
+            bar use, but only indeterminate. As a result, only an IsIndeterminate 
+            set of visual states are defined in the nested progress bar template. 
+            Use the standard ProgressBar control in the platform for determinate 
+            scenarios as there is no performance benefit in determinate mode.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.PerformanceProgressBar._visualStateGroup">
+            <summary>
+            The visual state group reference used to wait until the hidden state
+            has fully transitioned to flip the underlying progress bar's
+            indeterminate value to False.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.PerformanceProgressBar.ActualIsIndeterminateProperty">
+            <summary>
+            Identifies the ActualIsIndeterminate dependency property.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.PerformanceProgressBar.IsIndeterminateProperty">
+            <summary>
+            Identifies the IsIndeterminate dependency property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.PerformanceProgressBar.OnIsIndeterminatePropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            IsIndeterminateProperty property changed handler.
+            </summary>
+            <param name="d">PerformanceProgressBar that changed its IsIndeterminate.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.PerformanceProgressBar.#ctor">
+            <summary>
+            Initializes a new instance of the PerformanceProgressBar type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.PerformanceProgressBar.OnApplyTemplate">
+            <summary>
+            Applies the template and extracts both a visual state and a template
+            part.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Phone.Controls.PerformanceProgressBar.ActualIsIndeterminate">
+            <summary>
+            Gets or sets the value indicating whether the actual indeterminate
+            property should be reflecting a particular value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Phone.Controls.PerformanceProgressBar.IsIndeterminate">
+            <summary>
+            Gets or sets a value indicating whether the control is in the
+            indeterminate state.
+            </summary>
+        </member>
         <member name="T:Microsoft.Phone.Controls.GestureService">
             <summary>
             The GestureService class is the helper for getting and setting GestureListeners
@@ -4329,6 +4391,322 @@
             is clicked.
             </summary>
         </member>
+        <member name="T:Microsoft.Phone.Controls.TiltEffect">
+            <summary>
+            This code provides attached properties for adding a 'tilt' effect to all 
+            controls within a container.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.MaxAngle">
+            <summary>
+            Maximum amount of tilt, in radians.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.MaxDepression">
+            <summary>
+            Maximum amount of depression, in pixels
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect._originalCacheMode">
+            <summary>
+            Cache of previous cache modes. Not using weak references for now.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.TiltReturnAnimationDelay">
+            <summary>
+            Delay between releasing an element and the tilt release animation 
+            playing.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.TiltReturnAnimationDuration">
+            <summary>
+            Duration of tilt release animation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.currentTiltElement">
+            <summary>
+            The control that is currently being tilted.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.tiltReturnStoryboard">
+            <summary>
+            The single instance of a storyboard used for all tilts.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.tiltReturnXAnimation">
+            <summary>
+            The single instance of an X rotation used for all tilts.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.tiltReturnYAnimation">
+            <summary>
+            The single instance of a Y rotation used for all tilts.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.tiltReturnZAnimation">
+            <summary>
+            The single instance of a Z depression used for all tilts.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.currentTiltElementCenter">
+            <summary>
+            The center of the tilt element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.wasPauseAnimation">
+            <summary>
+            Whether the animation just completed was for a 'pause' or not.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.#ctor">
+            <summary>
+            This is not a constructable class, but it cannot be static because 
+            it derives from DependencyObject.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.#cctor">
+            <summary>
+            Initialize the static properties
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.IsTiltEnabledProperty">
+            <summary>
+            Whether the tilt effect is enabled on a container (and all its 
+            children).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.GetIsTiltEnabled(System.Windows.DependencyObject)">
+            <summary>
+            Gets the IsTiltEnabled dependency property from an object.
+            </summary>
+            <param name="source">The object to get the property from.</param>
+            <returns>The property's value.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.SetIsTiltEnabled(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Sets the IsTiltEnabled dependency property on an object.
+            </summary>
+            <param name="source">The object to set the property on.</param>
+            <param name="value">The value to set.</param>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.TiltEffect.SuppressTiltProperty">
+            <summary>
+            Suppresses the tilt effect on a single control that would otherwise 
+            be tilted.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.GetSuppressTilt(System.Windows.DependencyObject)">
+            <summary>
+            Gets the SuppressTilt dependency property from an object.
+            </summary>
+            <param name="source">The object to get the property from.</param>
+            <returns>The property's value.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.SetSuppressTilt(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Sets the SuppressTilt dependency property from an object.
+            </summary>
+            <param name="source">The object to get the property from.</param>
+            <param name="value">The property's value.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.OnIsTiltEnabledChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Property change handler for the IsTiltEnabled dependency property.
+            </summary>
+            <param name="target">The element that the property is atteched to.</param>
+            <param name="args">Event arguments.</param>
+            <remarks>
+            Adds or removes event handlers from the element that has been 
+            (un)registered for tilting.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.TiltEffect_ManipulationStarted(System.Object,System.Windows.Input.ManipulationStartedEventArgs)">
+            <summary>
+            Event handler for ManipulationStarted.
+            </summary>
+            <param name="sender">sender of the event - this will be the tilt 
+            container (eg, entire page).</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.TiltEffect_ManipulationDelta(System.Object,System.Windows.Input.ManipulationDeltaEventArgs)">
+            <summary>
+            Event handler for ManipulationDelta
+            </summary>
+            <param name="sender">sender of the event - this will be the tilting 
+            object (eg a button).</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.TiltEffect_ManipulationCompleted(System.Object,System.Windows.Input.ManipulationCompletedEventArgs)">
+            <summary>
+            Event handler for ManipulationCompleted.
+            </summary>
+            <param name="sender">sender of the event - this will be the tilting 
+            object (eg a button).</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.TryStartTiltEffect(System.Windows.FrameworkElement,System.Windows.Input.ManipulationStartedEventArgs)">
+            <summary>
+            Checks if the manipulation should cause a tilt, and if so starts the 
+            tilt effect.
+            </summary>
+            <param name="source">The source of the manipulation (the tilt 
+            container, eg entire page).</param>
+            <param name="e">The args from the ManipulationStarted event.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.GetCenterToCenterDelta(System.Windows.FrameworkElement,System.Windows.FrameworkElement)">
+            <summary>
+            Computes the delta between the centre of an element and its 
+            container.
+            </summary>
+            <param name="element">The element to compare.</param>
+            <param name="container">The element to compare against.</param>
+            <returns>A point that represents the delta between the two centers.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.BeginTiltEffect(System.Windows.FrameworkElement,System.Windows.Point,System.Windows.Point,System.Windows.Point)">
+            <summary>
+            Begins the tilt effect by preparing the control and doing the 
+            initial animation.
+            </summary>
+            <param name="element">The element to tilt.</param>
+            <param name="touchPoint">The touch point, in element coordinates.</param>
+            <param name="centerPoint">The center point of the element in element
+            coordinates.</param>
+            <param name="centerDelta">The delta between the 
+            <paramref name="element"/>'s center and the container's center.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.PrepareControlForTilt(System.Windows.FrameworkElement,System.Windows.Point)">
+            <summary>
+            Prepares a control to be tilted by setting up a plane projection and
+            some event handlers.
+            </summary>
+            <param name="element">The control that is to be tilted.</param>
+            <param name="centerDelta">Delta between the element's center and the
+            tilt container's.</param>
+            <returns>true if successful; false otherwise.</returns>
+            <remarks>
+            This method is conservative; it will fail any attempt to tilt a 
+            control that already has a projection on it.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.RevertPrepareControlForTilt(System.Windows.FrameworkElement)">
+            <summary>
+            Removes modifications made by PrepareControlForTilt.
+            </summary>
+            <param name="element">THe control to be un-prepared.</param>
+            <remarks>
+            This method is basic; it does not do anything to detect if the 
+            control being un-prepared was previously prepared.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.PrepareTiltReturnStoryboard(System.Windows.FrameworkElement)">
+            <summary>
+            Creates the tilt return storyboard (if not already created) and 
+            targets it to the projection.
+            </summary>
+            <param name="element">The framework element to prepare for
+            projection.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.ContinueTiltEffect(System.Windows.FrameworkElement,System.Windows.Input.ManipulationDeltaEventArgs)">
+            <summary>
+            Continues a tilt effect that is currently applied to an element, 
+            presumably because the user moved their finger.
+            </summary>
+            <param name="element">The element being tilted.</param>
+            <param name="e">The manipulation event args.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.EndTiltEffect(System.Windows.FrameworkElement)">
+            <summary>
+            Ends the tilt effect by playing the animation.
+            </summary>
+            <param name="element">The element being tilted.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.TiltReturnStoryboard_Completed(System.Object,System.EventArgs)">
+            <summary>
+            Handler for the storyboard complete event.
+            </summary>
+            <param name="sender">sender of the event.</param>
+            <param name="e">event args.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.ResetTiltEffect(System.Windows.FrameworkElement)">
+            <summary>
+            Resets the tilt effect on the control, making it appear 'normal'
+            again.
+            </summary>
+            <param name="element">The element to reset the tilt on.</param>
+            <remarks>
+            This method doesn't turn off the tilt effect or cancel any current
+            manipulation; it just temporarily cancels the effect.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.StopTiltReturnStoryboardAndCleanup">
+            <summary>
+            Stops the tilt effect and release resources applied to the currently
+            tilted control.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.PauseTiltEffect">
+            <summary>
+            Pauses the tilt effect so that the control returns to the 'at rest'
+            position, but doesn't stop the tilt effect (handlers are still 
+            attached).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.ResetTiltReturnStoryboard">
+            <summary>
+            Resets the storyboard to not running.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.ApplyTiltEffect(System.Windows.FrameworkElement,System.Windows.Point,System.Windows.Point)">
+            <summary>
+            Applies the tilt effect to the control.
+            </summary>
+            <param name="element">the control to tilt.</param>
+            <param name="touchPoint">The touch point, in the container's 
+            coordinates.</param>
+            <param name="centerPoint">The center point of the container.</param>
+        </member>
+        <member name="P:Microsoft.Phone.Controls.TiltEffect.UseLogarithmicEase">
+            <summary>
+            Whether to use a slightly more accurate (but slightly slower) tilt 
+            animation easing function.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Phone.Controls.TiltEffect.TiltableItems">
+            <summary>
+            Default list of items that are tiltable.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.TiltEffect.LogarithmicEase">
+            <summary>
+            Provides an easing function for the tilt return.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TiltEffect.LogarithmicEase.EaseInCore(System.Double)">
+            <summary>
+            Computes the easing function.
+            </summary>
+            <param name="normalizedTime">The time.</param>
+            <returns>The eased value.</returns>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.TreeHelpers">
+            <summary>
+            Couple of simple helpers for walking the visual tree.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TreeHelpers.GetVisualAncestors(System.Windows.FrameworkElement)">
+            <summary>
+            Gets the ancestors of the element, up to the root.
+            </summary>
+            <param name="node">The element to start from.</param>
+            <returns>An enumerator of the ancestors.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.TreeHelpers.GetVisualParent(System.Windows.FrameworkElement)">
+            <summary>
+            Gets the visual parent of the element.
+            </summary>
+            <param name="node">The element to check.</param>
+            <returns>The visual parent.</returns>
+        </member>
         <member name="T:Microsoft.Phone.Controls.Extensions">
             <summary>
             This set of internal extension methods provide general solutions and 
@@ -4533,6 +4911,264 @@
             <summary>
             Mirrors <see cref="E:System.Windows.Media.Animation.Storyboard.Completed"/>.
             </summary>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl">
+            <summary>
+            A very specialized primitive control that works around a specific visual
+            state manager issue. The platform does not support relative sized
+            translation values, and this special control walks through visual state
+            animation storyboards looking for magic numbers to use as percentages.
+            This control is not supported, unofficial, and is a hack in many ways.
+            It is used to enable a Windows Phone native platform-style progress bar
+            experience in indeterminate mode that remains performant.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.SimpleDoubleComparisonEpsilon">
+            <summary>
+            A simple Epsilon-style value used for trying to determine the magic 
+            state, if any, of a double.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl._knownWidth">
+            <summary>
+            The last known width of the control.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl._knownHeight">
+            <summary>
+            The last known height of the control.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl._specialAnimations">
+            <summary>
+            A set of custom animation adapters used to update the animation
+            storyboards when the size of the control changes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.#ctor">
+            <summary>
+            Initializes a new instance of the RelativeAnimatingContentControl
+            type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.OnSizeChanged(System.Object,System.Windows.SizeChangedEventArgs)">
+            <summary>
+            Handles the size changed event.
+            </summary>
+            <param name="sender">The source object.</param>
+            <param name="e">The event arguments.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.UpdateAnyAnimationValues">
+            <summary>
+            Walks through the known storyboards in the control's template that
+            may contain magic double animation values, storing them for future
+            use and updates.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.UpdateKnownAnimations">
+            <summary>
+            Walks through all special animations, updating based on the current
+            size of the control.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.ProcessDoubleAnimationWithKeys(System.Windows.Media.Animation.DoubleAnimationUsingKeyFrames)">
+            <summary>
+            Processes a double animation with keyframes, looking for known 
+            special values to store with an adapter.
+            </summary>
+            <param name="da">The double animation using key frames instance.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.ProcessDoubleAnimation(System.Windows.Media.Animation.DoubleAnimation)">
+            <summary>
+            Processes a double animation looking for special values.
+            </summary>
+            <param name="da">The double animation instance.</param>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationDimension">
+            <summary>
+            A selection of dimensions of interest for updating an animation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationDimension.Width">
+            <summary>
+            The width (horizontal) dimension.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationDimension.Height">
+            <summary>
+            The height (vertical) dimension.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.AnimationValueAdapter">
+            <summary>
+            A simple class designed to store information about a specific 
+            animation instance and its properties. Able to update the values at
+            runtime.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.AnimationValueAdapter.#ctor(Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationDimension)">
+            <summary>
+            Initializes a new instance of the AnimationValueAdapter type.
+            </summary>
+            <param name="dimension">The dimension of interest for updates.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.AnimationValueAdapter.UpdateWithNewDimension(System.Double,System.Double)">
+            <summary>
+            Updates the original instance based on new dimension information
+            from the control. Takes both and allows the subclass to make the
+            decision on which ratio, values, and dimension to use.
+            </summary>
+            <param name="width">The width of the control.</param>
+            <param name="height">The height of the control.</param>
+        </member>
+        <member name="P:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.AnimationValueAdapter.Dimension">
+            <summary>
+            Gets the dimension of interest for the control.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1.GetValue">
+            <summary>
+            Gets the value of the underlying property of interest.
+            </summary>
+            <returns>Returns the value of the property.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1.SetValue(System.Double)">
+            <summary>
+            Sets the value for the underlying property of interest.
+            </summary>
+            <param name="newValue">The new value for the property.</param>
+        </member>
+        <member name="F:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1._ratio">
+            <summary>
+            The ratio based on the original magic value, used for computing
+            the updated animation property of interest when the size of the
+            control changes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1.#ctor(Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationDimension,`0)">
+            <summary>
+            Initializes a new instance of the GeneralAnimationValueAdapter
+            type.
+            </summary>
+            <param name="d">The dimension of interest.</param>
+            <param name="instance">The animation type instance.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1.StripMagicNumberOff(System.Double)">
+            <summary>
+            Approximately removes the magic number state from a value.
+            </summary>
+            <param name="number">The initial number.</param>
+            <returns>Returns a double with an adjustment for the magic
+            portion of the number.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1.GetDimensionFromMagicNumber(System.Double)">
+            <summary>
+            Retrieves the dimension, if any, from the number. If the number
+            is not magic, null is returned instead.
+            </summary>
+            <param name="number">The double value.</param>
+            <returns>Returs a double animation dimension, if the number was
+            partially magic; otherwise, returns null.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1.UpdateWithNewDimension(System.Double,System.Double)">
+            <summary>
+            Updates the animation instance based on the dimensions of the
+            control.
+            </summary>
+            <param name="width">The width of the control.</param>
+            <param name="height">The height of the control.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1.UpdateValue(System.Double)">
+            <summary>
+            Updates the value of the property.
+            </summary>
+            <param name="sizeToUse">The size of interest to use with a ratio
+            computation.</param>
+        </member>
+        <member name="P:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1.Instance">
+            <summary>
+            Stores the animation instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.GeneralAnimationValueAdapter`1.InitialValue">
+            <summary>
+            Gets the initial value (minus the magic number portion) that the
+            designer stored within the visual state animation property.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationToAdapter">
+            <summary>
+            Adapter for DoubleAnimation's To property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationToAdapter.GetValue">
+            <summary>
+            Gets the value of the underlying property of interest.
+            </summary>
+            <returns>Returns the value of the property.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationToAdapter.SetValue(System.Double)">
+            <summary>
+            Sets the value for the underlying property of interest.
+            </summary>
+            <param name="newValue">The new value for the property.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationToAdapter.#ctor(Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationDimension,System.Windows.Media.Animation.DoubleAnimation)">
+            <summary>
+            Initializes a new instance of the DoubleAnimationToAdapter type.
+            </summary>
+            <param name="dimension">The dimension of interest.</param>
+            <param name="instance">The instance of the animation type.</param>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationFromAdapter">
+            <summary>
+            Adapter for DoubleAnimation's From property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationFromAdapter.GetValue">
+            <summary>
+            Gets the value of the underlying property of interest.
+            </summary>
+            <returns>Returns the value of the property.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationFromAdapter.SetValue(System.Double)">
+            <summary>
+            Sets the value for the underlying property of interest.
+            </summary>
+            <param name="newValue">The new value for the property.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationFromAdapter.#ctor(Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationDimension,System.Windows.Media.Animation.DoubleAnimation)">
+            <summary>
+            Initializes a new instance of the DoubleAnimationFromAdapter 
+            type.
+            </summary>
+            <param name="dimension">The dimension of interest.</param>
+            <param name="instance">The instance of the animation type.</param>
+        </member>
+        <member name="T:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationFrameAdapter">
+            <summary>
+            Adapter for double key frames.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationFrameAdapter.GetValue">
+            <summary>
+            Gets the value of the underlying property of interest.
+            </summary>
+            <returns>Returns the value of the property.</returns>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationFrameAdapter.SetValue(System.Double)">
+            <summary>
+            Sets the value for the underlying property of interest.
+            </summary>
+            <param name="newValue">The new value for the property.</param>
+        </member>
+        <member name="M:Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationFrameAdapter.#ctor(Microsoft.Phone.Controls.Primitives.RelativeAnimatingContentControl.DoubleAnimationDimension,System.Windows.Media.Animation.DoubleKeyFrame)">
+            <summary>
+            Initializes a new instance of the DoubleAnimationFrameAdapter
+            type.
+            </summary>
+            <param name="dimension">The dimension of interest.</param>
+            <param name="frame">The instance of the animation type.</param>
         </member>
         <member name="T:Microsoft.Phone.Controls.LinkUnlinkEventArgs">
             <summary>
