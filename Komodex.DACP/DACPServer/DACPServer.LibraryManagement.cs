@@ -62,6 +62,19 @@ namespace Komodex.DACP
             }
         }
 
+        private GroupedItems<Genre> _LibraryGenres = null;
+        public GroupedItems<Genre> LibraryGenres
+        {
+            get { return _LibraryGenres; }
+            protected set
+            {
+                if (_LibraryGenres == value)
+                    return;
+                _LibraryGenres = value;
+                SendPropertyChanged("LibraryGenres");
+            }
+        }
+
         private GroupedItems<VideoMediaItem> _LibraryMovies = null;
         public GroupedItems<VideoMediaItem> LibraryMovies
         {
@@ -253,6 +266,35 @@ namespace Komodex.DACP
             LibraryAlbums = GroupedItems<Album>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Album(this, bytes));
 
             retrievingAlbums = false;
+        }
+
+        #endregion
+
+        #region Genres
+
+        private bool retrievingGenres = false;
+
+        public void GetGenres()
+        {
+            if (!retrievingGenres)
+                SubmitGenresRequest();
+        }
+
+        protected void SubmitGenresRequest()
+        {
+            retrievingGenres = true;
+            string url = "/databases/" + DatabaseID + "/browse/genres"
+                + "?include-sort-headers=1"
+                + "&filter=('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songgenre!:'"
+                + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url, ProcessGenresResponse, true);
+        }
+
+        protected void ProcessGenresResponse(HTTPRequestInfo requestInfo)
+        {
+            LibraryGenres = GroupedItems<Genre>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Genre(this, bytes));
+
+            retrievingGenres = false;
         }
 
         #endregion

@@ -40,6 +40,7 @@ namespace Komodex.DACP
                 switch (kvp.Key)
                 {
                     case "mlcl": // Items list
+                    case "abgn": // Genres list
                         items.Clear();
                         var itemNodes = Utility.GetResponseNodes(kvp.Value);
                         foreach (var itemData in itemNodes)

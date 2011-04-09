@@ -51,6 +51,16 @@
                 </Border>
             </Button>
         </DataTemplate>
+        <DataTemplate x:Key="GenreTemplate">
+            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="GenreButton_Click">
+                <Border Padding="12,6,0,12" Background="Transparent">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="GenrePlayButton_Click" />
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+        </DataTemplate>
         <DataTemplate x:Key="PlaylistTemplate">
             <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="PlaylistButton_Click">
                 <Border Padding="12,6,0,12" Background="Transparent">
@@ -109,6 +119,27 @@
                     <toolkit:LongListSelector x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding LibraryAlbums}"
                                               Margin="0,0,-12,0"
                                               ItemTemplate="{StaticResource AlbumTemplate}"
+                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                              ListFooterTemplate="{StaticResource ListFooter}"
+                                              GroupViewOpened="LongListSelector_GroupViewOpened"
+                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                        <toolkit:LongListSelector.GroupItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </toolkit:LongListSelector.GroupItemsPanel>
+                    </toolkit:LongListSelector>
+                </Grid>
+            </controls:PivotItem>
+            <controls:PivotItem Header="genres" Name="pivotGenres">
+                <Grid>
+                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
+                               Text="No genres were found in your library."
+                               Visibility="{Binding Path=LibraryGenres, Converter={StaticResource noListItemsVisibilityConverter}}" />
+                    <toolkit:LongListSelector x:Name="lbGenres" Background="Transparent" ItemsSource="{Binding LibraryGenres}"
+                                              Margin="0,0,-12,0"
+                                              ItemTemplate="{StaticResource GenreTemplate}"
                                               GroupItemTemplate="{StaticResource GroupItemTemplate}"
                                               GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
                                               ListFooterTemplate="{StaticResource ListFooter}"

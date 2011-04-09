@@ -216,6 +216,20 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #endregion
 
+        #region Genres
+
+        private void GenreButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GenrePlayButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
         #region Playlists
 
         private void PlaylistButton_Click(object sender, RoutedEventArgs e)
@@ -279,6 +293,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             {
                 if (DACPServer.LibraryAlbums == null || DACPServer.LibraryAlbums.Count == 0)
                     DACPServer.GetAlbums();
+            }
+            else if (pivotControl.SelectedItem == pivotGenres)
+            {
+                if (DACPServer.LibraryGenres == null || DACPServer.LibraryGenres.Count == 0)
+                    DACPServer.GetGenres();
             }
         }
 
