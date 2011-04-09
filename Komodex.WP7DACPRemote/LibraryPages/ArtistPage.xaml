@@ -61,20 +61,14 @@
         </DataTemplate>
         <DataTemplate x:Key="SongHeaderTemplate">
             <Border Background="Transparent" DataContext="{Binding ElementName=LayoutRoot, Path=DataContext}">
-                <Button Template="{StaticResource EmptyButton}"
-                                Margin="12,0,0,12"
-                                Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}"
-                                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                                Click="ShuffleButton_Click">
-                    <Border Background="{StaticResource PhoneChromeBrush}">
+                <Border Padding="12,0,0,24" Background="Transparent" Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}">
+                    <Button Template="{StaticResource EmptyButton}" Click="ShuffleButton_Click">
                         <StackPanel Orientation="Horizontal">
-                            <ContentControl Template="{StaticResource ShuffleIcon}" />
-                            <TextBlock Text="shuffle all" Margin="0,3,12,0" FontSize="28"
-                                       Style="{StaticResource PhoneTextBlockBase}"
-                                       FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                            <Button Content="Button" Template="{StaticResource ShuffleIconButton}" Click="ShuffleButton_Click" />
+                            <TextBlock Text="shuffle all" Style="{StaticResource PhoneTextExtraLargeStyle}" />
                         </StackPanel>
-                    </Border>
-                </Button>
+                    </Button>
+                </Border>
             </Border>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
