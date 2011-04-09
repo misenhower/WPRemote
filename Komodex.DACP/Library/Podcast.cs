@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 
 namespace Komodex.DACP.Library
 {
-    public class Podcast : LibraryGroupElementBase
+    public class Podcast : LibraryElementBase
     {
         private Podcast()
             : base()

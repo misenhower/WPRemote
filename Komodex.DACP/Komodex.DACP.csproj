@@ -53,7 +53,6 @@
     <Compile Include="Classes\GroupItems.cs" />
     <Compile Include="DACPServer\DACPServer.AirPlaySpeakers.cs" />
     <Compile Include="Library\Bases\LibraryElementBase.cs" />
-    <Compile Include="Library\Bases\LibraryGroupElementBase.cs" />
     <Compile Include="Library\Podcast.cs" />
     <Compile Include="Library\SearchResultSet.cs" />
     <Compile Include="DACPServer\DACPServer.LibraryManagement.cs" />
