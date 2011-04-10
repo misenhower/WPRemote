@@ -28,6 +28,7 @@ namespace Komodex.DACP.Library
         #region Properties
 
         public DACPServer Server { get; protected set; }
+        public int ListIndex { get; internal set; }
 
         #endregion
 

@@ -167,9 +167,55 @@ namespace Komodex.DACP.Library
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
         {
-            Songs = GroupedItems<MediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new MediaItem(this.Server, bytes));
+            int index = 0;
+            Songs = GroupedItems<MediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new MediaItem(this.Server, bytes) { ListIndex = index++ });
 
             retrievingSongs = false;
+        }
+
+        #endregion
+
+        #region Play Song Command
+
+        public void SendPlaySongCommand()
+        {
+            SendPlaySongCommand(0);
+        }
+
+        public void SendPlaySongCommand(MediaItem song)
+        {
+            SendPlaySongCommand(song.ListIndex);
+            //try
+            //{
+            //    //int songIndex = Songs.IndexOf(song);
+            //    //SendPlaySongCommand(songIndex);
+            //}
+            //catch { }
+        }
+
+        protected void SendPlaySongCommand(int index)
+        {
+            SendPlaySongCommand("&index=" + index);
+        }
+
+        public void SendShuffleSongsCommand()
+        {
+            SendPlaySongCommand("&dacp.shufflestate=1");
+        }
+
+        protected void SendPlaySongCommand(string input)
+        {
+            string encodedName = Utility.QueryEncodeString(Name);
+            string url = "/ctrl-int/1/cue"
+                + "?command=play"
+                + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songgenre:" + encodedName + "')"
+                + input
+                + "&sort=name"
+                //+ "&srcdatabase=0xD18B9763F4D90887"
+                + "&clear-first=1"
+                + "&session-id=" + Server.SessionID;
+
+            Server.SubmitHTTPRequest(url);
         }
 
         #endregion
