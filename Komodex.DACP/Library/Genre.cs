@@ -56,8 +56,8 @@ namespace Komodex.DACP.Library
             }
         }
 
-        private ObservableCollection<MediaItem> _Songs = null;
-        public ObservableCollection<MediaItem> Songs
+        private GroupedItems<MediaItem> _Songs = null;
+        public GroupedItems<MediaItem> Songs
         {
             get { return _Songs; }
             set
@@ -87,7 +87,7 @@ namespace Komodex.DACP.Library
         {
             retrievingArtists = true;
             string encodedName = Utility.QueryEncodeString(Name);
-            string url = "/databases/69/groups"
+            string url = "/databases/" + Server.DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
                 + "&type=music"
                 + "&group-type=artists"
@@ -121,7 +121,7 @@ namespace Komodex.DACP.Library
         {
             retrievingAlbums = true;
             string encodedName = Utility.QueryEncodeString(Name);
-            string url = "/databases/69/groups"
+            string url = "/databases/" + Server.DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
                 + "&type=music"
                 + "&group-type=albums"
@@ -137,6 +137,39 @@ namespace Komodex.DACP.Library
             Albums = GroupedItems<Album>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Album(this.Server, bytes));
 
             retrievingAlbums = false;
+        }
+
+        #endregion
+
+        #region Songs
+
+        private bool retrievingSongs = false;
+
+        public void GetSongs()
+        {
+            if (!retrievingSongs)
+                SubmitSongsRequest();
+        }
+
+        protected void SubmitSongsRequest()
+        {
+            retrievingSongs = true;
+            string encodedName = Utility.QueryEncodeString(Name);
+            string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
+                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdisabled,com.apple.itunes.mediakind,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
+                + "&type=music"
+                + "&sort=name"
+                + "&include-sort-headers=1"
+                + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songgenre:" + encodedName + "')"
+                + "&session-id=" + Server.SessionID;
+            Server.SubmitHTTPRequest(url, ProcessSongsResponse, true);
+        }
+
+        protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
+        {
+            Songs = GroupedItems<MediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new MediaItem(this.Server, bytes));
+
+            retrievingSongs = false;
         }
 
         #endregion

@@ -188,8 +188,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
             else if (pivotControl.SelectedItem == pivotSongs)
             {
-                //if (Genre.Songs == null || Genre.Songs.Count == 0)
-                //    Genre.GetSongs();
+                if (Genre.Songs == null || Genre.Songs.Count == 0)
+                    Genre.GetSongs();
             }
         }
 
