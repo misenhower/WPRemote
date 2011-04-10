@@ -100,6 +100,9 @@
     <Compile Include="LibraryPages\ArtistPage.xaml.cs">
       <DependentUpon>ArtistPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LibraryPages\GenrePage.xaml.cs">
+      <DependentUpon>GenrePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LibraryPages\MainLibraryPage.xaml.cs">
       <DependentUpon>MainLibraryPage.xaml</DependentUpon>
     </Compile>
@@ -185,6 +188,10 @@
     <Page Include="LibraryPages\ArtistPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LibraryPages\GenrePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LibraryPages\MainLibraryPage.xaml">
       <SubType>Designer</SubType>

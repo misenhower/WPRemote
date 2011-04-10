@@ -220,7 +220,13 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void GenreButton_Click(object sender, RoutedEventArgs e)
         {
+            Genre genre = ((Button)sender).Tag as Genre;
 
+            if (genre != null)
+            {
+                lbGenres.SelectedItem = genre;
+                NavigationManager.OpenGenrePage(genre.Name);
+            }
         }
 
         private void GenrePlayButton_Click(object sender, RoutedEventArgs e)

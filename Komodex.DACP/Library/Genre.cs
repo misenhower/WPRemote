@@ -8,16 +8,106 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace Komodex.DACP.Library
 {
     public class Genre : LibraryElementBase
     {
+        public Genre(DACPServer server, string name)
+            : base()
+        {
+            Server = server;
+            Name = name;
+        }
+
         public Genre(DACPServer server, byte[] data)
             : base() // Genres are a bit different so don't call the base(server, data) constructor
         {
             Server = server;
             Name = data.GetStringValue();
         }
+
+        #region Properties
+
+        private GroupedItems<Artist> _Artists = null;
+        public GroupedItems<Artist> Artists
+        {
+            get { return _Artists; }
+            protected set
+            {
+                if (_Artists == value)
+                    return;
+                _Artists = value;
+                SendPropertyChanged("Artists");
+            }
+        }
+
+        private ObservableCollection<Album> _Albums = null;
+        public ObservableCollection<Album> Albums
+        {
+            get { return _Albums; }
+            protected set
+            {
+                if (_Albums == value)
+                    return;
+                _Albums = value;
+                SendPropertyChanged("Albums");
+            }
+        }
+
+        private ObservableCollection<MediaItem> _Songs = null;
+        public ObservableCollection<MediaItem> Songs
+        {
+            get { return _Songs; }
+            set
+            {
+                if (_Songs == value)
+                    return;
+                _Songs = value;
+                SendPropertyChanged("Songs");
+            }
+        }
+
+        #endregion
+
+        #region HTTP Requests and Responses
+
+        #region Artists
+
+        private bool retrievingArtists = false;
+
+        public void GetArtists()
+        {
+            if (!retrievingArtists)
+                SubmitArtistsRequest();
+        }
+
+        protected void SubmitArtistsRequest()
+        {
+            retrievingArtists = true;
+            string encodedName = Utility.QueryEncodeString(Name);
+            string url = "/databases/69/groups"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
+                + "&type=music"
+                + "&group-type=artists"
+                + "&sort=album"
+                + "&include-sort-headers=1"
+                + "&query=('daap.songartist!:'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songgenre:" + encodedName + "')"
+                + "&session-id=" + Server.SessionID;
+            Server.SubmitHTTPRequest(url, ProcessArtistsResponse, true);
+        }
+
+        protected void ProcessArtistsResponse(HTTPRequestInfo requestInfo)
+        {
+            Artists = GroupedItems<Artist>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Artist(this.Server, bytes));
+
+            retrievingArtists = false;
+        }
+
+        #endregion
+
+        #endregion
+
     }
 }

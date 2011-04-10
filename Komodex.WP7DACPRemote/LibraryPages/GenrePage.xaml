@@ -1,0 +1,142 @@
+﻿<app:DACPServerBoundPhoneApplicationPage
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
+    xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
+    xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
+    x:Class="Komodex.WP7DACPRemote.LibraryPages.GenrePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:delay="clr-namespace:Delay"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:msun="clr-namespace:Microsoft.Unsupported"
+    msun:TiltEffect.IsTiltEnabled="True"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ArtistTemplate">
+            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="ArtistButton_Click">
+                <Border Padding="12,6,0,12" Background="Transparent">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="ArtistPlayButton_Click" />
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+        </DataTemplate>
+        <DataTemplate x:Key="AlbumTemplate">
+            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="AlbumButton_Click">
+                <Border Padding="12,6,0,12" Background="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="175" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="AlbumPlayButton_Click">
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                        </Button>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
+                            <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Button>
+        </DataTemplate>
+        <DataTemplate x:Key="SongTemplate">
+            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="SongPlayButton_Click">
+                <Border Padding="12,6,0,12" Background="Transparent">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Button" Grid.Row="0" Grid.Column="0" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="SongPlayButton_Click" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,0,0" />
+                        <TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
+                    </Grid>
+                </Border>
+            </Button>
+        </DataTemplate>
+        <DataTemplate x:Key="SongHeaderTemplate">
+            <Border Background="Transparent" DataContext="{Binding ElementName=LayoutRoot, Path=DataContext}">
+                <Button Template="{StaticResource EmptyButton}"
+                                Margin="12,0,0,12"
+                                Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}"
+                                VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                                Click="ShuffleButton_Click">
+                    <Border Background="{StaticResource PhoneChromeBrush}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Template="{StaticResource ShuffleIcon}" />
+                            <TextBlock Text="shuffle all" Margin="0,3,12,0" FontSize="28"
+                                       Style="{StaticResource PhoneTextBlockBase}"
+                                       FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+            </Border>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot x:Name="pivotControl" Title="{Binding Name, Converter={StaticResource stringToUpperConverter}}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeMedium}" SelectionChanged="Pivot_SelectionChanged">
+            <controls:PivotItem x:Name="pivotArtists" Header="artists">
+                <Grid>
+                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
+                               Text="No artists were found in your library."
+                               Visibility="{Binding Path=Artists, Converter={StaticResource noListItemsVisibilityConverter}}" />
+                    <toolkit:LongListSelector x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding Artists}"
+                                              Margin="0,0,-12,0"
+                                              ItemTemplate="{StaticResource ArtistTemplate}"
+                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                              GroupViewOpened="LongListSelector_GroupViewOpened"
+                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                        <toolkit:LongListSelector.GroupItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </toolkit:LongListSelector.GroupItemsPanel>
+                    </toolkit:LongListSelector>
+                </Grid>
+            </controls:PivotItem>
+
+                <controls:PivotItem x:Name="pivotAlbums" Header="albums">
+                <Grid>
+                    <toolkit:LongListSelector x:Name="lbAlbums" Margin="0,0,-12,0"
+                                              ItemsSource="{Binding Albums}" IsFlatList="True"
+                                              ItemTemplate="{StaticResource AlbumTemplate}"
+                                              />
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem x:Name="pivotSongs" Header="songs">
+                <Grid>
+                    <toolkit:LongListSelector x:Name="lbSongs" Margin="0,0,-12,0"
+                                              ItemsSource="{Binding Songs}" IsFlatList="True" 
+                                              ItemTemplate="{StaticResource SongTemplate}"
+                                              ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
+                                              />
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5" />
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+    
+</app:DACPServerBoundPhoneApplicationPage>

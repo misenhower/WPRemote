@@ -93,6 +93,12 @@ namespace Komodex.WP7DACPRemote
             RootVisual.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?id=" + albumID + "&name=" + albumName + "&artist=" + artistName + "&perid=" + albumPersistentID, UriKind.Relative));
         }
 
+        public static void OpenGenrePage(string genreName)
+        {
+            genreName = Uri.EscapeDataString(genreName);
+            RootVisual.Navigate(new Uri("/LibraryPages/GenrePage.xaml?name=" + genreName, UriKind.Relative));
+        }
+
         public static void OpenPlaylistPage(int playlistID, string playlistName, UInt64 playlistPersistentID)
         {
             playlistName = Uri.EscapeDataString(playlistName);
