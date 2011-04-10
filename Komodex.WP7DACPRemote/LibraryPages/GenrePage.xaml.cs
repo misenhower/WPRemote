@@ -183,8 +183,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             }
             else if (pivotControl.SelectedItem == pivotAlbums)
             {
-                //if (Genre.Albums == null || Genre.Albums.Count == 0)
-                //    Genre.GetAlbums();
+                if (Genre.Albums == null || Genre.Albums.Count == 0)
+                    Genre.GetAlbums();
             }
             else if (pivotControl.SelectedItem == pivotSongs)
             {

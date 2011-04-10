@@ -43,8 +43,8 @@ namespace Komodex.DACP.Library
             }
         }
 
-        private ObservableCollection<Album> _Albums = null;
-        public ObservableCollection<Album> Albums
+        private GroupedItems<Album> _Albums = null;
+        public GroupedItems<Album> Albums
         {
             get { return _Albums; }
             protected set
@@ -103,6 +103,40 @@ namespace Komodex.DACP.Library
             Artists = GroupedItems<Artist>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Artist(this.Server, bytes));
 
             retrievingArtists = false;
+        }
+
+        #endregion
+
+        #region Albums
+
+        private bool retrievingAlbums = false;
+
+        public void GetAlbums()
+        {
+            if (!retrievingAlbums)
+                SubmitAlbumsRequest();
+        }
+
+        protected void SubmitAlbumsRequest()
+        {
+            retrievingAlbums = true;
+            string encodedName = Utility.QueryEncodeString(Name);
+            string url = "/databases/69/groups"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
+                + "&type=music"
+                + "&group-type=albums"
+                + "&sort=album"
+                + "&include-sort-headers=1"
+                + "&query=('daap.songalbum!:'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songgenre:" + encodedName + "')"
+                + "&session-id=" + Server.SessionID;
+            Server.SubmitHTTPRequest(url, ProcessAlbumsResponse, true);
+        }
+
+        protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
+        {
+            Albums = GroupedItems<Album>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Album(this.Server, bytes));
+
+            retrievingAlbums = false;
         }
 
         #endregion

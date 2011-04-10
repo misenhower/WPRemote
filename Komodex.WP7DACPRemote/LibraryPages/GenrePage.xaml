@@ -96,7 +96,7 @@
             <controls:PivotItem x:Name="pivotArtists" Header="artists">
                 <Grid>
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="No artists were found in your library."
+                               Text="No artists were found for this genre."
                                Visibility="{Binding Path=Artists, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <toolkit:LongListSelector x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding Artists}"
                                               Margin="0,0,-12,0"
@@ -116,10 +116,22 @@
 
                 <controls:PivotItem x:Name="pivotAlbums" Header="albums">
                 <Grid>
-                    <toolkit:LongListSelector x:Name="lbAlbums" Margin="0,0,-12,0"
-                                              ItemsSource="{Binding Albums}" IsFlatList="True"
+                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
+                               Text="No albums were found for this genre."
+                               Visibility="{Binding Path=Albums, Converter={StaticResource noListItemsVisibilityConverter}}" />
+                    <toolkit:LongListSelector x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding Albums}"
+                                              Margin="0,0,-12,0"
                                               ItemTemplate="{StaticResource AlbumTemplate}"
-                                              />
+                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                              GroupViewOpened="LongListSelector_GroupViewOpened"
+                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                        <toolkit:LongListSelector.GroupItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </toolkit:LongListSelector.GroupItemsPanel>
+                    </toolkit:LongListSelector>
                 </Grid>
             </controls:PivotItem>
 
