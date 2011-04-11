@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:localHelpers="clr-namespace:Komodex.WP7DACPRemote.Converters"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -17,10 +18,9 @@
         </Grid.RowDefinitions>
         <Border Background="{StaticResource PhoneBackgroundBrush}" Opacity="0.85" Grid.RowSpan="2" />
         <StackPanel VerticalAlignment="Center">
-            <ProgressBar Margin="0" Padding="0"
-                         IsIndeterminate="{Binding ShowProgressBar}"
-                         Visibility="{Binding ShowProgressBar, Converter={StaticResource booleanToVisibilityConverter}}"
-                         Style="{StaticResource PerformanceProgressBar}" />
+            <toolkit:PerformanceProgressBar Margin="0" Padding="0"
+                                            IsIndeterminate="{Binding ShowProgressBar}"
+                                            Visibility="{Binding ShowProgressBar, Converter={StaticResource booleanToVisibilityConverter}}" />
             <TextBlock Name="tbLibraryConnectionText" Text="Connecting to Library" TextAlignment="Center" TextWrapping="Wrap" />
             <TextBlock Name="tbLibraryName" Style="{StaticResource PhoneTextAccentStyle}" TextAlignment="Center" />
         </StackPanel>
