@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
 using System.ComponentModel;
-using Microsoft.Unsupported;
+using Microsoft.Phone.Controls;
 
 namespace Komodex.WP7DACPRemote.Controls
 {

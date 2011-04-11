@@ -144,7 +144,6 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ThirdParty\LowProfileImageLoader.cs" />
-    <Compile Include="ThirdParty\TiltEffect.cs" />
     <Compile Include="Utilities\DeviceInfo.cs" />
     <Compile Include="Utilities\CrashReporter.cs" />
     <Compile Include="Utilities\FirstRunNotifier.cs" />

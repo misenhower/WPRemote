@@ -15,6 +15,7 @@ using Microsoft.Phone.Shell;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Komodex.WP7DACPRemote.Settings;
 using Komodex.WP7DACPRemote.Utilities;
+using Komodex.WP7DACPRemote.Controls;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -67,6 +68,9 @@ namespace Komodex.WP7DACPRemote
 
             // Other initialization
             SettingsManager.Current.Initialize();
+
+            // Tilt Effect
+            TiltEffect.TiltableItems.Add(typeof(FakeButton));
         }
 
 #if DEBUG

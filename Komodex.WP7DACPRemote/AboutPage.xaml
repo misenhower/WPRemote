@@ -9,8 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:msun="clr-namespace:Microsoft.Unsupported"
-    msun:TiltEffect.IsTiltEnabled="True"
+    toolkit:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -41,7 +40,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Button Template="{StaticResource EmptyButton}" Click="btnAssemblyInfo_Click" msun:TiltEffect.SuppressTilt="True">
+            <Button Template="{StaticResource EmptyButton}" Click="btnAssemblyInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
                 <StackPanel Background="{StaticResource PhoneChromeBrush}" Margin="12,0,12,12">
                     <TextBlock TextWrapping="Wrap" Text="Remote" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                     <TextBlock TextWrapping="Wrap" Text="for Windows Phone 7" Style="{StaticResource PhoneTextTitle3Style}"/>
@@ -49,7 +48,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Grid.Row="1" Template="{StaticResource EmptyButton}" Click="btniTunesInfo_Click" msun:TiltEffect.SuppressTilt="True">
+            <Button Grid.Row="1" Template="{StaticResource EmptyButton}" Click="btniTunesInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
                 <Grid>
                     <StackPanel Name="iTunesInfoPanel" Background="{StaticResource PhoneChromeBrush}" Margin="12">
                         <TextBlock TextWrapping="Wrap" Text="Library Information" Style="{StaticResource PhoneTextTitle2Style}"/>

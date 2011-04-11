@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Microsoft.Unsupported;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
