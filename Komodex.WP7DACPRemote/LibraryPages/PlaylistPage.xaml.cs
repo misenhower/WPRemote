@@ -87,6 +87,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             return base.GetAnimation(animationType, toOrFrom);
         }
 
+        protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        {
+            base.DACPServer_ServerUpdate(sender, e);
+
+            if (e.Type == DACP.ServerUpdateType.ServerConnected)
+                Deployment.Current.Dispatcher.BeginInvoke(() => { Playlist.GetSongs(); });
+        }
+
         #endregion
 
         #region Actions
