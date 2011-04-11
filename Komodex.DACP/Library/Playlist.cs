@@ -168,15 +168,23 @@ namespace Komodex.DACP.Library
             SendPlaySongCommand(song.ContainerItemID);
         }
 
+        public void SendShuffleSongsCommand()
+        {
+            SendPlaySongCommand("&dacp.shufflestate=1");
+        }
+
         protected void SendPlaySongCommand(int containerItemID)
+        {
+            SendPlaySongCommand("&container-item-spec='dmap.containeritemid:0x" + containerItemID.ToString("x8") + "'");
+        }
+
+        protected void SendPlaySongCommand(string input)
         {
             string url = "/ctrl-int/1/playspec"
                 + "?database-spec='dmap.persistentid:0x" + Server.DatabasePersistentID.ToString("x16") + "'"
                 + "&container-spec='dmap.persistentid:0x" + PersistentID.ToString("x16") + "'"
+                + input
                 + "&session-id=" + Server.SessionID;
-
-            if (containerItemID != 0)
-                url += "&container-item-spec='dmap.containeritemid:0x" + containerItemID.ToString("x8") + "'";
 
             Server.SubmitHTTPRequest(url);
         }

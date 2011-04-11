@@ -36,6 +36,24 @@
                 </Border>
             </my:FakeButton>
         </DataTemplate>
+        <DataTemplate x:Key="SongHeaderTemplate">
+            <Border Background="Transparent" DataContext="{Binding ElementName=LayoutRoot, Path=DataContext}">
+                <Button Template="{StaticResource EmptyButton}"
+                                Margin="12,0,0,12"
+                                Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}"
+                                VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                                Click="ShuffleButton_Click">
+                    <Border Background="{StaticResource PhoneChromeBrush}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Template="{StaticResource ShuffleIcon}" />
+                            <TextBlock Text="shuffle all" Margin="0,3,12,0" FontSize="28"
+                                       Style="{StaticResource PhoneTextBlockBase}"
+                                       FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+            </Border>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -53,7 +71,12 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:LongListSelector x:Name="lbSongs" IsFlatList="True" ItemTemplate="{StaticResource SongTemplate}" ItemsSource="{Binding Songs}" SelectionChanged="lbSongs_SelectionChanged" Margin="0,0,-12,0" />
+            <toolkit:LongListSelector x:Name="lbSongs" IsFlatList="True"
+                                      ItemTemplate="{StaticResource SongTemplate}"
+                                      ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
+                                      ItemsSource="{Binding Songs}"
+                                      SelectionChanged="lbSongs_SelectionChanged"
+                                      Margin="0,0,-12,0" />
         </Grid>
     </Grid>
 

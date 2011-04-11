@@ -112,6 +112,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             lbSongs.SelectedItem = null;
         }
 
+        private void ShuffleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Playlist.SendShuffleSongsCommand();
+            NavigationManager.OpenNowPlayingPage();
+        }
+
         #endregion
     }
 }
