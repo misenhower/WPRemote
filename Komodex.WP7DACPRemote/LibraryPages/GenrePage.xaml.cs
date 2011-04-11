@@ -105,12 +105,24 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void ArtistButton_Click(object sender, RoutedEventArgs e)
         {
+            Artist artist = ((Button)sender).Tag as Artist;
 
+            if (artist != null)
+            {
+                lbArtists.SelectedItem = artist;
+                NavigationManager.OpenArtistPage(artist.Name);
+            }
         }
 
         private void ArtistPlayButton_Click(object sender, RoutedEventArgs e)
         {
+            Artist artist = ((Button)sender).Tag as Artist;
 
+            if (artist != null)
+            {
+                artist.SendPlaySongCommand();
+                NavigationManager.OpenNowPlayingPage();
+            }
         }
 
         #endregion
