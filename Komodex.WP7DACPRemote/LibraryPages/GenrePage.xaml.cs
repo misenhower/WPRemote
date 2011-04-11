@@ -175,7 +175,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void ShuffleButton_Click(object sender, RoutedEventArgs e)
         {
-            //Artist.SendShuffleSongsCommand();
+            Genre.SendShuffleSongsCommand();
             NavigationManager.OpenNowPlayingPage();
         }
 

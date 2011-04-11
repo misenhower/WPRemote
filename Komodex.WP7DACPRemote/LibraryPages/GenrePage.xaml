@@ -139,6 +139,7 @@
                     <toolkit:LongListSelector x:Name="lbSongs" Background="Transparent" ItemsSource="{Binding Songs}"
                                               Margin="0,0,-12,0"
                                               ItemTemplate="{StaticResource SongTemplate}"
+                                              ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
                                               GroupItemTemplate="{StaticResource GroupItemTemplate}"
                                               GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
                                               GroupViewOpened="LongListSelector_GroupViewOpened"

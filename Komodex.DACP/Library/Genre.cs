@@ -185,12 +185,6 @@ namespace Komodex.DACP.Library
         public void SendPlaySongCommand(MediaItem song)
         {
             SendPlaySongCommand(song.ListIndex);
-            //try
-            //{
-            //    //int songIndex = Songs.IndexOf(song);
-            //    //SendPlaySongCommand(songIndex);
-            //}
-            //catch { }
         }
 
         protected void SendPlaySongCommand(int index)
