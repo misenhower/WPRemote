@@ -128,7 +128,7 @@ namespace Komodex.DACP.Library
                 + "&item-spec='dmap.itemid:0x" + ID.ToString("x8") + "'"
                 + "&session-id=" + Server.SessionID;
 
-            Server.SubmitHTTPRequest(url);
+            Server.SubmitHTTPPlayRequest(url);
         }
 
         #endregion

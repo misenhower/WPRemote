@@ -27,7 +27,6 @@ namespace Komodex.DACP
 
         protected List<HTTPRequestInfo> PendingHttpRequests = new List<HTTPRequestInfo>();
 
-
         /// <summary>
         /// Submits a HTTP request to the DACP server
         /// </summary>
@@ -150,6 +149,21 @@ namespace Komodex.DACP
             {
                 UpdateGettingData();
             }
+        }
+
+        #endregion
+
+        #region Library Play Requests
+
+        internal HTTPRequestInfo SubmitHTTPPlayRequest(string url)
+        {
+            return SubmitHTTPRequest(url, null, false, r => r.ExceptionHandlerDelegate = HandleLibraryPlayException);
+        }
+
+        protected void HandleLibraryPlayException(HTTPRequestInfo requestInfo, WebException e)
+        {
+            // TODO: Check error status code, etc.
+            SendServerUpdate(ServerUpdateType.LibraryError);
         }
 
         #endregion

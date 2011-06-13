@@ -281,6 +281,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     UpdatePopupDisplay();
                     UpdateSavedLibraryName();
                     break;
+
                 case ServerUpdateType.Error:
                     if (_isObscured)
                         break;
@@ -299,6 +300,15 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     if (SettingsManager.Current.ExtendedErrorReporting && e.ErrorType == ServerErrorType.General && !string.IsNullOrEmpty(e.ErrorDetails))
                         CrashReporter.LogMessage(e.ErrorDetails, "Caught DACP Server Error", true);
                     break;
+
+                case ServerUpdateType.LibraryError:
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        NowPlaying.NowPlayingPage.GoBackOnNextLoad = true;
+                        MessageBox.Show("An unknown error occurred. Please check your library and try again.", "Library Error", MessageBoxButton.OK);
+                    });
+                    break;
+
                 default:
                     break;
             }

@@ -30,6 +30,7 @@ namespace Komodex.DACP
         ServerConnected,
         Error,
         AirPlaySpeakerPassword,
+        LibraryError, // e.g., trying to play a song that has been deleted
     }
 
     public enum ServerErrorType

@@ -26,6 +26,9 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         protected AirPlaySpeakersControl AirPlaySpeakersControl = null;
         protected ApplicationBarMenuItem AirPlayMenuItem = null;
 
+        // GoBackOnNextLoad is used for situations where a play command fails
+        public static bool GoBackOnNextLoad { get; set; }
+
         public NowPlayingPage()
         {
             InitializeComponent();
@@ -57,6 +60,12 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            if (GoBackOnNextLoad)
+            {
+                GoBackOnNextLoad = false;
+                NavigationService.GoBack();
+            }
+
             base.OnNavigatedTo(e);
             HideRepeatShuffleControls(false);
             UpdateRepeatShuffleButtons();
@@ -118,6 +127,11 @@ namespace Komodex.WP7DACPRemote.NowPlaying
                         break;
                     case ServerUpdateType.AirPlaySpeakerPassword:
                         MessageBox.Show("The remote speaker you selected requires a password.  Please enter it in iTunes.");
+                        break;
+                    case ServerUpdateType.LibraryError:
+                        GoBackOnNextLoad = false;
+                        if (NavigationService.CanGoBack)
+                            NavigationService.GoBack();
                         break;
                     default:
                         break;

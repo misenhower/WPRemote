@@ -209,7 +209,7 @@ namespace Komodex.DACP.Library
                 + "&clear-first=1"
                 + "&session-id=" + Server.SessionID;
 
-            Server.SubmitHTTPRequest(url);
+            Server.SubmitHTTPPlayRequest(url);
         }
 
         #endregion

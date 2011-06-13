@@ -186,7 +186,7 @@ namespace Komodex.DACP.Library
                 + input
                 + "&session-id=" + Server.SessionID;
 
-            Server.SubmitHTTPRequest(url);
+            Server.SubmitHTTPPlayRequest(url);
         }
 
         #endregion
