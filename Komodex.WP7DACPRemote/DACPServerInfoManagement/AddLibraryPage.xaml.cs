@@ -37,6 +37,15 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             IsTabStop = true;
 
             UpdateAppBar();
+
+#if DEBUG
+            // Default field content to make debugging easier
+            if (DACPServerViewModel.Instance.Items.Count == 0)
+            {
+                serverInfo.HostName = "10.0.0.48";
+                serverInfo.PIN = 1111;
+            }
+#endif
         }
 
         private string iTunesVersion = null;
