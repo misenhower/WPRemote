@@ -41,6 +41,16 @@
             </Grid>
         </ControlTemplate>
 
+        <ControlTemplate x:Key="GeniusButton" TargetType="Button">
+            <Grid Background="{StaticResource PhoneChromeBrush}">
+                <ContentControl x:Name="ContentContainer" Content="{TemplateBinding Content}" />
+                <Canvas Width="100" Height="100" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse StrokeThickness="3" Width="100" Height="100" Fill="#BB000000" Stroke="White" />
+                    <Path Data="F1M84.127,709.4629L70.558,719.8039L70.558,699.2159z" Stretch="Fill" Height="42" Width="28" Canvas.Left="40" Canvas.Top="28" UseLayoutRounding="False" Fill="White" />
+                </Canvas>
+            </Grid>
+        </ControlTemplate>
+
         <!-- Icon Control Templates -->
         <ControlTemplate x:Key="iTunesIconButton" TargetType="ContentControl">
             <Canvas Width="48" Height="48">
