@@ -8,12 +8,15 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
+    toolkit:TiltEffect.IsTiltEnabled="False"
+    d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}"
     shell:SystemTray.IsVisible="True">
 
     <phone:PhoneApplicationPage.Resources>
@@ -21,21 +24,24 @@
             <ContentControl />
         </DataTemplate>
         <DataTemplate x:Key="GeniusMixTemplate">
-            <StackPanel>
-                <Border Height="100">
+            <StackPanel Margin="12,0,0,0" Width="350" HorizontalAlignment="Left">
+                <Border Height="76" HorizontalAlignment="Left" Padding="0" Margin="0,0,0,12">
                     <TextBlock Text="{Binding Name}"
-                               Margin="-3,0,0,6"
-                               Style="{StaticResource PhoneTextExtraLargeStyle}"
-                               Width="400" MaxHeight="92"
-                               TextWrapping="Wrap"
-                               VerticalAlignment="Bottom" 
-                               LineHeight="45.333" LineStackingStrategy="BlockLineHeight" />
+                               VerticalAlignment="Bottom"
+                               TextWrapping="Wrap" MaxHeight="76"
+                               Margin="0" Padding="0"
+                               FontSize="34" LineHeight="38" LineStackingStrategy="BlockLineHeight"
+                               FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                 </Border>
                 <Button HorizontalAlignment="Left" Width="350" Height="350" Template="{StaticResource GeniusButton}" Tag="{Binding BindsDirectlyToSource=True}" Margin="0">
-                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="-1">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    </Border>
                 </Button>
-                <TextBlock Text="Based on music by:" Style="{StaticResource PhoneTextSubtleStyle}" />
-                <TextBlock Text="{Binding GeniusMixDescription}" />
+                <TextBlock Text="Based on music by:"
+                           Foreground="{StaticResource PhoneSubtleBrush}" />
+                <TextBlock Text="{Binding GeniusMixDescription}"
+                           TextWrapping="Wrap" />
             </StackPanel>
         </DataTemplate>
 
@@ -49,7 +55,7 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,14">
             <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=LibraryName, Converter={StaticResource stringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
             <TextBlock x:Name="PageTitle" Text="genius mixes" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
