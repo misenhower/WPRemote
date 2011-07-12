@@ -67,6 +67,15 @@ namespace Komodex.DACP.Library
             }
         }
 
+        public string AlbumArtURL
+        {
+            get
+            {
+                return Server.HTTPPrefix + "/databases/" + Server.DatabaseID + "/containers/" + ID
+                    + "/extra_data/artwork?mw=246&mh=246&session-id=" + Server.SessionID;
+            }
+        }
+
         #endregion
 
         #region Methods

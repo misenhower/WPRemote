@@ -152,6 +152,11 @@ namespace Komodex.WP7DACPRemote
             RootVisual.Navigate(new Uri("/Settings/SettingsPage.xaml", UriKind.Relative));
         }
 
+        public static void OpenGeniusMixesPage()
+        {
+            RootVisual.Navigate(new Uri("/LibraryPages/GeniusMixesPage.xaml", UriKind.Relative));
+        }
+
         #endregion
     }
 }
