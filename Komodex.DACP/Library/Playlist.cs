@@ -37,6 +37,7 @@ namespace Komodex.DACP.Library
         public int ID { get; protected set; }
         public UInt64 PersistentID { get; protected set; }
         public string Name { get; protected set; }
+        public string GeniusMixDescription { get; protected set; }
         public DACPServer Server { get; protected set; }
         public bool BasePlaylist { get; protected set; }
         public int SpecialPlaylistType { get; protected set; }
@@ -90,7 +91,7 @@ namespace Komodex.DACP.Library
                         if (kvp.Value[0] >= 1)
                             BasePlaylist = true;
                         break;
-                    case "aePS":
+                    case "aePS": // Playlist type ID
                         SpecialPlaylistType = (int)kvp.Value[0];
                         break;
                     case "mimc": // Item count
@@ -99,6 +100,12 @@ namespace Komodex.DACP.Library
                     case "aeSP": // Smart playlist
                         if (kvp.Value[0] >= 1)
                             SmartPlaylist = true;
+                        break;
+                    case "ascn": // Genius Mix description
+                        string description = kvp.Value.GetStringValue();
+                        if (string.IsNullOrEmpty(description))
+                            break;
+                        GeniusMixDescription = description.Replace(",,,", ", ") + " & others";
                         break;
                     default:
                         break;

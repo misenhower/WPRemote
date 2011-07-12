@@ -36,6 +36,19 @@ namespace Komodex.DACP
             }
         }
 
+        private List<Playlist> _LibraryGeniusMixes = null;
+        public List<Playlist> LibraryGeniusMixes
+        {
+            get { return _LibraryGeniusMixes; }
+            set
+            {
+                if (_LibraryGeniusMixes == value)
+                    return;
+                _LibraryGeniusMixes = value;
+                SendPropertyChanged("LibraryGeniusMixes");
+            }
+        }
+
         private GroupedItems<Artist> _LibraryArtists = null;
         public GroupedItems<Artist> LibraryArtists
         {
@@ -175,6 +188,8 @@ namespace Komodex.DACP
                 {
                     case "mlcl":
                         var playlists = new List<Playlist>();
+                        var geniusMixes = new List<Playlist>();
+
                         var playlistNodes = Utility.GetResponseNodes(kvp.Value);
                         foreach (var playlistData in playlistNodes)
                         {
@@ -183,16 +198,24 @@ namespace Komodex.DACP
                             {
                                 BasePlaylist = pl;
                             }
-                            else if (pl.SpecialPlaylistType != 0)
-                            {
-                                // Handle special playlist
-                            }
                             else
                             {
-                                playlists.Add(pl);
+                                switch (pl.SpecialPlaylistType)
+                                {
+                                    case 0: // Standard playlist
+                                        playlists.Add(pl);
+                                        break;
+                                    case 16: // Genius mix
+                                        geniusMixes.Add(pl);
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
                         }
+
                         LibraryPlaylists = playlists;
+                        LibraryGeniusMixes = geniusMixes;
                         break;
                     default:
                         break;
