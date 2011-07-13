@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Komodex.DACP.Library;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -18,6 +19,16 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         public GeniusMixesPage()
         {
             InitializeComponent();
+        }
+
+        private void GeniusMixButton_Click(object sender, RoutedEventArgs e)
+        {
+            Playlist playlist = ((Button)sender).Tag as Playlist;
+            if (playlist == null)
+                return;
+
+            playlist.SendShuffleSongsCommand();
+            NavigationManager.OpenNowPlayingPage();
         }
     }
 }

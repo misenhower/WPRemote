@@ -33,7 +33,7 @@
                                FontSize="34" LineHeight="38" LineStackingStrategy="BlockLineHeight"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                 </Border>
-                <Button HorizontalAlignment="Left" Width="350" Height="350" Template="{StaticResource GeniusButton}" Tag="{Binding BindsDirectlyToSource=True}" Margin="0">
+                <Button HorizontalAlignment="Left" Width="350" Height="350" Template="{StaticResource GeniusButton}" Tag="{Binding BindsDirectlyToSource=True}" Margin="0" Click="GeniusMixButton_Click">
                     <Border BorderBrush="Black" BorderThickness="1" Margin="-1">
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                     </Border>
