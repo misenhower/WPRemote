@@ -19,6 +19,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         public GeniusMixesPage()
         {
             InitializeComponent();
+
+            AnimationContext = LayoutRoot;
         }
 
         private void GeniusMixButton_Click(object sender, RoutedEventArgs e)
