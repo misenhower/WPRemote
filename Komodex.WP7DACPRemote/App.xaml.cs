@@ -34,6 +34,7 @@ namespace Komodex.WP7DACPRemote
         {
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
+            Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
