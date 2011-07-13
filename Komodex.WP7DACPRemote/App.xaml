@@ -150,6 +150,20 @@
                 </Rectangle>
             </Canvas>
         </ControlTemplate>
+        <ControlTemplate x:Key="GeniusMixesIconButton" TargetType="ContentControl">
+            <Canvas Width="48" Height="48">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/custom.appbar.geniusmixes.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Canvas>
+        </ControlTemplate>
         
         <ControlTemplate x:Key="ShuffleIcon" TargetType="ContentControl">
             <Canvas Width="48" Height="48">

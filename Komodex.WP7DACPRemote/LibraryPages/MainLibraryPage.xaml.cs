@@ -238,6 +238,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #region Playlists
 
+        private void GeniusMixesButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationManager.OpenGeniusMixesPage();
+        }
+
         private void PlaylistButton_Click(object sender, RoutedEventArgs e)
         {
             Playlist playlist = ((Button)sender).Tag as Playlist;
