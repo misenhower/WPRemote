@@ -108,7 +108,7 @@ namespace Komodex.DACP.Library
 
         protected void PersistAlbumID()
         {
-            if (ID != 0)
+            if (Server != null && ID != 0)
                 Server.AlbumIDs[PersistentID] = ID;
         }
 
