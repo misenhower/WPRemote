@@ -231,7 +231,13 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void GenrePlayButton_Click(object sender, RoutedEventArgs e)
         {
+            Genre genre = ((Button)sender).Tag as Genre;
 
+            if (genre != null)
+            {
+                genre.SendPlaySongCommand();
+                NavigationManager.OpenNowPlayingPage();
+            }
         }
 
         #endregion
