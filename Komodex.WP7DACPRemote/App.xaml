@@ -16,13 +16,13 @@
         </Style>
 
         <!-- Play Button with Circle -->
-    	<ControlTemplate x:Key="PlayButton" TargetType="Button">
+        <ControlTemplate x:Key="PlayButton" TargetType="Button">
             <Canvas Width="48" Height="48" Background="Transparent">
                 <Path Data="F1M84.127,709.4629L70.558,719.8039L70.558,699.2159z" Fill="{StaticResource PhoneForegroundBrush}" Stretch="Fill" Height="20" Width="14" Canvas.Left="19" Canvas.Top="14" UseLayoutRounding="False" />
                 <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="3" Width="48" Height="48" />
             </Canvas>
-    	</ControlTemplate>
-        
+        </ControlTemplate>
+
         <ControlTemplate x:Key="EmptyButton" TargetType="Button" />
         <ControlTemplate x:Key="PhoneSimpleRepeatButton" TargetType="RepeatButton">
             <Rectangle Fill="Transparent"/>
@@ -164,7 +164,7 @@
                 </Rectangle>
             </Canvas>
         </ControlTemplate>
-        
+
         <ControlTemplate x:Key="ShuffleIcon" TargetType="ContentControl">
             <Canvas Width="48" Height="48">
                 <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
@@ -218,14 +218,16 @@
                 <Path Data="M19.96875,10.627293 L24.375,23.30698 L37.640625,23.30698 L27.09375,31.627293 L31.195313,44.236668 L19.96875,36.760105 L8.7890625,44.236668 L12.890625,31.627293 L2.34375,23.30698 L15.609375,23.30698 z" Width="45" Height="43" Fill="White" />
             </Grid>
         </ControlTemplate>
-        
+
         <!-- Converters -->
         <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <converters:BooleanToAccentBrushConverter x:Name="booleanToAccentBrushConverter" />
         <converters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />
         <converters:NoListItemsVisibilityConverter x:Key="noListItemsVisibilityConverter" />
         <converters:StringToUpperConverter x:Key="stringToUpperConverter" />
+        <converters:CollapseIfLessThanOneConverter x:Key="collapseIfLessThanOneConverter" />
         <converters:CollapseIfLessThanTwoConverter x:Key="collapseIfLessThanTwoConverter" />
+        <converters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
 
         <!-- Grouped ListBox Templates -->
         <DataTemplate x:Key="GroupItemTemplate">
@@ -238,7 +240,7 @@
                     VerticalAlignment="Bottom"/>
             </Border>
         </DataTemplate>
-        
+
         <DataTemplate x:Name="GroupHeaderTemplate">
             <my:FakeButton>
                 <Border Background="Transparent" Padding="12,6,0,6">
@@ -257,7 +259,7 @@
                 <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="White" />
             </Border>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="LongGroupHeaderTemplate">
             <my:FakeButton>
                 <Border Background="Transparent">
