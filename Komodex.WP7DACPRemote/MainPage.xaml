@@ -170,7 +170,7 @@
                 <StackPanel Grid.Row="0">
                     <TextBlock Text="welcome" Style="{StaticResource ItemHeaderStyle}" />
                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="To pair with iTunes or another compatible application for the first time, run the Pairing Utility on your computer.  This utility can be downloaded from our website at:"/>
-                    <TextBlock TextWrapping="Wrap" Text="http://wp7remoteapp.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Padding="0,0,0,12" />
+                    <TextBlock TextWrapping="Wrap" Text="http://wp7remote.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Padding="0,0,0,12" />
                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="When pairing has been completed, tap &quot;Add Library&quot; below to connect to your library."/>
                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="It will be necessary for your phone to be connected to a Wi-fi network to continue."/>
                 </StackPanel>

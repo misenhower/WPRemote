@@ -34,7 +34,7 @@
         	</Grid.RowDefinitions>
         	<StackPanel>
         		<TextBlock TextWrapping="Wrap" Text="To pair this device with a new library, download the Pairing Utility from our website:" Style="{StaticResource PhoneTextNormalStyle}"/>
-        		<TextBlock TextWrapping="Wrap" Text="http://wp7remoteapp.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}"/>
+        		<TextBlock TextWrapping="Wrap" Text="http://wp7remote.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}"/>
                 <TextBlock Height="30" Name="textBlock1" Text="Host" Style="{StaticResource PhoneTextSmallStyle}" />
                 <TextBox Height="71" Name="tbHost" Text="{Binding HostName, Mode=TwoWay}" Width="460" InputScope="Url" KeyUp="tbHost_KeyUp" TextChanged="tbHost_TextChanged" />
                 <TextBlock Height="30" Name="textBlock2" Text="PIN" Style="{StaticResource PhoneTextSmallStyle}" />
