@@ -67,7 +67,7 @@ namespace Komodex.WP7DACPRemote
             DACPServerManager.DoFirstLoad(RootFrame);
 
             // Other initialization
-            SettingsManager.Current.Initialize();
+            SettingsManager.Initialize();
 
             // Tilt Effect
             TiltEffect.TiltableItems.Add(typeof(FakeButton));

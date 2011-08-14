@@ -13,75 +13,48 @@ using System.IO.IsolatedStorage;
 using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Komodex.WP7DACPRemote.Settings
 {
     public class SettingsManager : INotifyPropertyChanged
     {
-        private SettingsManager()
+        protected SettingsManager()
         { }
 
-        private static IsolatedStorageSettings IsolatedSettings = IsolatedStorageSettings.ApplicationSettings;
+        public static SettingsManager Current { get; protected set; }
 
-        private static SettingsManager _Current = new SettingsManager();
-        public static SettingsManager Current
+        public static void Initialize()
         {
-            get { return _Current; }
+            Current = new SettingsManager();
         }
-
-        private bool _Initialized = false;
-        public void Initialize()
-        {
-            if (_Initialized)
-                return;
-            _Initialized = true;
-
-            RunUnderLock = GetValue<bool>(kRunUnderLockKey, true);
-            ArtistClickAction = Enum<ArtistClickActions>.ParseOrDefault(GetValue<string>(kArtistClickActionKey), ArtistClickActions.OpenArtistPage);
-            ExtendedErrorReporting = GetValue<bool>(kExtendedErrorReportingKey, false);
-        }
-
-        #region Methods
-
-        protected T GetValue<T>(string keyName, T defaultValue = default(T))
-        {
-            T returnValue;
-            if (IsolatedSettings.TryGetValue<T>(keyName, out returnValue))
-                return returnValue;
-            return defaultValue;
-        }
-
-        protected void SetValue(string keyName, object value)
-        {
-            IsolatedSettings[keyName] = value;
-            IsolatedSettings.Save();
-        }
-
-        #endregion
 
         #region Run Under Lock
 
-        private static readonly string kRunUnderLockKey = "SettingsRunUnderLock";
-
-        private bool _RunUnderLock = false;
+        private Setting<bool> _runUnderLock = new Setting<bool>("SettingsRunUnderLock", true, UpdateRunUnderLock);
         public bool RunUnderLock
         {
-            get { return _RunUnderLock; }
+            get { return _runUnderLock.Value; }
             set
             {
-                if (value)
-                {
-                    try
-                    {
-                        PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
-                    }
-                    catch { }
-                }
+                if (_runUnderLock.Value == value)
+                    return;
 
-                _RunUnderLock = value;
-                SetValue(kRunUnderLockKey, _RunUnderLock);
+                _runUnderLock.Value = value;
                 SendPropertyChanged("RunUnderLock");
                 SendPropertyChanged("RunUnderLockTakesEffectNextRun");
+            }
+        }
+
+        private static void UpdateRunUnderLock(bool value)
+        {
+            if (value)
+            {
+                try
+                {
+                    PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
+                }
+                catch { }
             }
         }
 
@@ -96,8 +69,6 @@ namespace Komodex.WP7DACPRemote.Settings
         #endregion
 
         #region Artist Click Action
-
-        private static readonly string kArtistClickActionKey = "SettingsArtistClickAction";
 
         private ObservableCollection<ArtistClickActionStruct> _ArtistClickActionStructs = null;
         public ObservableCollection<ArtistClickActionStruct> ArtistClickActionStructs
@@ -114,16 +85,16 @@ namespace Komodex.WP7DACPRemote.Settings
             }
         }
 
-        private ArtistClickActions _ArtistClickAction = 0;
+        private Setting<ArtistClickActions> _artistClickAction = new Setting<ArtistClickActions>("SettingsArtistClickAction", 0);
         public ArtistClickActions ArtistClickAction
         {
-            get { return _ArtistClickAction; }
+            get { return _artistClickAction.Value; }
             set
             {
-                if (_ArtistClickAction == value)
+                if (_artistClickAction.Value == value)
                     return;
-                _ArtistClickAction = value;
-                SetValue(kArtistClickActionKey, _ArtistClickAction.ToString());
+
+                _artistClickAction.Value = value;
                 SendPropertyChanged("ArtistClickAction");
                 SendPropertyChanged("BindableClickAction");
             }
@@ -167,17 +138,61 @@ namespace Komodex.WP7DACPRemote.Settings
 
         #region Extended Error Reporting
 
-        private static readonly string kExtendedErrorReportingKey = "SettingsExtendedErrorReporting";
-
-        private bool _ExtendedErrorReporting = false;
+        private Setting<bool> _extendedErrorReporting = new Setting<bool>("SettingsExtendedErrorReporting", false);
         public bool ExtendedErrorReporting
         {
-            get { return _ExtendedErrorReporting; }
+            get { return _extendedErrorReporting.Value; }
             set
             {
-                _ExtendedErrorReporting = value;
-                SetValue(kExtendedErrorReportingKey, _ExtendedErrorReporting);
+                if (_extendedErrorReporting.Value == value)
+                    return;
+
+                _extendedErrorReporting.Value = value;
                 SendPropertyChanged("ExtendedErrorReporting");
+            }
+        }
+
+        #endregion
+
+        #region Setting class
+
+        protected class Setting<T>
+        {
+            private static IsolatedStorageSettings _isolatedSettings = IsolatedStorageSettings.ApplicationSettings;
+
+            public Setting(string keyName, T defaultValue = default(T), Action<T> changeAction = null)
+            {
+                _keyName = keyName;
+                _changeAction = changeAction;
+
+                // Try to load the value from isolated storage, or use the default value
+                if (!_isolatedSettings.TryGetValue<T>(_keyName, out _value))
+                    Value = defaultValue; // This will save the default value to isolated storage as well
+
+                // If an action was specified, run it on the initial value
+                if (_changeAction != null)
+                    _changeAction(_value);
+            }
+
+            protected string _keyName;
+            protected T _value;
+            protected Action<T> _changeAction;
+
+            public T Value
+            {
+                get { return _value; }
+                set
+                {
+                    _value = value;
+
+                    // Save the new value to isolated storage
+                    _isolatedSettings[_keyName] = _value;
+                    _isolatedSettings.Save();
+
+                    // Run modified action
+                    if (_changeAction != null)
+                        _changeAction(_value);
+                }
             }
         }
 
