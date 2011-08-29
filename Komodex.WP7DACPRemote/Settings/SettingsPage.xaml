@@ -27,29 +27,27 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="REMOTE" Style="{StaticResource PhoneTextAppTitleStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="settings" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.SettingsPageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
-                <toolkit:ListPicker Header="Tap the currently playing artist name to" Name="lpArtistTap"
+                <toolkit:ListPicker Header="{Binding LocalizedStrings.SettingsArtistTapAction, Source={StaticResource LocalizedStrings}}" Name="lpArtistTap"
                                     Margin="12,12,12,48"
                                     ItemsSource="{Binding ArtistClickActionStructs}"
                                     SelectedItem="{Binding BindableArtistClickAction, Mode=TwoWay}" />
-                
-                <toolkit:ToggleSwitch Header="Stay connected under lock screen" Margin="0,0,0,-24"
+
+                <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsStayConnectedUnderLock, Source={StaticResource LocalizedStrings}}" Margin="0,0,0,-24"
                                       IsChecked="{Binding RunUnderLock, Mode=TwoWay}"
                                       CacheMode="BitmapCache" />
-                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" CacheMode="BitmapCache">
-                    Staying connected to your library while the phone is locked will make resuming from the lock screen faster but may use more battery.
-                </TextBlock>
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" CacheMode="BitmapCache"
+                           Text="{Binding LocalizedStrings.SettingsStayConnectedDescription, Source={StaticResource LocalizedStrings}}" />
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12" CacheMode="BitmapCache"
-                           Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource booleanToVisibilityConverter}}">
-                    This change will take effect the next time you start Remote.
-                </TextBlock>
+                           Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource booleanToVisibilityConverter}}"
+                           Text="{Binding LocalizedStrings.SettingsTakeEffectNextRun, Source={StaticResource LocalizedStrings}}" />
 
-                <toolkit:ToggleSwitch Header="Extended error reporting" Margin="0,36,0,0"
+                <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsExtendedErrorReporting, Source={StaticResource LocalizedStrings}}" Margin="0,36,0,0"
                                       IsChecked="{Binding ExtendedErrorReporting, Mode=TwoWay}"
                                       CacheMode="BitmapCache" />
             </StackPanel>

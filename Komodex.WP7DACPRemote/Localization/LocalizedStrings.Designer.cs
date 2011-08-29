@@ -286,11 +286,101 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tap the currently playing artist name to.
+        /// </summary>
+        public static string SettingsArtistTapAction {
+            get {
+                return ResourceManager.GetString("SettingsArtistTapAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to open album page.
+        /// </summary>
+        public static string SettingsArtistTapOpenAlbumPage {
+            get {
+                return ResourceManager.GetString("SettingsArtistTapOpenAlbumPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to open artist page.
+        /// </summary>
+        public static string SettingsArtistTapOpenArtistPage {
+            get {
+                return ResourceManager.GetString("SettingsArtistTapOpenArtistPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extended error reporting.
+        /// </summary>
+        public static string SettingsExtendedErrorReporting {
+            get {
+                return ResourceManager.GetString("SettingsExtendedErrorReporting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to settings.
         /// </summary>
         public static string SettingsMenuItem {
             get {
                 return ResourceManager.GetString("SettingsMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to settings.
+        /// </summary>
+        public static string SettingsPageTitle {
+            get {
+                return ResourceManager.GetString("SettingsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Staying connected to your library while the phone is locked will make resuming from the lock screen faster but may use more battery..
+        /// </summary>
+        public static string SettingsStayConnectedDescription {
+            get {
+                return ResourceManager.GetString("SettingsStayConnectedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stay connected under lock screen.
+        /// </summary>
+        public static string SettingsStayConnectedUnderLock {
+            get {
+                return ResourceManager.GetString("SettingsStayConnectedUnderLock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This change will take effect the next time you start Remote..
+        /// </summary>
+        public static string SettingsTakeEffectNextRun {
+            get {
+                return ResourceManager.GetString("SettingsTakeEffectNextRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        public static string ToggleSwitchOff {
+            get {
+                return ResourceManager.GetString("ToggleSwitchOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        public static string ToggleSwitchOn {
+            get {
+                return ResourceManager.GetString("ToggleSwitchOn", resourceCulture);
             }
         }
         

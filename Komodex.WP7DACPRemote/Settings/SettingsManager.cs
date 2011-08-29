@@ -14,6 +14,7 @@ using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.Settings
 {
@@ -78,8 +79,8 @@ namespace Komodex.WP7DACPRemote.Settings
                 if (_ArtistClickActionStructs == null)
                 {
                     _ArtistClickActionStructs = new ObservableCollection<ArtistClickActionStruct>();
-                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenArtistPage, "open artist page"));
-                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenAlbumPage, "open album page"));
+                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenArtistPage, LocalizedStrings.SettingsArtistTapOpenArtistPage));
+                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenAlbumPage, LocalizedStrings.SettingsArtistTapOpenAlbumPage));
                 }
                 return _ArtistClickActionStructs;
             }

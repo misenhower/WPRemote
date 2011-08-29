@@ -211,8 +211,38 @@
   <data name="SearchButton" xml:space="preserve">
     <value>search</value>
   </data>
+  <data name="SettingsArtistTapAction" xml:space="preserve">
+    <value>Tap the currently playing artist name to</value>
+  </data>
+  <data name="SettingsArtistTapOpenAlbumPage" xml:space="preserve">
+    <value>open album page</value>
+  </data>
+  <data name="SettingsArtistTapOpenArtistPage" xml:space="preserve">
+    <value>open artist page</value>
+  </data>
+  <data name="SettingsExtendedErrorReporting" xml:space="preserve">
+    <value>Extended error reporting</value>
+  </data>
   <data name="SettingsMenuItem" xml:space="preserve">
     <value>settings</value>
+  </data>
+  <data name="SettingsPageTitle" xml:space="preserve">
+    <value>settings</value>
+  </data>
+  <data name="SettingsStayConnectedDescription" xml:space="preserve">
+    <value>Staying connected to your library while the phone is locked will make resuming from the lock screen faster but may use more battery.</value>
+  </data>
+  <data name="SettingsStayConnectedUnderLock" xml:space="preserve">
+    <value>Stay connected under lock screen</value>
+  </data>
+  <data name="SettingsTakeEffectNextRun" xml:space="preserve">
+    <value>This change will take effect the next time you start Remote.</value>
+  </data>
+  <data name="ToggleSwitchOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="ToggleSwitchOn" xml:space="preserve">
+    <value>On</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version:</value>
