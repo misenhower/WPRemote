@@ -131,8 +131,15 @@
   <data name="AddLibraryButton" xml:space="preserve">
     <value>Add Library</value>
   </data>
+  <data name="BrowseLibraryAppBarButton" xml:space="preserve">
+    <value>browse</value>
+    <comment>Button on the application bar (needs to be short)</comment>
+  </data>
   <data name="BrowseLibraryButton" xml:space="preserve">
     <value>browse library</value>
+  </data>
+  <data name="ChooseLibraryMenuItem" xml:space="preserve">
+    <value>choose library</value>
   </data>
   <data name="ContactUs" xml:space="preserve">
     <value>[Contact us] for support and feedback</value>
@@ -170,18 +177,42 @@
     <value>home</value>
     <comment>Title text displayed on the app's home screen</comment>
   </data>
+  <data name="NextAppBarButton" xml:space="preserve">
+    <value>play/pause</value>
+    <comment>For "play/pause" button on the application bar (needs to be short)</comment>
+  </data>
   <data name="NotConnected" xml:space="preserve">
     <value>Not connected</value>
     <comment>Library status</comment>
   </data>
+  <data name="NowPlayingAppBarButton" xml:space="preserve">
+    <value>now playing</value>
+    <comment>Button on the application bar (needs to be short)</comment>
+  </data>
   <data name="NowPlayingButton" xml:space="preserve">
     <value>now playing</value>
+    <comment>Button that shows the user what song is currently playing</comment>
+  </data>
+  <data name="PlayPauseAppBarButton" xml:space="preserve">
+    <value>next</value>
+    <comment>For "next track" button on the application bar (needs to be short)</comment>
+  </data>
+  <data name="PreviousAppBarButton" xml:space="preserve">
+    <value>previous</value>
+    <comment>For "previous track" button on the application bar (needs to be short)</comment>
   </data>
   <data name="Protocol" xml:space="preserve">
     <value>Protocol:</value>
   </data>
+  <data name="SearchAppBarButton" xml:space="preserve">
+    <value>search</value>
+    <comment>Button on the application bar (needs to be short)</comment>
+  </data>
   <data name="SearchButton" xml:space="preserve">
     <value>search</value>
+  </data>
+  <data name="SettingsMenuItem" xml:space="preserve">
+    <value>settings</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version:</value>

@@ -13,6 +13,7 @@ using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Microsoft.Phone.Shell;
 using Clarity.Phone.Controls;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -66,19 +67,19 @@ namespace Komodex.WP7DACPRemote
         {
             // Previous track
             AppBarPreviousTrackButton = new ApplicationBarIconButton(new Uri("/icons/appbar.transport.rew.rest.png", UriKind.Relative));
-            AppBarPreviousTrackButton.Text = "previous";
+            AppBarPreviousTrackButton.Text = LocalizedStrings.PreviousAppBarButton;
             AppBarPreviousTrackButton.Click += new EventHandler(AppBarPreviousTrackButton_Click);
             ApplicationBar.Buttons.Add(AppBarPreviousTrackButton);
 
             // Play/pause
             AppBarPlayPauseButton = new ApplicationBarIconButton(iconPlay);
-            AppBarPlayPauseButton.Text = "play/pause";
+            AppBarPlayPauseButton.Text = LocalizedStrings.PlayPauseAppBarButton;
             AppBarPlayPauseButton.Click += new EventHandler(AppBarPlayPauseButton_Click);
             ApplicationBar.Buttons.Add(AppBarPlayPauseButton);
 
             // Next track
             AppBarNextTrackButton = new ApplicationBarIconButton(new Uri("/icons/appbar.transport.ff.rest.png", UriKind.Relative));
-            AppBarNextTrackButton.Text = "next";
+            AppBarNextTrackButton.Text = LocalizedStrings.NextAppBarButton;
             AppBarNextTrackButton.Click += new EventHandler(AppBarNextTrackButton_Click);
             ApplicationBar.Buttons.Add(AppBarNextTrackButton);
 
@@ -138,7 +139,7 @@ namespace Komodex.WP7DACPRemote
             if (addNowPlayingButton)
             {
                 AppBarNowPlayingButton = new ApplicationBarIconButton(new Uri("/icons/custom.appbar.itunes.png", UriKind.Relative));
-                AppBarNowPlayingButton.Text = "now playing";
+                AppBarNowPlayingButton.Text = LocalizedStrings.NowPlayingAppBarButton;
                 AppBarNowPlayingButton.Click += new EventHandler(AppBarNowPlayingButton_Click);
                 ApplicationBar.Buttons.Add(AppBarNowPlayingButton);
             }
@@ -146,7 +147,7 @@ namespace Komodex.WP7DACPRemote
             if (addBrowseButton)
             {
                 AppBarBrowseButton = new ApplicationBarIconButton(new Uri("/icons/custom.appbar.browse.png", UriKind.Relative));
-                AppBarBrowseButton.Text = "browse";
+                AppBarBrowseButton.Text = LocalizedStrings.BrowseLibraryAppBarButton;
                 AppBarBrowseButton.Click += new EventHandler(AppBarBrowseButton_Click);
                 ApplicationBar.Buttons.Add(AppBarBrowseButton);
             }
@@ -154,7 +155,7 @@ namespace Komodex.WP7DACPRemote
             if (addSearchButton)
             {
                 AppBarSearchButton = new ApplicationBarIconButton(new Uri("/icons/appbar.feature.search.rest.png", UriKind.Relative));
-                AppBarSearchButton.Text = "search";
+                AppBarSearchButton.Text = LocalizedStrings.SearchAppBarButton;
                 AppBarSearchButton.Click += new EventHandler(AppBarSearchButton_Click);
                 ApplicationBar.Buttons.Add(AppBarSearchButton);
             }
@@ -192,7 +193,7 @@ namespace Komodex.WP7DACPRemote
 
         protected void AddChooseLibraryApplicationBarMenuItem()
         {
-            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem("choose library");
+            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem);
             menuItem.Click += new EventHandler(ChooseLibraryMenuItem_Click);
             ApplicationBar.MenuItems.Add(menuItem);
         }
@@ -204,7 +205,7 @@ namespace Komodex.WP7DACPRemote
 
         protected void AddAboutApplicationBarMenuItem()
         {
-            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem("about");
+            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem(LocalizedStrings.AboutMenuItem);
             menuItem.Click += new EventHandler(AboutMenuItem_Click);
             ApplicationBar.MenuItems.Add(menuItem);
         }
@@ -216,7 +217,7 @@ namespace Komodex.WP7DACPRemote
 
         protected void AddSettingsApplicationBarMenuItem()
         {
-            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem("settings");
+            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem(LocalizedStrings.SettingsMenuItem);
             menuItem.Click += new EventHandler(SettingsMenuItem_Click);
             ApplicationBar.MenuItems.Add(menuItem);
         }

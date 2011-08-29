@@ -97,11 +97,29 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to browse.
+        /// </summary>
+        public static string BrowseLibraryAppBarButton {
+            get {
+                return ResourceManager.GetString("BrowseLibraryAppBarButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to browse library.
         /// </summary>
         public static string BrowseLibraryButton {
             get {
                 return ResourceManager.GetString("BrowseLibraryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to choose library.
+        /// </summary>
+        public static string ChooseLibraryMenuItem {
+            get {
+                return ResourceManager.GetString("ChooseLibraryMenuItem", resourceCulture);
             }
         }
         
@@ -187,6 +205,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to play/pause.
+        /// </summary>
+        public static string NextAppBarButton {
+            get {
+                return ResourceManager.GetString("NextAppBarButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not connected.
         /// </summary>
         public static string NotConnected {
@@ -198,9 +225,36 @@ namespace Komodex.WP7DACPRemote.Localization {
         /// <summary>
         ///   Looks up a localized string similar to now playing.
         /// </summary>
+        public static string NowPlayingAppBarButton {
+            get {
+                return ResourceManager.GetString("NowPlayingAppBarButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to now playing.
+        /// </summary>
         public static string NowPlayingButton {
             get {
                 return ResourceManager.GetString("NowPlayingButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to next.
+        /// </summary>
+        public static string PlayPauseAppBarButton {
+            get {
+                return ResourceManager.GetString("PlayPauseAppBarButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to previous.
+        /// </summary>
+        public static string PreviousAppBarButton {
+            get {
+                return ResourceManager.GetString("PreviousAppBarButton", resourceCulture);
             }
         }
         
@@ -216,9 +270,27 @@ namespace Komodex.WP7DACPRemote.Localization {
         /// <summary>
         ///   Looks up a localized string similar to search.
         /// </summary>
+        public static string SearchAppBarButton {
+            get {
+                return ResourceManager.GetString("SearchAppBarButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to search.
+        /// </summary>
         public static string SearchButton {
             get {
                 return ResourceManager.GetString("SearchButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to settings.
+        /// </summary>
+        public static string SettingsMenuItem {
+            get {
+                return ResourceManager.GetString("SettingsMenuItem", resourceCulture);
             }
         }
         
