@@ -128,6 +128,10 @@
     <value>about</value>
     <comment>Text for page title</comment>
   </data>
+  <data name="AddAppBarButton" xml:space="preserve">
+    <value>add</value>
+    <comment>Used for adding a new iTunes library to the application. Application bar button (needs to be short)</comment>
+  </data>
   <data name="AddLibraryButton" xml:space="preserve">
     <value>Add Library</value>
   </data>
@@ -138,8 +142,16 @@
   <data name="BrowseLibraryButton" xml:space="preserve">
     <value>browse library</value>
   </data>
+  <data name="ChooseLibraryButton" xml:space="preserve">
+    <value>Choose Library...</value>
+  </data>
   <data name="ChooseLibraryMenuItem" xml:space="preserve">
     <value>choose library</value>
+    <comment>Application bar menu item</comment>
+  </data>
+  <data name="ChooseLibraryPageTitle" xml:space="preserve">
+    <value>choose library</value>
+    <comment>Appears at the top of the "choose library" page</comment>
   </data>
   <data name="ContactUs" xml:space="preserve">
     <value>[Contact us] for support and feedback</value>

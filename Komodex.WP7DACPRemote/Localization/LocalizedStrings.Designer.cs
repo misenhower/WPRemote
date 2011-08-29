@@ -88,6 +88,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to add.
+        /// </summary>
+        public static string AddAppBarButton {
+            get {
+                return ResourceManager.GetString("AddAppBarButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Library.
         /// </summary>
         public static string AddLibraryButton {
@@ -115,11 +124,29 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose Library....
+        /// </summary>
+        public static string ChooseLibraryButton {
+            get {
+                return ResourceManager.GetString("ChooseLibraryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to choose library.
         /// </summary>
         public static string ChooseLibraryMenuItem {
             get {
                 return ResourceManager.GetString("ChooseLibraryMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to choose library.
+        /// </summary>
+        public static string ChooseLibraryPageTitle {
+            get {
+                return ResourceManager.GetString("ChooseLibraryPageTitle", resourceCulture);
             }
         }
         

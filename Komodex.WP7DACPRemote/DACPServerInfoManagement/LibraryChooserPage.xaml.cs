@@ -13,6 +13,8 @@ using Microsoft.Phone.Controls;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
+using Microsoft.Phone.Shell;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
@@ -25,6 +27,17 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             DataContext = DACPServerViewModel.Instance;
 
             AnimationContext = LayoutRoot;
+
+            // "Add" application bar button
+            ApplicationBarIconButton addButton = new ApplicationBarIconButton(new Uri("/icons/appbar.new.rest.png", UriKind.Relative));
+            addButton.Text = LocalizedStrings.AddAppBarButton;
+            addButton.Click += new EventHandler(btnNew_Click);
+            ApplicationBar.Buttons.Add(addButton);
+
+            // "About" application bar menu item
+            ApplicationBarMenuItem aboutMenuItem = new ApplicationBarMenuItem(LocalizedStrings.AboutMenuItem);
+            aboutMenuItem.Click += new EventHandler(mnuAbout_Click);
+            ApplicationBar.MenuItems.Add(aboutMenuItem);
         }
 
         private bool _deletedConnectedServer = false;

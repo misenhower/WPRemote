@@ -41,7 +41,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="REMOTE" Style="{StaticResource PhoneTextAppTitleStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="choose library" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.ChooseLibraryPageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -51,12 +51,7 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.new.rest.png" Text="add" x:Name="btnNew" Click="btnNew_Click" />
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="about" Click="mnuAbout_Click" />
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" />
     </phone:PhoneApplicationPage.ApplicationBar>
 
 </cc:AnimatedBasePage>
