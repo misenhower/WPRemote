@@ -16,6 +16,7 @@ using Komodex.WP7DACPRemote.DACPServerManagement;
 using Komodex.DACP;
 using Microsoft.Phone.Tasks;
 using Clarity.Phone.Controls;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -26,6 +27,19 @@ namespace Komodex.WP7DACPRemote
             InitializeComponent();
 
             AnimationContext = LayoutRoot;
+
+            // Localized contact and twitter links
+            string contactString = LocalizedStrings.ContactUs;
+            string[] contactStringParts = contactString.Split('[', ']');
+            contact1.Text = contactStringParts[0];
+            contact2.Content = contactStringParts[1];
+            contact3.Text = contactStringParts[2];
+
+            string twitterString = LocalizedStrings.FollowOnTwitter;
+            string[] twitterStringParts = twitterString.Split('[', ']');
+            twitter1.Text = twitterStringParts[0];
+            twitter2.Content = twitterStringParts[1];
+            twitter3.Text = twitterStringParts[2];
         }
 
         #region Overrides
@@ -35,7 +49,7 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedTo(e);
 
             // Application information
-            tbAppVersion.Text = "Version: " + Utility.ApplicationVersion;
+            tbAppVersion.Text = LocalizedStrings.Version + " " + Utility.ApplicationVersion;
 #if DEBUG
             tbAppVersion.Text += " (Debug)";
 
@@ -74,7 +88,7 @@ namespace Komodex.WP7DACPRemote
                 tbiTunesNotConnected.Visibility = System.Windows.Visibility.Visible;
                 gridiTunesInfo.Visibility = System.Windows.Visibility.Visible;
 
-                tbiTunesNotConnected.Text = "From last connection attempt";
+                tbiTunesNotConnected.Text = LocalizedStrings.FromLastConnectionAttempt;
 
                 var queryString = NavigationContext.QueryString;
                 string iTunesVersion = queryString["version"];

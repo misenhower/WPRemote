@@ -61,6 +61,33 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Library Information.
+        /// </summary>
+        public static string AboutLibraryInformation {
+            get {
+                return ResourceManager.GetString("AboutLibraryInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to about.
+        /// </summary>
+        public static string AboutMenuItem {
+            get {
+                return ResourceManager.GetString("AboutMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to about.
+        /// </summary>
+        public static string AboutPageTitle {
+            get {
+                return ResourceManager.GetString("AboutPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Library.
         /// </summary>
         public static string AddLibraryButton {
@@ -75,6 +102,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string BrowseLibraryButton {
             get {
                 return ResourceManager.GetString("BrowseLibraryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Contact us] for support and feedback.
+        /// </summary>
+        public static string ContactUs {
+            get {
+                return ResourceManager.GetString("ContactUs", resourceCulture);
             }
         }
         
@@ -115,11 +151,47 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Follow [@WP7Remote] on Twitter.
+        /// </summary>
+        public static string FollowOnTwitter {
+            get {
+                return ResourceManager.GetString("FollowOnTwitter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for Windows Phone 7.
+        /// </summary>
+        public static string ForWP7 {
+            get {
+                return ResourceManager.GetString("ForWP7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From last connection attempt.
+        /// </summary>
+        public static string FromLastConnectionAttempt {
+            get {
+                return ResourceManager.GetString("FromLastConnectionAttempt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to home.
         /// </summary>
         public static string HomePageTitle {
             get {
                 return ResourceManager.GetString("HomePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not connected.
+        /// </summary>
+        public static string NotConnected {
+            get {
+                return ResourceManager.GetString("NotConnected", resourceCulture);
             }
         }
         
@@ -133,11 +205,29 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Protocol:.
+        /// </summary>
+        public static string Protocol {
+            get {
+                return ResourceManager.GetString("Protocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to search.
         /// </summary>
         public static string SearchButton {
             get {
                 return ResourceManager.GetString("SearchButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version:.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
     }

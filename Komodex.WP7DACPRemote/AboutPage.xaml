@@ -27,7 +27,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text=" " Style="{StaticResource PhoneTextAppTitleStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.AboutPageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -43,7 +43,7 @@
             <Button Template="{StaticResource EmptyButton}" Click="btnAssemblyInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
                 <StackPanel Background="{StaticResource PhoneChromeBrush}" Margin="12,0,12,12">
                     <TextBlock TextWrapping="Wrap" Text="Remote" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock TextWrapping="Wrap" Text="for Windows Phone 7" Style="{StaticResource PhoneTextTitle3Style}"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.ForWP7, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle3Style}"/>
                     <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}" Name="tbAppVersion" Margin="12,0,12,12" />
                 </StackPanel>
             </Button>
@@ -51,8 +51,8 @@
             <Button Grid.Row="1" Template="{StaticResource EmptyButton}" Click="btniTunesInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
                 <Grid>
                     <StackPanel Name="iTunesInfoPanel" Background="{StaticResource PhoneChromeBrush}" Margin="12">
-                        <TextBlock TextWrapping="Wrap" Text="Library Information" Style="{StaticResource PhoneTextTitle2Style}"/>
-                        <TextBlock TextWrapping="Wrap" Text="Not connected" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" Name="tbiTunesNotConnected" />
+                        <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.AboutLibraryInformation, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.NotConnected, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" Name="tbiTunesNotConnected" />
                         <Grid Margin="0,12,0,0" Name="gridiTunesInfo">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -64,8 +64,8 @@
                                 <ColumnDefinition Width="140" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Version:" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="Protocol:" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="{Binding LocalizedStrings.Version, Source={StaticResource LocalizedStrings}}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="{Binding LocalizedStrings.Protocol, Source={StaticResource LocalizedStrings}}" />
                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DMAP:" />
                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DAAP:" />
 
@@ -106,13 +106,14 @@
 
             <StackPanel Grid.Row="3" Margin="12,0,0,0">
                 <toolkit:WrapPanel Margin="0,0,0,12">
-                    <HyperlinkButton Content="Contact us" Margin="-12,0,-12,0" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnSupport_Click" />
-                    <TextBlock Text=" for support and feedback" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                    <TextBlock Name="contact1" Text="" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                    <HyperlinkButton Name="contact2" Content="Contact us" Margin="-12,0,-12,0" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnSupport_Click" />
+                    <TextBlock Name="contact3" Text=" for support and feedback" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                 </toolkit:WrapPanel>
                 <toolkit:WrapPanel>
-                    <TextBlock Text="Follow " FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
-                    <HyperlinkButton Content="@WP7Remote" Margin="-12,0,-12,0" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnTwitter_Click" />
-                    <TextBlock Text=" on Twitter" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                    <TextBlock Name="twitter1" Text="Follow " FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                    <HyperlinkButton Name="twitter2" Content="@WP7Remote" Margin="-12,0,-12,0" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnTwitter_Click" />
+                    <TextBlock Name="twitter3" Text=" on Twitter" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                 </toolkit:WrapPanel>
             </StackPanel>
             

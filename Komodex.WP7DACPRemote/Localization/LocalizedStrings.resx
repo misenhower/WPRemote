@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutLibraryInformation" xml:space="preserve">
+    <value>Library Information</value>
+  </data>
+  <data name="AboutMenuItem" xml:space="preserve">
+    <value>about</value>
+    <comment>Text for application bar menu item</comment>
+  </data>
+  <data name="AboutPageTitle" xml:space="preserve">
+    <value>about</value>
+    <comment>Text for page title</comment>
+  </data>
   <data name="AddLibraryButton" xml:space="preserve">
     <value>Add Library</value>
   </data>
   <data name="BrowseLibraryButton" xml:space="preserve">
     <value>browse library</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>[Contact us] for support and feedback</value>
+    <comment>"Contact us" is a hyperlink (the brackets are removed)</comment>
   </data>
   <data name="FirstRunIntro1" xml:space="preserve">
     <value>To pair with iTunes or another compatible application for the first time, run the Pairing Utility on your computer.  This utility can be downloaded from our website at:</value>
@@ -139,14 +154,37 @@
     <value>welcome</value>
     <comment>First-run title</comment>
   </data>
+  <data name="FollowOnTwitter" xml:space="preserve">
+    <value>Follow [@WP7Remote] on Twitter</value>
+    <comment>"@WP7Remote" is a hyperlink (the brackets are removed)</comment>
+  </data>
+  <data name="ForWP7" xml:space="preserve">
+    <value>for Windows Phone 7</value>
+    <comment>Used on the About page, "Remote for Windows Phone 7"</comment>
+  </data>
+  <data name="FromLastConnectionAttempt" xml:space="preserve">
+    <value>From last connection attempt</value>
+    <comment>States that the information displayed is from a previous connection attempt</comment>
+  </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>home</value>
     <comment>Title text displayed on the app's home screen</comment>
   </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>Not connected</value>
+    <comment>Library status</comment>
+  </data>
   <data name="NowPlayingButton" xml:space="preserve">
     <value>now playing</value>
   </data>
+  <data name="Protocol" xml:space="preserve">
+    <value>Protocol:</value>
+  </data>
   <data name="SearchButton" xml:space="preserve">
     <value>search</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version:</value>
+    <comment>Identifying the application version, "Version: 1.6.0.0"</comment>
   </data>
 </root>
