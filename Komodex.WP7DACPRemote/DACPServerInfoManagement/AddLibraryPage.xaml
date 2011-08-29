@@ -24,7 +24,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
-            <TextBlock x:Name="ApplicationTitle" Text="ADD NEW LIBRARY" Style="{StaticResource PhoneTextAppTitleStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.AddNewLibraryPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -33,11 +33,11 @@
         		<RowDefinition Height="*"/>
         	</Grid.RowDefinitions>
         	<StackPanel>
-        		<TextBlock TextWrapping="Wrap" Text="To pair this device with a new library, download the Pairing Utility from our website:" Style="{StaticResource PhoneTextNormalStyle}"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.AddNewLibraryPageDescription, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
         		<TextBlock TextWrapping="Wrap" Text="http://wp7remote.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}"/>
-                <TextBlock Height="30" Name="textBlock1" Text="Host" Style="{StaticResource PhoneTextSmallStyle}" />
+                <TextBlock Height="30" Name="textBlock1" Text="{Binding LocalizedStrings.LibraryHostname, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSmallStyle}" />
                 <TextBox Height="71" Name="tbHost" Text="{Binding HostName, Mode=TwoWay}" Width="460" InputScope="Url" KeyUp="tbHost_KeyUp" TextChanged="tbHost_TextChanged" />
-                <TextBlock Height="30" Name="textBlock2" Text="PIN" Style="{StaticResource PhoneTextSmallStyle}" />
+                <TextBlock Height="30" Name="textBlock2" Text="{Binding LocalizedStrings.LibraryPIN, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSmallStyle}" />
                 <TextBox Height="71" Name="tbPIN" Text="{Binding Path=FormattedPIN, Mode=TwoWay}" Width="460" InputScope="Number" KeyDown="tbPIN_KeyDown" KeyUp="tbPIN_KeyUp" MaxLength="4" TextChanged="tbPIN_TextChanged" />
             </StackPanel>
         </Grid>
@@ -46,13 +46,7 @@
  
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-        	<shell:ApplicationBarIconButton IconUri="/icons/appbar.save.rest.png" Text="save" x:Name="btnSave" Click="btnSave_Click" />
-        	<shell:ApplicationBarIconButton IconUri="/icons/appbar.cancel.rest.png" Text="cancel" x:Name="btnCancel" Click="btnCancel_Click" />
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="about" Click="mnuAbout_Click" />
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" />
     </phone:PhoneApplicationPage.ApplicationBar>
 
 </cc:AnimatedBasePage>

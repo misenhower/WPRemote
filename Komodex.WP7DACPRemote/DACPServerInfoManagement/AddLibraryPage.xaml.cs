@@ -15,6 +15,7 @@ using Komodex.WP7DACPRemote.DACPServerManagement;
 using System.Text.RegularExpressions;
 using Clarity.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
@@ -27,6 +28,24 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         {
             InitializeComponent();
 
+            // "Save" application bar button
+            ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/icons/appbar.save.rest.png", UriKind.Relative));
+            saveButton.Text = LocalizedStrings.SaveAppBarButton;
+            saveButton.Click += new EventHandler(btnSave_Click);
+            ApplicationBar.Buttons.Add(saveButton);
+
+            // "Cancel" application bar button
+            ApplicationBarIconButton cancelButton = new ApplicationBarIconButton(new Uri("/icons/appbar.cancel.rest.png", UriKind.Relative));
+            cancelButton.Text = LocalizedStrings.CancelAppBarButton;
+            cancelButton.Click += new EventHandler(btnCancel_Click);
+            ApplicationBar.Buttons.Add(cancelButton);
+
+            // "About" application bar menu item
+            ApplicationBarMenuItem aboutMenuItem = new ApplicationBarMenuItem(LocalizedStrings.AboutMenuItem);
+            aboutMenuItem.Click += new EventHandler(mnuAbout_Click);
+            ApplicationBar.MenuItems.Add(aboutMenuItem);
+
+            // Server info
             serverInfo = new DACPServerInfo();
             serverInfo.ID = Guid.NewGuid();
             DataContext = serverInfo;
@@ -249,13 +268,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         iTunesDAAPVersion = server.ServerDAAPVersion;
 
                         if (e.ErrorType == ServerErrorType.UnsupportedVersion)
-                            MessageBox.Show("This application currently requires iTunes version 10.1 or later. "
-                                + "Please upgrade to the latest version of iTunes to continue.", "iTunes Version Error", MessageBoxButton.OK);
+                            MessageBox.Show(LocalizedStrings.LibraryVersionErrorBody, LocalizedStrings.LibraryVersionErrorTitle, MessageBoxButton.OK);
                         else if (e.ErrorType == ServerErrorType.InvalidPIN)
-                            MessageBox.Show("Could not connect to the library. Please check the PIN and try again.", "PIN Error", MessageBoxButton.OK);
+                            MessageBox.Show(LocalizedStrings.LibraryPINErrorBody, LocalizedStrings.LibraryPINErrorTitle, MessageBoxButton.OK);
                         else if (Utility.CheckNetworkConnectivity())
-                            MessageBox.Show("Could not connect to the library. Please make sure your phone is connected to the correct Wi-fi network "
-                                + "and check the value entered in the hostname field.", "Connection Error", MessageBoxButton.OK);
+                            MessageBox.Show(LocalizedStrings.LibraryConnectionErrorBody, LocalizedStrings.LibraryConnectionErrorTitle, MessageBoxButton.OK);
                         SetVisibility(false);
                         server = null;
                         break;

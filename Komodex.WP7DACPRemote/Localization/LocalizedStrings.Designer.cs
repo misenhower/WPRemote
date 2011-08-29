@@ -106,6 +106,24 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To pair this device with a new library, download the Pairing Utility from our website:.
+        /// </summary>
+        public static string AddNewLibraryPageDescription {
+            get {
+                return ResourceManager.GetString("AddNewLibraryPageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ADD NEW LIBRARY.
+        /// </summary>
+        public static string AddNewLibraryPageTitle {
+            get {
+                return ResourceManager.GetString("AddNewLibraryPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to browse.
         /// </summary>
         public static string BrowseLibraryAppBarButton {
@@ -120,6 +138,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string BrowseLibraryButton {
             get {
                 return ResourceManager.GetString("BrowseLibraryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cancel.
+        /// </summary>
+        public static string CancelAppBarButton {
+            get {
+                return ResourceManager.GetString("CancelAppBarButton", resourceCulture);
             }
         }
         
@@ -232,6 +259,24 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not connect to the library. Please make sure your phone is connected to the correct Wi-fi network and check the value entered in the hostname field..
+        /// </summary>
+        public static string LibraryConnectionErrorBody {
+            get {
+                return ResourceManager.GetString("LibraryConnectionErrorBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection Error.
+        /// </summary>
+        public static string LibraryConnectionErrorTitle {
+            get {
+                return ResourceManager.GetString("LibraryConnectionErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unknown error occurred. Please check your library and try again..
         /// </summary>
         public static string LibraryErrorBody {
@@ -246,6 +291,96 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string LibraryErrorTitle {
             get {
                 return ResourceManager.GetString("LibraryErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host.
+        /// </summary>
+        public static string LibraryHostname {
+            get {
+                return ResourceManager.GetString("LibraryHostname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIN.
+        /// </summary>
+        public static string LibraryPIN {
+            get {
+                return ResourceManager.GetString("LibraryPIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not connect to the library. Please check the PIN and try again..
+        /// </summary>
+        public static string LibraryPINErrorBody {
+            get {
+                return ResourceManager.GetString("LibraryPINErrorBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIN Error.
+        /// </summary>
+        public static string LibraryPINErrorTitle {
+            get {
+                return ResourceManager.GetString("LibraryPINErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not connect to your library. Please disconnect the USB cable between your phone and computer and try again..
+        /// </summary>
+        public static string LibraryUSBErrorBody {
+            get {
+                return ResourceManager.GetString("LibraryUSBErrorBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network Connection Error.
+        /// </summary>
+        public static string LibraryUSBErrorTitle {
+            get {
+                return ResourceManager.GetString("LibraryUSBErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This application currently requires iTunes version 10.1 or later. Please upgrade to the latest version of iTunes to continue..
+        /// </summary>
+        public static string LibraryVersionErrorBody {
+            get {
+                return ResourceManager.GetString("LibraryVersionErrorBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to iTunes Version Error.
+        /// </summary>
+        public static string LibraryVersionErrorTitle {
+            get {
+                return ResourceManager.GetString("LibraryVersionErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please make sure your phone is connected to a Wi-fi network and try again..
+        /// </summary>
+        public static string LibraryWifiErrorBody {
+            get {
+                return ResourceManager.GetString("LibraryWifiErrorBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wi-fi Connection Error.
+        /// </summary>
+        public static string LibraryWifiErrorTitle {
+            get {
+                return ResourceManager.GetString("LibraryWifiErrorTitle", resourceCulture);
             }
         }
         
@@ -309,6 +444,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string Protocol {
             get {
                 return ResourceManager.GetString("Protocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to save.
+        /// </summary>
+        public static string SaveAppBarButton {
+            get {
+                return ResourceManager.GetString("SaveAppBarButton", resourceCulture);
             }
         }
         
