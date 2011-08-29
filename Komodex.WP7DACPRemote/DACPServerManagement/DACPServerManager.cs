@@ -16,6 +16,7 @@ using Microsoft.Phone.Controls;
 using System.Windows.Data;
 using Komodex.WP7DACPRemote.Utilities;
 using Komodex.WP7DACPRemote.Settings;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.DACPServerManagement
 {
@@ -305,7 +306,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
                         NowPlaying.NowPlayingPage.GoBackOnNextLoad = true;
-                        MessageBox.Show("An unknown error occurred. Please check your library and try again.", "Library Error", MessageBoxButton.OK);
+                        MessageBox.Show(LocalizedStrings.LibraryErrorBody, LocalizedStrings.LibraryErrorTitle, MessageBoxButton.OK);
                     });
                     break;
 

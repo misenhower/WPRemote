@@ -205,6 +205,24 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unknown error occurred. Please check your library and try again..
+        /// </summary>
+        public static string LibraryErrorBody {
+            get {
+                return ResourceManager.GetString("LibraryErrorBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Library Error.
+        /// </summary>
+        public static string LibraryErrorTitle {
+            get {
+                return ResourceManager.GetString("LibraryErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to next.
         /// </summary>
         public static string NextAppBarButton {

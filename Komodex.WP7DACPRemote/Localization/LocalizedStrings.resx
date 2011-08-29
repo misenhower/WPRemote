@@ -177,6 +177,14 @@
     <value>home</value>
     <comment>Title text displayed on the app's home screen</comment>
   </data>
+  <data name="LibraryErrorBody" xml:space="preserve">
+    <value>An unknown error occurred. Please check your library and try again.</value>
+    <comment>Body of a message box</comment>
+  </data>
+  <data name="LibraryErrorTitle" xml:space="preserve">
+    <value>Library Error</value>
+    <comment>Title of a message box</comment>
+  </data>
   <data name="NextAppBarButton" xml:space="preserve">
     <value>next</value>
     <comment>For "next track" button on the application bar (needs to be short)</comment>
