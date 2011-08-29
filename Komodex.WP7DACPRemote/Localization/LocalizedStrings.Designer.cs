@@ -205,7 +205,7 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to play/pause.
+        ///   Looks up a localized string similar to next.
         /// </summary>
         public static string NextAppBarButton {
             get {
@@ -241,7 +241,7 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to next.
+        ///   Looks up a localized string similar to play/pause.
         /// </summary>
         public static string PlayPauseAppBarButton {
             get {
