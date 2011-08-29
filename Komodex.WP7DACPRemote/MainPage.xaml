@@ -105,7 +105,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="REMOTE" Style="{StaticResource PhoneTextAppTitleStyle}" Margin="12,0,0,0" />
-            <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.PageTitleHome, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.HomePageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -122,7 +122,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ContentControl Template="{StaticResource iTunesIconButton}" />
-                        <TextBlock Text="now playing" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding LocalizedStrings.NowPlayingButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                         <Grid x:Name="grid" Margin="0,6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="125" />
@@ -146,7 +146,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ContentControl Template="{StaticResource BrowseLibraryIconButton}" />
-                        <TextBlock Text="browse library" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding LocalizedStrings.BrowseLibraryButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
                 <Button Name="btnSearch" Click="btnSearch_Click" Style="{StaticResource BorderlessButtonStyle}" CacheMode="BitmapCache">
@@ -156,7 +156,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ContentControl Template="{StaticResource SearchIconButton}" />
-                        <TextBlock Text="search" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding LocalizedStrings.SearchButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
             </StackPanel>
@@ -168,13 +168,13 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="welcome" Style="{StaticResource ItemHeaderStyle}" />
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="To pair with iTunes or another compatible application for the first time, run the Pairing Utility on your computer.  This utility can be downloaded from our website at:"/>
+                    <TextBlock Text="{Binding LocalizedStrings.FirstRunTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource ItemHeaderStyle}" />
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="{Binding LocalizedStrings.FirstRunIntro1, Source={StaticResource LocalizedStrings}}"/>
                     <TextBlock TextWrapping="Wrap" Text="http://wp7remote.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Padding="0,0,0,12" />
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="When pairing has been completed, tap &quot;Add Library&quot; below to connect to your library."/>
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="It will be necessary for your phone to be connected to a Wi-fi network to continue."/>
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="{Binding LocalizedStrings.FirstRunIntro2, Source={StaticResource LocalizedStrings}}"/>
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="{Binding LocalizedStrings.FirstRunIntro3, Source={StaticResource LocalizedStrings}}"/>
                 </StackPanel>
-                <Button Grid.Row="1" Content="Add Library" HorizontalAlignment="Center" Margin="12" Click="btnAddLibrary_Click" />
+                <Button Grid.Row="1" Content="{Binding LocalizedStrings.AddLibraryButton, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Margin="12" Click="btnAddLibrary_Click" />
             </Grid>
         </Grid>
     </Grid>

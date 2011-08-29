@@ -61,11 +61,83 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Library.
+        /// </summary>
+        public static string AddLibraryButton {
+            get {
+                return ResourceManager.GetString("AddLibraryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to browse library.
+        /// </summary>
+        public static string BrowseLibraryButton {
+            get {
+                return ResourceManager.GetString("BrowseLibraryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To pair with iTunes or another compatible application for the first time, run the Pairing Utility on your computer.  This utility can be downloaded from our website at:.
+        /// </summary>
+        public static string FirstRunIntro1 {
+            get {
+                return ResourceManager.GetString("FirstRunIntro1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When pairing has been completed, tap &quot;Add Library&quot; below to connect to your library..
+        /// </summary>
+        public static string FirstRunIntro2 {
+            get {
+                return ResourceManager.GetString("FirstRunIntro2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It will be necessary for your phone to be connected to a Wi-fi network to continue..
+        /// </summary>
+        public static string FirstRunIntro3 {
+            get {
+                return ResourceManager.GetString("FirstRunIntro3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to welcome.
+        /// </summary>
+        public static string FirstRunTitle {
+            get {
+                return ResourceManager.GetString("FirstRunTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to home.
         /// </summary>
-        public static string PageTitleHome {
+        public static string HomePageTitle {
             get {
-                return ResourceManager.GetString("PageTitleHome", resourceCulture);
+                return ResourceManager.GetString("HomePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to now playing.
+        /// </summary>
+        public static string NowPlayingButton {
+            get {
+                return ResourceManager.GetString("NowPlayingButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to search.
+        /// </summary>
+        public static string SearchButton {
+            get {
+                return ResourceManager.GetString("SearchButton", resourceCulture);
             }
         }
     }

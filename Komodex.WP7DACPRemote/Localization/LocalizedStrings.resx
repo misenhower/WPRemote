@@ -117,8 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PageTitleHome" xml:space="preserve">
+  <data name="AddLibraryButton" xml:space="preserve">
+    <value>Add Library</value>
+  </data>
+  <data name="BrowseLibraryButton" xml:space="preserve">
+    <value>browse library</value>
+  </data>
+  <data name="FirstRunIntro1" xml:space="preserve">
+    <value>To pair with iTunes or another compatible application for the first time, run the Pairing Utility on your computer.  This utility can be downloaded from our website at:</value>
+    <comment>First-run text</comment>
+  </data>
+  <data name="FirstRunIntro2" xml:space="preserve">
+    <value>When pairing has been completed, tap "Add Library" below to connect to your library.</value>
+    <comment>First-run text</comment>
+  </data>
+  <data name="FirstRunIntro3" xml:space="preserve">
+    <value>It will be necessary for your phone to be connected to a Wi-fi network to continue.</value>
+    <comment>First-run text</comment>
+  </data>
+  <data name="FirstRunTitle" xml:space="preserve">
+    <value>welcome</value>
+    <comment>First-run title</comment>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
     <value>home</value>
     <comment>Title text displayed on the app's home screen</comment>
+  </data>
+  <data name="NowPlayingButton" xml:space="preserve">
+    <value>now playing</value>
+  </data>
+  <data name="SearchButton" xml:space="preserve">
+    <value>search</value>
   </data>
 </root>
