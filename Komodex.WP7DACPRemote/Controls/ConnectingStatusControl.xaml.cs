@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.Controls
 {
@@ -105,13 +106,13 @@ namespace Komodex.WP7DACPRemote.Controls
                 if (DACPServer == null)
                 {
                     ShowProgressBar = false;
-                    LibraryConnectionText = "Tap \"Choose Library\" to select or add a new library.";
+                    LibraryConnectionText = LocalizedStrings.StatusTapChooseLibrary;
                     LibraryName = string.Empty;
                 }
                 else if (!DACPServer.IsConnected)
                 {
                     ShowProgressBar = true;
-                    LibraryConnectionText = "Connecting to Library";
+                    LibraryConnectionText = LocalizedStrings.StatusConnectingToLibrary;
                     LibraryName = DACPServer.LibraryName;
                 }
                 else // Connected, this control shouldn't be visible at all

@@ -152,6 +152,9 @@
     <value>cancel</value>
     <comment>Application bar button (needs to be short)</comment>
   </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ChooseLibraryButton" xml:space="preserve">
     <value>Choose Library...</value>
   </data>
@@ -309,6 +312,13 @@
   </data>
   <data name="SettingsTakeEffectNextRun" xml:space="preserve">
     <value>This change will take effect the next time you start Remote.</value>
+  </data>
+  <data name="StatusConnectingToLibrary" xml:space="preserve">
+    <value>Connecting to Library</value>
+    <comment>Status text</comment>
+  </data>
+  <data name="StatusTapChooseLibrary" xml:space="preserve">
+    <value>Tap "Choose Library" to select or add a new library.</value>
   </data>
   <data name="ToggleSwitchOff" xml:space="preserve">
     <value>Off</value>

@@ -28,6 +28,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         {
             InitializeComponent();
 
+            connectingStatusControl.ButtonText = LocalizedStrings.CancelButton;
+
             // "Save" application bar button
             ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/icons/appbar.save.rest.png", UriKind.Relative));
             saveButton.Text = LocalizedStrings.SaveAppBarButton;

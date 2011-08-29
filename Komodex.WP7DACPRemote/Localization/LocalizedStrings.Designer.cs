@@ -151,6 +151,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string CancelButton {
+            get {
+                return ResourceManager.GetString("CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Library....
         /// </summary>
         public static string ChooseLibraryButton {
@@ -552,6 +561,24 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string SettingsTakeEffectNextRun {
             get {
                 return ResourceManager.GetString("SettingsTakeEffectNextRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connecting to Library.
+        /// </summary>
+        public static string StatusConnectingToLibrary {
+            get {
+                return ResourceManager.GetString("StatusConnectingToLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tap &quot;Choose Library&quot; to select or add a new library..
+        /// </summary>
+        public static string StatusTapChooseLibrary {
+            get {
+                return ResourceManager.GetString("StatusTapChooseLibrary", resourceCulture);
             }
         }
         
