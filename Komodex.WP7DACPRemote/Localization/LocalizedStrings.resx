@@ -379,6 +379,9 @@
   <data name="SearchMenuItem" xml:space="preserve">
     <value>search</value>
   </data>
+  <data name="SearchPageTitle" xml:space="preserve">
+    <value>SEARCH LIBRARY</value>
+  </data>
   <data name="SelectMediaPageTitle" xml:space="preserve">
     <value>SELECT MEDIA TYPE</value>
   </data>

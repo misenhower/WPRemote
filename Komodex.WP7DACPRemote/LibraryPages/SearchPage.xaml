@@ -49,7 +49,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock x:Name="ApplicationTitle" Text="SEARCH LIBRARY" Style="{StaticResource PhoneTextAppTitleStyle}"/>
+                <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.SearchPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
                 <TextBox TextChanged="tbSearchString_TextChanged" Name="tbSearchString" InputScope="Search" KeyUp="tbSearchString_KeyUp" />
             </StackPanel>
             <toolkit:LongListSelector x:Name="lbSearchResults" Background="Transparent" Grid.Row="1"
