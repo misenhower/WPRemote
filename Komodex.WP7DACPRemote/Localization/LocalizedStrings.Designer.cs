@@ -448,6 +448,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to podcasts.
+        /// </summary>
+        public static string LibraryPodcastsButton {
+            get {
+                return ResourceManager.GetString("LibraryPodcastsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not connect to your library. Please disconnect the USB cable between your phone and computer and try again..
         /// </summary>
         public static string LibraryUSBErrorBody {
@@ -480,6 +489,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string LibraryVersionErrorTitle {
             get {
                 return ResourceManager.GetString("LibraryVersionErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to videos.
+        /// </summary>
+        public static string LibraryVideosButton {
+            get {
+                return ResourceManager.GetString("LibraryVideosButton", resourceCulture);
             }
         }
         
@@ -615,6 +633,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string SearchMenuItem {
             get {
                 return ResourceManager.GetString("SearchMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT MEDIA TYPE.
+        /// </summary>
+        public static string SelectMediaPageTitle {
+            get {
+                return ResourceManager.GetString("SelectMediaPageTitle", resourceCulture);
             }
         }
         

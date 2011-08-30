@@ -46,7 +46,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
-            <TextBlock x:Name="ApplicationTitle" Text="SELECT MEDIA TYPE" Style="{StaticResource PhoneTextAppTitleStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.SelectMediaPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
             <!--<TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
         </StackPanel>
         
@@ -59,7 +59,7 @@
                     </Grid.ColumnDefinitions>
                     
                     <ContentControl Template="{StaticResource VideoIconButton}" />
-                    <TextBlock Text="videos" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding LocalizedStrings.LibraryVideosButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                 </Grid>
             </Button>
             <Button Name="btnPodcasts" Click="btnPodcasts_Click" Style="{StaticResource BorderlessButtonStyle}">
@@ -70,7 +70,7 @@
                     </Grid.ColumnDefinitions>
 
                     <ContentControl Template="{StaticResource PodcastIconButton}" />
-                    <TextBlock Text="podcasts" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding LocalizedStrings.LibraryPodcastsButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                 </Grid>
             </Button>
         </StackPanel>

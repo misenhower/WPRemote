@@ -269,6 +269,9 @@
   <data name="LibraryPlaylistsPivotItem" xml:space="preserve">
     <value>playlists</value>
   </data>
+  <data name="LibraryPodcastsButton" xml:space="preserve">
+    <value>podcasts</value>
+  </data>
   <data name="LibraryUSBErrorBody" xml:space="preserve">
     <value>Could not connect to your library. Please disconnect the USB cable between your phone and computer and try again.</value>
   </data>
@@ -280,6 +283,9 @@
   </data>
   <data name="LibraryVersionErrorTitle" xml:space="preserve">
     <value>iTunes Version Error</value>
+  </data>
+  <data name="LibraryVideosButton" xml:space="preserve">
+    <value>videos</value>
   </data>
   <data name="LibraryWifiErrorBody" xml:space="preserve">
     <value>Please make sure your phone is connected to a Wi-fi network and try again.</value>
@@ -335,6 +341,9 @@
   </data>
   <data name="SearchMenuItem" xml:space="preserve">
     <value>search</value>
+  </data>
+  <data name="SelectMediaPageTitle" xml:space="preserve">
+    <value>SELECT MEDIA TYPE</value>
   </data>
   <data name="SettingsArtistTapAction" xml:space="preserve">
     <value>Tap the currently playing artist name to</value>
