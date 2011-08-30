@@ -226,6 +226,15 @@
   <data name="GeniusMixesPageTitle" xml:space="preserve">
     <value>genius mixes</value>
   </data>
+  <data name="GenreNoAlbumsFound" xml:space="preserve">
+    <value>No albums were found for this genre.</value>
+  </data>
+  <data name="GenreNoArtistsFound" xml:space="preserve">
+    <value>No artists were found for this genre.</value>
+  </data>
+  <data name="GenreNoSongsFound" xml:space="preserve">
+    <value>No songs were found for this genre.</value>
+  </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>home</value>
     <comment>Title text displayed on the app's home screen</comment>

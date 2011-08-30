@@ -331,6 +331,33 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No albums were found for this genre..
+        /// </summary>
+        public static string GenreNoAlbumsFound {
+            get {
+                return ResourceManager.GetString("GenreNoAlbumsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No artists were found for this genre..
+        /// </summary>
+        public static string GenreNoArtistsFound {
+            get {
+                return ResourceManager.GetString("GenreNoArtistsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No songs were found for this genre..
+        /// </summary>
+        public static string GenreNoSongsFound {
+            get {
+                return ResourceManager.GetString("GenreNoSongsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to home.
         /// </summary>
         public static string HomePageTitle {
