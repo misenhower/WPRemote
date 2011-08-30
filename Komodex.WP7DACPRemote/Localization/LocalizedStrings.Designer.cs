@@ -664,6 +664,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PODCASTS.
+        /// </summary>
+        public static string PodcastPageTitle {
+            get {
+                return ResourceManager.GetString("PodcastPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to previous.
         /// </summary>
         public static string PreviousAppBarButton {

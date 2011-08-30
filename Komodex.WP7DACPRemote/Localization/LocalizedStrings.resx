@@ -349,6 +349,9 @@
     <value>play/pause</value>
     <comment>For "play/pause" button on the application bar (needs to be short)</comment>
   </data>
+  <data name="PodcastPageTitle" xml:space="preserve">
+    <value>PODCASTS</value>
+  </data>
   <data name="PreviousAppBarButton" xml:space="preserve">
     <value>previous</value>
     <comment>For "previous track" button on the application bar (needs to be short)</comment>
