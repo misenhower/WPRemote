@@ -142,6 +142,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to album.
+        /// </summary>
+        public static string AlbumPageTitle {
+            get {
+                return ResourceManager.GetString("AlbumPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to browse.
         /// </summary>
         public static string BrowseLibraryAppBarButton {
@@ -723,6 +732,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string SettingsTakeEffectNextRun {
             get {
                 return ResourceManager.GetString("SettingsTakeEffectNextRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shuffle album.
+        /// </summary>
+        public static string ShuffleAlbumButton {
+            get {
+                return ResourceManager.GetString("ShuffleAlbumButton", resourceCulture);
             }
         }
         

@@ -149,6 +149,9 @@
     <value>AIRPLAY SPEAKERS</value>
     <comment>Page title for the AirPlay speaker management page</comment>
   </data>
+  <data name="AlbumPageTitle" xml:space="preserve">
+    <value>album</value>
+  </data>
   <data name="BrowseLibraryAppBarButton" xml:space="preserve">
     <value>browse</value>
     <comment>Button on the application bar (needs to be short)</comment>
@@ -371,6 +374,9 @@
   </data>
   <data name="SettingsTakeEffectNextRun" xml:space="preserve">
     <value>This change will take effect the next time you start Remote.</value>
+  </data>
+  <data name="ShuffleAlbumButton" xml:space="preserve">
+    <value>shuffle album</value>
   </data>
   <data name="ShuffleAllSongsMenuItem" xml:space="preserve">
     <value>shuffle all songs</value>
