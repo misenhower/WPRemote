@@ -20,7 +20,7 @@
         <Rectangle Fill="{StaticResource PhoneBackgroundBrush}" Grid.Row="0" Grid.RowSpan="2" Opacity="0.6" />
 
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
-            <TextBlock x:Name="ApplicationTitle" Text="AIRPLAY SPEAKERS" Style="{StaticResource PhoneTextAppTitleStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.AirPlaySpeakersPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
             <!--<TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
         </StackPanel>
 
@@ -29,7 +29,7 @@
         </ScrollViewer>
         
         <StackPanel Grid.Row="2" Margin="12,12,0,0">
-            <TextBlock Text="MASTER VOLUME" Style="{StaticResource PhoneTextAppTitleStyle}" Margin="12,0,0,0" />
+            <TextBlock Text="{Binding LocalizedStrings.MasterVolume, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}" Margin="12,0,0,0" />
             <Slider Name="MasterVolumeSlider" Height="48" Margin="0,0,36,130" Grid.Row="2"
                 Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
                 Style="{StaticResource VolumeSliderStyle}"

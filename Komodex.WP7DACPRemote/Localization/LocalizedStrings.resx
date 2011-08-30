@@ -145,6 +145,10 @@
     <value>airplay speakers</value>
     <comment>Menu item to manage Apple AirPlay speakers.</comment>
   </data>
+  <data name="AirPlaySpeakersPageTitle" xml:space="preserve">
+    <value>AIRPLAY SPEAKERS</value>
+    <comment>Page title for the AirPlay speaker management page</comment>
+  </data>
   <data name="BrowseLibraryAppBarButton" xml:space="preserve">
     <value>browse</value>
     <comment>Button on the application bar (needs to be short)</comment>
@@ -254,6 +258,10 @@
   </data>
   <data name="LibraryWifiErrorTitle" xml:space="preserve">
     <value>Wi-fi Connection Error</value>
+  </data>
+  <data name="MasterVolume" xml:space="preserve">
+    <value>MASTER VOLUME</value>
+    <comment>This is the label for a slider that controls the master (primary) volume</comment>
   </data>
   <data name="NextAppBarButton" xml:space="preserve">
     <value>next</value>
