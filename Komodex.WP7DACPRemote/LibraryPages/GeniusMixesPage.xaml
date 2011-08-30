@@ -38,7 +38,7 @@
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                     </Border>
                 </Button>
-                <TextBlock Text="Based on music by:"
+                <TextBlock Text="{Binding LocalizedStrings.GeniusMixBasedOnMusicBy, Source={StaticResource LocalizedStrings}}"
                            Foreground="{StaticResource PhoneSubtleBrush}" />
                 <TextBlock Text="{Binding GeniusMixDescription}"
                            TextWrapping="Wrap" />
@@ -57,7 +57,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,14">
             <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=LibraryName, Converter={StaticResource stringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="genius mixes" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.GeniusMixesPageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
         
         <controls:Panorama Grid.Row="1"

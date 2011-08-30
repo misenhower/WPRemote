@@ -295,11 +295,38 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp; others.
+        /// </summary>
+        public static string GeniusMixAndOthers {
+            get {
+                return ResourceManager.GetString("GeniusMixAndOthers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Based on music by:.
+        /// </summary>
+        public static string GeniusMixBasedOnMusicBy {
+            get {
+                return ResourceManager.GetString("GeniusMixBasedOnMusicBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to genius mixes.
         /// </summary>
         public static string GeniusMixesListItem {
             get {
                 return ResourceManager.GetString("GeniusMixesListItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to genius mixes.
+        /// </summary>
+        public static string GeniusMixesPageTitle {
+            get {
+                return ResourceManager.GetString("GeniusMixesPageTitle", resourceCulture);
             }
         }
         
