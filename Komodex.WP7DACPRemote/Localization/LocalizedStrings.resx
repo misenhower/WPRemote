@@ -278,6 +278,9 @@
   <data name="LibraryNoPlaylistsFound" xml:space="preserve">
     <value>No playlists were found in your library.</value>
   </data>
+  <data name="LibraryNoPodcastsFound" xml:space="preserve">
+    <value>No podcasts were found in your library.</value>
+  </data>
   <data name="LibraryPIN" xml:space="preserve">
     <value>PIN</value>
     <comment>A four-digit PIN used for authentication</comment>
@@ -351,6 +354,9 @@
   </data>
   <data name="PodcastPageTitle" xml:space="preserve">
     <value>PODCASTS</value>
+  </data>
+  <data name="PodcastsPageTitle" xml:space="preserve">
+    <value>podcasts</value>
   </data>
   <data name="PreviousAppBarButton" xml:space="preserve">
     <value>previous</value>

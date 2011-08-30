@@ -475,6 +475,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No podcasts were found in your library..
+        /// </summary>
+        public static string LibraryNoPodcastsFound {
+            get {
+                return ResourceManager.GetString("LibraryNoPodcastsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PIN.
         /// </summary>
         public static string LibraryPIN {
@@ -669,6 +678,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string PodcastPageTitle {
             get {
                 return ResourceManager.GetString("PodcastPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to podcasts.
+        /// </summary>
+        public static string PodcastsPageTitle {
+            get {
+                return ResourceManager.GetString("PodcastsPageTitle", resourceCulture);
             }
         }
         
