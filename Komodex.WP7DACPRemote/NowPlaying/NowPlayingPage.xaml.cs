@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using Clarity.Phone.Extensions;
 using System.Collections.Specialized;
 using Komodex.WP7DACPRemote.Settings;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.NowPlaying
 {
@@ -38,6 +39,17 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             // Application bar
             InitializeAppBar();
             InitializeStandardPlayTransportApplicationBar();
+
+            // "Browse library" menu item
+            ApplicationBarMenuItem browseMenuItem = new ApplicationBarMenuItem(LocalizedStrings.BrowseLibraryMenuItem);
+            browseMenuItem.Click += new EventHandler(mnuBrowse_Click);
+            ApplicationBar.MenuItems.Add(browseMenuItem);
+
+            // "Search" menu item
+            ApplicationBarMenuItem searchMenuItem = new ApplicationBarMenuItem(LocalizedStrings.SearchMenuItem);
+            searchMenuItem.Click += new EventHandler(mnuSearch_Click);
+            ApplicationBar.MenuItems.Add(searchMenuItem);
+
             AddChooseLibraryApplicationBarMenuItem();
 
             repeatShuffleControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
@@ -46,7 +58,7 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             goBackTimer.Interval = TimeSpan.FromSeconds(5);
             goBackTimer.Tick += new EventHandler(goBackTimer_Tick);
 
-            AirPlayMenuItem = new ApplicationBarMenuItem("airplay speakers");
+            AirPlayMenuItem = new ApplicationBarMenuItem(LocalizedStrings.AirPlaySpeakersMenuItem);
             AirPlayMenuItem.Click += new EventHandler(AirPlayMenuItem_Click);
         }
 

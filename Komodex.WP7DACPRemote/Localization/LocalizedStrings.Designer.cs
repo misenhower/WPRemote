@@ -124,6 +124,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to airplay speakers.
+        /// </summary>
+        public static string AirPlaySpeakersMenuItem {
+            get {
+                return ResourceManager.GetString("AirPlaySpeakersMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to browse.
         /// </summary>
         public static string BrowseLibraryAppBarButton {
@@ -138,6 +147,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string BrowseLibraryButton {
             get {
                 return ResourceManager.GetString("BrowseLibraryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to browse library.
+        /// </summary>
+        public static string BrowseLibraryMenuItem {
+            get {
+                return ResourceManager.GetString("BrowseLibraryMenuItem", resourceCulture);
             }
         }
         
@@ -480,6 +498,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string SearchButton {
             get {
                 return ResourceManager.GetString("SearchButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to search.
+        /// </summary>
+        public static string SearchMenuItem {
+            get {
+                return ResourceManager.GetString("SearchMenuItem", resourceCulture);
             }
         }
         

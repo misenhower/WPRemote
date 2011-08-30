@@ -141,11 +141,18 @@
   <data name="AddNewLibraryPageTitle" xml:space="preserve">
     <value>ADD NEW LIBRARY</value>
   </data>
+  <data name="AirPlaySpeakersMenuItem" xml:space="preserve">
+    <value>airplay speakers</value>
+    <comment>Menu item to manage Apple AirPlay speakers.</comment>
+  </data>
   <data name="BrowseLibraryAppBarButton" xml:space="preserve">
     <value>browse</value>
     <comment>Button on the application bar (needs to be short)</comment>
   </data>
   <data name="BrowseLibraryButton" xml:space="preserve">
+    <value>browse library</value>
+  </data>
+  <data name="BrowseLibraryMenuItem" xml:space="preserve">
     <value>browse library</value>
   </data>
   <data name="CancelAppBarButton" xml:space="preserve">
@@ -284,6 +291,9 @@
     <comment>Button on the application bar (needs to be short)</comment>
   </data>
   <data name="SearchButton" xml:space="preserve">
+    <value>search</value>
+  </data>
+  <data name="SearchMenuItem" xml:space="preserve">
     <value>search</value>
   </data>
   <data name="SettingsArtistTapAction" xml:space="preserve">
