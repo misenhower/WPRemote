@@ -466,6 +466,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to songs.
+        /// </summary>
+        public static string LibrarySongsPivotItem {
+            get {
+                return ResourceManager.GetString("LibrarySongsPivotItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not connect to your library. Please disconnect the USB cable between your phone and computer and try again..
         /// </summary>
         public static string LibraryUSBErrorBody {
@@ -741,6 +750,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string ShuffleAlbumButton {
             get {
                 return ResourceManager.GetString("ShuffleAlbumButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shuffle all.
+        /// </summary>
+        public static string ShuffleAllButton {
+            get {
+                return ResourceManager.GetString("ShuffleAllButton", resourceCulture);
             }
         }
         

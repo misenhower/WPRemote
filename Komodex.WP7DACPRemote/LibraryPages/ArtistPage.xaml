@@ -68,7 +68,7 @@
                     <Border Background="{StaticResource PhoneChromeBrush}">
                         <StackPanel Orientation="Horizontal">
                             <ContentControl Template="{StaticResource ShuffleIcon}" />
-                            <TextBlock Text="shuffle all" Margin="0,3,12,0" FontSize="28"
+                            <TextBlock Text="{Binding LocalizedStrings.ShuffleAllButton, Source={StaticResource LocalizedStrings}}" Margin="0,3,12,0" FontSize="28"
                                        Style="{StaticResource PhoneTextBlockBase}"
                                        FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                         </StackPanel>
@@ -83,7 +83,7 @@
         <!--Pivot Control-->
         <controls:Pivot x:Name="pivotControl" Title="{Binding Name, Converter={StaticResource stringToUpperConverter}}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeMedium}" SelectionChanged="Pivot_SelectionChanged">
             <!--Pivot item one-->
-            <controls:PivotItem x:Name="pivotAlbums" Header="albums">
+            <controls:PivotItem x:Name="pivotAlbums" Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
                     <toolkit:LongListSelector x:Name="lbAlbums" Margin="0,0,-12,0"
                                               ItemsSource="{Binding Albums}" IsFlatList="True"
@@ -93,7 +93,7 @@
             </controls:PivotItem>
 
             <!--Pivot item two-->
-            <controls:PivotItem x:Name="pivotSongs" Header="songs">
+            <controls:PivotItem x:Name="pivotSongs" Header="{Binding LocalizedStrings.LibrarySongsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
                     <toolkit:LongListSelector x:Name="lbSongs" Margin="0,0,-12,0"
                                               ItemsSource="{Binding Songs}" IsFlatList="True" 

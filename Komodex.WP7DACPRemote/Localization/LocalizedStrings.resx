@@ -275,6 +275,9 @@
   <data name="LibraryPodcastsButton" xml:space="preserve">
     <value>podcasts</value>
   </data>
+  <data name="LibrarySongsPivotItem" xml:space="preserve">
+    <value>songs</value>
+  </data>
   <data name="LibraryUSBErrorBody" xml:space="preserve">
     <value>Could not connect to your library. Please disconnect the USB cable between your phone and computer and try again.</value>
   </data>
@@ -377,6 +380,9 @@
   </data>
   <data name="ShuffleAlbumButton" xml:space="preserve">
     <value>shuffle album</value>
+  </data>
+  <data name="ShuffleAllButton" xml:space="preserve">
+    <value>shuffle all</value>
   </data>
   <data name="ShuffleAllSongsMenuItem" xml:space="preserve">
     <value>shuffle all songs</value>
