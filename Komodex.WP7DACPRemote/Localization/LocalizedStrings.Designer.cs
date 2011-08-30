@@ -286,11 +286,38 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to genius mixes.
+        /// </summary>
+        public static string GeniusMixesListItem {
+            get {
+                return ResourceManager.GetString("GeniusMixesListItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to home.
         /// </summary>
         public static string HomePageTitle {
             get {
                 return ResourceManager.GetString("HomePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to albums.
+        /// </summary>
+        public static string LibraryAlbumsPivotItem {
+            get {
+                return ResourceManager.GetString("LibraryAlbumsPivotItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to artists.
+        /// </summary>
+        public static string LibraryArtistsPivotItem {
+            get {
+                return ResourceManager.GetString("LibraryArtistsPivotItem", resourceCulture);
             }
         }
         
@@ -331,11 +358,56 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to genres.
+        /// </summary>
+        public static string LibraryGenresPivotItem {
+            get {
+                return ResourceManager.GetString("LibraryGenresPivotItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Host.
         /// </summary>
         public static string LibraryHostname {
             get {
                 return ResourceManager.GetString("LibraryHostname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No albums were found in your library..
+        /// </summary>
+        public static string LibraryNoAlbumsFound {
+            get {
+                return ResourceManager.GetString("LibraryNoAlbumsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No artists were found in your library..
+        /// </summary>
+        public static string LibraryNoArtistsFound {
+            get {
+                return ResourceManager.GetString("LibraryNoArtistsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No genres were found in your library..
+        /// </summary>
+        public static string LibraryNoGenresFound {
+            get {
+                return ResourceManager.GetString("LibraryNoGenresFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No playlists were found in your library..
+        /// </summary>
+        public static string LibraryNoPlaylistsFound {
+            get {
+                return ResourceManager.GetString("LibraryNoPlaylistsFound", resourceCulture);
             }
         }
         
@@ -363,6 +435,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string LibraryPINErrorTitle {
             get {
                 return ResourceManager.GetString("LibraryPINErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to playlists.
+        /// </summary>
+        public static string LibraryPlaylistsPivotItem {
+            get {
+                return ResourceManager.GetString("LibraryPlaylistsPivotItem", resourceCulture);
             }
         }
         
@@ -426,6 +507,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string MasterVolume {
             get {
                 return ResourceManager.GetString("MasterVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to more.
+        /// </summary>
+        public static string MoreAppBarButton {
+            get {
+                return ResourceManager.GetString("MoreAppBarButton", resourceCulture);
             }
         }
         
@@ -606,6 +696,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string SettingsTakeEffectNextRun {
             get {
                 return ResourceManager.GetString("SettingsTakeEffectNextRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shuffle all songs.
+        /// </summary>
+        public static string ShuffleAllSongsMenuItem {
+            get {
+                return ResourceManager.GetString("ShuffleAllSongsMenuItem", resourceCulture);
             }
         }
         

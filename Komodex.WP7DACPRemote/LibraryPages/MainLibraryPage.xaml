@@ -76,7 +76,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Button Content="Button" Template="{StaticResource GeniusMixesIconButton}" Click="GeniusMixesButton_Click" />
-                        <TextBlock Grid.Column="1" Text="genius mixes" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding LocalizedStrings.GeniusMixesListItem, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                         <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding LibraryGeniusMixes, Converter={StaticResource collectionCountToStringConverter}}" Style="{StaticResource PhoneTextSubtleStyle}"/>
                     </Grid>
                 </Border>
@@ -111,10 +111,10 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <controls:Pivot Title="{Binding Path=LibraryName, Converter={StaticResource stringToUpperConverter}}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeMedium}" Name="pivotControl" SelectionChanged="pivotControl_SelectionChanged">
-            <controls:PivotItem Header="artists" Name="pivotArtists">
+            <controls:PivotItem Header="{Binding LocalizedStrings.LibraryArtistsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotArtists">
                 <Grid>
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="No artists were found in your library."
+                               Text="{Binding LocalizedStrings.LibraryNoArtistsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=LibraryArtists, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <toolkit:LongListSelector x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding LibraryArtists}"
                                               Margin="0,0,-12,0"
@@ -133,10 +133,10 @@
                     </toolkit:LongListSelector>
                 </Grid>
             </controls:PivotItem>
-            <controls:PivotItem Header="albums" Name="pivotAlbums">
+            <controls:PivotItem Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotAlbums">
                 <Grid >
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="No albums were found in your library."
+                               Text="{Binding LocalizedStrings.LibraryNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=LibraryAlbums, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <toolkit:LongListSelector x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding LibraryAlbums}"
                                               Margin="0,0,-12,0"
@@ -154,10 +154,10 @@
                     </toolkit:LongListSelector>
                 </Grid>
             </controls:PivotItem>
-            <controls:PivotItem Header="genres" Name="pivotGenres">
+            <controls:PivotItem Header="{Binding LocalizedStrings.LibraryGenresPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotGenres">
                 <Grid>
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="No genres were found in your library."
+                               Text="{Binding LocalizedStrings.LibraryNoGenresFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=LibraryGenres, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <toolkit:LongListSelector x:Name="lbGenres" Background="Transparent" ItemsSource="{Binding LibraryGenres}"
                                               Margin="0,0,-12,0"
@@ -175,10 +175,10 @@
                     </toolkit:LongListSelector>
                 </Grid>
             </controls:PivotItem>
-            <controls:PivotItem Header="playlists" Name="pivotPlaylists">
+            <controls:PivotItem Header="{Binding LocalizedStrings.LibraryPlaylistsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotPlaylists">
                 <Grid>
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="No playlists were found in your library."
+                               Text="{Binding LocalizedStrings.LibraryNoPlaylistsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=LibraryPlaylists, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <toolkit:LongListSelector x:Name="lbPlaylists" Background="Transparent" ItemsSource="{Binding LibraryPlaylists}"
                                               IsFlatList="True"
@@ -195,11 +195,7 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5">
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="shuffle all songs" Click="mnuShuffle_Click" />
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5" />
     </phone:PhoneApplicationPage.ApplicationBar>
     
 </app:DACPServerBoundPhoneApplicationPage>

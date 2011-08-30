@@ -15,6 +15,7 @@ using Komodex.DACP;
 using Clarity.Phone.Controls.Animations;
 using Microsoft.Phone.Shell;
 using Clarity.Phone.Extensions;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -29,11 +30,17 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             // Application Bar
             InitializeAppBar();
             InitializeStandardAppNavApplicationBar(true, false, true);
+
+            // "Shuffle all songs" menu item
+            ApplicationBarMenuItem shuffleMenuItem = new ApplicationBarMenuItem(LocalizedStrings.ShuffleAllSongsMenuItem);
+            shuffleMenuItem.Click += new EventHandler(mnuShuffle_Click);
+            ApplicationBar.MenuItems.Add(shuffleMenuItem);
+
             AddChooseLibraryApplicationBarMenuItem();
 
             // "More" Appbar button
             var AppBarMoreButton = new ApplicationBarIconButton(new Uri("/icons/custom.appbar.moredots.png", UriKind.Relative));
-            AppBarMoreButton.Text = "more";
+            AppBarMoreButton.Text = LocalizedStrings.MoreAppBarButton;
             AppBarMoreButton.Click += new EventHandler(AppBarMoreButton_Click);
             ApplicationBar.Buttons.Add(AppBarMoreButton);
         }

@@ -209,9 +209,19 @@
     <value>From last connection attempt</value>
     <comment>States that the information displayed is from a previous connection attempt</comment>
   </data>
+  <data name="GeniusMixesListItem" xml:space="preserve">
+    <value>genius mixes</value>
+    <comment>iTunes Genius Mixes feature</comment>
+  </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>home</value>
     <comment>Title text displayed on the app's home screen</comment>
+  </data>
+  <data name="LibraryAlbumsPivotItem" xml:space="preserve">
+    <value>albums</value>
+  </data>
+  <data name="LibraryArtistsPivotItem" xml:space="preserve">
+    <value>artists</value>
   </data>
   <data name="LibraryConnectionErrorBody" xml:space="preserve">
     <value>Could not connect to the library. Please make sure your phone is connected to the correct Wi-fi network and check the value entered in the hostname field.</value>
@@ -227,9 +237,24 @@
     <value>Library Error</value>
     <comment>Title of a message box</comment>
   </data>
+  <data name="LibraryGenresPivotItem" xml:space="preserve">
+    <value>genres</value>
+  </data>
   <data name="LibraryHostname" xml:space="preserve">
     <value>Host</value>
     <comment>This represents the hostname or IP address of a computer</comment>
+  </data>
+  <data name="LibraryNoAlbumsFound" xml:space="preserve">
+    <value>No albums were found in your library.</value>
+  </data>
+  <data name="LibraryNoArtistsFound" xml:space="preserve">
+    <value>No artists were found in your library.</value>
+  </data>
+  <data name="LibraryNoGenresFound" xml:space="preserve">
+    <value>No genres were found in your library.</value>
+  </data>
+  <data name="LibraryNoPlaylistsFound" xml:space="preserve">
+    <value>No playlists were found in your library.</value>
   </data>
   <data name="LibraryPIN" xml:space="preserve">
     <value>PIN</value>
@@ -240,6 +265,9 @@
   </data>
   <data name="LibraryPINErrorTitle" xml:space="preserve">
     <value>PIN Error</value>
+  </data>
+  <data name="LibraryPlaylistsPivotItem" xml:space="preserve">
+    <value>playlists</value>
   </data>
   <data name="LibraryUSBErrorBody" xml:space="preserve">
     <value>Could not connect to your library. Please disconnect the USB cable between your phone and computer and try again.</value>
@@ -262,6 +290,10 @@
   <data name="MasterVolume" xml:space="preserve">
     <value>MASTER VOLUME</value>
     <comment>This is the label for a slider that controls the master (primary) volume</comment>
+  </data>
+  <data name="MoreAppBarButton" xml:space="preserve">
+    <value>more</value>
+    <comment>This button displays additional library content types (podcasts, videos, etc.). Application bar button (needs to be short).</comment>
   </data>
   <data name="NextAppBarButton" xml:space="preserve">
     <value>next</value>
@@ -330,6 +362,9 @@
   </data>
   <data name="SettingsTakeEffectNextRun" xml:space="preserve">
     <value>This change will take effect the next time you start Remote.</value>
+  </data>
+  <data name="ShuffleAllSongsMenuItem" xml:space="preserve">
+    <value>shuffle all songs</value>
   </data>
   <data name="StatusConnectingToLibrary" xml:space="preserve">
     <value>Connecting to Library</value>
