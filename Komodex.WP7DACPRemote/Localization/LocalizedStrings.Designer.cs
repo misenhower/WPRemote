@@ -914,5 +914,41 @@ namespace Komodex.WP7DACPRemote.Localization {
                 return ResourceManager.GetString("Version", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to movies.
+        /// </summary>
+        public static string VideosMoviesPivotItem {
+            get {
+                return ResourceManager.GetString("VideosMoviesPivotItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No movies were found in your library..
+        /// </summary>
+        public static string VideosNoMoviesFound {
+            get {
+                return ResourceManager.GetString("VideosNoMoviesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No TV shows were found in your library..
+        /// </summary>
+        public static string VideosNoTVShowsFound {
+            get {
+                return ResourceManager.GetString("VideosNoTVShowsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tv shows.
+        /// </summary>
+        public static string VideosTVShowsPivotItem {
+            get {
+                return ResourceManager.GetString("VideosTVShowsPivotItem", resourceCulture);
+            }
+        }
     }
 }

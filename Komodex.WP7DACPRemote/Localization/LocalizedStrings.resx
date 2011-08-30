@@ -438,4 +438,16 @@
     <value>Version:</value>
     <comment>Identifying the application version, "Version: 1.6.0.0"</comment>
   </data>
+  <data name="VideosMoviesPivotItem" xml:space="preserve">
+    <value>movies</value>
+  </data>
+  <data name="VideosNoMoviesFound" xml:space="preserve">
+    <value>No movies were found in your library.</value>
+  </data>
+  <data name="VideosNoTVShowsFound" xml:space="preserve">
+    <value>No TV shows were found in your library.</value>
+  </data>
+  <data name="VideosTVShowsPivotItem" xml:space="preserve">
+    <value>tv shows</value>
+  </data>
 </root>
