@@ -212,10 +212,6 @@
     <value>From last connection attempt</value>
     <comment>States that the information displayed is from a previous connection attempt</comment>
   </data>
-  <data name="GeniusMixAndOthers" xml:space="preserve">
-    <value>&amp; others</value>
-    <comment>"Based on music by: x, y, z, &amp; others"</comment>
-  </data>
   <data name="GeniusMixBasedOnMusicBy" xml:space="preserve">
     <value>Based on music by:</value>
   </data>
@@ -329,6 +325,9 @@
     <value>more</value>
     <comment>This button displays additional library content types (podcasts, videos, etc.). Application bar button (needs to be short).</comment>
   </data>
+  <data name="MultipleItems" xml:space="preserve">
+    <value>{0} items</value>
+  </data>
   <data name="NextAppBarButton" xml:space="preserve">
     <value>next</value>
     <comment>For "next track" button on the application bar (needs to be short)</comment>
@@ -344,6 +343,9 @@
   <data name="NowPlayingButton" xml:space="preserve">
     <value>now playing</value>
     <comment>Button that shows the user what song is currently playing</comment>
+  </data>
+  <data name="OneItem" xml:space="preserve">
+    <value>1 item</value>
   </data>
   <data name="PlaylistPageTitle" xml:space="preserve">
     <value>PLAYLISTS</value>

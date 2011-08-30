@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Komodex.DACP.Localization;
 
 namespace Komodex.DACP.Library
 {
@@ -48,8 +49,8 @@ namespace Komodex.DACP.Library
             get
             {
                 if (ItemCount == 1)
-                    return "1 item";
-                return ItemCount + " items";
+                    return LocalizedDACPStrings.OneItem;
+                return string.Format(LocalizedDACPStrings.MultipleItems, ItemCount);
             }
         }
         public bool SmartPlaylist { get; protected set; }
@@ -114,7 +115,7 @@ namespace Komodex.DACP.Library
                         string description = kvp.Value.GetStringValue();
                         if (string.IsNullOrEmpty(description))
                             break;
-                        GeniusMixDescription = description.Replace(",,,", ", ") + " & others";
+                        GeniusMixDescription = description.Replace(",,,", ", ") + " " + LocalizedDACPStrings.GeniusMixAndOthers;
                         break;
                     default:
                         break;

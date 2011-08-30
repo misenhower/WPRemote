@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Linq;
+using Komodex.DACP.Localization;
 
 namespace Komodex.DACP
 {
@@ -400,10 +401,10 @@ namespace Komodex.DACP
                     case PlayStates.Playing:
                         return CurrentTrackTimePositionString;
                     case PlayStates.Paused:
-                        return "paused";
+                        return LocalizedDACPStrings.PlayStatusPaused;
                     case PlayStates.Stopped:
                         if (CurrentSongName != null)
-                            return "paused";
+                            return LocalizedDACPStrings.PlayStatusPaused;
                         goto default;
                     default:
                         return string.Empty;

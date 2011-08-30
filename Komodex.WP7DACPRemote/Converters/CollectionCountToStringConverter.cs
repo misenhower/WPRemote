@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Data;
 using System.Collections;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.Converters
 {
@@ -23,7 +24,9 @@ namespace Komodex.WP7DACPRemote.Converters
             if (value is ICollection)
             {
                 int count = ((ICollection)value).Count;
-                return count + ((count == 1) ? " item" : " items");
+                if (count == 1)
+                    return LocalizedStrings.OneItem;
+                return string.Format(LocalizedStrings.MultipleItems, count);
             }
 
             return null;

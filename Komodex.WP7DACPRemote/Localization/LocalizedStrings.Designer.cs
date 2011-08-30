@@ -295,15 +295,6 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp; others.
-        /// </summary>
-        public static string GeniusMixAndOthers {
-            get {
-                return ResourceManager.GetString("GeniusMixAndOthers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Based on music by:.
         /// </summary>
         public static string GeniusMixBasedOnMusicBy {
@@ -619,6 +610,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} items.
+        /// </summary>
+        public static string MultipleItems {
+            get {
+                return ResourceManager.GetString("MultipleItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to next.
         /// </summary>
         public static string NextAppBarButton {
@@ -651,6 +651,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static string NowPlayingButton {
             get {
                 return ResourceManager.GetString("NowPlayingButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 item.
+        /// </summary>
+        public static string OneItem {
+            get {
+                return ResourceManager.GetString("OneItem", resourceCulture);
             }
         }
         
