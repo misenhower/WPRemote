@@ -646,6 +646,15 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PLAYLISTS.
+        /// </summary>
+        public static string PlaylistPageTitle {
+            get {
+                return ResourceManager.GetString("PlaylistPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to play/pause.
         /// </summary>
         public static string PlayPauseAppBarButton {

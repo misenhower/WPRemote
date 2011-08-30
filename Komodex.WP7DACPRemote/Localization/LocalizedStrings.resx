@@ -342,6 +342,9 @@
     <value>now playing</value>
     <comment>Button that shows the user what song is currently playing</comment>
   </data>
+  <data name="PlaylistPageTitle" xml:space="preserve">
+    <value>PLAYLISTS</value>
+  </data>
   <data name="PlayPauseAppBarButton" xml:space="preserve">
     <value>play/pause</value>
     <comment>For "play/pause" button on the application bar (needs to be short)</comment>

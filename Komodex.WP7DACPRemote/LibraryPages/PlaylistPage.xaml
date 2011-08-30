@@ -45,7 +45,7 @@
                     <Border Background="{StaticResource PhoneChromeBrush}">
                         <StackPanel Orientation="Horizontal">
                             <ContentControl Template="{StaticResource ShuffleIcon}" />
-                            <TextBlock Text="shuffle all" Margin="0,3,12,0" FontSize="28"
+                            <TextBlock Text="{Binding LocalizedStrings.ShuffleAllButton, Source={StaticResource LocalizedStrings}}" Margin="0,3,12,0" FontSize="28"
                                        Style="{StaticResource PhoneTextBlockBase}"
                                        FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                         </StackPanel>
@@ -64,7 +64,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="PLAYLISTS" Style="{StaticResource PhoneTextAppTitleStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.PlaylistPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
             <TextBlock x:Name="PageTitle" Text="{Binding Name}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
