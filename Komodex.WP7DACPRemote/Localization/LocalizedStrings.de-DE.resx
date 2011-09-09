@@ -117,4 +117,339 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutLibraryInformation" xml:space="preserve">
+    <value>Biblithek Information</value>
+  </data>
+  <data name="AboutMenuItem" xml:space="preserve">
+    <value>über</value>
+    <comment>Text for application bar menu item</comment>
+  </data>
+  <data name="AboutPageTitle" xml:space="preserve">
+    <value>über</value>
+    <comment>Text for page title</comment>
+  </data>
+  <data name="AddAppBarButton" xml:space="preserve">
+    <value>hinzufügen</value>
+    <comment>Used for adding a new iTunes library to the application. Application bar button (needs to be short)</comment>
+  </data>
+  <data name="AddLibraryButton" xml:space="preserve">
+    <value>Bibliothek hinzufügen</value>
+  </data>
+  <data name="AddNewLibraryPageDescription" xml:space="preserve">
+    <value>Um dieses Gerät mit einer neuen Bilbliothek zu verknüpfen, müssen Sie das Verknüpfungsprogramm von unserer Website herunterladen:</value>
+  </data>
+  <data name="AddNewLibraryPageTitle" xml:space="preserve">
+    <value>NEUE BIBLIOTHEK HINZUFÜGEN</value>
+  </data>
+  <data name="AirPlaySpeakersMenuItem" xml:space="preserve">
+    <value>AirPlay Lautsprecher</value>
+    <comment>Menu item to manage Apple AirPlay speakers.</comment>
+  </data>
+  <data name="AirPlaySpeakersPageTitle" xml:space="preserve">
+    <value>AIRPLAY LAUTSPRECHER</value>
+    <comment>Page title for the AirPlay speaker management page</comment>
+  </data>
+  <data name="AlbumPageTitle" xml:space="preserve">
+    <value>Album</value>
+  </data>
+  <data name="BrowseLibraryAppBarButton" xml:space="preserve">
+    <value>browsen</value>
+    <comment>Button on the application bar (needs to be short)</comment>
+  </data>
+  <data name="BrowseLibraryButton" xml:space="preserve">
+    <value>Bibliothek durchsuchen</value>
+  </data>
+  <data name="BrowseLibraryMenuItem" xml:space="preserve">
+    <value>Bibliothek durchsuchen</value>
+  </data>
+  <data name="CancelAppBarButton" xml:space="preserve">
+    <value>Abbrechen</value>
+    <comment>Application bar button (needs to be short)</comment>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ChooseLibraryButton" xml:space="preserve">
+    <value>Biblithek wählen…</value>
+  </data>
+  <data name="ChooseLibraryMenuItem" xml:space="preserve">
+    <value>Bibliothek wählen</value>
+    <comment>Application bar menu item</comment>
+  </data>
+  <data name="ChooseLibraryPageTitle" xml:space="preserve">
+    <value>Bibliothek wählen</value>
+    <comment>Appears at the top of the "choose library" page</comment>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>[Kontaktieren Sie uns] für Support und Feedback</value>
+    <comment>"Contact us" is a hyperlink (the brackets are removed)</comment>
+  </data>
+  <data name="FirstRunIntro1" xml:space="preserve">
+    <value>Um Remote mit iTunes oder einem anderen kompatiblen Programm das erste Mal zu verknüpfen, müssen Sie das Verknüpfungsprogramm auf Ihrem Computer ausführen. Dieses Programm kann von unserer Website der heruntergeladen werden:</value>
+    <comment>First-run text</comment>
+  </data>
+  <data name="FirstRunIntro2" xml:space="preserve">
+    <value>Wenn die Verknüpfung vollständig erfolgt ist, tippe auf "Bibliothek hinzufügen" unten um mit Ihrer Biblitothek verbunden zu werden.</value>
+    <comment>First-run text</comment>
+  </data>
+  <data name="FirstRunIntro3" xml:space="preserve">
+    <value>Um fortzufahren ist es notwendig, dass Ihr Handy mit dem Wi-fi Netzwerk verbunden ist. </value>
+    <comment>First-run text</comment>
+  </data>
+  <data name="FirstRunTitle" xml:space="preserve">
+    <value>Willkommen</value>
+    <comment>First-run title</comment>
+  </data>
+  <data name="FollowOnTwitter" xml:space="preserve">
+    <value>Folge [@WP7Remote] bei Twitter</value>
+    <comment>"@WP7Remote" is a hyperlink (the brackets are removed)</comment>
+  </data>
+  <data name="ForWP7" xml:space="preserve">
+    <value>für Windows Phone 7</value>
+    <comment>Used on the About page, "Remote for Windows Phone 7"</comment>
+  </data>
+  <data name="FromLastConnectionAttempt" xml:space="preserve">
+    <value>Vom letzten Verbindungsversuch</value>
+    <comment>States that the information displayed is from a previous connection attempt</comment>
+  </data>
+  <data name="GeniusMixBasedOnMusicBy" xml:space="preserve">
+    <value>Basiert auf Musik von:</value>
+  </data>
+  <data name="GeniusMixesListItem" xml:space="preserve">
+    <value>geniale Mixe</value>
+    <comment>iTunes Genius Mixes feature</comment>
+  </data>
+  <data name="GeniusMixesPageTitle" xml:space="preserve">
+    <value>geniale Mixe</value>
+  </data>
+  <data name="GenreNoAlbumsFound" xml:space="preserve">
+    <value>Es wurden keine Alben für dieses Genre gefunden</value>
+  </data>
+  <data name="GenreNoArtistsFound" xml:space="preserve">
+    <value>Es wurden keine Künstler für dieses Genre gefunden.</value>
+  </data>
+  <data name="GenreNoSongsFound" xml:space="preserve">
+    <value>Es wurden keine Songs für dieses Genre gefunden.</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Home</value>
+    <comment>Title text displayed on the app's home screen</comment>
+  </data>
+  <data name="LibraryAlbumsPivotItem" xml:space="preserve">
+    <value>Alben</value>
+  </data>
+  <data name="LibraryArtistsPivotItem" xml:space="preserve">
+    <value>Künstler</value>
+  </data>
+  <data name="LibraryConnectionErrorBody" xml:space="preserve">
+    <value>Konnte nicht mit der Bibliothek verbunden werden. Bitte versichern Sie, dass Ihr Handy mit dem Wi-fi Netzwerk verbunden ist und überprüfen Sie was in dem Feld für den Nutzernamen eingetragen ist.</value>
+  </data>
+  <data name="LibraryConnectionErrorTitle" xml:space="preserve">
+    <value>Verbindungsfehler</value>
+  </data>
+  <data name="LibraryErrorBody" xml:space="preserve">
+    <value>Ein unbekannter Fehler ist aufgetreten. Bitte überprüfen Sie Ihre Bilbiothek und versuchen Sie es erneut.</value>
+    <comment>Body of a message box</comment>
+  </data>
+  <data name="LibraryErrorTitle" xml:space="preserve">
+    <value>Bilbliothek Fehler</value>
+    <comment>Title of a message box</comment>
+  </data>
+  <data name="LibraryGenresPivotItem" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="LibraryHostname" xml:space="preserve">
+    <value>Nutzer</value>
+    <comment>This represents the hostname or IP address of a computer</comment>
+  </data>
+  <data name="LibraryNoAlbumsFound" xml:space="preserve">
+    <value>Es wurden keine Alben in Ihrer Bibliothek gefunden.</value>
+  </data>
+  <data name="LibraryNoArtistsFound" xml:space="preserve">
+    <value>Es wurden keine Künstler in Ihrer Bibliothek gefunden.</value>
+  </data>
+  <data name="LibraryNoGenresFound" xml:space="preserve">
+    <value>Es wurden keine Genre in Ihrer Bilbiothek gefunden.</value>
+  </data>
+  <data name="LibraryNoPlaylistsFound" xml:space="preserve">
+    <value>Es wurden keine Playlists in Ihrer Bibliothek gefunden.</value>
+  </data>
+  <data name="LibraryNoPodcastsFound" xml:space="preserve">
+    <value>Es wurden keine Podcasts in Ihrer Bibliothek gefunden.</value>
+  </data>
+  <data name="LibraryPIN" xml:space="preserve">
+    <value>PIN</value>
+    <comment>A four-digit PIN used for authentication</comment>
+  </data>
+  <data name="LibraryPINErrorBody" xml:space="preserve">
+    <value>Es konnte keine Verbindung zur Bilbliothek hergestellt werden. Bitte überprüfen sie die PIN und versuchen Sie es erneut.</value>
+  </data>
+  <data name="LibraryPINErrorTitle" xml:space="preserve">
+    <value>PIN Fehler</value>
+  </data>
+  <data name="LibraryPlaylistsPivotItem" xml:space="preserve">
+    <value>Playlisten</value>
+  </data>
+  <data name="LibraryPodcastsButton" xml:space="preserve">
+    <value>Podcasts</value>
+  </data>
+  <data name="LibrarySongsPivotItem" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="LibraryUSBErrorBody" xml:space="preserve">
+    <value>Es konnte keine Verbindung zu Ihrer Bibliothek hergestellt werden. Bitte entfernen Sie das USB Kabel zwischen Ihrem Handy und Ihrem Computer und versuchen Sie es erneut.</value>
+  </data>
+  <data name="LibraryUSBErrorTitle" xml:space="preserve">
+    <value>Netzwerkverbindung Fehler</value>
+  </data>
+  <data name="LibraryVersionErrorBody" xml:space="preserve">
+    <value>Diese Applikation erfordert zur Zeit  die iTunes Version 10.1 oder eine neuere Version. Bitte upgraden Sie die neueste iTunes Version um fortzufahren.</value>
+  </data>
+  <data name="LibraryVersionErrorTitle" xml:space="preserve">
+    <value>iTunes Version Error</value>
+  </data>
+  <data name="LibraryVideosButton" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="LibraryWifiErrorBody" xml:space="preserve">
+    <value>Bitte stellen Sie sicher, dass Ihr Handy Verbindung zu einem Wi-fi Netzwerk hat und versuchen Sie es erneut.</value>
+  </data>
+  <data name="LibraryWifiErrorTitle" xml:space="preserve">
+    <value>Wi-fi Verbindungsfehler</value>
+  </data>
+  <data name="MasterVolume" xml:space="preserve">
+    <value>MASTER  LAUTSTÄRKE</value>
+    <comment>This is the label for a slider that controls the master (primary) volume</comment>
+  </data>
+  <data name="MoreAppBarButton" xml:space="preserve">
+    <value>mehr</value>
+    <comment>This button displays additional library content types (podcasts, videos, etc.). Application bar button (needs to be short).</comment>
+  </data>
+  <data name="MultipleItems" xml:space="preserve">
+    <value>{0} items</value>
+  </data>
+  <data name="NextAppBarButton" xml:space="preserve">
+    <value>nächster</value>
+    <comment>For "next track" button on the application bar (needs to be short)</comment>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>Nicht verbunden</value>
+    <comment>Library status</comment>
+  </data>
+  <data name="NowPlayingAppBarButton" xml:space="preserve">
+    <value>spielt jetzt</value>
+    <comment>Button on the application bar (needs to be short)</comment>
+  </data>
+  <data name="NowPlayingButton" xml:space="preserve">
+    <value>spielt jetzt</value>
+    <comment>Button that shows the user what song is currently playing</comment>
+  </data>
+  <data name="OneItem" xml:space="preserve">
+    <value>1 Artikel</value>
+  </data>
+  <data name="PlaylistPageTitle" xml:space="preserve">
+    <value>PLAYLISTEN</value>
+  </data>
+  <data name="PlayPauseAppBarButton" xml:space="preserve">
+    <value>Play/Pause</value>
+    <comment>For "play/pause" button on the application bar (needs to be short)</comment>
+  </data>
+  <data name="PodcastPageTitle" xml:space="preserve">
+    <value>PODCASTS</value>
+  </data>
+  <data name="PodcastsPageTitle" xml:space="preserve">
+    <value>Podcasts</value>
+  </data>
+  <data name="PreviousAppBarButton" xml:space="preserve">
+    <value>vorheriger</value>
+    <comment>For "previous track" button on the application bar (needs to be short)</comment>
+  </data>
+  <data name="Protocol" xml:space="preserve">
+    <value>Protokoll:</value>
+  </data>
+  <data name="SaveAppBarButton" xml:space="preserve">
+    <value>speichern</value>
+    <comment>Applicaion bar button (needs to be short)</comment>
+  </data>
+  <data name="SearchAppBarButton" xml:space="preserve">
+    <value>suchen</value>
+    <comment>Button on the application bar (needs to be short)</comment>
+  </data>
+  <data name="SearchButton" xml:space="preserve">
+    <value>suchen</value>
+  </data>
+  <data name="SearchMenuItem" xml:space="preserve">
+    <value>suchen</value>
+  </data>
+  <data name="SearchPageTitle" xml:space="preserve">
+    <value>BIBLIOTHEK DURCHSUCHEN</value>
+  </data>
+  <data name="SelectMediaPageTitle" xml:space="preserve">
+    <value>ART DES MEDIUMS AUSWÄHLEN</value>
+  </data>
+  <data name="SettingsArtistTapAction" xml:space="preserve">
+    <value>Tippe auf den zur Zeit spielenden Künstler um </value>
+  </data>
+  <data name="SettingsArtistTapOpenAlbumPage" xml:space="preserve">
+    <value>die Album Seite zu öffnen</value>
+  </data>
+  <data name="SettingsArtistTapOpenArtistPage" xml:space="preserve">
+    <value>Künstlerseite öffnen</value>
+  </data>
+  <data name="SettingsExtendedErrorReporting" xml:space="preserve">
+    <value>Erweiterte Fehlerberichte</value>
+  </data>
+  <data name="SettingsMenuItem" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="SettingsPageTitle" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="SettingsStayConnectedDescription" xml:space="preserve">
+    <value>Indem Sie mit der Bibliothek verbunden bleiben während Ihr Handy gesperrt ist, vereinfacht das Fortfahren vom Sperr-Bildschirm, aber es verbraucht eventuell mehr Akku.</value>
+  </data>
+  <data name="SettingsStayConnectedUnderLock" xml:space="preserve">
+    <value>Bleiben Sie auch unter dem Sperr-Bildschirm verbunden</value>
+  </data>
+  <data name="SettingsTakeEffectNextRun" xml:space="preserve">
+    <value>Wenn Sie Remote das nächste mal starten, wird diese Änderung vorgenommen werden.</value>
+  </data>
+  <data name="ShuffleAlbumButton" xml:space="preserve">
+    <value>Shuffle Album</value>
+  </data>
+  <data name="ShuffleAllButton" xml:space="preserve">
+    <value>Shuffle alle</value>
+  </data>
+  <data name="ShuffleAllSongsMenuItem" xml:space="preserve">
+    <value>Shuffle alle Songs</value>
+  </data>
+  <data name="StatusConnectingToLibrary" xml:space="preserve">
+    <value>Mit Bilbliothek verbinden</value>
+    <comment>Status text</comment>
+  </data>
+  <data name="StatusTapChooseLibrary" xml:space="preserve">
+    <value>Tippe auf "Bibliothek wählen" um eine Bilbliothek zu wählen oder eine neue hinzuzufügen.</value>
+  </data>
+  <data name="ToggleSwitchOff" xml:space="preserve">
+    <value>Aus</value>
+  </data>
+  <data name="ToggleSwitchOn" xml:space="preserve">
+    <value>Auf</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version:</value>
+    <comment>Identifying the application version, "Version: 1.6.0.0"</comment>
+  </data>
+  <data name="VideosMoviesPivotItem" xml:space="preserve">
+    <value>Filme</value>
+  </data>
+  <data name="VideosNoMoviesFound" xml:space="preserve">
+    <value>Es wurden keine Filme in Ihrer Bibliothek gefunden.</value>
+  </data>
+  <data name="VideosNoTVShowsFound" xml:space="preserve">
+    <value>Es wurden keine TV Shows in Ihrer Bibliothek gefunden.</value>
+  </data>
+  <data name="VideosTVShowsPivotItem" xml:space="preserve">
+    <value>TV Shows</value>
+  </data>
 </root>

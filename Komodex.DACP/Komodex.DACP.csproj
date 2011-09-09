@@ -80,7 +80,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Localization\LocalizedDACPStrings.de-DE.resx" />
+    <EmbeddedResource Include="Localization\LocalizedDACPStrings.de-DE.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\LocalizedDACPStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LocalizedDACPStrings.Designer.cs</LastGenOutput>
