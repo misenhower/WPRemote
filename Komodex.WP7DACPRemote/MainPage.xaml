@@ -28,6 +28,7 @@
             <Setter Property="Padding" Value="12,6" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="12,6,0,6" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -41,9 +42,10 @@
             </Setter>
         </Style>
         <Style x:Key="ItemHeaderStyle" BasedOn="{StaticResource PhoneTextBlockBase}" TargetType="TextBlock">
-            <Setter Property="Margin" Value="12,0,12,6" />
+            <Setter Property="Margin" Value="12,0,0,6" />
             <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}"/>
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeExtraLarge}"/>
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
     </app:DACPServerBoundPhoneApplicationPage.Resources>
 
@@ -145,7 +147,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ContentControl Template="{StaticResource BrowseLibraryIconButton}" />
+                        <ContentControl Template="{StaticResource BrowseLibraryIconButton}" VerticalAlignment="Top" Margin="0,8,0,0" />
                         <TextBlock Text="{Binding LocalizedStrings.BrowseLibraryButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
