@@ -119,6 +119,11 @@ namespace Komodex.WP7DACPRemote
 
             if (string.IsNullOrEmpty(tbiTunesVersion.Text))
                 tbiTunesVersion.Text = "N/A";
+
+            var twitterVisibility = System.Windows.Visibility.Visible;
+            if (tbiTunesNotConnected.Visibility == System.Windows.Visibility.Visible)
+                twitterVisibility = System.Windows.Visibility.Collapsed;
+            twitter1.Visibility = twitter2.Visibility = twitter3.Visibility = twitterVisibility;
         }
 
         #endregion
