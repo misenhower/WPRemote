@@ -16,6 +16,13 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
+    <app:DACPServerBoundPhoneApplicationPage.Resources>
+        <DataTemplate x:Key="WrappingHeaderTemplate">
+            <Grid>
+                <TextBlock TextWrapping="Wrap" Text="{Binding}" />
+            </Grid>
+        </DataTemplate>
+    </app:DACPServerBoundPhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -40,7 +47,7 @@
 
                 <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsStayConnectedUnderLock, Source={StaticResource LocalizedStrings}}" Margin="0,0,0,-24"
                                       IsChecked="{Binding RunUnderLock, Mode=TwoWay}"
-                                      CacheMode="BitmapCache" />
+                                      CacheMode="BitmapCache" HeaderTemplate="{StaticResource WrappingHeaderTemplate}" />
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" CacheMode="BitmapCache"
                            Text="{Binding LocalizedStrings.SettingsStayConnectedDescription, Source={StaticResource LocalizedStrings}}" />
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12" CacheMode="BitmapCache"
