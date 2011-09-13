@@ -232,6 +232,7 @@
         <converters:CollapseIfLessThanOneConverter x:Key="collapseIfLessThanOneConverter" />
         <converters:CollapseIfLessThanTwoConverter x:Key="collapseIfLessThanTwoConverter" />
         <converters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
+        <converters:LocalizedOffOnConverter x:Key="LocalizedOffOnConverter" />
 
         <!-- Grouped ListBox Templates -->
         <DataTemplate x:Key="GroupItemTemplate">
