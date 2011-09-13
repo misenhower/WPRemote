@@ -434,7 +434,7 @@
     <value>Aus</value>
   </data>
   <data name="ToggleSwitchOn" xml:space="preserve">
-    <value>Auf</value>
+    <value>Ein</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version:</value>
