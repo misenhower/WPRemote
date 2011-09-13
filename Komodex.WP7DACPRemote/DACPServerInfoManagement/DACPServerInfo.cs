@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
@@ -100,7 +101,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         public string SecondLine
         {
-            get { return string.Format("Host: {0}, PIN: {1:0000}", HostName, PIN); }
+            get { return string.Format("{0}: {1}, {2}: {3:0000}", LocalizedStrings.LibraryHostname, HostName, LocalizedStrings.LibraryPIN, PIN); }
         }
 
         #region Notify Property Changed
