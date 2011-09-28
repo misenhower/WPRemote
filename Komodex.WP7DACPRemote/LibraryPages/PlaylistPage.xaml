@@ -36,7 +36,7 @@
             </my:FakeButton>
         </DataTemplate>
         <DataTemplate x:Key="SongHeaderTemplate">
-            <Border Background="Transparent" DataContext="{Binding ElementName=LayoutRoot, Path=DataContext}">
+            <Border Background="Transparent">
                 <Button Template="{StaticResource EmptyButton}"
                                 Margin="12,0,0,12"
                                 Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}"
@@ -72,6 +72,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <toolkit:LongListSelector x:Name="lbSongs" IsFlatList="True"
                                       ItemTemplate="{StaticResource SongTemplate}"
+                                      ListHeader="{Binding}"
                                       ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
                                       ItemsSource="{Binding Songs}"
                                       SelectionChanged="lbSongs_SelectionChanged"

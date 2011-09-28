@@ -63,7 +63,6 @@
         
         <DataTemplate x:Key="PlaylistHeaderTemplate">
             <Button Template="{StaticResource EmptyButton}" Click="GeniusMixesButton_Click"
-                    DataContext="{Binding ElementName=LayoutRoot, Path=DataContext}"
                     Visibility="{Binding LibraryGeniusMixes, Converter={StaticResource collapseIfLessThanOneConverter}}">
                 <Border Padding="12,6,0,12" Background="Transparent">
                     <Grid>
@@ -183,6 +182,7 @@
                     <toolkit:LongListSelector x:Name="lbPlaylists" Background="Transparent" ItemsSource="{Binding LibraryPlaylists}"
                                               IsFlatList="True"
                                               Margin="0,0,-12,0"
+                                              ListHeader="{Binding}"
                                               ListHeaderTemplate="{StaticResource PlaylistHeaderTemplate}"
                                               ItemTemplate="{StaticResource PlaylistTemplate}"
                                               ListFooterTemplate="{StaticResource ListFooter}">
