@@ -83,8 +83,6 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             UpdateRepeatShuffleButtons();
             UpdateMediaKind();
 
-            GestureListener.IgnoreTouchFrameReported = true;
-
             if (State.ContainsKey(StateUtils.SavedStateKey))
             {
                 if (ShouldGoBack())
@@ -116,8 +114,6 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             goBackTimer.Stop();
 
             base.OnNavigatedFrom(e);
-
-            GestureListener.IgnoreTouchFrameReported = false;
 
             State[StateUtils.SavedStateKey] = true;
         }
