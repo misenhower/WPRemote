@@ -223,8 +223,8 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" Margin="0,0,-12,0">
-                        <Slider Name="MasterVolumeSlider" Height="48" Margin="0,0,36,0" 
+                    <Border Grid.Column="0">
+                        <Slider Name="MasterVolumeSlider" Height="48"
                                 Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
                                 Style="{StaticResource VolumeSliderStyle}"
                                 VerticalAlignment="Center" />
