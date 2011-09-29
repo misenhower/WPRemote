@@ -78,6 +78,13 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             {
                 string uri = toOrFrom.OriginalString;
 
+                if (uri.Contains("ArtistPage"))
+                {
+                    if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
+                        return this.GetListSelectorAnimation(lbArtists, animationType);
+                    else
+                        return GetContinuumAnimation(LayoutRoot, animationType);
+                }
                 if (uri.Contains("AlbumPage"))
                 {
                     if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)

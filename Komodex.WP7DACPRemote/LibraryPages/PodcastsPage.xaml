@@ -1,5 +1,6 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.PodcastsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -60,7 +61,7 @@
             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.LibraryNoPodcastsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=LibraryPodcasts, Converter={StaticResource noListItemsVisibilityConverter}}" />
-            <toolkit:LongListSelector x:Name="lbPodcasts" Background="Transparent" ItemsSource="{Binding LibraryPodcasts}"
+            <my:LongListSelectorEx x:Name="lbPodcasts" Background="Transparent" ItemsSource="{Binding LibraryPodcasts}"
                                               Margin="0,0,-12,0"
                                               ItemTemplate="{StaticResource PodcastTemplate}"
                                               GroupItemTemplate="{StaticResource GroupItemTemplate}"
@@ -73,7 +74,7 @@
                         <toolkit:WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </toolkit:LongListSelector.GroupItemsPanel>
-            </toolkit:LongListSelector>
+            </my:LongListSelectorEx>
         </Grid>
     </Grid>
  

@@ -15,6 +15,7 @@ using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using System.Linq;
 using Komodex.WP7DACPRemote.Localization;
+using Komodex.WP7DACPRemote.Controls;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -64,12 +65,11 @@ namespace Komodex.WP7DACPRemote
 
         #region LongListSelector helpers
 
-        public static AnimatorHelperBase GetListSelectorAnimation(this AnimatedBasePage page, LongListSelector listSelector, AnimationType animationType)
+        public static AnimatorHelperBase GetListSelectorAnimation(this AnimatedBasePage page, LongListSelectorEx listSelector, AnimationType animationType)
         {
             if (listSelector.SelectedItem != null)
             {
-                var contentPresenters = listSelector.GetItemsWithContainers(true, true).Cast<ContentPresenter>();
-                var contentPresenter = contentPresenters.FirstOrDefault(cp => cp.Content == listSelector.SelectedItem);
+                var contentPresenter = listSelector.SelectedContentPresenter;
 
                 if (animationType == AnimationType.NavigateBackwardIn)
                     listSelector.SelectedItem = null;

@@ -77,6 +77,7 @@
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FakeButton.cs" />
+    <Compile Include="Controls\LongListSelectorEx.cs" />
     <Compile Include="Controls\MemoryCounters.cs" />
     <Compile Include="Controls\StarRating.xaml.cs">
       <DependentUpon>StarRating.xaml</DependentUpon>

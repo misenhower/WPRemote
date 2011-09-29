@@ -93,19 +93,19 @@
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.GenreNoArtistsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=Artists, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <toolkit:LongListSelector x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding Artists}"
-                                              Margin="0,0,-12,0"
-                                              ItemTemplate="{StaticResource ArtistTemplate}"
-                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                              GroupViewOpened="LongListSelector_GroupViewOpened"
-                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                    <my:LongListSelectorEx x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding Artists}"
+                                           Margin="0,0,-12,0"
+                                           ItemTemplate="{StaticResource ArtistTemplate}"
+                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                           GroupViewOpened="LongListSelector_GroupViewOpened"
+                                           GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
-                    </toolkit:LongListSelector>
+                    </my:LongListSelectorEx>
                 </Grid>
             </controls:PivotItem>
 
@@ -114,19 +114,19 @@
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.GenreNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=Albums, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <toolkit:LongListSelector x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding Albums}"
-                                              Margin="0,0,-12,0"
-                                              ItemTemplate="{StaticResource AlbumTemplate}"
-                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                              GroupViewOpened="LongListSelector_GroupViewOpened"
-                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                    <my:LongListSelectorEx x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding Albums}"
+                                           Margin="0,0,-12,0"
+                                           ItemTemplate="{StaticResource AlbumTemplate}"
+                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                           GroupViewOpened="LongListSelector_GroupViewOpened"
+                                           GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
-                    </toolkit:LongListSelector>
+                    </my:LongListSelectorEx>
                 </Grid>
             </controls:PivotItem>
 

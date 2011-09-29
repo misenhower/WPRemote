@@ -92,6 +92,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                     return this.GetListSelectorAnimation(lbArtists, animationType);
                 if (uri.Contains("AlbumPage"))
                     return this.GetListSelectorAnimation(lbAlbums, animationType);
+                if (uri.Contains("GenrePage"))
+                    return this.GetListSelectorAnimation(lbGenres, animationType);
                 if (uri.Contains("PlaylistPage"))
                     return this.GetListSelectorAnimation(lbPlaylists, animationType);
             }
