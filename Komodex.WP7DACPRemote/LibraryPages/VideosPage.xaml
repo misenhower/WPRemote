@@ -52,21 +52,21 @@
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.VideosNoMoviesFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=LibraryMovies, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <toolkit:LongListSelector x:Name="lbMovies" Background="Transparent" ItemsSource="{Binding LibraryMovies}"
-                                              Margin="0,0,-12,0"
-                                              Tap="LongListSelector_Tap"
-                                              ItemTemplate="{StaticResource MovieTemplate}"
-                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                              ListFooterTemplate="{StaticResource ListFooter}"
-                                              GroupViewOpened="LongListSelector_GroupViewOpened"
-                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                    <my:LongListSelectorEx x:Name="lbMovies" Background="Transparent" ItemsSource="{Binding LibraryMovies}"
+                                           Margin="0,0,-12,0"
+                                           Tap="LongListSelector_Tap"
+                                           ItemTemplate="{StaticResource MovieTemplate}"
+                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                           ListFooterTemplate="{StaticResource ListFooter}"
+                                           GroupViewOpened="LongListSelector_GroupViewOpened"
+                                           GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
-                    </toolkit:LongListSelector>
+                    </my:LongListSelectorEx>
                 </Grid>
             </controls:PivotItem>
 
@@ -75,21 +75,21 @@
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.VideosNoTVShowsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=LibraryTVShows, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <toolkit:LongListSelector x:Name="lbTVShows" Background="Transparent" ItemsSource="{Binding LibraryTVShows}"
-                                              Margin="0,0,-12,0"
-                                              Tap="LongListSelector_Tap"
-                                              ItemTemplate="{StaticResource MovieTemplate}"
-                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                              ListFooterTemplate="{StaticResource ListFooter}"
-                                              GroupViewOpened="LongListSelector_GroupViewOpened"
-                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                    <my:LongListSelectorEx x:Name="lbTVShows" Background="Transparent" ItemsSource="{Binding LibraryTVShows}"
+                                           Margin="0,0,-12,0"
+                                           Tap="LongListSelector_Tap"
+                                           ItemTemplate="{StaticResource MovieTemplate}"
+                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                           ListFooterTemplate="{StaticResource ListFooter}"
+                                           GroupViewOpened="LongListSelector_GroupViewOpened"
+                                           GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
-                    </toolkit:LongListSelector>
+                    </my:LongListSelectorEx>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

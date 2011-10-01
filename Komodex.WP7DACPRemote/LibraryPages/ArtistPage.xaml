@@ -92,14 +92,14 @@
             <!--Pivot item two-->
             <controls:PivotItem x:Name="pivotSongs" Header="{Binding LocalizedStrings.LibrarySongsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <toolkit:LongListSelector x:Name="lbSongs" Margin="0,0,-12,0"
-                                              Link="lbSongs_Link"
-                                              Tap="LongListSelector_Tap"
-                                              ItemsSource="{Binding Songs}" IsFlatList="True" 
-                                              ItemTemplate="{StaticResource SongTemplate}"
-                                              ListHeader="{Binding}"
-                                              ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
-                                              />
+                    <my:LongListSelectorEx x:Name="lbSongs" Margin="0,0,-12,0"
+                                           Link="lbSongs_Link"
+                                           Tap="LongListSelector_Tap"
+                                           ItemsSource="{Binding Songs}" IsFlatList="True" 
+                                           ItemTemplate="{StaticResource SongTemplate}"
+                                           ListHeader="{Binding}"
+                                           ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
+                                           />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
