@@ -79,7 +79,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
                 if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
                 {
-                    if (uri.Contains("MainLibraryPage") || uri.Contains("ArtistPage") || uri.Contains("SearchPage"))
+                    if (uri.Contains("MainLibraryPage") || uri.Contains("ArtistPage") || uri.Contains("SearchPage") || uri.Contains("GenrePage"))
                         return GetContinuumAnimation(LayoutRoot, animationType);
                 }
                 else if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
