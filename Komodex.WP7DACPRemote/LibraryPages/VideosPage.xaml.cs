@@ -85,16 +85,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             GetDataForPivotItem();
         }
 
-        #endregion
-
-        #region Movies
-
-        private void MoviePlayButton_Click(object sender, RoutedEventArgs e)
+        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            MediaItem movie = ((Button)sender).Tag as MediaItem;
+            LongListSelector listBox = (LongListSelector)sender;
+            var selectedItem = listBox.SelectedItem;
 
-            if (movie != null)
+            if (selectedItem is MediaItem)
             {
+                MediaItem movie = (MediaItem)selectedItem;
                 movie.SendPlayMediaItemCommand();
                 NavigationManager.OpenNowPlayingPage();
             }
