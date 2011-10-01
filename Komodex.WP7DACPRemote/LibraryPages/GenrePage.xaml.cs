@@ -14,6 +14,7 @@ using Komodex.DACP.Library;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
+using Clarity.Phone.Extensions;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -120,74 +121,80 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #endregion
 
+        #region Event Handlers
+
+        private void lbSongs_Link(object sender, LinkUnlinkEventArgs e)
+        {
+            // Disable tilt effect on header row
+            var listBoxItem = e.ContentPresenter.GetVisualAncestors().FirstOrDefault(a => a is ListBoxItem);
+            if (listBoxItem != null)
+            {
+                bool tiltSuppressed = e.ContentPresenter.Content is Genre;
+                TiltEffect.SetSuppressTilt(listBoxItem, tiltSuppressed);
+            }
+        }
+
+        #endregion
+
         #region Actions
 
-        #region Artists
-
-        private void ArtistButton_Click(object sender, RoutedEventArgs e)
+        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Artist artist = ((Button)sender).Tag as Artist;
+            LongListSelector listBox = (LongListSelector)sender;
+            var selectedItem = listBox.SelectedItem;
 
-            if (artist != null)
+            DependencyObject originalSource = e.OriginalSource as DependencyObject;
+            if (originalSource != null)
             {
-                lbArtists.SelectedItem = artist;
-                NavigationManager.OpenArtistPage(artist.Name);
+                var ancestors = originalSource.GetVisualAncestors();
+                bool isPlayButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
+
+                // Artists
+                if (selectedItem is Artist)
+                {
+                    Artist artist = (Artist)selectedItem;
+                    if (isPlayButton)
+                    {
+                        artist.SendPlaySongCommand();
+                        listBox.SelectedItem = null;
+                        NavigationManager.OpenNowPlayingPage();
+                    }
+                    else
+                    {
+                        NavigationManager.OpenArtistPage(artist.Name);
+                    }
+                }
+                // Albums
+                else if (selectedItem is Album)
+                {
+                    Album album = (Album)selectedItem;
+                    if (isPlayButton)
+                    {
+                        album.SendPlaySongCommand();
+                        listBox.SelectedItem = null;
+                        NavigationManager.OpenNowPlayingPage();
+                    }
+                    else
+                    {
+                        NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
+                    }
+                }
+                // Shuffle songs button
+                else if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "ShuffleButton"))
+                {
+                    Genre.SendShuffleSongsCommand();
+                    NavigationManager.OpenNowPlayingPage();
+                }
+                // Songs
+                else if (selectedItem is MediaItem)
+                {
+                    MediaItem song = (MediaItem)selectedItem;
+                    Genre.SendPlaySongCommand(song);
+                    NavigationManager.OpenNowPlayingPage();
+                }
+
             }
         }
-
-        private void ArtistPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Artist artist = ((Button)sender).Tag as Artist;
-
-            if (artist != null)
-            {
-                artist.SendPlaySongCommand();
-                NavigationManager.OpenNowPlayingPage();
-            }
-        }
-
-        #endregion
-
-        #region Albums
-
-        private void AlbumButton_Click(object sender, RoutedEventArgs e)
-        {
-            Album album = ((Button)sender).Tag as Album;
-
-            if (album != null)
-            {
-                lbAlbums.SelectedItem = album;
-                NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
-            }
-        }
-
-        private void AlbumPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Album album = ((Button)sender).Tag as Album;
-
-            if (album != null)
-            {
-                album.SendPlaySongCommand();
-                NavigationManager.OpenNowPlayingPage();
-            }
-        }
-
-        #endregion
-
-        #region Songs
-
-        private void SongPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            MediaItem song = ((Button)sender).Tag as MediaItem;
-
-            if (song != null)
-            {
-                Genre.SendPlaySongCommand(song);
-                NavigationManager.OpenNowPlayingPage();
-            }
-        }
-
-        #endregion
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

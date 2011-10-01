@@ -21,66 +21,65 @@
     shell:SystemTray.IsVisible="True">
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ArtistTemplate">
-            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="ArtistButton_Click">
-                <Border Padding="12,6,0,12" Background="Transparent">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="ArtistPlayButton_Click" />
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    </StackPanel>
-                </Border>
-            </Button>
+            <Grid Margin="12,6,0,12">
+                <StackPanel Orientation="Horizontal">
+                    <my:FakeButton x:Name="PlayButton">
+                        <ContentControl Template="{StaticResource PlayButton}" />
+                    </my:FakeButton>
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </StackPanel>
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="AlbumTemplate">
-            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="AlbumButton_Click">
-                <Border Padding="12,6,0,12" Background="Transparent">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="175" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="AlbumPlayButton_Click">
-                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                        </Button>
-                        <StackPanel Grid.Column="1">
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
-                            <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
-            </Button>
+            <Grid Margin="12,6,0,12" Height="175">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <my:FakeButton x:Name="PlayButton">
+                    <ContentControl Width="175" Height="175" Template="{StaticResource AlbumButton}">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    </ContentControl>
+                </my:FakeButton>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
+                    <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
+                </StackPanel>
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="SongTemplate">
-            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="SongPlayButton_Click">
-                <Border Padding="12,6,0,6" Background="Transparent">
-                    <StackPanel Orientation="Horizontal">
-                        <Border Background="{StaticResource PhoneChromeBrush}" Width="75" Height="75" HorizontalAlignment="Left">
-                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                        </Border>
-                        <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                            <TextBlock Text="{Binding ArtistAndAlbum}" Style="{StaticResource PhoneTextSubtleStyle}" />
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-            </Button>
+            <Grid Margin="12,6,0,12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <my:FakeButton x:Name="PlayButton">
+                    <ContentControl Template="{StaticResource PlayButton}" />
+                </my:FakeButton>
+                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+            </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="SongHeaderTemplate">
-            <Border Background="Transparent">
-                <Button Template="{StaticResource EmptyButton}"
-                                Margin="12,0,0,12"
-                                Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}"
-                                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                                Click="ShuffleButton_Click">
+        <DataTemplate x:Key="SongHeaderTemplate" toolkit:TiltEffect.SuppressTilt="True">
+            <Grid Margin="12,0,0,12">
+                <my:FakeButton x:Name="ShuffleButton"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Bottom"
+                               Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}">
                     <Border Background="{StaticResource PhoneChromeBrush}">
                         <StackPanel Orientation="Horizontal">
                             <ContentControl Template="{StaticResource ShuffleIcon}" />
-                            <TextBlock Text="shuffle all" Margin="0,3,12,0" FontSize="28"
+                            <TextBlock Text="{Binding LocalizedStrings.ShuffleAllButton, Source={StaticResource LocalizedStrings}}" Margin="0,3,12,0" FontSize="28"
                                        Style="{StaticResource PhoneTextBlockBase}"
                                        FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                         </StackPanel>
                     </Border>
-                </Button>
-            </Border>
+                </my:FakeButton>
+            </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
@@ -95,6 +94,7 @@
                                Visibility="{Binding Path=Artists, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <my:LongListSelectorEx x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding Artists}"
                                            Margin="0,0,-12,0"
+                                           Tap="LongListSelector_Tap"
                                            ItemTemplate="{StaticResource ArtistTemplate}"
                                            GroupItemTemplate="{StaticResource GroupItemTemplate}"
                                            GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
@@ -116,6 +116,7 @@
                                Visibility="{Binding Path=Albums, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <my:LongListSelectorEx x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding Albums}"
                                            Margin="0,0,-12,0"
+                                           Tap="LongListSelector_Tap"
                                            ItemTemplate="{StaticResource AlbumTemplate}"
                                            GroupItemTemplate="{StaticResource GroupItemTemplate}"
                                            GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
@@ -137,6 +138,8 @@
                                Visibility="{Binding Path=Songs, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <toolkit:LongListSelector x:Name="lbSongs" Background="Transparent" ItemsSource="{Binding Songs}"
                                               Margin="0,0,-12,0"
+                                              Tap="LongListSelector_Tap"
+                                              Link="lbSongs_Link"
                                               ItemTemplate="{StaticResource SongTemplate}"
                                               ListHeader="{Binding}"
                                               ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
