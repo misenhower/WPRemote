@@ -50,7 +50,7 @@
         </DataTemplate>
         
         <DataTemplate x:Key="PlaylistHeaderTemplate">
-            <Grid x:Name="GeniusButton" Margin="12,6,0,12"><!-- Visibility="{Binding LibraryGeniusMixes, Converter={StaticResource collapseIfLessThanOneConverter}}">-->
+            <Grid x:Name="GeniusButton" Margin="12,6,0,12" Visibility="{Binding LibraryGeniusMixes, Converter={StaticResource collapseIfLessThanOneConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
