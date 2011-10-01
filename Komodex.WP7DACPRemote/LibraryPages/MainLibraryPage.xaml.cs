@@ -148,30 +148,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             GetDataForPivotItem();
         }
 
-        #region Artists
-
-        private void ArtistButton_Click(object sender, RoutedEventArgs e)
-        {
-            Artist artist = ((Button)sender).Tag as Artist;
-
-            if (artist != null)
-            {
-                lbArtists.SelectedItem = artist;
-                NavigationManager.OpenArtistPage(artist.Name);
-            }
-        }
-
-        private void ArtistPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Artist artist = ((Button)sender).Tag as Artist;
-
-            if (artist != null)
-            {
-                artist.SendPlaySongCommand();
-                NavigationManager.OpenNowPlayingPage();
-            }
-        }
-
         void AppBarMoreButton_Click(object sender, EventArgs e)
         {
             if (moreDialog != null)
@@ -197,92 +173,81 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             lbPlaylists.IsEnabled = true;
         }
 
-        #endregion
+        #region LongListSelector Tap Event
 
-        #region Albums
-
-        private void AlbumButton_Click(object sender, RoutedEventArgs e)
+        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Album album = ((Button)sender).Tag as Album;
+            LongListSelector listBox = (LongListSelector)sender;
+            var selectedItem = listBox.SelectedItem;
 
-            if (album != null)
+            DependencyObject originalSource = e.OriginalSource as DependencyObject;
+            if (originalSource != null)
             {
-                lbAlbums.SelectedItem = album;
-                NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
-            }
-        }
+                bool isPlayButton = originalSource.GetVisualAncestors().Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
 
-        private void AlbumPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Album album = ((Button)sender).Tag as Album;
+                // Artists
+                if (selectedItem is Artist)
+                {
+                    Artist artist = (Artist)selectedItem;
+                    if (isPlayButton)
+                    {
+                        artist.SendPlaySongCommand();
+                        listBox.SelectedItem = null;
+                        NavigationManager.OpenNowPlayingPage();
+                    }
+                    else
+                    {
+                        NavigationManager.OpenArtistPage(artist.Name);
+                    }
+                }
+                // Albums
+                else if (selectedItem is Album)
+                {
+                    Album album = (Album)selectedItem;
+                    if (isPlayButton)
+                    {
+                        album.SendPlaySongCommand();
+                        listBox.SelectedItem = null;
+                        NavigationManager.OpenNowPlayingPage();
+                    }
+                    else
+                    {
+                        NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
+                    }
+                }
+                // Genres
+                else if (selectedItem is Genre)
+                {
+                    Genre genre = (Genre)selectedItem;
+                    if (isPlayButton)
+                    {
+                        genre.SendPlaySongCommand();
+                        listBox.SelectedItem = null;
+                        NavigationManager.OpenNowPlayingPage();
+                    }
+                    else
+                    {
+                        NavigationManager.OpenGenrePage(genre.Name);
+                    }
+                }
+                // Playlists
+                else if (selectedItem is Playlist)
+                {
+                    Playlist playlist = (Playlist)selectedItem;
+                    if (playlist.ItemCount <= 0)
+                        return;
 
-            if (album != null)
-            {
-                album.SendPlaySongCommand();
-                NavigationManager.OpenNowPlayingPage();
-            }
-        }
-
-        #endregion
-
-        #region Genres
-
-        private void GenreButton_Click(object sender, RoutedEventArgs e)
-        {
-            Genre genre = ((Button)sender).Tag as Genre;
-
-            if (genre != null)
-            {
-                lbGenres.SelectedItem = genre;
-                NavigationManager.OpenGenrePage(genre.Name);
-            }
-        }
-
-        private void GenrePlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Genre genre = ((Button)sender).Tag as Genre;
-
-            if (genre != null)
-            {
-                genre.SendPlaySongCommand();
-                NavigationManager.OpenNowPlayingPage();
-            }
-        }
-
-        #endregion
-
-        #region Playlists
-
-        private void GeniusMixesButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationManager.OpenGeniusMixesPage();
-        }
-
-        private void PlaylistButton_Click(object sender, RoutedEventArgs e)
-        {
-            Playlist playlist = ((Button)sender).Tag as Playlist;
-
-            if (playlist != null)
-            {
-                if (playlist.ItemCount <= 0)
-                    return;
-
-                lbPlaylists.SelectedItem = playlist;
-                NavigationManager.OpenPlaylistPage(playlist.ID, playlist.Name, playlist.PersistentID);
-            }
-        }
-
-        private void PlaylistPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Playlist playlist = ((Button)sender).Tag as Playlist;
-
-            if (playlist != null)
-            {
-                if (playlist.ItemCount <= 0)
-                    return;
-
-                playlist.SendPlaySongCommand();
-                NavigationManager.OpenNowPlayingPage();
+                    if (isPlayButton)
+                    {
+                        playlist.SendPlaySongCommand();
+                        listBox.SelectedItem = null;
+                        NavigationManager.OpenNowPlayingPage();
+                    }
+                    else
+                    {
+                        NavigationManager.OpenPlaylistPage(playlist.ID, playlist.Name, playlist.PersistentID);
+                    }
+                }
             }
         }
 

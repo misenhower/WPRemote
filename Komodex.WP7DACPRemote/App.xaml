@@ -20,7 +20,7 @@
         </Style>
 
         <!-- Play Button with Circle -->
-        <ControlTemplate x:Key="PlayButton" TargetType="Button">
+        <ControlTemplate x:Key="PlayButton">
             <Canvas Width="48" Height="48" Background="Transparent">
                 <Path Data="F1M84.127,709.4629L70.558,719.8039L70.558,699.2159z" Fill="{StaticResource PhoneForegroundBrush}" Stretch="Fill" Height="20" Width="14" Canvas.Left="19" Canvas.Top="14" UseLayoutRounding="False" />
                 <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="3" Width="48" Height="48" />
@@ -35,7 +35,7 @@
             <Rectangle Fill="Transparent"/>
         </ControlTemplate>
 
-        <ControlTemplate x:Key="AlbumButton" TargetType="Button">
+        <ControlTemplate x:Key="AlbumButton" TargetType="ContentControl">
             <Grid Background="{StaticResource PhoneChromeBrush}">
                 <ContentControl x:Name="ContentContainer" Content="{TemplateBinding Content}" />
                 <Canvas Width="43" Height="43" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Margin="0,10,10,0">
