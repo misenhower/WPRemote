@@ -76,14 +76,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #region Actions
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             LongListSelector listBox = (LongListSelector)sender;
+            var selectedItem = listBox.SelectedItem;
 
-            MediaItem episode = listBox.SelectedItem as MediaItem;
-
-            if (episode != null)
+            if (selectedItem is MediaItem)
             {
+                MediaItem episode = (MediaItem)selectedItem;
                 episode.SendPlayMediaItemCommand();
                 NavigationManager.OpenNowPlayingPage();
             }
