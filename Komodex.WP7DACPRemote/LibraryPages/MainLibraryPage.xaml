@@ -50,27 +50,22 @@
         </DataTemplate>
         
         <DataTemplate x:Key="PlaylistHeaderTemplate">
-            <!--<Button Template="{StaticResource EmptyButton}" Click="GeniusMixesButton_Click"
-                    Visibility="{Binding LibraryGeniusMixes, Converter={StaticResource collapseIfLessThanOneConverter}}">
-                <Border Padding="12,6,0,12" Background="Transparent">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Content="Button" Template="{StaticResource GeniusMixesIconButton}" Click="GeniusMixesButton_Click" />
-                        <TextBlock Grid.Column="1" Text="{Binding LocalizedStrings.GeniusMixesListItem, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding LibraryGeniusMixes, Converter={StaticResource collectionCountToStringConverter}}" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                    </Grid>
-                </Border>
-            </Button>-->
-            <Grid>
-                <TextBlock Text="hey!" FontSize="32" />
+            <Grid x:Name="GeniusButton" Margin="12,6,0,12"><!-- Visibility="{Binding LibraryGeniusMixes, Converter={StaticResource collapseIfLessThanOneConverter}}">-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <my:FakeButton x:Name="PlayButton">
+                    <ContentControl Template="{StaticResource GeniusMixesIconButton}" />
+                </my:FakeButton>
+                <TextBlock Grid.Column="1" Text="{Binding LocalizedStrings.GeniusMixesListItem, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding LibraryGeniusMixes, Converter={StaticResource collectionCountToStringConverter}}" Style="{StaticResource PhoneTextSubtleStyle}"/>
             </Grid>
+            
         </DataTemplate>
         
         <DataTemplate x:Key="PlaylistTemplate">

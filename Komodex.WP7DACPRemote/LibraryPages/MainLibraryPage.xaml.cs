@@ -183,7 +183,8 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             DependencyObject originalSource = e.OriginalSource as DependencyObject;
             if (originalSource != null)
             {
-                bool isPlayButton = originalSource.GetVisualAncestors().Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
+                var ancestors = originalSource.GetVisualAncestors();
+                bool isPlayButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
 
                 // Artists
                 if (selectedItem is Artist)
@@ -229,6 +230,11 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                     {
                         NavigationManager.OpenGenrePage(genre.Name);
                     }
+                }
+                // Genius Mixes
+                else if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "GeniusButton"))
+                {
+                    NavigationManager.OpenGeniusMixesPage();
                 }
                 // Playlists
                 else if (selectedItem is Playlist)
