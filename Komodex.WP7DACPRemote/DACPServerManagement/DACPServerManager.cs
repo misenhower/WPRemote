@@ -92,6 +92,9 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     ConnectingPopup.IsOpen = (connecting && canShow && hasServers);
                 else
                     ConnectingPopup.IsOpen = (connecting && canShow);
+
+                if (ConnectingPopup.IsOpen)
+                    ConnectingStatusControl.UpdateFromServer();
             });
         }
 
@@ -206,19 +209,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         static void RootVisual_Unobscured(object sender, EventArgs e)
         {
-            if (Server != null && !Server.IsConnected)
-            {
-                if (_tryToReconnect)
-                {
-                    _tryToReconnect = false;
-                    Server.Start();
-                    UpdatePopupDisplay();
-                }
-                else
-                {
-                    Server = null;
-                }
-            }
+            TryToReconnect();
             _isObscured = false;
         }
 
@@ -266,6 +257,17 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             }
         }
 
+        public static void ApplicationActivated()
+        {
+            TryToReconnect();
+        }
+
+        public static void ApplicationDeactivated()
+        {
+            if (Server != null)
+                Server.Stop();
+        }
+
         #endregion
 
         #region Event Handlers
@@ -287,16 +289,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     if (_isObscured)
                         break;
 
-                    if (_tryToReconnect && Server != null)
-                    {
-                        _tryToReconnect = false;
-                        Server.Start();
-                        UpdatePopupDisplay();
-                    }
-                    else
-                    {
-                        Server = null;
-                    }
+                    TryToReconnect();
 
                     if (SettingsManager.Current.ExtendedErrorReporting && e.ErrorType == ServerErrorType.General && !string.IsNullOrEmpty(e.ErrorDetails))
                         CrashReporter.LogMessage(e.ErrorDetails, "Caught DACP Server Error", true);
@@ -344,6 +337,23 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 return;
 
             serverInfo.LibraryName = Server.LibraryName;
+        }
+
+        private static void TryToReconnect()
+        {
+            if (Server != null && !Server.IsConnected)
+            {
+                if (_tryToReconnect)
+                {
+                    _tryToReconnect = false;
+                    Server.Start();
+                    UpdatePopupDisplay();
+                }
+                else
+                {
+                    Server = null;
+                }
+            }
         }
 
         #endregion

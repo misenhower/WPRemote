@@ -18,9 +18,7 @@
         </Grid.RowDefinitions>
         <Border Background="{StaticResource PhoneBackgroundBrush}" Opacity="0.85" Grid.RowSpan="2" />
         <StackPanel VerticalAlignment="Center">
-            <toolkit:PerformanceProgressBar Margin="0" Padding="0"
-                                            IsIndeterminate="{Binding ShowProgressBar}"
-                                            Visibility="{Binding ShowProgressBar, Converter={StaticResource booleanToVisibilityConverter}}" />
+            <toolkit:PerformanceProgressBar Margin="0" Padding="0" Name="progressBar" />
             <TextBlock Name="tbLibraryConnectionText" Text="{Binding LocalizedStrings.StatusConnectingToLibrary, Source={StaticResource LocalizedStrings}}" TextAlignment="Center" TextWrapping="Wrap" />
             <TextBlock Name="tbLibraryName" Style="{StaticResource PhoneTextAccentStyle}" TextAlignment="Center" />
         </StackPanel>
