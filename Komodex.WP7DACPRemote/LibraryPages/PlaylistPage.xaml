@@ -21,27 +21,27 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="SongTemplate">
-            <my:FakeButton>
-                <Border Padding="12,6,0,6" Background="Transparent">
-                    <StackPanel Orientation="Horizontal">
-                        <Border Background="{StaticResource PhoneChromeBrush}" Width="75" Height="75" HorizontalAlignment="Left">
-                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                        </Border>
-                        <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                            <TextBlock Text="{Binding ArtistAndAlbum}" Style="{StaticResource PhoneTextSubtleStyle}" />
-                        </StackPanel>
-                    </StackPanel>
+            <Grid Margin="12,6,0,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Background="{StaticResource PhoneChromeBrush}" Width="75" Height="75" HorizontalAlignment="Left">
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                 </Border>
-            </my:FakeButton>
+                <StackPanel VerticalAlignment="Center" Grid.Column="1">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                    <TextBlock Text="{Binding ArtistAndAlbum}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                </StackPanel>
+            </Grid>
         </DataTemplate>
+        
         <DataTemplate x:Key="SongHeaderTemplate">
-            <Border Background="Transparent" DataContext="{Binding ElementName=LayoutRoot, Path=DataContext}">
-                <Button Template="{StaticResource EmptyButton}"
-                                Margin="12,0,0,12"
-                                Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}"
-                                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                                Click="ShuffleButton_Click">
+            <Grid Margin="12,0,0,12">
+                <my:FakeButton x:Name="ShuffleButton"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Bottom"
+                               Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}">
                     <Border Background="{StaticResource PhoneChromeBrush}">
                         <StackPanel Orientation="Horizontal">
                             <ContentControl Template="{StaticResource ShuffleIcon}" />
@@ -50,8 +50,8 @@
                                        FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                         </StackPanel>
                     </Border>
-                </Button>
-            </Border>
+                </my:FakeButton>
+            </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
@@ -70,12 +70,15 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:LongListSelector x:Name="lbSongs" IsFlatList="True"
-                                      ItemTemplate="{StaticResource SongTemplate}"
-                                      ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
-                                      ItemsSource="{Binding Songs}"
-                                      SelectionChanged="lbSongs_SelectionChanged"
-                                      Margin="0,0,-12,0" />
+            <my:LongListSelectorEx x:Name="lbSongs" IsFlatList="True"
+                                   Tap="LongListSelector_Tap"
+                                   Link="lbSongs_Link"
+                                   Background="Transparent"
+                                   ItemTemplate="{StaticResource SongTemplate}"
+                                   ListHeader="{Binding}"
+                                   ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
+                                   ItemsSource="{Binding Songs}"
+                                   Margin="0,0,-12,0" />
         </Grid>
     </Grid>
 

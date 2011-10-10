@@ -168,14 +168,14 @@ namespace Komodex.WP7DACPRemote
         private void btnTwitter_Click(object sender, RoutedEventArgs e)
         {
             WebBrowserTask t = new WebBrowserTask();
-            t.URL = "http://twitter.com/WP7remote";
+            t.Uri = new Uri("http://twitter.com/WP7remote");
             t.Show();
         }
 
         private void btnLogo_Click(object sender, RoutedEventArgs e)
         {
             WebBrowserTask t = new WebBrowserTask();
-            t.URL = "http://komodex.com/wp7remote";
+            t.Uri = new Uri("http://komodex.com/wp7remote");
             t.Show();
         }
 

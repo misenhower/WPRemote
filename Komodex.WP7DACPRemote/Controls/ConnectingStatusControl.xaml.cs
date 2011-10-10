@@ -59,14 +59,17 @@ namespace Komodex.WP7DACPRemote.Controls
             }
         }
 
-        public static readonly DependencyProperty ShowProgressBarProperty =
-            DependencyProperty.Register("ShowProgressBar", typeof(bool), typeof(ConnectingStatusControl),
-            new PropertyMetadata((bool)false));
-
         public bool ShowProgressBar
         {
-            get { return (bool)GetValue(ShowProgressBarProperty); }
-            set { SetValue(ShowProgressBarProperty, value); }
+            get
+            {
+                return progressBar.IsIndeterminate;
+            }
+            set
+            {
+                progressBar.IsIndeterminate = value;
+                progressBar.Visibility = (value) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            }
         }
 
         public string LibraryName
@@ -99,7 +102,7 @@ namespace Komodex.WP7DACPRemote.Controls
 
         #region Methods
 
-        private void UpdateFromServer()
+        public void UpdateFromServer()
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {

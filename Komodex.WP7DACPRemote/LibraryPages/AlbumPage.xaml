@@ -20,71 +20,49 @@
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/AlbumSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="SongTemplate">
-            <Border Padding="12,6,0,12" Background="Transparent">
-                <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="SongPlayButton_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="SongPlayButton_Click" />
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                    </StackPanel>
-                </Button>
-            </Border>
+            <Grid Margin="12,6,0,12">
+                <StackPanel Orientation="Horizontal">
+                    <my:FakeButton x:Name="PlayButton">
+                        <ContentControl Template="{StaticResource PlayButton}" />
+                    </my:FakeButton>
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </StackPanel>
+            </Grid>
         </DataTemplate>
-        <Style x:Key="BorderlessButtonStyle" TargetType="Button">
-        	<Setter Property="Background" Value="Transparent"/>
-        	<Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
-        	<Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
-        	<Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
-            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Top" />
-        	<Setter Property="Template">
-        		<Setter.Value>
-        			<ControlTemplate TargetType="Button">
-        				<Grid Background="Transparent">
-        					<Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0">
-        						<ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-        					</Border>
-        				</Grid>
-        			</ControlTemplate>
-        		</Setter.Value>
-        	</Setter>
-        </Style>
 
         <DataTemplate x:Key="ListHeaderTemplate">
-            <Border Background="Transparent" DataContext="{Binding ElementName=LayoutRoot, Path=DataContext}">
-                <Grid Margin="12,6,0,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="175" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Click="AlbumPlayButton_Click">
+            <Grid Margin="12,6,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <my:FakeButton x:Name="AlbumPlayButton">
+                    <ContentControl Width="175" Height="175" Template="{StaticResource AlbumButton}">
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                    </Button>
-                    <Grid Grid.Column="1">
-                        <Button Name="btnArtist" Style="{StaticResource BorderlessButtonStyle}" Click="btnArtist_Click">
-                            <TextBlock Text="{Binding Path=ArtistName}" TextWrapping="Wrap" MaxHeight="115" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                        </Button>
-                        <Button Template="{StaticResource EmptyButton}"
-                                Margin="12,0,0,0"
-                                Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}"
-                                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                                Click="ShuffleButton_Click">
-                            <Border Background="{StaticResource PhoneChromeBrush}">
-                                <StackPanel Orientation="Horizontal">
-                                    <ContentControl Template="{StaticResource ShuffleIcon}" />
-                                    <TextBlock Text="{Binding LocalizedStrings.ShuffleAlbumButton, Source={StaticResource LocalizedStrings}}" Margin="0,3,12,0" FontSize="28"
-                                               Style="{StaticResource PhoneTextBlockBase}"
-                                               FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
-                                </StackPanel>
-                            </Border>
-                        </Button>
-                    </Grid>
-
+                    </ContentControl>
+                </my:FakeButton>
+                <Grid Grid.Column="1">
+                    <my:FakeButton x:Name="ArtistButton" VerticalAlignment="Top">
+                        <TextBlock Text="{Binding Path=ArtistName}" TextWrapping="Wrap" MaxHeight="115" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                    </my:FakeButton>
+                    <my:FakeButton x:Name="ShuffleButton"
+                                   Margin="12,0,0,0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Bottom"
+                                   Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}">
+                        <Border Background="{StaticResource PhoneChromeBrush}">
+                            <StackPanel Orientation="Horizontal">
+                                <ContentControl Template="{StaticResource ShuffleIcon}" />
+                                <TextBlock Text="{Binding LocalizedStrings.ShuffleAlbumButton, Source={StaticResource LocalizedStrings}}" Margin="0,3,12,0" FontSize="28"
+                                       Style="{StaticResource PhoneTextBlockBase}"
+                                       FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                            </StackPanel>
+                        </Border>
+                    </my:FakeButton>
                 </Grid>
-            </Border>
+            </Grid>
         </DataTemplate>
+        
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -102,10 +80,13 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:LongListSelector Name="lbSongs" Margin="0,0,-12,0"
-                ItemsSource="{Binding Songs}" IsFlatList="True"
-                ListHeaderTemplate="{StaticResource ListHeaderTemplate}"
-                ItemTemplate="{StaticResource SongTemplate}" />
+            <my:LongListSelectorEx Name="lbSongs" Margin="0,0,-12,0"
+                                   Link="lbSongs_Link"
+                                   Tap="LongListSelector_Tap"
+                                   ItemsSource="{Binding Songs}" IsFlatList="True"
+                                   ListHeader="{Binding}"
+                                   ListHeaderTemplate="{StaticResource ListHeaderTemplate}"
+                                   ItemTemplate="{StaticResource SongTemplate}" />
         </Grid>
     </Grid>
 

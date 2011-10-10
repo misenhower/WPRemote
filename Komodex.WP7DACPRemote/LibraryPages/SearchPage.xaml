@@ -20,21 +20,22 @@
     shell:SystemTray.IsVisible="True">
 
     <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="ArtistTemplate">
-            <my:FakeButton>
-                <Border Padding="12,6,0,6" Background="Transparent">
-                    <StackPanel Orientation="Horizontal">
-                        <Border Background="{StaticResource PhoneChromeBrush}" Width="75" Height="75" HorizontalAlignment="Left">
-                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                        </Border>
-                        <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextBlockBase}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                            <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" />
-                        </StackPanel>
-                    </StackPanel>
+        <DataTemplate x:Key="ItemTemplate">
+            <Grid Margin="12,6,0,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Background="{StaticResource PhoneChromeBrush}" Width="75" Height="75" HorizontalAlignment="Left">
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                 </Border>
-            </my:FakeButton>
+                <StackPanel VerticalAlignment="Center" Grid.Column="1">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                </StackPanel>
+            </Grid>
         </DataTemplate>
+
         <DataTemplate x:Key="ListHeader">
             <Border Height="1" />
         </DataTemplate>
@@ -52,15 +53,16 @@
                 <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.SearchPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
                 <TextBox TextChanged="tbSearchString_TextChanged" Name="tbSearchString" InputScope="Search" KeyUp="tbSearchString_KeyUp" />
             </StackPanel>
-            <toolkit:LongListSelector x:Name="lbSearchResults" Background="Transparent" Grid.Row="1"
+            <my:LongListSelectorEx x:Name="lbSearchResults" Background="Transparent" Grid.Row="1"
                 Margin="0,0,-12,0"
+                Tap="LongListSelector_Tap"
                 ListHeaderTemplate="{StaticResource ListHeader}"
-                ItemTemplate="{StaticResource ArtistTemplate}"
+                ItemTemplate="{StaticResource ItemTemplate}"
                 GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
                 GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
                 GroupViewOpened="LongListSelector_GroupViewOpened"
                 GroupViewClosing="LongListSelector_GroupViewClosing"
-                SelectionChanged="lbSearchResults_SelectionChanged" />
+                />
         </Grid>
     </Grid>
 

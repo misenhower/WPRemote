@@ -117,7 +117,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 lbSearchResults.Focus();
         }
 
-        private void lbSearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             LongListSelector listBox = (LongListSelector)sender;
 

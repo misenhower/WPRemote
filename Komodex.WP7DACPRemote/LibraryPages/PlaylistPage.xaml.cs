@@ -14,6 +14,7 @@ using Clarity.Phone.Controls;
 using Komodex.DACP.Library;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Clarity.Phone.Controls.Animations;
+using Clarity.Phone.Extensions;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -97,25 +98,45 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #endregion
 
-        #region Actions
+        #region Event Handlers
 
-        private void lbSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lbSongs_Link(object sender, LinkUnlinkEventArgs e)
         {
-            MediaItem song = lbSongs.SelectedItem as MediaItem;
-
-            if (song != null)
+            // Disable tilt effect on shuffle row
+            var listBoxItem = e.ContentPresenter.GetVisualAncestors().FirstOrDefault(a => a is ListBoxItem);
+            if (listBoxItem != null)
             {
-                Playlist.SendPlaySongCommand(song);
-                NavigationManager.OpenNowPlayingPage();
+                bool tiltSuppressed = e.ContentPresenter.Content is Playlist;
+                TiltEffect.SetSuppressTilt(listBoxItem, tiltSuppressed);
             }
-
-            lbSongs.SelectedItem = null;
         }
 
-        private void ShuffleButton_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region Actions
+
+        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Playlist.SendShuffleSongsCommand();
-            NavigationManager.OpenNowPlayingPage();
+            LongListSelector listBox = (LongListSelector)sender;
+            var selectedItem = listBox.SelectedItem;
+
+            DependencyObject originalSource = e.OriginalSource as DependencyObject;
+            if (originalSource != null)
+            {
+                var ancestors = originalSource.GetVisualAncestors();
+
+                if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "ShuffleButton"))
+                {
+                    Playlist.SendShuffleSongsCommand();
+                    NavigationManager.OpenNowPlayingPage();
+                }
+                else if (selectedItem is MediaItem)
+                {
+                    MediaItem song = (MediaItem)selectedItem;
+                    Playlist.SendPlaySongCommand(song);
+                    NavigationManager.OpenNowPlayingPage();
+                }
+            }
         }
 
         #endregion

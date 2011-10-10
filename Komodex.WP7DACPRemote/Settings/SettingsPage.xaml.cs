@@ -31,7 +31,6 @@ namespace Komodex.WP7DACPRemote.Settings
         {
             if (lpArtistTap.ListPickerMode != ListPickerMode.Normal)
             {
-                lpArtistTap.ListPickerMode = ListPickerMode.Normal;
                 e.Cancel = true;
                 return;
             }

@@ -14,6 +14,7 @@ using Komodex.DACP.Library;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
+using Clarity.Phone.Extensions;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -29,7 +30,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             //AddChooseLibraryApplicationBarMenuItem();
         }
 
-        protected Button btnArtist = null;
+        protected FrameworkElement btnArtist = null;
 
         #region Properties
 
@@ -78,12 +79,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
                 if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
                 {
-                    if (uri.Contains("MainLibraryPage") || uri.Contains("ArtistPage") || uri.Contains("SearchPage"))
+                    if (uri.Contains("MainLibraryPage") || uri.Contains("ArtistPage") || uri.Contains("SearchPage") || uri.Contains("GenrePage"))
                         return GetContinuumAnimation(LayoutRoot, animationType);
                 }
                 else if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
                 {
-                    if (uri.Contains("ArtistPage"))
+                    if (uri.Contains("ArtistPage") && btnArtist != null)
                         return GetContinuumAnimation(btnArtist, animationType);
                 }
                 
@@ -94,35 +95,65 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #endregion
 
-        #region Actions
+        #region Event Handlers
 
-        private void btnArtist_Click(object sender, RoutedEventArgs e)
+        private void lbSongs_Link(object sender, LinkUnlinkEventArgs e)
         {
-            btnArtist = sender as Button;
-            NavigationManager.OpenArtistPage(Album.ArtistName);
-        }
-
-        private void SongPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            MediaItem song = ((Button)sender).Tag as MediaItem;
-
-            if (song != null)
+            // Disable tilt effect on header row
+            var listBoxItem = e.ContentPresenter.GetVisualAncestors().FirstOrDefault(a => a is ListBoxItem);
+            if (listBoxItem != null)
             {
-                Album.SendPlaySongCommand(song);
-                NavigationManager.OpenNowPlayingPage();
+                bool tiltSuppressed = e.ContentPresenter.Content is Album;
+                TiltEffect.SetSuppressTilt(listBoxItem, tiltSuppressed);
             }
         }
 
-        private void AlbumPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Album.SendPlaySongCommand();
-            NavigationManager.OpenNowPlayingPage();
-        }
+        #endregion
 
-        private void ShuffleButton_Click(object sender, RoutedEventArgs e)
+        #region Actions
+
+        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Album.SendShuffleSongsCommand();
-            NavigationManager.OpenNowPlayingPage();
+            LongListSelector listBox = (LongListSelector)sender;
+            var selectedItem = listBox.SelectedItem;
+
+            DependencyObject originalSource = e.OriginalSource as DependencyObject;
+            if (originalSource != null)
+            {
+                var ancestors = originalSource.GetVisualAncestors();
+                bool isPlayButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
+
+                // Album play button
+                if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "AlbumPlayButton"))
+                {
+                    Album.SendPlaySongCommand();
+                    NavigationManager.OpenNowPlayingPage();
+                }
+
+                // Artist button
+                else if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "ArtistButton"))
+                {
+                    btnArtist = originalSource as FrameworkElement;
+                    NavigationManager.OpenArtistPage(Album.ArtistName);
+                }
+
+                // Shuffle button
+                else if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "ShuffleButton"))
+                {
+                    Album.SendShuffleSongsCommand();
+                    NavigationManager.OpenNowPlayingPage();
+                }
+
+                // Songs
+                else if (selectedItem is MediaItem)
+                {
+                    MediaItem song = (MediaItem)selectedItem;
+
+                    Album.SendPlaySongCommand(song);
+                    NavigationManager.OpenNowPlayingPage();
+                }
+
+            }
         }
 
         #endregion

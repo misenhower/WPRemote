@@ -20,14 +20,14 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="SongTemplate">
-            <Border Padding="12,6,0,12" Background="Transparent">
-                <my:FakeButton>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Button" Template="{StaticResource PlayButton}" Tag="{Binding BindsDirectlyToSource=True}" />
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                    </StackPanel>
-                </my:FakeButton>
-            </Border>
+            <Grid Margin="12,6,0,12">
+                <StackPanel Orientation="Horizontal">
+                    <my:FakeButton x:Name="PlayButton">
+                        <ContentControl Template="{StaticResource PlayButton}" />
+                    </my:FakeButton>
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </StackPanel>
+            </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
@@ -46,10 +46,11 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:LongListSelector Name="lbEpisodes" Margin="0,0,-12,0"
+            <my:LongListSelectorEx Name="lbEpisodes" Margin="0,0,-12,0"
+                Tap="LongListSelector_Tap"
                 ItemsSource="{Binding Episodes}" IsFlatList="True"
                 ItemTemplate="{StaticResource SongTemplate}"
-                SelectionChanged="ListBox_SelectionChanged" />
+                />
         </Grid>
     </Grid>
  

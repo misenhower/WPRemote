@@ -1,4 +1,5 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
+    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.VideosPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -20,24 +21,23 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="MovieTemplate">
-            <Button Template="{StaticResource EmptyButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="MoviePlayButton_Click">
-                <Border Padding="12,6,0,12" Background="Transparent">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="175" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Width="175" Height="175" Template="{StaticResource AlbumButton}" Tag="{Binding BindsDirectlyToSource=True}" Click="MoviePlayButton_Click">
-                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                        </Button>
-                        <StackPanel Grid.Column="1">
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
-                            <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
-            </Button>
+            <Grid Margin="12,6,0,12" Height="175">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <my:FakeButton x:Name="PlayButton">
+                    <ContentControl Width="175" Height="175" Template="{StaticResource AlbumButton}">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    </ContentControl>
+                </my:FakeButton>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
+                    <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
+                </StackPanel>
+            </Grid>
         </DataTemplate>
+
         <DataTemplate x:Key="ListFooter">
             <Border Height="72" />
         </DataTemplate>
@@ -52,20 +52,21 @@
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.VideosNoMoviesFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=LibraryMovies, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <toolkit:LongListSelector x:Name="lbMovies" Background="Transparent" ItemsSource="{Binding LibraryMovies}"
-                                              Margin="0,0,-12,0"
-                                              ItemTemplate="{StaticResource MovieTemplate}"
-                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                              ListFooterTemplate="{StaticResource ListFooter}"
-                                              GroupViewOpened="LongListSelector_GroupViewOpened"
-                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                    <my:LongListSelectorEx x:Name="lbMovies" Background="Transparent" ItemsSource="{Binding LibraryMovies}"
+                                           Margin="0,0,-12,0"
+                                           Tap="LongListSelector_Tap"
+                                           ItemTemplate="{StaticResource MovieTemplate}"
+                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                           ListFooterTemplate="{StaticResource ListFooter}"
+                                           GroupViewOpened="LongListSelector_GroupViewOpened"
+                                           GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
-                    </toolkit:LongListSelector>
+                    </my:LongListSelectorEx>
                 </Grid>
             </controls:PivotItem>
 
@@ -74,20 +75,21 @@
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.VideosNoTVShowsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=LibraryTVShows, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <toolkit:LongListSelector x:Name="lbTVShows" Background="Transparent" ItemsSource="{Binding LibraryTVShows}"
-                                              Margin="0,0,-12,0"
-                                              ItemTemplate="{StaticResource MovieTemplate}"
-                                              GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                              GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                              ListFooterTemplate="{StaticResource ListFooter}"
-                                              GroupViewOpened="LongListSelector_GroupViewOpened"
-                                              GroupViewClosing="LongListSelector_GroupViewClosing">
+                    <my:LongListSelectorEx x:Name="lbTVShows" Background="Transparent" ItemsSource="{Binding LibraryTVShows}"
+                                           Margin="0,0,-12,0"
+                                           Tap="LongListSelector_Tap"
+                                           ItemTemplate="{StaticResource MovieTemplate}"
+                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                           ListFooterTemplate="{StaticResource ListFooter}"
+                                           GroupViewOpened="LongListSelector_GroupViewOpened"
+                                           GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
-                    </toolkit:LongListSelector>
+                    </my:LongListSelectorEx>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

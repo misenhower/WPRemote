@@ -14,6 +14,7 @@ using Komodex.DACP.Library;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
+using Clarity.Phone.Extensions;
 
 namespace Komodex.WP7DACPRemote.LibraryPages
 {
@@ -87,7 +88,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 }
                 if (uri.Contains("MainLibraryPage"))
                     return GetContinuumAnimation(LayoutRoot, animationType);
-                if (uri.Contains("SearchPage"))
+                if (uri.Contains("SearchPage") || uri.Contains("GenrePage"))
                 {
                     if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
                         return GetContinuumAnimation(LayoutRoot, animationType);
@@ -99,50 +100,71 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #endregion
 
+        #region Event Handlers
+
+        private void lbSongs_Link(object sender, LinkUnlinkEventArgs e)
+        {
+            // Disable tilt effect on shuffle row
+            var listBoxItem = e.ContentPresenter.GetVisualAncestors().FirstOrDefault(a => a is ListBoxItem);
+            if (listBoxItem != null)
+            {
+                bool tiltSuppressed = e.ContentPresenter.Content is Artist;
+                TiltEffect.SetSuppressTilt(listBoxItem, tiltSuppressed);
+            }
+        }
+
+        #endregion
+
         #region Actions
 
-        private void AlbumButton_Click(object sender, RoutedEventArgs e)
+        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Album album = ((Button)sender).Tag as Album;
+            LongListSelector listBox = (LongListSelector)sender;
+            var selectedItem = listBox.SelectedItem;
 
-            if (album != null)
+            DependencyObject originalSource = e.OriginalSource as DependencyObject;
+            if (originalSource != null)
             {
-                lbAlbums.SelectedItem = album;
-                NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
-            }
-        }
+                var ancestors = originalSource.GetVisualAncestors();
+                bool isPlayButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
 
-        private void AlbumPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Album album = ((Button)sender).Tag as Album;
+                // Albums
+                if (selectedItem is Album)
+                {
+                    Album album = (Album)selectedItem;
+                    if (isPlayButton)
+                    {
+                        album.SendPlaySongCommand();
+                        listBox.SelectedItem = null;
+                        NavigationManager.OpenNowPlayingPage();
+                    }
+                    else
+                    {
+                        NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
+                    }
+                }
+                
+                // Shuffle button
+                else if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "ShuffleButton"))
+                {
+                    Artist.SendShuffleSongsCommand();
+                    NavigationManager.OpenNowPlayingPage();
+                }
 
-            if (album != null)
-            {
-                album.SendPlaySongCommand();
-                NavigationManager.OpenNowPlayingPage();
-            }
-        }
-
-        private void SongPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            MediaItem song = ((Button)sender).Tag as MediaItem;
-
-            if (song != null)
-            {
-                Artist.SendPlaySongCommand(song);
-                NavigationManager.OpenNowPlayingPage();
+                // Songs
+                else if (selectedItem is MediaItem)
+                {
+                    MediaItem song = (MediaItem)selectedItem;
+                    Artist.SendPlaySongCommand(song);
+                    listBox.SelectedItem = null;
+                    NavigationManager.OpenNowPlayingPage();
+                }
             }
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GetDataForPivotItem();
-        }
-
-        private void ShuffleButton_Click(object sender, RoutedEventArgs e)
-        {
-            Artist.SendShuffleSongsCommand();
-            NavigationManager.OpenNowPlayingPage();
         }
 
         #endregion

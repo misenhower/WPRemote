@@ -90,13 +90,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #region Actions
 
-        private void PodcastButton_Click(object sender, RoutedEventArgs e)
+        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Podcast podcast = ((Button)sender).Tag as Podcast;
+            LongListSelector listBox = (LongListSelector)sender;
+            var selectedItem = listBox.SelectedItem;
 
-            if (podcast != null)
+            if (selectedItem is Podcast)
             {
-                lbPodcasts.SelectedItem = podcast;
+                Podcast podcast = (Podcast)selectedItem;
                 NavigationManager.OpenPodcastPage(podcast.ID, podcast.Name, podcast.PersistentID);
             }
         }
