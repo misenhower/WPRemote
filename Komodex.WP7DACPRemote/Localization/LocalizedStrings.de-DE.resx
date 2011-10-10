@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLibraryInformation" xml:space="preserve">
-    <value>Biblithek Information</value>
+    <value>Bibliothek Information</value>
   </data>
   <data name="AboutMenuItem" xml:space="preserve">
     <value>über</value>
@@ -170,7 +170,7 @@
     <value>Abbrechen</value>
   </data>
   <data name="ChooseLibraryButton" xml:space="preserve">
-    <value>Biblithek wählen…</value>
+    <value>Bibliothek wählen…</value>
   </data>
   <data name="ChooseLibraryMenuItem" xml:space="preserve">
     <value>Bibliothek wählen</value>
