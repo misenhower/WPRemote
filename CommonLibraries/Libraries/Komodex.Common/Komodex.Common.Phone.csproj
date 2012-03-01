@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumT.cs" />
+    <Compile Include="Phone\CrashReporter.cs" />
     <Compile Include="Phone\PhoneUtility.cs" />
     <Compile Include="Phone\Setting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
