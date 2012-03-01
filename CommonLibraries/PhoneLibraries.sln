@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.PhoneLibrariesTestA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.PhoneLibrariesTestApp.BackgroundAgent", "Komodex.PhoneLibrariesTestApp.BackgroundAgent\Komodex.PhoneLibrariesTestApp.BackgroundAgent.csproj", "{EFD5EC9B-298C-4D94-9105-284E6BCE7222}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{E17DE72D-C0C3-40C3-9058-26B9A198E3F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common.Phone", "Libraries\Komodex.Common\Komodex.Common.Phone.csproj", "{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{EFD5EC9B-298C-4D94-9105-284E6BCE7222}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFD5EC9B-298C-4D94-9105-284E6BCE7222}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFD5EC9B-298C-4D94-9105-284E6BCE7222}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717} = {E17DE72D-C0C3-40C3-9058-26B9A198E3F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
