@@ -1,0 +1,8 @@
+Updates for the Silverlight Toolkit can be applied by using svn merge.
+
+In the TortoiseSVN GUI, select "Merge two different trees" and enter the following URL for both "from" and "to":
+https://silverlight.svn.codeplex.com/svn/Release/WindowsPhone71/
+
+For the "from" revision, enter the last revision that was imported. (At this time, that was revision 74695.) For the "to" revision, select HEAD.
+
+Complete the merge and this copy should be updated to the latest revision.
