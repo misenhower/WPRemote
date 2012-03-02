@@ -94,6 +94,10 @@
       <Project>{EFD5EC9B-298C-4D94-9105-284E6BCE7222}</Project>
       <Name>Komodex.PhoneLibrariesTestApp.BackgroundAgent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Libraries\Clarity.PageTransitions\Clarity.PageTransitions.csproj">
+      <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
+      <Name>Clarity.PageTransitions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Libraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI.csproj">
       <Project>{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}</Project>
       <Name>Komodex.Common.Phone.UI</Name>
