@@ -41,6 +41,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Phone" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -49,6 +50,20 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation\AnimatedBasePage.cs" />
+    <Compile Include="Animation\AnimatorHelperBase.cs" />
+    <Compile Include="Animation\ContinuumAnimator.cs" />
+    <Compile Include="Animation\SlideAnimator.cs" />
+    <Compile Include="Animation\Storyboards.cs" />
+    <Compile Include="Animation\SwivelAnimator.cs" />
+    <Compile Include="Animation\TurnstileAnimator.cs" />
+    <Compile Include="Animation\TurnstileFeatherAnimator.cs" />
+    <Compile Include="Extensions\ApplicationExtensions.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\CollectionHelper.cs" />
+    <Compile Include="Extensions\DialogService.cs" />
+    <Compile Include="Extensions\ItemsControlHelper.cs" />
+    <Compile Include="Extensions\VisualTreeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
