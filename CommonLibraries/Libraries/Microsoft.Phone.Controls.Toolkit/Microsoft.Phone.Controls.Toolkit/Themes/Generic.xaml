@@ -1599,7 +1599,7 @@
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Enabled">
+                                <VisualState x:Name="Normal">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="HintBorder">
                                             <DiscreteObjectKeyFrame KeyTime="0">
@@ -1713,6 +1713,7 @@
                                                 Style="{TemplateBinding HintStyle}"
                                                 Content="{TemplateBinding Hint}"
                                                 Background="Transparent"
+                                                Foreground="{StaticResource PhoneTextBoxReadOnlyBrush}"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Margin="3,0,3,0"
@@ -1720,14 +1721,13 @@
                                 <ContentControl x:Name="ContentElement"
                                                 BorderThickness="0" 
                                                 HorizontalContentAlignment="Stretch"
-                                                Margin="{StaticResource PhoneTextBoxInnerMargin}"
+                                                Margin="0,1,0,1"
                                                 Padding="{TemplateBinding Padding}" 
                                                 VerticalContentAlignment="Stretch"/>
                             </Grid>
                         </Border>
                         <Border x:Name="TextBorder"
                                 BorderBrush="{StaticResource PhoneDisabledBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}" 
                                 Background="Transparent" 
                                 Margin="{StaticResource PhoneTouchTargetOverhang}"
                                 Visibility="Collapsed">
