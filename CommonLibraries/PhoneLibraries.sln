@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clarity.PageTransitions", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Phone.Controls.Toolkit", "Libraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj", "{0754458A-7AFC-463A-B27D-2F6980522119}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Bonjour", "Libraries\Komodex.Bonjour\Komodex.Bonjour.csproj", "{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{0754458A-7AFC-463A-B27D-2F6980522119}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0754458A-7AFC-463A-B27D-2F6980522119}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0754458A-7AFC-463A-B27D-2F6980522119}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{5875BE74-8A86-4235-919E-1DAEC3F3BD5F} = {E17DE72D-C0C3-40C3-9058-26B9A198E3F1}
 		{6CA892BF-E192-4A00-A126-02F391C07556} = {E17DE72D-C0C3-40C3-9058-26B9A198E3F1}
 		{0754458A-7AFC-463A-B27D-2F6980522119} = {E17DE72D-C0C3-40C3-9058-26B9A198E3F1}
+		{41FC9483-C6E8-4DD1-B829-F33958E0D6BB} = {E17DE72D-C0C3-40C3-9058-26B9A198E3F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

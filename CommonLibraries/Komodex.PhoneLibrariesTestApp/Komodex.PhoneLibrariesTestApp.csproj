@@ -98,6 +98,10 @@
       <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
       <Name>Clarity.PageTransitions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Libraries\Komodex.Bonjour\Komodex.Bonjour.csproj">
+      <Project>{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}</Project>
+      <Name>Komodex.Bonjour</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Libraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI.csproj">
       <Project>{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}</Project>
       <Name>Komodex.Common.Phone.UI</Name>
