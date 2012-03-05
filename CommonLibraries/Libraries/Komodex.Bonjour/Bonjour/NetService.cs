@@ -9,10 +9,20 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace Komodex.Bonjour.DNS
+namespace Komodex.Bonjour
 {
-    internal class ResourceRecord
+    public class NetService
     {
-        public RRType Type { get; set; }
+        #region Properties
+        #endregion
+
+        #region Methods
+
+        public void Publish()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

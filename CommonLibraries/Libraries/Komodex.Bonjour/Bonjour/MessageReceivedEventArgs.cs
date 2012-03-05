@@ -8,11 +8,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Komodex.Bonjour.DNS;
 
-namespace Komodex.Bonjour.DNS
+namespace Komodex.Bonjour
 {
-    internal class ResourceRecord
+    internal class MessageReceivedEventArgs : EventArgs
     {
-        public RRType Type { get; set; }
+        public MessageReceivedEventArgs(Message message)
+        {
+            Message = message;
+        }
+
+        public Message Message { get; protected set; }
     }
 }

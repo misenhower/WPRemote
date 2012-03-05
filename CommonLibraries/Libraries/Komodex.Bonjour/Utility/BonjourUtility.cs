@@ -15,6 +15,13 @@ namespace Komodex.Bonjour
 {
     internal static class BonjourUtility
     {
+        #region Constants
+
+        public static readonly IPAddress MulticastDNSAddress = IPAddress.Parse("224.0.0.251");
+        public const int MulticastDNSPort = 5353;
+
+        #endregion
+
         #region List<byte> Extensions
 
         public static void AddNetworkOrderBytes(this List<byte> bytes, UInt16 value)
