@@ -29,7 +29,7 @@ namespace Komodex.Bonjour.DNS
         /// <summary>
         /// Query Identifier
         /// </summary>
-        public int QueryIdentifier { get; set; }
+        public ushort QueryIdentifier { get; set; }
 
         /// <summary>
         /// Query/Response (QR) Bit. False if this is a query, true if this is a response.
@@ -41,7 +41,7 @@ namespace Komodex.Bonjour.DNS
         /// OPCODE. Must be zero on both queries and responses.
         /// Bits 11-14 in the message flags.
         /// </summary>
-        public int Opcode { get; set; }
+        public byte Opcode { get; set; }
 
         /// <summary>
         /// Authoritative Answer (AA) bit. Must be zero on transmission.
@@ -83,7 +83,7 @@ namespace Komodex.Bonjour.DNS
         /// Response Code (RCODE). Responses received with non-zero Response Codes must be silently ignored.
         /// Bits 0-3 in the message flags.
         /// </summary>
-        public int ResponseCode { get; set; }
+        public byte ResponseCode { get; set; }
 
         /// <summary>
         /// Questions included in this message.
@@ -111,7 +111,57 @@ namespace Komodex.Bonjour.DNS
 
         public byte[] GetBytes()
         {
-            return new byte[0];
+            List<byte> result = new List<byte>(1024);
+
+            // ID
+            result.AddNetworkOrderBytes(QueryIdentifier);
+
+            // Flags
+            // QR, OPCODE, AA, TC, RD
+            byte flags = 0;
+            // QR
+            if (QueryResponse) flags = (byte)(flags | (1 << 7));
+            // OPCODE
+            flags = (byte)(flags | ((Opcode & 0x0f) << 3));
+            // AA
+            if (AuthoritativeAnswer) flags = (byte)(flags | (1 << 2));
+            // TC
+            if (Truncated) flags = (byte)(flags | (1 << 1));
+            // RD
+            if (RecursionDesired) flags = (byte)(flags | (1 << 0));
+            result.Add(flags);
+
+            // RA, Z, AD, CD, RCODE
+            flags = 0;
+            // RA
+            if (RecursionAvailable) flags = (byte)(flags | (1 << 7));
+            // Z
+            // (zero bit)
+            // AD
+            if (AuthenticData) flags = (byte)(flags | (1 << 5));
+            // CD
+            if (Truncated) flags = (byte)(flags | (1 << 4));
+            // RCODE
+            flags = (byte)(flags | ((ResponseCode & 0x0f) << 0));
+            result.Add(flags);
+
+            // Number of Questions
+            result.AddNetworkOrderBytes((ushort)Questions.Count);
+            // Number of Answers
+            result.AddNetworkOrderBytes((ushort)AnswerRecords.Count);
+            // Number of Authority Records
+            result.AddNetworkOrderBytes((ushort)AuthorityRecords.Count);
+            // Number of Additional Records
+            result.AddNetworkOrderBytes((ushort)AdditionalRecords.Count);
+
+            // Message Content
+            // Questions
+            for (int i = 0; i < Questions.Count; i++)
+                result.AddRange(Questions[i].GetBytes());
+
+            // TODO: Answers, Authority Records, and Additional Records
+
+            return result.ToArray();
         }
 
         public override string ToString()
