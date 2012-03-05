@@ -24,9 +24,17 @@ namespace Komodex.Bonjour
 
         #region List<byte> Extensions
 
-        public static void AddNetworkOrderBytes(this List<byte> bytes, UInt16 value)
+        public static void AddNetworkOrderBytes(this List<byte> bytes, Int16 value)
         {
             bytes.AddRange(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(value)));
+        }
+
+        public static void AddNetworkOrderBytes(this List<byte> bytes, UInt16 value)
+        {
+            unchecked
+            {
+                bytes.AddNetworkOrderBytes((short)value);
+            }
         }
 
         #endregion

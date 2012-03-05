@@ -130,10 +130,11 @@ namespace Komodex.Bonjour
                 return;
 
             IPEndPoint sourceIPEndpoint;
-            int receivedBytesCount = _client.EndReceiveFromGroup(result, out sourceIPEndpoint);
+            int count = _client.EndReceiveFromGroup(result, out sourceIPEndpoint);
 
             // Parse the incoming message
-            //MessageReceived.Raise(this,new MessageReceivedEventArgs())
+            Message message = new Message(_receiveBuffer, 0, count);
+            MessageReceived.Raise(this, new MessageReceivedEventArgs(message));
 
             BeginReceiveFromGroup();
         }

@@ -15,6 +15,15 @@ namespace Komodex.Bonjour.DNS
 {
     internal class Message
     {
+        public Message()
+        { }
+
+        public Message(byte[] bytes, int index, int count)
+            : this()
+        {
+            ParseBytes(bytes, index, count);
+        }
+
         #region Fields
 
         private IList<Question> _questions = new List<Question>();
@@ -27,9 +36,9 @@ namespace Komodex.Bonjour.DNS
         #region Properties
 
         /// <summary>
-        /// Query Identifier
+        /// Transaction ID (ID)
         /// </summary>
-        public ushort QueryIdentifier { get; set; }
+        public ushort TransactionID { get; set; }
 
         /// <summary>
         /// Query/Response (QR) Bit. False if this is a query, true if this is a response.
@@ -109,12 +118,18 @@ namespace Komodex.Bonjour.DNS
 
         #region Methods
 
+        protected void ParseBytes(byte[] bytes, int index, int count)
+        {
+            
+        }
+
         public byte[] GetBytes()
         {
             List<byte> result = new List<byte>(1024);
 
             // ID
-            result.AddNetworkOrderBytes(QueryIdentifier);
+            result.AddNetworkOrderBytes(TransactionID);
+            System.Diagnostics.Debug.WriteLine(result.Count);
 
             // Flags
             // QR, OPCODE, AA, TC, RD
