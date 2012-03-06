@@ -260,7 +260,7 @@ namespace Komodex.Bonjour.DNS
                 sb.AppendFormat("Authority RR {0}: {1}", i + 1, AuthorityRecords[i].ToString()).AppendLine();
             for (int i = 0; i < AdditionalRecords.Count; i++)
                 sb.AppendFormat("Additional RR {0}: {1}", i + 1, AdditionalRecords[i].ToString()).AppendLine();
-            return sb.ToString();
+            return sb.ToString().Trim();
         }
 
         #endregion
