@@ -85,6 +85,44 @@ namespace Komodex.Bonjour
             return result.ToArray();
         }
 
+        /// <summary>
+        /// Reads a hostname from the current position of the specified BinaryReader.
+        /// </summary>
+        public static string ReadHostnameFromBytes(BinaryReader reader)
+        {
+            string result = string.Empty;
+
+            byte length = reader.ReadByte();
+
+            // Check whether this is a pointer to a hostname that appeared earlier in the message
+            if ((length & 0xC0) == 0xC0)
+            {
+                // Get the new position (from the remaining 6 bytes + the next 8 bytes)
+                int newPosition = (length & ~0xC0) << 8;
+                newPosition = newPosition | reader.ReadByte();
+                // Store the current stream position
+                var oldPosition = reader.BaseStream.Position;
+
+                // Seek to the new position and read the hostname
+                reader.BaseStream.Position = newPosition;
+                result = ReadHostnameFromBytes(reader);
+
+                // Return to the previous position and return the result
+                reader.BaseStream.Position = oldPosition;
+                return result;
+            }
+
+            // Get the label content and recurse to read the next label or pointer
+            if (length > 0)
+            {
+                var bytes = reader.ReadBytes(length);
+                result = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                result += "." + ReadHostnameFromBytes(reader);
+            }
+
+            return result;
+        }
+
         #endregion
     }
 }

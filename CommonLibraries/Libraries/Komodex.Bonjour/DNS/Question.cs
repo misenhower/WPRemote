@@ -55,6 +55,11 @@ namespace Komodex.Bonjour.DNS
             return result.ToArray();
         }
 
+        public override string ToString()
+        {
+            return string.Format("Question Name: {0} ({1})", Name, Type);
+        }
+
         #endregion
     }
 }

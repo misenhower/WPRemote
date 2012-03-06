@@ -151,6 +151,30 @@ namespace Komodex.Bonjour.DNS
                 // RCODE
                 message.ResponseCode = (byte)(flags & 0x0f);
 
+                // Number of questions and answer records
+                ushort questions, answers, authorityRecords, additionalRecords;
+                unchecked
+                {
+                    // Number of Questions
+                    questions = reader.ReadNetworkOrderUInt16();
+                    // Number of Answers
+                    answers = reader.ReadNetworkOrderUInt16();
+                    // Number of Authority Records
+                    authorityRecords = reader.ReadNetworkOrderUInt16();
+                    // Number of Additional Records
+                    additionalRecords = reader.ReadNetworkOrderUInt16();
+                }
+                
+                // Read each question
+                while (questions > 0)
+                {
+                    Question question = new Question();
+                    question.Name = BonjourUtility.ReadHostnameFromBytes(reader);
+                    question.Type = (RRType)reader.ReadNetworkOrderUInt16();
+                    question.Class = reader.ReadNetworkOrderUInt16();
+                    message.Questions.Add(question);
+                    questions--;
+                }
             }
 
             return message;
@@ -219,6 +243,15 @@ namespace Komodex.Bonjour.DNS
             sb.AppendFormat("(Questions: {0}, Answer RRs: {1}, Authority RRs: {2}, Additional RRs: {3})", Questions.Count, AnswerRecords.Count, AuthorityRecords.Count, AdditionalRecords.Count);
             sb.AppendLine();
             sb.AppendFormat("OPCODE: {0}, AA: {1}, TC: {2}, RD: {3}, RA: {4}, AD: {5}, CD: {6}, RCODE: {7}", Opcode, AuthoritativeAnswer, Truncated, RecursionDesired, RecursionAvailable, AuthenticData, CheckingDisabled, ResponseCode);
+            sb.AppendLine();
+            foreach (var question in Questions)
+                sb.AppendLine(question.ToString());
+            foreach (var rr in AnswerRecords)
+                sb.AppendLine(rr.ToString());
+            foreach (var rr in AuthorityRecords)
+                sb.AppendLine(rr.ToString());
+            foreach (var rr in AdditionalRecords)
+                sb.AppendLine(rr.ToString());
             return sb.ToString();
         }
 
