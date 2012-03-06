@@ -257,5 +257,42 @@ namespace Komodex.Common
 
         #endregion
 
+        #region Bit Manipulation Extensions
+
+        /// <summary>
+        /// Gets the value of the bit at a specific position.
+        /// </summary>
+        /// <param name="index">The zero-based index of the value to get.</param>
+        /// <returns></returns>
+        public static bool GetBit(this byte b, int index)
+        {
+            return (b & (1 << index)) != 0;
+        }
+
+        /// <summary>
+        /// Sets the bit at a specific position to the specified value.
+        /// </summary>
+        /// <param name="index">The zero-based index of the value to get.</param>
+        /// <param name="value">The Boolean value to assign to the bit.</param>
+        /// <returns></returns>
+        public static void SetBit(ref byte b, int index, bool value)
+        {
+            if (value)
+                b = (byte)(b | (1 << index));
+            else
+                b = (byte)(b & ~(1 << index));
+        }
+
+        #endregion
+
+        #region Byte Array Extensions
+
+        public static string ToHexString(this byte[] bytes)
+        {
+            return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+        }
+
+        #endregion
+
     }
 }
