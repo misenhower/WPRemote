@@ -129,5 +129,32 @@ namespace Komodex.Bonjour
         }
 
         #endregion
+
+        #region TXT Record Parsing
+
+        public static Dictionary<string, string> GetDictionaryFromTXTRecordBytes(BinaryReader reader, int length)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            var stopPosition = reader.BaseStream.Position + length;
+            while (reader.BaseStream.Position < stopPosition)
+            {
+                var txtLength = reader.ReadByte();
+                string txt = Encoding.UTF8.GetString(reader.ReadBytes(txtLength), 0, txtLength);
+                int eqIndex = txt.IndexOf('=');
+                if (eqIndex < 1)
+                    continue; // Skip records that aren't in key=value format
+                result.Add(txt.Substring(0, eqIndex), txt.Substring(eqIndex + 1));
+            }
+
+            return result;
+        }
+
+        public static byte[] GetTXTRecordBytesFromDictionary(Dictionary<string, string> data)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

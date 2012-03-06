@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Komodex.Bonjour.DNS
 {
-    public class SRVRecordData
+    internal class SRVRecordData
     {
         #region Properties
 

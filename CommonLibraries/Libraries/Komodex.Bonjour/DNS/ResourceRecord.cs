@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Komodex.Bonjour.DNS
 {
@@ -52,8 +54,9 @@ namespace Komodex.Bonjour.DNS
                 case RRType.SRV:
                     record.Data = SRVRecordData.FromBinaryReader(reader);
                     break;
-                //case RRType.TXT:
-                //    break;
+                case RRType.TXT:
+                    record.Data = BonjourUtility.GetDictionaryFromTXTRecordBytes(reader, dataLength);
+                    break;
                 default:
                     record.Data = reader.ReadBytes(dataLength);
                     break;
@@ -71,7 +74,13 @@ namespace Komodex.Bonjour.DNS
         {
             string result = Type + " " + Name;
             if (Data != null)
-                result += " Data: " + Data.ToString();
+            {
+                result += " Data: ";
+                if (Data is Dictionary<string, string>)
+                    result += string.Join(", ", ((Dictionary<string, string>)Data).Select(kvp => kvp.Key + "=" + kvp.Value));
+                else
+                    result += Data.ToString();
+            }
             return result;
         }
 
