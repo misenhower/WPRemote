@@ -153,18 +153,16 @@ namespace Komodex.Bonjour.DNS
 
                 // Number of questions and answer records
                 ushort questions, answers, authorityRecords, additionalRecords;
-                unchecked
-                {
-                    // Number of Questions
-                    questions = reader.ReadNetworkOrderUInt16();
-                    // Number of Answers
-                    answers = reader.ReadNetworkOrderUInt16();
-                    // Number of Authority Records
-                    authorityRecords = reader.ReadNetworkOrderUInt16();
-                    // Number of Additional Records
-                    additionalRecords = reader.ReadNetworkOrderUInt16();
-                }
-                
+
+                // Number of Questions
+                questions = reader.ReadNetworkOrderUInt16();
+                // Number of Answers
+                answers = reader.ReadNetworkOrderUInt16();
+                // Number of Authority Records
+                authorityRecords = reader.ReadNetworkOrderUInt16();
+                // Number of Additional Records
+                additionalRecords = reader.ReadNetworkOrderUInt16();
+
                 // Read each question
                 while (questions > 0)
                 {
