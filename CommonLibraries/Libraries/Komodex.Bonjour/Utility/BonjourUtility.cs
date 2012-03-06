@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace Komodex.Bonjour
 {
@@ -34,6 +35,23 @@ namespace Komodex.Bonjour
             unchecked
             {
                 bytes.AddNetworkOrderBytes((short)value);
+            }
+        }
+
+        #endregion
+
+        #region BinaryReader Extensions
+
+        public static Int16 ReadNetworkOrderInt16(this BinaryReader reader)
+        {
+            return IPAddress.NetworkToHostOrder(reader.ReadInt16());
+        }
+
+        public static UInt16 ReadNetworkOrderUInt16(this BinaryReader reader)
+        {
+            unchecked
+            {
+                return (UInt16)reader.ReadNetworkOrderInt16();
             }
         }
 

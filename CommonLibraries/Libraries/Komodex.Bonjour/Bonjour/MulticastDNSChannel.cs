@@ -133,7 +133,7 @@ namespace Komodex.Bonjour
             int count = _client.EndReceiveFromGroup(result, out sourceIPEndpoint);
 
             // Parse the incoming message
-            Message message = new Message(_receiveBuffer, 0, count);
+            Message message = Message.FromBytes(_receiveBuffer, 0, count);
             MessageReceived.Raise(this, new MessageReceivedEventArgs(message));
 
             BeginReceiveFromGroup();

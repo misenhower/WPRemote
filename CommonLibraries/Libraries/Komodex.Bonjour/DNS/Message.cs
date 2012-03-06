@@ -10,6 +10,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Text;
 using System.Collections.Generic;
+using System.IO;
+using Komodex.Common;
 
 namespace Komodex.Bonjour.DNS
 {
@@ -17,12 +19,6 @@ namespace Komodex.Bonjour.DNS
     {
         public Message()
         { }
-
-        public Message(byte[] bytes, int index, int count)
-            : this()
-        {
-            ParseBytes(bytes, index, count);
-        }
 
         #region Fields
 
@@ -118,9 +114,46 @@ namespace Komodex.Bonjour.DNS
 
         #region Methods
 
-        protected void ParseBytes(byte[] bytes, int index, int count)
+        public static Message FromBytes(byte[] bytes, int index, int count)
         {
-            
+            Message message = new Message();
+
+            using (MemoryStream stream = new MemoryStream(bytes, index, count))
+            using (BinaryReader reader = new BinaryReader(stream))
+            {
+                // ID
+                message.TransactionID = reader.ReadNetworkOrderUInt16();
+
+                // Flags
+                // QR, OPCODE, AA, TC, RD
+                byte flags = reader.ReadByte();
+                // QR
+                message.QueryResponse = flags.GetBit(7);
+                // OPCODE
+                message.Opcode = (byte)((flags >> 3) & 0x0f);
+                // AA
+                message.AuthoritativeAnswer = flags.GetBit(2);
+                // TC
+                message.Truncated = flags.GetBit(1);
+                // RD
+                message.RecursionDesired = flags.GetBit(0);
+
+                // RA, Z, AD, CD, RCODE
+                flags = reader.ReadByte();
+                // RA
+                message.RecursionAvailable = flags.GetBit(7);
+                // Z
+                // (zero bit)
+                // AD
+                message.AuthenticData = flags.GetBit(5);
+                // CD
+                message.CheckingDisabled = flags.GetBit(4);
+                // RCODE
+                message.ResponseCode = (byte)(flags & 0x0f);
+
+            }
+
+            return message;
         }
 
         public byte[] GetBytes()
@@ -129,33 +162,32 @@ namespace Komodex.Bonjour.DNS
 
             // ID
             result.AddNetworkOrderBytes(TransactionID);
-            System.Diagnostics.Debug.WriteLine(result.Count);
 
             // Flags
             // QR, OPCODE, AA, TC, RD
             byte flags = 0;
             // QR
-            if (QueryResponse) flags = (byte)(flags | (1 << 7));
+            Utility.SetBit(ref flags, 7, QueryResponse);
             // OPCODE
             flags = (byte)(flags | ((Opcode & 0x0f) << 3));
             // AA
-            if (AuthoritativeAnswer) flags = (byte)(flags | (1 << 2));
+            Utility.SetBit(ref flags, 2, AuthoritativeAnswer);
             // TC
-            if (Truncated) flags = (byte)(flags | (1 << 1));
+            Utility.SetBit(ref flags, 1, Truncated);
             // RD
-            if (RecursionDesired) flags = (byte)(flags | (1 << 0));
+            Utility.SetBit(ref flags, 0, RecursionDesired);
             result.Add(flags);
 
             // RA, Z, AD, CD, RCODE
             flags = 0;
             // RA
-            if (RecursionAvailable) flags = (byte)(flags | (1 << 7));
+            Utility.SetBit(ref flags, 7, RecursionAvailable);
             // Z
             // (zero bit)
             // AD
-            if (AuthenticData) flags = (byte)(flags | (1 << 5));
+            Utility.SetBit(ref flags, 5, AuthenticData);
             // CD
-            if (Truncated) flags = (byte)(flags | (1 << 4));
+            Utility.SetBit(ref flags, 4, CheckingDisabled);
             // RCODE
             flags = (byte)(flags | ((ResponseCode & 0x0f) << 0));
             result.Add(flags);
@@ -181,11 +213,13 @@ namespace Komodex.Bonjour.DNS
 
         public override string ToString()
         {
-            string result = "DNS ";
-            result += (QueryResponse) ? "Response" : "Query";
-            result += ": ";
-            result += string.Format("Questions: {0}, Answer RRs: {1}, Authority RRs: {2}, Additional RRs: {3}", Questions.Count, AnswerRecords.Count, AuthorityRecords.Count, AdditionalRecords.Count);
-            return result;
+            StringBuilder sb = new StringBuilder("DNS ");
+            sb.Append((QueryResponse) ? "Response" : "Query");
+            sb.Append(": ");
+            sb.AppendFormat("(Questions: {0}, Answer RRs: {1}, Authority RRs: {2}, Additional RRs: {3})", Questions.Count, AnswerRecords.Count, AuthorityRecords.Count, AdditionalRecords.Count);
+            sb.AppendLine();
+            sb.AppendFormat("OPCODE: {0}, AA: {1}, TC: {2}, RD: {3}, RA: {4}, AD: {5}, CD: {6}, RCODE: {7}", Opcode, AuthoritativeAnswer, Truncated, RecursionDesired, RecursionAvailable, AuthenticData, CheckingDisabled, ResponseCode);
+            return sb.ToString();
         }
 
         #endregion

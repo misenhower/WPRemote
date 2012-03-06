@@ -27,7 +27,7 @@ namespace Komodex.Bonjour
 
             // Create the DNS message to send
             Message message = new Message();
-            message.Questions.Add(new Question(_currentServiceName, RRType.SRV));
+            message.Questions.Add(new Question(_currentServiceName, RRType.PTR));
 
             // Create the channel if necessary
             if (_channel == null)
@@ -56,6 +56,7 @@ namespace Komodex.Bonjour
 
         private void MulticastDNSChannel_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine(e.Message.ToString());
         }
 
     }
