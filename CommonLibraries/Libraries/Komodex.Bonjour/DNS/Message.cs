@@ -163,16 +163,19 @@ namespace Komodex.Bonjour.DNS
                 // Number of Additional Records
                 additionalRecords = reader.ReadNetworkOrderUInt16();
 
-                // Read each question
-                while (questions > 0)
-                {
-                    Question question = new Question();
-                    question.Name = BonjourUtility.ReadHostnameFromBytes(reader);
-                    question.Type = (RRType)reader.ReadNetworkOrderUInt16();
-                    question.Class = reader.ReadNetworkOrderUInt16();
-                    message.Questions.Add(question);
-                    questions--;
-                }
+                // Read each Question and Resource Record
+                // Questions
+                while (questions-- > 0)
+                    message.Questions.Add(Question.FromBinaryReader(reader));
+                // Answers
+                while (answers-- > 0)
+                    message.AnswerRecords.Add(ResourceRecord.FromBinaryReader(reader));
+                // Authority Records
+                while (authorityRecords-- > 0)
+                    message.AnswerRecords.Add(ResourceRecord.FromBinaryReader(reader));
+                // Additional Records
+                while (additionalRecords-- > 0)
+                    message.AdditionalRecords.Add(ResourceRecord.FromBinaryReader(reader));
             }
 
             return message;
@@ -227,8 +230,15 @@ namespace Komodex.Bonjour.DNS
             // Questions
             for (int i = 0; i < Questions.Count; i++)
                 result.AddRange(Questions[i].GetBytes());
-
-            // TODO: Answers, Authority Records, and Additional Records
+            // Answers
+            for (int i = 0; i < AnswerRecords.Count; i++)
+                result.AddRange(AnswerRecords[i].GetBytes());
+            // Authority Records
+            for (int i = 0; i < AuthorityRecords.Count; i++)
+                result.AddRange(AuthorityRecords[i].GetBytes());
+            // Additional Records
+            for (int i = 0; i < AdditionalRecords.Count; i++)
+                result.AddRange(AdditionalRecords[i].GetBytes());
 
             return result.ToArray();
         }
@@ -242,14 +252,14 @@ namespace Komodex.Bonjour.DNS
             sb.AppendLine();
             sb.AppendFormat("OPCODE: {0}, AA: {1}, TC: {2}, RD: {3}, RA: {4}, AD: {5}, CD: {6}, RCODE: {7}", Opcode, AuthoritativeAnswer, Truncated, RecursionDesired, RecursionAvailable, AuthenticData, CheckingDisabled, ResponseCode);
             sb.AppendLine();
-            foreach (var question in Questions)
-                sb.AppendLine(question.ToString());
-            foreach (var rr in AnswerRecords)
-                sb.AppendLine(rr.ToString());
-            foreach (var rr in AuthorityRecords)
-                sb.AppendLine(rr.ToString());
-            foreach (var rr in AdditionalRecords)
-                sb.AppendLine(rr.ToString());
+            for (int i = 0; i < Questions.Count; i++)
+                sb.AppendFormat("Question {0}: {1}", i + 1, Questions[i].ToString()).AppendLine();
+            for (int i = 0; i < AnswerRecords.Count; i++)
+                sb.AppendFormat("Answer {0}: {1}", i + 1, AnswerRecords[i].ToString()).AppendLine();
+            for (int i = 0; i < AuthorityRecords.Count; i++)
+                sb.AppendFormat("Authority Record {0}: {1}", i + 1, AuthorityRecords[i].ToString()).AppendLine();
+            for (int i = 0; i < AdditionalRecords.Count; i++)
+                sb.AppendFormat("Additional Record {0}: {1}", i + 1, AdditionalRecords[i].ToString()).AppendLine();
             return sb.ToString();
         }
 

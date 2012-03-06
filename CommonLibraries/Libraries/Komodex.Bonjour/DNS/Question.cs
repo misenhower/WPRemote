@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Komodex.Bonjour.DNS
 {
@@ -38,6 +39,17 @@ namespace Komodex.Bonjour.DNS
 
         #region Methods
 
+        public static Question FromBinaryReader(BinaryReader reader)
+        {
+            Question question = new Question();
+
+            question.Name = BonjourUtility.ReadHostnameFromBytes(reader);
+            question.Type = (RRType)reader.ReadNetworkOrderUInt16();
+            question.Class = reader.ReadNetworkOrderUInt16();
+
+            return question;
+        }
+
         public byte[] GetBytes()
         {
             List<byte> result = new List<byte>(512);
@@ -57,7 +69,7 @@ namespace Komodex.Bonjour.DNS
 
         public override string ToString()
         {
-            return string.Format("Question Name: {0} ({1})", Name, Type);
+            return Type + " " + Name;
         }
 
         #endregion

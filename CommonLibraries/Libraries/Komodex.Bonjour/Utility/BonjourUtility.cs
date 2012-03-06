@@ -55,6 +55,11 @@ namespace Komodex.Bonjour
             }
         }
 
+        public static Int32 ReadNetworkOrderInt32(this BinaryReader reader)
+        {
+            return IPAddress.NetworkToHostOrder(reader.ReadInt32());
+        }
+
         #endregion
 
         #region Hostname Parsing
