@@ -57,6 +57,7 @@
     <Compile Include="DNS\ResourceRecord.cs" />
     <Compile Include="DNS\RRTypeEnum.cs" />
     <Compile Include="DNS\Message.cs" />
+    <Compile Include="DNS\SRVRecordData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\BonjourUtility.cs" />
   </ItemGroup>

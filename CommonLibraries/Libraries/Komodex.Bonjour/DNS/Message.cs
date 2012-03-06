@@ -255,11 +255,11 @@ namespace Komodex.Bonjour.DNS
             for (int i = 0; i < Questions.Count; i++)
                 sb.AppendFormat("Question {0}: {1}", i + 1, Questions[i].ToString()).AppendLine();
             for (int i = 0; i < AnswerRecords.Count; i++)
-                sb.AppendFormat("Answer {0}: {1}", i + 1, AnswerRecords[i].ToString()).AppendLine();
+                sb.AppendFormat("Answer RR {0}: {1}", i + 1, AnswerRecords[i].ToString()).AppendLine();
             for (int i = 0; i < AuthorityRecords.Count; i++)
-                sb.AppendFormat("Authority Record {0}: {1}", i + 1, AuthorityRecords[i].ToString()).AppendLine();
+                sb.AppendFormat("Authority RR {0}: {1}", i + 1, AuthorityRecords[i].ToString()).AppendLine();
             for (int i = 0; i < AdditionalRecords.Count; i++)
-                sb.AppendFormat("Additional Record {0}: {1}", i + 1, AdditionalRecords[i].ToString()).AppendLine();
+                sb.AppendFormat("Additional RR {0}: {1}", i + 1, AdditionalRecords[i].ToString()).AppendLine();
             return sb.ToString();
         }
 

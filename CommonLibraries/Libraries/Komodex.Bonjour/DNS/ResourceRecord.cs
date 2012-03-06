@@ -40,20 +40,22 @@ namespace Komodex.Bonjour.DNS
             record.TimeToLive = TimeSpan.FromSeconds(reader.ReadNetworkOrderInt32());
 
             ushort dataLength = reader.ReadNetworkOrderUInt16();
-            byte[] dataBytes = reader.ReadBytes(dataLength);
 
             switch (record.Type)
             {
-                //case RRType.A:
-                //    break;
-                //case RRType.PTR:
-                //    break;
-                //case RRType.SRV:
-                //    break;
+                case RRType.A:
+                    record.Data = new IPAddress(reader.ReadBytes(dataLength));
+                    break;
+                case RRType.PTR:
+                    record.Data = BonjourUtility.ReadHostnameFromBytes(reader);
+                    break;
+                case RRType.SRV:
+                    record.Data = SRVRecordData.FromBinaryReader(reader);
+                    break;
                 //case RRType.TXT:
                 //    break;
                 default:
-                    record.Data = dataBytes;
+                    record.Data = reader.ReadBytes(dataLength);
                     break;
             }
 
@@ -67,7 +69,10 @@ namespace Komodex.Bonjour.DNS
 
         public override string ToString()
         {
-            return Type + " " + Name;
+            string result = Type + " " + Name;
+            if (Data != null)
+                result += " Data: " + Data.ToString();
+            return result;
         }
 
         #endregion
