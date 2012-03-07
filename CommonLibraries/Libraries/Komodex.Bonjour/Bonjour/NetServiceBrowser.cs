@@ -72,10 +72,10 @@ namespace Komodex.Bonjour
             // Split the message into separate lines to avoid issues with exceeding the maximum length of Debug.WriteLine
             Debug.WriteLine("Message received:");
             var messageLines = message.ToString().Split('\n');
-            foreach(string line in messageLines)
+            foreach (string line in messageLines)
                 Debug.WriteLine(line.Trim());
             Debug.WriteLine(string.Empty);
 #endif
-
+        }
     }
 }
