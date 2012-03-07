@@ -67,7 +67,47 @@ namespace Komodex.Bonjour.DNS
 
         public byte[] GetBytes()
         {
-            throw new NotImplementedException();
+            List<byte> result = new List<byte>(512);
+
+            // Add the hostname
+            string hostname = BonjourUtility.FormatLocalHostname(Name);
+            result.AddRange(BonjourUtility.HostnameToBytes(hostname));
+
+            // Record Type
+            result.AddNetworkOrderBytes((ushort)Type);
+
+            // Class
+            result.AddNetworkOrderBytes(Class);
+
+            // TTL
+            result.AddNetworkOrderBytes((int)TimeToLive.TotalSeconds);
+
+            // Data
+            byte[] dataBytes;
+
+            switch (Type)
+            {
+                case RRType.A:
+                    dataBytes = ((IPAddress)Data).GetAddressBytes();
+                    break;
+                case RRType.PTR:
+                    dataBytes = BonjourUtility.HostnameToBytes(BonjourUtility.FormatLocalHostname((string)Data));
+                    break;
+                case RRType.SRV:
+                    dataBytes = ((SRVRecordData)Data).GetBytes();
+                    break;
+                case RRType.TXT:
+                    dataBytes = BonjourUtility.GetTXTRecordBytesFromDictionary((Dictionary<string, string>)Data);
+                    break;
+                default:
+                    dataBytes = (byte[])Data;
+                    break;
+            }
+
+            result.AddNetworkOrderBytes((ushort)dataBytes.Length);
+            result.AddRange(dataBytes);
+
+            return result.ToArray();
         }
 
         public override string ToString()

@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Komodex.Bonjour.DNS
 {
@@ -42,7 +43,21 @@ namespace Komodex.Bonjour.DNS
 
         public byte[] GetBytes()
         {
-            throw new NotImplementedException();
+            List<byte> result = new List<byte>();
+
+            // Priority
+            result.AddNetworkOrderBytes(Priority);
+
+            // Weight
+            result.AddNetworkOrderBytes(Weight);
+
+            // Port
+            result.AddNetworkOrderBytes(Port);
+
+            // Target
+            result.AddRange(BonjourUtility.HostnameToBytes(Target));
+
+            return result.ToArray();
         }
 
         public override string ToString()

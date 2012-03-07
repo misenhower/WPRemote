@@ -38,6 +38,11 @@ namespace Komodex.Bonjour
             }
         }
 
+        public static void AddNetworkOrderBytes(this List<byte> bytes, Int32 value)
+        {
+            bytes.AddRange(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(value)));
+        }
+
         #endregion
 
         #region BinaryReader Extensions
@@ -152,7 +157,17 @@ namespace Komodex.Bonjour
 
         public static byte[] GetTXTRecordBytesFromDictionary(Dictionary<string, string> data)
         {
-            throw new NotImplementedException();
+            List<byte> result = new List<byte>();
+
+            foreach (var item in data)
+            {
+                string txt = item.Key + "=" + item.Value;
+                byte[] txtBytes = Encoding.UTF8.GetBytes(txt);
+                result.AddNetworkOrderBytes((ushort)txtBytes.Length);
+                result.AddRange(txtBytes);
+            }
+
+            return result.ToArray();
         }
 
         #endregion
