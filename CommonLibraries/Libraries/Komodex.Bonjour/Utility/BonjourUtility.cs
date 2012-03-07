@@ -163,7 +163,7 @@ namespace Komodex.Bonjour
             {
                 string txt = item.Key + "=" + item.Value;
                 byte[] txtBytes = Encoding.UTF8.GetBytes(txt);
-                result.AddNetworkOrderBytes((ushort)txtBytes.Length);
+                result.Add((byte)txtBytes.Length);
                 result.AddRange(txtBytes);
             }
 
