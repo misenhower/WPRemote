@@ -17,7 +17,7 @@ namespace Komodex.Bonjour.DNS
     /// <summary>
     /// Resource record types
     /// </summary>
-    internal enum RRType
+    internal enum ResourceRecordType
     {
         Unknown = 0,
         All = 255,

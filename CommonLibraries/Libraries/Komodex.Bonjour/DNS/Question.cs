@@ -20,7 +20,7 @@ namespace Komodex.Bonjour.DNS
             Class = 1; // IN
         }
 
-        public Question(string name, RRType type)
+        public Question(string name, ResourceRecordType type)
             : this()
         {
             Name = name;
@@ -31,9 +31,9 @@ namespace Komodex.Bonjour.DNS
 
         public string Name { get; set; }
 
-        public RRType Type { get; set; }
+        public ResourceRecordType Type { get; set; }
 
-        public ushort Class { get; set; }
+        public int Class { get; set; }
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace Komodex.Bonjour.DNS
             Question question = new Question();
 
             question.Name = BonjourUtility.ReadHostnameFromBytes(reader);
-            question.Type = (RRType)reader.ReadNetworkOrderUInt16();
+            question.Type = (ResourceRecordType)reader.ReadNetworkOrderUInt16();
             question.Class = reader.ReadNetworkOrderUInt16();
 
             return question;
@@ -62,7 +62,7 @@ namespace Komodex.Bonjour.DNS
             result.AddNetworkOrderBytes((ushort)Type);
 
             // Class
-            result.AddNetworkOrderBytes(Class);
+            result.AddNetworkOrderBytes((ushort)Class);
 
             return result.ToArray();
         }

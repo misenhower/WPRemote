@@ -34,7 +34,7 @@ namespace Komodex.Bonjour.DNS
         /// <summary>
         /// Transaction ID (ID)
         /// </summary>
-        public ushort TransactionID { get; set; }
+        public int TransactionID { get; set; }
 
         /// <summary>
         /// Query/Response (QR) Bit. False if this is a query, true if this is a response.
@@ -186,7 +186,7 @@ namespace Komodex.Bonjour.DNS
             List<byte> result = new List<byte>(1024);
 
             // ID
-            result.AddNetworkOrderBytes(TransactionID);
+            result.AddNetworkOrderBytes((ushort)TransactionID);
 
             // Flags
             // QR, OPCODE, AA, TC, RD

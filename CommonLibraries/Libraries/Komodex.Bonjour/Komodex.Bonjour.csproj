@@ -55,7 +55,7 @@
     <Compile Include="Bonjour\NetServiceBrowser.cs" />
     <Compile Include="DNS\Question.cs" />
     <Compile Include="DNS\ResourceRecord.cs" />
-    <Compile Include="DNS\RRTypeEnum.cs" />
+    <Compile Include="DNS\ResourceRecordType.cs" />
     <Compile Include="DNS\Message.cs" />
     <Compile Include="DNS\SRVRecordData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

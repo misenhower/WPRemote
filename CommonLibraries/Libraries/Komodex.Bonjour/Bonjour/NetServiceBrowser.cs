@@ -29,7 +29,7 @@ namespace Komodex.Bonjour
 
             // Create the DNS message to send
             Message message = new Message();
-            message.Questions.Add(new Question(_currentServiceName, RRType.PTR));
+            message.Questions.Add(new Question(_currentServiceName, ResourceRecordType.PTR));
 
             // Create the channel if necessary
             if (_channel == null)

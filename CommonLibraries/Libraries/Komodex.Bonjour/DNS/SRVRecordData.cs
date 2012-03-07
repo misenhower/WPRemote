@@ -17,11 +17,11 @@ namespace Komodex.Bonjour.DNS
     {
         #region Properties
 
-        public ushort Priority { get; set; }
+        public int Priority { get; set; }
 
-        public ushort Weight { get; set; }
+        public int Weight { get; set; }
 
-        public ushort Port { get; set; } // TODO: Should I just convert to ints throughout the classes?
+        public int Port { get; set; }
 
         public string Target { get; set; }
 
@@ -46,13 +46,13 @@ namespace Komodex.Bonjour.DNS
             List<byte> result = new List<byte>();
 
             // Priority
-            result.AddNetworkOrderBytes(Priority);
+            result.AddNetworkOrderBytes((ushort)Priority);
 
             // Weight
-            result.AddNetworkOrderBytes(Weight);
+            result.AddNetworkOrderBytes((ushort)Weight);
 
             // Port
-            result.AddNetworkOrderBytes(Port);
+            result.AddNetworkOrderBytes((ushort)Port);
 
             // Target
             result.AddRange(BonjourUtility.HostnameToBytes(Target));

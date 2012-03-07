@@ -16,13 +16,18 @@ namespace Komodex.Bonjour.DNS
 {
     internal class ResourceRecord
     {
+        public ResourceRecord()
+        {
+            Class = 0x01; // IN
+        }
+
         #region Properties
 
         public string Name { get; set; }
 
-        public RRType Type { get; set; }
+        public ResourceRecordType Type { get; set; }
 
-        public ushort Class { get; set; }
+        public int Class { get; set; }
 
         public TimeSpan TimeToLive { get; set; }
 
@@ -37,7 +42,7 @@ namespace Komodex.Bonjour.DNS
             ResourceRecord record = new ResourceRecord();
 
             record.Name = BonjourUtility.ReadHostnameFromBytes(reader);
-            record.Type = (RRType)reader.ReadNetworkOrderUInt16();
+            record.Type = (ResourceRecordType)reader.ReadNetworkOrderUInt16();
             record.Class = reader.ReadNetworkOrderUInt16();
             record.TimeToLive = TimeSpan.FromSeconds(reader.ReadNetworkOrderInt32());
 
@@ -45,16 +50,16 @@ namespace Komodex.Bonjour.DNS
 
             switch (record.Type)
             {
-                case RRType.A:
+                case ResourceRecordType.A:
                     record.Data = new IPAddress(reader.ReadBytes(dataLength));
                     break;
-                case RRType.PTR:
+                case ResourceRecordType.PTR:
                     record.Data = BonjourUtility.ReadHostnameFromBytes(reader);
                     break;
-                case RRType.SRV:
+                case ResourceRecordType.SRV:
                     record.Data = SRVRecordData.FromBinaryReader(reader);
                     break;
-                case RRType.TXT:
+                case ResourceRecordType.TXT:
                     record.Data = BonjourUtility.GetDictionaryFromTXTRecordBytes(reader, dataLength);
                     break;
                 default:
@@ -77,7 +82,7 @@ namespace Komodex.Bonjour.DNS
             result.AddNetworkOrderBytes((ushort)Type);
 
             // Class
-            result.AddNetworkOrderBytes(Class);
+            result.AddNetworkOrderBytes((ushort)Class);
 
             // TTL
             result.AddNetworkOrderBytes((int)TimeToLive.TotalSeconds);
@@ -87,16 +92,16 @@ namespace Komodex.Bonjour.DNS
 
             switch (Type)
             {
-                case RRType.A:
+                case ResourceRecordType.A:
                     dataBytes = ((IPAddress)Data).GetAddressBytes();
                     break;
-                case RRType.PTR:
+                case ResourceRecordType.PTR:
                     dataBytes = BonjourUtility.HostnameToBytes(BonjourUtility.FormatLocalHostname((string)Data));
                     break;
-                case RRType.SRV:
+                case ResourceRecordType.SRV:
                     dataBytes = ((SRVRecordData)Data).GetBytes();
                     break;
-                case RRType.TXT:
+                case ResourceRecordType.TXT:
                     dataBytes = BonjourUtility.GetTXTRecordBytesFromDictionary((Dictionary<string, string>)Data);
                     break;
                 default:
