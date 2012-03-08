@@ -25,21 +25,15 @@ namespace Komodex.Bonjour
         public MulticastDNSChannel()
         { }
 
-        public MulticastDNSChannel(Message broadcastMessage)
-            : this()
-        {
-            BroadcastMessage = broadcastMessage;
-        }
-
         #region Properties
 
         public bool IsJoined { get; private set; }
 
-        public Message BroadcastMessage { get; set; }
-
         #endregion
 
         #region Events
+
+        public event EventHandler<EventArgs> Joined;
 
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
@@ -58,20 +52,16 @@ namespace Komodex.Bonjour
             _client.BeginJoinGroup(UDPClientJoinGroupCallback, _client);
         }
 
-        public void SendMessage()
+        public void SendMessage(Message message)
         {
-            if (BroadcastMessage == null)
-                throw new InvalidOperationException("Cannot send message when BroadcastMessage is null.");
-
             if (_client == null)
                 throw new InvalidOperationException("Call Start before attempting to send a message.");
 
-            // If the client exists but hasn't finished joining yet, the message will be sent automatically once joining has completed
             if (!IsJoined)
-                return;
+                throw new InvalidOperationException("Client has not been joined to the network.");
 
             // Get the message bytes and send
-            byte[] messageBytes = BroadcastMessage.GetBytes();
+            byte[] messageBytes = message.GetBytes();
             _client.BeginSendToGroup(messageBytes, 0, messageBytes.Length, UDPClientSendToGroupCallback, _client);
         }
 
@@ -107,12 +97,9 @@ namespace Komodex.Bonjour
 
             _client.EndJoinGroup(result);
             IsJoined = true;
+            Joined.Raise(this, new EventArgs());
 
-            // If a BroadcastMessage is available, send it to the network
-            if (BroadcastMessage != null)
-                SendMessage();
-            else
-                BeginReceiveFromGroup();
+            BeginReceiveFromGroup();
         }
 
         private void UDPClientSendToGroupCallback(IAsyncResult result)

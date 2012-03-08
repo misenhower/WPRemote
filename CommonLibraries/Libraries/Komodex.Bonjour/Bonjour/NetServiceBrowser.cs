@@ -18,6 +18,7 @@ namespace Komodex.Bonjour
     {
         // Service search parameters
         private string _currentServiceName;
+        private Message _currentServiceSearchMessage;
 
         private MulticastDNSChannel _channel;
 
@@ -28,20 +29,20 @@ namespace Komodex.Bonjour
             _currentServiceName = BonjourUtility.FormatLocalHostname(serviceName);
 
             // Create the DNS message to send
-            Message message = new Message();
-            message.Questions.Add(new Question(_currentServiceName, ResourceRecordType.PTR));
+            _currentServiceSearchMessage = new Message();
+            _currentServiceSearchMessage.Questions.Add(new Question(_currentServiceName, ResourceRecordType.PTR));
 
             // Create the channel if necessary
             if (_channel == null)
             {
-                _channel = new MulticastDNSChannel(message);
-                _channel.MessageReceived += new EventHandler<MessageReceivedEventArgs>(MulticastDNSChannel_MessageReceived);
+                _channel = new MulticastDNSChannel();
+                _channel.Joined += MulticastDNSChannel_Joined;
+                _channel.MessageReceived += MulticastDNSChannel_MessageReceived;
                 _channel.Start();
             }
             else
             {
-                _channel.BroadcastMessage = message;
-                _channel.SendMessage();
+                _channel.SendMessage(_currentServiceSearchMessage);
             }
         }
 
@@ -49,12 +50,23 @@ namespace Komodex.Bonjour
         {
             if (_channel != null)
             {
+                _channel.Joined -= MulticastDNSChannel_Joined;
+                _channel.MessageReceived -= MulticastDNSChannel_MessageReceived;
                 _channel.Stop();
                 _channel = null;
             }
         }
 
         #endregion
+
+        private void MulticastDNSChannel_Joined(object sender, EventArgs e)
+        {
+            if (sender != _channel)
+                return;
+
+            if (_currentServiceSearchMessage != null)
+                _channel.SendMessage(_currentServiceSearchMessage);
+        }
 
         private void MulticastDNSChannel_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
