@@ -34,7 +34,7 @@ namespace Komodex.Bonjour
         Dictionary<string, NetService> _discoveredServices = new Dictionary<string, NetService>();
 
         // Known IP addresses
-        Dictionary<string, IPAddress> _discoveredIPs = new Dictionary<string, IPAddress>();
+        Dictionary<string, List<IPAddress>> _discoveredIPs = new Dictionary<string, List<IPAddress>>();
 
         #region Public Methods
 
@@ -181,7 +181,10 @@ namespace Komodex.Bonjour
             string hostname = record.Name;
             IPAddress ip = (IPAddress)record.Data;
 
-            _discoveredIPs[hostname] = ip;
+            if (!_discoveredIPs.ContainsKey(hostname))
+                _discoveredIPs.Add(hostname, new List<IPAddress>());
+            if (!_discoveredIPs[hostname].Contains(ip))
+                _discoveredIPs[hostname].Insert(0, ip);
 
             // Update existing services
             var services = _discoveredServices.Values.Where(s => s.Hostname == hostname);
@@ -202,6 +205,9 @@ namespace Komodex.Bonjour
                 NetService service = _discoveredServices[serverInstanceName];
                 service.Hostname = srv.Target;
                 service.Port = srv.Port;
+                service.IPAddresses.Clear();
+                if (_discoveredIPs.ContainsKey(service.Hostname))
+                    service.IPAddresses.AddRange(_discoveredIPs[service.Hostname]);
             }
         }
 
