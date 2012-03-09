@@ -100,11 +100,6 @@ namespace Komodex.Bonjour
             if (!message.QueryResponse)
                 return;
 
-            // Make sure this has an answer to what we're looking for
-            // TODO: remove this?
-            if (!message.AnswerRecords.Any(rr => rr.Name == _currentServiceName))
-                return;
-
 #if DEBUG
             // Split the message into separate lines to avoid issues with exceeding the maximum length of Debug.WriteLine
             Debug.WriteLine("Message received:");
@@ -151,6 +146,9 @@ namespace Komodex.Bonjour
 
         private void ProcessPTRRecord(ResourceRecord record)
         {
+            if (record.Name != _currentServiceName)
+                return;
+
             NetService service = null;
             string serverInstanceName = (string)record.Data;
 
