@@ -133,6 +133,47 @@ namespace Komodex.Bonjour
             return result;
         }
 
+
+        /// <summary>
+        /// <para>Parses server instance names with the following format: &lt;Instance&gt;.&lt;Service&gt;.&lt;Domain&gt;</para>
+        /// <para>Example: "BDB3DEDD8FDC6E13._touch-able._tcp.local." returns Name: "BDB3DEDD8FDC6E13", Type: "_touch-able._tcp.", Domain: "local."</para>
+        /// </summary>
+        public static void ParseServiceInstanceName(string instanceName, out string name, out string type, out string domain)
+        {
+            name = null;
+            type = null;
+            domain = null;
+
+            var parts = instanceName.Split('.');
+            Array.Reverse(parts);
+
+            for (int i = 0; i < parts.Length; i++)
+            {
+                if (string.IsNullOrEmpty(parts[i]))
+                    continue;
+
+                if (type == null)
+                {
+                    if (parts[i].StartsWith("_"))
+                    {
+                        type = string.Format("{0}.{1}.", parts[i + 1], parts[i]);
+                        i++;
+                    }
+                    else
+                    {
+                        domain = parts[i] + "." + domain;
+                    }
+                }
+                else
+                {
+                    name = parts[i] + "." + name;
+                }
+            }
+
+            if (name != null)
+                name = name.TrimEnd(new char[] { '.' });
+        }
+
         #endregion
 
         #region TXT Record Parsing

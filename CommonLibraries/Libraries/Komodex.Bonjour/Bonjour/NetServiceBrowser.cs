@@ -11,21 +11,31 @@ using System.Windows.Shapes;
 using Komodex.Bonjour.DNS;
 using System.Diagnostics;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Komodex.Bonjour
 {
     public class NetServiceBrowser
     {
+        // Multicast DNS Channel for service discovery and resolution
+        private MulticastDNSChannel _channel;
+
         // Service search parameters
         private string _currentServiceName;
         private Message _currentServiceSearchMessage;
 
-        private MulticastDNSChannel _channel;
+        // Discovered services list
+        Dictionary<string, NetService> _discoveredServices = new Dictionary<string, NetService>();
+
+        // Known IP addresses
+        Dictionary<string, IPAddress> _discoveredIPs = new Dictionary<string, IPAddress>();
 
         #region Public Methods
 
         public void SearchForServices(string serviceName)
         {
+            _discoveredServices.Clear();
+
             _currentServiceName = BonjourUtility.FormatLocalHostname(serviceName);
 
             // Create the DNS message to send
@@ -54,10 +64,14 @@ namespace Komodex.Bonjour
                 _channel.MessageReceived -= MulticastDNSChannel_MessageReceived;
                 _channel.Stop();
                 _channel = null;
+                _discoveredServices.Clear();
+                _discoveredIPs.Clear();
             }
         }
 
         #endregion
+
+        #region Multicast DNS Channel Events
 
         private void MulticastDNSChannel_Joined(object sender, EventArgs e)
         {
@@ -77,6 +91,7 @@ namespace Komodex.Bonjour
                 return;
 
             // Make sure this has an answer to what we're looking for
+            // TODO: remove this?
             if (!message.AnswerRecords.Any(rr => rr.Name == _currentServiceName))
                 return;
 
@@ -88,6 +103,110 @@ namespace Komodex.Bonjour
                 Debug.WriteLine(line.Trim());
             Debug.WriteLine(string.Empty);
 #endif
+
+            ProcessMessage(message);
         }
+
+        #endregion
+
+        #region Message Processing
+
+        private void ProcessMessage(Message message)
+        {
+            List<NetService> changedServices = new List<NetService>();
+
+            var records = message.AnswerRecords.Concat(message.AdditionalRecords);
+
+            foreach (var record in records)
+            {
+                switch (record.Type)
+                {
+                    case ResourceRecordType.PTR:
+                        ProcessPTRRecord(record);
+                        break;
+                    case ResourceRecordType.A:
+                        ProcessARecord(record);
+                        break;
+                    case ResourceRecordType.SRV:
+                        ProcessSRVRecord(record);
+                        break;
+                    case ResourceRecordType.TXT:
+                        ProcessTXTRecord(record);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void ProcessPTRRecord(ResourceRecord record)
+        {
+            NetService service = null;
+            string serverInstanceName = (string)record.Data;
+
+            // TTL of zero means we need to remove the service from the list
+            if (record.TimeToLive == TimeSpan.Zero)
+            {
+                if (_discoveredServices.ContainsKey(serverInstanceName))
+                    _discoveredServices.Remove(serverInstanceName);
+            }
+            else
+            {
+                if (_discoveredServices.ContainsKey(serverInstanceName))
+                    service = _discoveredServices[serverInstanceName];
+                else
+                {
+                    service = new NetService(this);
+                    service.FullServerInstanceName = serverInstanceName;
+
+                    _discoveredServices[serverInstanceName] = service;
+                }
+
+                service.TTLExpires = DateTime.Now + record.TimeToLive;
+            }
+        }
+
+        private void ProcessARecord(ResourceRecord record)
+        {
+            string hostname = record.Name;
+            IPAddress ip = (IPAddress)record.Data;
+
+            _discoveredIPs[hostname] = ip;
+
+            // Update existing services
+            var services = _discoveredServices.Values.Where(s => s.Hostname == hostname);
+            foreach (var service in services)
+            {
+                if (!service.IPAddresses.Contains(ip))
+                    service.IPAddresses.Insert(0, ip);
+            }
+        }
+
+        private void ProcessSRVRecord(ResourceRecord record)
+        {
+            string serverInstanceName = record.Name;
+            SRVRecordData srv = (SRVRecordData)record.Data;
+
+            if (_discoveredServices.ContainsKey(serverInstanceName))
+            {
+                NetService service = _discoveredServices[serverInstanceName];
+                service.Hostname = srv.Target;
+                service.Port = srv.Port;
+            }
+        }
+
+        private void ProcessTXTRecord(ResourceRecord record)
+        {
+            string serverInstanceName = record.Name;
+
+            if (_discoveredServices.ContainsKey(serverInstanceName))
+            {
+                NetService service = _discoveredServices[serverInstanceName];
+                service.TXTRecordData = (Dictionary<string, string>)record.Data;
+            }
+        }
+
+        #endregion
+
     }
 }
