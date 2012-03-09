@@ -12,11 +12,17 @@ using Komodex.Bonjour.DNS;
 using System.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
+using Komodex.Common;
+using System.Threading;
 
 namespace Komodex.Bonjour
 {
     public class NetServiceBrowser
     {
+        // Run loop time interval (ms)
+        private const int RunLoopFirstInterval = 1000;
+        private const int RunLoopRecurringInterval = 2000;
+
         // Multicast DNS Channel for service discovery and resolution
         private MulticastDNSChannel _channel;
 
@@ -54,10 +60,14 @@ namespace Komodex.Bonjour
             {
                 _channel.SendMessage(_currentServiceSearchMessage);
             }
+
+            StartRunLoop();
         }
 
         public void Stop()
         {
+            StopRunLoop();
+
             if (_channel != null)
             {
                 _channel.Joined -= MulticastDNSChannel_Joined;
@@ -204,6 +214,68 @@ namespace Komodex.Bonjour
                 NetService service = _discoveredServices[serverInstanceName];
                 service.TXTRecordData = (Dictionary<string, string>)record.Data;
             }
+        }
+
+        #endregion
+
+        #region Service Notification
+
+        public event EventHandler<NetServiceEventArgs> ServiceFound;
+        public event EventHandler<NetServiceEventArgs> ServiceRemoved;
+
+        private List<NetService> _notifiedServices = new List<NetService>();
+
+        private void NotifyServices()
+        {
+            // Determine which services have been removed
+            var removedServices = _notifiedServices.Where(s => !_discoveredServices.ContainsValue(s)).ToArray();
+
+            // Determine which services have been added
+            var addedServices = _discoveredServices.Values.Where(s => !_notifiedServices.Contains(s)).ToArray();
+
+            // Send removed notifications
+            foreach (var service in removedServices)
+            {
+                ServiceRemoved.Raise(this, new NetServiceEventArgs(service));
+                _notifiedServices.Remove(service);
+            }
+
+            // Send added notifications
+            foreach (var service in addedServices)
+            {
+                ServiceFound.Raise(this, new NetServiceEventArgs(service));
+                _notifiedServices.Add(service);
+            }
+        }
+
+        #endregion
+
+        #region Run Loop
+
+        private Timer _runLoopTimer;
+
+        private void StartRunLoop()
+        {
+            if (_runLoopTimer != null)
+                return;
+
+            _runLoopTimer = new Timer(RunLoop, null, RunLoopFirstInterval, RunLoopRecurringInterval);
+        }
+
+        private void StopRunLoop()
+        {
+            if (_runLoopTimer == null)
+                return;
+
+            _runLoopTimer.Dispose();
+            _runLoopTimer = null;
+        }
+
+        private void RunLoop(object state)
+        {
+            // TODO: Check TTLs, etc.
+
+            NotifyServices();
         }
 
         #endregion

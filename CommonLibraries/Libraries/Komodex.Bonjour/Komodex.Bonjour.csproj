@@ -53,6 +53,7 @@
     <Compile Include="Bonjour\MulticastDNSChannel.cs" />
     <Compile Include="Bonjour\NetService.cs" />
     <Compile Include="Bonjour\NetServiceBrowser.cs" />
+    <Compile Include="Bonjour\NetServiceEventArgs.cs" />
     <Compile Include="DNS\Question.cs" />
     <Compile Include="DNS\ResourceRecord.cs" />
     <Compile Include="DNS\ResourceRecordType.cs" />
