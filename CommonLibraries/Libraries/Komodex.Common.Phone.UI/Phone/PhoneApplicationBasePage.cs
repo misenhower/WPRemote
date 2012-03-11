@@ -36,7 +36,7 @@ namespace Komodex.Common.Phone
 #endif
 
             // Remove the previous page's entry in the back stack if requested
-            if (queryString.GetBoolValue(PhoneApplicationUtility.NavigationRemoveBackEntryParameterName))
+            if (e.NavigationMode == NavigationMode.New && queryString.GetBoolValue(PhoneApplicationUtility.NavigationRemoveBackEntryParameterName))
                 NavigationService.RemoveBackEntry();
         }
 
