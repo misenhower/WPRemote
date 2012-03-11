@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Phone\PhoneAppCrashReporter.cs" />
     <Compile Include="Phone\PhoneApplicationBasePage.cs" />
+    <Compile Include="Phone\PhoneApplicationUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

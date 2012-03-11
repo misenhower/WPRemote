@@ -10,11 +10,28 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Clarity.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Diagnostics;
+using System.Windows.Navigation;
 
 namespace Komodex.Common.Phone
 {
     public class PhoneApplicationBasePage : AnimatedBasePage
     {
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+#if DEBUG
+            Debug.WriteLine("Navigated ({0}) to page: {1}", e.NavigationMode, e.Uri);
+            if (NavigationContext.QueryString != null && NavigationContext.QueryString.Count > 0)
+            {
+                Debug.WriteLine("{0} query parameter(s):", NavigationContext.QueryString.Count);
+                foreach (var item in NavigationContext.QueryString)
+                    Debug.WriteLine(" {0} => {1}", item.Key, item.Value);
+            }
+#endif
+        }
+
         #region Application Bar
 
         protected void InitializeApplicationBar()
