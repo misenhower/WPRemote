@@ -26,24 +26,32 @@ namespace Komodex.Common.Phone
             return frame.Navigate(uri);
         }
 
-        public static bool Navigate(this PhoneApplicationFrame frame, string source, Dictionary<string, string> parameters)
+        public static bool Navigate(this PhoneApplicationFrame frame, string source, params KeyValuePair<string, string>[] parameters)
         {
+
             return frame.Navigate(source, false, parameters);
         }
 
-        public static bool Navigate(this PhoneApplicationFrame frame, string source, bool removeBackEntry, Dictionary<string, string> parameters = null)
+        public static bool Navigate(this PhoneApplicationFrame frame, string source, bool removeBackEntry, params KeyValuePair<string, string>[] parameters)
         {
             if (removeBackEntry)
             {
                 if (parameters == null)
-                    parameters = new Dictionary<string, string>();
+                    parameters = new KeyValuePair<string, string>[1];
+                else
+                    Array.Resize(ref parameters, parameters.Length + 1);
 
-                parameters[NavigationRemoveBackEntryParameterName] = "true";
+                parameters[parameters.Length - 1] = new KeyValuePair<string, string>(NavigationRemoveBackEntryParameterName, "true");
             }
 
             if (parameters != null)
             {
-                source += "?" + string.Join("&", parameters.Select(p => Uri.EscapeDataString(p.Key) + "=" + Uri.EscapeDataString(p.Value)));
+                if (source.Contains('?'))
+                    source += "&";
+                else
+                    source += "?";
+
+                source += string.Join("&", parameters.Select(p => Uri.EscapeDataString(p.Key) + "=" + Uri.EscapeDataString(p.Value)));
             }
 
             return frame.Navigate(source);
