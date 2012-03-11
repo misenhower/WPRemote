@@ -13,6 +13,7 @@ using Microsoft.Phone.Shell;
 using System.Diagnostics;
 using System.Windows.Navigation;
 using System.Linq;
+using System.Windows.Threading;
 
 namespace Komodex.Common.Phone
 {
@@ -133,6 +134,84 @@ namespace Komodex.Common.Phone
         }
 
         #endregion
+
+        #endregion
+
+        #region Progress Indicator
+
+        private TimeSpan _defaultProgressIndicatorClearDelay = TimeSpan.FromSeconds(1);
+        private DispatcherTimer _progressIndicatorTimer;
+
+        private void InitializeProgressIndicator(bool? isVisible)
+        {
+            if (_progressIndicatorTimer != null)
+                _progressIndicatorTimer.Stop();
+
+            ProgressIndicator progressIndicator = SystemTray.ProgressIndicator;
+            if (progressIndicator == null)
+            {
+                progressIndicator = new ProgressIndicator();
+                SystemTray.ProgressIndicator = progressIndicator;
+            }
+
+            if (isVisible.HasValue)
+                progressIndicator.IsVisible = isVisible.Value;
+        }
+
+        protected void SetProgressIndicator(string text, bool isIndeterminate = false)
+        {
+            InitializeProgressIndicator(true);
+
+            ProgressIndicator progressIndicator = SystemTray.ProgressIndicator;
+            progressIndicator.Text = text;
+            progressIndicator.IsIndeterminate = isIndeterminate;
+            progressIndicator.Value = 0;
+        }
+
+        protected void SetProgressIndicator(string text, double value)
+        {
+            InitializeProgressIndicator(true);
+
+            ProgressIndicator progressIndicator = SystemTray.ProgressIndicator;
+            progressIndicator.Text = text;
+            progressIndicator.IsIndeterminate = false;
+            progressIndicator.Value = value;
+        }
+
+        protected void ClearProgressIndicator()
+        {
+            ClearProgressIndicator(null, TimeSpan.Zero);
+        }
+
+        protected void ClearProgressIndicator(string text)
+        {
+            ClearProgressIndicator(text, _defaultProgressIndicatorClearDelay);
+        }
+
+        protected void ClearProgressIndicator(string text, TimeSpan delay)
+        {
+            InitializeProgressIndicator(null);
+
+            ProgressIndicator progressIndicator = SystemTray.ProgressIndicator;
+
+            if (string.IsNullOrEmpty(text) || delay == TimeSpan.Zero)
+            {
+                progressIndicator.IsVisible = false;
+                return;
+            }
+
+            progressIndicator.Text = text;
+            progressIndicator.IsIndeterminate = false;
+
+            if (_progressIndicatorTimer == null)
+            {
+                _progressIndicatorTimer = new DispatcherTimer();
+                _progressIndicatorTimer.Tick += (sender, e) => ClearProgressIndicator();
+            }
+
+            _progressIndicatorTimer.Interval = delay;
+            _progressIndicatorTimer.Start();
+        }
 
         #endregion
     }
