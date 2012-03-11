@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Microsoft.Phone.Scheduler;
+using Komodex.Common;
 
 namespace Komodex.PhoneLibrariesTestApp.BackgroundAgent
 {
@@ -44,7 +45,8 @@ namespace Komodex.PhoneLibrariesTestApp.BackgroundAgent
         /// </remarks>
         protected override void OnInvoke(ScheduledTask task)
         {
-            //TODO: Add code to perform your task in background
+            // Call a method contained in Komodex.Common.Phone.dll to make sure the assembly is loaded for marketplace tests
+            Utility.InitializeApplicationID("testappbkg", "Test App Background Agent");
 
             NotifyComplete();
         }
