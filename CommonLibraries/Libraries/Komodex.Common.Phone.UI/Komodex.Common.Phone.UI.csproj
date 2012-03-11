@@ -51,9 +51,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Phone\PhoneAppCrashReporter.cs" />
+    <Compile Include="Phone\PhoneApplicationBasePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Clarity.PageTransitions\Clarity.PageTransitions.csproj">
+      <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
+      <Name>Clarity.PageTransitions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Komodex.Common\Komodex.Common.Phone.csproj">
       <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>
       <Name>Komodex.Common.Phone</Name>
