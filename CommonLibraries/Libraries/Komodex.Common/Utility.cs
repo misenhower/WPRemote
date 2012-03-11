@@ -14,6 +14,7 @@ using System.Windows.Threading;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace Komodex.Common
 {
@@ -294,5 +295,29 @@ namespace Komodex.Common
 
         #endregion
 
+        #region IDictionary Extensions
+
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue = default(TValue))
+        {
+            if (dictionary == null)
+                return defaultValue;
+            if (!dictionary.ContainsKey(key))
+                return defaultValue;
+
+            return dictionary[key];
+        }
+
+        public static bool GetBoolValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+        {
+            var value = dictionary.GetValueOrDefault(key);
+            if (value == null)
+                return false;
+
+            bool result;
+            bool.TryParse(value.ToString(), out result);
+            return result;
+        }
+
+        #endregion
     }
 }
