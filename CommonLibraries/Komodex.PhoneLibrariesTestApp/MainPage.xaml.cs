@@ -10,10 +10,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Komodex.Common.Phone;
 
 namespace Komodex.PhoneLibrariesTestApp
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : PhoneApplicationBasePage
     {
         // Constructor
         public MainPage()
