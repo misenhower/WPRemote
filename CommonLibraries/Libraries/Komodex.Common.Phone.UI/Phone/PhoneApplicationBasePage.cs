@@ -38,11 +38,13 @@ namespace Komodex.Common.Phone
             // Remove the previous page's entry in the back stack if requested
             if (e.NavigationMode == NavigationMode.New && queryString.GetBoolValue(PhoneApplicationUtility.NavigationRemoveBackEntryParameterName))
                 NavigationService.RemoveBackEntry();
+
+            ClearProgressIndicator();
         }
 
         #region Application Bar
 
-        protected void InitializeApplicationBar()
+        protected virtual void InitializeApplicationBar()
         {
             if (ApplicationBar == null)
                 ApplicationBar = new ApplicationBar();
@@ -88,7 +90,7 @@ namespace Komodex.Common.Phone
             }
         }
 
-        protected void UpdateApplicationBarOpacity()
+        protected virtual void UpdateApplicationBarOpacity()
         {
             if (IsApplicationBarMenuVisible)
                 ApplicationBar.Opacity = ApplicationBarOpenOpacity;
