@@ -156,7 +156,6 @@
     </Compile>
     <Compile Include="ThirdParty\LowProfileImageLoader.cs" />
     <Compile Include="Utilities\DeviceInfo.cs" />
-    <Compile Include="Utilities\CrashReporter.cs" />
     <Compile Include="Utilities\StateUtils.cs" />
     <Compile Include="Utilities\RemoteUtility.cs" />
   </ItemGroup>

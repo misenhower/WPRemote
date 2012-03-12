@@ -17,6 +17,9 @@ using System.Linq;
 using Komodex.WP7DACPRemote.Localization;
 using Komodex.WP7DACPRemote.Controls;
 using Komodex.Common;
+using System.IO;
+using Komodex.DACP;
+using Komodex.WP7DACPRemote.DACPServerManagement;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -27,6 +30,33 @@ namespace Komodex.WP7DACPRemote
         public static void Initialize()
         {
             Utility.InitializeApplicationID("remote", "Remote");
+        }
+
+        #endregion
+
+        #region CrashReporter Info Hook
+
+        public static void DACPInfoCrashReporterCallback(TextWriter writer)
+        {
+            writer.WriteLine("Library Information");
+            DACPServer server = DACPServerManager.Server;
+            if (server != null)
+            {
+                writer.Write("-> Connection status: ");
+                if (server.IsConnected)
+                    writer.WriteLine("Connected");
+                else
+                    writer.WriteLine("Disconnected");
+
+                writer.WriteLine("-> Version: " + server.ServerVersionString);
+                writer.WriteLine("-> Protocol: " + server.ServerVersion.ToString("x").ToUpper());
+                writer.WriteLine("-> DMAP: " + server.ServerDMAPVersion.ToString("x").ToUpper());
+                writer.WriteLine("-> DAAP: " + server.ServerDAAPVersion.ToString("x").ToUpper());
+            }
+            else
+            {
+                writer.WriteLine("-> No server connected");
+            }
         }
 
         #endregion

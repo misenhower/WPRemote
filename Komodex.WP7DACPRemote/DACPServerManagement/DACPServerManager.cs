@@ -17,6 +17,7 @@ using System.Windows.Data;
 using Komodex.WP7DACPRemote.Utilities;
 using Komodex.WP7DACPRemote.Settings;
 using Komodex.WP7DACPRemote.Localization;
+using Komodex.Common.Phone;
 
 namespace Komodex.WP7DACPRemote.DACPServerManagement
 {

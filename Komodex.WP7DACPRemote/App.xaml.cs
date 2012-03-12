@@ -65,7 +65,8 @@ namespace Komodex.WP7DACPRemote
             TrialManager.Initialize();
 
             // Error reporter initialization
-            //CrashReporter.Initialize(RootFrame);
+            PhoneAppCrashReporter.Initialize(this, RootFrame);
+            CrashReporter.AdditionalLogInfoCallbacks.Add(RemoteUtility.DACPInfoCrashReporterCallback);
 
             // Set up hooks
             NavigationManager.DoFirstLoad(RootFrame);
