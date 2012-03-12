@@ -15,11 +15,14 @@ using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using Microsoft.Phone.Shell;
 using Komodex.WP7DACPRemote.Localization;
+using Komodex.Common.Phone;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
-    public partial class LibraryChooserPage : AnimatedBasePage
+    public partial class LibraryChooserPage : PhoneApplicationBasePage
     {
+        private bool _deletedConnectedServer = false;
+
         public LibraryChooserPage()
         {
             InitializeComponent();
@@ -28,43 +31,20 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
             AnimationContext = LayoutRoot;
 
-            // "Add" application bar button
-            ApplicationBarIconButton addButton = new ApplicationBarIconButton(new Uri("/icons/appbar.new.rest.png", UriKind.Relative));
-            addButton.Text = LocalizedStrings.AddAppBarButton;
-            addButton.Click += new EventHandler(btnNew_Click);
-            ApplicationBar.Buttons.Add(addButton);
-
-            // "About" application bar menu item
-            ApplicationBarMenuItem aboutMenuItem = new ApplicationBarMenuItem(LocalizedStrings.AboutMenuItem);
-            aboutMenuItem.Click += new EventHandler(mnuAbout_Click);
-            ApplicationBar.MenuItems.Add(aboutMenuItem);
+            InitializeApplicationBar();
         }
-
-        private bool _deletedConnectedServer = false;
-
-        #region Static Properties
-
-        private static bool _SuppressAutoOpenAddNewServerPage = false;
-        public static bool SuppressAutoOpenAddNewServerPage
-        {
-            get { return _SuppressAutoOpenAddNewServerPage; }
-            set { _SuppressAutoOpenAddNewServerPage = value; }
-        }
-
-        #endregion
 
         #region Overrides
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void InitializeApplicationBar()
         {
-            if (!SuppressAutoOpenAddNewServerPage && DACPServerViewModel.Instance.Items.Count == 0)
-            {
-                SuppressAutoOpenAddNewServerPage = true; // This needs to be set to false at some point
-                NavigationManager.OpenAddNewServerPage();
-                return;
-            }
+            base.InitializeApplicationBar();
 
-            base.OnNavigatedTo(e);
+            // Add
+            AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, "/icons/appbar.new.rest.png", () => NavigationManager.OpenAddNewServerPage());
+
+            // About
+            AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, () => NavigationManager.OpenAboutPage());
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -81,16 +61,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         #endregion
 
         #region Button/Action Event Handlers
-
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenAddNewServerPage();
-        }
-
-        private void mnuAbout_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenAboutPage();
-        }
 
         private void mnuDelete_Click(object sender, RoutedEventArgs e)
         {

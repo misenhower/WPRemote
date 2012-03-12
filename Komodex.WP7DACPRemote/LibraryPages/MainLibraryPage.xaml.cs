@@ -28,21 +28,17 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             AnimationContext = LayoutRoot;
 
             // Application Bar
-            InitializeAppBar();
+            InitializeApplicationBar();
             InitializeStandardAppNavApplicationBar(true, false, true);
 
-            // "Shuffle all songs" menu item
-            ApplicationBarMenuItem shuffleMenuItem = new ApplicationBarMenuItem(LocalizedStrings.ShuffleAllSongsMenuItem);
-            shuffleMenuItem.Click += new EventHandler(mnuShuffle_Click);
-            ApplicationBar.MenuItems.Add(shuffleMenuItem);
+            // Shuffle All Songs
+            AddApplicationBarMenuItem(LocalizedStrings.ShuffleAllSongsMenuItem, ShuffleAllSongs);
 
+            // Choose Library
             AddChooseLibraryApplicationBarMenuItem();
 
-            // "More" Appbar button
-            var AppBarMoreButton = new ApplicationBarIconButton(new Uri("/icons/custom.appbar.moredots.png", UriKind.Relative));
-            AppBarMoreButton.Text = LocalizedStrings.MoreAppBarButton;
-            AppBarMoreButton.Click += new EventHandler(AppBarMoreButton_Click);
-            ApplicationBar.Buttons.Add(AppBarMoreButton);
+            // More
+            AddApplicationBarIconButton(LocalizedStrings.MoreAppBarButton, "/icons/custom.appbar.moredots.png", AppBarMoreButton_Click);
         }
 
         DialogService moreDialog = null;
@@ -148,7 +144,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             GetDataForPivotItem();
         }
 
-        void AppBarMoreButton_Click(object sender, EventArgs e)
+        void AppBarMoreButton_Click()
         {
             if (moreDialog != null)
                 moreDialog.Hide();
@@ -261,7 +257,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         #region Shuffle All Songs
 
-        private void mnuShuffle_Click(object sender, EventArgs e)
+        private void ShuffleAllSongs()
         {
             if (DACPServer != null && DACPServer.IsConnected)
             {

@@ -14,11 +14,19 @@ using Komodex.WP7DACPRemote.DACPServerManagement;
 using Microsoft.Phone.Shell;
 using Clarity.Phone.Controls;
 using Komodex.WP7DACPRemote.Localization;
+using Komodex.Common.Phone;
 
 namespace Komodex.WP7DACPRemote
 {
-    public class DACPServerBoundPhoneApplicationPage : AnimatedBasePage
+    public class DACPServerBoundPhoneApplicationPage : PhoneApplicationBasePage
     {
+        public DACPServerBoundPhoneApplicationPage()
+            : base()
+        {
+            ApplicationBarOpenOpacity = 0.9;
+            ApplicationBarClosedOpacity = 0.5;
+        }
+
         #region Properties
 
         protected DACPServer DACPServer
@@ -27,69 +35,41 @@ namespace Komodex.WP7DACPRemote
             set
             {
                 DetachServerEvents();
-
                 DataContext = value;
-
                 AttachServerEvents();
             }
         }
 
         #endregion
 
-        #region General Appplication Bar Methods
-
-        protected void InitializeAppBar()
-        {
-            ApplicationBar.StateChanged += new EventHandler<ApplicationBarStateChangedEventArgs>(ApplicationBar_StateChanged);
-        }
-
-        void ApplicationBar_StateChanged(object sender, ApplicationBarStateChangedEventArgs e)
-        {
-            if (e.IsMenuVisible)
-                ApplicationBar.Opacity = 0.9;
-            else
-                ApplicationBar.Opacity = 0.5;
-        }
-
-        #endregion
-
         #region Standard Play Transport Application Bar
 
-        private ApplicationBarIconButton AppBarPreviousTrackButton = null;
-        private ApplicationBarIconButton AppBarPlayPauseButton = null;
-        private ApplicationBarIconButton AppBarNextTrackButton = null;
+        private ApplicationBarIconButton _appBarPreviousTrackButton;
+        private ApplicationBarIconButton _appBarPlayPauseButton;
+        private ApplicationBarIconButton _appBarNextTrackButton;
         private readonly Uri iconPlay = new Uri("/icons/appbar.transport.play.rest.png", UriKind.Relative);
         private readonly Uri iconPause = new Uri("/icons/appbar.transport.pause.rest.png", UriKind.Relative);
 
-        protected bool UsesStandardPlayTransportApplicationBar { get; private set; }
+        private bool _usesStandardPlayTransportApplicationBar;
 
         protected void InitializeStandardPlayTransportApplicationBar()
         {
             // Previous track
-            AppBarPreviousTrackButton = new ApplicationBarIconButton(new Uri("/icons/appbar.transport.rew.rest.png", UriKind.Relative));
-            AppBarPreviousTrackButton.Text = LocalizedStrings.PreviousAppBarButton;
-            AppBarPreviousTrackButton.Click += new EventHandler(AppBarPreviousTrackButton_Click);
-            ApplicationBar.Buttons.Add(AppBarPreviousTrackButton);
+            _appBarPreviousTrackButton = AddApplicationBarIconButton(LocalizedStrings.PreviousAppBarButton, "/icons/appbar.transport.rew.rest.png", () => DACPServer.SendPrevItemCommand());
 
             // Play/pause
-            AppBarPlayPauseButton = new ApplicationBarIconButton(iconPlay);
-            AppBarPlayPauseButton.Text = LocalizedStrings.PlayPauseAppBarButton;
-            AppBarPlayPauseButton.Click += new EventHandler(AppBarPlayPauseButton_Click);
-            ApplicationBar.Buttons.Add(AppBarPlayPauseButton);
+            _appBarPlayPauseButton = AddApplicationBarIconButton(LocalizedStrings.PlayPauseAppBarButton, iconPlay, () => DACPServer.SendPlayPauseCommand());
 
             // Next track
-            AppBarNextTrackButton = new ApplicationBarIconButton(new Uri("/icons/appbar.transport.ff.rest.png", UriKind.Relative));
-            AppBarNextTrackButton.Text = LocalizedStrings.NextAppBarButton;
-            AppBarNextTrackButton.Click += new EventHandler(AppBarNextTrackButton_Click);
-            ApplicationBar.Buttons.Add(AppBarNextTrackButton);
+            _appBarNextTrackButton = AddApplicationBarIconButton(LocalizedStrings.NextAppBarButton, "/icons/appbar.transport.ff.rest.png", () => DACPServer.SendNextItemCommand());
 
             // Set the flag
-            UsesStandardPlayTransportApplicationBar = true;
+            _usesStandardPlayTransportApplicationBar = true;
         }
 
         private void UpdateTransportButtons()
         {
-            if (!UsesStandardPlayTransportApplicationBar)
+            if (!_usesStandardPlayTransportApplicationBar)
                 return;
 
             bool isStopped = true;
@@ -101,90 +81,43 @@ namespace Komodex.WP7DACPRemote
                 isPlaying = (DACPServer.PlayState == PlayStates.Playing);
             }
 
-            AppBarPreviousTrackButton.IsEnabled = AppBarPlayPauseButton.IsEnabled = AppBarNextTrackButton.IsEnabled = !isStopped;
+            _appBarPreviousTrackButton.IsEnabled = _appBarPlayPauseButton.IsEnabled = _appBarNextTrackButton.IsEnabled = !isStopped;
 
             if (isPlaying)
-                AppBarPlayPauseButton.IconUri = iconPause;
+                _appBarPlayPauseButton.IconUri = iconPause;
             else
-                AppBarPlayPauseButton.IconUri = iconPlay;
-        }
-
-        private void AppBarPreviousTrackButton_Click(object sender, EventArgs e)
-        {
-            DACPServer.SendPrevItemCommand();
-        }
-
-        private void AppBarNextTrackButton_Click(object sender, EventArgs e)
-        {
-            DACPServer.SendNextItemCommand();
-        }
-
-        private void AppBarPlayPauseButton_Click(object sender, EventArgs e)
-        {
-            DACPServer.SendPlayPauseCommand();
+                _appBarPlayPauseButton.IconUri = iconPlay;
         }
 
         #endregion
 
         #region Standard App Navigation Application Bar
 
-        private ApplicationBarIconButton AppBarNowPlayingButton = null;
-        private ApplicationBarIconButton AppBarBrowseButton = null;
-        private ApplicationBarIconButton AppBarSearchButton = null;
+        private ApplicationBarIconButton _appBarNowPlayingButton;
 
-        protected bool UsesStandardAppNavApplicationBar { get; private set; }
+        private bool _usesStandardAppNavApplicationBar;
 
         protected void InitializeStandardAppNavApplicationBar(bool addNowPlayingButton = true, bool addBrowseButton = true, bool addSearchButton = true)
         {
             if (addNowPlayingButton)
-            {
-                AppBarNowPlayingButton = new ApplicationBarIconButton(new Uri("/icons/custom.appbar.itunes.png", UriKind.Relative));
-                AppBarNowPlayingButton.Text = LocalizedStrings.NowPlayingAppBarButton;
-                AppBarNowPlayingButton.Click += new EventHandler(AppBarNowPlayingButton_Click);
-                ApplicationBar.Buttons.Add(AppBarNowPlayingButton);
-            }
+                _appBarNowPlayingButton = AddApplicationBarIconButton(LocalizedStrings.NowPlayingAppBarButton, "/icons/custom.appbar.itunes.png", () => NavigationManager.OpenNowPlayingPage());
 
             if (addBrowseButton)
-            {
-                AppBarBrowseButton = new ApplicationBarIconButton(new Uri("/icons/custom.appbar.browse.png", UriKind.Relative));
-                AppBarBrowseButton.Text = LocalizedStrings.BrowseLibraryAppBarButton;
-                AppBarBrowseButton.Click += new EventHandler(AppBarBrowseButton_Click);
-                ApplicationBar.Buttons.Add(AppBarBrowseButton);
-            }
+                AddApplicationBarIconButton(LocalizedStrings.BrowseLibraryAppBarButton, "/icons/custom.appbar.browse.png", () => NavigationManager.OpenMainLibraryPage());
 
             if (addSearchButton)
-            {
-                AppBarSearchButton = new ApplicationBarIconButton(new Uri("/icons/appbar.feature.search.rest.png", UriKind.Relative));
-                AppBarSearchButton.Text = LocalizedStrings.SearchAppBarButton;
-                AppBarSearchButton.Click += new EventHandler(AppBarSearchButton_Click);
-                ApplicationBar.Buttons.Add(AppBarSearchButton);
-            }
+                AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, "/icons/appbar.feature.search.rest.png", () => NavigationManager.OpenSearchPage());
 
-            UsesStandardAppNavApplicationBar = true;
+            _usesStandardAppNavApplicationBar = true;
         }
 
         private void UpdateAppNavButtons()
         {
-            if (!UsesStandardAppNavApplicationBar)
+            if (!_usesStandardAppNavApplicationBar)
                 return;
 
-            if (AppBarNowPlayingButton != null)
-                AppBarNowPlayingButton.IsEnabled = (DACPServer != null && DACPServer.IsConnected && !(DACPServer.PlayState == PlayStates.Stopped && DACPServer.CurrentSongName == null));
-        }
-
-        void AppBarNowPlayingButton_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenNowPlayingPage();
-        }
-
-        void AppBarBrowseButton_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenMainLibraryPage();
-        }
-
-        void AppBarSearchButton_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenSearchPage();
+            if (_appBarNowPlayingButton != null)
+                _appBarNowPlayingButton.IsEnabled = (DACPServer != null && DACPServer.IsConnected && !(DACPServer.PlayState == PlayStates.Stopped && DACPServer.CurrentSongName == null));
         }
 
         #endregion
@@ -193,38 +126,17 @@ namespace Komodex.WP7DACPRemote
 
         protected void AddChooseLibraryApplicationBarMenuItem()
         {
-            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem);
-            menuItem.Click += new EventHandler(ChooseLibraryMenuItem_Click);
-            ApplicationBar.MenuItems.Add(menuItem);
-        }
-
-        void ChooseLibraryMenuItem_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenLibraryChooserPage();
+            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, () => NavigationManager.OpenLibraryChooserPage());
         }
 
         protected void AddAboutApplicationBarMenuItem()
         {
-            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem(LocalizedStrings.AboutMenuItem);
-            menuItem.Click += new EventHandler(AboutMenuItem_Click);
-            ApplicationBar.MenuItems.Add(menuItem);
-        }
-
-        void AboutMenuItem_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenAboutPage();
+            AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, () => NavigationManager.OpenAboutPage());
         }
 
         protected void AddSettingsApplicationBarMenuItem()
         {
-            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem(LocalizedStrings.SettingsMenuItem);
-            menuItem.Click += new EventHandler(SettingsMenuItem_Click);
-            ApplicationBar.MenuItems.Add(menuItem);
-        }
-
-        void SettingsMenuItem_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenSettingsPage();
+            AddApplicationBarMenuItem(LocalizedStrings.SettingsMenuItem, () => NavigationManager.OpenSettingsPage());
         }
 
         #endregion

@@ -37,19 +37,16 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             AnimationContext = LayoutRoot;
 
             // Application bar
-            InitializeAppBar();
+            InitializeApplicationBar();
             InitializeStandardPlayTransportApplicationBar();
 
-            // "Browse library" menu item
-            ApplicationBarMenuItem browseMenuItem = new ApplicationBarMenuItem(LocalizedStrings.BrowseLibraryMenuItem);
-            browseMenuItem.Click += new EventHandler(mnuBrowse_Click);
-            ApplicationBar.MenuItems.Add(browseMenuItem);
+            // Browse Library
+            AddApplicationBarMenuItem(LocalizedStrings.BrowseLibraryMenuItem, () => NavigationManager.OpenMainLibraryPage());
 
-            // "Search" menu item
-            ApplicationBarMenuItem searchMenuItem = new ApplicationBarMenuItem(LocalizedStrings.SearchMenuItem);
-            searchMenuItem.Click += new EventHandler(mnuSearch_Click);
-            ApplicationBar.MenuItems.Add(searchMenuItem);
+            // Search
+            AddApplicationBarMenuItem(LocalizedStrings.SearchMenuItem, () => NavigationManager.OpenSearchPage());
 
+            // Choose Library
             AddChooseLibraryApplicationBarMenuItem();
 
             repeatShuffleControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
@@ -282,16 +279,6 @@ namespace Komodex.WP7DACPRemote.NowPlaying
         private void btnLibrary_Click(object sender, RoutedEventArgs e)
         {
             NavigationManager.OpenMainLibraryPage();
-        }
-
-        private void mnuBrowse_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenMainLibraryPage();
-        }
-
-        private void mnuSearch_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenSearchPage();
         }
 
         private void btnArtist_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿<cc:AnimatedBasePage
+﻿<common:PhoneApplicationBasePage
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"  
     x:Class="Komodex.WP7DACPRemote.DACPServerInfoManagement.AddLibraryPage"
@@ -8,6 +8,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -44,9 +45,4 @@
         <my:ConnectingStatusControl x:Name="connectingStatusControl" Visibility="Collapsed" Grid.RowSpan="2" ButtonClick="connectingStatusControl_ButtonClick" />
     </Grid>
  
-    <!--Sample code showing usage of ApplicationBar-->
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" />
-    </phone:PhoneApplicationPage.ApplicationBar>
-
-</cc:AnimatedBasePage>
+</common:PhoneApplicationBasePage>

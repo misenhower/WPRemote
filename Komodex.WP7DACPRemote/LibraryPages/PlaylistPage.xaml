@@ -82,8 +82,4 @@
         </Grid>
     </Grid>
 
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5" />
-    </phone:PhoneApplicationPage.ApplicationBar>-->
-
 </app:DACPServerBoundPhoneApplicationPage>

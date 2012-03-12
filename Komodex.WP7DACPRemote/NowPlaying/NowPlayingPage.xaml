@@ -237,8 +237,4 @@
         <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" Grid.RowSpan="2" />
     </Grid>
 
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5" />
-    </phone:PhoneApplicationPage.ApplicationBar>
-
 </app:DACPServerBoundPhoneApplicationPage>

@@ -16,10 +16,11 @@ using System.Text.RegularExpressions;
 using Clarity.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Komodex.WP7DACPRemote.Localization;
+using Komodex.Common.Phone;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
-    public partial class AddLibraryPage : AnimatedBasePage
+    public partial class AddLibraryPage : PhoneApplicationBasePage
     {
         DACPServerInfo serverInfo = null;
         DACPServer server = null;
@@ -30,22 +31,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
             connectingStatusControl.ButtonText = LocalizedStrings.CancelButton;
 
-            // "Save" application bar button
-            ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/icons/appbar.save.rest.png", UriKind.Relative));
-            saveButton.Text = LocalizedStrings.SaveAppBarButton;
-            saveButton.Click += new EventHandler(btnSave_Click);
-            ApplicationBar.Buttons.Add(saveButton);
-
-            // "Cancel" application bar button
-            ApplicationBarIconButton cancelButton = new ApplicationBarIconButton(new Uri("/icons/appbar.cancel.rest.png", UriKind.Relative));
-            cancelButton.Text = LocalizedStrings.CancelAppBarButton;
-            cancelButton.Click += new EventHandler(btnCancel_Click);
-            ApplicationBar.Buttons.Add(cancelButton);
-
-            // "About" application bar menu item
-            ApplicationBarMenuItem aboutMenuItem = new ApplicationBarMenuItem(LocalizedStrings.AboutMenuItem);
-            aboutMenuItem.Click += new EventHandler(mnuAbout_Click);
-            ApplicationBar.MenuItems.Add(aboutMenuItem);
+            InitializeApplicationBar();
 
             // Server info
             serverInfo = new DACPServerInfo();
@@ -68,11 +54,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             }
 #endif
         }
-
-        private string iTunesVersion = null;
-        private int iTunesProtocolVersion = 0;
-        private int iTunesDMAPVersion = 0;
-        private int iTunesDAAPVersion = 0;
 
         #region Overrides
 
@@ -115,22 +96,20 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         #endregion
 
-        #region AppBar Button Handlers
+        #region Application Bar
 
-        private void UpdateBoundData()
+        protected override void InitializeApplicationBar()
         {
-            try
-            {
-                TextBox tb = (TextBox)FocusManager.GetFocusedElement();
-                var binding = tb.GetBindingExpression(TextBox.TextProperty);
-                binding.UpdateSource();
-            }
-            catch { }
-        }
+            base.InitializeApplicationBar();
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            SaveServer();
+            // Save
+            AddApplicationBarIconButton(LocalizedStrings.SaveAppBarButton, "/icons/appbar.save.rest.png", () => SaveServer());
+
+            // Cancel
+            AddApplicationBarIconButton(LocalizedStrings.CancelAppBarButton, "/icons/appbar.cancel.rest.png", () => NavigationService.GoBack());
+
+            // About
+            AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, OpenAboutPage);
         }
 
         private void SaveServer()
@@ -139,7 +118,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 return;
 
             // Make sure the newly entered data has been bound to the DACPServerInfo object
-            UpdateBoundData();
+            PhoneUtility.BindFocusedTextBox();
 
             // Remove focus from textbox
             Focus();
@@ -155,19 +134,35 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             server.Start(false);
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        protected void UpdateAppBar()
         {
-            NavigationService.GoBack();
+            ApplicationBarIconButton saveButton = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+
+            saveButton.IsEnabled = HasValidData();
+        }
+
+        protected bool HasValidData()
+        {
+            return (!string.IsNullOrEmpty(tbHost.Text.Trim()) && tbPIN.Text.Length == 4);
+        }
+
+        #endregion
+
+        #region Diagnostic Data
+
+        private string iTunesVersion = null;
+        private int iTunesProtocolVersion = 0;
+        private int iTunesDMAPVersion = 0;
+        private int iTunesDAAPVersion = 0;
+
+        private void OpenAboutPage()
+        {
+            NavigationManager.OpenAboutPage(iTunesVersion ?? string.Empty, iTunesProtocolVersion, iTunesDMAPVersion, iTunesDAAPVersion);
         }
 
         #endregion
 
         #region Control Event Handlers
-
-        private void mnuAbout_Click(object sender, EventArgs e)
-        {
-            NavigationManager.OpenAboutPage(iTunesVersion ?? string.Empty, iTunesProtocolVersion, iTunesDMAPVersion, iTunesDAAPVersion);
-        }
 
         private void tbHost_KeyUp(object sender, KeyEventArgs e)
         {
@@ -226,16 +221,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             StopServer();
         }
 
-        private void StopServer()
-        {
-            if (server != null)
-            {
-                server.Stop();
-                server = null;
-            }
-            SetVisibility(false);
-        }
-
         #endregion
 
         #region Server Validation
@@ -288,18 +273,14 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         #region Methods
 
-        protected void UpdateAppBar()
+        private void StopServer()
         {
-            ApplicationBarIconButton saveButton = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
-
-            saveButton.IsEnabled = HasValidData();
-        }
-
-        protected bool HasValidData()
-        {
-            //return (!string.IsNullOrEmpty(serverInfo.HostName) && serverInfo.PIN.HasValue && serverInfo.PIN.Value != 0);
-            //return (!string.IsNullOrEmpty(tbHost.Text.Trim()) && !string.IsNullOrEmpty(tbPIN.Text.Trim()));
-            return (!string.IsNullOrEmpty(tbHost.Text.Trim()) && tbPIN.Text.Length == 4);
+            if (server != null)
+            {
+                server.Stop();
+                server = null;
+            }
+            SetVisibility(false);
         }
 
         #endregion

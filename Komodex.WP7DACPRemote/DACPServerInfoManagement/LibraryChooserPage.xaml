@@ -1,4 +1,4 @@
-﻿<cc:AnimatedBasePage
+﻿<common:PhoneApplicationBasePage
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"  
     x:Class="Komodex.WP7DACPRemote.DACPServerInfoManagement.LibraryChooserPage"
@@ -8,7 +8,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
+    xmlns:common="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -50,8 +51,4 @@
         </Grid>
     </Grid>
 
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" />
-    </phone:PhoneApplicationPage.ApplicationBar>
-
-</cc:AnimatedBasePage>
+</common:PhoneApplicationBasePage>
