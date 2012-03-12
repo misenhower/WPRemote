@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections;
+using Clarity.Phone.Extensions;
+using Komodex.Common;
 
 namespace Komodex.WP7DACPRemote.Controls
 {
@@ -18,16 +20,14 @@ namespace Komodex.WP7DACPRemote.Controls
         public LibraryListBox()
         {
             InitializeComponent();
-
-            DataContext = this;
         }
 
         #region Properties
 
         public bool IsFlatList
         {
-            get { return ListBox.IsFlatList; }
-            set { ListBox.IsFlatList = value; }
+            get { return LongListSelector.IsFlatList; }
+            set { LongListSelector.IsFlatList = value; }
         }
 
         private LibraryListItemTemplate _listItemTemplate;
@@ -41,17 +41,20 @@ namespace Komodex.WP7DACPRemote.Controls
                 switch (_listItemTemplate)
                 {
                     case LibraryListItemTemplate.PlayButtonItem:
-                        ListBox.ItemTemplate = (DataTemplate)Resources["PlayButtonItemTemplate"];
+                        LongListSelector.ItemTemplate = (DataTemplate)Resources["PlayButtonItemTemplate"];
                         break;
                     case LibraryListItemTemplate.PlayButtonItemWithSubtitle:
+                        LongListSelector.ItemTemplate = (DataTemplate)Resources["PlayButtonItemWithSubtitleTemplate"];
                         break;
                     case LibraryListItemTemplate.AlbumArtLargeItem:
+                        LongListSelector.ItemTemplate = (DataTemplate)Resources["AlbumArtLargeItemTemplate"];
                         break;
                     case LibraryListItemTemplate.AlbumArtSmallItem:
+                        LongListSelector.ItemTemplate = (DataTemplate)Resources["AlbumArtSmallItemTemplate"];
                         break;
                     case LibraryListItemTemplate.Default:
                     default:
-                        ListBox.ItemTemplate = null;
+                        LongListSelector.ItemTemplate = null;
                         break;
                 }
             }
@@ -88,6 +91,32 @@ namespace Komodex.WP7DACPRemote.Controls
         #endregion
 
         #endregion
+
+        #region Actions/Events
+
+        public event EventHandler<ItemTappedEventArgs> ItemTapped;
+
+        private void LongListSelector_Tap(object sender, GestureEventArgs e)
+        {
+            if (sender != LongListSelector)
+                return;
+
+            // Get the selected item
+            var selectedItem = LongListSelector.SelectedItem;
+
+            // Determine if a "play" button was used to select the item
+            bool isPlayButton = false;
+            DependencyObject originalSource = e.OriginalSource as DependencyObject;
+            if (originalSource != null)
+            {
+                var ancestors = originalSource.GetVisualAncestors();
+                isPlayButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
+            }
+
+            ItemTapped.RaiseOnUIThread(this, new ItemTappedEventArgs(selectedItem, isPlayButton));
+        }
+
+        #endregion
     }
 
     public enum LibraryListItemTemplate
@@ -97,5 +126,17 @@ namespace Komodex.WP7DACPRemote.Controls
         PlayButtonItemWithSubtitle,
         AlbumArtLargeItem,
         AlbumArtSmallItem,
+    }
+
+    public class ItemTappedEventArgs : EventArgs
+    {
+        public ItemTappedEventArgs(object item, bool playButtonTapped)
+        {
+            Item = item;
+            PlayButtonTapped = playButtonTapped;
+        }
+
+        public object Item { get; protected set; }
+        public bool PlayButtonTapped { get; protected set; }
     }
 }
