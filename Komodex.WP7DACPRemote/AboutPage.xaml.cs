@@ -17,6 +17,7 @@ using Komodex.DACP;
 using Microsoft.Phone.Tasks;
 using Clarity.Phone.Controls;
 using Komodex.WP7DACPRemote.Localization;
+using Komodex.Common;
 
 namespace Komodex.WP7DACPRemote
 {

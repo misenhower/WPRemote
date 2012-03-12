@@ -86,7 +86,7 @@ namespace Komodex.DACP.Library
         protected void SubmitArtistsRequest()
         {
             retrievingArtists = true;
-            string encodedName = Utility.QueryEncodeString(Name);
+            string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/databases/" + Server.DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
                 + "&type=music"
@@ -120,7 +120,7 @@ namespace Komodex.DACP.Library
         protected void SubmitAlbumsRequest()
         {
             retrievingAlbums = true;
-            string encodedName = Utility.QueryEncodeString(Name);
+            string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/databases/" + Server.DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
                 + "&type=music"
@@ -154,7 +154,7 @@ namespace Komodex.DACP.Library
         protected void SubmitSongsRequest()
         {
             retrievingSongs = true;
-            string encodedName = Utility.QueryEncodeString(Name);
+            string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdisabled,com.apple.itunes.mediakind,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
                 + "&type=music"
@@ -199,7 +199,7 @@ namespace Komodex.DACP.Library
 
         protected void SendPlaySongCommand(string input)
         {
-            string encodedName = Utility.QueryEncodeString(Name);
+            string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/ctrl-int/1/cue"
                 + "?command=play"
                 + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songgenre:" + encodedName + "')"

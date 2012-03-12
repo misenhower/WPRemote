@@ -42,12 +42,12 @@ namespace Komodex.DACP
                     case "mlcl": // Items list
                     case "abgn": // Genres list
                         items.Clear();
-                        var itemNodes = Utility.GetResponseNodes(kvp.Value);
+                        var itemNodes = DACPUtility.GetResponseNodes(kvp.Value);
                         foreach (var itemData in itemNodes)
                             items.Add(itemGenerator(itemData.Value));
                         break;
                     case "mshl": // Headers
-                        headers = Utility.GetResponseNodes(kvp.Value);
+                        headers = DACPUtility.GetResponseNodes(kvp.Value);
                         break;
                     default:
                         break;
@@ -70,7 +70,7 @@ namespace Komodex.DACP
 
             foreach (var header in headers)
             {
-                var headerNodes = Utility.GetResponseNodes(header.Value);
+                var headerNodes = DACPUtility.GetResponseNodes(header.Value);
                 foreach (var node in headerNodes)
                 {
                     switch (node.Key)

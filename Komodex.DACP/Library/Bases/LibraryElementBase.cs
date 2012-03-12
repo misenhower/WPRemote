@@ -36,7 +36,7 @@ namespace Komodex.DACP.Library
 
         protected void ParseByteData(byte[] data)
         {
-            var nodes = Utility.GetResponseNodes(data);
+            var nodes = DACPUtility.GetResponseNodes(data);
             foreach (var kvp in nodes)
                 ProcessByteKVP(kvp);
         }

@@ -115,7 +115,7 @@ namespace Komodex.DACP.Library
                     case "mlcl":
                         ObservableCollection<MediaItem> episodes = new ObservableCollection<MediaItem>();
 
-                        var episodeNodes = Utility.GetResponseNodes(kvp.Value);
+                        var episodeNodes = DACPUtility.GetResponseNodes(kvp.Value);
                         foreach (var episodeData in episodeNodes)
                             episodes.Add(new MediaItem(Server, episodeData.Value));
 

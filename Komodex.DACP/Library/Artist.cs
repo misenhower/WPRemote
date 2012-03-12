@@ -88,7 +88,7 @@ namespace Komodex.DACP.Library
         protected void SubmitAlbumsRequest()
         {
             retrievingAlbums = true;
-            string encodedName = Utility.QueryEncodeString(Name);
+            string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/databases/" + Server.DatabaseID + "/groups"
                 + "?meta=dmap.itemname,daap.songartist,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
                 + "&type=music"
@@ -109,7 +109,7 @@ namespace Komodex.DACP.Library
                     case "mlcl":
                         ObservableCollection<Album> albums = new ObservableCollection<Album>();
 
-                        var albumNodes = Utility.GetResponseNodes(kvp.Value);
+                        var albumNodes = DACPUtility.GetResponseNodes(kvp.Value);
                         foreach (var albumData in albumNodes)
                         {
                             albums.Add(new Album(Server, albumData.Value));
@@ -140,7 +140,7 @@ namespace Komodex.DACP.Library
         protected void SubmitSongsRequest()
         {
             retrievingSongs = true;
-            string encodedName = Utility.QueryEncodeString(Name);
+            string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
                 + "&type=music"
@@ -160,7 +160,7 @@ namespace Komodex.DACP.Library
                     case "mlcl":
                         ObservableCollection<MediaItem> songs = new ObservableCollection<MediaItem>();
 
-                        var songNodes = Utility.GetResponseNodes(kvp.Value);
+                        var songNodes = DACPUtility.GetResponseNodes(kvp.Value);
                         foreach (var songData in songNodes)
                         {
                             songs.Add(new MediaItem(Server, songData.Value));
@@ -206,7 +206,7 @@ namespace Komodex.DACP.Library
 
         protected void SendPlaySongCommand(string input)
         {
-            string encodedName = Utility.QueryEncodeString(Name);
+            string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/ctrl-int/1/cue?command=play"
                 + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + input

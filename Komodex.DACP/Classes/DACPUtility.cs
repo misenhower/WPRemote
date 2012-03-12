@@ -15,7 +15,7 @@ using System.Diagnostics;
 
 namespace Komodex.DACP
 {
-    internal static class Utility
+    internal static class DACPUtility
     {
         public static void DebugWrite(string message)
         {
@@ -57,7 +57,7 @@ namespace Komodex.DACP
 
         public static string QueryEncodeString(string input)
         {
-            return Uri.EscapeDataString(Utility.EscapeSingleQuotes(input));
+            return Uri.EscapeDataString(DACPUtility.EscapeSingleQuotes(input));
         }
 
         #region DACP Data Extension Methods

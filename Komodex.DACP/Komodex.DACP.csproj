@@ -62,7 +62,7 @@
     <Compile Include="Classes\HTTPRequestInfo.cs" />
     <Compile Include="DACPServer\DACPServer.HTTPRequests.cs" />
     <Compile Include="Classes\ServerUpdateEventArgs.cs" />
-    <Compile Include="Classes\Utility.cs" />
+    <Compile Include="Classes\DACPUtility.cs" />
     <Compile Include="DACPServer\DACPServer.cs" />
     <Compile Include="DACPServer\DACPServer.Search.cs" />
     <Compile Include="Library\Album.cs" />

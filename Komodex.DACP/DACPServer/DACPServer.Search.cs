@@ -24,7 +24,7 @@ namespace Komodex.DACP
 
         public ObservableCollection<SearchResultSet> GetSearchResults(string searchString)
         {
-            string escapedSearchString = Uri.EscapeDataString(Utility.EscapeSingleQuotes(searchString.Trim()));
+            string escapedSearchString = Uri.EscapeDataString(DACPUtility.EscapeSingleQuotes(searchString.Trim()));
 
             var searchResults = new ObservableCollection<SearchResultSet>();
 
@@ -222,7 +222,7 @@ namespace Komodex.DACP
                 if (kvp.Key == "mlcl")
                 {
                     libraryElements.Clear();
-                    var itemNodes = Utility.GetResponseNodes(kvp.Value);
+                    var itemNodes = DACPUtility.GetResponseNodes(kvp.Value);
                     foreach (var itemData in itemNodes)
                         libraryElements.Add(itemGenerator(itemData.Value));
                 }

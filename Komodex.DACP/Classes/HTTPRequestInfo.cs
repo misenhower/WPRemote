@@ -52,7 +52,7 @@ namespace Komodex.DACP
             get
             {
                 if (_ResponseNodes == null)
-                    _ResponseNodes = Utility.GetResponseNodes(ResponseBody);
+                    _ResponseNodes = DACPUtility.GetResponseNodes(ResponseBody);
                 return _ResponseNodes;
             }
         }
@@ -70,9 +70,9 @@ namespace Komodex.DACP
             string tab1 = new string('\t', tabLevel - 1);
             string tab2 = new string('\t', tabLevel);
 
-            Utility.DebugWrite(string.Format(tab1 + "{0}[{1,3}] +++", code, body.Length));
+            DACPUtility.DebugWrite(string.Format(tab1 + "{0}[{1,3}] +++", code, body.Length));
 
-            var nodes = Utility.GetResponseNodes(body);
+            var nodes = DACPUtility.GetResponseNodes(body);
             foreach (var kvp in nodes)
             {
                 if (containerNodes.Contains(kvp.Key))
@@ -105,7 +105,7 @@ namespace Komodex.DACP
                             break;
                     }
 
-                    Utility.DebugWrite(debugText);
+                    DACPUtility.DebugWrite(debugText);
                 }
             }
 

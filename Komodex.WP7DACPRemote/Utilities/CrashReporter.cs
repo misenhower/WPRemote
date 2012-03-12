@@ -17,6 +17,7 @@ using Komodex.WP7DACPRemote.DACPServerManagement;
 using Komodex.DACP;
 using System.Globalization;
 using Microsoft.Phone.Shell;
+using Komodex.Common;
 
 namespace Komodex.WP7DACPRemote.Utilities
 {

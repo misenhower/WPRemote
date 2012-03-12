@@ -144,9 +144,9 @@ namespace Komodex.DACP
             try
             {
                 byte[] libraryBytes = requestInfo.ResponseNodes.First(rn => rn.Key == "mlcl").Value;
-                var libraryNodes = Utility.GetResponseNodes(libraryBytes, true);
+                var libraryNodes = DACPUtility.GetResponseNodes(libraryBytes, true);
                 byte[] firstLibraryBytes = libraryNodes[0].Value;
-                var firstLibraryNodes = Utility.GetResponseNodes(firstLibraryBytes);
+                var firstLibraryNodes = DACPUtility.GetResponseNodes(firstLibraryBytes);
 
                 foreach (var kvp in firstLibraryNodes)
                 {
@@ -190,7 +190,7 @@ namespace Komodex.DACP
                         var playlists = new List<Playlist>();
                         var geniusMixes = new List<Playlist>();
 
-                        var playlistNodes = Utility.GetResponseNodes(kvp.Value);
+                        var playlistNodes = DACPUtility.GetResponseNodes(kvp.Value);
                         foreach (var playlistData in playlistNodes)
                         {
                             Playlist pl = new Playlist(this, playlistData.Value);

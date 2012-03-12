@@ -156,7 +156,7 @@ namespace Komodex.DACP.Library
         private void SubmitSongsRequest()
         {
             retrievingSongs = true;
-            string encodedArtistName = Utility.QueryEncodeString(ArtistName);
+            string encodedArtistName = DACPUtility.QueryEncodeString(ArtistName);
             string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
                 + "&type=music"
@@ -176,7 +176,7 @@ namespace Komodex.DACP.Library
                     case "mlcl":
                         ObservableCollection<MediaItem> songs = new ObservableCollection<MediaItem>();
 
-                        var songNodes = Utility.GetResponseNodes(kvp.Value);
+                        var songNodes = DACPUtility.GetResponseNodes(kvp.Value);
                         foreach (var songData in songNodes)
                         {
                             songs.Add(new MediaItem(Server, songData.Value));
@@ -223,7 +223,7 @@ namespace Komodex.DACP.Library
 
         protected void SendPlaySongCommand(string input)
         {
-            string encodedArtistName = Utility.QueryEncodeString(ArtistName);
+            string encodedArtistName = DACPUtility.QueryEncodeString(ArtistName);
             string url = "/ctrl-int/1/cue"
                 + "?command=play"
                 + "&query=(('daap.songartist:" + encodedArtistName + "','daap.songalbumartist:" + encodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"

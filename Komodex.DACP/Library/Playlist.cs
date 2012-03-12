@@ -83,7 +83,7 @@ namespace Komodex.DACP.Library
 
         protected void ParseByteData(byte[] data)
         {
-            var nodes = Utility.GetResponseNodes(data);
+            var nodes = DACPUtility.GetResponseNodes(data);
             foreach (var kvp in nodes)
             {
                 switch (kvp.Key)
@@ -157,7 +157,7 @@ namespace Komodex.DACP.Library
                     case "mlcl":
                         ObservableCollection<MediaItem> songs = new ObservableCollection<MediaItem>();
 
-                        var songNodes = Utility.GetResponseNodes(kvp.Value);
+                        var songNodes = DACPUtility.GetResponseNodes(kvp.Value);
                         foreach (var songData in songNodes)
                         {
                             songs.Add(new MediaItem(Server, songData.Value));

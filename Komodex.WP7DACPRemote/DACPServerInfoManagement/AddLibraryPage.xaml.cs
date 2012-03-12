@@ -273,7 +273,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                             MessageBox.Show(LocalizedStrings.LibraryVersionErrorBody, LocalizedStrings.LibraryVersionErrorTitle, MessageBoxButton.OK);
                         else if (e.ErrorType == ServerErrorType.InvalidPIN)
                             MessageBox.Show(LocalizedStrings.LibraryPINErrorBody, LocalizedStrings.LibraryPINErrorTitle, MessageBoxButton.OK);
-                        else if (Utility.CheckNetworkConnectivity())
+                        else if (RemoteUtility.CheckNetworkConnectivity())
                             MessageBox.Show(LocalizedStrings.LibraryConnectionErrorBody, LocalizedStrings.LibraryConnectionErrorTitle, MessageBoxButton.OK);
                         SetVisibility(false);
                         server = null;

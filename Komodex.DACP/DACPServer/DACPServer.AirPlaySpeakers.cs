@@ -70,7 +70,7 @@ namespace Komodex.DACP
                     active = false;
                     volume = 0;
 
-                    var speakerNodes = Utility.GetResponseNodes(kvp.Value);
+                    var speakerNodes = DACPUtility.GetResponseNodes(kvp.Value);
 
                     foreach (var speakerKvp in speakerNodes)
                     {
