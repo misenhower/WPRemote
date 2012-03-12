@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Komodex.WP7DACPRemote.Controls.LibraryListBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:myControls="clr-namespace:Komodex.WP7DACPRemote.Controls"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    
+    <UserControl.Resources>
+        <DataTemplate x:Key="PlayButtonItemTemplate">
+            <Grid Margin="12,6,0,12">
+                <StackPanel Orientation="Horizontal">
+                    <myControls:FakeButton x:Name="PlayButton">
+                        <ContentControl Template="{StaticResource PlayButton}" />
+                    </myControls:FakeButton>
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot">
+        <TextBlock Text="{Binding EmptyText}"
+                   Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
+                   Visibility="{Binding ItemsSource, Converter={StaticResource noListItemsVisibilityConverter}}" />
+        <myControls:LongListSelectorEx x:Name="ListBox"
+                                       ItemsSource="{Binding ItemsSource}"
+                                       GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                       GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                       />
+    </Grid>
+</UserControl>
