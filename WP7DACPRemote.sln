@@ -5,9 +5,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.WP7DACPRemote", "Ko
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.DACP", "Komodex.DACP\Komodex.DACP.csproj", "{A51EFB9B-7F1C-4237-AFA0-CB61340036A3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{078F7EAF-D776-4A8B-82E3-5E51A52A5A2C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonLibraries", "CommonLibraries", "{B092CA01-3225-41F7-B3C7-F64434A69A92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clarity.PageTransitions", "ThirdParty\Clarity.PageTransitions\Clarity.PageTransitions.csproj", "{E93D0C03-BC16-4F65-821D-3F823AEAA2DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clarity.PageTransitions", "CommonLibraries\Clarity.PageTransitions\Clarity.PageTransitions.csproj", "{6CA892BF-E192-4A00-A126-02F391C07556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common.Phone", "CommonLibraries\Komodex.Common\Komodex.Common.Phone.csproj", "{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common.Phone.UI", "CommonLibraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI.csproj", "{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Phone.Controls.Toolkit", "CommonLibraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj", "{0754458A-7AFC-463A-B27D-2F6980522119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,16 +31,31 @@ Global
 		{A51EFB9B-7F1C-4237-AFA0-CB61340036A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A51EFB9B-7F1C-4237-AFA0-CB61340036A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A51EFB9B-7F1C-4237-AFA0-CB61340036A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E93D0C03-BC16-4F65-821D-3F823AEAA2DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E93D0C03-BC16-4F65-821D-3F823AEAA2DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E93D0C03-BC16-4F65-821D-3F823AEAA2DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E93D0C03-BC16-4F65-821D-3F823AEAA2DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CA892BF-E192-4A00-A126-02F391C07556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA892BF-E192-4A00-A126-02F391C07556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA892BF-E192-4A00-A126-02F391C07556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA892BF-E192-4A00-A126-02F391C07556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0754458A-7AFC-463A-B27D-2F6980522119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0754458A-7AFC-463A-B27D-2F6980522119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0754458A-7AFC-463A-B27D-2F6980522119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0754458A-7AFC-463A-B27D-2F6980522119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E93D0C03-BC16-4F65-821D-3F823AEAA2DC} = {078F7EAF-D776-4A8B-82E3-5E51A52A5A2C}
+		{6CA892BF-E192-4A00-A126-02F391C07556} = {B092CA01-3225-41F7-B3C7-F64434A69A92}
+		{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717} = {B092CA01-3225-41F7-B3C7-F64434A69A92}
+		{5875BE74-8A86-4235-919E-1DAEC3F3BD5F} = {B092CA01-3225-41F7-B3C7-F64434A69A92}
+		{0754458A-7AFC-463A-B27D-2F6980522119} = {B092CA01-3225-41F7-B3C7-F64434A69A92}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

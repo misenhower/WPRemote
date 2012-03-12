@@ -53,9 +53,6 @@
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
-      <HintPath>..\ThirdParty\Silverlight Toolkit\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -343,13 +340,25 @@
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonLibraries\Clarity.PageTransitions\Clarity.PageTransitions.csproj">
+      <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
+      <Name>Clarity.PageTransitions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI.csproj">
+      <Project>{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}</Project>
+      <Name>Komodex.Common.Phone.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Komodex.Common\Komodex.Common.Phone.csproj">
+      <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>
+      <Name>Komodex.Common.Phone</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj">
+      <Project>{0754458A-7AFC-463A-B27D-2F6980522119}</Project>
+      <Name>Microsoft.Phone.Controls.Toolkit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Komodex.DACP\Komodex.DACP.csproj">
       <Project>{A51EFB9B-7F1C-4237-AFA0-CB61340036A3}</Project>
       <Name>Komodex.DACP</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ThirdParty\Clarity.PageTransitions\Clarity.PageTransitions.csproj">
-      <Project>{E93D0C03-BC16-4F65-821D-3F823AEAA2DC}</Project>
-      <Name>Clarity.PageTransitions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
