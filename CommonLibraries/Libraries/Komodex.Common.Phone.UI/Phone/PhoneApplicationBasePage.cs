@@ -44,12 +44,19 @@ namespace Komodex.Common.Phone
 
         #region Application Bar
 
+        protected bool _applicationBarInitialized;
+
         protected virtual void InitializeApplicationBar()
         {
+            if (_applicationBarInitialized)
+                return;
+
             if (ApplicationBar == null)
                 ApplicationBar = new ApplicationBar();
 
             ApplicationBar.StateChanged += new EventHandler<ApplicationBarStateChangedEventArgs>(ApplicationBar_StateChanged);
+
+            UpdateApplicationBarOpacity();
         }
 
         protected bool IsApplicationBarMenuVisible { get; private set; }
@@ -92,6 +99,9 @@ namespace Komodex.Common.Phone
 
         protected virtual void UpdateApplicationBarOpacity()
         {
+            if (ApplicationBar == null)
+                return;
+
             if (IsApplicationBarMenuVisible)
                 ApplicationBar.Opacity = ApplicationBarOpenOpacity;
             else
