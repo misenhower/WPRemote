@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:converters="clr-namespace:Komodex.WP7DACPRemote.Converters"
+    xmlns:commonConverters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common.Phone"
     xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
     >
 
@@ -13,6 +14,17 @@
         <!-- Localization -->
         <localization:LocalizedStringsWrapper xmlns:localization="clr-namespace:Komodex.WP7DACPRemote.Localization" x:Key="LocalizedStrings" />
         
+        <!-- Converters -->
+        <commonConverters:BooleanToBrushConverter x:Key="BooleanToAccentBrushConverter" TrueValue="{StaticResource PhoneAccentBrush}" FalseValue="{StaticResource PhoneChromeBrush}" />
+        <commonConverters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />
+        <converters:NoListItemsVisibilityConverter x:Key="noListItemsVisibilityConverter" />
+        <commonConverters:StringToUpperConverter x:Key="StringToUpperConverter" />
+        <converters:CollapseIfLessThanOneConverter x:Key="collapseIfLessThanOneConverter" />
+        <converters:CollapseIfLessThanTwoConverter x:Key="collapseIfLessThanTwoConverter" />
+        <converters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
+        <converters:LocalizedOffOnConverter x:Key="LocalizedOffOnConverter" />
+
         <!-- App Title Style -->
         <Style x:Key="PhoneTextAppTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextBlockBase}">
             <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}"/>
@@ -223,20 +235,9 @@
             </Grid>
         </ControlTemplate>
 
-        <!-- Converters -->
-        <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
-        <converters:BooleanToAccentBrushConverter x:Name="booleanToAccentBrushConverter" />
-        <converters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />
-        <converters:NoListItemsVisibilityConverter x:Key="noListItemsVisibilityConverter" />
-        <converters:StringToUpperConverter x:Key="stringToUpperConverter" />
-        <converters:CollapseIfLessThanOneConverter x:Key="collapseIfLessThanOneConverter" />
-        <converters:CollapseIfLessThanTwoConverter x:Key="collapseIfLessThanTwoConverter" />
-        <converters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
-        <converters:LocalizedOffOnConverter x:Key="LocalizedOffOnConverter" />
-
         <!-- Grouped ListBox Templates -->
         <DataTemplate x:Key="GroupItemTemplate">
-            <Border Background="{Binding HasItems, Converter={StaticResource booleanToAccentBrushConverter}}" Width="99" Height="99" Margin="6" IsHitTestVisible="{Binding HasItems}">
+            <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Width="99" Height="99" Margin="6" IsHitTestVisible="{Binding HasItems}">
                 <TextBlock Text="{Binding Key}" 
                     FontFamily="{StaticResource PhoneFontFamilySemiBold}"
                     FontSize="36"
@@ -260,7 +261,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="LongGroupItemTemplate">
-            <Border Background="{Binding HasItems, Converter={StaticResource booleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+            <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
                 <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="White" />
             </Border>
         </DataTemplate>

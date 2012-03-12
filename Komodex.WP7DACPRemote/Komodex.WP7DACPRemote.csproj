@@ -79,14 +79,12 @@
     <Compile Include="Controls\StarRating.xaml.cs">
       <DependentUpon>StarRating.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\BooleanToAccentBrushConverter.cs" />
     <Compile Include="Converters\CollapseIfLessThanOneConverter.cs" />
     <Compile Include="Converters\CollectionCountToStringConverter.cs" />
     <Compile Include="Converters\DisableWhenNullConverter.cs" />
     <Compile Include="Converters\CollapseIfLessThanTwoConverter.cs" />
     <Compile Include="Converters\LocalizedOffOnConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
-    <Compile Include="Converters\StringToUpperConverter.cs" />
     <Compile Include="DACPServerInfoManagement\AddLibraryPage.xaml.cs">
       <DependentUpon>AddLibraryPage.xaml</DependentUpon>
     </Compile>
@@ -148,8 +146,6 @@
     <Compile Include="PageBases\DACPServerBoundPhoneApplicationPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converters\BooleanToStringConverter.cs" />
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\NotOperatorValueConverter.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>

@@ -77,7 +77,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot x:Name="pivotControl" Title="{Binding Name, Converter={StaticResource stringToUpperConverter}}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeMedium}" SelectionChanged="Pivot_SelectionChanged">
+        <controls:Pivot x:Name="pivotControl" Title="{Binding Name, Converter={StaticResource StringToUpperConverter}}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeMedium}" SelectionChanged="Pivot_SelectionChanged">
             <!--Pivot item one-->
             <controls:PivotItem x:Name="pivotAlbums" Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>

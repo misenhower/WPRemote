@@ -52,7 +52,7 @@
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" CacheMode="BitmapCache"
                            Text="{Binding LocalizedStrings.SettingsStayConnectedDescription, Source={StaticResource LocalizedStrings}}" />
                 <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12" CacheMode="BitmapCache"
-                           Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource booleanToVisibilityConverter}}"
+                           Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Text="{Binding LocalizedStrings.SettingsTakeEffectNextRun, Source={StaticResource LocalizedStrings}}" />
 
                 <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsExtendedErrorReporting, Source={StaticResource LocalizedStrings}}" Margin="0,36,0,0"

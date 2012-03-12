@@ -123,7 +123,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     ServerBusyProgressBar.SetBinding(PerformanceProgressBar.IsIndeterminateProperty, indeterminateBinding);
                     Binding visibilityBinding = new Binding("GettingData");
                     visibilityBinding.Source = Server;
-                    visibilityBinding.Converter = Application.Current.Resources["booleanToVisibilityConverter"] as IValueConverter;
+                    visibilityBinding.Converter = Application.Current.Resources["BooleanToVisibilityConverter"] as IValueConverter;
                     ServerBusyProgressBar.SetBinding(ProgressBar.VisibilityProperty, visibilityBinding);
                 }
                 else
