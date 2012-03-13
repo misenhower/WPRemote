@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:myControls="clr-namespace:Komodex.WP7DACPRemote.Controls"
+    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:delay="clr-namespace:Delay"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -81,11 +82,11 @@
         <TextBlock Text="{Binding EmptyText, ElementName=ThisControl}"
                    Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                    Visibility="{Binding ItemsSource, ElementName=ThisControl, Converter={StaticResource noListItemsVisibilityConverter}}" />
-        <myControls:LongListSelectorEx x:Name="LongListSelector"
-                                       ItemsSource="{Binding ItemsSource, ElementName=ThisControl}"
-                                       GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                       GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                       Tap="LongListSelector_Tap"
-                                       />
+        <commonControls:LongListSelectorEx x:Name="LongListSelector"
+                                           ItemsSource="{Binding ItemsSource, ElementName=ThisControl}"
+                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                           Tap="LongListSelector_Tap"
+                                           />
     </Grid>
 </UserControl>

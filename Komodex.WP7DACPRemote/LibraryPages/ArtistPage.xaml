@@ -1,6 +1,7 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
+    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.ArtistPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -81,25 +82,25 @@
             <!--Pivot item one-->
             <controls:PivotItem x:Name="pivotAlbums" Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <my:LongListSelectorEx x:Name="lbAlbums" Margin="0,0,-12,0"
-                                           Tap="LongListSelector_Tap"
-                                           ItemsSource="{Binding Albums}" IsFlatList="True"
-                                           ItemTemplate="{StaticResource AlbumTemplate}"
-                                           />
+                    <commonControls:LongListSelectorEx x:Name="lbAlbums" Margin="0,0,-12,0"
+                                                       Tap="LongListSelector_Tap"
+                                                       ItemsSource="{Binding Albums}" IsFlatList="True"
+                                                       ItemTemplate="{StaticResource AlbumTemplate}"
+                                                       />
                 </Grid>
             </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem x:Name="pivotSongs" Header="{Binding LocalizedStrings.LibrarySongsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <my:LongListSelectorEx x:Name="lbSongs" Margin="0,0,-12,0"
-                                           Link="lbSongs_Link"
-                                           Tap="LongListSelector_Tap"
-                                           ItemsSource="{Binding Songs}" IsFlatList="True" 
-                                           ItemTemplate="{StaticResource SongTemplate}"
-                                           ListHeader="{Binding}"
-                                           ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
-                                           />
+                    <commonControls:LongListSelectorEx x:Name="lbSongs" Margin="0,0,-12,0"
+                                                       Link="lbSongs_Link"
+                                                       Tap="LongListSelector_Tap"
+                                                       ItemsSource="{Binding Songs}" IsFlatList="True" 
+                                                       ItemTemplate="{StaticResource SongTemplate}"
+                                                       ListHeader="{Binding}"
+                                                       ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
+                                                       />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

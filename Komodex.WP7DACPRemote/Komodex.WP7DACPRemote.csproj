@@ -77,7 +77,6 @@
     <Compile Include="Controls\LibraryListBox.xaml.cs">
       <DependentUpon>LibraryListBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\LongListSelectorEx.cs" />
     <Compile Include="Controls\MemoryCounters.cs" />
     <Compile Include="Controls\StarRating.xaml.cs">
       <DependentUpon>StarRating.xaml</DependentUpon>

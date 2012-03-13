@@ -1,6 +1,7 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
+    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.PlaylistPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -70,15 +71,15 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <my:LongListSelectorEx x:Name="lbSongs" IsFlatList="True"
-                                   Tap="LongListSelector_Tap"
-                                   Link="lbSongs_Link"
-                                   Background="Transparent"
-                                   ItemTemplate="{StaticResource SongTemplate}"
-                                   ListHeader="{Binding}"
-                                   ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
-                                   ItemsSource="{Binding Songs}"
-                                   Margin="0,0,-12,0" />
+            <commonControls:LongListSelectorEx x:Name="lbSongs" IsFlatList="True"
+                                               Tap="LongListSelector_Tap"
+                                               Link="lbSongs_Link"
+                                               Background="Transparent"
+                                               ItemTemplate="{StaticResource SongTemplate}"
+                                               ListHeader="{Binding}"
+                                               ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
+                                               ItemsSource="{Binding Songs}"
+                                               Margin="0,0,-12,0" />
         </Grid>
     </Grid>
 

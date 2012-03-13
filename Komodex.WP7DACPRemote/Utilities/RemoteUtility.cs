@@ -20,6 +20,7 @@ using Komodex.Common;
 using System.IO;
 using Komodex.DACP;
 using Komodex.WP7DACPRemote.DACPServerManagement;
+using Komodex.Common.Phone.Controls;
 
 namespace Komodex.WP7DACPRemote
 {

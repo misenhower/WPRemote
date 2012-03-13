@@ -1,6 +1,7 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
+    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.GenrePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -92,20 +93,20 @@
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.GenreNoArtistsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=Artists, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <my:LongListSelectorEx x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding Artists}"
-                                           Margin="0,0,-12,0"
-                                           Tap="LongListSelector_Tap"
-                                           ItemTemplate="{StaticResource ArtistTemplate}"
-                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                           GroupViewOpened="LongListSelector_GroupViewOpened"
-                                           GroupViewClosing="LongListSelector_GroupViewClosing">
+                    <commonControls:LongListSelectorEx x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding Artists}"
+                                                       Margin="0,0,-12,0"
+                                                       Tap="LongListSelector_Tap"
+                                                       ItemTemplate="{StaticResource ArtistTemplate}"
+                                                       GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                                       GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                                       GroupViewOpened="LongListSelector_GroupViewOpened"
+                                                       GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
-                    </my:LongListSelectorEx>
+                    </commonControls:LongListSelectorEx>
                 </Grid>
             </controls:PivotItem>
 
@@ -114,20 +115,20 @@
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.GenreNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=Albums, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <my:LongListSelectorEx x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding Albums}"
-                                           Margin="0,0,-12,0"
-                                           Tap="LongListSelector_Tap"
-                                           ItemTemplate="{StaticResource AlbumTemplate}"
-                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                           GroupViewOpened="LongListSelector_GroupViewOpened"
-                                           GroupViewClosing="LongListSelector_GroupViewClosing">
+                    <commonControls:LongListSelectorEx x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding Albums}"
+                                                       Margin="0,0,-12,0"
+                                                       Tap="LongListSelector_Tap"
+                                                       ItemTemplate="{StaticResource AlbumTemplate}"
+                                                       GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                                       GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                                       GroupViewOpened="LongListSelector_GroupViewOpened"
+                                                       GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
-                    </my:LongListSelectorEx>
+                    </commonControls:LongListSelectorEx>
                 </Grid>
             </controls:PivotItem>
 
@@ -136,23 +137,23 @@
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
                                Text="{Binding LocalizedStrings.GenreNoSongsFound, Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding Path=Songs, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <my:LongListSelectorEx x:Name="lbSongs" Background="Transparent" ItemsSource="{Binding Songs}"
-                                           Margin="0,0,-12,0"
-                                           Tap="LongListSelector_Tap"
-                                           Link="lbSongs_Link"
-                                           ItemTemplate="{StaticResource SongTemplate}"
-                                           ListHeader="{Binding}"
-                                           ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
-                                           GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                           GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                           GroupViewOpened="LongListSelector_GroupViewOpened"
-                                           GroupViewClosing="LongListSelector_GroupViewClosing">
+                    <commonControls:LongListSelectorEx x:Name="lbSongs" Background="Transparent" ItemsSource="{Binding Songs}"
+                                                       Margin="0,0,-12,0"
+                                                       Tap="LongListSelector_Tap"
+                                                       Link="lbSongs_Link"
+                                                       ItemTemplate="{StaticResource SongTemplate}"
+                                                       ListHeader="{Binding}"
+                                                       ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
+                                                       GroupItemTemplate="{StaticResource GroupItemTemplate}"
+                                                       GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                                       GroupViewOpened="LongListSelector_GroupViewOpened"
+                                                       GroupViewClosing="LongListSelector_GroupViewClosing">
                         <toolkit:LongListSelector.GroupItemsPanel>
                             <ItemsPanelTemplate>
                                 <toolkit:WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </toolkit:LongListSelector.GroupItemsPanel>
-                    </my:LongListSelectorEx>
+                    </commonControls:LongListSelectorEx>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

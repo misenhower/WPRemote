@@ -1,6 +1,7 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
     xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
+    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     x:Class="Komodex.WP7DACPRemote.LibraryPages.SearchPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -53,16 +54,16 @@
                 <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.SearchPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
                 <TextBox TextChanged="tbSearchString_TextChanged" Name="tbSearchString" InputScope="Search" KeyUp="tbSearchString_KeyUp" />
             </StackPanel>
-            <my:LongListSelectorEx x:Name="lbSearchResults" Background="Transparent" Grid.Row="1"
-                Margin="0,0,-12,0"
-                Tap="LongListSelector_Tap"
-                ListHeaderTemplate="{StaticResource ListHeader}"
-                ItemTemplate="{StaticResource ItemTemplate}"
-                GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
-                GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
-                GroupViewOpened="LongListSelector_GroupViewOpened"
-                GroupViewClosing="LongListSelector_GroupViewClosing"
-                />
+            <commonControls:LongListSelectorEx x:Name="lbSearchResults" Background="Transparent" Grid.Row="1"
+                                               Margin="0,0,-12,0"
+                                               Tap="LongListSelector_Tap"
+                                               ListHeaderTemplate="{StaticResource ListHeader}"
+                                               ItemTemplate="{StaticResource ItemTemplate}"
+                                               GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
+                                               GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
+                                               GroupViewOpened="LongListSelector_GroupViewOpened"
+                                               GroupViewClosing="LongListSelector_GroupViewClosing"
+                                               />
         </Grid>
     </Grid>
 
