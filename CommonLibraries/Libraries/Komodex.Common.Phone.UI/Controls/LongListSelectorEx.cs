@@ -17,28 +17,28 @@ namespace Komodex.Common.Phone.Controls
 {
     public class LongListSelectorEx : LongListSelector
     {
-        protected List<ContentPresenter> _currentContentPresenters = new List<ContentPresenter>();
-
         public LongListSelectorEx()
             : base()
         {
+            // Locate the style in Generic.xaml
+            DefaultStyleKey = typeof(LongListSelectorEx);
+
             Link += new EventHandler<LinkUnlinkEventArgs>(LongListSelectorEx_Link);
             Unlink += new EventHandler<LinkUnlinkEventArgs>(LongListSelectorEx_Unlink);
 
             GotFocus += new RoutedEventHandler(LongListSelectorEx_GotFocus);
         }
 
-        void LongListSelectorEx_Link(object sender, LinkUnlinkEventArgs e)
+        #region Focus Fix
+
+        private bool _preventFocus = true;
+        public bool PreventFocus
         {
-            _currentContentPresenters.Add(e.ContentPresenter);
+            get { return _preventFocus; }
+            set { _preventFocus = value; }
         }
 
-        void LongListSelectorEx_Unlink(object sender, LinkUnlinkEventArgs e)
-        {
-            _currentContentPresenters.Remove(e.ContentPresenter);
-        }
-
-        void LongListSelectorEx_GotFocus(object sender, RoutedEventArgs e)
+        private void LongListSelectorEx_GotFocus(object sender, RoutedEventArgs e)
         {
             // Attempt to focus a parent control whenever this control is focused.
             // This seems to fix an issue with the current WP7.1 ListBox control where list items
@@ -52,13 +52,25 @@ namespace Komodex.Common.Phone.Controls
                 c.Focus();
         }
 
-        #region Properties
+        #endregion
 
-        private bool _preventFocus = true;
-        public bool PreventFocus
+        #region ContentPresenter Tracking
+
+        protected List<ContentPresenter> _currentContentPresenters = new List<ContentPresenter>();
+
+        private void LongListSelectorEx_Link(object sender, LinkUnlinkEventArgs e)
         {
-            get { return _preventFocus; }
-            set { _preventFocus = value; }
+            _currentContentPresenters.Add(e.ContentPresenter);
+        }
+
+        private void LongListSelectorEx_Unlink(object sender, LinkUnlinkEventArgs e)
+        {
+            _currentContentPresenters.Remove(e.ContentPresenter);
+        }
+
+        public ContentPresenter GetContentPresenterForItem(object item)
+        {
+            return _currentContentPresenters.FirstOrDefault(c => c.DataContext == item);
         }
 
         public ContentPresenter SelectedContentPresenter
@@ -67,15 +79,5 @@ namespace Komodex.Common.Phone.Controls
         }
 
         #endregion
-
-        #region Methods
-
-        public ContentPresenter GetContentPresenterForItem(object item)
-        {
-            return _currentContentPresenters.FirstOrDefault(c => c.DataContext == item);
-        }
-
-        #endregion
-
     }
 }
