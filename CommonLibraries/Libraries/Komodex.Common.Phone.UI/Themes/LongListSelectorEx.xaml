@@ -21,7 +21,7 @@
                                 </Style>
                             </toolkitPrimitives:TemplatedListBox.ItemContainerStyle>
                         </toolkitPrimitives:TemplatedListBox>
-                        <TextBlock Name="EmptyTextTextBlock" Text="{TemplateBinding EmptyText}" Style="{TemplateBinding EmptyTextStyle}" Visibility="Collapsed" />
+                        <TextBlock Name="EmptyTextTextBlock" Text="{TemplateBinding EmptyText}" Style="{TemplateBinding EmptyTextStyle}" TextWrapping="Wrap" Visibility="Collapsed" />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="EmptyTextStates">
                                 <VisualState x:Name="EmptyTextCollapsed" />
