@@ -293,6 +293,24 @@
             </Setter>
         </Style>
 
+        <DataTemplate x:Key="ShuffleAllHeaderTemplate" toolkit:TiltEffect.SuppressTilt="True">
+            <Grid Margin="12,0,0,12">
+                <my:FakeButton x:Name="ShuffleButton"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Bottom"
+                               Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}">
+                    <Border Background="{StaticResource PhoneChromeBrush}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Template="{StaticResource ShuffleIcon}" />
+                            <TextBlock Text="{Binding LocalizedStrings.ShuffleAllButton, Source={StaticResource LocalizedStrings}}" Margin="0,3,12,0" FontSize="28"
+                                       Style="{StaticResource PhoneTextBlockBase}"
+                                       FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
+                        </StackPanel>
+                    </Border>
+                </my:FakeButton>
+            </Grid>
+        </DataTemplate>
+
         <DataTemplate x:Key="ListFooter72px">
             <Border Height="72" />
         </DataTemplate>

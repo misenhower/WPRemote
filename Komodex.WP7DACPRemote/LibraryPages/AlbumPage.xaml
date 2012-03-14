@@ -20,17 +20,6 @@
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/AlbumSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="SongTemplate">
-            <Grid Margin="12,6,0,12">
-                <StackPanel Orientation="Horizontal">
-                    <my:FakeButton x:Name="PlayButton">
-                        <ContentControl Template="{StaticResource PlayButton}" />
-                    </my:FakeButton>
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-
         <DataTemplate x:Key="ListHeaderTemplate">
             <Grid Margin="12,6,0,12">
                 <Grid.ColumnDefinitions>
@@ -81,13 +70,14 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <commonControls:LongListSelectorEx Name="lbSongs" Margin="0,0,-12,0"
+            <commonControls:LongListSelectorEx Name="lbSongs"
+                                               Style="{StaticResource LibraryListBoxStyle}"
                                                Link="lbSongs_Link"
                                                Tap="LongListSelector_Tap"
                                                ItemsSource="{Binding Songs}" IsFlatList="True"
                                                ListHeader="{Binding}"
                                                ListHeaderTemplate="{StaticResource ListHeaderTemplate}"
-                                               ItemTemplate="{StaticResource SongTemplate}" />
+                                               ItemTemplate="{StaticResource PlayButtonItemTemplate}" />
         </Grid>
     </Grid>
 
