@@ -35,7 +35,7 @@
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
                                                        ItemsSource="{Binding Albums}" IsFlatList="True"
-                                                       ItemTemplate="{StaticResource AlbumArtLargeItemTemplate}"
+                                                       ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
                                                        />
                 </Grid>
             </controls:PivotItem>
@@ -48,7 +48,7 @@
                                                        Link="lbSongs_Link"
                                                        Tap="LongListSelector_Tap"
                                                        ItemsSource="{Binding Songs}" IsFlatList="True" 
-                                                       ItemTemplate="{StaticResource PlayButtonItemTemplate}"
+                                                       ItemTemplate="{StaticResource PlayButtonItemWithAlbumSubtitleTemplate}"
                                                        ListHeader="{Binding}"
                                                        ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}"
                                                        />

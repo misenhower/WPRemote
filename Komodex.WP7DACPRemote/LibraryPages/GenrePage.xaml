@@ -21,67 +21,6 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
     <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="ArtistTemplate">
-            <Grid Margin="12,6,0,12">
-                <StackPanel Orientation="Horizontal">
-                    <my:FakeButton x:Name="PlayButton">
-                        <ContentControl Template="{StaticResource PlayButton}" />
-                    </my:FakeButton>
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="AlbumTemplate">
-            <Grid Margin="12,6,0,12" Height="175">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="175" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <my:FakeButton x:Name="PlayButton">
-                    <ContentControl Width="175" Height="175" Template="{StaticResource AlbumButton}">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                    </ContentControl>
-                </my:FakeButton>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
-                    <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="SongTemplate">
-            <Grid Margin="12,6,0,12">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <my:FakeButton x:Name="PlayButton">
-                    <ContentControl Template="{StaticResource PlayButton}" />
-                </my:FakeButton>
-                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}"/>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="SongHeaderTemplate" toolkit:TiltEffect.SuppressTilt="True">
-            <Grid Margin="12,0,0,12">
-                <my:FakeButton x:Name="ShuffleButton"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Bottom"
-                               Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}">
-                    <Border Background="{StaticResource PhoneChromeBrush}">
-                        <StackPanel Orientation="Horizontal">
-                            <ContentControl Template="{StaticResource ShuffleIcon}" />
-                            <TextBlock Text="{Binding LocalizedStrings.ShuffleAllButton, Source={StaticResource LocalizedStrings}}" Margin="0,3,12,0" FontSize="28"
-                                       Style="{StaticResource PhoneTextBlockBase}"
-                                       FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
-                        </StackPanel>
-                    </Border>
-                </my:FakeButton>
-            </Grid>
-        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -91,69 +30,45 @@
             <controls:PivotItem x:Name="pivotArtists" Header="{Binding LocalizedStrings.LibraryArtistsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="{Binding LocalizedStrings.GenreNoArtistsFound, Source={StaticResource LocalizedStrings}}"
+                               Text=""
                                Visibility="{Binding Path=Artists, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <commonControls:LongListSelectorEx x:Name="lbArtists" Background="Transparent" ItemsSource="{Binding Artists}"
-                                                       Margin="0,0,-12,0"
+                    <commonControls:LongListSelectorEx x:Name="lbArtists"
+                                                       ItemsSource="{Binding Artists}"
+                                                       EmptyText="{Binding LocalizedStrings.GenreNoArtistsFound, Source={StaticResource LocalizedStrings}}"
+                                                       Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
-                                                       ItemTemplate="{StaticResource ArtistTemplate}"
-                                                       GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                                       GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                                       ItemTemplate="{StaticResource PlayButtonItemTemplate}"
                                                        GroupViewOpened="LongListSelector_GroupViewOpened"
-                                                       GroupViewClosing="LongListSelector_GroupViewClosing">
-                        <toolkit:LongListSelector.GroupItemsPanel>
-                            <ItemsPanelTemplate>
-                                <toolkit:WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </toolkit:LongListSelector.GroupItemsPanel>
-                    </commonControls:LongListSelectorEx>
+                                                       GroupViewClosing="LongListSelector_GroupViewClosing" />
                 </Grid>
             </controls:PivotItem>
 
             <controls:PivotItem x:Name="pivotAlbums" Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="{Binding LocalizedStrings.GenreNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
-                               Visibility="{Binding Path=Albums, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <commonControls:LongListSelectorEx x:Name="lbAlbums" Background="Transparent" ItemsSource="{Binding Albums}"
-                                                       Margin="0,0,-12,0"
+                    <commonControls:LongListSelectorEx x:Name="lbAlbums"
+                                                       ItemsSource="{Binding Albums}"
+                                                       EmptyText="{Binding LocalizedStrings.GenreNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
+                                                       Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
-                                                       ItemTemplate="{StaticResource AlbumTemplate}"
-                                                       GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                                       GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                                       ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
                                                        GroupViewOpened="LongListSelector_GroupViewOpened"
-                                                       GroupViewClosing="LongListSelector_GroupViewClosing">
-                        <toolkit:LongListSelector.GroupItemsPanel>
-                            <ItemsPanelTemplate>
-                                <toolkit:WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </toolkit:LongListSelector.GroupItemsPanel>
-                    </commonControls:LongListSelectorEx>
+                                                       GroupViewClosing="LongListSelector_GroupViewClosing" />
                 </Grid>
             </controls:PivotItem>
 
             <controls:PivotItem x:Name="pivotSongs" Header="{Binding LocalizedStrings.LibrarySongsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="{Binding LocalizedStrings.GenreNoSongsFound, Source={StaticResource LocalizedStrings}}"
-                               Visibility="{Binding Path=Songs, Converter={StaticResource noListItemsVisibilityConverter}}" />
-                    <commonControls:LongListSelectorEx x:Name="lbSongs" Background="Transparent" ItemsSource="{Binding Songs}"
-                                                       Margin="0,0,-12,0"
+                    <commonControls:LongListSelectorEx x:Name="lbSongs"
+                                                       ItemsSource="{Binding Songs}"
+                                                       EmptyText="{Binding LocalizedStrings.GenreNoSongsFound, Source={StaticResource LocalizedStrings}}"
+                                                       Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
                                                        Link="lbSongs_Link"
-                                                       ItemTemplate="{StaticResource SongTemplate}"
+                                                       ItemTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
                                                        ListHeader="{Binding}"
-                                                       ListHeaderTemplate="{StaticResource SongHeaderTemplate}"
-                                                       GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                                       GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                                       ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}"
                                                        GroupViewOpened="LongListSelector_GroupViewOpened"
-                                                       GroupViewClosing="LongListSelector_GroupViewClosing">
-                        <toolkit:LongListSelector.GroupItemsPanel>
-                            <ItemsPanelTemplate>
-                                <toolkit:WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </toolkit:LongListSelector.GroupItemsPanel>
-                    </commonControls:LongListSelectorEx>
+                                                       GroupViewClosing="LongListSelector_GroupViewClosing" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

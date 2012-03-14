@@ -53,6 +53,7 @@ namespace Komodex.DACP.Library
                 return string.Format(LocalizedDACPStrings.MultipleItems, ItemCount);
             }
         }
+        public string SecondLine { get { return ItemCountString; } }
         public bool SmartPlaylist { get; protected set; }
 
         private ObservableCollection<MediaItem> _Songs = null;

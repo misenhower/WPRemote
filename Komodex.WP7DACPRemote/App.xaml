@@ -341,11 +341,65 @@
                     <ContentControl Template="{StaticResource PlayButton}" />
                 </my:FakeButton>
                 <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding ItemCountString}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PlayButtonItemWithAlbumSubtitleTemplate">
+            <Grid Margin="12,6,0,12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <my:FakeButton x:Name="PlayButton">
+                    <ContentControl Template="{StaticResource PlayButton}" />
+                </my:FakeButton>
+                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PlayButtonItemWithArtistAndAlbumSubtitleTemplate">
+            <Grid Margin="12,6,0,12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <my:FakeButton x:Name="PlayButton">
+                    <ContentControl Template="{StaticResource PlayButton}" />
+                </my:FakeButton>
+                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding ArtistAndAlbum}" Style="{StaticResource PhoneTextSubtleStyle}"/>
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="AlbumArtLargeItemTemplate">
+            <Grid Margin="12,6,0,12" Height="175">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <my:FakeButton x:Name="PlayButton">
+                    <Border Width="175" Height="175" Background="{StaticResource PhoneChromeBrush}">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    </Border>
+                </my:FakeButton>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
+                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="AlbumArtLargeWithPlayButtonItemTemplate">
             <Grid Margin="12,6,0,12" Height="175">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="175" />

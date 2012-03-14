@@ -20,27 +20,6 @@
     shell:SystemTray.IsVisible="True">
     
     <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="PodcastTemplate">
-            <Grid Margin="12,6,0,12" Height="175">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="175" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <my:FakeButton>
-                    <Border Width="175" Height="175" Background="{StaticResource PhoneChromeBrush}">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                    </Border>
-                </my:FakeButton>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
-                    <TextBlock Text="{Binding ArtistName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-
-        <DataTemplate x:Key="ListFooter">
-            <Border Height="72" />
-        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -58,24 +37,15 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,0,0">
-            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text="{Binding LocalizedStrings.LibraryNoPodcastsFound, Source={StaticResource LocalizedStrings}}"
-                               Visibility="{Binding Path=LibraryPodcasts, Converter={StaticResource noListItemsVisibilityConverter}}" />
-            <commonControls:LongListSelectorEx x:Name="lbPodcasts" Background="Transparent" ItemsSource="{Binding LibraryPodcasts}"
-                                               Margin="0,0,-12,0"
+            <commonControls:LongListSelectorEx x:Name="lbPodcasts"
+                                               ItemsSource="{Binding LibraryPodcasts}"
+                                               EmptyText="{Binding LocalizedStrings.LibraryNoPodcastsFound, Source={StaticResource LocalizedStrings}}"
+                                               Style="{StaticResource LibraryListBoxStyle}"
                                                Tap="LongListSelector_Tap"
-                                               ItemTemplate="{StaticResource PodcastTemplate}"
-                                               GroupItemTemplate="{StaticResource GroupItemTemplate}"
-                                               GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
-                                               ListFooterTemplate="{StaticResource ListFooter}"
+                                               ItemTemplate="{StaticResource AlbumArtLargeItemTemplate}"
+                                               ListFooterTemplate="{StaticResource ListFooter72px}"
                                                GroupViewOpened="LongListSelector_GroupViewOpened"
-                                               GroupViewClosing="LongListSelector_GroupViewClosing">
-                <toolkit:LongListSelector.GroupItemsPanel>
-                    <ItemsPanelTemplate>
-                        <toolkit:WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </toolkit:LongListSelector.GroupItemsPanel>
-            </commonControls:LongListSelectorEx>
+                                               GroupViewClosing="LongListSelector_GroupViewClosing" />
         </Grid>
     </Grid>
  

@@ -65,7 +65,7 @@
                                                        EmptyText="{Binding LocalizedStrings.LibraryNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
-                                                       ItemTemplate="{StaticResource AlbumArtLargeItemTemplate}"
+                                                       ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
                                                        ListFooterTemplate="{StaticResource ListFooter72px}"
                                                        GroupViewOpened="LongListSelector_GroupViewOpened"
                                                        GroupViewClosing="LongListSelector_GroupViewClosing" />

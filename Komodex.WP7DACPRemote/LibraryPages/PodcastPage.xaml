@@ -20,16 +20,6 @@
     shell:SystemTray.IsVisible="True">
 
     <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="SongTemplate">
-            <Grid Margin="12,6,0,12">
-                <StackPanel Orientation="Horizontal">
-                    <my:FakeButton x:Name="PlayButton">
-                        <ContentControl Template="{StaticResource PlayButton}" />
-                    </my:FakeButton>
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -47,10 +37,11 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <commonControls:LongListSelectorEx Name="lbEpisodes" Margin="0,0,-12,0"
+            <commonControls:LongListSelectorEx Name="lbEpisodes"
+                                               Style="{StaticResource LibraryListBoxStyle}"
                                                Tap="LongListSelector_Tap"
                                                ItemsSource="{Binding Episodes}" IsFlatList="True"
-                                               ItemTemplate="{StaticResource SongTemplate}"
+                                               ItemTemplate="{StaticResource PlayButtonItemTemplate}"
                                                />
         </Grid>
     </Grid>
