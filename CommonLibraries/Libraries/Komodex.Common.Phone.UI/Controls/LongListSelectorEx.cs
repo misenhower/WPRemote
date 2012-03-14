@@ -12,6 +12,7 @@ using Microsoft.Phone.Controls;
 using System.Collections.Generic;
 using System.Linq;
 using Clarity.Phone.Extensions;
+using System.Collections;
 
 namespace Komodex.Common.Phone.Controls
 {
@@ -27,6 +28,8 @@ namespace Komodex.Common.Phone.Controls
             Unlink += new EventHandler<LinkUnlinkEventArgs>(LongListSelectorEx_Unlink);
 
             GotFocus += new RoutedEventHandler(LongListSelectorEx_GotFocus);
+
+            CollectionChanged += new EventHandler(LongListSelectorEx_CollectionChanged);
         }
 
         #region Focus Fix
@@ -76,6 +79,89 @@ namespace Komodex.Common.Phone.Controls
         public ContentPresenter SelectedContentPresenter
         {
             get { return GetContentPresenterForItem(SelectedItem); }
+        }
+
+        #endregion
+
+        #region EmptyText
+
+        #region EmptyText Property
+
+        public static readonly DependencyProperty EmptyTextProperty =
+            DependencyProperty.Register("EmptyText", typeof(string), typeof(LongListSelectorEx), new PropertyMetadata(null));
+
+        public string EmptyText
+        {
+            get { return (string)GetValue(EmptyTextProperty); }
+            set { SetValue(EmptyTextProperty, value); }
+        }
+
+        #endregion
+
+        #region EmptyTextStyle Property
+
+        public static readonly DependencyProperty EmptyTextStyleProperty =
+            DependencyProperty.Register("EmptyTextStyle", typeof(Style), typeof(LongListSelectorEx), new PropertyMetadata(null));
+
+        public Style EmptyTextStyle
+        {
+            get { return (Style)GetValue(EmptyTextStyleProperty); }
+            set { SetValue(EmptyTextStyleProperty, value); }
+        }
+
+        #endregion
+
+        #region ShowEmptyTextWhenNull Property
+
+        public static readonly DependencyProperty ShowEmptyTextWhenNullProperty =
+            DependencyProperty.Register("ShowEmptyTextWhenNull", typeof(bool), typeof(LongListSelectorEx), new PropertyMetadata(true));
+
+        public bool ShowEmptyTextWhenNull
+        {
+            get { return (bool)GetValue(ShowEmptyTextWhenNullProperty); }
+            set { SetValue(ShowEmptyTextWhenNullProperty, value); }
+        }
+
+        #endregion
+
+        protected void SetEmptyTextVisibility(bool visible)
+        {
+            VisualStateManager.GoToState(this, (visible) ? "EmptyTextVisible" : "EmptyTextCollapsed", true);
+        }
+
+        private void LongListSelectorEx_CollectionChanged(object sender, EventArgs e)
+        {
+            SetEmptyTextVisibility(ShouldShowEmptyText());
+        }
+
+        private bool ShouldShowEmptyText()
+        {
+            var itemsSource = ItemsSource;
+
+            if (itemsSource == null && ShowEmptyTextWhenNull)
+                return true;
+
+            if (itemsSource is IList)
+            {
+                IList list = (IList)itemsSource;
+                if (list.Count == 0)
+                    return true;
+
+                // If this is a flat list, we found items so we don't need to do any further checks
+                if (IsFlatList)
+                    return false;
+
+                // Check whether the sub-lists have items
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (!(list[i] is IList) || ((IList)list[i]).Count > 0)
+                        return false;
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         #endregion

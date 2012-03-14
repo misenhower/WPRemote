@@ -583,6 +583,12 @@ namespace Microsoft.Phone.Controls
         /// </summary>
         public event EventHandler StretchingTop;
 
+        // NOTE: Adding this for LongListSelectorEx functionality
+        /// <summary>
+        /// Occurs when the source collection changes.
+        /// </summary>
+        public event EventHandler CollectionChanged;
+
         #endregion
 
         #region Constructor
@@ -719,6 +725,10 @@ namespace Microsoft.Phone.Controls
         {
             // Reload the whole list.
             LoadDataIntoListBox();
+
+            // NOTE: Adding this for LongListSelectorEx functionality
+            if (CollectionChanged != null)
+                CollectionChanged(this, new EventArgs());
         }
         #endregion
 
@@ -778,6 +788,10 @@ namespace Microsoft.Phone.Controls
             }
 
             LoadDataIntoListBox();
+
+            // NOTE: Adding this for LongListSelectorEx functionality
+            if (CollectionChanged != null)
+                CollectionChanged(this, new EventArgs());
         }
         #endregion
 
@@ -1655,6 +1669,10 @@ namespace Microsoft.Phone.Controls
                     LoadDataIntoListBox();
                     break;
             }
+
+            // NOTE: Adding this for LongListSelectorEx functionality
+            if (CollectionChanged != null)
+                CollectionChanged(this, new EventArgs());
         }
         #endregion
 

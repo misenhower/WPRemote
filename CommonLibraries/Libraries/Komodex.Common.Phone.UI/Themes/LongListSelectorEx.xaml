@@ -7,8 +7,8 @@
     >
     
     <Style TargetType="commonControls:LongListSelectorEx">
-        <!--<Setter Property="Background" Value="{StaticResource PhoneBackgroundBrush}"/>-->
-        <Setter Property="Background" Value="Purple"/>
+        <Setter Property="Background" Value="{StaticResource PhoneBackgroundBrush}" />
+        <Setter Property="EmptyTextStyle" Value="{StaticResource PhoneTextLargeStyle}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="commonControls:LongListSelectorEx">
@@ -21,6 +21,19 @@
                                 </Style>
                             </toolkitPrimitives:TemplatedListBox.ItemContainerStyle>
                         </toolkitPrimitives:TemplatedListBox>
+                        <TextBlock Name="EmptyTextTextBlock" Text="{TemplateBinding EmptyText}" Style="{TemplateBinding EmptyTextStyle}" Visibility="Collapsed" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="EmptyTextStates">
+                                <VisualState x:Name="EmptyTextCollapsed" />
+                                <VisualState x:Name="EmptyTextVisible">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EmptyTextTextBlock" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
