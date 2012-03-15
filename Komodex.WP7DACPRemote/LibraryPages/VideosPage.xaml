@@ -18,7 +18,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.Opacity="0">
 
     <phone:PhoneApplicationPage.Resources>
     </phone:PhoneApplicationPage.Resources>
@@ -26,7 +27,12 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="{Binding Path=LibraryName, Converter={StaticResource StringToUpperConverter}}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeMedium}" Name="pivotControl" SelectionChanged="pivotControl_SelectionChanged">
+        <controls:Pivot Name="pivotControl"
+                        Title="{Binding Path=LibraryName, Converter={StaticResource StringToUpperConverter}}"
+                        Margin="0,32,0,0"
+                        FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                        FontSize="{StaticResource PhoneFontSizeMedium}"
+                        SelectionChanged="pivotControl_SelectionChanged">
             <controls:PivotItem Name="pivotMovies" Header="{Binding LocalizedStrings.VideosMoviesPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
                     <commonControls:LongListSelectorEx x:Name="lbMovies"

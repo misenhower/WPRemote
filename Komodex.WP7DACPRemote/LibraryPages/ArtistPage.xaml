@@ -19,7 +19,9 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/ArtistSampleData.xaml}">
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.Opacity="0"
+    d:DataContext="{d:DesignData /SampleData/ArtistSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
        
     </phone:PhoneApplicationPage.Resources>
@@ -27,7 +29,12 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot x:Name="pivotControl" Title="{Binding Name, Converter={StaticResource StringToUpperConverter}}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeMedium}" SelectionChanged="Pivot_SelectionChanged">
+        <controls:Pivot x:Name="pivotControl"
+                        Title="{Binding Name, Converter={StaticResource StringToUpperConverter}}"
+                        Margin="0,32,0,0"
+                        FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                        FontSize="{StaticResource PhoneFontSizeMedium}"
+                        SelectionChanged="Pivot_SelectionChanged">
             <!--Pivot item one-->
             <controls:PivotItem x:Name="pivotAlbums" Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>

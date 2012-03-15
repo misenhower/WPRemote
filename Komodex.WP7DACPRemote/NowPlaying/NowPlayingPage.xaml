@@ -17,7 +17,9 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     ManipulationStarted="Page_ManipulationStarted"
-    shell:SystemTray.IsVisible="True" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.Opacity="0"
+    d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
     <phone:PhoneApplicationPage.Resources>
         <Style x:Key="BorderlessButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -135,12 +137,13 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0">
+        <StackPanel x:Name="TitlePanel" Grid.Row="1">
             <Button Template="{StaticResource EmptyButton}" Click="btnLibrary_Click">
                 <Border>
                     <TextBlock x:Name="ApplicationTitle" Margin="24,17,0,2" Text="{Binding LibraryName, Converter={StaticResource StringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
@@ -149,7 +152,7 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,0,0">
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="185" />
@@ -234,7 +237,7 @@
                 
             </Grid>
         </Grid>
-        <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" Grid.RowSpan="2" />
+        <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" Grid.RowSpan="3" />
     </Grid>
 
 </app:DACPServerBoundPhoneApplicationPage>

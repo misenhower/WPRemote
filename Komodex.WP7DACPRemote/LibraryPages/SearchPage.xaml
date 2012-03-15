@@ -18,7 +18,8 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.Opacity="0">
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ItemTemplate">
@@ -47,14 +48,15 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel>
+            <StackPanel Grid.Row="1">
                 <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.SearchPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
                 <TextBox TextChanged="tbSearchString_TextChanged" Name="tbSearchString" InputScope="Search" KeyUp="tbSearchString_KeyUp" />
             </StackPanel>
-            <commonControls:LongListSelectorEx x:Name="lbSearchResults" Background="Transparent" Grid.Row="1"
+            <commonControls:LongListSelectorEx x:Name="lbSearchResults" Background="Transparent" Grid.Row="2"
                                                Margin="0,0,-12,0"
                                                Tap="LongListSelector_Tap"
                                                ListHeaderTemplate="{StaticResource ListHeader}"

@@ -15,7 +15,8 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.Opacity="0">
     <app:DACPServerBoundPhoneApplicationPage.Resources>
         <DataTemplate x:Key="WrappingHeaderTemplate">
             <Grid>
@@ -27,18 +28,19 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="1" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="REMOTE" Style="{StaticResource PhoneTextAppTitleStyle}"/>
             <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.SettingsPageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
             <StackPanel>
                 <toolkit:ListPicker Header="{Binding LocalizedStrings.SettingsArtistTapAction, Source={StaticResource LocalizedStrings}}" Name="lpArtistTap"
                                     Margin="12,12,12,48"

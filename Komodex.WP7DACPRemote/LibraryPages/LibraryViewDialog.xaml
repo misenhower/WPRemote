@@ -41,16 +41,17 @@
     
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
+        <StackPanel x:Name="TitlePanel" Grid.Row="1" Margin="12,17,0,12">
             <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.SelectMediaPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
             <!--<TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
         </StackPanel>
         
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="2">
             <Button Name="btnVideos" Click="btnVideos_Click" Style="{StaticResource BorderlessButtonStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>

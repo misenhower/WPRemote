@@ -12,25 +12,26 @@
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Rectangle Fill="{StaticResource PhoneBackgroundBrush}" Grid.Row="0" Grid.RowSpan="2" Opacity="0.6" />
+        <Rectangle Fill="{StaticResource PhoneBackgroundBrush}" Grid.Row="0" Grid.RowSpan="3" Opacity="0.6" />
 
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
+        <StackPanel x:Name="TitlePanel" Grid.Row="1" Margin="12,17,0,12">
             <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.AirPlaySpeakersPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
             <!--<TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
         </StackPanel>
 
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="2">
             <StackPanel Name="AirPlaySpeakerStackPanel" />
         </ScrollViewer>
-        
-        <StackPanel Grid.Row="2" Margin="12,12,0,0">
+
+        <StackPanel Grid.Row="3" Margin="12,12,0,0">
             <TextBlock Text="{Binding LocalizedStrings.MasterVolume, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}" Margin="12,0,0,0" />
-            <Slider Name="MasterVolumeSlider" Height="48" Margin="0,0,12,130" Grid.Row="2"
+            <Slider Name="MasterVolumeSlider" Height="48" Margin="0,0,12,98" Grid.Row="2"
                 Value="{Binding Path=Volume, Mode=TwoWay}" Maximum="100" LargeChange="5"
                 Style="{StaticResource VolumeSliderStyle}"
                 VerticalAlignment="Center" />
