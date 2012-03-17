@@ -49,7 +49,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 }
 
                 UpdatePopupDisplay();
-                UpdateServerBusyIndicator();
                 SendServerChanged();
                 if (_suppressNavigateToHome)
                     _suppressNavigateToHome = false;
@@ -64,9 +63,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         private static Popup ConnectingPopup = null;
         private static ConnectingStatusControl ConnectingStatusControl = null;
-
-        private static Popup ServerBusyPopup = null;
-        private static PerformanceProgressBar ServerBusyProgressBar = null;
 
         private static void UpdatePopupDisplay()
         {
@@ -96,43 +92,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
                 if (ConnectingPopup.IsOpen)
                     ConnectingStatusControl.UpdateFromServer();
-            });
-        }
-
-
-        private static void UpdateServerBusyIndicator()
-        {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (ServerBusyPopup == null)
-                {
-                    ServerBusyProgressBar = new PerformanceProgressBar();
-                    ServerBusyProgressBar.Padding = new Thickness(0);
-                    ServerBusyProgressBar.Margin = new Thickness(0, 32, 0, 0);
-                    UpdatePopupSize();
-                    ServerBusyProgressBar.Visibility = Visibility.Collapsed;
-                    ServerBusyPopup = new Popup();
-                    ServerBusyPopup.Child = ServerBusyProgressBar;
-                }
-
-                if (Server != null)
-                {
-                    // Set up progressbar bindings
-                    Binding indeterminateBinding = new Binding("GettingData");
-                    indeterminateBinding.Source = Server;
-                    ServerBusyProgressBar.SetBinding(PerformanceProgressBar.IsIndeterminateProperty, indeterminateBinding);
-                    Binding visibilityBinding = new Binding("GettingData");
-                    visibilityBinding.Source = Server;
-                    visibilityBinding.Converter = Application.Current.Resources["BooleanToVisibilityConverter"] as IValueConverter;
-                    ServerBusyProgressBar.SetBinding(ProgressBar.VisibilityProperty, visibilityBinding);
-                }
-                else
-                {
-                    ServerBusyProgressBar.IsIndeterminate = false;
-                    ServerBusyProgressBar.Visibility = Visibility.Collapsed;
-                }
-
-                ServerBusyPopup.IsOpen = true;
             });
         }
 
@@ -191,11 +150,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             {
                 ConnectingStatusControl.Width = width;
                 ConnectingStatusControl.Height = height;
-            }
-
-            if (ServerBusyProgressBar != null)
-            {
-                ServerBusyProgressBar.Width = width;
             }
         }
 

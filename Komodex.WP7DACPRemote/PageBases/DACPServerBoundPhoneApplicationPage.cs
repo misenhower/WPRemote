@@ -157,6 +157,7 @@ namespace Komodex.WP7DACPRemote
             UpdateTransportButtons();
             UpdateAppNavButtons();
             UpdateApplicationBarVisibility();
+            UpdateBusyState();
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -194,6 +195,9 @@ namespace Komodex.WP7DACPRemote
                     UpdateTransportButtons();
                     UpdateAppNavButtons();
                     break;
+                case "GettingData":
+                    UpdateBusyState();
+                    break;
                 default:
                     break;
             }
@@ -209,6 +213,14 @@ namespace Komodex.WP7DACPRemote
                 return;
 
             ApplicationBar.IsVisible = (DACPServer != null && DACPServer.IsConnected);
+        }
+
+        private void UpdateBusyState()
+        {
+            if (DACPServer != null && DACPServer.IsConnected && DACPServer.GettingData)
+                SetProgressIndicator(null, true);
+            else
+                ClearProgressIndicator();
         }
 
         protected virtual void AttachServerEvents()
