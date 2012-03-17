@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.Linq;
+using Komodex.Common;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -23,45 +25,32 @@ namespace Komodex.WP7DACPRemote
             RootVisual.Navigated += new System.Windows.Navigation.NavigatedEventHandler(RootVisual_Navigated);
         }
 
-        private static bool _NavigatingToFirstPage = false;
-        public static bool NavigatingToFirstPage
-        {
-            get { return _NavigatingToFirstPage; }
-        }
-
         static void RootVisual_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (_NavigatingToFirstPage)
-            {
-                if (RootVisual.CanGoBack)
-                    RootVisual.GoBack();
-                else
-                    _NavigatingToFirstPage = false;
-            }
         }
 
         #region Public Methods
 
         public static void GoToFirstPage()
         {
-            if (RootVisual == null)
-                return;
-
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            // Accessing RootVisual.BackStack can throw a NullReferenceException (rather than simply returning null)
+            try
             {
+                if (RootVisual == null || RootVisual.BackStack == null)
+                    return;
+            }
+            catch { return; }
+
+            Utility.BeginInvokeOnUIThread(() =>
+            {
+                int remaining = RootVisual.BackStack.Count();
+                while (remaining > 1)
+                {
+                    RootVisual.RemoveBackEntry();
+                    remaining--;
+                }
                 if (RootVisual.CanGoBack)
-                {
-                    _NavigatingToFirstPage = true;
-                    try
-                    {
-                        RootVisual.GoBack();
-                    }
-                    catch { }
-                }
-                else
-                {
-                    _NavigatingToFirstPage = false;
-                }
+                    RootVisual.GoBack();
             });
         }
 
