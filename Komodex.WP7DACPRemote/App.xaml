@@ -316,19 +316,24 @@
         </DataTemplate>
 
         <!-- Library List Item Styles -->
+        <Thickness x:Key="ListItemMargin">12,6,0,12</Thickness>
+        <Thickness x:Key="ListItemTextMargin">12,0,0,0</Thickness>
+        
         <DataTemplate x:Key="PlayButtonItemTemplate">
-            <Grid Margin="12,6,0,12">
-                <StackPanel Orientation="Horizontal">
-                    <my:FakeButton x:Name="PlayButton">
-                        <ContentControl Template="{StaticResource PlayButton}" />
-                    </my:FakeButton>
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                </StackPanel>
+            <Grid Margin="{StaticResource ListItemMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <my:FakeButton x:Name="PlayButton">
+                    <ContentControl Template="{StaticResource PlayButton}" />
+                </my:FakeButton>
+                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="{StaticResource ListItemTextMargin}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="PlayButtonItemWithSubtitleTemplate">
-            <Grid Margin="12,6,0,12">
+            <Grid Margin="{StaticResource ListItemMargin}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -340,13 +345,13 @@
                 <my:FakeButton x:Name="PlayButton">
                     <ContentControl Template="{StaticResource PlayButton}" />
                 </my:FakeButton>
-                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="{StaticResource ListItemTextMargin}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="{StaticResource ListItemTextMargin}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="PlayButtonItemWithAlbumSubtitleTemplate">
-            <Grid Margin="12,6,0,12">
+            <Grid Margin="{StaticResource ListItemMargin}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -358,13 +363,13 @@
                 <my:FakeButton x:Name="PlayButton">
                     <ContentControl Template="{StaticResource PlayButton}" />
                 </my:FakeButton>
-                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="{StaticResource ListItemTextMargin}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding AlbumName}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="{StaticResource ListItemTextMargin}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="PlayButtonItemWithArtistAndAlbumSubtitleTemplate">
-            <Grid Margin="12,6,0,12">
+            <Grid Margin="{StaticResource ListItemMargin}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -376,49 +381,53 @@
                 <my:FakeButton x:Name="PlayButton">
                     <ContentControl Template="{StaticResource PlayButton}" />
                 </my:FakeButton>
-                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding ArtistAndAlbum}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="{StaticResource ListItemTextMargin}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding ArtistAndAlbum}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="{StaticResource ListItemTextMargin}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="AlbumArtLargeItemTemplate">
-            <Grid Margin="12,6,0,12" Height="175">
+            <Grid Margin="{StaticResource ListItemMargin}" Height="175">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="175" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <my:FakeButton x:Name="PlayButton">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <my:FakeButton x:Name="PlayButton" Grid.RowSpan="2">
                     <Border Width="175" Height="175" Background="{StaticResource PhoneChromeBrush}">
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                     </Border>
                 </my:FakeButton>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
-                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
-                </StackPanel>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="{StaticResource ListItemTextMargin}" LineHeight="52" MaxHeight="104" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="{StaticResource ListItemTextMargin}" />
             </Grid>
         </DataTemplate>
         
         <DataTemplate x:Key="AlbumArtLargeWithPlayButtonItemTemplate">
-            <Grid Margin="12,6,0,12" Height="175">
+            <Grid Margin="{StaticResource ListItemMargin}" Height="175">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="175" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <my:FakeButton x:Name="PlayButton">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <my:FakeButton x:Name="PlayButton" Grid.RowSpan="2">
                     <ContentControl Width="175" Height="175" Template="{StaticResource AlbumButton}">
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                     </ContentControl>
                 </my:FakeButton>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="12,0,0,0" LineHeight="52" MaxHeight="104" />
-                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
-                </StackPanel>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="{StaticResource ListItemTextMargin}" LineHeight="52" MaxHeight="104" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="{StaticResource ListItemTextMargin}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="AlbumArtSmallItemTemplate">
-            <Grid Margin="12,6,0,6">
+            <Grid Margin="{StaticResource ListItemMargin}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="*" />
@@ -427,8 +436,8 @@
                     <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                 </Border>
                 <StackPanel VerticalAlignment="Center" Grid.Column="1">
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="{StaticResource ListItemTextMargin}" />
+                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="{StaticResource ListItemTextMargin}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>

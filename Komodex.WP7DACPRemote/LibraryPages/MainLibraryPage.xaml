@@ -96,6 +96,7 @@
                                                        ItemsSource="{Binding LibraryPlaylists}"
                                                        IsFlatList="True"
                                                        EmptyText="{Binding LocalizedStrings.LibraryNoPlaylistsFound, Source={StaticResource LocalizedStrings}}"
+                                                       Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
                                                        ListHeader="{Binding}"
                                                        ListHeaderTemplate="{StaticResource PlaylistHeaderTemplate}"
