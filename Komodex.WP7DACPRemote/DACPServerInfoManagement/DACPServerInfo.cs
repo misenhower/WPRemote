@@ -28,6 +28,18 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             }
         }
 
+        private string _serviceID;
+        public string ServiceID{
+            get { return _serviceID; }
+            set
+            {
+                if (_serviceID == value)
+                    return;
+                _serviceID = value;
+                SendPropertyChanged("ServiceID");
+            }
+        }
+
         private string _HostName = null;
         public string HostName
         {

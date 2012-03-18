@@ -21,6 +21,7 @@ namespace Komodex.DACP
 
         public int DatabaseID { get; protected set; }
         public UInt64 DatabasePersistentID { get; protected set; }
+        public UInt64 ServiceID { get; protected set; }
         public Playlist BasePlaylist { get; protected set; }
 
         private List<Playlist> _LibraryPlaylists = null;
@@ -157,6 +158,9 @@ namespace Komodex.DACP
                             break;
                         case "mper":
                             DatabasePersistentID = (UInt64)kvp.Value.GetInt64Value();
+                            break;
+                        case "aeIM":
+                            ServiceID = (UInt64)kvp.Value.GetInt64Value();
                             break;
                         default:
                             break;
