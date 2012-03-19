@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.IO.IsolatedStorage;
 using Microsoft.Devices;
+using Microsoft.Phone.Info;
 
 namespace Komodex.Common.Phone
 {
@@ -97,6 +98,10 @@ namespace Komodex.Common.Phone
 #if DEBUG
             url += "&d=1";
 #endif
+
+            // Device info
+            url += "&dm=" + Uri.EscapeDataString(DeviceStatus.DeviceManufacturer);
+            url += "&dn=" + Uri.EscapeDataString(DeviceStatus.DeviceName);
 
             // Submit the HTTP request
             try
