@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\LongListSelectorEx.cs" />
+    <Compile Include="Phone\DialogUserControlBase.cs" />
     <Compile Include="Phone\PhoneAppCrashReporter.cs" />
     <Compile Include="Phone\PhoneApplicationBasePage.cs" />
     <Compile Include="Phone\PhoneApplicationUtility.cs" />
