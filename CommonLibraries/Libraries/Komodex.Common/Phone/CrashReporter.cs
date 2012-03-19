@@ -16,6 +16,7 @@ using Microsoft.Phone.Shell;
 using System.Text;
 using System.Globalization;
 using System.Collections.Generic;
+using Microsoft.Phone.Info;
 
 namespace Komodex.Common.Phone
 {
@@ -93,6 +94,8 @@ namespace Komodex.Common.Phone
 #endif
                         writer.WriteLine();
 
+                        writer.WriteLine("-> Install date: " + FirstRunNotifier.FirstRunDate);
+
                         // Date and time
                         writer.WriteLine("-> Date: " + DateTime.Now.ToString());
 
@@ -104,6 +107,23 @@ namespace Komodex.Common.Phone
                         writer.WriteLine("-> OS Version: {0} ({1})", Environment.OSVersion, Microsoft.Devices.Environment.DeviceType);
                         writer.WriteLine("-> Framework: " + Environment.Version.ToString());
                         writer.WriteLine("-> Culture: " + CultureInfo.CurrentCulture);
+
+                        writer.WriteLine(SmallDashes);
+
+                        writer.WriteLine("-> Device Manufacturer: " + DeviceStatus.DeviceManufacturer);
+                        writer.WriteLine("-> Device Name: " + DeviceStatus.DeviceName);
+                        writer.WriteLine("-> Device Hardware Version: " + DeviceStatus.DeviceHardwareVersion);
+                        writer.WriteLine("-> Device Firmware Version: " + DeviceStatus.DeviceFirmwareVersion);
+
+                        writer.WriteLine(SmallDashes);
+
+                        // Memory usage
+                        var used = Utility.ReadableFilesize(DeviceStatus.ApplicationCurrentMemoryUsage);
+                        var peak = Utility.ReadableFilesize(DeviceStatus.ApplicationPeakMemoryUsage);
+                        writer.WriteLine("-> Memory Usage: {0} ({1} peak)", used, peak);
+                        var available = Utility.ReadableFilesize(DeviceStatus.ApplicationMemoryUsageLimit);
+                        var total = Utility.ReadableFilesize(DeviceStatus.DeviceTotalMemory);
+                        writer.WriteLine("-> Memory Availability: {0} of {1}", available, total);
 
                         foreach (var infoCallback in AdditionalLogInfoCallbacks)
                         {

@@ -47,6 +47,12 @@ namespace Komodex.Common.Phone
             }
         }
 
+        private static readonly Setting<DateTime> _firstRunDate = new Setting<DateTime>("FirstRunDate", DateTime.Now);
+        public static DateTime FirstRunDate
+        {
+            get { return _firstRunDate.Value; }
+        }
+
         #region Public Methods
 
         public static void CheckFirstRun()

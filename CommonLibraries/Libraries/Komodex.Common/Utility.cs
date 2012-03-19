@@ -319,5 +319,19 @@ namespace Komodex.Common
         }
 
         #endregion
+
+        #region File Size Formatting
+
+        public static string ReadableFilesize(long bytes)
+        {
+            string[] units = { "B", "KB", "MB", "GB", "TB" };
+            int i;
+            for (i = 0; bytes >= 1024 && i < units.Length - 1; i++)
+                bytes /= 1024;
+
+            return string.Format("{0:0.##} {1}", bytes, units[i]);
+        }
+
+        #endregion
     }
 }
