@@ -36,6 +36,7 @@ namespace Komodex.WP7DACPRemote
 
 #if DEBUG
             UpdateDebugDataMenuItem();
+            AddTrialSimulationMenuItem();
 #endif
         }
 
