@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Linq;
 using Komodex.Common;
+using Microsoft.Phone.Tasks;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -29,7 +30,7 @@ namespace Komodex.WP7DACPRemote
         {
         }
 
-        #region Public Methods
+        #region Pages
 
         public static void GoToFirstPage()
         {
@@ -144,6 +145,17 @@ namespace Komodex.WP7DACPRemote
         public static void OpenGeniusMixesPage()
         {
             RootVisual.Navigate(new Uri("/LibraryPages/GeniusMixesPage.xaml", UriKind.Relative));
+        }
+
+        #endregion
+
+        #region Marketplace
+
+        public static void OpenMarketplaceDetailPage()
+        {
+            // Open the current app in the marketplace
+            MarketplaceDetailTask marketplace = new MarketplaceDetailTask();
+            marketplace.Show();
         }
 
         #endregion
