@@ -258,5 +258,47 @@ namespace Komodex.Common.Phone
         }
 
         #endregion
+
+        #region Dialog Service
+
+        protected ContentPresenter DialogContainer { get; set; }
+
+        private DialogUserControlBase _currentDialog;
+
+        protected DialogUserControlBase CurrentDialog
+        {
+            get { return _currentDialog; }
+        }
+
+        protected bool IsDialogOpen
+        {
+            get { return (_currentDialog != null && _currentDialog.IsOpen); }
+        }
+
+        protected void ShowDialog(DialogUserControlBase dialog)
+        {
+            if (IsDialogOpen)
+                return;
+
+            _currentDialog = dialog;
+            _currentDialog.Closed += Dialog_Closed;
+            _currentDialog.Show(DialogContainer);
+        }
+
+        private void Dialog_Closed(object sender, DialogControlClosedEventArgs e)
+        {
+            if (_currentDialog == sender)
+                _currentDialog = null;
+        }
+
+        protected override bool IsPopupOpen()
+        {
+            if (IsDialogOpen)
+                return true;
+
+            return base.IsPopupOpen();
+        }
+
+        #endregion
     }
 }

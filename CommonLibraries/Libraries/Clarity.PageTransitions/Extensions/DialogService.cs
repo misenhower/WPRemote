@@ -117,6 +117,7 @@ namespace Clarity.Phone.Extensions
         internal ApplicationBar AppBar { get; set; }
         public bool IsOpen { get; protected set; }
 
+        public event EventHandler Closing;
         public event EventHandler Closed;
         public event EventHandler Opened;
 
@@ -267,6 +268,9 @@ namespace Clarity.Phone.Extensions
         {
             if (!IsOpen)
                 return;
+
+            if (Closing != null)
+                Closing(this, null);
 
             if (_page != null)
             {

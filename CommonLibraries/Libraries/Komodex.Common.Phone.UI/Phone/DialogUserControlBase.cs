@@ -32,7 +32,7 @@ namespace Komodex.Common.Phone
 
         #region Methods
 
-        public virtual void Show(ContentPresenter container)
+        internal virtual void Show(ContentPresenter container)
         {
             if (_dialogService != null && _dialogService.IsOpen)
                 return;
@@ -40,14 +40,14 @@ namespace Komodex.Common.Phone
             _dialogService = new DialogService();
             _dialogService.PopupContainer = container;
             _dialogService.AnimationType = DialogService.AnimationTypes.Slide;
-            _dialogService.Opened += new EventHandler(DialogService_Opened);
-            _dialogService.Closed += new EventHandler(DialogService_Closed);
+            _dialogService.Opened += DialogService_Opened;
+            _dialogService.Closing += DialogService_Closing;
+            _dialogService.Closed += DialogService_Closed;
 
             _dialogService.Child = this;
 
             _dialogService.Show();
         }
-
 
         public virtual void Hide(MessageBoxResult result = MessageBoxResult.None)
         {
@@ -60,9 +60,20 @@ namespace Komodex.Common.Phone
                     if (e.Cancel)
                         return;
                 }
+                UnhookEvents();
                 _dialogService.Hide();
                 Closed.RaiseOnUIThread(this, new DialogControlClosedEventArgs(result));
             }
+        }
+
+        private void UnhookEvents()
+        {
+            if (_dialogService == null)
+                return;
+
+            _dialogService.Opened -= DialogService_Opened;
+            _dialogService.Closing -= DialogService_Closing;
+            _dialogService.Closed -= DialogService_Closed;
         }
 
         #endregion
@@ -75,6 +86,12 @@ namespace Komodex.Common.Phone
 
         #endregion
 
+        protected virtual void DialogService_Closing(object sender, EventArgs e)
+        {
+            Closing.Raise(this, new DialogControlClosingEventArgs(MessageBoxResult.None));
+        }
+
+
         protected virtual void DialogService_Opened(object sender, EventArgs e)
         {
             // Do nothing
@@ -82,6 +99,7 @@ namespace Komodex.Common.Phone
 
         protected virtual void DialogService_Closed(object sender, EventArgs e)
         {
+            UnhookEvents();
             _dialogService = null;
         }
     }
