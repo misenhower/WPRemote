@@ -57,6 +57,19 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             }
         }
 
+        private static bool _showPopups = true;
+        public static bool ShowPopups
+        {
+            get { return _showPopups; }
+            set
+            {
+                if (_showPopups == value)
+                    return;
+                _showPopups = value;
+                UpdatePopupDisplay();
+            }
+        }
+
         #endregion
 
         #region Popups
@@ -82,7 +95,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     return;
 
                 bool connecting = (Server == null || !Server.IsConnected);
-                bool canShow = !(currentPage is LibraryChooserPage || currentPage is AddLibraryPage || currentPage is AboutPage);
+                bool canShow = ShowPopups && !(currentPage is LibraryChooserPage || currentPage is AddLibraryPage || currentPage is AboutPage);
                 bool hasServers = (DACPServerViewModel.Instance.Items.Count > 0);
 
                 if (currentPage is MainPage)
@@ -182,6 +195,9 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             RootVisual.Navigated += new System.Windows.Navigation.NavigatedEventHandler(RootVisual_Navigated);
             RootVisual.Obscured += new EventHandler<ObscuredEventArgs>(RootVisual_Obscured);
             RootVisual.Unobscured += new EventHandler(RootVisual_Unobscured);
+
+            if (TrialManager.Current.IsTrial)
+                return;
 
             if (DACPServerViewModel.Instance.CurrentDACPServer != null)
                 ConnectToServer();

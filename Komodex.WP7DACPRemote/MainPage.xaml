@@ -182,6 +182,9 @@
                 <Button Grid.Row="1" Content="{Binding LocalizedStrings.AddLibraryButton, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Margin="12" Click="btnAddLibrary_Click" />
             </Grid>
         </Grid>
+
+        <!-- Dialog popup -->
+        <ContentPresenter x:Name="DialogPopupContainer" Visibility="Collapsed" Grid.RowSpan="3" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>

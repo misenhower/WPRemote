@@ -15,6 +15,8 @@ using Komodex.WP7DACPRemote.DACPServerInfoManagement;
 using Microsoft.Phone.Shell;
 using Komodex.WP7DACPRemote.DACPServerManagement;
 using Komodex.DACP.Library;
+using Komodex.Common.Phone;
+using Komodex.WP7DACPRemote.TrialMode;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -24,8 +26,8 @@ namespace Komodex.WP7DACPRemote
         {
             InitializeComponent();
 
-
             AnimationContext = LayoutRoot;
+            DialogContainer = DialogPopupContainer;
 
             // Application Bar
             InitializeApplicationBar();
@@ -38,6 +40,40 @@ namespace Komodex.WP7DACPRemote
             UpdateDebugDataMenuItem();
             AddTrialSimulationMenuItem();
 #endif
+
+            Loaded += new RoutedEventHandler(MainPage_Loaded);
+        }
+
+        protected bool _initialized;
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_initialized)
+                return;
+
+            _initialized = true;
+
+            if (!TrialManager.Current.IsTrial)
+                return;
+
+            if (DACPServerViewModel.Instance.CurrentDACPServer == null)
+                return;
+
+            TrialReminderDialog trialDialog = new TrialReminderDialog();
+            trialDialog.Closed += new EventHandler<DialogControlClosedEventArgs>(trialDialog_Closed);
+
+            DACPServerManager.ShowPopups = false;
+            ShowDialog(trialDialog);
+        }
+
+        private void trialDialog_Closed(object sender, DialogControlClosedEventArgs e)
+        {
+            DACPServerManager.ShowPopups = true;
+
+            if (e.Result == MessageBoxResult.OK)
+                return;
+
+            DACPServerManager.ConnectToServer();
         }
 
 #if DEBUG
@@ -73,6 +109,8 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedTo(e);
             UpdateBindings();
             UpdateVisualState(false);
+
+            
         }
 
         protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

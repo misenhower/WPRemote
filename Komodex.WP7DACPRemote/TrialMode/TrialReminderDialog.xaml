@@ -1,0 +1,39 @@
+﻿<commonPhone:DialogUserControlBase x:Class="Komodex.WP7DACPRemote.TrialMode.TrialReminderDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:commonPhone="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneSemitransparentBrush}">
+        <Border Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
+            <Grid Margin="12,0,12,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                    <TextBlock Text="Trial version"
+                               Margin="12"
+                               FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                               FontSize="{StaticResource PhoneFontSizeLarge}" />
+                    <TextBlock Text="You are currently using the trial version of Remote."
+                               Style="{StaticResource PhoneTextTitle3Style}"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <Button Grid.Row="2" Grid.Column="0" Content="buy" Margin="0,12,0,0" Click="BuyButton_Click" />
+                <Button Grid.Row="2" Grid.Column="1" Content="cancel" Margin="0,12,0,0" Click="CancelButton_Click" />
+            </Grid>
+        </Border>
+    </Grid>
+</commonPhone:DialogUserControlBase>

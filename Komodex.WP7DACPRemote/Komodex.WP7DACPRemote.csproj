@@ -156,6 +156,9 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ThirdParty\LowProfileImageLoader.cs" />
+    <Compile Include="TrialMode\TrialReminderDialog.xaml.cs">
+      <DependentUpon>TrialReminderDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\DeviceInfo.cs" />
     <Compile Include="Utilities\StateUtils.cs" />
     <Compile Include="Utilities\RemoteUtility.cs" />
@@ -254,6 +257,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrialMode\TrialReminderDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -394,6 +401,7 @@
       <LastGenOutput>LocalizedStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
