@@ -14,7 +14,7 @@ namespace Komodex.Common.Phone
 {
     public class TrialManager
     {
-        protected TrialManager()
+        protected TrialManager(int trialDays, bool autoSetFirstExpirationDate, bool resetTrialExpirationOnNewVersion)
         {
             LicenseInformation license = new LicenseInformation();
             IsTrial = license.IsTrial();
@@ -23,15 +23,24 @@ namespace Komodex.Common.Phone
             if (SimulateTrial)
                 IsTrial = true;
 #endif
+
+            TrialDays = trialDays;
+            ResetTrialExpirationOnNewVersion = resetTrialExpirationOnNewVersion;
+
+            if (TrialDays > 0 && autoSetFirstExpirationDate && TrialExpirationDate == DateTime.MinValue)
+                ResetTrialExpiration();
+
+            if (ResetTrialExpirationOnNewVersion && FirstRunNotifier.IsUpgrade && TrialExpirationDate > DateTime.MinValue)
+                ResetTrialExpiration();
         }
 
         #region Static
 
         public static TrialManager Current { get; protected set; }
 
-        public static void Initialize()
+        public static void Initialize(int trialDays = 0, bool autoSetFirstExpirationDate = true, bool resetTrialExpirationOnNewVersion = true)
         {
-            Current = new TrialManager();
+            Current = new TrialManager(trialDays, autoSetFirstExpirationDate, resetTrialExpirationOnNewVersion);
         }
 
         #endregion
