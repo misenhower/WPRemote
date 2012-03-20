@@ -43,12 +43,12 @@ namespace Komodex.Common.Phone
         /// </summary>
         public bool WasTrial
         {
-            get { return !IsTrial && FirstRunNotifier.PreviousTrialMode; }
+            get { return !IsTrial && FirstRunNotifier.WasTrial; }
         }
 
 #if DEBUG
 
-        private Setting<bool> _simulateTrial = new Setting<bool>("TrialManagerSimulateTrial", false);
+        private readonly Setting<bool> _simulateTrial = new Setting<bool>("TrialManagerSimulateTrial", false);
         public bool SimulateTrial
         {
             get { return _simulateTrial.Value; }
@@ -62,6 +62,53 @@ namespace Komodex.Common.Phone
         }
 
 #endif
+        
+        #region Trial Expiration
+
+        private Setting<DateTime> _trialExpirationDate = new Setting<DateTime>("TrialManagerTrialExpirationDate");
+        public DateTime TrialExpirationDate
+        {
+            get { return _trialExpirationDate.Value; }
+            private set
+            {
+                if (_trialExpirationDate.Value == value)
+                    return;
+                _trialExpirationDate.Value = value;
+            }
+        }
+
+        public int TrialDays { get; set; }
+        public bool ResetTrialExpirationOnNewVersion { get; set; }
+
+        public bool TrialExpired
+        {
+            get { return IsTrial && DateTime.Now >= TrialExpirationDate; }
+        }
+
+        public int TrialDaysLeft
+        {
+            get
+            {
+                if (!IsTrial || TrialExpirationDate == DateTime.MinValue)
+                    return -1;
+
+                var timeLeft = (TrialExpirationDate - DateTime.Now);
+                var daysLeft = Math.Ceiling(timeLeft.TotalDays);
+                if (daysLeft < 0)
+                    daysLeft = 0;
+                return (int)daysLeft;
+            }
+        }
+
+        public void ResetTrialExpiration()
+        {
+            if (TrialDays <= 0)
+                TrialExpirationDate = DateTime.MinValue;
+            else
+                TrialExpirationDate = DateTime.Now.AddDays(TrialDays);
+        }
+
+        #endregion
 
     }
 }

@@ -19,12 +19,21 @@ namespace Komodex.Common.Phone
         // Notification URL
         private const string NotificationURL = "http://sys.komodex.com/wp7/notify/";
 
-        // Isolated storage settings
-        private const string FirstRunKey = "FirstRunCompleted";
-        private const string FirstRunTrialKey = "FirstRunTrialMode";
-        private static readonly IsolatedStorageSettings isolatedSettings = IsolatedStorageSettings.ApplicationSettings;
+        #region Isolated Storage Settings
 
-        private static readonly Setting<string> _previousVersion = new Setting<string>(FirstRunKey);
+        private static readonly Setting<string> _notificationToBeSent = new Setting<string>("FirstRunNotificationToBeSent");
+        private static string NotificationToBeSent
+        {
+            get { return _notificationToBeSent.Value; }
+            set
+            {
+                if (_notificationToBeSent.Value == value)
+                    return;
+                _notificationToBeSent.Value = value;
+            }
+        }
+
+        private static readonly Setting<string> _previousVersion = new Setting<string>("FirstRunCompleted");
         private static string PreviousVersion
         {
             get { return _previousVersion.Value; }
@@ -36,8 +45,8 @@ namespace Komodex.Common.Phone
             }
         }
 
-        private static readonly Setting<bool> _previousTrialMode = new Setting<bool>(FirstRunTrialKey);
-        internal static bool PreviousTrialMode
+        private static readonly Setting<bool> _previousTrialMode = new Setting<bool>("FirstRunTrialMode");
+        private static bool PreviousTrialMode
         {
             get { return _previousTrialMode.Value; }
             set
@@ -54,54 +63,81 @@ namespace Komodex.Common.Phone
             get { return _firstRunDate.Value; }
         }
 
+        #endregion
+
+        #region Other Properties
+
+        public static bool IsUpgrade { get; private set; }
+        internal static bool WasTrial { get; private set; }
+
+        #endregion
+
         #region Public Methods
 
         public static void CheckFirstRun()
         {
-            if (_previousVersion.Value != Utility.ApplicationVersion || _previousTrialMode.Value != TrialManager.Current.IsTrial)
-                SendFirstRunNotification();
+            IsUpgrade = PreviousVersion != Utility.ApplicationVersion;
+            WasTrial = PreviousTrialMode && !TrialManager.Current.IsTrial;
+            
+            if (IsUpgrade || WasTrial)
+                SetFirstRunNotification();
+
+            PreviousVersion = Utility.ApplicationVersion;
+            PreviousTrialMode = TrialManager.Current.IsTrial;
+
+            SendFirstRunNotification();
         }
 
         #endregion
 
         #region HTTP Request and Response
 
-        private static void SendFirstRunNotification()
+        private static void SetFirstRunNotification()
         {
             string version = Utility.ApplicationVersion;
             string previousVersion = PreviousVersion;
             bool isTrial = TrialManager.Current.IsTrial;
 
             // Build the URL
-            string url = NotificationURL + "?p=" + Utility.ApplicationIdentifier + "&v=" + version;
+            string request = "?p=" + Utility.ApplicationIdentifier + "&v=" + version;
 
             // Determine notification type
-            if (!isolatedSettings.Contains(FirstRunKey))
-                url += "&t=n";
+            if (string.IsNullOrEmpty(PreviousVersion))
+                request += "&t=n";
             else if (!isTrial && PreviousTrialMode != isTrial)
-                url += "&t=n&tu=1";
+                request += "&t=n&tu=1";
             else
-                url += "&t=u";
+                request += "&t=u";
 
             // Trial mode
             if (isTrial)
-                url += "&tr=1";
+                request += "&tr=1";
 
             // Previous version
             if (version != previousVersion && !string.IsNullOrEmpty(previousVersion))
-                url += "&pv=" + previousVersion;
+                request += "&pv=" + previousVersion;
 
             // Emulator
             if (Microsoft.Devices.Environment.DeviceType == DeviceType.Emulator)
-                url += "&e=1";
+                request += "&e=1";
 
 #if DEBUG
-            url += "&d=1";
+            request += "&d=1";
 #endif
 
             // Device info
-            url += "&dm=" + Uri.EscapeDataString(DeviceStatus.DeviceManufacturer);
-            url += "&dn=" + Uri.EscapeDataString(DeviceStatus.DeviceName);
+            request += "&dm=" + Uri.EscapeDataString(DeviceStatus.DeviceManufacturer);
+            request += "&dn=" + Uri.EscapeDataString(DeviceStatus.DeviceName);
+
+            NotificationToBeSent = request;
+        }
+
+        private static void SendFirstRunNotification()
+        {
+            if (string.IsNullOrEmpty(NotificationToBeSent))
+                return;
+
+            string url = NotificationURL + NotificationToBeSent;
 
             // Submit the HTTP request
             try
@@ -123,10 +159,7 @@ namespace Komodex.Common.Phone
                 WebResponse response = webRequest.EndGetResponse(result);
                 response.GetResponseStream();
 
-                // Update the Isolated Storage settings
-                isolatedSettings[FirstRunKey] = Utility.ApplicationVersion;
-                isolatedSettings[FirstRunTrialKey] = TrialManager.Current.IsTrial;
-                isolatedSettings.Save();
+                NotificationToBeSent = null;
             }
             catch { }
         }
