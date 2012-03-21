@@ -452,4 +452,31 @@
   <data name="VideosTVShowsPivotItem" xml:space="preserve">
     <value>tv shows</value>
   </data>
+  <data name="TrialExpiredContent" xml:space="preserve">
+    <value>Your trial has expired.</value>
+  </data>
+  <data name="TrialExpiredHeader" xml:space="preserve">
+    <value>Trial expired</value>
+  </data>
+  <data name="TrialReminderContentPlural" xml:space="preserve">
+    <value>You are currently running the trial version of Remote. There are {0} days left in your trial.</value>
+  </data>
+  <data name="TrialReminderContentSingular" xml:space="preserve">
+    <value>You are currently running the trial version of Remote. There is 1 day left in your trial.</value>
+  </data>
+  <data name="TrialReminderHeader" xml:space="preserve">
+    <value>Trial mode</value>
+  </data>
+  <data name="TrialUpgradeButtonBuy" xml:space="preserve">
+    <value>buy</value>
+  </data>
+  <data name="TrialUpgradeButtonCancel" xml:space="preserve">
+    <value>cancel</value>
+  </data>
+  <data name="TrialUpgradeToFull" xml:space="preserve">
+    <value>Would you like to upgrade to the full version of Remote?</value>
+  </data>
+  <data name="TrialUpgradeToFullMenuItem" xml:space="preserve">
+    <value>upgrade to full version</value>
+  </data>
 </root>

@@ -22,6 +22,8 @@ namespace Komodex.WP7DACPRemote
 {
     public partial class App : Application
     {
+        protected const int TrialDays = 7;
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -62,7 +64,7 @@ namespace Komodex.WP7DACPRemote
 
             RemoteUtility.Initialize();
 
-            TrialManager.Initialize();
+            TrialManager.Initialize(TrialDays, false, true);
 
             // Error reporter initialization
             PhoneAppCrashReporter.Initialize(this, RootFrame);

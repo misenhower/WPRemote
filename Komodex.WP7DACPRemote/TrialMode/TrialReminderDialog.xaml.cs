@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.Common.Phone;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote.TrialMode
 {
@@ -18,6 +19,29 @@ namespace Komodex.WP7DACPRemote.TrialMode
         public TrialReminderDialog()
         {
             InitializeComponent();
+
+            UpdateContent();
+        }
+
+        protected void UpdateContent()
+        {
+            var daysLeft = TrialManager.Current.TrialDaysLeft;
+
+            if (daysLeft > 0)
+            {
+                cancelButton.Visibility = System.Windows.Visibility.Visible;
+                headerTextBlock.Text = LocalizedStrings.TrialReminderHeader;
+                if (daysLeft == 1)
+                    content1TextBlock.Text = LocalizedStrings.TrialReminderContentSingular;
+                else
+                    content1TextBlock.Text = string.Format(LocalizedStrings.TrialReminderContentPlural, daysLeft);
+            }
+            else
+            {
+                cancelButton.Visibility = System.Windows.Visibility.Collapsed;
+                headerTextBlock.Text = LocalizedStrings.TrialExpiredHeader;
+                content1TextBlock.Text = LocalizedStrings.TrialExpiredContent;
+            }
         }
 
         private void BuyButton_Click(object sender, RoutedEventArgs e)

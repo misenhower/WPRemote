@@ -109,8 +109,14 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedTo(e);
             UpdateBindings();
             UpdateVisualState(false);
+        }
 
-            
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (TrialManager.Current.TrialExpired && CurrentDialog != null && CurrentDialog.IsOpen)
+                CurrentDialog.Hide();
+
+            base.OnBackKeyPress(e);
         }
 
         protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

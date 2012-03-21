@@ -23,16 +23,30 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
-                    <TextBlock Text="Trial version"
+                    <TextBlock Name="headerTextBlock"
+                               Text="{Binding LocalizedStrings.TrialReminderHeader, Source={StaticResource LocalizedStrings}}"
                                Margin="12"
                                FontFamily="{StaticResource PhoneFontFamilySemiBold}"
                                FontSize="{StaticResource PhoneFontSizeLarge}" />
-                    <TextBlock Text="You are currently using the trial version of Remote."
+                    <TextBlock Name="content1TextBlock"
+                               Text="{Binding LocalizedStrings.TrialReminderContentSingular, Source={StaticResource LocalizedStrings}}"
+                               Style="{StaticResource PhoneTextTitle3Style}"
+                               TextWrapping="Wrap" />
+                    <TextBlock Name="content2TextBlock"
+                               Text="{Binding LocalizedStrings.TrialUpgradeToFull, Source={StaticResource LocalizedStrings}}"
+                               Margin="12,12,0,0"
                                Style="{StaticResource PhoneTextTitle3Style}"
                                TextWrapping="Wrap" />
                 </StackPanel>
-                <Button Grid.Row="2" Grid.Column="0" Content="buy" Margin="0,12,0,0" Click="BuyButton_Click" />
-                <Button Grid.Row="2" Grid.Column="1" Content="cancel" Margin="0,12,0,0" Click="CancelButton_Click" />
+                <Button Grid.Row="2" Grid.Column="0"
+                        Content="{Binding LocalizedStrings.TrialUpgradeButtonBuy, Source={StaticResource LocalizedStrings}}"
+                        Margin="0,12,0,0"
+                        Click="BuyButton_Click" />
+                <Button Name="cancelButton"
+                        Grid.Row="2" Grid.Column="1"
+                        Content="{Binding LocalizedStrings.TrialUpgradeButtonCancel, Source={StaticResource LocalizedStrings}}"
+                        Margin="0,12,0,0"
+                        Click="CancelButton_Click" />
             </Grid>
         </Border>
     </Grid>

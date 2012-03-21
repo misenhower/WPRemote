@@ -245,6 +245,11 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         server = null;
                         DACPServerViewModel.Instance.Items.Add(serverInfo);
                         DACPServerManager.ConnectToServer(serverInfo.ID);
+
+                        // Update trial expiration date
+                        if (TrialManager.Current.TrialExpirationDate == DateTime.MinValue)
+                            TrialManager.Current.ResetTrialExpiration();
+
                         NavigationService.GoBack();
                         break;
                     case ServerUpdateType.Error:
