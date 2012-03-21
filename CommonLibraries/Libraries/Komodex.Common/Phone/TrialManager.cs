@@ -88,7 +88,7 @@ namespace Komodex.Common.Phone
 
         public bool TrialExpired
         {
-            get { return IsTrial && DateTime.Now >= TrialExpirationDate; }
+            get { return IsTrial && TrialDaysLeft == 0; }
         }
 
         public int TrialDaysLeft

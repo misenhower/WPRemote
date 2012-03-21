@@ -88,7 +88,7 @@ namespace Komodex.Common.Phone
 
         protected virtual void DialogService_Closing(object sender, EventArgs e)
         {
-            Closing.Raise(this, new DialogControlClosingEventArgs(MessageBoxResult.None));
+            Closing.RaiseOnUIThread(this, new DialogControlClosingEventArgs(MessageBoxResult.None));
         }
 
 
@@ -99,6 +99,7 @@ namespace Komodex.Common.Phone
 
         protected virtual void DialogService_Closed(object sender, EventArgs e)
         {
+            Closed.RaiseOnUIThread(this, new DialogControlClosedEventArgs(MessageBoxResult.None));
             UnhookEvents();
             _dialogService = null;
         }
