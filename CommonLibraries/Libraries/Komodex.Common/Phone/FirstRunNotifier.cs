@@ -76,16 +76,21 @@ namespace Komodex.Common.Phone
 
         public static void CheckFirstRun()
         {
+            TrialManager trialManager = TrialManager.Current;
+
             IsUpgrade = PreviousVersion != Utility.ApplicationVersion;
-            WasTrial = PreviousTrialMode && !TrialManager.Current.IsTrial;
+            WasTrial = PreviousTrialMode && !trialManager.IsTrial;
             
             if (IsUpgrade || WasTrial)
                 SetFirstRunNotification();
 
             PreviousVersion = Utility.ApplicationVersion;
-            PreviousTrialMode = TrialManager.Current.IsTrial;
+            PreviousTrialMode = trialManager.IsTrial;
 
             SendFirstRunNotification();
+
+            if (IsUpgrade && trialManager.IsTrial && trialManager.TrialExpirationDate > DateTime.MinValue && trialManager.ResetTrialExpirationOnNewVersion)
+                trialManager.ResetTrialExpiration();
         }
 
         #endregion

@@ -29,9 +29,6 @@ namespace Komodex.Common.Phone
 
             if (TrialDays > 0 && autoSetFirstExpirationDate && TrialExpirationDate == DateTime.MinValue)
                 ResetTrialExpiration();
-
-            if (ResetTrialExpirationOnNewVersion && FirstRunNotifier.IsUpgrade && TrialExpirationDate > DateTime.MinValue)
-                ResetTrialExpiration();
         }
 
         #region Static
