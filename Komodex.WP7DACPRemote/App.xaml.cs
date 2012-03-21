@@ -17,6 +17,8 @@ using Komodex.WP7DACPRemote.Settings;
 using Komodex.WP7DACPRemote.Utilities;
 using Komodex.WP7DACPRemote.Controls;
 using Komodex.Common.Phone;
+using System.Threading;
+using System.Globalization;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -35,6 +37,10 @@ namespace Komodex.WP7DACPRemote
         /// </summary>
         public App()
         {
+            //CultureInfo culture = new CultureInfo("de-DE");
+            //Thread.CurrentThread.CurrentCulture = culture;
+            //Thread.CurrentThread.CurrentUICulture = culture;
+
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
