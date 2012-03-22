@@ -49,7 +49,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             // Default field content to make debugging easier
             if (DACPServerViewModel.Instance.Items.Count == 0)
             {
-                serverInfo.HostName = "10.0.0.48";
+                serverInfo.HostName = "10.0.0.40";
                 serverInfo.PIN = 1111;
             }
 #endif
@@ -103,7 +103,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             base.InitializeApplicationBar();
 
             // Save
-            AddApplicationBarIconButton(LocalizedStrings.SaveAppBarButton, "/icons/appbar.save.rest.png", () => SaveServer());
+            AddApplicationBarIconButton(LocalizedStrings.SaveAppBarButton, "/icons/appbar.check.rest.png", () => SaveServer());
 
             // Cancel
             AddApplicationBarIconButton(LocalizedStrings.CancelAppBarButton, "/icons/appbar.cancel.rest.png", () => NavigationService.GoBack());
@@ -166,7 +166,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void tbHost_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Tab)
+            if (e.Key == Key.Enter || e.PlatformKeyCode == 10 || e.Key == Key.Tab)
                 tbPIN.Focus();
 
             UpdateAppBar();
@@ -177,20 +177,9 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             UpdateAppBar();
         }
 
-        private void tbPIN_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow numeric characters
-            bool validCharacter = (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key >= Key.D0 && e.Key <= Key.D9);
-
-            if (!validCharacter)
-                e.Handled = true;
-        }
-
         private void tbPIN_KeyUp(object sender, KeyEventArgs e)
         {
-            validatePIN((TextBox)sender);
-
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter || e.PlatformKeyCode == 10)
                 SaveServer();
 
             UpdateAppBar();
@@ -198,22 +187,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 
         private void tbPIN_TextChanged(object sender, TextChangedEventArgs e)
         {
-            validatePIN((TextBox)sender);
             UpdateAppBar();
-        }
-
-        private void validatePIN(TextBox textBox)
-        {
-            int selectionStart = textBox.SelectionStart;
-            int textLen = textBox.Text.Length;
-
-            textBox.Text = Regex.Replace(textBox.Text, "\\D", string.Empty);
-
-            int newTextLen = textBox.Text.Length;
-            if (newTextLen < textLen && selectionStart > 0)
-                selectionStart--;
-
-            textBox.SelectionStart = selectionStart;
         }
 
         private void connectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
