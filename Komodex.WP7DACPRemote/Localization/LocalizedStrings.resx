@@ -479,4 +479,13 @@
   <data name="TrialUpgradeToFullMenuItem" xml:space="preserve">
     <value>upgrade to full version</value>
   </data>
+  <data name="TrialBannerContentPlural" xml:space="preserve">
+    <value>{0} days left</value>
+  </data>
+  <data name="TrialBannerContentSingular" xml:space="preserve">
+    <value>1 day left</value>
+  </data>
+  <data name="TrialBannerHeader" xml:space="preserve">
+    <value>Trial Mode</value>
+  </data>
 </root>

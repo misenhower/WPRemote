@@ -17,6 +17,7 @@ using Komodex.WP7DACPRemote.DACPServerManagement;
 using Komodex.DACP.Library;
 using Komodex.Common.Phone;
 using Komodex.WP7DACPRemote.TrialMode;
+using Komodex.WP7DACPRemote.Localization;
 
 namespace Komodex.WP7DACPRemote
 {
@@ -25,6 +26,9 @@ namespace Komodex.WP7DACPRemote
         public MainPage()
         {
             InitializeComponent();
+
+            ApplicationBarClosedOpacity = 0.9;
+            ApplicationBarOpenOpacity = 0.9;
 
             AnimationContext = LayoutRoot;
             DialogContainer = DialogPopupContainer;
@@ -42,6 +46,18 @@ namespace Komodex.WP7DACPRemote
 #endif
 
             Loaded += new RoutedEventHandler(MainPage_Loaded);
+
+            if (TrialManager.Current.IsTrial)
+            {
+                if (TrialManager.Current.TrialDaysLeft == 1)
+                    trialBannerContent.Text = LocalizedStrings.TrialBannerContentSingular;
+                else
+                    trialBannerContent.Text = string.Format(LocalizedStrings.TrialBannerContentPlural, TrialManager.Current.TrialDaysLeft);
+            }
+            else
+            {
+                btnTrial.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
 
         protected bool _initialized;
@@ -214,7 +230,12 @@ namespace Komodex.WP7DACPRemote
             NavigationManager.OpenAddNewServerPage();
         }
 
-        #endregion
+        private void btnTrial_Click(object sender, RoutedEventArgs e)
+        {
+            TrialReminderDialog trialDialog = new TrialReminderDialog();
+            ShowDialog(trialDialog);
+        }
 
+        #endregion
     }
 }

@@ -114,9 +114,15 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,-12" d:IsHidden="True">
-            <StackPanel>
-                <Button Name="btnNowPlaying" Click="btnNowPlaying_Click" Style="{StaticResource BorderlessButtonStyle}">
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,-36,12,0" d:IsHidden="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Button Name="btnNowPlaying" Grid.Row="0" Click="btnNowPlaying_Click" Style="{StaticResource BorderlessButtonStyle}">
                     <Grid x:Name="grid1" Height="200">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -144,7 +150,7 @@
                         </Grid>
                     </Grid>
                 </Button>
-                <Button Name="btnLibrary" Click="btnLibrary_Click" Style="{StaticResource BorderlessButtonStyle}" CacheMode="BitmapCache">
+                <Button Name="btnLibrary" Grid.Row="1" Click="btnLibrary_Click" Style="{StaticResource BorderlessButtonStyle}" CacheMode="BitmapCache">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -154,7 +160,7 @@
                         <TextBlock Text="{Binding LocalizedStrings.BrowseLibraryButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
-                <Button Name="btnSearch" Click="btnSearch_Click" Style="{StaticResource BorderlessButtonStyle}" CacheMode="BitmapCache">
+                <Button Name="btnSearch" Grid.Row="2" Click="btnSearch_Click" Style="{StaticResource BorderlessButtonStyle}" CacheMode="BitmapCache">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -164,7 +170,31 @@
                         <TextBlock Text="{Binding LocalizedStrings.SearchButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
-            </StackPanel>
+                <Button Name="btnTrial" Grid.Row="3" Template="{StaticResource EmptyButton}" Margin="0,0,0,78" VerticalAlignment="Bottom" Click="btnTrial_Click">
+                    <Grid Margin="6,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Background="{StaticResource PhoneAccentBrush}" Margin="6,6,3,6">
+                            <TextBlock Text="{Binding LocalizedStrings.TrialBannerHeader, Source={StaticResource LocalizedStrings}}"
+                                       Margin="6"
+                                       Foreground="White"
+                                       FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}" />
+                        </Border>
+                        <Border Background="{StaticResource PhoneChromeBrush}" Grid.Column="1" Margin="3,6,6,6">
+                            <TextBlock Name="trialBannerContent"
+                                       Text="{Binding LocalizedStrings.TrialBannerContentSingular, Source={StaticResource LocalizedStrings}}"
+                                       FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                                       VerticalAlignment="Center"
+                                       Grid.Column="0"
+                                       Margin="6" />
+                        </Border>
+                    </Grid>
+                </Button>
+            </Grid>
         </Grid>
         <Grid x:Name="FirstStartPanel" Grid.Row="2" Margin="12,-12">
             <Grid Margin="12,12,12,0" Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
