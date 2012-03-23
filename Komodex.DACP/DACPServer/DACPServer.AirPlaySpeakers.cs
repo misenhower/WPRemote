@@ -21,10 +21,10 @@ namespace Komodex.DACP
 
         #region Properties
 
-        private ObservableCollection<AirPlaySpeaker> _Speakers = new ObservableCollection<AirPlaySpeaker>();
+        private readonly ObservableCollection<AirPlaySpeaker> _speakers = new ObservableCollection<AirPlaySpeaker>();
         public ObservableCollection<AirPlaySpeaker> Speakers
         {
-            get { return _Speakers; }
+            get { return _speakers; }
         }
 
         #endregion
@@ -104,12 +104,17 @@ namespace Komodex.DACP
 
                     foundSpeakerIDs.Add(id);
 
-                    AirPlaySpeaker speaker = Speakers.FirstOrDefault(s => s.ID == id);
-                    if (speaker == null)
+                    AirPlaySpeaker speaker;
+
+                    lock (Speakers)
                     {
-                        speaker = new AirPlaySpeaker(this, id);
-                        speaker.HasVideo = (hasVideo || id == 0);
-                        Speakers.Add(speaker);
+                        speaker = Speakers.FirstOrDefault(s => s.ID == id);
+                        if (speaker == null)
+                        {
+                            speaker = new AirPlaySpeaker(this, id);
+                            speaker.HasVideo = (hasVideo || id == 0);
+                            Speakers.Add(speaker);
+                        }
                     }
 
                     speaker.HasPassword = hasPassword;
@@ -120,11 +125,14 @@ namespace Komodex.DACP
                 }
             }
 
-            // Handle speakers that are no longer available
-            // Need to call ToList() so the source collection doesn't change during enumeration
-            var removedSpeakers = Speakers.Where(s => !foundSpeakerIDs.Contains(s.ID)).ToList();
-            foreach (AirPlaySpeaker removedSpeaker in removedSpeakers)
-                Speakers.Remove(removedSpeaker);
+            lock (Speakers)
+            {
+                // Handle speakers that are no longer available
+                // Need to call ToList() so the source collection doesn't change during enumeration
+                var removedSpeakers = Speakers.Where(s => !foundSpeakerIDs.Contains(s.ID)).ToList();
+                foreach (AirPlaySpeaker removedSpeaker in removedSpeakers)
+                    Speakers.Remove(removedSpeaker);
+            }
 
             SendAirPlaySpeakerUpdate();
             gettingSpeakers = false;
@@ -144,7 +152,10 @@ namespace Komodex.DACP
 
         internal void SubmitSetActiveSpeakersRequest()
         {
-            string speakers = string.Join(",", Speakers.Where(s => s.Active).Select(s => "0x" + s.ID.ToString("x")).ToArray());
+            string speakers;
+            lock (Speakers)
+                speakers = string.Join(",", Speakers.Where(s => s.Active).Select(s => "0x" + s.ID.ToString("x")).ToArray());
+
             string url = "/ctrl-int/1/setspeakers"
                 + "?speaker-id=" + speakers
                 + "&session-id=" + SessionID;
@@ -171,11 +182,14 @@ namespace Komodex.DACP
         public void AirPlaySpeakerManipulationStarted(AirPlaySpeaker speaker)
         {
             needToGetSpeakers = false;
-
-            AirPlaySpeaker otherSpeaker = (from s in Speakers
-                                           where s != speaker && s.Active
-                                           orderby s.BindableVolume descending
-                                           select s).FirstOrDefault();
+            AirPlaySpeaker otherSpeaker;
+            lock (Speakers)
+            {
+                otherSpeaker = (from s in Speakers
+                                where s != speaker && s.Active
+                                orderby s.BindableVolume descending
+                                select s).FirstOrDefault();
+            }
 
             if (otherSpeaker != null)
                 AirPlayVolumeSwitchPoint = otherSpeaker.BindableVolume;

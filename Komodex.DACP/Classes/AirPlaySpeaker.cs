@@ -233,17 +233,20 @@ namespace Komodex.DACP
 
         internal void UpdateBindableVolume()
         {
-            // If there are no other AirPlay speakers enabled, just return the server volume
-            if (!Server.Speakers.Any(s => s != this && s.Active))
-                _BindableVolume = Server.Volume;
-
-            else if (Server.Volume == 100)
-                _BindableVolume = Volume;
-
-            else
+            lock (Server.Speakers)
             {
-                double volumePercentage = (double)Volume / 100;
-                _BindableVolume = (int)((double)Server.Volume * volumePercentage);
+                // If there are no other AirPlay speakers enabled, just return the server volume
+                if (!Server.Speakers.Any(s => s != this && s.Active))
+                    _BindableVolume = Server.Volume;
+
+                else if (Server.Volume == 100)
+                    _BindableVolume = Volume;
+
+                else
+                {
+                    double volumePercentage = (double)Volume / 100;
+                    _BindableVolume = (int)((double)Server.Volume * volumePercentage);
+                }
             }
 
             SendPropertyChanged("BindableVolume");

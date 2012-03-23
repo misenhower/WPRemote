@@ -553,11 +553,11 @@ namespace Komodex.DACP
         {
             SendPropertyChanged("Volume");
 
-            if (Speakers == null)
-                return;
-
-            foreach (AirPlaySpeaker speaker in Speakers)
-                speaker.UpdateBindableVolume();
+            lock (Speakers)
+            {
+                foreach (AirPlaySpeaker speaker in Speakers)
+                    speaker.UpdateBindableVolume();
+            }
         }
 
         protected void SendVolumeUpdate(int newVolume)
