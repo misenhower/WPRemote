@@ -46,18 +46,6 @@ namespace Komodex.WP7DACPRemote
 #endif
 
             Loaded += new RoutedEventHandler(MainPage_Loaded);
-
-            if (TrialManager.Current.IsTrial)
-            {
-                if (TrialManager.Current.TrialDaysLeft == 1)
-                    trialBannerContent.Text = LocalizedStrings.TrialBannerContentSingular;
-                else
-                    trialBannerContent.Text = string.Format(LocalizedStrings.TrialBannerContentPlural, TrialManager.Current.TrialDaysLeft);
-            }
-            else
-            {
-                btnTrial.Visibility = System.Windows.Visibility.Collapsed;
-            }
         }
 
         protected bool _initialized;
@@ -125,6 +113,18 @@ namespace Komodex.WP7DACPRemote
             base.OnNavigatedTo(e);
             UpdateBindings();
             UpdateVisualState(false);
+
+            if (TrialManager.Current.IsTrial)
+            {
+                if (TrialManager.Current.TrialDaysLeft == 1)
+                    trialBannerContent.Text = LocalizedStrings.TrialBannerContentSingular;
+                else
+                    trialBannerContent.Text = string.Format(LocalizedStrings.TrialBannerContentPlural, TrialManager.Current.TrialDaysLeft);
+            }
+            else
+            {
+                btnTrial.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
