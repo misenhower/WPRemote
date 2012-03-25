@@ -112,6 +112,12 @@ namespace Komodex.WP7DACPRemote.Controls
                     LibraryConnectionText = LocalizedStrings.StatusTapChooseLibrary;
                     LibraryName = string.Empty;
                 }
+                else if (!DACPServerManager.IsNetworkAvailable)
+                {
+                    ShowProgressBar = true;
+                    LibraryConnectionText = LocalizedStrings.WaitingForWiFiConnection;
+                    LibraryName = string.Empty;
+                }
                 else if (!DACPServer.IsConnected)
                 {
                     ShowProgressBar = true;

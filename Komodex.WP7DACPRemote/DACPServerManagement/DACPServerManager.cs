@@ -18,6 +18,8 @@ using Komodex.WP7DACPRemote.Utilities;
 using Komodex.WP7DACPRemote.Settings;
 using Komodex.WP7DACPRemote.Localization;
 using Komodex.Common.Phone;
+using Microsoft.Phone.Net.NetworkInformation;
+using System.Linq;
 
 namespace Komodex.WP7DACPRemote.DACPServerManagement
 {
@@ -26,6 +28,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         private static bool _suppressNavigateToHome = false;
         private static bool _tryToReconnect = false;
         private static bool _isObscured = false;
+        private static bool _connectOnNetworkAvailable = false;
 
         #region Properties
 
@@ -68,6 +71,48 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 _showPopups = value;
                 UpdatePopupDisplay();
             }
+        }
+
+        private static bool _isNetworkAvailable;
+        public static bool IsNetworkAvailable
+        {
+            get { return _isNetworkAvailable; }
+            private set
+            {
+                if (_isNetworkAvailable == value)
+                    return;
+                _isNetworkAvailable = value;
+                UpdatePopupDisplay();
+            }
+        }
+
+        #endregion
+
+        #region Network Availability
+
+        private static void UpdateNetworkInterfaceAvailability()
+        {
+            NetworkInterfaceList interfaces = new NetworkInterfaceList();
+
+            if (interfaces != null)
+                IsNetworkAvailable = interfaces.Any(i => i.InterfaceState == ConnectState.Connected
+                    && !i.InterfaceName.Contains("Loopback")
+                    && (i.InterfaceType == NetworkInterfaceType.Wireless80211 || i.InterfaceType == NetworkInterfaceType.Ethernet));
+            else
+                IsNetworkAvailable = false;
+
+            if (IsNetworkAvailable && _connectOnNetworkAvailable)
+            {
+                _tryToReconnect = true;
+                TryToReconnect();
+                _connectOnNetworkAvailable = false;
+            }
+        }
+
+        private static void DeviceNetworkInformation_NetworkAvailabilityChanged(object sender, NetworkNotificationEventArgs e)
+        {
+            // TODO: Do something better than just refreshing the entire list
+            UpdateNetworkInterfaceAvailability();
         }
 
         #endregion
@@ -177,6 +222,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         static void RootVisual_Unobscured(object sender, EventArgs e)
         {
+            UpdateNetworkInterfaceAvailability();
             TryToReconnect();
             _isObscured = false;
         }
@@ -187,6 +233,9 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         public static void DoFirstLoad(PhoneApplicationFrame frame)
         {
+            DeviceNetworkInformation.NetworkAvailabilityChanged += new EventHandler<NetworkNotificationEventArgs>(DeviceNetworkInformation_NetworkAvailabilityChanged);
+            UpdateNetworkInterfaceAvailability();
+
             RootVisual = frame;
 
             RootVisual.OrientationChanged += new EventHandler<OrientationChangedEventArgs>(RootVisual_OrientationChanged);
@@ -224,12 +273,21 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 DACPServer server = new DACPServer(serverInfo.ID, serverInfo.HostName, serverInfo.PairingCode);
                 server.LibraryName = serverInfo.LibraryName;
                 Server = server;
+
+                if (!IsNetworkAvailable)
+                {
+                    _connectOnNetworkAvailable = true;
+                    UpdatePopupDisplay();
+                    return;
+                }
+
                 Server.Start();
             }
         }
 
         public static void ApplicationActivated()
         {
+            UpdateNetworkInterfaceAvailability();
             TryToReconnect();
         }
 
@@ -319,6 +377,13 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             if (Server != null && !Server.IsConnected)
             {
+                if (!IsNetworkAvailable)
+                {
+                    _connectOnNetworkAvailable = true;
+                    UpdatePopupDisplay();
+                    return;
+                }
+
                 if (_tryToReconnect)
                 {
                     _tryToReconnect = false;

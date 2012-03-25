@@ -488,4 +488,7 @@
   <data name="TrialBannerHeader" xml:space="preserve">
     <value>Trial Mode</value>
   </data>
+  <data name="WaitingForWiFiConnection" xml:space="preserve">
+    <value>Waiting for WiFi connection...</value>
+  </data>
 </root>

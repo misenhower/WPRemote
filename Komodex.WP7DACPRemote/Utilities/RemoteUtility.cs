@@ -66,6 +66,7 @@ namespace Komodex.WP7DACPRemote
 
         public static bool CheckNetworkConnectivity(bool notifyUser = true)
         {
+            // TODO: Replace this method with DeviceNetworkInformation methods
             NetworkInterfaceType interfaceType = NetworkInterface.NetworkInterfaceType;
 
             switch (interfaceType)
