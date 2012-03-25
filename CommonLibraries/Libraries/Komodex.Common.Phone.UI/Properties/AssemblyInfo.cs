@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("Komodex.Common.Phone.UI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Komodex Systems LLC")]
 [assembly: AssemblyProduct("Komodex.Common.Phone.UI")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright 2012 Komodex Systems LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
