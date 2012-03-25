@@ -120,6 +120,11 @@ namespace Komodex.WP7DACPRemote
                     trialBannerContent.Text = LocalizedStrings.TrialBannerContentSingular;
                 else
                     trialBannerContent.Text = string.Format(LocalizedStrings.TrialBannerContentPlural, TrialManager.Current.TrialDaysLeft);
+
+                // Adjust the content panel margin to allow some more space around the trial banner
+                var margin = ContentPanel.Margin;
+                margin.Top = -36;
+                ContentPanel.Margin = margin;
             }
             else
             {
