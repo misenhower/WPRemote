@@ -111,7 +111,7 @@ namespace Komodex.Common.Phone
             if (TrialDays <= 0)
                 TrialExpirationDate = DateTime.MinValue;
             else
-                TrialExpirationDate = DateTime.Now.AddDays(TrialDays);
+                TrialExpirationDate = DateTime.Now.AddDays(TrialDays).Date;
         }
 
         #endregion
