@@ -74,9 +74,6 @@
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FakeButton.cs" />
-    <Compile Include="Controls\LibraryListBox.xaml.cs">
-      <DependentUpon>LibraryListBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\MemoryCounters.cs" />
     <Compile Include="Controls\StarRating.xaml.cs">
       <DependentUpon>StarRating.xaml</DependentUpon>
@@ -107,9 +104,6 @@
     </Compile>
     <Compile Include="LibraryPages\GenrePage.xaml.cs">
       <DependentUpon>GenrePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryPages\LibraryBrowserPage.xaml.cs">
-      <DependentUpon>LibraryBrowserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="LibraryPages\MainLibraryPage.xaml.cs">
       <DependentUpon>MainLibraryPage.xaml</DependentUpon>
@@ -180,10 +174,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\LibraryListBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\StarRating.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,10 +201,6 @@
     <Page Include="LibraryPages\GenrePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="LibraryPages\LibraryBrowserPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LibraryPages\MainLibraryPage.xaml">
       <SubType>Designer</SubType>
