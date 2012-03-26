@@ -16,6 +16,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Komodex.WP7DACPRemote.Localization;
 using Komodex.Common;
+using Komodex.Common.Phone;
 
 namespace Komodex.WP7DACPRemote.Settings
 {
@@ -33,7 +34,7 @@ namespace Komodex.WP7DACPRemote.Settings
 
         #region Run Under Lock
 
-        private Setting<bool> _runUnderLock = new Setting<bool>("SettingsRunUnderLock", true, UpdateRunUnderLock);
+        private readonly Setting<bool> _runUnderLock = new Setting<bool>("SettingsRunUnderLock", true, UpdateRunUnderLock);
         public bool RunUnderLock
         {
             get { return _runUnderLock.Value; }
@@ -86,7 +87,7 @@ namespace Komodex.WP7DACPRemote.Settings
             }
         }
 
-        private Setting<ArtistClickActions> _artistClickAction = new Setting<ArtistClickActions>("SettingsArtistClickAction", 0);
+        private readonly Setting<ArtistClickActions> _artistClickAction = new Setting<ArtistClickActions>("SettingsArtistClickAction", 0);
         public ArtistClickActions ArtistClickAction
         {
             get { return _artistClickAction.Value; }
@@ -138,7 +139,7 @@ namespace Komodex.WP7DACPRemote.Settings
 
         #region Extended Error Reporting
 
-        private Setting<bool> _extendedErrorReporting = new Setting<bool>("SettingsExtendedErrorReporting", false);
+        private readonly Setting<bool> _extendedErrorReporting = new Setting<bool>("SettingsExtendedErrorReporting", false);
         public bool ExtendedErrorReporting
         {
             get { return _extendedErrorReporting.Value; }
@@ -149,50 +150,6 @@ namespace Komodex.WP7DACPRemote.Settings
 
                 _extendedErrorReporting.Value = value;
                 PropertyChanged.RaiseOnUIThread(this, "ExtendedErrorReporting");
-            }
-        }
-
-        #endregion
-
-        #region Setting class
-
-        protected class Setting<T>
-        {
-            private static IsolatedStorageSettings _isolatedSettings = IsolatedStorageSettings.ApplicationSettings;
-
-            public Setting(string keyName, T defaultValue = default(T), Action<T> changeAction = null)
-            {
-                _keyName = keyName;
-                _changeAction = changeAction;
-
-                // Try to load the value from isolated storage, or use the default value
-                if (!_isolatedSettings.TryGetValue<T>(_keyName, out _value))
-                    Value = defaultValue; // This will save the default value to isolated storage as well
-
-                // If an action was specified, run it on the initial value
-                if (_changeAction != null)
-                    _changeAction(_value);
-            }
-
-            protected string _keyName;
-            protected T _value;
-            protected Action<T> _changeAction;
-
-            public T Value
-            {
-                get { return _value; }
-                set
-                {
-                    _value = value;
-
-                    // Save the new value to isolated storage
-                    _isolatedSettings[_keyName] = _value;
-                    _isolatedSettings.Save();
-
-                    // Run modified action
-                    if (_changeAction != null)
-                        _changeAction(_value);
-                }
             }
         }
 
