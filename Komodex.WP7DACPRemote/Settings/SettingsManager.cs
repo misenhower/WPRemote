@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
 using Komodex.WP7DACPRemote.Localization;
+using Komodex.Common;
 
 namespace Komodex.WP7DACPRemote.Settings
 {
@@ -42,8 +43,7 @@ namespace Komodex.WP7DACPRemote.Settings
                     return;
 
                 _runUnderLock.Value = value;
-                SendPropertyChanged("RunUnderLock");
-                SendPropertyChanged("RunUnderLockTakesEffectNextRun");
+                PropertyChanged.RaiseOnUIThread(this, "RunUnderLock", "RunUnderLockTakesEffectNextRun");
             }
         }
 
@@ -96,8 +96,7 @@ namespace Komodex.WP7DACPRemote.Settings
                     return;
 
                 _artistClickAction.Value = value;
-                SendPropertyChanged("ArtistClickAction");
-                SendPropertyChanged("BindableClickAction");
+                PropertyChanged.RaiseOnUIThread(this, "ArtistClickAction", "BindableClickAction");
             }
         }
 
@@ -149,7 +148,7 @@ namespace Komodex.WP7DACPRemote.Settings
                     return;
 
                 _extendedErrorReporting.Value = value;
-                SendPropertyChanged("ExtendedErrorReporting");
+                PropertyChanged.RaiseOnUIThread(this, "ExtendedErrorReporting");
             }
         }
 
@@ -199,23 +198,9 @@ namespace Komodex.WP7DACPRemote.Settings
 
         #endregion
 
-        #region Notify Property Changed
-
-        protected void SendPropertyChanged(string propertyName)
-        {
-            // TODO: Is this the best way to execute this on the UI thread?
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            });
-        }
-
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
 
         #endregion
 

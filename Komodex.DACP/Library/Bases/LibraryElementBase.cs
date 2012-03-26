@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections.Generic;
+using Komodex.Common;
 
 namespace Komodex.DACP.Library
 {
@@ -83,14 +84,10 @@ namespace Komodex.DACP.Library
 
         #region Notify Property Changed
 
+        // This method is used by the classes that inherit from LibraryElementBase
         protected void SendPropertyChanged(string propertyName)
         {
-            // TODO: Is this the best way to execute this on the UI thread?
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            });
+            PropertyChanged.RaiseOnUIThread(this, propertyName);
         }
 
         #region INotifyPropertyChanged Members

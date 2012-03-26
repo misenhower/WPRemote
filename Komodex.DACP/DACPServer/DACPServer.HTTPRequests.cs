@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Windows.Threading;
 using Komodex.DACP.Library;
 using System.Text;
+using Komodex.Common;
 
 namespace Komodex.DACP
 {
@@ -432,7 +433,7 @@ namespace Komodex.DACP
 
             // If the song ID changed, refresh the album art
             if (newSongID != CurrentSongID)
-                SendPropertyChanged("CurrentAlbumArtURL");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");
 
             // Set all the properties
             CurrentSongID = newSongID;
@@ -542,7 +543,7 @@ namespace Komodex.DACP
         {
             int rating = serverValue / 20;
             _CurrentSongUserRating = rating;
-            SendPropertyChanged("CurrentSongUserRating");
+            PropertyChanged.RaiseOnUIThread(this, "CurrentSongUserRating");
         }
 
         protected void SendUserRatingCommand(int rating)

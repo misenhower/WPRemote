@@ -12,6 +12,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using Komodex.DACP.Library;
 using System.Collections.Generic;
+using Komodex.Common;
 
 namespace Komodex.DACP
 {
@@ -33,7 +34,7 @@ namespace Komodex.DACP
                 if (_LibraryPlaylists == value)
                     return;
                 _LibraryPlaylists = value;
-                SendPropertyChanged("LibraryPlaylists");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryPlaylists");
             }
         }
 
@@ -46,7 +47,7 @@ namespace Komodex.DACP
                 if (_LibraryGeniusMixes == value)
                     return;
                 _LibraryGeniusMixes = value;
-                SendPropertyChanged("LibraryGeniusMixes");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryGeniusMixes");
             }
         }
 
@@ -59,7 +60,7 @@ namespace Komodex.DACP
                 if (_LibraryArtists == value)
                     return;
                 _LibraryArtists = value;
-                SendPropertyChanged("LibraryArtists");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryArtists");
             }
         }
 
@@ -72,7 +73,7 @@ namespace Komodex.DACP
                 if (_LibraryAlbums == value)
                     return;
                 _LibraryAlbums = value;
-                SendPropertyChanged("LibraryAlbums");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryAlbums");
             }
         }
 
@@ -85,7 +86,7 @@ namespace Komodex.DACP
                 if (_LibraryGenres == value)
                     return;
                 _LibraryGenres = value;
-                SendPropertyChanged("LibraryGenres");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryGenres");
             }
         }
 
@@ -98,7 +99,7 @@ namespace Komodex.DACP
                 if (_LibraryMovies == value)
                     return;
                 _LibraryMovies = value;
-                SendPropertyChanged("LibraryMovies");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryMovies");
             }
         }
 
@@ -111,7 +112,7 @@ namespace Komodex.DACP
                 if (_LibraryTVShows == value)
                     return;
                 _LibraryTVShows = value;
-                SendPropertyChanged("LibraryTVShows");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryTVShows");
             }
         }
 
@@ -124,7 +125,7 @@ namespace Komodex.DACP
                 if (_LibraryPodcasts == value)
                     return;
                 _LibraryPodcasts = value;
-                SendPropertyChanged("LibraryPodcasts");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryPodcasts");
             }
         }
 

@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Komodex.DACP.Localization;
+using Komodex.Common;
 
 namespace Komodex.DACP.Library
 {
@@ -65,7 +66,7 @@ namespace Komodex.DACP.Library
                 if (_Songs == value)
                     return;
                 _Songs = value;
-                SendPropertyChanged("Songs");
+                PropertyChanged.RaiseOnUIThread(this, "Songs");
             }
         }
 
@@ -211,23 +212,9 @@ namespace Komodex.DACP.Library
 
         #endregion
 
-        #region Notify Property Changed
-
-        protected void SendPropertyChanged(string propertyName)
-        {
-            // TODO: Is this the best way to execute this on the UI thread?
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            });
-        }
-
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
 
         #endregion
 

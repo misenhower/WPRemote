@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Linq;
+using Komodex.Common;
 
 namespace Komodex.DACP
 {
@@ -34,7 +35,7 @@ namespace Komodex.DACP
                 if (_Name == value)
                     return;
                 _Name = value;
-                SendPropertyChanged("Name");
+                PropertyChanged.RaiseOnUIThread(this, "Name");
             }
         }
 
@@ -47,7 +48,7 @@ namespace Komodex.DACP
                 if (_ID == value)
                     return;
                 _ID = value;
-                SendPropertyChanged("ID");
+                PropertyChanged.RaiseOnUIThread(this, "ID");
             }
         }
 
@@ -60,7 +61,7 @@ namespace Komodex.DACP
                 if (_HasPassword == value)
                     return;
                 _HasPassword = value;
-                SendPropertyChanged("HasPassword");
+                PropertyChanged.RaiseOnUIThread(this, "HasPassword");
             }
         }
 
@@ -73,7 +74,7 @@ namespace Komodex.DACP
                 if (_HasVideo == value)
                     return;
                 _HasVideo = value;
-                SendPropertyChanged("HasVideo");
+                PropertyChanged.RaiseOnUIThread(this, "HasVideo");
             }
         }
 
@@ -87,8 +88,7 @@ namespace Komodex.DACP
                 if (_Active == value)
                     return;
                 _Active = value;
-                SendPropertyChanged("Active");
-                SendPropertyChanged("BindableActive");
+                PropertyChanged.RaiseOnUIThread(this, "Active", "BindableActive");
             }
         }
 
@@ -102,7 +102,7 @@ namespace Komodex.DACP
                     return;
                 _WaitingForActiveResponse = value;
                 // Shouldn't need to send property changed for WaitingForActiveResponse.
-                SendPropertyChanged("BindableActive");
+                PropertyChanged.RaiseOnUIThread(this, "BindableActive");
             }
         }
 
@@ -135,7 +135,7 @@ namespace Komodex.DACP
                 if (_Volume == value)
                     return;
                 _Volume = value;
-                SendPropertyChanged("Volume");
+                PropertyChanged.RaiseOnUIThread(this, "Volume");
                 UpdateBindableVolume();
             }
         }
@@ -249,7 +249,7 @@ namespace Komodex.DACP
                 }
             }
 
-            SendPropertyChanged("BindableVolume");
+            PropertyChanged.RaiseOnUIThread(this, "BindableVolume");
         }
 
         public void SetSingleActiveSpeaker()
@@ -259,23 +259,9 @@ namespace Komodex.DACP
 
         #endregion
 
-        #region Notify Property Changed
-
-        protected void SendPropertyChanged(string propertyName)
-        {
-            // TODO: Is this the best way to execute this on the UI thread?
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            });
-        }
-
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
 
         #endregion
     }

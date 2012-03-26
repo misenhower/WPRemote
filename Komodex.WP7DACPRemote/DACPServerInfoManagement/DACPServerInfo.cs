@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using Komodex.WP7DACPRemote.Localization;
+using Komodex.Common;
 
 namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
@@ -24,7 +25,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 if (_ID == value)
                     return;
                 _ID = value;
-                SendPropertyChanged("ID");
+                PropertyChanged.RaiseOnUIThread(this, "ID");
             }
         }
 
@@ -36,7 +37,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 if (_serviceID == value)
                     return;
                 _serviceID = value;
-                SendPropertyChanged("ServiceID");
+                PropertyChanged.RaiseOnUIThread(this, "ServiceID");
             }
         }
 
@@ -51,7 +52,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 _HostName = value;
                 if (_HostName != null)
                     _HostName = _HostName.Trim();
-                SendPropertyChanged("HostName");
+                PropertyChanged.RaiseOnUIThread(this, "HostName");
             }
         }
 
@@ -64,7 +65,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 if (_LibraryName == value)
                     return;
                 _LibraryName = value;
-                SendPropertyChanged("LibraryName");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryName");
             }
         }
 
@@ -82,9 +83,7 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 else
                     _PIN = value;
 
-                SendPropertyChanged("PIN");
-                SendPropertyChanged("FormattedPIN");
-                SendPropertyChanged("PairingCode");
+                PropertyChanged.RaiseOnUIThread(this, "PIN", "FormattedPIN", "PairingCode");
             }
         }
 
@@ -116,24 +115,9 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             get { return string.Format("{0}: {1}, {2}: {3:0000}", LocalizedStrings.LibraryHostname, HostName, LocalizedStrings.LibraryPIN, PIN); }
         }
 
-        #region Notify Property Changed
-
-        protected void SendPropertyChanged(string propertyName)
-        {
-            // TODO: Is this the best way to execute this on the UI thread?
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            });
-
-        }
-
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
 
         #endregion
     }

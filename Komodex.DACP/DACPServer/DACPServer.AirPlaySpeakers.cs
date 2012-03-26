@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
+using Komodex.Common;
 
 namespace Komodex.DACP
 {
@@ -215,7 +216,7 @@ namespace Komodex.DACP
         internal void AirPlayMasterVolumeManipulation(int newVolume)
         {
             _Volume = newVolume;
-            SendPropertyChanged("Volume");
+            PropertyChanged.RaiseOnUIThread(this, "Volume");
         }
 
         #endregion

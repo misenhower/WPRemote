@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Linq;
 using Komodex.DACP.Localization;
+using Komodex.Common;
 
 namespace Komodex.DACP
 {
@@ -29,7 +30,7 @@ namespace Komodex.DACP
                 if (_IsConnected == value)
                     return;
                 _IsConnected = value;
-                SendPropertyChanged("IsConnected");
+                PropertyChanged.RaiseOnUIThread(this, "IsConnected");
             }
         }
 
@@ -42,7 +43,7 @@ namespace Komodex.DACP
                 if (_LibraryName == value)
                     return;
                 _LibraryName = value;
-                SendPropertyChanged("LibraryName");
+                PropertyChanged.RaiseOnUIThread(this, "LibraryName");
             }
         }
 
@@ -55,7 +56,7 @@ namespace Komodex.DACP
                 if (_ServerVersion == value)
                     return;
                 _ServerVersion = value;
-                SendPropertyChanged("ServerVersion");
+                PropertyChanged.RaiseOnUIThread(this, "ServerVersion");
             }
         }
 
@@ -68,7 +69,7 @@ namespace Komodex.DACP
                 if (_ServerVersionString == value)
                     return;
                 _ServerVersionString = value;
-                SendPropertyChanged("ServerVersionString");
+                PropertyChanged.RaiseOnUIThread(this, "ServerVersionString");
             }
         }
 
@@ -81,7 +82,7 @@ namespace Komodex.DACP
                 if (_ServerDMAPVersion == value)
                     return;
                 _ServerDMAPVersion = value;
-                SendPropertyChanged("ServerDMAPVersion");
+                PropertyChanged.RaiseOnUIThread(this, "ServerDMAPVersion");
             }
         }
 
@@ -94,7 +95,7 @@ namespace Komodex.DACP
                 if (_ServerDAAPVersion == value)
                     return;
                 _ServerDAAPVersion = value;
-                SendPropertyChanged("ServerDAAPVersion");
+                PropertyChanged.RaiseOnUIThread(this, "ServerDAAPVersion");
             }
         }
 
@@ -107,7 +108,7 @@ namespace Komodex.DACP
                 if (_GettingData == value)
                     return;
                 _GettingData = value;
-                SendPropertyChanged("GettingData");
+                PropertyChanged.RaiseOnUIThread(this, "GettingData");
             }
         }
 
@@ -135,7 +136,7 @@ namespace Komodex.DACP
                 if (_CurrentSongID == value)
                     return;
                 _CurrentSongID = value;
-                SendPropertyChanged("CurrentSongID");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentSongID");
             }
         }
 
@@ -148,7 +149,7 @@ namespace Komodex.DACP
                 if (_CurrentContainerID == value)
                     return;
                 _CurrentContainerID = value;
-                SendPropertyChanged("CurrentContainerID");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentContainerID");
             }
         }
 
@@ -161,7 +162,7 @@ namespace Komodex.DACP
                 if (_CurrentContainerItemID == value)
                     return;
                 _CurrentContainerItemID = value;
-                SendPropertyChanged("CurrentContainerItemID");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentContainerItemID");
             }
         }
 
@@ -174,7 +175,7 @@ namespace Komodex.DACP
                 if (_CurrentSongName == value)
                     return;
                 _CurrentSongName = value;
-                SendPropertyChanged("CurrentSongName");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentSongName");
             }
         }
 
@@ -187,7 +188,7 @@ namespace Komodex.DACP
                 if (_CurrentArtist == value)
                     return;
                 _CurrentArtist = value;
-                SendPropertyChanged("CurrentArtist");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentArtist");
             }
         }
 
@@ -200,7 +201,7 @@ namespace Komodex.DACP
                 if (_CurrentAlbum == value)
                     return;
                 _CurrentAlbum = value;
-                SendPropertyChanged("CurrentAlbum");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentAlbum");
             }
         }
 
@@ -213,7 +214,7 @@ namespace Komodex.DACP
                 if (_CurrentAlbumPersistentID == value)
                     return;
                 _CurrentAlbumPersistentID = value;
-                SendPropertyChanged("CurrentAlbumPersistentID");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumPersistentID");
             }
         }
 
@@ -227,7 +228,7 @@ namespace Komodex.DACP
                 if (_CurrentAlbumArtURL == value)
                     return;
                 _CurrentAlbumArtURL = value;
-                SendPropertyChanged("CurrentAlbumArtURL");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");
             }
         }
 
@@ -250,7 +251,7 @@ namespace Komodex.DACP
                     return;
 
                 _CurrentSongUserRating = value;
-                SendPropertyChanged("CurrentSongUserRating");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentSongUserRating");
 
                 int actualRating = value * 20; // 1 star is 20, 2 is 40, 3 is 60, 4 is 80, 5 is 100
                 SendUserRatingCommand(actualRating);
@@ -414,14 +415,15 @@ namespace Komodex.DACP
 
         private void SendTrackTimePropertyChanged()
         {
-            SendPropertyChanged("TrackTimeTotal");
-            SendPropertyChanged("TrackTimeRemaining");
-            SendPropertyChanged("CurrentTrackTimeRemaining");
-            SendPropertyChanged("CurrentTrackTimePosition");
-            SendPropertyChanged("CurrentTrackTimePercentage");
-            SendPropertyChanged("CurrentTrackTimePositionString");
-            SendPropertyChanged("CurrentTrackTimeRemainingString");
-            SendPropertyChanged("CurrentTrackTimePositionOrPausedString");
+            PropertyChanged.RaiseOnUIThread(this,
+                "TrackTimeTotal",
+                "TrackTimeRemaining",
+                "CurrentTrackTimeRemaining",
+                "CurrentTrackTimePosition",
+                "CurrentTrackTimePercentage",
+                "CurrentTrackTimePositionString",
+                "CurrentTrackTimeRemainingString",
+                "CurrentTrackTimePositionOrPausedString");
         }
 
         private DispatcherTimer timerTrackTimeUpdate = new DispatcherTimer();
@@ -443,8 +445,7 @@ namespace Komodex.DACP
                 if (_CurrentMediaKind == value)
                     return;
                 _CurrentMediaKind = value;
-                SendPropertyChanged("CurrentMediaKind");
-                SendPropertyChanged("IsCurrentlyPlayingVideo");
+                PropertyChanged.RaiseOnUIThread(this, "CurrentMediaKind", "IsCurrentlyPlayingVideo");
             }
         }
 
@@ -484,8 +485,7 @@ namespace Komodex.DACP
                     return;
                 _PlayState = value;
 
-                SendPropertyChanged("PlayState");
-                SendPropertyChanged("PlayStateBool");
+                PropertyChanged.RaiseOnUIThread(this, "PlayState", "PlayStateBool");
                 SendTrackTimePropertyChanged();
             }
         }
@@ -504,7 +504,7 @@ namespace Komodex.DACP
                 if (_ShuffleState == value)
                     return;
                 _ShuffleState = value;
-                SendPropertyChanged("ShuffleState");
+                PropertyChanged.RaiseOnUIThread(this, "ShuffleState");
             }
         }
 
@@ -517,7 +517,7 @@ namespace Komodex.DACP
                 if (_RepeatState == value)
                     return;
                 _RepeatState = value;
-                SendPropertyChanged("RepeatState");
+                PropertyChanged.RaiseOnUIThread(this, "RepeatState");
             }
         }
 
@@ -551,7 +551,7 @@ namespace Komodex.DACP
 
         protected void SendVolumePropertyChanged()
         {
-            SendPropertyChanged("Volume");
+            PropertyChanged.RaiseOnUIThread(this, "Volume");
 
             lock (Speakers)
             {
@@ -581,24 +581,9 @@ namespace Komodex.DACP
 
         #endregion
 
-        #region Notify Property Changed
-
-        protected void SendPropertyChanged(string propertyName)
-        {
-            // TODO: Is this the best way to execute this on the UI thread?
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            });
-
-        }
-
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
 
         #endregion
     }
