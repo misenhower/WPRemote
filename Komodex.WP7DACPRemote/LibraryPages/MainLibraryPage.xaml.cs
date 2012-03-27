@@ -26,6 +26,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             InitializeComponent();
 
             AnimationContext = LayoutRoot;
+            DialogContainer = MorePopup;
 
             // Application Bar
             InitializeApplicationBar();
@@ -40,8 +41,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             // More
             AddApplicationBarIconButton(LocalizedStrings.MoreAppBarButton, "/icons/custom.appbar.moredots.png", AppBarMoreButton_Click);
         }
-
-        DialogService moreDialog = null;
 
         #region Overrides
 
@@ -108,13 +107,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 return;
             }
 
-            if (moreDialog != null && moreDialog.IsOpen)
-            {
-                moreDialog.Hide();
-                e.Cancel = true;
-                return;
-            }
-
             base.OnBackKeyPress(e);
         }
 
@@ -146,19 +138,10 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         void AppBarMoreButton_Click()
         {
-            if (moreDialog != null)
-                moreDialog.Hide();
+            if (IsDialogOpen)
+                return;
 
-            moreDialog = new DialogService();
-            moreDialog.PopupContainer = MorePopup;
-            moreDialog.Child = new LibraryViewDialog();
-            moreDialog.AnimationType = DialogService.AnimationTypes.Slide;
-            moreDialog.Closed += new EventHandler(moreDialog_Closed);
-            moreDialog.Show();
-        }
-
-        void moreDialog_Closed(object sender, EventArgs e)
-        {
+            ShowDialog(new LibraryViewDialog());
         }
 
         #region LongListSelector Tap Event
