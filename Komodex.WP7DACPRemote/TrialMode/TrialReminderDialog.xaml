@@ -33,18 +33,18 @@
                                Style="{StaticResource PhoneTextTitle3Style}"
                                TextWrapping="Wrap" />
                     <TextBlock Name="content2TextBlock"
-                               Text="{Binding LocalizedStrings.TrialUpgradeToFull, Source={StaticResource LocalizedStrings}}"
+                               Text="{Binding LocalizedStrings.TrialReminderUpgradeToFull, Source={StaticResource LocalizedStrings}}"
                                Margin="12,12,0,0"
                                Style="{StaticResource PhoneTextTitle3Style}"
                                TextWrapping="Wrap" />
                 </StackPanel>
                 <Button Grid.Row="2" Grid.Column="0"
-                        Content="{Binding LocalizedStrings.TrialUpgradeButtonBuy, Source={StaticResource LocalizedStrings}}"
+                        Content="{Binding LocalizedStrings.TrialReminderButtonBuy, Source={StaticResource LocalizedStrings}}"
                         Margin="0,12,0,0"
                         Click="BuyButton_Click" />
                 <Button Name="cancelButton"
                         Grid.Row="2" Grid.Column="1"
-                        Content="{Binding LocalizedStrings.TrialUpgradeButtonCancel, Source={StaticResource LocalizedStrings}}"
+                        Content="{Binding LocalizedStrings.TrialReminderButtonCancel, Source={StaticResource LocalizedStrings}}"
                         Margin="0,12,0,0"
                         Click="CancelButton_Click" />
             </Grid>

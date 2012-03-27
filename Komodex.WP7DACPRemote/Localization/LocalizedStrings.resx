@@ -452,10 +452,10 @@
   <data name="VideosTVShowsPivotItem" xml:space="preserve">
     <value>tv shows</value>
   </data>
-  <data name="TrialExpiredContent" xml:space="preserve">
+  <data name="TrialReminderExpiredContent" xml:space="preserve">
     <value>Your trial has expired.</value>
   </data>
-  <data name="TrialExpiredHeader" xml:space="preserve">
+  <data name="TrialReminderExpiredHeader" xml:space="preserve">
     <value>Trial expired</value>
   </data>
   <data name="TrialReminderContentPlural" xml:space="preserve">
@@ -467,13 +467,13 @@
   <data name="TrialReminderHeader" xml:space="preserve">
     <value>Trial mode</value>
   </data>
-  <data name="TrialUpgradeButtonBuy" xml:space="preserve">
+  <data name="TrialReminderButtonBuy" xml:space="preserve">
     <value>buy</value>
   </data>
-  <data name="TrialUpgradeButtonCancel" xml:space="preserve">
+  <data name="TrialReminderButtonCancel" xml:space="preserve">
     <value>cancel</value>
   </data>
-  <data name="TrialUpgradeToFull" xml:space="preserve">
+  <data name="TrialReminderUpgradeToFull" xml:space="preserve">
     <value>Would you like to upgrade to the full version of Remote?</value>
   </data>
   <data name="TrialUpgradeToFullMenuItem" xml:space="preserve">
@@ -489,6 +489,6 @@
     <value>Trial Mode</value>
   </data>
   <data name="WaitingForWiFiConnection" xml:space="preserve">
-    <value>Waiting for WiFi connection...</value>
+    <value>Waiting for Wi-Fi connection...</value>
   </data>
 </root>

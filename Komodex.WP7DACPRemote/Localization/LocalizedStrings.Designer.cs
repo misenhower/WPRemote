@@ -943,20 +943,20 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your trial has expired..
+        ///   Looks up a localized string similar to buy.
         /// </summary>
-        public static string TrialExpiredContent {
+        public static string TrialReminderButtonBuy {
             get {
-                return ResourceManager.GetString("TrialExpiredContent", resourceCulture);
+                return ResourceManager.GetString("TrialReminderButtonBuy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trial expired.
+        ///   Looks up a localized string similar to cancel.
         /// </summary>
-        public static string TrialExpiredHeader {
+        public static string TrialReminderButtonCancel {
             get {
-                return ResourceManager.GetString("TrialExpiredHeader", resourceCulture);
+                return ResourceManager.GetString("TrialReminderButtonCancel", resourceCulture);
             }
         }
         
@@ -979,6 +979,24 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your trial has expired..
+        /// </summary>
+        public static string TrialReminderExpiredContent {
+            get {
+                return ResourceManager.GetString("TrialReminderExpiredContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trial expired.
+        /// </summary>
+        public static string TrialReminderExpiredHeader {
+            get {
+                return ResourceManager.GetString("TrialReminderExpiredHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trial mode.
         /// </summary>
         public static string TrialReminderHeader {
@@ -988,29 +1006,11 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to buy.
-        /// </summary>
-        public static string TrialUpgradeButtonBuy {
-            get {
-                return ResourceManager.GetString("TrialUpgradeButtonBuy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to cancel.
-        /// </summary>
-        public static string TrialUpgradeButtonCancel {
-            get {
-                return ResourceManager.GetString("TrialUpgradeButtonCancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Would you like to upgrade to the full version of Remote?.
         /// </summary>
-        public static string TrialUpgradeToFull {
+        public static string TrialReminderUpgradeToFull {
             get {
-                return ResourceManager.GetString("TrialUpgradeToFull", resourceCulture);
+                return ResourceManager.GetString("TrialReminderUpgradeToFull", resourceCulture);
             }
         }
         
@@ -1069,7 +1069,7 @@ namespace Komodex.WP7DACPRemote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waiting for WiFi connection....
+        ///   Looks up a localized string similar to Waiting for Wi-Fi connection....
         /// </summary>
         public static string WaitingForWiFiConnection {
             get {

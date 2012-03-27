@@ -39,8 +39,8 @@ namespace Komodex.WP7DACPRemote.TrialMode
             else
             {
                 cancelButton.Visibility = System.Windows.Visibility.Collapsed;
-                headerTextBlock.Text = LocalizedStrings.TrialExpiredHeader;
-                content1TextBlock.Text = LocalizedStrings.TrialExpiredContent;
+                headerTextBlock.Text = LocalizedStrings.TrialReminderExpiredHeader;
+                content1TextBlock.Text = LocalizedStrings.TrialReminderExpiredContent;
             }
         }
 
