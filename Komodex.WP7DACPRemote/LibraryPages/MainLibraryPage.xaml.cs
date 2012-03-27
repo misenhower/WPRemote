@@ -149,11 +149,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             if (moreDialog != null)
                 moreDialog.Hide();
 
-            // Disable all the listboxes because of a z-order issue with the group headers
-            lbArtists.IsEnabled = false;
-            lbAlbums.IsEnabled = false;
-            lbPlaylists.IsEnabled = false;
-
             moreDialog = new DialogService();
             moreDialog.PopupContainer = MorePopup;
             moreDialog.Child = new LibraryViewDialog();
@@ -164,9 +159,6 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         void moreDialog_Closed(object sender, EventArgs e)
         {
-            lbArtists.IsEnabled = true;
-            lbAlbums.IsEnabled = true;
-            lbPlaylists.IsEnabled = true;
         }
 
         #region LongListSelector Tap Event
@@ -302,14 +294,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
         private void LongListSelector_GroupViewOpened(object sender, GroupViewOpenedEventArgs e)
         {
-            pivotControl.IsEnabled = false;
             openedGroupViewSelector = (LongListSelector)sender;
         }
 
         private void LongListSelector_GroupViewClosing(object sender, GroupViewClosingEventArgs e)
         {
             openedGroupViewSelector = null;
-            pivotControl.IsEnabled = true;
         }
 
         #endregion
