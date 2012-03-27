@@ -261,6 +261,9 @@ namespace Komodex.Common.Phone
 
         #region Dialog Service
 
+        /// <summary>
+        /// The ContentPresenter that will be used to display dialogs.
+        /// </summary>
         protected ContentPresenter DialogContainer { get; set; }
 
         private DialogUserControlBase _currentDialog;
@@ -270,6 +273,9 @@ namespace Komodex.Common.Phone
             get { return _currentDialog; }
         }
 
+        /// <summary>
+        /// Returns true if a dialog is currently open.
+        /// </summary>
         protected bool IsDialogOpen
         {
             get { return (_currentDialog != null && _currentDialog.IsOpen); }
@@ -277,6 +283,9 @@ namespace Komodex.Common.Phone
 
         protected void ShowDialog(DialogUserControlBase dialog)
         {
+            if (DialogContainer == null)
+                throw new InvalidOperationException("DialogContainer must not be null when displaying a dialog.");
+
             if (IsDialogOpen)
                 return;
 
