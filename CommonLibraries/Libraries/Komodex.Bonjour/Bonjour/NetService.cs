@@ -28,7 +28,6 @@ namespace Komodex.Bonjour
 
         private string _fullServerInstanceName, _name, _type, _domain;
 
-
         protected NetServiceBrowser _browser;
 
         private List<IPAddress> _ipAddresses = new List<IPAddress>();
@@ -37,8 +36,9 @@ namespace Komodex.Bonjour
 
         #region Properties
 
+        // TODO: Rename this to FullServiceInstanceName
         /// <summary>
-        /// The full server instance name, e.g., "17B30BC453C4B6A0._touch-able._tcp.local."
+        /// Gets or sets the full server instance name, e.g., "17B30BC453C4B6A0._touch-able._tcp.local."
         /// </summary>
         public string FullServerInstanceName
         {
@@ -66,37 +66,37 @@ namespace Komodex.Bonjour
         }
 
         /// <summary>
-        /// The name of the service, e.g., "17B30BC453C4B6A0"
+        /// Gets the name of the service, e.g., "17B30BC453C4B6A0"
         /// </summary>
         public string Name { get { return _name; } }
 
         /// <summary>
-        /// The service type, e.g., "_touch-able._tcp."
+        /// Gets the service type, e.g., "_touch-able._tcp."
         /// </summary>
         public string Type { get { return _type; } }
 
         /// <summary>
-        /// The service domain, e.g., "local."
+        /// Gets the service domain, e.g., "local."
         /// </summary>
         public string Domain { get { return _domain; } }
 
         /// <summary>
-        /// The resolved hostname, e.g., "ike-mbp.local."
+        /// Gets the resolved hostname, e.g., "ike-mbp.local."
         /// </summary>
         public string Hostname { get; set; }
 
         /// <summary>
-        /// All IP addresses for this service.
+        /// Gets a list of all IP addresses for this service.
         /// </summary>
         public List<IPAddress> IPAddresses { get { return _ipAddresses; } }
 
         /// <summary>
-        /// The port this service is listening on.
+        /// Gets or sets the port this service is listening on.
         /// </summary>
         public int Port { get; set; }
 
         /// <summary>
-        /// TXT Record data for this service.
+        /// Gets or sets TXT Record data for this service.
         /// </summary>
         public Dictionary<string, string> TXTRecordData { get; set; }
 
@@ -104,12 +104,89 @@ namespace Komodex.Bonjour
 
         #endregion
 
-        #region Methods
+        #region Broadcasting
+
+        private static readonly TimeSpan BroadcastTTL = TimeSpan.FromMinutes(1);
 
         public void Publish()
         {
             throw new NotImplementedException();
         }
+
+        private Message GetServicePublishMessage()
+        {
+            Message message = new Message();
+            ResourceRecord record;
+
+            // This message is a response
+            message.QueryResponse = true;
+
+            // PTR Record
+            record = new ResourceRecord();
+            record.Type = ResourceRecordType.PTR;
+            record.TimeToLive = BroadcastTTL;
+            record.Name = Type;
+            record.Data = FullServerInstanceName;
+            message.AnswerRecords.Add(record);
+
+            // SRV Record
+            record = new ResourceRecord();
+            record.Type = ResourceRecordType.SRV;
+            record.TimeToLive = BroadcastTTL;
+            record.Name = FullServerInstanceName;
+            SRVRecordData srv = new SRVRecordData();
+            srv.Target = Hostname;
+            srv.Port = Port;
+            record.Data = srv;
+            message.AnswerRecords.Add(record);
+
+            // A Records
+            foreach (var ip in IPAddresses)
+            {
+                record = new ResourceRecord();
+                record.Type = ResourceRecordType.A;
+                record.TimeToLive = BroadcastTTL;
+                record.Name = Hostname;
+                record.Data = ip;
+                message.AnswerRecords.Add(record);
+            }
+
+            // TXT Record
+            if (TXTRecordData != null && TXTRecordData.Count > 0)
+            {
+                record = new ResourceRecord();
+                record.Type = ResourceRecordType.TXT;
+                record.TimeToLive = BroadcastTTL;
+                record.Name = FullServerInstanceName;
+                record.Data = TXTRecordData;
+                message.AnswerRecords.Add(record);
+            }
+
+            return message;
+        }
+
+        private Message GetServiceCloseMessage()
+        {
+            Message message = new Message();
+            ResourceRecord record;
+
+            // This message is a response
+            message.QueryResponse = true;
+
+            // PTR Record
+            record = new ResourceRecord();
+            record.Type = ResourceRecordType.PTR;
+            record.TimeToLive = TimeSpan.Zero;
+            record.Name = Type;
+            record.Data = FullServerInstanceName;
+            message.AnswerRecords.Add(record);
+
+            return message;
+        }
+
+        #endregion
+
+        #region Other Methods
 
         public override string ToString()
         {
