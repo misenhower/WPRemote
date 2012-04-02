@@ -9,14 +9,25 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.IO.IsolatedStorage;
+using System.IO;
 
 namespace Komodex.Common
 {
     public static class Log
     {
+        static Log()
+        {
+            LogFilename = "ApplicationLog.txt";
+        }
+
         private static LogInstance _logger = new LogInstance(null);
 
         public static LogLevel Level { get; set; }
+
+        public static bool LogToFile { get; set; }
+
+        public static string LogFilename { get; set; }
 
         #region Debug
 
@@ -106,6 +117,7 @@ namespace Komodex.Common
                 if (Level > level)
                     return;
 
+                // Format the message
                 switch (level)
                 {
                     case LogLevel.Debug:
@@ -128,9 +140,26 @@ namespace Komodex.Common
                     message = string.Format("[{0}] ", Source) + message;
 
                 message = DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + message;
+
+                // Write to the debug output
                 var lines = message.Split('\n');
                 for (int i = 0; i < lines.Length; i++)
                     System.Diagnostics.Debug.WriteLine(lines[i].Trim('\r'));
+
+                // Write to the log file
+                if (Log.LogToFile)
+                {
+                    lock (Log.LogFilename)
+                    {
+                        using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
+                        {
+                            using (TextWriter writer = new StreamWriter(store.OpenFile(Log.LogFilename, FileMode.Append)))
+                            {
+                                writer.WriteLine(message);
+                            }
+                        }
+                    }
+                }
             }
 
             [Conditional("DEBUG")]
