@@ -249,6 +249,15 @@ namespace Komodex.Bonjour.DNS
             sb.Append((QueryResponse) ? "Response" : "Query");
             sb.Append(": ");
             sb.AppendFormat("(Questions: {0}, Answer RRs: {1}, Authority RRs: {2}, Additional RRs: {3})", Questions.Count, AnswerRecords.Count, AuthorityRecords.Count, AdditionalRecords.Count);
+            return sb.ToString().Trim();
+        }
+
+        public string ToDetailedString()
+        {
+            StringBuilder sb = new StringBuilder("DNS ");
+            sb.Append((QueryResponse) ? "Response" : "Query");
+            sb.Append(" details: ");
+            sb.AppendFormat("(Questions: {0}, Answer RRs: {1}, Authority RRs: {2}, Additional RRs: {3})", Questions.Count, AnswerRecords.Count, AuthorityRecords.Count, AdditionalRecords.Count);
             sb.AppendLine();
             sb.AppendFormat("OPCODE: {0}, AA: {1}, TC: {2}, RD: {3}, RA: {4}, AD: {5}, CD: {6}, RCODE: {7}", Opcode, AuthoritativeAnswer, Truncated, RecursionDesired, RecursionAvailable, AuthenticData, CheckingDisabled, ResponseCode);
             sb.AppendLine();

@@ -36,8 +36,15 @@ namespace Komodex.Bonjour
         // Known IP addresses
         Dictionary<string, List<IPAddress>> _discoveredIPs = new Dictionary<string, List<IPAddress>>();
 
+        // Logger instance
+        private readonly Log.LogInstance _log = Log.GetInstance("Bonjour");
+
         #region Public Methods
 
+        /// <summary>
+        /// Searches for services on the local network.
+        /// </summary>
+        /// <param name="serviceName">The type of the service to search for, e.g., "_touch-able._tcp.local."</param>
         public void SearchForServices(string serviceName)
         {
             _discoveredServices.Clear();
@@ -101,12 +108,8 @@ namespace Komodex.Bonjour
                 return;
 
 #if DEBUG
-            // Split the message into separate lines to avoid issues with exceeding the maximum length of Debug.WriteLine
-            Debug.WriteLine("Message received:");
-            var messageLines = message.ToString().Split('\n');
-            foreach (string line in messageLines)
-                Debug.WriteLine(line.Trim());
-            Debug.WriteLine(string.Empty);
+            _log.Info("Message received: " + message.ToString());
+            _log.Debug("Message details:\n" + message.ToDetailedString() + "\n");
 #endif
 
             ProcessMessage(message);

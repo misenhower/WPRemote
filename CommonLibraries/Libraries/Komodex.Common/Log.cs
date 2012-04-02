@@ -144,7 +144,7 @@ namespace Komodex.Common
                 // Write to the debug output
                 var lines = message.Split('\n');
                 for (int i = 0; i < lines.Length; i++)
-                    System.Diagnostics.Debug.WriteLine(lines[i].Trim('\r'));
+                    System.Diagnostics.Debug.WriteLine(((i > 0) ? "    " : "") + lines[i].Trim('\r'));
 
                 // Write to the log file
                 if (Log.LogToFile)
