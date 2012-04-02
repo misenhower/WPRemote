@@ -243,16 +243,36 @@ namespace Komodex.Bonjour.DNS
             return result.ToArray();
         }
 
-        public override string ToString()
+        #endregion
+
+        #region Summary Strings
+
+        public string Summary
         {
-            StringBuilder sb = new StringBuilder("DNS ");
-            sb.Append((QueryResponse) ? "Response" : "Query");
-            sb.Append(": ");
-            sb.AppendFormat("(Questions: {0}, Answer RRs: {1}, Authority RRs: {2}, Additional RRs: {3})", Questions.Count, AnswerRecords.Count, AuthorityRecords.Count, AdditionalRecords.Count);
-            return sb.ToString().Trim();
+            get
+            {
+                StringBuilder sb = new StringBuilder("DNS ");
+                if (!QueryResponse)
+                {
+                    sb.Append("Query: ");
+                    for (int i = 0; i < Questions.Count; i++)
+                        sb.AppendFormat("{0}, ", Questions[i].ToString());
+                }
+                else
+                {
+                    sb.Append("Response: ");
+                    for (int i = 0; i < AnswerRecords.Count; i++)
+                        sb.AppendFormat("{0}, ", AnswerRecords[i].Summary);
+
+                    if (AdditionalRecords.Count > 0)
+                        sb.AppendFormat("(+{0} additional RRs)", AdditionalRecords.Count);
+                }
+
+                return sb.ToString().Trim(' ', ',');
+            }
         }
 
-        public string ToDetailedString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder("DNS ");
             sb.Append((QueryResponse) ? "Response" : "Query");

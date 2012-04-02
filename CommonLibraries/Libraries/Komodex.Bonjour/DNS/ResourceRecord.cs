@@ -115,18 +115,57 @@ namespace Komodex.Bonjour.DNS
             return result.ToArray();
         }
 
+        #endregion
+
+        #region Summary Strings
+
+        /// <summary>
+        /// Returns a short summary of this record, e.g., "A: 10.0.0.1".
+        /// </summary>
+        public string Summary
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case ResourceRecordType.A:
+                    case ResourceRecordType.PTR:
+                    case ResourceRecordType.SRV:
+                        return string.Format("{0}: {1}", Type, (Data != null) ? Data.ToString() : "(No data)");
+
+                    case ResourceRecordType.TXT:
+                        return "TXT";
+
+                    default:
+                        return string.Format("(Unknown RR type {0})", Type);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns a detailed summary of this record, e.g., "A: computer-name.local. => 10.0.0.1 (TTL: 00:02:00)".
+        /// </summary>
         public override string ToString()
         {
-            string result = Type + " " + Name;
-            if (Data != null)
+            switch (Type)
             {
-                result += " Data: ";
-                if (Data is Dictionary<string, string>)
-                    result += string.Join(", ", ((Dictionary<string, string>)Data).Select(kvp => kvp.Key + "=" + kvp.Value));
-                else
-                    result += Data.ToString();
+                case ResourceRecordType.A:
+                case ResourceRecordType.PTR:
+                case ResourceRecordType.SRV:
+                    return string.Format("{0}: {1} => {2} (TTL: {3})", Type, Name, (Data != null) ? Data.ToString() : "(No data)", TimeToLive);
+
+                case ResourceRecordType.TXT:
+                    string data;
+                    if (Data is Dictionary<string, string>)
+                        data = string.Join(", ", ((Dictionary<string, string>)Data).Select(kvp => kvp.Key + "=" + kvp.Value));
+                    else
+                        data = "(No data)";
+
+                    return string.Format("TXT: {0} => {1} (TTL: {2})", Name, data, TimeToLive);
+
+                default:
+                    return string.Format("[{0}] {1} (TTL: {2})", Type, Name, TimeToLive);
             }
-            return result;
         }
 
         #endregion

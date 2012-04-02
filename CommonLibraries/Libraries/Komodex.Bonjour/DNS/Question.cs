@@ -67,9 +67,13 @@ namespace Komodex.Bonjour.DNS
             return result.ToArray();
         }
 
+        #endregion
+
+        #region Summary Strings
+
         public override string ToString()
         {
-            return Type + " " + Name;
+            return string.Format("{0}: {1}", Type, Name);
         }
 
         #endregion

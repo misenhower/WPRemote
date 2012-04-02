@@ -22,6 +22,8 @@ namespace Komodex.Bonjour
         // The receive buffer size sets the maximum message size
         private readonly byte[] _receiveBuffer = new byte[2048];
 
+        private readonly Log.LogInstance _log = Log.GetInstance("Bonjour");
+
         public MulticastDNSChannel()
         { }
 
@@ -121,6 +123,10 @@ namespace Komodex.Bonjour
 
             // Parse the incoming message
             Message message = Message.FromBytes(_receiveBuffer, 0, count);
+
+            _log.Info("Received " + message.Summary);
+            _log.Debug("Message details (received from {0}):\n{1}\n", sourceIPEndpoint, message.ToString());
+
             MessageReceived.Raise(this, new MessageReceivedEventArgs(message));
 
             BeginReceiveFromGroup();

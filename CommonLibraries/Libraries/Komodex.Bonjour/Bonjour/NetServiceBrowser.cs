@@ -107,11 +107,6 @@ namespace Komodex.Bonjour
             if (!message.QueryResponse)
                 return;
 
-#if DEBUG
-            _log.Info("Message received: " + message.ToString());
-            _log.Debug("Message details:\n" + message.ToDetailedString() + "\n");
-#endif
-
             ProcessMessage(message);
         }
 
