@@ -20,11 +20,13 @@ namespace Komodex.Common
 
         #region Debug
 
+        [Conditional("DEBUG")]
         public static void Debug(string message)
         {
             _logger.Debug(message);
         }
 
+        [Conditional("DEBUG")]
         public static void Debug(string format, params object[] args)
         {
             _logger.Debug(format, args);
@@ -34,11 +36,13 @@ namespace Komodex.Common
 
         #region Info
 
+        [Conditional("DEBUG")]
         public static void Info(string message)
         {
             _logger.Info(message);
         }
 
+        [Conditional("DEBUG")]
         public static void Info(string format, params object[] args)
         {
             _logger.Info(format, args);
@@ -48,11 +52,13 @@ namespace Komodex.Common
 
         #region Warning
 
+        [Conditional("DEBUG")]
         public static void Warning(string message)
         {
             _logger.Warning(message);
         }
 
+        [Conditional("DEBUG")]
         public static void Warning(string format, params object[] args)
         {
             _logger.Warning(format, args);
@@ -62,11 +68,13 @@ namespace Komodex.Common
 
         #region Error
 
+        [Conditional("DEBUG")]
         public static void Error(string message)
         {
             _logger.Error(message);
         }
 
+        [Conditional("DEBUG")]
         public static void Error(string format, params object[] args)
         {
             _logger.Error(format, args);
@@ -92,6 +100,7 @@ namespace Komodex.Common
 
             #region WriteMessage
 
+            [Conditional("DEBUG")]
             private void WriteMessage(LogLevel level, string message)
             {
                 if (Level > level)
@@ -124,6 +133,7 @@ namespace Komodex.Common
                     System.Diagnostics.Debug.WriteLine(lines[i].Trim('\r'));
             }
 
+            [Conditional("DEBUG")]
             private void WriteMessage(LogLevel level, string format, params object[] args)
             {
                 if (Level > level)
@@ -136,11 +146,13 @@ namespace Komodex.Common
 
             #region Debug
 
+            [Conditional("DEBUG")]
             public void Debug(string message)
             {
                 WriteMessage(LogLevel.Debug, message);
             }
 
+            [Conditional("DEBUG")]
             public void Debug(string format, params object[] args)
             {
                 WriteMessage(LogLevel.Debug, format, args);
@@ -150,11 +162,13 @@ namespace Komodex.Common
 
             #region Info
 
+            [Conditional("DEBUG")]
             public void Info(string message)
             {
                 WriteMessage(LogLevel.Info, message);
             }
 
+            [Conditional("DEBUG")]
             public void Info(string format, params object[] args)
             {
                 WriteMessage(LogLevel.Info, format, args);
@@ -164,11 +178,13 @@ namespace Komodex.Common
 
             #region Warning
 
+            [Conditional("DEBUG")]
             public void Warning(string message)
             {
                 WriteMessage(LogLevel.Warning, message);
             }
 
+            [Conditional("DEBUG")]
             public void Warning(string format, params object[] args)
             {
                 WriteMessage(LogLevel.Warning, format, args);
@@ -178,11 +194,13 @@ namespace Komodex.Common
 
             #region Error
 
+            [Conditional("DEBUG")]
             public void Error(string message)
             {
                 WriteMessage(LogLevel.Error, message);
             }
 
+            [Conditional("DEBUG")]
             public void Error(string format, params object[] args)
             {
                 WriteMessage(LogLevel.Error, format, args);
