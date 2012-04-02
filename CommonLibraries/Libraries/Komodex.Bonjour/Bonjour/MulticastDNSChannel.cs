@@ -122,7 +122,16 @@ namespace Komodex.Bonjour
             int count = _client.EndReceiveFromGroup(result, out sourceIPEndpoint);
 
             // Parse the incoming message
-            Message message = Message.FromBytes(_receiveBuffer, 0, count);
+            Message message;
+            try
+            {
+                message = Message.FromBytes(_receiveBuffer, 0, count);
+            }
+            catch (Exception e)
+            {
+                _log.Info("Dropped malformed packet from " + sourceIPEndpoint);
+                return;
+            }
 
             _log.Info("Received " + message.Summary);
             _log.Debug("Message details (received from {0}):\n{1}\n", sourceIPEndpoint, message.ToString());
