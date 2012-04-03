@@ -100,21 +100,35 @@ namespace Komodex.Common
             return new LogInstance(source);
         }
 
+        public static LogInstance GetInstance(string source, LogLevel level)
+        {
+            return new LogInstance(source, level);
+        }
+
         public class LogInstance
         {
             public LogInstance(string source)
             {
                 Source = source;
+                Level = LogLevel.All;
+            }
+
+            public LogInstance(string source, LogLevel level)
+                : this(source)
+            {
+                Level = level;
             }
 
             public string Source { get; set; }
+
+            public LogLevel Level { get; set; }
 
             #region WriteMessage
 
             [Conditional("DEBUG")]
             private void WriteMessage(LogLevel level, string message)
             {
-                if (Level > level)
+                if (Log.Level > level || this.Level > level)
                     return;
 
                 // Format the message
@@ -165,7 +179,7 @@ namespace Komodex.Common
             [Conditional("DEBUG")]
             private void WriteMessage(LogLevel level, string format, params object[] args)
             {
-                if (Level > level)
+                if (Log.Level > level || this.Level > level)
                     return;
 
                 WriteMessage(level, string.Format(format, args));
