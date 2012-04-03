@@ -26,7 +26,7 @@ namespace Komodex.Bonjour
 
         #region Fields
 
-        private string _fullServerInstanceName, _name, _type, _domain;
+        private string _fullServiceInstanceName, _name, _type, _domain;
 
         protected NetServiceBrowser _browser;
 
@@ -36,21 +36,20 @@ namespace Komodex.Bonjour
 
         #region Properties
 
-        // TODO: Rename this to FullServiceInstanceName
         /// <summary>
         /// Gets or sets the full server instance name, e.g., "17B30BC453C4B6A0._touch-able._tcp.local."
         /// </summary>
-        public string FullServerInstanceName
+        public string FullServiceInstanceName
         {
-            get { return _fullServerInstanceName; }
+            get { return _fullServiceInstanceName; }
             set
             {
-                if (_fullServerInstanceName == value)
+                if (_fullServiceInstanceName == value)
                     return;
 
                 if (string.IsNullOrEmpty(value))
                 {
-                    _fullServerInstanceName = null;
+                    _fullServiceInstanceName = null;
                     _name = null;
                     _type = null;
                     _domain = null;
@@ -60,7 +59,7 @@ namespace Komodex.Bonjour
                 if (!value.EndsWith("."))
                     value += ".";
 
-                _fullServerInstanceName = value;
+                _fullServiceInstanceName = value;
                 BonjourUtility.ParseServiceInstanceName(value, out _name, out _type, out _domain);
             }
         }
@@ -126,14 +125,14 @@ namespace Komodex.Bonjour
             record.Type = ResourceRecordType.PTR;
             record.TimeToLive = BroadcastTTL;
             record.Name = Type;
-            record.Data = FullServerInstanceName;
+            record.Data = FullServiceInstanceName;
             message.AnswerRecords.Add(record);
 
             // SRV Record
             record = new ResourceRecord();
             record.Type = ResourceRecordType.SRV;
             record.TimeToLive = BroadcastTTL;
-            record.Name = FullServerInstanceName;
+            record.Name = FullServiceInstanceName;
             SRVRecordData srv = new SRVRecordData();
             srv.Target = Hostname;
             srv.Port = Port;
@@ -157,7 +156,7 @@ namespace Komodex.Bonjour
                 record = new ResourceRecord();
                 record.Type = ResourceRecordType.TXT;
                 record.TimeToLive = BroadcastTTL;
-                record.Name = FullServerInstanceName;
+                record.Name = FullServiceInstanceName;
                 record.Data = TXTRecordData;
                 message.AnswerRecords.Add(record);
             }
@@ -178,7 +177,7 @@ namespace Komodex.Bonjour
             record.Type = ResourceRecordType.PTR;
             record.TimeToLive = TimeSpan.Zero;
             record.Name = Type;
-            record.Data = FullServerInstanceName;
+            record.Data = FullServiceInstanceName;
             message.AnswerRecords.Add(record);
 
             return message;
@@ -191,7 +190,7 @@ namespace Komodex.Bonjour
         public override string ToString()
         {
             string ips = string.Join(", ", IPAddresses);
-            return string.Format("NetService: {0}\r\nHostname: {1}\r\nIP Addresses: {2}\r\nPort: {3}", FullServerInstanceName, Hostname, ips, Port);
+            return string.Format("Net service details: {0}\r\nHostname: {1}\r\nIP Addresses: {2}\r\nPort: {3}", FullServiceInstanceName, Hostname, ips, Port);
         }
 
         #endregion

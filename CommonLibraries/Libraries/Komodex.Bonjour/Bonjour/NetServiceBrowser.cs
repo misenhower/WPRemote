@@ -17,15 +17,13 @@ using System.Threading;
 
 namespace Komodex.Bonjour
 {
-    // TODO: Add IDisposable
     public class NetServiceBrowser : IMulticastDNSListener
     {
         // Run loop time interval (ms)
-        private const int RunLoopFirstInterval = 1000;
-        private const int RunLoopRecurringInterval = 2000;
+        private const int RunLoopInterval = 2000;
 
         // Service search parameters
-        private string _currentServiceName;
+        private string _currentServiceType;
         private Message _currentServiceSearchMessage;
 
         // Discovered services list
@@ -36,32 +34,30 @@ namespace Komodex.Bonjour
         Dictionary<string, List<IPAddress>> _discoveredIPs = new Dictionary<string, List<IPAddress>>();
 
         // Logger instance
-        private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour");
+        private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour NSBrowser");
 
         #region Public Methods
 
         /// <summary>
         /// Searches for services on the local network.
         /// </summary>
-        /// <param name="serviceName">The type of the service to search for, e.g., "_touch-able._tcp.local."</param>
-        public void SearchForServices(string serviceName)
+        /// <param name="type">The type of the service to search for, e.g., "_touch-able._tcp.local."</param>
+        public void SearchForServices(string type)
         {
             _discoveredServices.Clear();
 
-            _currentServiceName = BonjourUtility.FormatLocalHostname(serviceName);
+            _currentServiceType = BonjourUtility.FormatLocalHostname(type);
 
-            _log.Info("Searching for service type \"{0}\"...", _currentServiceName);
+            _log.Info("Searching for service type \"{0}\"...", _currentServiceType);
 
             // Create the DNS message to send
             _currentServiceSearchMessage = new Message();
-            _currentServiceSearchMessage.Questions.Add(new Question(_currentServiceName, ResourceRecordType.PTR));
+            _currentServiceSearchMessage.Questions.Add(new Question(_currentServiceType, ResourceRecordType.PTR));
 
             // Listen for MDNS messages and notifications
             MulticastDNSChannel.AddListener(this);
 
-            // The message will be sent when we receive a joined notification from the MDNS channel
-
-            StartRunLoop();
+            // The message will be sent when we receive a joined notification from the MDNS channel (which could be immediately)
         }
 
         public void Stop()
@@ -81,6 +77,8 @@ namespace Komodex.Bonjour
         {
             if (_currentServiceSearchMessage != null)
                 MulticastDNSChannel.SendMessage(_currentServiceSearchMessage);
+
+            StartRunLoop();
         }
 
         void IMulticastDNSListener.MulticastDNSMessageReceived(Message message)
@@ -126,32 +124,30 @@ namespace Komodex.Bonjour
 
         private void ProcessPTRRecord(ResourceRecord record)
         {
-            if (record.Name != _currentServiceName)
+            if (record.Name != _currentServiceType)
                 return;
 
             NetService service = null;
-            string serverInstanceName = (string)record.Data;
+            string serviceInstanceName = (string)record.Data;
 
             // TTL of zero means we need to remove the service from the list
             if (record.TimeToLive == TimeSpan.Zero)
             {
-                if (_discoveredServices.ContainsKey(serverInstanceName))
-                    _discoveredServices.Remove(serverInstanceName);
+                RemoveService(serviceInstanceName);
+                return;
             }
+
+            if (_discoveredServices.ContainsKey(serviceInstanceName))
+                service = _discoveredServices[serviceInstanceName];
             else
             {
-                if (_discoveredServices.ContainsKey(serverInstanceName))
-                    service = _discoveredServices[serverInstanceName];
-                else
-                {
-                    service = new NetService(this);
-                    service.FullServerInstanceName = serverInstanceName;
-
-                    _discoveredServices[serverInstanceName] = service;
-                }
-
-                service.TTLExpires = DateTime.Now + record.TimeToLive;
+                service = new NetService(this);
+                service.FullServiceInstanceName = serviceInstanceName;
             }
+
+            service.TTLExpires = DateTime.Now + record.TimeToLive;
+
+            AddService(service);
         }
 
         private void ProcessARecord(ResourceRecord record)
@@ -175,12 +171,12 @@ namespace Komodex.Bonjour
 
         private void ProcessSRVRecord(ResourceRecord record)
         {
-            string serverInstanceName = record.Name;
+            string serviceInstanceName = record.Name;
             SRVRecordData srv = (SRVRecordData)record.Data;
 
-            if (_discoveredServices.ContainsKey(serverInstanceName))
+            if (_discoveredServices.ContainsKey(serviceInstanceName))
             {
-                NetService service = _discoveredServices[serverInstanceName];
+                NetService service = _discoveredServices[serviceInstanceName];
                 service.Hostname = srv.Target;
                 service.Port = srv.Port;
                 service.IPAddresses.Clear();
@@ -191,11 +187,11 @@ namespace Komodex.Bonjour
 
         private void ProcessTXTRecord(ResourceRecord record)
         {
-            string serverInstanceName = record.Name;
+            string serviceInstanceName = record.Name;
 
-            if (_discoveredServices.ContainsKey(serverInstanceName))
+            if (_discoveredServices.ContainsKey(serviceInstanceName))
             {
-                NetService service = _discoveredServices[serverInstanceName];
+                NetService service = _discoveredServices[serviceInstanceName];
                 service.TXTRecordData = (Dictionary<string, string>)record.Data;
             }
         }
@@ -207,29 +203,35 @@ namespace Komodex.Bonjour
         public event EventHandler<NetServiceEventArgs> ServiceFound;
         public event EventHandler<NetServiceEventArgs> ServiceRemoved;
 
-        private List<NetService> _notifiedServices = new List<NetService>();
-
-        private void NotifyServices()
+        private void AddService(NetService service)
         {
-            // Determine which services have been removed
-            var removedServices = _notifiedServices.Where(s => !_discoveredServices.ContainsValue(s)).ToArray();
-
-            // Determine which services have been added
-            var addedServices = _discoveredServices.Values.Where(s => !_notifiedServices.Contains(s)).ToArray();
-
-            // Send removed notifications
-            foreach (var service in removedServices)
+            lock (_discoveredServices)
             {
-                ServiceRemoved.Raise(this, new NetServiceEventArgs(service));
-                _notifiedServices.Remove(service);
+                if (_discoveredServices.ContainsKey(service.FullServiceInstanceName))
+                    return;
+
+                _discoveredServices.Add(service.FullServiceInstanceName, service);
             }
 
-            // Send added notifications
-            foreach (var service in addedServices)
+            _log.Info("Found service \"{0}\"", service.FullServiceInstanceName);
+            ServiceFound.Raise(this, new NetServiceEventArgs(service));
+        }
+
+        private void RemoveService(string serviceInstanceName)
+        {
+            NetService service;
+
+            lock (_discoveredServices)
             {
-                ServiceFound.Raise(this, new NetServiceEventArgs(service));
-                _notifiedServices.Add(service);
+                if (!_discoveredServices.ContainsKey(serviceInstanceName))
+                    return;
+
+                service = _discoveredServices[serviceInstanceName];
+                _discoveredServices.Remove(serviceInstanceName);
             }
+
+            _log.Info("Removed service \"{0}\"", serviceInstanceName);
+            ServiceRemoved.Raise(this, new NetServiceEventArgs(service));
         }
 
         #endregion
@@ -243,7 +245,7 @@ namespace Komodex.Bonjour
             if (_runLoopTimer != null)
                 return;
 
-            _runLoopTimer = new Timer(RunLoop, null, RunLoopFirstInterval, RunLoopRecurringInterval);
+            _runLoopTimer = new Timer(RunLoop, null, RunLoopInterval, RunLoopInterval);
         }
 
         private void StopRunLoop()
@@ -258,8 +260,6 @@ namespace Komodex.Bonjour
         private void RunLoop(object state)
         {
             // TODO: Check TTLs, etc.
-
-            NotifyServices();
         }
 
         #endregion

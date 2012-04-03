@@ -132,6 +132,9 @@ namespace Komodex.Common
                     return;
 
                 // Format the message
+                if (!string.IsNullOrEmpty(Source))
+                    message = string.Format("[{0}] ", Source) + message;
+
                 switch (level)
                 {
                     case LogLevel.Debug:
@@ -149,9 +152,6 @@ namespace Komodex.Common
                     default:
                         break;
                 }
-
-                if (!string.IsNullOrEmpty(Source))
-                    message = string.Format("[{0}] ", Source) + message;
 
                 message = DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + message;
 

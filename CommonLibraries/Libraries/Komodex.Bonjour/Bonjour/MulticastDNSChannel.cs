@@ -23,7 +23,7 @@ namespace Komodex.Bonjour
         // The receive buffer size sets the maximum message size
         private static readonly byte[] _receiveBuffer = new byte[2048];
 
-        private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour");
+        private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour MDNS");
 
         #region Properties
 
@@ -158,7 +158,7 @@ namespace Komodex.Bonjour
 
             _client.EndJoinGroup(result);
             IsJoined = true;
-            _log.Info("Multicast DNS channel joined");
+            _log.Info("Joined multicast DNS channel.");
             SendJoinedToListeners();
 
             BeginReceiveFromGroup();
@@ -194,7 +194,7 @@ namespace Komodex.Bonjour
             }
 
             _log.Info("Received " + message.Summary);
-            _log.Debug("Message details (received from {0}):\n{1}\n", sourceIPEndpoint, message.ToString());
+            _log.Debug("Message details (received from {0}):\n{1}", sourceIPEndpoint, message.ToString());
 
             SendMessageToListeners(message);
 
