@@ -11,50 +11,96 @@ using System.Windows.Shapes;
 using System.Net.Sockets;
 using Komodex.Bonjour.DNS;
 using Komodex.Common;
+using System.Collections.Generic;
 
 namespace Komodex.Bonjour
 {
-    internal class MulticastDNSChannel
+    internal static class MulticastDNSChannel
     {
         // UDP Client
-        protected UdpAnySourceMulticastClient _client;
+        private static UdpAnySourceMulticastClient _client;
 
         // The receive buffer size sets the maximum message size
-        private readonly byte[] _receiveBuffer = new byte[2048];
+        private static readonly byte[] _receiveBuffer = new byte[2048];
 
-        private readonly Log.LogInstance _log = Log.GetInstance("Bonjour");
-
-        public MulticastDNSChannel()
-        { }
+        private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour");
 
         #region Properties
 
-        public bool IsJoined { get; private set; }
+        public static bool IsJoined { get; private set; }
 
         #endregion
 
-        #region Events
+        #region Listeners
 
-        public event EventHandler<EventArgs> Joined;
+        private static readonly List<IMulticastDNSListener> _listeners = new List<IMulticastDNSListener>();
 
-        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+        public static void AddListener(IMulticastDNSListener listener)
+        {
+            if (listener == null)
+                throw new ArgumentNullException("listener");
+
+            lock (_listeners)
+            {
+                if (_listeners.Contains(listener))
+                    return;
+
+                _listeners.Add(listener);
+            }
+
+            if (IsJoined)
+                listener.MulticastDNSChannelJoined();
+            else
+                Start();
+        }
+
+        public static void RemoveListener(IMulticastDNSListener listener)
+        {
+            if (listener == null)
+                throw new ArgumentNullException("listener");
+
+            bool stop = false;
+
+            lock (_listeners)
+            {
+                if (!_listeners.Contains(listener))
+                    return;
+
+                _listeners.Remove(listener);
+
+                if (_listeners.Count == 0)
+                    stop = true;
+            }
+
+            if (stop)
+                Stop();
+        }
+
+        private static void SendJoinedToListeners()
+        {
+            IMulticastDNSListener[] listeners;
+            lock (_listeners)
+                listeners = _listeners.ToArray();
+
+            for (int i = 0; i < listeners.Length; i++)
+                listeners[i].MulticastDNSChannelJoined();
+        }
+
+        private static void SendMessageToListeners(Message message)
+        {
+            IMulticastDNSListener[] listeners;
+            lock (_listeners)
+                listeners = _listeners.ToArray();
+
+            for (int i = 0; i < listeners.Length; i++)
+                listeners[i].MulticastDNSMessageReceived(message);
+        }
 
         #endregion
 
         #region Public Methods
 
-        public void Start()
-        {
-            // If the client already exists, don't attempt to replace it
-            if (_client != null)
-                return;
-
-            // Create the client and attempt to join
-            _client = new UdpAnySourceMulticastClient(BonjourUtility.MulticastDNSAddress, BonjourUtility.MulticastDNSPort);
-            _client.BeginJoinGroup(UDPClientJoinGroupCallback, _client);
-        }
-
-        public void SendMessage(Message message)
+        public static void SendMessage(Message message)
         {
             if (_client == null)
                 throw new InvalidOperationException("Call Start before attempting to send a message.");
@@ -67,30 +113,43 @@ namespace Komodex.Bonjour
             _client.BeginSendToGroup(messageBytes, 0, messageBytes.Length, UDPClientSendToGroupCallback, _client);
         }
 
-        public void Stop()
+        #endregion
+
+        #region UDP Channel Management
+
+        private static void Start()
+        {
+            // If the client already exists, don't attempt to replace it
+            if (_client != null)
+                return;
+
+            // Create the client and attempt to join
+            _log.Info("Joining multicast DNS channel...");
+            _client = new UdpAnySourceMulticastClient(BonjourUtility.MulticastDNSAddress, BonjourUtility.MulticastDNSPort);
+            _client.BeginJoinGroup(UDPClientJoinGroupCallback, _client);
+        }
+
+        private static void Stop()
         {
             if (_client != null)
             {
+                _log.Info("Closing multicast DNS channel");
                 IsJoined = false;
                 _client.Dispose();
                 _client = null;
             }
         }
 
-        #endregion
-
-        #region Other Methods
-
-        private void BeginReceiveFromGroup()
+        private static void BeginReceiveFromGroup()
         {
             _client.BeginReceiveFromGroup(_receiveBuffer, 0, _receiveBuffer.Length, UDPClientReceiveFromGroupCallback, _client);
         }
 
         #endregion
 
-        #region UDP Client Callbacks
+        #region UDP Channel Callbacks
 
-        private void UDPClientJoinGroupCallback(IAsyncResult result)
+        private static void UDPClientJoinGroupCallback(IAsyncResult result)
         {
             if (result.AsyncState != _client)
                 return;
@@ -99,12 +158,13 @@ namespace Komodex.Bonjour
 
             _client.EndJoinGroup(result);
             IsJoined = true;
-            Joined.Raise(this, new EventArgs());
+            _log.Info("Multicast DNS channel joined");
+            SendJoinedToListeners();
 
             BeginReceiveFromGroup();
         }
 
-        private void UDPClientSendToGroupCallback(IAsyncResult result)
+        private static void UDPClientSendToGroupCallback(IAsyncResult result)
         {
             if (result.AsyncState != _client)
                 return;
@@ -113,7 +173,7 @@ namespace Komodex.Bonjour
             BeginReceiveFromGroup();
         }
 
-        private void UDPClientReceiveFromGroupCallback(IAsyncResult result)
+        private static void UDPClientReceiveFromGroupCallback(IAsyncResult result)
         {
             if (result.AsyncState != _client)
                 return;
@@ -127,7 +187,7 @@ namespace Komodex.Bonjour
             {
                 message = Message.FromBytes(_receiveBuffer, 0, count);
             }
-            catch (Exception e)
+            catch
             {
                 _log.Info("Dropped malformed packet from " + sourceIPEndpoint);
                 return;
@@ -136,7 +196,7 @@ namespace Komodex.Bonjour
             _log.Info("Received " + message.Summary);
             _log.Debug("Message details (received from {0}):\n{1}\n", sourceIPEndpoint, message.ToString());
 
-            MessageReceived.Raise(this, new MessageReceivedEventArgs(message));
+            SendMessageToListeners(message);
 
             BeginReceiveFromGroup();
         }

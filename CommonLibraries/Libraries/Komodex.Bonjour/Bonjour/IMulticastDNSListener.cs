@@ -12,13 +12,9 @@ using Komodex.Bonjour.DNS;
 
 namespace Komodex.Bonjour
 {
-    internal class MessageReceivedEventArgs : EventArgs
+    internal interface IMulticastDNSListener
     {
-        public MessageReceivedEventArgs(Message message)
-        {
-            Message = message;
-        }
-
-        public Message Message { get; protected set; }
+        void MulticastDNSChannelJoined();
+        void MulticastDNSMessageReceived(Message message);
     }
 }

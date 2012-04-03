@@ -49,7 +49,7 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bonjour\MessageReceivedEventArgs.cs" />
+    <Compile Include="Bonjour\IMulticastDNSListener.cs" />
     <Compile Include="Bonjour\MulticastDNSChannel.cs" />
     <Compile Include="Bonjour\NetService.cs" />
     <Compile Include="Bonjour\NetServiceBrowser.cs" />

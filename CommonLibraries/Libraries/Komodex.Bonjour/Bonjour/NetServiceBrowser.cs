@@ -17,14 +17,12 @@ using System.Threading;
 
 namespace Komodex.Bonjour
 {
-    public class NetServiceBrowser
+    // TODO: Add IDisposable
+    public class NetServiceBrowser : IMulticastDNSListener
     {
         // Run loop time interval (ms)
         private const int RunLoopFirstInterval = 1000;
         private const int RunLoopRecurringInterval = 2000;
-
-        // Multicast DNS Channel for service discovery and resolution
-        private MulticastDNSChannel _channel;
 
         // Service search parameters
         private string _currentServiceName;
@@ -34,10 +32,11 @@ namespace Komodex.Bonjour
         Dictionary<string, NetService> _discoveredServices = new Dictionary<string, NetService>();
 
         // Known IP addresses
+        // TODO: Make this static
         Dictionary<string, List<IPAddress>> _discoveredIPs = new Dictionary<string, List<IPAddress>>();
 
         // Logger instance
-        private readonly Log.LogInstance _log = Log.GetInstance("Bonjour");
+        private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour");
 
         #region Public Methods
 
@@ -51,22 +50,16 @@ namespace Komodex.Bonjour
 
             _currentServiceName = BonjourUtility.FormatLocalHostname(serviceName);
 
+            _log.Info("Searching for service type \"{0}\"...", _currentServiceName);
+
             // Create the DNS message to send
             _currentServiceSearchMessage = new Message();
             _currentServiceSearchMessage.Questions.Add(new Question(_currentServiceName, ResourceRecordType.PTR));
 
-            // Create the channel if necessary
-            if (_channel == null)
-            {
-                _channel = new MulticastDNSChannel();
-                _channel.Joined += MulticastDNSChannel_Joined;
-                _channel.MessageReceived += MulticastDNSChannel_MessageReceived;
-                _channel.Start();
-            }
-            else
-            {
-                _channel.SendMessage(_currentServiceSearchMessage);
-            }
+            // Listen for MDNS messages and notifications
+            MulticastDNSChannel.AddListener(this);
+
+            // The message will be sent when we receive a joined notification from the MDNS channel
 
             StartRunLoop();
         }
@@ -75,34 +68,23 @@ namespace Komodex.Bonjour
         {
             StopRunLoop();
 
-            if (_channel != null)
-            {
-                _channel.Joined -= MulticastDNSChannel_Joined;
-                _channel.MessageReceived -= MulticastDNSChannel_MessageReceived;
-                _channel.Stop();
-                _channel = null;
-                _discoveredServices.Clear();
-                _discoveredIPs.Clear();
-            }
+            MulticastDNSChannel.RemoveListener(this);
+            _discoveredServices.Clear();
+            _discoveredIPs.Clear();
         }
 
         #endregion
 
-        #region Multicast DNS Channel Events
+        #region IMulticastDNSListener Members
 
-        private void MulticastDNSChannel_Joined(object sender, EventArgs e)
+        void IMulticastDNSListener.MulticastDNSChannelJoined()
         {
-            if (sender != _channel)
-                return;
-
             if (_currentServiceSearchMessage != null)
-                _channel.SendMessage(_currentServiceSearchMessage);
+                MulticastDNSChannel.SendMessage(_currentServiceSearchMessage);
         }
 
-        private void MulticastDNSChannel_MessageReceived(object sender, MessageReceivedEventArgs e)
+        void IMulticastDNSListener.MulticastDNSMessageReceived(Message message)
         {
-            Message message = e.Message;
-
             // Make sure this is a response
             if (!message.QueryResponse)
                 return;
