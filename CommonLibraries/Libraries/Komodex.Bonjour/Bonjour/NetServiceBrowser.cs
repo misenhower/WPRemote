@@ -22,6 +22,10 @@ namespace Komodex.Bonjour
         // Run loop time interval (ms)
         private const int RunLoopInterval = 2000;
 
+        // Rebroadcast times (ms)
+        private const int FirstRebroadcastInterval = 1000;
+        private const int SecondRebroadcastInterval = 3000;
+
         // Service search parameters
         private string _currentServiceType;
         private Message _currentServiceSearchMessage;
@@ -67,6 +71,8 @@ namespace Komodex.Bonjour
             MulticastDNSChannel.RemoveListener(this);
             _discoveredServices.Clear();
             _discoveredIPs.Clear();
+            _currentServiceType = null;
+            _currentServiceSearchMessage = null;
         }
 
         #endregion
@@ -76,7 +82,27 @@ namespace Komodex.Bonjour
         void IMulticastDNSListener.MulticastDNSChannelJoined()
         {
             if (_currentServiceSearchMessage != null)
-                MulticastDNSChannel.SendMessage(_currentServiceSearchMessage);
+            {
+                SendServiceSearchMessage();
+
+                // Rebroadcasts
+                Thread t = new Thread(() =>
+                {
+                    Thread.Sleep(FirstRebroadcastInterval);
+                    if (_currentServiceSearchMessage == null)
+                        return;
+
+                    SendServiceSearchMessage();
+
+                    Thread.Sleep(SecondRebroadcastInterval);
+                    if (_currentServiceSearchMessage == null)
+                        return;
+
+                    SendServiceSearchMessage();
+                });
+
+                t.Start();
+            }
 
             StartRunLoop();
         }
@@ -93,6 +119,12 @@ namespace Komodex.Bonjour
         #endregion
 
         #region Message Processing
+
+        private void SendServiceSearchMessage()
+        {
+            if (MulticastDNSChannel.IsJoined && _currentServiceSearchMessage != null)
+                MulticastDNSChannel.SendMessage(_currentServiceSearchMessage);
+        }
 
         private void ProcessMessage(Message message)
         {
