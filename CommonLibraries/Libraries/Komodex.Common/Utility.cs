@@ -320,6 +320,20 @@ namespace Komodex.Common
 
         #endregion
 
+        #region ICollection<T> Extensions
+
+        /// <summary>
+        /// Adds an item to the collection only if it is not already contained in the collection.
+        /// </summary>
+        /// <param name="collection"></param>
+        public static void AddOnce<T>(this ICollection<T> collection, T item)
+        {
+            if (!collection.Contains(item))
+                collection.Add(item);
+        }
+
+        #endregion
+
         #region File Size Formatting
 
         public static string ReadableFilesize(long bytes)
