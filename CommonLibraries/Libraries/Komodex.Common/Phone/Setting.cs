@@ -24,7 +24,14 @@ namespace Komodex.Common.Phone
             _changeAction = changeAction;
 
             // Try to load the value from isolated storage, or use the default value
-            if (_isolatedSettings.TryGetValue<T>(_keyName, out _value))
+            // TryGetValue<T> will throw an exception if the value in isolated storage is of a different type
+            bool valueLoaded = false;
+            try
+            {
+                valueLoaded = _isolatedSettings.TryGetValue<T>(_keyName, out _value);
+            }
+            catch { }
+            if (valueLoaded)
                 AttachValueEvents();
             else
                 Value = defaultValue; // This will save the default value to isolated storage as well
