@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using Microsoft.Phone.Info;
 
 namespace Komodex.Common
 {
@@ -118,6 +119,10 @@ namespace Komodex.Common
             request.Headers["Accept-Language"] = CultureInfo.CurrentCulture.ToString();
             request.Headers["Application-Version"] = ApplicationVersion;
             request.Headers["OS-Version"] = Environment.OSVersion.Version.ToString();
+
+            // Device Info
+            request.Headers["Device-Manufacturer"] = DeviceStatus.DeviceManufacturer;
+            request.Headers["Device-Model"] = DeviceStatus.DeviceName;
         }
 
         #endregion

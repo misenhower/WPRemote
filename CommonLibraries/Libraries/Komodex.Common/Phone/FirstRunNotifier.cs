@@ -10,7 +10,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.IO.IsolatedStorage;
 using Microsoft.Devices;
-using Microsoft.Phone.Info;
 
 namespace Komodex.Common.Phone
 {
@@ -129,10 +128,6 @@ namespace Komodex.Common.Phone
 #if DEBUG
             request += "&d=1";
 #endif
-
-            // Device info
-            request += "&dm=" + Uri.EscapeDataString(DeviceStatus.DeviceManufacturer);
-            request += "&dn=" + Uri.EscapeDataString(DeviceStatus.DeviceName);
 
             NotificationToBeSent = request;
         }
