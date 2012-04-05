@@ -23,6 +23,9 @@ namespace Komodex.Bonjour
         // The receive buffer size sets the maximum message size
         private static readonly byte[] _receiveBuffer = new byte[2048];
 
+        private static bool _sendingMessage;
+        private static bool _shutdown;
+
         private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour MDNS");
 
         #region Properties
@@ -40,13 +43,10 @@ namespace Komodex.Bonjour
             if (listener == null)
                 throw new ArgumentNullException("listener");
 
-            lock (_listeners)
-            {
-                if (_listeners.Contains(listener))
-                    return;
+            _shutdown = false;
 
-                _listeners.Add(listener);
-            }
+            lock (_listeners)
+                _listeners.AddOnce(listener);
 
             if (IsJoined)
                 listener.MulticastDNSChannelJoined();
@@ -111,6 +111,7 @@ namespace Komodex.Bonjour
             // Get the message bytes and send
             byte[] messageBytes = message.GetBytes();
             _client.BeginSendToGroup(messageBytes, 0, messageBytes.Length, UDPClientSendToGroupCallback, _client);
+            _sendingMessage = true;
         }
 
         #endregion
@@ -133,6 +134,10 @@ namespace Komodex.Bonjour
         {
             if (_client != null)
             {
+                _shutdown = true;
+                if (_sendingMessage)
+                    return;
+
                 _log.Info("Closing multicast DNS channel");
                 IsJoined = false;
                 _client.Dispose();
@@ -170,7 +175,12 @@ namespace Komodex.Bonjour
                 return;
 
             _client.EndSendToGroup(result);
-            BeginReceiveFromGroup();
+
+            _sendingMessage = false;
+            if (!_shutdown)
+                BeginReceiveFromGroup();
+            else
+                Stop();
         }
 
         private static void UDPClientReceiveFromGroupCallback(IAsyncResult result)
@@ -179,7 +189,15 @@ namespace Komodex.Bonjour
                 return;
 
             IPEndPoint sourceIPEndpoint;
-            int count = _client.EndReceiveFromGroup(result, out sourceIPEndpoint);
+            int count;
+            try
+            {
+                count = _client.EndReceiveFromGroup(result, out sourceIPEndpoint);
+            }
+            catch
+            {
+                return;
+            }
 
             // Parse the incoming message
             Message message;

@@ -16,10 +16,14 @@ using System.Threading;
 
 namespace Komodex.Bonjour
 {
-    public class NetService
+    public class NetService : IMulticastDNSListener
     {
         // Service resolve timeout (ms)
         private const int ServiceResolveTimeout = 250;
+
+        // Rebroadcast times (ms)
+        private const int FirstRebroadcastInterval = 1000;
+        private const int SecondRebroadcastInterval = 2000;
 
         private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour Service");
 
@@ -112,17 +116,92 @@ namespace Komodex.Bonjour
 
         #region Publish
 
-        private static readonly TimeSpan BroadcastTTL = TimeSpan.FromMinutes(1);
+        private bool _publishing;
+
+        private static readonly TimeSpan BroadcastTTL = TimeSpan.FromMinutes(2);
 
         public void Publish()
         {
-            throw new NotImplementedException();
+            if (_browser != null)
+                throw new InvalidOperationException("Cannot publish services that were discovered by NetServiceBrowser.");
+
+            _publishing = true;
+            MulticastDNSChannel.AddListener(this);
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            if (!_publishing)
+                return;
+
+            _publishing = false;
+            AnnounceServiceStopPublishing();
         }
+
+        private void AnnounceServicePublish()
+        {
+            if (!_publishing)
+                return;
+
+            Message message = GetPublishMessage();
+
+            if (!MulticastDNSChannel.IsJoined)
+                return;
+
+            MulticastDNSChannel.SendMessage(message);
+
+            Thread t = new Thread(() =>
+            {
+                Thread.Sleep(FirstRebroadcastInterval);
+                if (!MulticastDNSChannel.IsJoined || !_publishing)
+                {
+                    Stop();
+                    return;
+                }
+
+                MulticastDNSChannel.SendMessage(message);
+
+                Thread.Sleep(SecondRebroadcastInterval);
+                if (!MulticastDNSChannel.IsJoined || !_publishing)
+                {
+                    Stop();
+                    return;
+                }
+
+                MulticastDNSChannel.SendMessage(message);
+            });
+            t.Start();
+        }
+
+        private void AnnounceServiceStopPublishing()
+        {
+            Message message = GetStopPublishMessage();
+
+            if (!MulticastDNSChannel.IsJoined)
+                return;
+
+            MulticastDNSChannel.SendMessage(message);
+
+            Thread t = new Thread(() =>
+            {
+                Thread.Sleep(FirstRebroadcastInterval);
+                if (!MulticastDNSChannel.IsJoined || _publishing)
+                    return;
+
+                MulticastDNSChannel.SendMessage(message);
+
+                Thread.Sleep(SecondRebroadcastInterval);
+                if (!MulticastDNSChannel.IsJoined || _publishing)
+                    return;
+
+                MulticastDNSChannel.SendMessage(message);
+
+                MulticastDNSChannel.RemoveListener(this);
+            });
+            t.Start();
+        }
+
+        #region Start/Stop DNS Messages
 
         private Message GetPublishMessage()
         {
@@ -194,6 +273,8 @@ namespace Komodex.Bonjour
 
             return message;
         }
+        
+        #endregion
 
         #endregion
 
@@ -243,7 +324,20 @@ namespace Komodex.Bonjour
 
         #endregion
 
-        #region Other Methods
+        #region IMulticastDNSListener Members
+
+        void IMulticastDNSListener.MulticastDNSChannelJoined()
+        {
+            AnnounceServicePublish();
+        }
+
+        void IMulticastDNSListener.MulticastDNSMessageReceived(Message message)
+        {
+        }
+
+        #endregion
+
+        #region Summary Strings
 
         public override string ToString()
         {
