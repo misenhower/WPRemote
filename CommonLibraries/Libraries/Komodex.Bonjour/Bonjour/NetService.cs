@@ -280,6 +280,8 @@ namespace Komodex.Bonjour
 
         #region Resolve
 
+        private bool _resolving;
+
         /// <summary>
         /// Raised when the service has been resolved. This event may be raised multiple times as new information becomes available.
         /// </summary>
@@ -295,15 +297,35 @@ namespace Komodex.Bonjour
                 throw new InvalidOperationException("The associated NetServiceBrowser has been stopped.");
 
             // Resolve the service
+            _resolving = true;
             Message message = GetResolveMessage();
             _log.Info("Resolving service \"{0}\"...", FullServiceInstanceName);
             MulticastDNSChannel.SendMessage(message);
+
+            Thread t = new Thread(() =>
+            {
+                Thread.Sleep(FirstRebroadcastInterval);
+                if (!_resolving)
+                    return;
+
+                MulticastDNSChannel.SendMessage(message);
+
+                Thread.Sleep(SecondRebroadcastInterval);
+                if (!_resolving)
+                    return;
+
+                MulticastDNSChannel.SendMessage(message);
+
+            });
+            t.Start();
         }
 
         internal void Resolved()
         {
             if (_browser == null || !_browser.IsRunning)
                 return;
+
+            _resolving = false;
 
             _log.Info("Resolved service \"{0}\".", FullServiceInstanceName);
             ServiceResolved.Raise(this, new NetServiceEventArgs(this));
