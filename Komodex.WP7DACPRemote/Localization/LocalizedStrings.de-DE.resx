@@ -136,7 +136,7 @@
     <value>Bibliothek hinzufügen</value>
   </data>
   <data name="AddNewLibraryPageDescription" xml:space="preserve">
-    <value>Um dieses Gerät mit einer neuen Bilbliothek zu verknüpfen, müssen Sie das Verknüpfungsprogramm von unserer Website herunterladen:</value>
+    <value>Um dieses Gerät mit einer neuen Bibliothek zu verknüpfen, müssen Sie das Verknüpfungsprogramm von unserer Website herunterladen:</value>
   </data>
   <data name="AddNewLibraryPageTitle" xml:space="preserve">
     <value>NEUE BIBLIOTHEK HINZUFÜGEN</value>
@@ -248,11 +248,11 @@
     <value>Verbindungsfehler</value>
   </data>
   <data name="LibraryErrorBody" xml:space="preserve">
-    <value>Ein unbekannter Fehler ist aufgetreten. Bitte überprüfen Sie Ihre Bilbiothek und versuchen Sie es erneut.</value>
+    <value>Ein unbekannter Fehler ist aufgetreten. Bitte überprüfen Sie Ihre Bibliothek und versuchen Sie es erneut.</value>
     <comment>Body of a message box</comment>
   </data>
   <data name="LibraryErrorTitle" xml:space="preserve">
-    <value>Bilbliothek Fehler</value>
+    <value>Bibliothek Fehler</value>
     <comment>Title of a message box</comment>
   </data>
   <data name="LibraryGenresPivotItem" xml:space="preserve">
@@ -269,7 +269,7 @@
     <value>Es wurden keine Künstler in Ihrer Bibliothek gefunden.</value>
   </data>
   <data name="LibraryNoGenresFound" xml:space="preserve">
-    <value>Es wurden keine Genre in Ihrer Bilbiothek gefunden.</value>
+    <value>Es wurden keine Genre in Ihrer Bibliothek gefunden.</value>
   </data>
   <data name="LibraryNoPlaylistsFound" xml:space="preserve">
     <value>Es wurden keine Playlists in Ihrer Bibliothek gefunden.</value>
@@ -282,7 +282,7 @@
     <comment>A four-digit PIN used for authentication</comment>
   </data>
   <data name="LibraryPINErrorBody" xml:space="preserve">
-    <value>Es konnte keine Verbindung zur Bilbliothek hergestellt werden. Bitte überprüfen sie die PIN und versuchen Sie es erneut.</value>
+    <value>Es konnte keine Verbindung zur Bibliothek hergestellt werden. Bitte überprüfen sie die PIN und versuchen Sie es erneut.</value>
   </data>
   <data name="LibraryPINErrorTitle" xml:space="preserve">
     <value>PIN Fehler</value>
@@ -424,11 +424,11 @@
     <value>Shuffle alle Songs</value>
   </data>
   <data name="StatusConnectingToLibrary" xml:space="preserve">
-    <value>Mit Bilbliothek verbinden</value>
+    <value>Mit Bibliothek verbinden</value>
     <comment>Status text</comment>
   </data>
   <data name="StatusTapChooseLibrary" xml:space="preserve">
-    <value>Tippe auf "Bibliothek wählen" um eine Bilbliothek zu wählen oder eine neue hinzuzufügen.</value>
+    <value>Tippe auf "Bibliothek wählen" um eine Bibliothek zu wählen oder eine neue hinzuzufügen.</value>
   </data>
   <data name="ToggleSwitchOff" xml:space="preserve">
     <value>Aus</value>
@@ -451,5 +451,44 @@
   </data>
   <data name="VideosTVShowsPivotItem" xml:space="preserve">
     <value>TV Shows</value>
+  </data>
+  <data name="TrialReminderExpiredContent" xml:space="preserve">
+    <value>Ihre Demoversion ist abgelaufen.</value>
+  </data>
+  <data name="TrialReminderExpiredHeader" xml:space="preserve">
+    <value>Demoversion abgelaufen</value>
+  </data>
+  <data name="TrialReminderContentPlural" xml:space="preserve">
+    <value>Sie verwenden die Demoversion von Remote. Noch {0} Tage bis Ende der Probezeit.</value>
+  </data>
+  <data name="TrialReminderContentSingular" xml:space="preserve">
+    <value>Sie verwenden die Demoversion von Remote. Noch 1 Tag bis Ende der Probezeit.</value>
+  </data>
+  <data name="TrialReminderHeader" xml:space="preserve">
+    <value>Demomodus</value>
+  </data>
+  <data name="TrialReminderButtonBuy" xml:space="preserve">
+    <value>Kaufen</value>
+  </data>
+  <data name="TrialReminderButtonCancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="TrialReminderUpgradeToFull" xml:space="preserve">
+    <value>Möchten Sie zur Vollversion von Remote wechseln?</value>
+  </data>
+  <data name="TrialUpgradeToFullMenuItem" xml:space="preserve">
+    <value>Vollversion herunterladen</value>
+  </data>
+  <data name="TrialBannerContentPlural" xml:space="preserve">
+    <value>Noch {0} Tage übrig</value>
+  </data>
+  <data name="TrialBannerContentSingular" xml:space="preserve">
+    <value>Noch 1 Tag übrig</value>
+  </data>
+  <data name="TrialBannerHeader" xml:space="preserve">
+    <value>Demomodus</value>
+  </data>
+  <data name="WaitingForWiFiConnection" xml:space="preserve">
+    <value>Warte auf Wi-Fi-Verbindung...</value>
   </data>
 </root>
