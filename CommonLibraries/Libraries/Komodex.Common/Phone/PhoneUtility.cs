@@ -11,6 +11,8 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Threading;
 using Microsoft.Phone.Net.NetworkInformation;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace Komodex.Common.Phone
 {
@@ -52,5 +54,32 @@ namespace Komodex.Common.Phone
 
         #endregion
 
+        #region Encryption
+
+        /// <summary>
+        /// Encrypts a string using the ProtectedData class and returns the protected value as a Base 64 string.
+        /// </summary>
+        public static string EncryptString(string value)
+        {
+            byte[] valueBytes = Encoding.UTF8.GetBytes(value);
+            byte[] protectedBytes = ProtectedData.Protect(valueBytes, null);
+            return Convert.ToBase64String(protectedBytes, 0, protectedBytes.Length);
+        }
+
+        /// <summary>
+        /// Attempts to decrypt a Base 64-encoded string protected with the ProtectedData class.  Returns null if decryption fails.
+        /// </summary>
+        public static string DecryptString(string value)
+        {
+            try
+            {
+                byte[] protectedBytes = Convert.FromBase64String(value);
+                byte[] unprotectedBytes = ProtectedData.Unprotect(protectedBytes, null);
+                return Encoding.UTF8.GetString(unprotectedBytes, 0, unprotectedBytes.Length);
+            }
+            catch { return null; }
+        }
+
+        #endregion
     }
 }
