@@ -15,6 +15,7 @@ namespace Komodex.Common.Phone
     public class DialogUserControlBase : UserControl
     {
         protected DialogService _dialogService;
+        protected MessageBoxResult _result;
 
         #region Properties
 
@@ -37,6 +38,8 @@ namespace Komodex.Common.Phone
             if (_dialogService != null && _dialogService.IsOpen)
                 return;
 
+            _result = default(MessageBoxResult);
+
             _dialogService = new DialogService();
             _dialogService.PopupContainer = container;
             _dialogService.AnimationType = DialogService.AnimationTypes.Slide;
@@ -51,19 +54,10 @@ namespace Komodex.Common.Phone
 
         public virtual void Hide(MessageBoxResult result = MessageBoxResult.None)
         {
+            _result = result;
+
             if (_dialogService != null && _dialogService.IsOpen)
-            {
-                if (Closing != null)
-                {
-                    DialogControlClosingEventArgs e = new DialogControlClosingEventArgs(result);
-                    Closing.Raise(this, e);
-                    if (e.Cancel)
-                        return;
-                }
-                UnhookEvents();
                 _dialogService.Hide();
-                Closed.RaiseOnUIThread(this, new DialogControlClosedEventArgs(result));
-            }
         }
 
         private void UnhookEvents()
@@ -88,7 +82,7 @@ namespace Komodex.Common.Phone
 
         protected virtual void DialogService_Closing(object sender, EventArgs e)
         {
-            Closing.RaiseOnUIThread(this, new DialogControlClosingEventArgs(MessageBoxResult.None));
+            Closing.RaiseOnUIThread(this, new DialogControlClosingEventArgs(_result));
         }
 
 
@@ -99,7 +93,7 @@ namespace Komodex.Common.Phone
 
         protected virtual void DialogService_Closed(object sender, EventArgs e)
         {
-            Closed.RaiseOnUIThread(this, new DialogControlClosedEventArgs(MessageBoxResult.None));
+            Closed.RaiseOnUIThread(this, new DialogControlClosedEventArgs(_result));
             UnhookEvents();
             _dialogService = null;
         }
@@ -113,8 +107,6 @@ namespace Komodex.Common.Phone
         }
 
         public MessageBoxResult Result { get; protected set; }
-
-        public bool Cancel { get; set; }
     }
 
     public class DialogControlClosedEventArgs : EventArgs
