@@ -5,7 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:converters="clr-namespace:Komodex.WP7DACPRemote.Converters"
-    xmlns:commonConverters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common.Phone"
+    xmlns:commonConverters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
     xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"
