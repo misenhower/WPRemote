@@ -118,6 +118,10 @@
       <Project>{0754458A-7AFC-463A-B27D-2F6980522119}</Project>
       <Name>Microsoft.Phone.Controls.Toolkit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Komodex.CommonLibrariesTestApp.BackgroundAgent\Komodex.CommonLibrariesTestApp.BackgroundAgent.csproj">
+      <Project>{EFD5EC9B-298C-4D94-9105-284E6BCE7222}</Project>
+      <Name>Komodex.CommonLibrariesTestApp.BackgroundAgent</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
