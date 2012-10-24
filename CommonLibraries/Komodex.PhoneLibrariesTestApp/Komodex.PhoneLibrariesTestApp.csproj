@@ -106,17 +106,17 @@
       <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
       <Name>Clarity.PageTransitions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\Komodex.Bonjour\Komodex.Bonjour.csproj">
+    <ProjectReference Include="..\Libraries\Komodex.Bonjour\Komodex.Bonjour %28WP7%29.csproj">
       <Project>{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}</Project>
-      <Name>Komodex.Bonjour</Name>
+      <Name>Komodex.Bonjour %28WP7%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI.csproj">
+    <ProjectReference Include="..\Libraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI %28WP7%29.csproj">
       <Project>{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}</Project>
-      <Name>Komodex.Common.Phone.UI</Name>
+      <Name>Komodex.Common.Phone.UI %28WP7%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\Komodex.Common\Komodex.Common.Phone.csproj">
+    <ProjectReference Include="..\Libraries\Komodex.Common\Komodex.Common %28WP7%29.csproj">
       <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>
-      <Name>Komodex.Common.Phone</Name>
+      <Name>Komodex.Common %28WP7%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Libraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj">
       <Project>{0754458A-7AFC-463A-B27D-2F6980522119}</Project>
