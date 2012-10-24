@@ -2,7 +2,7 @@
 using Microsoft.Phone.Scheduler;
 using Komodex.Common;
 
-namespace Komodex.PhoneLibrariesTestApp.BackgroundAgent
+namespace Komodex.CommonLibrariesTestApp.BackgroundAgent
 {
     public class ScheduledAgent : ScheduledTaskAgent
     {

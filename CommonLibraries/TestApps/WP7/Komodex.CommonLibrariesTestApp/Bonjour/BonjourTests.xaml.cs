@@ -14,7 +14,7 @@ using System.Collections.ObjectModel;
 using Komodex.Bonjour;
 using Komodex.Common;
 
-namespace Komodex.PhoneLibrariesTestApp.Bonjour
+namespace Komodex.CommonLibrariesTestApp.Bonjour
 {
     public partial class BonjourTests : PhoneApplicationPage
     {

@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Komodex.PhoneLibrariesTestApp</RootNamespace>
-    <AssemblyName>Komodex.PhoneLibrariesTestApp</AssemblyName>
+    <RootNamespace>Komodex.CommonLibrariesTestApp</RootNamespace>
+    <AssemblyName>Komodex.CommonLibrariesTestApp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
@@ -20,9 +20,9 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>Komodex.PhoneLibrariesTestApp.xap</XapFilename>
+    <XapFilename>Komodex.CommonLibrariesTestApp.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>Komodex.PhoneLibrariesTestApp.App</SilverlightAppEntry>
+    <SilverlightAppEntry>Komodex.CommonLibrariesTestApp.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
   </PropertyGroup>
@@ -98,27 +98,23 @@
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Komodex.PhoneLibrariesTestApp.BackgroundAgent\Komodex.PhoneLibrariesTestApp.BackgroundAgent.csproj">
-      <Project>{EFD5EC9B-298C-4D94-9105-284E6BCE7222}</Project>
-      <Name>Komodex.PhoneLibrariesTestApp.BackgroundAgent</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\Clarity.PageTransitions\Clarity.PageTransitions.csproj">
+    <ProjectReference Include="..\..\..\Libraries\Clarity.PageTransitions\Clarity.PageTransitions.csproj">
       <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
       <Name>Clarity.PageTransitions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\Komodex.Bonjour\Komodex.Bonjour %28WP7%29.csproj">
+    <ProjectReference Include="..\..\..\Libraries\Komodex.Bonjour\Komodex.Bonjour %28WP7%29.csproj">
       <Project>{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}</Project>
       <Name>Komodex.Bonjour %28WP7%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI %28WP7%29.csproj">
+    <ProjectReference Include="..\..\..\Libraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI %28WP7%29.csproj">
       <Project>{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}</Project>
       <Name>Komodex.Common.Phone.UI %28WP7%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\Komodex.Common\Komodex.Common %28WP7%29.csproj">
+    <ProjectReference Include="..\..\..\Libraries\Komodex.Common\Komodex.Common %28WP7%29.csproj">
       <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>
       <Name>Komodex.Common %28WP7%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Libraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj">
+    <ProjectReference Include="..\..\..\Libraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj">
       <Project>{0754458A-7AFC-463A-B27D-2F6980522119}</Project>
       <Name>Microsoft.Phone.Controls.Toolkit</Name>
     </ProjectReference>

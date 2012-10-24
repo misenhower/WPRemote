@@ -6,11 +6,11 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Komodex.PhoneLibrariesTestApp")]
+[assembly: AssemblyTitle("Komodex.CommonLibrariesTestApp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Komodex Systems LLC")]
-[assembly: AssemblyProduct("Komodex.PhoneLibrariesTestApp")]
+[assembly: AssemblyProduct("Komodex.CommonLibrariesTestApp")]
 [assembly: AssemblyCopyright("Copyright 2012 Komodex Systems LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

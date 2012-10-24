@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{524be554-4891-4183-82c6-b2c293ff29c1}" Title="Komodex.PhoneLibrariesTestApp" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Komodex.PhoneLibrariesTestApp author" Description="Sample description" Publisher="Komodex.PhoneLibrariesTestApp">
+  <App xmlns="" ProductID="{524be554-4891-4183-82c6-b2c293ff29c1}" Title="Komodex.CommonLibrariesTestApp" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Komodex.CommonLibrariesTestApp author" Description="Sample description" Publisher="Komodex.CommonLibrariesTestApp">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
@@ -21,15 +21,15 @@
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
       <ExtendedTask Name="BackgroundTask">
-        <BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="Komodex.PhoneLibrariesTestApp.BackgroundAgent" Source="Komodex.PhoneLibrariesTestApp.BackgroundAgent" Type="Komodex.PhoneLibrariesTestApp.BackgroundAgent.ScheduledAgent" />
+        <BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="Komodex.CommonLibrariesTestApp.BackgroundAgent" Source="Komodex.CommonLibrariesTestApp.BackgroundAgent" Type="Komodex.CommonLibrariesTestApp.BackgroundAgent.ScheduledAgent" />
       </ExtendedTask>
     </Tasks>
     <Tokens>
-      <PrimaryToken TokenID="Komodex.PhoneLibrariesTestAppToken" TaskName="_default">
+      <PrimaryToken TokenID="Komodex.CommonLibrariesTestAppToken" TaskName="_default">
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>Komodex.PhoneLibrariesTestApp</Title>
+          <Title>Komodex.CommonLibrariesTestApp</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

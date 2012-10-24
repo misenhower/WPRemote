@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.Common.Phone;
 
-namespace Komodex.PhoneLibrariesTestApp
+namespace Komodex.CommonLibrariesTestApp
 {
     public partial class MainPage : PhoneApplicationBasePage
     {

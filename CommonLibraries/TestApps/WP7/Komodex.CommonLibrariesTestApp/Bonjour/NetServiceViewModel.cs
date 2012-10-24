@@ -13,7 +13,7 @@ using System.ComponentModel;
 using Komodex.Common;
 using System.Linq;
 
-namespace Komodex.PhoneLibrariesTestApp.Bonjour
+namespace Komodex.CommonLibrariesTestApp.Bonjour
 {
     public class NetServiceViewModel:INotifyPropertyChanged
     {
