@@ -1,15 +1,5 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Diagnostics;
-using System.IO.IsolatedStorage;
 using System.IO;
 
 namespace Komodex.Common
@@ -161,18 +151,10 @@ namespace Komodex.Common
                     System.Diagnostics.Debug.WriteLine(((i > 0) ? "    " : "") + lines[i].Trim('\r'));
 
                 // Write to the log file
+
                 if (Log.LogToFile)
                 {
-                    lock (Log.LogFilename)
-                    {
-                        using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
-                        {
-                            using (TextWriter writer = new StreamWriter(store.OpenFile(Log.LogFilename, FileMode.Append)))
-                            {
-                                writer.WriteLine(message);
-                            }
-                        }
-                    }
+                    LogMessageToFile(message);
                 }
             }
 
@@ -184,6 +166,31 @@ namespace Komodex.Common
 
                 WriteMessage(level, string.Format(format, args));
             }
+
+#if WINDOWS_PHONE
+            [Conditional("DEBUG")]
+            private void LogMessageToFile(string message)
+            {
+                lock (Log.LogFilename)
+                {
+                    using (var store = System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForApplication())
+                    {
+                        using (TextWriter writer = new StreamWriter(store.OpenFile(Log.LogFilename, FileMode.Append)))
+                        {
+                            writer.WriteLine(message);
+                        }
+                    }
+                }
+            }
+#else
+            [Conditional("DEBUG")]
+            private async void LogMessageToFile(string message)
+            {
+                var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                var logFile = await localFolder.CreateFileAsync(Log.LogFilename, Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.AppendTextAsync(logFile, message + Environment.NewLine);
+            }
+#endif
 
             #endregion
 
