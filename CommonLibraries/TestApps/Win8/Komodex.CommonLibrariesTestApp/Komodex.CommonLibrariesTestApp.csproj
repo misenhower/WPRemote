@@ -134,6 +134,12 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libraries\Komodex.Common %28Win8%29\Komodex.Common %28Win8%29.csproj">
+      <Project>{4a1beebe-a56b-42d9-b34f-13533f757bcc}</Project>
+      <Name>Komodex.Common %28Win8%29</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

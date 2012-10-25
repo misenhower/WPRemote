@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Reflection;
-using System.Globalization;
-using System.Windows.Threading;
-using System.ComponentModel;
-using System.Linq;
-using System.Xml.Linq;
 using System.Collections.Generic;
-using Microsoft.Phone.Info;
+using System.ComponentModel;
+using System.Globalization;
+using System.Net;
+using System.Reflection;
+using System.Threading;
+using System.Xml.Linq;
 
 namespace Komodex.Common
 {
@@ -73,24 +63,49 @@ namespace Komodex.Common
         /// </summary>
         /// <param name="applicationIdentifier">The application's identifier, e.g., "serverpulse"</param>
         /// <param name="applicationName">The application's name, e.g., "Server Pulse"</param>
-        /// <param name="applicationVersion">The application's version, e.g., "1.0.0.0" or null to automatically detect</param>
-        public static void InitializeApplicationID(string applicationIdentifier, string applicationName, string applicationVersion = null)
+        /// <param name="applicationVersion">The application's version, e.g., "1.0.0.0"</param>
+        public static void InitializeApplicationID(string applicationIdentifier, string applicationName, string applicationVersion)
         {
             if (applicationIdentifier == null)
                 throw new ArgumentNullException("applicationIdentifier");
             if (applicationName == null)
                 throw new ArgumentNullException("applicationName");
+            if (applicationVersion == null)
+                throw new ArgumentNullException("applicationVersion");
 
             ApplicationIdentifier = applicationIdentifier;
             ApplicationName = applicationName;
-
-            if (string.IsNullOrEmpty(applicationVersion))
-            {
-                string assemblyInfo = Assembly.GetCallingAssembly().FullName;
-                applicationVersion = assemblyInfo.Split('=')[1].Split(',')[0];
-            }
             ApplicationVersion = applicationVersion;
         }
+
+
+        /// <summary>
+        /// Initializes the ApplicationIdentifier, ApplicationName, and ApplicationVersion properties.
+        /// </summary>
+        /// <param name="applicationIdentifier">The application's identifier, e.g., "serverpulse"</param>
+        /// <param name="applicationName">The application's name, e.g., "Server Pulse"</param>
+        /// <param name="applicationVersion">A Type used to derive the application version</param>
+        public static void InitializeApplicationID(string applicationIdentifier, string applicationName, Type applicationType)
+        {
+            string assemblyInfo = applicationType.AssemblyQualifiedName;
+            string applicationVersion = assemblyInfo.Split('=')[1].Split(',')[0];
+            InitializeApplicationID(applicationIdentifier, applicationName, applicationVersion);
+        }
+
+#if WINDOWS_PHONE
+        /// <summary>
+        /// Initializes the ApplicationIdentifier, ApplicationName, and ApplicationVersion properties.
+        /// Automatically detects the calling assembly's version.
+        /// </summary>
+        /// <param name="applicationIdentifier">The application's identifier, e.g., "serverpulse"</param>
+        /// <param name="applicationName">The application's name, e.g., "Server Pulse"</param>
+        public static void InitializeApplicationID(string applicationIdentifier, string applicationName)
+        {
+            string assemblyInfo = Assembly.GetCallingAssembly().FullName;
+            string applicationVersion = assemblyInfo.Split('=')[1].Split(',')[0];
+            InitializeApplicationID(applicationIdentifier, applicationName, applicationVersion);
+        }
+#endif
 
         #endregion
 
@@ -104,7 +119,12 @@ namespace Komodex.Common
             get
             {
                 if (_userAgentString == null)
-                    _userAgentString = string.Format("Komodex {0}/{1} ({2})", ApplicationName, ApplicationVersion, Environment.OSVersion.ToString());
+                {
+                    _userAgentString = string.Format("Komodex {0}/{1}", ApplicationName, ApplicationVersion);
+#if WINDOWS_PHONE
+                    _userAgentString += string.Format(" ({0})", Environment.OSVersion.ToString());
+#endif
+                }
                 return _userAgentString;
             }
         }
@@ -115,14 +135,16 @@ namespace Komodex.Common
 
         public static void PrepareHttpWebRequest(HttpWebRequest request)
         {
-            request.UserAgent = UserAgentString;
+            request.Headers["User-Agent"] = UserAgentString;
             request.Headers["Accept-Language"] = CultureInfo.CurrentCulture.ToString();
             request.Headers["Application-Version"] = ApplicationVersion;
-            request.Headers["OS-Version"] = Environment.OSVersion.Version.ToString();
 
+#if WINDOWS_PHONE
             // Device Info
-            request.Headers["Device-Manufacturer"] = DeviceStatus.DeviceManufacturer;
-            request.Headers["Device-Model"] = DeviceStatus.DeviceName;
+            request.Headers["OS-Version"] = Environment.OSVersion.Version.ToString();
+            request.Headers["Device-Manufacturer"] = Microsoft.Phone.Info.DeviceStatus.DeviceManufacturer;
+            request.Headers["Device-Model"] = Microsoft.Phone.Info.DeviceStatus.DeviceName;
+#endif
         }
 
         #endregion
@@ -131,20 +153,16 @@ namespace Komodex.Common
 
         #region BeginInvoke on UI Thread
 
-#if WINDOWS_PHONE
-        private static Dispatcher _dispatcher = Deployment.Current.Dispatcher;
-#else
-        // TODO
-#endif
+        private static SynchronizationContext _uiSynchronizationContext = SynchronizationContext.Current;
 
         public static void BeginInvokeOnUIThread(Action a)
         {
             // If we're already on the UI thread, just invoke the action
-            if (_dispatcher.CheckAccess())
+            if (_uiSynchronizationContext == SynchronizationContext.Current)
                 a();
             // Otherwise, send it to the dispatcher
             else
-                _dispatcher.BeginInvoke(a);
+                _uiSynchronizationContext.Post((state) => a(), null);
         }
 
         #endregion
@@ -193,6 +211,7 @@ namespace Komodex.Common
 
         #region PropertyChangingEventHandler
 
+#if WINDOWS_PHONE
         public static void Raise(this PropertyChangingEventHandler eventHandler, object sender, string firstPropertyName, params string[] additionalPropertyNames)
         {
             if (eventHandler == null)
@@ -203,6 +222,7 @@ namespace Komodex.Common
             foreach (string propertyName in additionalPropertyNames)
                 eventHandler(sender, new PropertyChangingEventArgs(propertyName));
         }
+#endif
 
         #endregion
 
@@ -210,6 +230,7 @@ namespace Komodex.Common
 
         #region Local Hostname/IP Address Methods
 
+#if WINDOWS_PHONE
         public static bool IsIPAddress(string value)
         {
             IPAddress ip;
@@ -218,15 +239,17 @@ namespace Komodex.Common
 
             return false;
         }
+#endif
 
         public static bool IsLocalHostname(string hostname)
         {
-            if (hostname.Contains('.') && !hostname.EndsWith(".local"))
+            if (hostname.Contains(".") && !hostname.EndsWith(".local"))
                 return false;
 
             return true;
         }
 
+#if WINDOWS_PHONE
         public static bool IsLocalIPAddress(IPAddress ip)
         {
             byte[] ipBytes = ip.GetAddressBytes();
@@ -242,6 +265,7 @@ namespace Komodex.Common
 
             return false;
         }
+#endif
 
         #endregion
 
