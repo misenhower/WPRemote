@@ -344,11 +344,11 @@
       <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
       <Name>Clarity.PageTransitions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CommonLibraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI %28WP7%29.csproj">
+    <ProjectReference Include="..\CommonLibraries\Komodex.Common.Phone.UI %28WP7%29\Komodex.Common.Phone.UI %28WP7%29.csproj">
       <Project>{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}</Project>
       <Name>Komodex.Common.Phone.UI %28WP7%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CommonLibraries\Komodex.Common\Komodex.Common %28WP7%29.csproj">
+    <ProjectReference Include="..\CommonLibraries\Komodex.Common %28WP7%29\Komodex.Common %28WP7%29.csproj">
       <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>
       <Name>Komodex.Common %28WP7%29</Name>
     </ProjectReference>

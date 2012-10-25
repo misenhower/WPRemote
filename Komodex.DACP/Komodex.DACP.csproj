@@ -88,7 +88,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommonLibraries\Komodex.Common\Komodex.Common %28WP7%29.csproj">
+    <ProjectReference Include="..\CommonLibraries\Komodex.Common %28WP7%29\Komodex.Common %28WP7%29.csproj">
       <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>
       <Name>Komodex.Common %28WP7%29</Name>
     </ProjectReference>
