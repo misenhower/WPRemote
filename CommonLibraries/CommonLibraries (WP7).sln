@@ -7,15 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.CommonLibrariesTest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{E17DE72D-C0C3-40C3-9058-26B9A198E3F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common (WP7)", "Libraries\Komodex.Common\Komodex.Common (WP7).csproj", "{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common (WP7)", "Libraries\Komodex.Common (WP7)\Komodex.Common (WP7).csproj", "{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common.Phone.UI (WP7)", "Libraries\Komodex.Common.Phone.UI\Komodex.Common.Phone.UI (WP7).csproj", "{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common.Phone.UI (WP7)", "Libraries\Komodex.Common.Phone.UI (WP7)\Komodex.Common.Phone.UI (WP7).csproj", "{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clarity.PageTransitions", "Libraries\Clarity.PageTransitions\Clarity.PageTransitions.csproj", "{6CA892BF-E192-4A00-A126-02F391C07556}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Phone.Controls.Toolkit", "Libraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj", "{0754458A-7AFC-463A-B27D-2F6980522119}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Bonjour (WP7)", "Libraries\Komodex.Bonjour\Komodex.Bonjour (WP7).csproj", "{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Bonjour (WP7)", "Libraries\Komodex.Bonjour (WP7)\Komodex.Bonjour (WP7).csproj", "{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -55,7 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Libraries\Komodex.Common\Komodex.Common %28WP7%29.csproj">
+    <ProjectReference Include="..\..\..\Libraries\Komodex.Common %28WP7%29\Komodex.Common %28WP7%29.csproj">
       <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>
       <Name>Komodex.Common %28WP7%29</Name>
     </ProjectReference>
