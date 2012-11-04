@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace Komodex.Common
 {
@@ -347,6 +349,19 @@ namespace Komodex.Common
             return result;
         }
 
+        public static bool TryGetValue<T>(this IDictionary<string,object> dictionary, string key, out T value)
+        {
+            object retrievedValue;
+            bool success = dictionary.TryGetValue(key, out retrievedValue);
+            if (success && retrievedValue is T)
+            {
+                value = (T)retrievedValue;
+                return true;
+            }
+            value = default(T);
+            return false;
+        }
+
         #endregion
 
         #region ICollection<T> Extensions
@@ -375,6 +390,35 @@ namespace Komodex.Common
             return string.Format("{0:0.##} {1}", bytes, units[i]);
         }
 
+        #endregion
+
+        #region XmlSerializer Extensions
+#if NETFX_CORE
+        public static string SerializeToString(this XmlSerializer xmlSerializer, object value)
+        {
+            StringWriter stringWriter = new StringWriter();
+            xmlSerializer.Serialize(stringWriter, value);
+            return stringWriter.ToString();
+        }
+
+        public static bool TryDeserialize<T>(this XmlSerializer xmlSerializer, string input, out T value)
+        {
+            StringReader stringReader = new StringReader(input);
+            try
+            {
+                object obj = xmlSerializer.Deserialize(stringReader);
+                if (obj is T)
+                {
+                    value = (T)obj;
+                    return true;
+                }
+            }
+            catch { }
+
+            value = default(T);
+            return false;
+        }
+#endif
         #endregion
     }
 }

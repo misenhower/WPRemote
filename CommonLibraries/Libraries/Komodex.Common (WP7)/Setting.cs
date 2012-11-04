@@ -1,40 +1,68 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.IO.IsolatedStorage;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Komodex.Common
 {
     public class Setting<T>
     {
-        private static IsolatedStorageSettings _isolatedSettings = IsolatedStorageSettings.ApplicationSettings;
+        private static Log.LogInstance _log = new Log.LogInstance("Settings");
+
+#if WINDOWS_PHONE
+        private static System.IO.IsolatedStorage.IsolatedStorageSettings _isolatedSettings = System.IO.IsolatedStorage.IsolatedStorageSettings.ApplicationSettings;
+#else
+        private static Windows.Storage.ApplicationDataContainer _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+#endif
 
         public Setting(string keyName, T defaultValue = default(T), Action<T> changeAction = null)
         {
             _keyName = keyName;
             _changeAction = changeAction;
 
+            bool valueLoaded = false;
+
+#if WINDOWS_PHONE
             // Try to load the value from isolated storage, or use the default value
             // TryGetValue<T> will throw an exception if the value in isolated storage is of a different type
-            bool valueLoaded = false;
             try
             {
                 valueLoaded = _isolatedSettings.TryGetValue<T>(_keyName, out _value);
             }
             catch { }
-            if (valueLoaded)
-                AttachValueEvents();
+#else
+            // Determine whether this value type should be XML serialized
+            Type settingType = typeof(T);
+            if (settingType == typeof(string) || settingType == typeof(int) || settingType == typeof(bool))
+                _shouldSerializeValue = false;
             else
-                Value = defaultValue; // This will save the default value to isolated storage as well
+            {
+                _shouldSerializeValue = true;
+                _xmlSerializer = new XmlSerializer(typeof(T));
+            }
+
+            // Try to load the value from isolated storage
+            if (_shouldSerializeValue)
+            {
+                string value;
+                if (_localSettings.Values.TryGetValue<string>(_keyName, out value))
+                    valueLoaded = _xmlSerializer.TryDeserialize<T>(value, out _value);
+            }
+            else
+                valueLoaded = _localSettings.Values.TryGetValue<T>(_keyName, out _value);
+#endif
+
+            if (valueLoaded)
+            {
+                AttachValueEvents();
+                _log.Debug("Loaded {0} from isolated storage key '{1}'", typeof(T).Name, _keyName);
+            }
+            else
+            {
+                _log.Debug("Initializing default value for settings key '{1}' (type: {0})", typeof(T).Name, _keyName);
+                Value = defaultValue; // This will save the default value to isolated storage as well            
+            }
 
             // If an action was specified, run it on the initial value
             if (_changeAction != null)
@@ -44,6 +72,11 @@ namespace Komodex.Common
         protected string _keyName;
         protected T _value;
         protected Action<T> _changeAction;
+
+#if NETFX_CORE
+        private bool _shouldSerializeValue;
+        private XmlSerializer _xmlSerializer;
+#endif
 
         protected void AttachValueEvents()
         {
@@ -73,7 +106,6 @@ namespace Komodex.Common
                 AttachValueEvents();
 
                 // Save the new value to isolated storage
-                _isolatedSettings[_keyName] = _value;
                 Save();
             }
         }
@@ -87,11 +119,21 @@ namespace Komodex.Common
         public void Save()
         {
             // Update isolated storage
+#if WINDOWS_PHONE
+            _isolatedSettings[_keyName] = _value;
             _isolatedSettings.Save();
+#else
+            if (_shouldSerializeValue)
+                _localSettings.Values[_keyName] = _xmlSerializer.SerializeToString(_value);
+            else
+                _localSettings.Values[_keyName] = _value;
+#endif
 
             // Run modified action
             if (_changeAction != null)
                 _changeAction(_value);
+
+            _log.Debug("Wrote value for key '{0}'", _keyName);
         }
 
         protected void Value_PropertyChanged(object sender, PropertyChangedEventArgs e)
