@@ -12,7 +12,7 @@ using System.IO.IsolatedStorage;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace Komodex.Common.Phone
+namespace Komodex.Common
 {
     public class Setting<T>
     {

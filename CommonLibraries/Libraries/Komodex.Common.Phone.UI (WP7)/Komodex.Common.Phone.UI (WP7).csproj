@@ -53,7 +53,7 @@
     <Compile Include="Controls\LongListSelectorEx.cs" />
     <Compile Include="Controls\NumericTextBox.cs" />
     <Compile Include="Phone\DialogUserControlBase.cs" />
-    <Compile Include="Phone\PhoneAppCrashReporter.cs" />
+    <Compile Include="Analytics\PhoneAppCrashReporter.cs" />
     <Compile Include="Phone\PhoneApplicationBasePage.cs" />
     <Compile Include="Phone\PhoneApplicationUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

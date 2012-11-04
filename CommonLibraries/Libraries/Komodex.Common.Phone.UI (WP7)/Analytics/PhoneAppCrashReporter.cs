@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.IO;
 using Microsoft.Phone.Shell;
 
-namespace Komodex.Common.Phone
+namespace Komodex.Analytics
 {
     public static class PhoneAppCrashReporter
     {

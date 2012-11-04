@@ -1,17 +1,9 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.IO.IsolatedStorage;
+﻿using Komodex.Common;
 using Microsoft.Devices;
+using System;
+using System.Net;
 
-namespace Komodex.Common.Phone
+namespace Komodex.Analytics
 {
     public static class FirstRunNotifier
     {
@@ -75,7 +67,7 @@ namespace Komodex.Common.Phone
 
         public static void CheckFirstRun()
         {
-            TrialManager trialManager = TrialManager.Current;
+            var trialManager = Komodex.Common.Phone.TrialManager.Current;
 
             IsUpgrade = PreviousVersion != Utility.ApplicationVersion;
             WasTrial = PreviousTrialMode && !trialManager.IsTrial;
@@ -100,7 +92,7 @@ namespace Komodex.Common.Phone
         {
             string version = Utility.ApplicationVersion;
             string previousVersion = PreviousVersion;
-            bool isTrial = TrialManager.Current.IsTrial;
+            bool isTrial = Komodex.Common.Phone.TrialManager.Current.IsTrial;
 
             // Build the URL
             string request = "?p=" + Utility.ApplicationIdentifier + "&v=" + version;
