@@ -102,6 +102,9 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Komodex.Common %28WP7%29\Analytics\FirstRunNotifier.cs">
+      <Link>Analytics\FirstRunNotifier.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common %28WP7%29\EnumT.cs">
       <Link>EnumT.cs</Link>
     </Compile>
@@ -115,6 +118,7 @@
       <Link>Utility.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Store\TrialManager.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

@@ -1,5 +1,4 @@
 ﻿using Komodex.Common;
-using Microsoft.Devices;
 using System;
 using System.Net;
 
@@ -67,7 +66,11 @@ namespace Komodex.Analytics
 
         public static void CheckFirstRun()
         {
+#if WINDOWS_PHONE
             var trialManager = Komodex.Common.Phone.TrialManager.Current;
+#else
+            var trialManager = Komodex.Common.Store.TrialManager.Current;
+#endif
 
             IsUpgrade = PreviousVersion != Utility.ApplicationVersion;
             WasTrial = PreviousTrialMode && !trialManager.IsTrial;
@@ -80,8 +83,10 @@ namespace Komodex.Analytics
 
             SendFirstRunNotification();
 
+#if WINDOWS_PHONE
             if (IsUpgrade && trialManager.IsTrial && trialManager.TrialExpirationDate > DateTime.MinValue && trialManager.ResetTrialExpirationOnNewVersion)
                 trialManager.ResetTrialExpiration();
+#endif
         }
 
         #endregion
@@ -92,7 +97,11 @@ namespace Komodex.Analytics
         {
             string version = Utility.ApplicationVersion;
             string previousVersion = PreviousVersion;
+#if WINDOWS_PHONE
             bool isTrial = Komodex.Common.Phone.TrialManager.Current.IsTrial;
+#else
+            bool isTrial = Komodex.Common.Store.TrialManager.Current.IsTrial;
+#endif
 
             // Build the URL
             string request = "?p=" + Utility.ApplicationIdentifier + "&v=" + version;
@@ -113,9 +122,11 @@ namespace Komodex.Analytics
             if (version != previousVersion && !string.IsNullOrEmpty(previousVersion))
                 request += "&pv=" + previousVersion;
 
+#if WINDOWS_PHONE
             // Emulator
-            if (Microsoft.Devices.Environment.DeviceType == DeviceType.Emulator)
+            if (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator)
                 request += "&e=1";
+#endif
 
 #if DEBUG
             request += "&d=1";

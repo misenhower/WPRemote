@@ -137,7 +137,9 @@ namespace Komodex.Common
 
         public static void PrepareHttpWebRequest(HttpWebRequest request)
         {
-            request.Headers["User-Agent"] = UserAgentString;
+#if !NETFX_CORE
+            request.UserAgent = UserAgentString;
+#endif
             request.Headers["Accept-Language"] = CultureInfo.CurrentCulture.ToString();
             request.Headers["Application-Version"] = ApplicationVersion;
 
