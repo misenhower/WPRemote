@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common (Win8)", "Libraries\Komodex.Common (Win8)\Komodex.Common (Win8).csproj", "{4A1BEEBE-A56B-42D9-B34F-13533F757BCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Bonjour (Win8)", "Libraries\Komodex.Bonjour (Win8)\Komodex.Bonjour (Win8).csproj", "{B0538439-B0B5-4AA1-A9E1-1FD08599958F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,11 +61,28 @@ Global
 		{4A1BEEBE-A56B-42D9-B34F-13533F757BCC}.Release|x64.Build.0 = Release|x64
 		{4A1BEEBE-A56B-42D9-B34F-13533F757BCC}.Release|x86.ActiveCfg = Release|x86
 		{4A1BEEBE-A56B-42D9-B34F-13533F757BCC}.Release|x86.Build.0 = Release|x86
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Debug|ARM.Build.0 = Debug|ARM
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Debug|x64.ActiveCfg = Debug|x64
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Debug|x64.Build.0 = Debug|x64
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Debug|x86.ActiveCfg = Debug|x86
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Debug|x86.Build.0 = Debug|x86
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Release|ARM.ActiveCfg = Release|ARM
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Release|ARM.Build.0 = Release|ARM
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Release|x64.ActiveCfg = Release|x64
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Release|x64.Build.0 = Release|x64
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Release|x86.ActiveCfg = Release|x86
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4A1BEEBE-A56B-42D9-B34F-13533F757BCC} = {660C3BAC-741E-43D4-A497-DBEBF5132DC9}
+		{B0538439-B0B5-4AA1-A9E1-1FD08599958F} = {660C3BAC-741E-43D4-A497-DBEBF5132DC9}
 	EndGlobalSection
 EndGlobal
