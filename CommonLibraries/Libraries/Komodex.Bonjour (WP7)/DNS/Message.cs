@@ -182,27 +182,27 @@ namespace Komodex.Bonjour.DNS
             // QR, OPCODE, AA, TC, RD
             byte flags = 0;
             // QR
-            Utility.SetBit(ref flags, 7, QueryResponse);
+            BitUtility.SetBit(ref flags, 7, QueryResponse);
             // OPCODE
             flags = (byte)(flags | ((Opcode & 0x0f) << 3));
             // AA
-            Utility.SetBit(ref flags, 2, AuthoritativeAnswer);
+            BitUtility.SetBit(ref flags, 2, AuthoritativeAnswer);
             // TC
-            Utility.SetBit(ref flags, 1, Truncated);
+            BitUtility.SetBit(ref flags, 1, Truncated);
             // RD
-            Utility.SetBit(ref flags, 0, RecursionDesired);
+            BitUtility.SetBit(ref flags, 0, RecursionDesired);
             result.Add(flags);
 
             // RA, Z, AD, CD, RCODE
             flags = 0;
             // RA
-            Utility.SetBit(ref flags, 7, RecursionAvailable);
+            BitUtility.SetBit(ref flags, 7, RecursionAvailable);
             // Z
             // (zero bit)
             // AD
-            Utility.SetBit(ref flags, 5, AuthenticData);
+            BitUtility.SetBit(ref flags, 5, AuthenticData);
             // CD
-            Utility.SetBit(ref flags, 4, CheckingDisabled);
+            BitUtility.SetBit(ref flags, 4, CheckingDisabled);
             // RCODE
             flags = (byte)(flags | ((ResponseCode & 0x0f) << 0));
             result.Add(flags);
