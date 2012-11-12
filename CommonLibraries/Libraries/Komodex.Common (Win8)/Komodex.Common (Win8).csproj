@@ -102,6 +102,9 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Komodex.Common %28WP7%29\Analytics\CrashReporter.cs">
+      <Link>Analytics\CrashReporter.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common %28WP7%29\Analytics\FirstRunNotifier.cs">
       <Link>Analytics\FirstRunNotifier.cs</Link>
     </Compile>
