@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Komodex.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -10,7 +11,7 @@ namespace Komodex.Bonjour
     {
         #region Constants
 
-        public static readonly IPAddress MulticastDNSAddress = IPAddress.Parse("224.0.0.251");
+        public const string MulticastDNSAddress = "224.0.0.251";
         public const int MulticastDNSPort = 5353;
 
         #endregion
@@ -19,7 +20,7 @@ namespace Komodex.Bonjour
 
         public static void AddNetworkOrderBytes(this List<byte> bytes, Int16 value)
         {
-            bytes.AddRange(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(value)));
+            bytes.AddRange(BitConverter.GetBytes(BitUtility.HostToNetworkOrder(value)));
         }
 
         public static void AddNetworkOrderBytes(this List<byte> bytes, UInt16 value)
@@ -32,7 +33,7 @@ namespace Komodex.Bonjour
 
         public static void AddNetworkOrderBytes(this List<byte> bytes, Int32 value)
         {
-            bytes.AddRange(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(value)));
+            bytes.AddRange(BitConverter.GetBytes(BitUtility.HostToNetworkOrder(value)));
         }
 
         #endregion
@@ -41,7 +42,7 @@ namespace Komodex.Bonjour
 
         public static Int16 ReadNetworkOrderInt16(this BinaryReader reader)
         {
-            return IPAddress.NetworkToHostOrder(reader.ReadInt16());
+            return BitUtility.NetworkToHostOrder(reader.ReadInt16());
         }
 
         public static UInt16 ReadNetworkOrderUInt16(this BinaryReader reader)
@@ -54,7 +55,7 @@ namespace Komodex.Bonjour
 
         public static Int32 ReadNetworkOrderInt32(this BinaryReader reader)
         {
-            return IPAddress.NetworkToHostOrder(reader.ReadInt32());
+            return BitUtility.NetworkToHostOrder(reader.ReadInt32());
         }
 
         #endregion

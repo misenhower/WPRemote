@@ -84,22 +84,20 @@ namespace Komodex.Bonjour
                 SendServiceSearchMessage();
 
                 // Rebroadcasts
-                Thread t = new Thread(() =>
+                ThreadUtility.RunOnBackgroundThread(() =>
                 {
-                    Thread.Sleep(FirstRebroadcastInterval);
+                    ThreadUtility.Delay(FirstRebroadcastInterval);
                     if (!IsRunning)
                         return;
 
                     SendServiceSearchMessage();
 
-                    Thread.Sleep(SecondRebroadcastInterval);
+                    ThreadUtility.Delay(SecondRebroadcastInterval);
                     if (!IsRunning)
                         return;
 
                     SendServiceSearchMessage();
                 });
-
-                t.Start();
             }
 
             StartRunLoop();

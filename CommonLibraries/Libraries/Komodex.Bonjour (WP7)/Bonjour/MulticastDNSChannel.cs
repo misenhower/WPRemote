@@ -118,7 +118,7 @@ namespace Komodex.Bonjour
 
             // Create the client and attempt to join
             _log.Info("Joining multicast DNS channel...");
-            _client = new UdpAnySourceMulticastClient(BonjourUtility.MulticastDNSAddress, BonjourUtility.MulticastDNSPort);
+            _client = new UdpAnySourceMulticastClient(IPAddress.Parse(BonjourUtility.MulticastDNSAddress), BonjourUtility.MulticastDNSPort);
             _client.BeginJoinGroup(UDPClientJoinGroupCallback, _client);
         }
 

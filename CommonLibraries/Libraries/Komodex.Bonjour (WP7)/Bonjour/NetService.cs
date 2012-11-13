@@ -141,9 +141,9 @@ namespace Komodex.Bonjour
 
             MulticastDNSChannel.SendMessage(message);
 
-            Thread t = new Thread(() =>
+            ThreadUtility.RunOnBackgroundThread(() =>
             {
-                Thread.Sleep(FirstRebroadcastInterval);
+                ThreadUtility.Delay(FirstRebroadcastInterval);
                 if (!MulticastDNSChannel.IsJoined || !_publishing)
                 {
                     Stop();
@@ -152,7 +152,7 @@ namespace Komodex.Bonjour
 
                 MulticastDNSChannel.SendMessage(message);
 
-                Thread.Sleep(SecondRebroadcastInterval);
+                ThreadUtility.Delay(SecondRebroadcastInterval);
                 if (!MulticastDNSChannel.IsJoined || !_publishing)
                 {
                     Stop();
@@ -161,7 +161,6 @@ namespace Komodex.Bonjour
 
                 MulticastDNSChannel.SendMessage(message);
             });
-            t.Start();
         }
 
         private void AnnounceServiceStopPublishing()
@@ -173,15 +172,15 @@ namespace Komodex.Bonjour
 
             MulticastDNSChannel.SendMessage(message);
 
-            Thread t = new Thread(() =>
+            ThreadUtility.RunOnBackgroundThread(() =>
             {
-                Thread.Sleep(FirstRebroadcastInterval);
+                ThreadUtility.Delay(FirstRebroadcastInterval);
                 if (!MulticastDNSChannel.IsJoined || _publishing)
                     return;
 
                 MulticastDNSChannel.SendMessage(message);
 
-                Thread.Sleep(SecondRebroadcastInterval);
+                ThreadUtility.Delay(SecondRebroadcastInterval);
                 if (!MulticastDNSChannel.IsJoined || _publishing)
                     return;
 
@@ -189,7 +188,6 @@ namespace Komodex.Bonjour
 
                 MulticastDNSChannel.RemoveListener(this);
             });
-            t.Start();
         }
 
         #region Start/Stop DNS Messages
@@ -293,22 +291,21 @@ namespace Komodex.Bonjour
             _log.Info("Resolving service \"{0}\"...", FullServiceInstanceName);
             MulticastDNSChannel.SendMessage(message);
 
-            Thread t = new Thread(() =>
+            ThreadUtility.RunOnBackgroundThread(()=>
             {
-                Thread.Sleep(FirstRebroadcastInterval);
+                ThreadUtility.Delay(FirstRebroadcastInterval);
                 if (!_resolving)
                     return;
 
                 MulticastDNSChannel.SendMessage(message);
 
-                Thread.Sleep(SecondRebroadcastInterval);
+                ThreadUtility.Delay(SecondRebroadcastInterval);
                 if (!_resolving)
                     return;
 
                 MulticastDNSChannel.SendMessage(message);
 
             });
-            t.Start();
         }
 
         internal void Resolved()
