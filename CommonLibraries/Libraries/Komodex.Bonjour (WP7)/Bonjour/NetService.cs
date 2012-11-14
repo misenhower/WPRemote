@@ -32,7 +32,11 @@ namespace Komodex.Bonjour
 
         protected NetServiceBrowser _browser;
 
+#if WINDOWS_PHONE
         private List<IPAddress> _ipAddresses = new List<IPAddress>();
+#else
+        private List<Windows.Networking.HostName> _ipAddresses = new List<Windows.Networking.HostName>();
+#endif
 
         #endregion
 
@@ -89,7 +93,11 @@ namespace Komodex.Bonjour
         /// <summary>
         /// Gets a list of all IP addresses for this service.
         /// </summary>
+#if WINDOWS_PHONE
         public List<IPAddress> IPAddresses { get { return _ipAddresses; } }
+#else
+        public List<Windows.Networking.HostName> IPAddresses { get { return _ipAddresses; } }
+#endif
 
         /// <summary>
         /// Gets or sets the port this service is listening on.
@@ -343,6 +351,7 @@ namespace Komodex.Bonjour
 
         void IMulticastDNSListener.MulticastDNSMessageReceived(Message message)
         {
+            // TODO: Re-announce service if necessary
         }
 
         #endregion

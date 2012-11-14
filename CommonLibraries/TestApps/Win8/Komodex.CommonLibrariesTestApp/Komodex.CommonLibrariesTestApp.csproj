@@ -135,6 +135,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Libraries\Komodex.Bonjour %28Win8%29\Komodex.Bonjour %28Win8%29.csproj">
+      <Project>{b0538439-b0b5-4aa1-a9e1-1fd08599958f}</Project>
+      <Name>Komodex.Bonjour %28Win8%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Libraries\Komodex.Common %28Win8%29\Komodex.Common %28Win8%29.csproj">
       <Project>{4a1beebe-a56b-42d9-b34f-13533f757bcc}</Project>
       <Name>Komodex.Common %28Win8%29</Name>

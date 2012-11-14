@@ -43,7 +43,7 @@ namespace Komodex.Bonjour.DNS
             switch (record.Type)
             {
                 case ResourceRecordType.A:
-                    record.Data = new IPAddress(reader.ReadBytes(dataLength));
+                    record.Data = BonjourUtility.IPAddressFromBytes(reader.ReadBytes(dataLength));
                     break;
                 case ResourceRecordType.PTR:
                     record.Data = BonjourUtility.ReadHostnameFromBytes(reader);
@@ -85,7 +85,11 @@ namespace Komodex.Bonjour.DNS
             switch (Type)
             {
                 case ResourceRecordType.A:
+#if WINDOWS_PHONE
                     dataBytes = ((IPAddress)Data).GetAddressBytes();
+#else
+                    dataBytes = BonjourUtility.BytesFromIPAddress((Windows.Networking.HostName)Data);
+#endif
                     break;
                 case ResourceRecordType.PTR:
                     dataBytes = BonjourUtility.HostnameToBytes(BonjourUtility.FormatLocalHostname((string)Data));

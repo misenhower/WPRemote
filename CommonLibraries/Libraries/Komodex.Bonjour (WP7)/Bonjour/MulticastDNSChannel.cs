@@ -3,18 +3,11 @@ using Komodex.Common;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Sockets;
 
 namespace Komodex.Bonjour
 {
     internal static class MulticastDNSChannel
     {
-        // UDP Client
-        private static UdpAnySourceMulticastClient _client;
-
-        // The receive buffer size sets the maximum message size
-        private static readonly byte[] _receiveBuffer = new byte[2048];
-
         private static bool _sendingMessage;
         private static bool _shutdown;
 
@@ -94,21 +87,24 @@ namespace Komodex.Bonjour
 
         public static void SendMessage(Message message)
         {
-            if (_client == null)
-                throw new InvalidOperationException("Call Start before attempting to send a message.");
-
             if (!IsJoined)
                 throw new InvalidOperationException("Client has not been joined to the network.");
 
             // Get the message bytes and send
             byte[] messageBytes = message.GetBytes();
-            _client.BeginSendToGroup(messageBytes, 0, messageBytes.Length, UDPClientSendToGroupCallback, _client);
-            _sendingMessage = true;
+            SendMessage(messageBytes);
         }
 
         #endregion
 
+#if WINDOWS_PHONE
         #region UDP Channel Management
+
+        // UDP Client
+        private static System.Net.Sockets.UdpAnySourceMulticastClient _client;
+
+        // The receive buffer size sets the maximum message size
+        private static readonly byte[] _receiveBuffer = new byte[2048];
 
         private static void Start()
         {
@@ -118,7 +114,7 @@ namespace Komodex.Bonjour
 
             // Create the client and attempt to join
             _log.Info("Joining multicast DNS channel...");
-            _client = new UdpAnySourceMulticastClient(IPAddress.Parse(BonjourUtility.MulticastDNSAddress), BonjourUtility.MulticastDNSPort);
+            _client = new System.Net.Sockets.UdpAnySourceMulticastClient(IPAddress.Parse(BonjourUtility.MulticastDNSAddress), BonjourUtility.MulticastDNSPort);
             _client.BeginJoinGroup(UDPClientJoinGroupCallback, _client);
         }
 
@@ -135,6 +131,12 @@ namespace Komodex.Bonjour
                 _client.Dispose();
                 _client = null;
             }
+        }
+
+        private static void SendMessage(byte[] buffer)
+        {
+            _sendingMessage = true;
+            _client.BeginSendToGroup(buffer, 0, buffer.Length, UDPClientSendToGroupCallback, _client);
         }
 
         private static void BeginReceiveFromGroup()
@@ -212,5 +214,103 @@ namespace Komodex.Bonjour
         }
 
         #endregion
+#else
+        #region UDP Socket Management
+
+        private static Windows.Networking.Sockets.DatagramSocket _udpSocket;
+        private static readonly Windows.Networking.HostName _mdnsHostName = new Windows.Networking.HostName(BonjourUtility.MulticastDNSAddress);
+
+        private static async void Start()
+        {
+            if (_udpSocket != null)
+                return;
+
+            _log.Info("Creating UDP socket...");
+            _udpSocket = new Windows.Networking.Sockets.DatagramSocket();
+            _udpSocket.MessageReceived += UDPSocket_MessageReceived;
+            await _udpSocket.BindServiceNameAsync(BonjourUtility.MulticastDNSPort.ToString());
+
+            if (_shutdown)
+                return;
+
+            _udpSocket.JoinMulticastGroup(_mdnsHostName);
+            IsJoined = true;
+            _log.Info("Joined multicast DNS group.");
+            SendJoinedToListeners();
+        }
+
+        private static void Stop()
+        {
+            if (_udpSocket == null)
+                return;
+
+            _shutdown = true;
+            if (_sendingMessage)
+                return;
+
+            _log.Info("Closing UDP socket...");
+            IsJoined = false;
+            _udpSocket.Dispose();
+            _udpSocket = null;
+        }
+
+        private static async void SendMessage(byte[] buffer)
+        {
+            _sendingMessage = true;
+
+            // Get the output stream
+            var outputStream = await _udpSocket.GetOutputStreamAsync(_mdnsHostName, BonjourUtility.MulticastDNSPort.ToString());
+
+            // Write bytes to stream
+            var outputWriter = new Windows.Storage.Streams.DataWriter(outputStream);
+            outputWriter.WriteBytes(buffer);
+            await outputWriter.StoreAsync();
+
+            _sendingMessage = false;
+
+            // Shutdown if necessary
+            if (_shutdown)
+                Stop();
+        }
+
+        private static void UDPSocket_MessageReceived(Windows.Networking.Sockets.DatagramSocket sender, Windows.Networking.Sockets.DatagramSocketMessageReceivedEventArgs args)
+        {
+            if (sender != _udpSocket)
+                return;
+
+            var remoteIP = args.RemoteAddress;
+            byte[] receiveBuffer;
+
+            try
+            {
+                var dataReader = args.GetDataReader();
+                receiveBuffer = new byte[dataReader.UnconsumedBufferLength];
+                dataReader.ReadBytes(receiveBuffer);
+            }
+            catch
+            {
+                return;
+            }
+
+            // Parse the incoming message
+            Message message;
+            try
+            {
+                message = Message.FromBytes(receiveBuffer, 0, receiveBuffer.Length);
+            }
+            catch
+            {
+                _log.Info("Dropped malformed packet from " + remoteIP.DisplayName);
+                return;
+            }
+
+            _log.Info("Received " + message.Summary);
+            _log.Debug("Message details (received from {0}):\n{1}", remoteIP.DisplayName, message.ToString());
+
+            SendMessageToListeners(message);
+        }
+
+        #endregion
+#endif
     }
 }

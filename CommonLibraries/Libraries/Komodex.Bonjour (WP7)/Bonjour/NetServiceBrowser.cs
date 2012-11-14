@@ -29,7 +29,11 @@ namespace Komodex.Bonjour
 
         // Known IP addresses
         // TODO: Make this static
+#if WINDOWS_PHONE
         Dictionary<string, List<IPAddress>> _discoveredIPs = new Dictionary<string, List<IPAddress>>();
+#else
+        Dictionary<string, List<Windows.Networking.HostName>> _discoveredIPs = new Dictionary<string, List<Windows.Networking.HostName>>();
+#endif
 
         // Logger instance
         private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour NSBrowser");
@@ -212,10 +216,18 @@ namespace Komodex.Bonjour
         private void ProcessARecord(ResourceRecord record)
         {
             string hostname = record.Name;
+#if WINDOWS_PHONE
             IPAddress ip = (IPAddress)record.Data;
+#else
+            Windows.Networking.HostName ip = (Windows.Networking.HostName)record.Data;
+#endif
 
             if (!_discoveredIPs.ContainsKey(hostname))
+#if WINDOWS_PHONE
                 _discoveredIPs.Add(hostname, new List<IPAddress>());
+#else
+                _discoveredIPs.Add(hostname, new List<Windows.Networking.HostName>());
+#endif
             if (!_discoveredIPs[hostname].Contains(ip))
                 _discoveredIPs[hostname].Insert(0, ip);
 
@@ -295,23 +307,12 @@ namespace Komodex.Bonjour
 
         #region Run Loop
 
-        private Timer _runLoopTimer;
-
         private void StartRunLoop()
         {
-            if (_runLoopTimer != null)
-                return;
-
-            _runLoopTimer = new Timer(RunLoop, null, RunLoopInterval, RunLoopInterval);
         }
 
         private void StopRunLoop()
         {
-            if (_runLoopTimer == null)
-                return;
-
-            _runLoopTimer.Dispose();
-            _runLoopTimer = null;
         }
 
         private void RunLoop(object state)

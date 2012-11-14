@@ -169,6 +169,42 @@ namespace Komodex.Bonjour
 
         #endregion
 
+        #region IP Address Parsing
+
+#if WINDOWS_PHONE
+        public static IPAddress IPAddressFromBytes(byte[] address)
+        {
+            return new IPAddress(address);
+        }
+#else
+        public static Windows.Networking.HostName IPAddressFromBytes(byte[] address)
+        {
+            if (address.Length != 4)
+                throw new ArgumentException("An invalid IP address was specified", "address");
+
+            return new Windows.Networking.HostName(string.Join(".", address));
+        }
+
+        public static byte[] BytesFromIPAddress(Windows.Networking.HostName address)
+        {
+            if (address.Type != Windows.Networking.HostNameType.Ipv4)
+                throw new ArgumentException("An invalid IP address was specified", "address");
+
+            string ipString = address.CanonicalName;
+            string[] ipParts = ipString.Split('.');
+
+            byte[] ipBytes = new byte[4];
+            ipBytes[0] = byte.Parse(ipParts[0]);
+            ipBytes[1] = byte.Parse(ipParts[1]);
+            ipBytes[2] = byte.Parse(ipParts[2]);
+            ipBytes[3] = byte.Parse(ipParts[3]);
+
+            return ipBytes;
+        }
+#endif
+
+        #endregion
+
         #region TXT Record Parsing
 
         public static Dictionary<string, string> GetDictionaryFromTXTRecordBytes(BinaryReader reader, int length)

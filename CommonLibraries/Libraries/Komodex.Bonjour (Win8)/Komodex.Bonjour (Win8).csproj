@@ -100,8 +100,45 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\Komodex.Common %28Win8%29\Komodex.Common %28Win8%29.csproj">
+      <Project>{4a1beebe-a56b-42d9-b34f-13533f757bcc}</Project>
+      <Name>Komodex.Common %28Win8%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\Bonjour\IMulticastDNSListener.cs">
+      <Link>Bonjour\IMulticastDNSListener.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\Bonjour\MulticastDNSChannel.cs">
+      <Link>Bonjour\MulticastDNSChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\Bonjour\NetService.cs">
+      <Link>Bonjour\NetService.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\Bonjour\NetServiceBrowser.cs">
+      <Link>Bonjour\NetServiceBrowser.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\Bonjour\NetServiceEventArgs.cs">
+      <Link>Bonjour\NetServiceEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\Message.cs">
+      <Link>DNS\Message.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\Question.cs">
+      <Link>DNS\Question.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\ResourceRecord.cs">
+      <Link>DNS\ResourceRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\ResourceRecordType.cs">
+      <Link>DNS\ResourceRecordType.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\SRVRecordData.cs">
+      <Link>DNS\SRVRecordData.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\Utility\BonjourUtility.cs">
+      <Link>Utility\BonjourUtility.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
