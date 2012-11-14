@@ -77,6 +77,8 @@ namespace Komodex.Bonjour
             _discoveredIPs.Clear();
             _currentServiceType = null;
             _currentServiceSearchMessage = null;
+
+            _log.Info("Stopped search for service type \"{0}\".", _currentServiceType);
         }
 
         #endregion

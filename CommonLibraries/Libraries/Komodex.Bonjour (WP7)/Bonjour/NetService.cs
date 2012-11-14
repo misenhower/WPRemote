@@ -12,10 +12,16 @@ namespace Komodex.Bonjour
         // Service resolve timeout (ms)
         private const int ServiceResolveTimeout = 250;
 
+        // Run loop time interval (ms)
+        private const int RunLoopInterval = 2000;
+
         // Rebroadcast times (ms)
         private const int FirstRebroadcastInterval = 1000;
         private const int SecondRebroadcastInterval = 2000;
         private const int RepeatedRebroadcastInterval = 20000;
+
+        // Minimum time between (prompted) rebroadcasts (ms)
+        private const int MinimumRebroadcastTime = 2000;
 
         private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour Service");
 
@@ -127,6 +133,8 @@ namespace Komodex.Bonjour
             if (_browser != null)
                 throw new InvalidOperationException("Cannot publish services that were discovered by NetServiceBrowser.");
 
+            _log.Info("Publishing service \"{0}\"...", FullServiceInstanceName);
+
             _publishing = true;
             _currentServicePublishMessage = GetPublishMessage();
             MulticastDNSChannel.AddListener(this);
@@ -139,10 +147,12 @@ namespace Komodex.Bonjour
 
             _publishing = false;
 
-            // TODO: Stop run loop
+            StopRunLoop();
 
             _currentServicePublishMessage = null;
             AnnounceServiceStopPublishing();
+
+            _log.Info("Stopped publishing service \"{0}\".", FullServiceInstanceName);
         }
 
         private void AnnounceServicePublish()
@@ -289,6 +299,51 @@ namespace Komodex.Bonjour
         
         #endregion
 
+        #region Run Loop
+
+#if WINDOWS_PHONE
+        private Timer _runLoopTimer;
+#else
+        private Windows.System.Threading.ThreadPoolTimer _runLoopTimer;
+#endif
+
+        private void StartRunLoop()
+        {
+            if (_runLoopTimer != null)
+                return;
+
+#if WINDOWS_PHONE
+            _runLoopTimer = new Timer((state) => RunLoop(), null, RunLoopInterval, RunLoopInterval);
+#else
+            _runLoopTimer = Windows.System.Threading.ThreadPoolTimer.CreatePeriodicTimer((timer) => RunLoop(), TimeSpan.FromMilliseconds(RunLoopInterval));
+#endif
+        }
+
+        private void StopRunLoop()
+        {
+            if (_runLoopTimer == null)
+                return;
+
+#if WINDOWS_PHONE
+            _runLoopTimer.Dispose();
+#else
+            _runLoopTimer.Cancel();
+#endif
+            _runLoopTimer = null;
+        }
+
+        private void RunLoop()
+        {
+            if (!_publishing)
+                return;
+
+            // Check if we need to rebroadcast the search message
+            if (_lastServicePublishBroadcast.AddMilliseconds(RepeatedRebroadcastInterval) < DateTime.Now)
+                SendServicePublishMessage();
+        }
+
+        #endregion
+
         #endregion
 
         #region Resolve
@@ -364,12 +419,43 @@ namespace Komodex.Bonjour
         {
             AnnounceServicePublish();
 
-            // TODO: Start run loop
+            StartRunLoop();
         }
 
         void IMulticastDNSListener.MulticastDNSMessageReceived(Message message)
         {
-            // TODO: Re-announce service if necessary
+            if (!_publishing)
+                return;
+
+            // We only need to respond to queries, not responses
+            if (message.QueryResponse)
+                return;
+
+            // TODO: Determine all queries we need to respond to
+
+            bool shouldRespond = false;
+
+            foreach (Question question in message.Questions)
+            {
+                switch (question.Type)
+                {
+                    case ResourceRecordType.PTR:
+                        if (question.Name == Type + Domain)
+                            shouldRespond = true;
+                        break;
+                }
+
+                // No need to look through the other questions if we already know we need to respond
+                if (shouldRespond)
+                    break;
+            }
+
+            // Send a response if necessary
+            if (shouldRespond && _lastServicePublishBroadcast.AddMilliseconds(MinimumRebroadcastTime) < DateTime.Now)
+            {
+                _log.Debug("Received query for service \"{0}\".", FullServiceInstanceName);
+                SendServicePublishMessage();
+            }
         }
 
         #endregion
