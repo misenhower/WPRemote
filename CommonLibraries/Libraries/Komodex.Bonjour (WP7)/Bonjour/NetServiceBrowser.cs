@@ -85,26 +85,25 @@ namespace Komodex.Bonjour
 
         void IMulticastDNSListener.MulticastDNSChannelJoined()
         {
-            if (_currentServiceSearchMessage != null)
+            if (_currentServiceSearchMessage == null)
+                return;
+            SendServiceSearchMessage();
+
+            // Rebroadcasts
+            ThreadUtility.RunOnBackgroundThread(() =>
             {
+                ThreadUtility.Delay(FirstRebroadcastInterval);
+                if (!IsRunning)
+                    return;
+
                 SendServiceSearchMessage();
 
-                // Rebroadcasts
-                ThreadUtility.RunOnBackgroundThread(() =>
-                {
-                    ThreadUtility.Delay(FirstRebroadcastInterval);
-                    if (!IsRunning)
-                        return;
+                ThreadUtility.Delay(SecondRebroadcastInterval);
+                if (!IsRunning)
+                    return;
 
-                    SendServiceSearchMessage();
-
-                    ThreadUtility.Delay(SecondRebroadcastInterval);
-                    if (!IsRunning)
-                        return;
-
-                    SendServiceSearchMessage();
-                });
-            }
+                SendServiceSearchMessage();
+            });
 
             StartRunLoop();
         }

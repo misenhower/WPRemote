@@ -210,7 +210,8 @@ namespace Komodex.Bonjour
 
             SendMessageToListeners(message);
 
-            BeginReceiveFromGroup();
+            if (IsJoined)
+                BeginReceiveFromGroup();
         }
 
         #endregion

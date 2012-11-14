@@ -15,6 +15,7 @@ namespace Komodex.Bonjour
         // Rebroadcast times (ms)
         private const int FirstRebroadcastInterval = 1000;
         private const int SecondRebroadcastInterval = 2000;
+        private const int RepeatedRebroadcastInterval = 20000;
 
         private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour Service");
 
@@ -29,6 +30,8 @@ namespace Komodex.Bonjour
         #region Fields
 
         private string _fullServiceInstanceName, _name, _type, _domain;
+        private Message _currentServicePublishMessage;
+        private DateTime _lastServicePublishBroadcast;
 
         protected NetServiceBrowser _browser;
 
@@ -125,6 +128,7 @@ namespace Komodex.Bonjour
                 throw new InvalidOperationException("Cannot publish services that were discovered by NetServiceBrowser.");
 
             _publishing = true;
+            _currentServicePublishMessage = GetPublishMessage();
             MulticastDNSChannel.AddListener(this);
         }
 
@@ -134,6 +138,10 @@ namespace Komodex.Bonjour
                 return;
 
             _publishing = false;
+
+            // TODO: Stop run loop
+
+            _currentServicePublishMessage = null;
             AnnounceServiceStopPublishing();
         }
 
@@ -142,12 +150,10 @@ namespace Komodex.Bonjour
             if (!_publishing)
                 return;
 
-            Message message = GetPublishMessage();
-
             if (!MulticastDNSChannel.IsJoined)
                 return;
 
-            MulticastDNSChannel.SendMessage(message);
+            SendServicePublishMessage();
 
             ThreadUtility.RunOnBackgroundThread(() =>
             {
@@ -158,7 +164,7 @@ namespace Komodex.Bonjour
                     return;
                 }
 
-                MulticastDNSChannel.SendMessage(message);
+                SendServicePublishMessage();
 
                 ThreadUtility.Delay(SecondRebroadcastInterval);
                 if (!MulticastDNSChannel.IsJoined || !_publishing)
@@ -167,8 +173,18 @@ namespace Komodex.Bonjour
                     return;
                 }
 
-                MulticastDNSChannel.SendMessage(message);
+                SendServicePublishMessage();
             });
+        }
+
+        private void SendServicePublishMessage()
+        {
+            if (!_publishing || _currentServicePublishMessage == null)
+                return;
+
+            _log.Debug("Sending publish message for service \"{0}\"...", FullServiceInstanceName);
+            MulticastDNSChannel.SendMessage(_currentServicePublishMessage);
+            _lastServicePublishBroadcast = DateTime.Now;
         }
 
         private void AnnounceServiceStopPublishing()
@@ -347,6 +363,8 @@ namespace Komodex.Bonjour
         void IMulticastDNSListener.MulticastDNSChannelJoined()
         {
             AnnounceServicePublish();
+
+            // TODO: Start run loop
         }
 
         void IMulticastDNSListener.MulticastDNSMessageReceived(Message message)
