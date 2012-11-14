@@ -16,6 +16,7 @@ namespace Komodex.Bonjour
         // Rebroadcast times (ms)
         private const int FirstRebroadcastInterval = 1000;
         private const int SecondRebroadcastInterval = 3000;
+        private const int RepeatedRebroadcastInterval = 30000;
 
         // Running
         public bool IsRunning { get; protected set; }
@@ -23,6 +24,7 @@ namespace Komodex.Bonjour
         // Service search parameters
         private string _currentServiceType;
         private Message _currentServiceSearchMessage;
+        private DateTime _lastServiceBroadcast;
 
         // Discovered services list
         Dictionary<string, NetService> _discoveredServices = new Dictionary<string, NetService>();
@@ -123,7 +125,11 @@ namespace Komodex.Bonjour
         private void SendServiceSearchMessage()
         {
             if (MulticastDNSChannel.IsJoined && _currentServiceSearchMessage != null)
+            {
+                _log.Debug("Sending search message for \"{0}\"...", _currentServiceType);
                 MulticastDNSChannel.SendMessage(_currentServiceSearchMessage);
+                _lastServiceBroadcast = DateTime.Now;
+            }
         }
 
         private void ProcessMessage(Message message)
@@ -307,20 +313,49 @@ namespace Komodex.Bonjour
 
         #region Run Loop
 
+#if WINDOWS_PHONE
+        private Timer _runLoopTimer;
+#else
+        private Windows.System.Threading.ThreadPoolTimer _runLoopTimer;
+#endif
+
         private void StartRunLoop()
         {
+            if (_runLoopTimer != null)
+                return;
+
+#if WINDOWS_PHONE
+            _runLoopTimer = new Timer((state) => RunLoop(), null, RunLoopInterval, RunLoopInterval);
+#else
+            _runLoopTimer = Windows.System.Threading.ThreadPoolTimer.CreatePeriodicTimer((timer) => RunLoop(), TimeSpan.FromMilliseconds(RunLoopInterval));
+#endif
         }
 
         private void StopRunLoop()
         {
+            if (_runLoopTimer == null)
+                return;
+
+#if WINDOWS_PHONE
+            _runLoopTimer.Dispose();
+#else
+            _runLoopTimer.Cancel();
+#endif
+            _runLoopTimer = null;
         }
 
-        private void RunLoop(object state)
+        private void RunLoop()
         {
+            if (!IsRunning)
+                return;
+
             // TODO: Check TTLs, etc.
+
+            // Check if we need to rebroadcast the search message
+            if (_lastServiceBroadcast.AddMilliseconds(RepeatedRebroadcastInterval) < DateTime.Now)
+                SendServiceSearchMessage();
         }
 
         #endregion
-
     }
 }
