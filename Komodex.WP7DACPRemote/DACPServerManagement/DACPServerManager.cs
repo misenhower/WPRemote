@@ -20,6 +20,7 @@ using Komodex.WP7DACPRemote.Localization;
 using Komodex.Common.Phone;
 using Microsoft.Phone.Net.NetworkInformation;
 using System.Linq;
+using Komodex.Analytics;
 
 namespace Komodex.WP7DACPRemote.DACPServerManagement
 {

@@ -19,6 +19,7 @@ using Komodex.WP7DACPRemote.Controls;
 using Komodex.Common.Phone;
 using System.Threading;
 using System.Globalization;
+using Komodex.Analytics;
 
 namespace Komodex.WP7DACPRemote
 {
