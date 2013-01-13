@@ -62,6 +62,19 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
             }
         }
 
+        private string _ipAddresses;
+        public string IPAddresses
+        {
+            get { return _ipAddresses; }
+            protected set
+            {
+                if (_ipAddresses == value)
+                    return;
+                _ipAddresses = value;
+                PropertyChanged.RaiseOnUIThread(this, "IPAddresses");
+            }
+        }
+
         private string _txtData;
         public string TXTData
         {
@@ -96,6 +109,11 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
         {
             Name = Service.FullServiceInstanceName;
             Address = string.Format("{0}:{1}", Service.Hostname, Service.Port);
+            if (Service.IPAddresses != null && Service.IPAddresses.Count > 0)
+                IPAddresses = "IPs: " + string.Join(", ", Service.IPAddresses);
+            else
+                IPAddresses = "No IPs";
+
             string txt = string.Empty;
             if (Service.TXTRecordData != null)
                 txt = string.Join("\n", Service.TXTRecordData.Select(kvp => kvp.Key + "=" + kvp.Value));
