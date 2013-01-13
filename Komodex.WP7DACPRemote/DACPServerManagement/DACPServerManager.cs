@@ -186,7 +186,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             if (Server != null && Server.IsConnected)
                 return;
-            
         }
 
         static void RootVisual_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
@@ -372,6 +371,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 serverInfo.ServiceID = Server.ServiceID.ToString("x16").ToUpper();
             else
                 serverInfo.ServiceID = Server.DatabasePersistentID.ToString("x16").ToUpper();
+
+            DACPServerViewModel.Instance.Save();
         }
 
         private static void TryToReconnect()

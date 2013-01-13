@@ -52,9 +52,9 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                         isolatedSettings[ItemsKey] = _Items;
                     }
 
-                    _Items.CollectionChanged+=new NotifyCollectionChangedEventHandler(Items_CollectionChanged);
+                    _Items.CollectionChanged += Items_CollectionChanged;
                 }
-                
+
                 return _Items;
             }
         }

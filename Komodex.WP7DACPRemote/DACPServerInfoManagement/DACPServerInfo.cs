@@ -30,7 +30,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         }
 
         private string _serviceID;
-        public string ServiceID{
+        public string ServiceID
+        {
             get { return _serviceID; }
             set
             {
