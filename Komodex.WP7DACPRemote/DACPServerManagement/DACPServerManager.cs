@@ -367,11 +367,6 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
             serverInfo.LibraryName = Server.LibraryName;
 
-            if (Server.ServiceID > 0)
-                serverInfo.ServiceID = Server.ServiceID.ToString("x16").ToUpper();
-            else
-                serverInfo.ServiceID = Server.DatabasePersistentID.ToString("x16").ToUpper();
-
             DACPServerViewModel.Instance.Save();
         }
 
