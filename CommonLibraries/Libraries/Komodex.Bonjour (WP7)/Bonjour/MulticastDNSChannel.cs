@@ -88,7 +88,7 @@ namespace Komodex.Bonjour
         public static void SendMessage(Message message)
         {
             if (!IsJoined)
-                throw new InvalidOperationException("Client has not been joined to the network.");
+                Start();
 
             // Get the message bytes and send
             byte[] messageBytes = message.GetBytes();
@@ -136,12 +136,39 @@ namespace Komodex.Bonjour
         private static void SendMessage(byte[] buffer)
         {
             _sendingMessage = true;
-            _client.BeginSendToGroup(buffer, 0, buffer.Length, UDPClientSendToGroupCallback, _client);
+            try
+            {
+                _client.BeginSendToGroup(buffer, 0, buffer.Length, UDPClientSendToGroupCallback, _client);
+            }
+            catch
+            {
+                _sendingMessage = false;
+                bool restart = !_shutdown;
+                Stop();
+                if (restart)
+                {
+                    _log.Info("Restarting multicast DNS channel from SendMessage method...");
+                    Start();
+                }
+            }
         }
 
         private static void BeginReceiveFromGroup()
         {
-            _client.BeginReceiveFromGroup(_receiveBuffer, 0, _receiveBuffer.Length, UDPClientReceiveFromGroupCallback, _client);
+            try
+            {
+                _client.BeginReceiveFromGroup(_receiveBuffer, 0, _receiveBuffer.Length, UDPClientReceiveFromGroupCallback, _client);
+            }
+            catch
+            {
+                bool restart = !_shutdown;
+                Stop();
+                if (restart)
+                {
+                    _log.Info("Restarting multicast DNS channel from BeginReceiveFromGroup method...");
+                    Start();
+                }
+            }
         }
 
         #endregion
@@ -168,7 +195,11 @@ namespace Komodex.Bonjour
             if (result.AsyncState != _client)
                 return;
 
-            _client.EndSendToGroup(result);
+            try
+            {
+                _client.EndSendToGroup(result);
+            }
+            catch { }
 
             _sendingMessage = false;
             if (!_shutdown)

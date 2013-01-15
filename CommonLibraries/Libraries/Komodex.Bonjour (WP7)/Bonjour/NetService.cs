@@ -373,13 +373,13 @@ namespace Komodex.Bonjour
             ThreadUtility.RunOnBackgroundThread(()=>
             {
                 ThreadUtility.Delay(FirstRebroadcastInterval);
-                if (!_resolving)
+                if (!MulticastDNSChannel.IsJoined || !_resolving)
                     return;
 
                 MulticastDNSChannel.SendMessage(message);
 
                 ThreadUtility.Delay(SecondRebroadcastInterval);
-                if (!_resolving)
+                if (!MulticastDNSChannel.IsJoined || !_resolving)
                     return;
 
                 MulticastDNSChannel.SendMessage(message);

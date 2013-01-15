@@ -44,11 +44,24 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
 
         }
 
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            StopServicePublisher();
+            StopServiceBrowser();
+        }
+
         #region Service Publisher
 
         protected NetService _netService;
 
         private void publishStartButton_Click(object sender, RoutedEventArgs e)
+        {
+            StartServicePublisher();
+        }
+
+        private void StartServicePublisher()
         {
             _netService.Publish();
 
@@ -57,6 +70,11 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
         }
 
         private void publishStopButton_Click(object sender, RoutedEventArgs e)
+        {
+            StopServicePublisher();
+        }
+
+        private void StopServicePublisher()
         {
             _netService.Stop();
 
@@ -73,9 +91,14 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
 
         private void browseStartButton_Click(object sender, RoutedEventArgs e)
         {
+            StartServiceBrowser();
+        }
+
+        private void StartServiceBrowser()
+        {
             _browser = new NetServiceBrowser();
-            _browser.ServiceFound += new EventHandler<NetServiceEventArgs>(_browser_ServiceFound);
-            _browser.ServiceRemoved += new EventHandler<NetServiceEventArgs>(_browser_ServiceRemoved);
+            _browser.ServiceFound += _browser_ServiceFound;
+            _browser.ServiceRemoved += _browser_ServiceRemoved;
             _browser.SearchForServices("_touch-able._tcp.local.");
 
             browseStartButton.IsEnabled = false;
@@ -84,6 +107,16 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
 
         private void browseStopButton_Click(object sender, RoutedEventArgs e)
         {
+            StopServiceBrowser();
+        }
+
+        private void StopServiceBrowser()
+        {
+            if (_browser == null)
+                return;
+
+            _browser.ServiceFound -= _browser_ServiceFound;
+            _browser.ServiceRemoved -= _browser_ServiceRemoved;
             _browser.Stop();
             _services.Clear();
 
@@ -95,6 +128,9 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
         {
             Utility.BeginInvokeOnUIThread(() =>
             {
+                if (sender != _browser || !_browser.IsRunning)
+                    return; // Don't attempt to resolve the service if we're no longer looking for services (or if this is the wrong browser)
+
                 var nsvm = new NetServiceViewModel(e.Service);
                 _services.Add(nsvm);
                 e.Service.Resolve();
