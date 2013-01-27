@@ -75,10 +75,10 @@ namespace Komodex.Bonjour
             MulticastDNSChannel.RemoveListener(this);
             _discoveredServices.Clear();
             _discoveredIPs.Clear();
-            _currentServiceType = null;
             _currentServiceSearchMessage = null;
 
             _log.Info("Stopped search for service type \"{0}\".", _currentServiceType);
+            _currentServiceType = null;
         }
 
         #endregion
