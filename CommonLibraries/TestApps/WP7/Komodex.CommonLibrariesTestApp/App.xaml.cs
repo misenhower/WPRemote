@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Komodex.Common;
 
 namespace Komodex.CommonLibrariesTestApp
 {
@@ -36,6 +37,9 @@ namespace Komodex.CommonLibrariesTestApp
 
             // Phone-specific initialization
             InitializePhoneApplication();
+
+            // Initialize Utility class
+            Utility.InitializeApplicationID("commontest", "Komodex Common Libraries Test App");
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)

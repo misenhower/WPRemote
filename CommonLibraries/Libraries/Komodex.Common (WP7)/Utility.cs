@@ -78,6 +78,9 @@ namespace Komodex.Common
             ApplicationIdentifier = applicationIdentifier;
             ApplicationName = applicationName;
             ApplicationVersion = applicationVersion;
+
+            // Get the current synchronization context (which should be on the UI thread)
+            _uiSynchronizationContext = SynchronizationContext.Current;
         }
 
 
@@ -157,10 +160,13 @@ namespace Komodex.Common
 
         #region BeginInvoke on UI Thread
 
-        private static SynchronizationContext _uiSynchronizationContext = SynchronizationContext.Current;
+        private static SynchronizationContext _uiSynchronizationContext;
 
         public static void BeginInvokeOnUIThread(Action a)
         {
+            if (_uiSynchronizationContext == null)
+                throw new Exception("Initialize Utility class from the UI thread before calling BeginInvokeOnUIThread.");
+
             // If we're already on the UI thread, just invoke the action
             if (_uiSynchronizationContext == SynchronizationContext.Current)
                 a();
