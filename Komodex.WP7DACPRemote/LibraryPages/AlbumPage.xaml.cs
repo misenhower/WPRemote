@@ -126,7 +126,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 // Album play button
                 if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "AlbumPlayButton"))
                 {
-                    Album.SendPlaySongCommand();
+                    Album.SendPlayCommand();
                     NavigationManager.OpenNowPlayingPage();
                 }
 

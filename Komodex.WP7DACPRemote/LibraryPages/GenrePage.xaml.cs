@@ -170,7 +170,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                     Album album = (Album)selectedItem;
                     if (isPlayButton)
                     {
-                        album.SendPlaySongCommand();
+                        album.SendPlayCommand();
                         listBox.SelectedItem = null;
                         NavigationManager.OpenNowPlayingPage();
                     }

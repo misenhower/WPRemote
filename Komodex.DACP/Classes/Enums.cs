@@ -24,4 +24,12 @@ namespace Komodex.DACP
         RepeatOne = 1,
         RepeatAll = 2,
     }
+
+    public enum PlayQueueMode
+    {
+        Replace = 1,
+        AddToQueue = 0,
+        PlayNext = 3,
+        Shuffle = 2,
+    }
 }

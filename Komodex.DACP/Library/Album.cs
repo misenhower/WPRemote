@@ -196,32 +196,71 @@ namespace Komodex.DACP.Library
 
         #region Play Song Command
 
-        public void SendPlaySongCommand()
+        public void SendPlayCommand()
         {
-            SendPlaySongCommand(0);
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Replace);
+            else
+                SendPlaySongCommand(0);
         }
 
         public void SendPlaySongCommand(MediaItem song)
         {
-            try
+            if (song == null)
+                return;
+
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Replace, song.ID);
+            else
             {
+                if (Songs == null)
+                    return;
+                if (!Songs.Contains(song))
+                    return;
+
                 int songIndex = Songs.IndexOf(song);
                 SendPlaySongCommand(songIndex);
             }
-            catch { }
         }
 
         protected void SendPlaySongCommand(int index)
         {
-            SendPlaySongCommand("&index=" + index);
+            if (Server.SupportsPlayQueue)
+                return; // This should never happen
+            else
+                SendCueCommand("&index=" + index);
         }
 
         public void SendShuffleSongsCommand()
         {
-            SendPlaySongCommand("&dacp.shufflestate=1");
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Shuffle);
+            else
+                SendCueCommand("&dacp.shufflestate=1");
         }
 
-        protected void SendPlaySongCommand(string input)
+        protected void SendPlayQueueCommand(PlayQueueMode mode, int? songID = null)
+        {
+            string query;
+
+            if (songID.HasValue)
+                query = string.Format("&query='dmap.itemid:{0}'&queuefilter=album:{1}", songID.Value, PersistentID);
+            else
+                query = string.Format("&query='daap.songalbumid:{0}'", PersistentID);
+
+            string url = "/ctrl-int/1/playqueue-edit"
+                    + "?command=add"
+                    + query
+                    + "&mode=" + (int)mode
+                    + "&session-id=" + Server.SessionID;
+
+            if (mode == PlayQueueMode.Replace)
+                url += "&clear-previous=1";
+
+            Server.SubmitHTTPPlayRequest(url);
+        }
+
+        protected void SendCueCommand(string input)
         {
             string encodedArtistName = DACPUtility.QueryEncodeString(ArtistName);
             string url = "/ctrl-int/1/cue"
