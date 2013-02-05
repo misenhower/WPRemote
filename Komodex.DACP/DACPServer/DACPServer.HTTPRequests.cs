@@ -211,7 +211,47 @@ namespace Komodex.DACP
             if (!IgnoreServerVersion && ServerVersion < 196612)
                 ConnectionError(ServerErrorType.UnsupportedVersion);
             else
-                SubmitLoginRequest();
+                SubmitServerCapabilitiesRequest();
+        }
+
+        #endregion
+
+        #region Server Capabilities (ctrl-int)
+
+        protected void SubmitServerCapabilitiesRequest()
+        {
+            string url = "/ctrl-int";
+            SubmitHTTPRequest(url, ProcessServerCapabilityResponse);
+        }
+
+        protected void ProcessServerCapabilityResponse(HTTPRequestInfo requestInfo)
+        {
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch(kvp.Key)
+                {
+                    case "mlcl":
+                        var mlcl = DACPUtility.GetResponseNodes(kvp.Value);
+                        var capabilityNodes = DACPUtility.GetResponseNodes(mlcl[0].Value);
+                        foreach (var capabilityNode in capabilityNodes)
+                        {
+                            switch(capabilityNode.Key)
+                            {
+                                case "ceSX":
+                                    Int64 ceSX = capabilityNode.Value.GetInt64Value();
+
+                                    // Supports Play Queue (indicated by bit 0 of ceSX)
+                                    if ((ceSX & (1 << 0)) == (1 << 0))
+                                        SupportsPlayQueue = true;
+
+                                    break;
+                            }
+                        }
+                        break;
+                }
+            }
+
+            SubmitLoginRequest();
         }
 
         #endregion

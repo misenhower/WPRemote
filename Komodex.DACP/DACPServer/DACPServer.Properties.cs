@@ -123,6 +123,19 @@ namespace Komodex.DACP
             }
         }
 
+        private bool _SupportsPlayQueue = false;
+        public bool SupportsPlayQueue
+        {
+            get { return _SupportsPlayQueue; }
+            private set
+            {
+                if (_SupportsPlayQueue == value)
+                    return;
+                _SupportsPlayQueue = value;
+                PropertyChanged.RaiseOnUIThread(this, "SupportsPlayQueue");
+            }
+        }
+
         #endregion
 
         #region Current Song
