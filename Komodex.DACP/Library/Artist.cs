@@ -139,12 +139,13 @@ namespace Komodex.DACP.Library
 
         protected void SubmitSongsRequest()
         {
+            // TODO: Newer versions use songartistid instead of the songartist name. Need to determine what triggers this change.
             retrievingSongs = true;
             string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
                 + "&type=music"
-                + "&sort=name"
+                + "&sort=album"
                 + "&include-sort-headers=1"
                 + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + "&session-id=" + Server.SessionID;
@@ -210,7 +211,7 @@ namespace Komodex.DACP.Library
             string url = "/ctrl-int/1/cue?command=play"
                 + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
                 + input
-                + "&sort=name"
+                + "&sort=album"
                 //+ "&srcdatabase=0xC2C1E50F13CF1F5C"
                 + "&clear-first=1"
                 + "&session-id=" + Server.SessionID;
