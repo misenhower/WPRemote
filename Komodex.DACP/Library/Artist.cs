@@ -132,14 +132,30 @@ namespace Komodex.DACP.Library
         {
             retrievingAlbums = true;
             string encodedName = DACPUtility.QueryEncodeString(Name);
-            string url = "/databases/" + Server.DatabaseID + "/groups"
-                + "?meta=dmap.itemname,daap.songartist,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
-                + "&type=music"
-                + "&group-type=albums"
-                + "&sort=album"
-                + "&include-sort-headers=1"
-                + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
-                + "&session-id=" + Server.SessionID;
+            string url;
+
+            if (Server.SupportsPlayQueue)
+            {
+                url = "/databases/" + Server.DatabaseID + "/groups"
+                    + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,com.apple.itunes.cloud-id,daap.songartistid,daap.songalbumid,dmap.persistentid,dmap.downloadstatus"
+                    + "&type=music"
+                    + "&group-type=albums"
+                    + "&sort=album"
+                    + "&include-sort-headers=0"
+                    + "&query=('daap.songartistid:" + ArtistID + "'+'daap.songalbum!:'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))"
+                    + "&session-id=" + Server.SessionID;
+            }
+            else
+            {
+                url = "/databases/" + Server.DatabaseID + "/groups"
+                     + "?meta=dmap.itemname,daap.songartist,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
+                     + "&type=music"
+                     + "&group-type=albums"
+                     + "&sort=album"
+                     + "&include-sort-headers=1"
+                     + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')"
+                     + "&session-id=" + Server.SessionID;
+            }
             Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessAlbumsResponse), true);
         }
 
@@ -182,16 +198,30 @@ namespace Komodex.DACP.Library
 
         protected void SubmitSongsRequest()
         {
-            // TODO: Newer versions use songartistid instead of the songartist name. Need to determine what triggers this change.
             retrievingSongs = true;
             string encodedName = DACPUtility.QueryEncodeString(Name);
-            string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
-                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
-                + "&type=music"
-                + "&sort=album"
-                + "&include-sort-headers=1"
-                + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
-                + "&session-id=" + Server.SessionID;
+            string url;
+
+            if (Server.SupportsPlayQueue)
+            {
+                url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
+                    + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbumartist,daap.songalbum,com.apple.itunes.cloud-id,dmap.containeritemid,com.apple.itunes.has-video,com.apple.itunes.itms-songid,com.apple.itunes.extended-media-kind,dmap.downloadstatus,daap.songdisabled,com.apple.itunes.cloud-id,daap.songartistid,daap.songalbumid,dmap.persistentid,dmap.downloadstatus,daap.songalbum"
+                    + "&type=music"
+                    + "&sort=album"
+                    + "&query=('daap.songartistid:" + ArtistID + "'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))"
+                    + "&session-id=" + Server.SessionID;
+            }
+            else
+            {
+                url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
+                     + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
+                     + "&type=music"
+                     + "&sort=album"
+                     + "&include-sort-headers=1"
+                     + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
+                     + "&session-id=" + Server.SessionID;
+            }
+
             Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse), true);
         }
 
@@ -223,32 +253,72 @@ namespace Komodex.DACP.Library
 
         #region Play Song Command
 
-        public void SendPlaySongCommand()
+        public void SendPlayCommand()
         {
-            SendPlaySongCommand(0);
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Replace);
+            else
+                SendPlaySongCommand(0);
         }
 
         public void SendPlaySongCommand(MediaItem song)
         {
-            try
+            if (song == null)
+                return;
+
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Replace, song.ID);
+            else
             {
+                if (Songs == null)
+                    return;
+                if (!Songs.Contains(song))
+                    return;
+
                 int songIndex = Songs.IndexOf(song);
                 SendPlaySongCommand(songIndex);
             }
-            catch { }
         }
 
         protected void SendPlaySongCommand(int index)
         {
-            SendPlaySongCommand("&index=" + index);
+            if (Server.SupportsPlayQueue)
+                return; // This should never happen
+            else
+                SendCueCommand("&index=" + index);
         }
 
         public void SendShuffleSongsCommand()
         {
-            SendPlaySongCommand("&dacp.shufflestate=1");
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Shuffle);
+            else
+                SendCueCommand("&dacp.shufflestate=1");
         }
 
-        protected void SendPlaySongCommand(string input)
+        protected void SendPlayQueueCommand(PlayQueueMode mode, int? songID = null)
+        {
+            string query;
+
+            if (songID.HasValue)
+                query = string.Format("&query='dmap.itemid:{0}'&queuefilter=artist:{1}", songID.Value, ArtistID);
+            else
+                query = string.Format("&query='daap.songartistid:{0}'", ArtistID);
+
+            string url = "/ctrl-int/1/playqueue-edit"
+                + "?command=add"
+                + query
+                + "&sort=album"
+                + "&mode=" + (int)mode
+                + "&session-id=" + Server.SessionID;
+
+            if (mode == PlayQueueMode.Replace)
+                url += "&clear-previous=1";
+
+            Server.SubmitHTTPPlayRequest(url);
+        }
+
+        protected void SendCueCommand(string input)
         {
             string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/ctrl-int/1/cue?command=play"

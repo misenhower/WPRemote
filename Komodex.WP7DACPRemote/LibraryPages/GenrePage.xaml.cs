@@ -155,7 +155,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                     Artist artist = (Artist)selectedItem;
                     if (isPlayButton)
                     {
-                        artist.SendPlaySongCommand();
+                        artist.SendPlayCommand();
                         listBox.SelectedItem = null;
                         NavigationManager.OpenNowPlayingPage();
                     }
