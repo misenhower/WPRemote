@@ -98,7 +98,7 @@ namespace Komodex.DACP
             SearchResultSet artistResults = new SearchResultSet(this, LocalizedDACPStrings.SearchResultsArtists);
 
             string url = "/databases/" + DatabaseID + "/groups"
-                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount,daap.songartistid"
                 + "&type=music"
                 + "&group-type=artists"
                 + "&sort=album"

@@ -88,7 +88,7 @@ namespace Komodex.DACP.Library
             retrievingArtists = true;
             string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/databases/" + Server.DatabaseID + "/groups"
-                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount,daap.songartistid"
                 + "&type=music"
                 + "&group-type=artists"
                 + "&sort=album"

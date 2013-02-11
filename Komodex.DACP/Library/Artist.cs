@@ -24,13 +24,25 @@ namespace Komodex.DACP.Library
         {
             Server = server;
             Name = name;
+
+            GetArtistID();
         }
 
         public Artist(DACPServer server, byte[] data)
             : base(server, data)
-        { }
+        {
+            if (ArtistID != 0)
+                PersistArtistID();
+            else
+                GetArtistID();
+        }
 
         #region Properties
+
+        /// <summary>
+        /// iTunes 11 Artist ID (asri, daap.songartistid)
+        /// </summary>
+        public UInt64 ArtistID { get; protected set; }
 
         private ObservableCollection<Album> _Albums = null;
         public ObservableCollection<Album> Albums
@@ -70,6 +82,37 @@ namespace Komodex.DACP.Library
         #endregion
 
         #region Methods
+
+        protected override bool ProcessByteKVP(System.Collections.Generic.KeyValuePair<string, byte[]> kvp)
+        {
+            if (base.ProcessByteKVP(kvp))
+                return true;
+
+            switch (kvp.Key)
+            {
+                case "asri":
+                    ArtistID = (UInt64)kvp.Value.GetInt64Value();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        #endregion
+
+        #region ArtistID Persistence
+
+        protected void PersistArtistID()
+        {
+            if (Server != null && ArtistID != 0)
+                Server.ArtistIDs[Name] = ArtistID;
+        }
+
+        protected void GetArtistID()
+        {
+            if (Server != null && Server.ArtistIDs.ContainsKey(Name))
+                ArtistID = Server.ArtistIDs[Name];
+        }
 
         #endregion
 

@@ -246,7 +246,7 @@ namespace Komodex.DACP
         {
             retrievingArtists = true;
             string url = "/databases/" + DatabaseID + "/groups"
-                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount"
+                + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount,daap.songartistid"
                 + "&type=music"
                 + "&group-type=artists"
                 + "&sort=album"
@@ -433,6 +433,16 @@ namespace Komodex.DACP
         internal Dictionary<UInt64, int> AlbumIDs
         {
             get { return _AlbumIDs; }
+        }
+
+        #endregion
+
+        #region Artist ID Persistence
+
+        private Dictionary<string, ulong> _artistIDs = new Dictionary<string, ulong>();
+        internal Dictionary<string, ulong> ArtistIDs
+        {
+            get { return _artistIDs; }
         }
 
         #endregion
