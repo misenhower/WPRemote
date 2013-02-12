@@ -216,7 +216,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
                     if (isPlayButton)
                     {
-                        playlist.SendPlaySongCommand();
+                        playlist.SendPlayCommand();
                         listBox.SelectedItem = null;
                         NavigationManager.OpenNowPlayingPage();
                     }

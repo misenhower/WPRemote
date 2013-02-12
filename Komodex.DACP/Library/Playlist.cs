@@ -177,27 +177,63 @@ namespace Komodex.DACP.Library
 
         #region Play Song Command
 
-        public void SendPlaySongCommand()
+        public void SendPlayCommand()
         {
-            SendPlaySongCommand(0);
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Replace);
+            else
+                SendPlaySongCommand(0);
         }
 
         public void SendPlaySongCommand(MediaItem song)
         {
-            SendPlaySongCommand(song.ContainerItemID);
+            if (song == null)
+                return;
+
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Replace, song.ContainerItemID);
+            else
+                SendPlaySongCommand(song.ContainerItemID);
         }
 
         public void SendShuffleSongsCommand()
         {
-            SendPlaySongCommand("&dacp.shufflestate=1");
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Shuffle);
+            else
+                SendCueCommand("&dacp.shufflestate=1");
         }
 
         protected void SendPlaySongCommand(int containerItemID)
         {
-            SendPlaySongCommand("&container-item-spec='dmap.containeritemid:0x" + containerItemID.ToString("x8") + "'");
+            if (Server.SupportsPlayQueue)
+                return; // This should never happen
+            else
+                SendCueCommand("&container-item-spec='dmap.containeritemid:0x" + containerItemID.ToString("x8") + "'");
         }
 
-        protected void SendPlaySongCommand(string input)
+        protected void SendPlayQueueCommand(PlayQueueMode mode, int? songID = null)
+        {
+            string query;
+
+            if (songID.HasValue)
+                query = string.Format("&query='dmap.containeritemid:{0}'&queuefilter=playlist:{1}&sort=physical", songID.Value, ID);
+            else
+                query = string.Format("&query='dmap.itemid:{0}'&query-modifier=containers", ID);
+
+            string url = "/ctrl-int/1/playqueue-edit"
+                + "?command=add"
+                + query
+                + "&mode=" + (int)mode
+                + "&session-id=" + Server.SessionID;
+
+            if (mode == PlayQueueMode.Replace)
+                url += "&clear-previous=1";
+
+            Server.SubmitHTTPPlayRequest(url);
+        }
+
+        protected void SendCueCommand(string input)
         {
             string url = "/ctrl-int/1/playspec"
                 + "?database-spec='dmap.persistentid:0x" + Server.DatabasePersistentID.ToString("x16") + "'"
