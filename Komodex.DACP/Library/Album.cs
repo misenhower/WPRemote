@@ -156,13 +156,28 @@ namespace Komodex.DACP.Library
         private void SubmitSongsRequest()
         {
             retrievingSongs = true;
-            string encodedArtistName = DACPUtility.QueryEncodeString(ArtistName);
-            string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
-                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
-                + "&type=music"
-                + "&sort=album"
-                + "&query=(('daap.songartist:" + encodedArtistName + "','daap.songalbumartist:" + encodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
-                + "&session-id=" + Server.SessionID;
+            string url;
+
+            if (Server.SupportsPlayQueue)
+            {
+                url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
+                    + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbumartist,daap.songalbum,com.apple.itunes.cloud-id,dmap.containeritemid,com.apple.itunes.has-video,com.apple.itunes.itms-songid,com.apple.itunes.mediakind,dmap.downloadstatus,daap.songdisabled,com.apple.itunes.cloud-id,daap.songartistid,daap.songalbumid,dmap.persistentid,dmap.downloadstatus,daap.songalbum"
+                    + "&type=music"
+                    + "&sort=album"
+                    + "&query=(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
+                    + "&session-id=" + Server.SessionID;
+            }
+            else
+            {
+                string encodedArtistName = DACPUtility.QueryEncodeString(ArtistName);
+                url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
+                    + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
+                    + "&type=music"
+                    + "&sort=album"
+                    + "&query=(('daap.songartist:" + encodedArtistName + "','daap.songalbumartist:" + encodedArtistName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbumid:" + PersistentID + "')"
+                    + "&session-id=" + Server.SessionID;
+
+            }
 
             Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse), true);
         }
