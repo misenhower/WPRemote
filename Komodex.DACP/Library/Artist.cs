@@ -214,12 +214,12 @@ namespace Komodex.DACP.Library
             else
             {
                 url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
-                     + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
-                     + "&type=music"
-                     + "&sort=album"
-                     + "&include-sort-headers=1"
-                     + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
-                     + "&session-id=" + Server.SessionID;
+                    + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
+                    + "&type=music"
+                    + "&sort=album"
+                    + "&include-sort-headers=1"
+                    + "&query=(('daap.songartist:" + encodedName + "','daap.songalbumartist:" + encodedName + "')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))"
+                    + "&session-id=" + Server.SessionID;
             }
 
             Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSongsResponse), true);
