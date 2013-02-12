@@ -193,7 +193,7 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                     Genre genre = (Genre)selectedItem;
                     if (isPlayButton)
                     {
-                        genre.SendPlaySongCommand();
+                        genre.SendPlayCommand();
                         listBox.SelectedItem = null;
                         NavigationManager.OpenNowPlayingPage();
                     }

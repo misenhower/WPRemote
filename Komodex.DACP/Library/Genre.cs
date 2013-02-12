@@ -177,27 +177,65 @@ namespace Komodex.DACP.Library
 
         #region Play Song Command
 
-        public void SendPlaySongCommand()
+        public void SendPlayCommand()
         {
-            SendPlaySongCommand(0);
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Replace);
+            else
+                SendPlaySongCommand(0);
         }
 
         public void SendPlaySongCommand(MediaItem song)
         {
-            SendPlaySongCommand(song.ListIndex);
+            if (song == null)
+                return;
+
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Replace, song.ID);
+            else
+                SendPlaySongCommand(song.ListIndex);
         }
 
         protected void SendPlaySongCommand(int index)
         {
-            SendPlaySongCommand("&index=" + index);
+            if (Server.SupportsPlayQueue)
+                return; // This should never happen
+            else
+                SendCueCommand("&index=" + index);
         }
 
         public void SendShuffleSongsCommand()
         {
-            SendPlaySongCommand("&dacp.shufflestate=1");
+            if (Server.SupportsPlayQueue)
+                SendPlayQueueCommand(PlayQueueMode.Shuffle);
+            else
+                SendCueCommand("&dacp.shufflestate=1");
         }
 
-        protected void SendPlaySongCommand(string input)
+        protected void SendPlayQueueCommand(PlayQueueMode mode, int? songID = null)
+        {
+            string query;
+            string encodedName = DACPUtility.QueryEncodeString(Name);
+
+            if (songID.HasValue)
+                query = string.Format("&query='dmap.itemid:{0}'&queuefilter=genre:{1}", songID.Value, encodedName);
+            else
+                query = string.Format("&query='daap.songgenre:{0}'", encodedName);
+
+            string url = "/ctrl-int/1/playqueue-edit"
+                + "?command=add"
+                + query
+                + "&sort=name"
+                + "&mode=" + (int)mode
+                + "&session-id=" + Server.SessionID;
+
+            if (mode == PlayQueueMode.Replace)
+                url += "&clear-previous=1";
+
+            Server.SubmitHTTPPlayRequest(url);
+        }
+
+        protected void SendCueCommand(string input)
         {
             string encodedName = DACPUtility.QueryEncodeString(Name);
             string url = "/ctrl-int/1/cue"
