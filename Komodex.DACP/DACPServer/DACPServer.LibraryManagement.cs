@@ -24,6 +24,7 @@ namespace Komodex.DACP
         public UInt64 DatabasePersistentID { get; protected set; }
         public UInt64 ServiceID { get; protected set; }
         public Playlist BasePlaylist { get; protected set; }
+        public Playlist MusicPlaylist { get; protected set; }
 
         private List<Playlist> _LibraryPlaylists = null;
         public List<Playlist> LibraryPlaylists
@@ -210,10 +211,13 @@ namespace Komodex.DACP
                                     case 0: // Standard playlist
                                         playlists.Add(pl);
                                         break;
+
+                                    case 6: // Music Playlist
+                                        MusicPlaylist = pl;
+                                        break;
+
                                     case 16: // Genius mix
                                         geniusMixes.Add(pl);
-                                        break;
-                                    default:
                                         break;
                                 }
                             }

@@ -674,7 +674,24 @@ namespace Komodex.DACP
 
         public void SendShuffleAllSongsCommand()
         {
-            string url = "/ctrl-int/1/cue?command=play&query=('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')&dacp.shufflestate=1&sort=artist&clear-first=1&session-id=" + SessionID;
+            string url;
+
+            if (SupportsPlayQueue)
+            {
+                int id;
+
+                if (MusicPlaylist == null)
+                    id = BasePlaylist.ID;
+                else
+                    id = MusicPlaylist.ID;
+
+                url = "/ctrl-int/1/playqueue-edit?command=add&query='dmap.itemid:" + id + "'&query-modifier=containers&sort=name&mode=2&session-id=" + SessionID;
+            }
+            else
+            {
+                url = "/ctrl-int/1/cue?command=play&query=('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')&dacp.shufflestate=1&sort=artist&clear-first=1&session-id=" + SessionID;
+            }
+
             SubmitHTTPRequest(url);
         }
 
