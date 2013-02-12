@@ -66,7 +66,7 @@ namespace Komodex.DACP
 
         protected SearchResultSet SubmitAlbumSearchRequest(string escapedSearchString)
         {
-            SearchResultSet albumResults = new SearchResultSet(this, LocalizedDACPStrings.SearchResultsAlbums);
+            SearchResultSet albumResults = new SearchResultSet(this, SearchResultsType.Albums);
 
             string url = "/databases/" + DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid"
@@ -95,7 +95,7 @@ namespace Komodex.DACP
 
         protected SearchResultSet SubmitArtistSearchRequest(string escapedSearchString)
         {
-            SearchResultSet artistResults = new SearchResultSet(this, LocalizedDACPStrings.SearchResultsArtists);
+            SearchResultSet artistResults = new SearchResultSet(this, SearchResultsType.Artists);
 
             string url = "/databases/" + DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.groupalbumcount,daap.songartistid"
@@ -126,7 +126,7 @@ namespace Komodex.DACP
         {
             string queryString = "('dmap.itemname:*" + escapedSearchString + "*'+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))";
 
-            SearchResultSet songResults = new SearchResultSet(this, LocalizedDACPStrings.SearchResultsSongs, queryString);
+            SearchResultSet songResults = new SearchResultSet(this, SearchResultsType.Songs, queryString);
 
             string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songalbum"
@@ -156,7 +156,7 @@ namespace Komodex.DACP
         {
             string queryString = "('dmap.itemname:*" + escapedSearchString + "*'+'com.apple.itunes.mediakind:2')";
 
-            SearchResultSet movieResults = new SearchResultSet(this, LocalizedDACPStrings.SearchResultsMovies, queryString);
+            SearchResultSet movieResults = new SearchResultSet(this, SearchResultsType.Movies, queryString);
 
             string url = "/databases/" + DatabaseID + "/containers/" + BasePlaylist.ID + "/items"
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songtime,com.apple.itunes.content-rating"
@@ -184,7 +184,7 @@ namespace Komodex.DACP
 
         protected SearchResultSet SubmitPodcastSearchRequest(string escapedSearchString)
         {
-            SearchResultSet podcastResults = new SearchResultSet(this, LocalizedDACPStrings.SearchResultsPodcasts);
+            SearchResultSet podcastResults = new SearchResultSet(this, SearchResultsType.Podcasts);
 
             string url = "/databases/" + DatabaseID + "/groups"
                 + "?meta=dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songtime,daap.songhasbeenplayed,daap.songdatereleased,daap.sortartist,daap.songcontentdescription"

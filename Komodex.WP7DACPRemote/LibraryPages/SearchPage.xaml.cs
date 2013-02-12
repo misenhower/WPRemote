@@ -147,7 +147,16 @@ namespace Komodex.WP7DACPRemote.LibraryPages
                 SearchResultSet resultSet = searchResults.FirstOrDefault(rs => rs.Contains(mediaItem));
                 if (resultSet != null)
                 {
-                    resultSet.SendPlayItemCommand(mediaItem);
+                    if (resultSet.Type == SearchResultsType.Songs)
+                    {
+                        if (DACPServer.SupportsPlayQueue)
+                            mediaItem.SendPlayQueueCommand();
+                        else
+                            resultSet.SendPlayItemCommand(mediaItem);
+                    }
+                    else
+                        mediaItem.SendPlayMediaItemCommand();
+                    
                     listBox.SelectedItem = null;
                     NavigationManager.OpenNowPlayingPage();
                 }

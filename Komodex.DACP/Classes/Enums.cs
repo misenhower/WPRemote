@@ -25,6 +25,15 @@ namespace Komodex.DACP
         RepeatAll = 2,
     }
 
+    public enum SearchResultsType
+    {
+        Albums,
+        Artists,
+        Songs,
+        Movies,
+        Podcasts,
+    }
+
     public enum PlayQueueMode
     {
         Replace = 1,

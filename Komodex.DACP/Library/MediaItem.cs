@@ -133,6 +133,27 @@ namespace Komodex.DACP.Library
 
         #endregion
 
+        #region Play Queue Command
+
+        public void SendPlayQueueCommand(PlayQueueMode mode = PlayQueueMode.Replace)
+        {
+            if (!Server.SupportsPlayQueue)
+                return;
+
+            string url = "/ctrl-int/1/playqueue-edit"
+                + "?command=add"
+                + "&query='dmap.itemid:" + ID + "'"
+                + "&mode=" + (int)mode
+                + "&session-id=" + Server.SessionID;
+
+            if (mode == PlayQueueMode.Replace)
+                url += "&clear-previous=1";
+
+            Server.SubmitHTTPPlayRequest(url);
+        }
+
+        #endregion
+
         #endregion
     }
 }
