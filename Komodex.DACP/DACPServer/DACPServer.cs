@@ -111,8 +111,10 @@ namespace Komodex.DACP
             ignoringTrackTimeChanges = false;
             ignoringVolumeChanges = false;
             sendTrackTimeChangeWhenFinished = -1;
-            AlbumIDs.Clear();
-            ArtistIDs.Clear();
+
+            // Note: Do not clear AlbumIDs or ArtistIDs here.
+            // Since the LibraryArtists and LibraryAlbums variables are never cleared (and therefore never reloaded),
+            // the Album ID and Artist ID caches may never actually get refreshed.
 
             Stopped = false;
 

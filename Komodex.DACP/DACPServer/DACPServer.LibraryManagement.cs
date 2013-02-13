@@ -170,6 +170,12 @@ namespace Komodex.DACP
                 }
 
                 SubmitPlaylistsRequest();
+
+                // If we are using play queue requests, preload the list of artists.
+                // There are a few places where the user can navigate to an artist page with just the artist name (e.g., Now Playing page, Album page, etc.).
+                // Without this, the Artist IDs would not be available for requests from these pages.
+                if (SupportsPlayQueue && (LibraryArtists == null || LibraryArtists.Count == 0))
+                    GetArtists();
             }
             catch { }
         }
