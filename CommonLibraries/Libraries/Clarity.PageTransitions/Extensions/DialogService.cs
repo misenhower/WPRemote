@@ -297,6 +297,10 @@ namespace Clarity.Phone.Extensions
 
         void _hideStoryboard_Completed(object sender, EventArgs e)
         {
+            // Fixes a crash when hide is called multiple times
+            if (_hideStoryboard == null)
+                return;
+
             _hideStoryboard.Completed -= _hideStoryboard_Completed;
             _hideStoryboard = null;
 
