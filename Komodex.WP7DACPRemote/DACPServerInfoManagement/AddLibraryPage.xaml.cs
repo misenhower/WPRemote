@@ -182,6 +182,9 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
+                if (_currentServer == null)
+                    return;
+
                 switch (e.Type)
                 {
                     case ServerUpdateType.ServerConnected:
