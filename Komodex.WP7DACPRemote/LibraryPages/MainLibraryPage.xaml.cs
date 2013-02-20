@@ -48,10 +48,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             base.OnNavigatedTo(e);
 
-            if (State.ContainsKey(StateUtils.SavedStateKey))
+            try
             {
-                this.RestoreState(pivotControl, 0);
+                if (State.ContainsKey(StateUtils.SavedStateKey))
+                {
+                    this.RestoreState(pivotControl, 0);
+                }
             }
+            catch (InvalidOperationException) { }
 
             GetDataForPivotItem();
         }
@@ -73,8 +77,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
             //    State[lbAlbums.Name + "_FirstItem"] = lbAlbumsGroup.Key;
             //}
 
-            this.PreserveState(pivotControl);
-            State[StateUtils.SavedStateKey] = true;
+            try
+            {
+                this.PreserveState(pivotControl);
+                State[StateUtils.SavedStateKey] = true;
+            }
+            catch (InvalidOperationException) { }
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)

@@ -48,10 +48,14 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             string artistName = NavigationContext.QueryString["name"];
 
-            if (State.ContainsKey(StateUtils.SavedStateKey))
+            try
             {
-                this.RestoreState(pivotControl, 0);
+                if (State.ContainsKey(StateUtils.SavedStateKey))
+                {
+                    this.RestoreState(pivotControl, 0);
+                }
             }
+            catch (InvalidOperationException) { }
 
             if (Artist == null)
                 Artist = new Artist(DACPServerManager.Server, artistName);
@@ -61,8 +65,12 @@ namespace Komodex.WP7DACPRemote.LibraryPages
         {
             base.OnNavigatedFrom(e);
 
-            this.PreserveState(pivotControl);
-            State[StateUtils.SavedStateKey] = true;
+            try
+            {
+                this.PreserveState(pivotControl);
+                State[StateUtils.SavedStateKey] = true;
+            }
+            catch (InvalidOperationException) { }
         }
 
         protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)

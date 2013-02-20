@@ -55,23 +55,31 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
         {
             base.OnNavigatedFrom(e);
 
-            this.PreserveState(tbHost);
-            this.PreserveState(tbPIN);
-            //StateUtils.PreserveFocusState(State, ContentPanel);
+            try
+            {
+                this.PreserveState(tbHost);
+                this.PreserveState(tbPIN);
+                //StateUtils.PreserveFocusState(State, ContentPanel);
 
-            State[StateUtils.SavedStateKey] = true;
+                State[StateUtils.SavedStateKey] = true;
+            }
+            catch (InvalidOperationException) { }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (State.ContainsKey(StateUtils.SavedStateKey))
+            try
             {
-                this.RestoreState(tbHost, string.Empty);
-                this.RestoreState(tbPIN, string.Empty);
-                //StateUtils.RestoreFocusState(State, ContentPanel);
+                if (State.ContainsKey(StateUtils.SavedStateKey))
+                {
+                    this.RestoreState(tbHost, string.Empty);
+                    this.RestoreState(tbPIN, string.Empty);
+                    //StateUtils.RestoreFocusState(State, ContentPanel);
+                }
             }
+            catch (InvalidOperationException) { }
 
             UpdateAppBar();
         }

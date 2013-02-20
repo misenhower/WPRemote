@@ -45,18 +45,26 @@ namespace Komodex.WP7DACPRemote.LibraryPages
 
             base.OnNavigatedFrom(e);
 
-            this.PreserveState(tbSearchString);
-            State[StateUtils.SavedStateKey] = true;
+            try
+            {
+                this.PreserveState(tbSearchString);
+                State[StateUtils.SavedStateKey] = true;
+            }
+            catch (InvalidOperationException) { }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (State.ContainsKey(StateUtils.SavedStateKey))
+            try
             {
-                this.RestoreState(tbSearchString, string.Empty);
+                if (State.ContainsKey(StateUtils.SavedStateKey))
+                {
+                    this.RestoreState(tbSearchString, string.Empty);
+                }
             }
+            catch (InvalidOperationException) { }
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)

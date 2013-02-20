@@ -80,14 +80,18 @@ namespace Komodex.WP7DACPRemote.NowPlaying
             UpdateRepeatShuffleButtons();
             UpdateMediaKind();
 
-            if (State.ContainsKey(StateUtils.SavedStateKey))
+            try
             {
-                if (ShouldGoBack())
+                if (State.ContainsKey(StateUtils.SavedStateKey))
                 {
-                    closing = true;
-                    AnimationContext = null;
+                    if (ShouldGoBack())
+                    {
+                        closing = true;
+                        AnimationContext = null;
+                    }
                 }
             }
+            catch (InvalidOperationException) { }
 
             UpdateAirPlayButtons();
 
@@ -112,7 +116,11 @@ namespace Komodex.WP7DACPRemote.NowPlaying
 
             base.OnNavigatedFrom(e);
 
-            State[StateUtils.SavedStateKey] = true;
+            try
+            {
+                State[StateUtils.SavedStateKey] = true;
+            }
+            catch (InvalidOperationException) { }
         }
 
         protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
