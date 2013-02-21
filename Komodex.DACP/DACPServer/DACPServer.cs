@@ -60,7 +60,6 @@ namespace Komodex.DACP
         private bool UseDelayedResponseRequests = true;
         private bool Stopped = false;
         internal string HTTPPrefix;
-        private bool IgnoreServerVersion = false;
 
         #endregion
 
@@ -76,7 +75,6 @@ namespace Komodex.DACP
             {
                 _HostName = value;
                 HTTPPrefix = null;
-                IgnoreServerVersion = false;
                 if (_HostName == null)
                     return;
 
@@ -85,9 +83,6 @@ namespace Komodex.DACP
                 // If the hostname doesn't contain a colon, add the default DACP port
                 if (!_HostName.Contains(':'))
                     HTTPPrefix += ":3689";
-                // Otherwise, assume the user is doing something special and disable server version checking
-                else
-                    IgnoreServerVersion = true;
             }
         }
 

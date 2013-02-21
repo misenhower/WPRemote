@@ -208,10 +208,7 @@ namespace Komodex.DACP
                 }
             }
 
-            if (!IgnoreServerVersion && ServerVersion < 196612)
-                ConnectionError(ServerErrorType.UnsupportedVersion);
-            else
-                SubmitServerCapabilitiesRequest();
+            SubmitServerCapabilitiesRequest();
         }
 
         #endregion
