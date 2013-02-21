@@ -30,6 +30,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         private static bool _tryToReconnect = false;
         private static bool _isObscured = false;
         private static bool _connectOnNetworkAvailable = false;
+        private static bool _clearPageHistoryOnNavigate;
 
         #region Properties
 
@@ -157,7 +158,12 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         static void ConnectingStatusControl_ButtonClick(object sender, RoutedEventArgs e)
         {
             if (Server != null)
+            {
+                _suppressNavigateToHome = true;
                 Server = null;
+            }
+
+            _clearPageHistoryOnNavigate = true;
 
             NavigationManager.OpenLibraryChooserPage();
         }
@@ -194,6 +200,12 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 return;
 
             UpdatePopupDisplay();
+
+            if (_clearPageHistoryOnNavigate)
+            {
+                _clearPageHistoryOnNavigate = false;
+                NavigationManager.ClearPageHistory();
+            }
         }
 
         private static void UpdatePopupSize()

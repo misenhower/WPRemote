@@ -32,24 +32,32 @@ namespace Komodex.WP7DACPRemote
 
         #region Pages
 
-        public static void GoToFirstPage()
+        public static void ClearPageHistory()
         {
-            // Accessing RootVisual.BackStack can throw a NullReferenceException (rather than simply returning null)
-            try
-            {
-                if (RootVisual == null || RootVisual.BackStack == null)
-                    return;
-            }
-            catch { return; }
-
             Utility.BeginInvokeOnUIThread(() =>
             {
+                // Accessing RootVisual.BackStack can throw a NullReferenceException (rather than simply returning null)
+                try
+                {
+                    if (RootVisual == null || RootVisual.BackStack == null)
+                        return;
+                }
+                catch { return; }
+
                 int remaining = RootVisual.BackStack.Count();
                 while (remaining > 1)
                 {
                     RootVisual.RemoveBackEntry();
                     remaining--;
                 }
+            });
+        }
+
+        public static void GoToFirstPage()
+        {
+            Utility.BeginInvokeOnUIThread(() =>
+            {
+                ClearPageHistory();
                 if (RootVisual.CanGoBack)
                     RootVisual.GoBack();
             });
