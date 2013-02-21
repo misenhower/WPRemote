@@ -21,8 +21,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
 {
     public partial class LibraryChooserPage : PhoneApplicationBasePage
     {
-        private bool _deletedConnectedServer = false;
-
         public LibraryChooserPage()
         {
             InitializeComponent();
@@ -47,17 +45,6 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
             AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, () => NavigationManager.OpenAboutPage());
         }
 
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
-        {
-            base.OnBackKeyPress(e);
-
-            if (_deletedConnectedServer)
-            {
-                _deletedConnectedServer = false;
-                NavigationManager.GoToFirstPage();
-            }
-        }
-
         #endregion
 
         #region Button/Action Event Handlers
@@ -75,8 +62,8 @@ namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
                 DACPServerViewModel.Instance.Items.Remove(serverInfo);
                 if (DACPServerManager.Server != null && DACPServerManager.Server.ID == serverInfo.ID)
                 {
-                    _deletedConnectedServer = true;
                     DACPServerManager.ConnectToServer(true);
+                    NavigationManager.ClearPageHistory();
                 }
             }
         }
