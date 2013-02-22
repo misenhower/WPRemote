@@ -204,9 +204,9 @@
     <value>Folge [@WP7Remote] bei Twitter</value>
     <comment>"@WP7Remote" is a hyperlink (the brackets are removed)</comment>
   </data>
-  <data name="ForWP7" xml:space="preserve">
-    <value>für Windows Phone 7</value>
-    <comment>Used on the About page, "Remote for Windows Phone 7"</comment>
+  <data name="ForWP" xml:space="preserve">
+    <value>für Windows Phone</value>
+    <comment>Used on the About page, "Remote for Windows Phone"</comment>
   </data>
   <data name="FromLastConnectionAttempt" xml:space="preserve">
     <value>Vom letzten Verbindungsversuch</value>

@@ -45,7 +45,7 @@
             <Button Template="{StaticResource EmptyButton}" Click="btnAssemblyInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
                 <StackPanel Background="{StaticResource PhoneChromeBrush}" Margin="12,0,12,12">
                     <TextBlock TextWrapping="Wrap" Text="Remote" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.ForWP7, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle3Style}"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.ForWP, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle3Style}"/>
                     <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}" Name="tbAppVersion" Margin="12,0,12,12" />
                 </StackPanel>
             </Button>
