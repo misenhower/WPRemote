@@ -8,7 +8,7 @@
     </loadpaths>
     <asmlist>
       <package refid="31def4f3-23c5-476a-8957-856cf1feb0be">
-        <file dir="C:\Users\ike\Documents\WP7DACPRemote\Komodex.WP7DACPRemote\Bin\Release" name="Komodex.WP7DACPRemote.xap" />
+        <file dir="C:\Users\ike\Documents\WP7DACPRemote-Release\Komodex.WP7DACPRemote\Bin\Release" name="Komodex.WP7DACPRemote.xap" />
         <asmlist>
           <inputassembly refid="f0259487-dcd4-48c9-ae1d-07d2cc3d20b0">
             <option>honoroas</option>
