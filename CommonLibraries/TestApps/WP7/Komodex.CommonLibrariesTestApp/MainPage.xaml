@@ -38,7 +38,12 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
                 <HyperlinkButton Content="Bonjour Tests"
+                                 Margin="0,0,0,12"
                                  NavigateUri="/Bonjour/BonjourTests.xaml"
+                                 Style="{StaticResource HyperlinkStyle}" />
+                <HyperlinkButton Content="List Tests"
+                                 Margin="0,0,0,12"
+                                 NavigateUri="/Lists/ListTests.xaml"
                                  Style="{StaticResource HyperlinkStyle}" />
             </StackPanel>
         </Grid>
