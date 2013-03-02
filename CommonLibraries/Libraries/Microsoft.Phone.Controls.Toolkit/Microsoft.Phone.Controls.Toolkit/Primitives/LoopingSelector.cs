@@ -64,6 +64,10 @@ namespace Microsoft.Phone.Controls.Primitives
         // Specify whether or not the user is dragging with his finger.
         private bool _isDragging;
 
+#if WP8
+        private bool _changeStateAfterAnimation;
+#endif
+
         private enum State
         {
             Normal,
@@ -81,23 +85,10 @@ namespace Microsoft.Phone.Controls.Primitives
         public ILoopingSelectorDataSource DataSource
         {
             get { return (ILoopingSelectorDataSource)GetValue(DataSourceProperty); }
-            set
-            {
-                if (DataSource != null)
-                {
-                    DataSource.SelectionChanged -= value_SelectionChanged;
-                }
-
-                SetValue(DataSourceProperty, value);
-
-                if (value != null)
-                {
-                    value.SelectionChanged += value_SelectionChanged;                    
-                }
-            }
+            set { SetValue(DataSourceProperty, value); }
         }
 
-        void value_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void OnDataSourceSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!IsReady)
             {
@@ -124,36 +115,23 @@ namespace Microsoft.Phone.Controls.Primitives
         /// The DataSource DependencyProperty
         /// </summary>
         public static readonly DependencyProperty DataSourceProperty =
-            DependencyProperty.Register("DataSource", typeof(ILoopingSelectorDataSource), typeof(LoopingSelector), new PropertyMetadata(null, OnDataModelChanged));
+            DependencyProperty.Register("DataSource", typeof(ILoopingSelectorDataSource), typeof(LoopingSelector), new PropertyMetadata(null, OnDataSourceChanged));
 
-        private static void OnDataModelChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        private static void OnDataSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             LoopingSelector picker = (LoopingSelector)obj;
+
+            if (e.OldValue != null)
+            {
+                ((ILoopingSelectorDataSource)e.OldValue).SelectionChanged -= picker.OnDataSourceSelectionChanged;
+            }
+
+            if (e.NewValue != null)
+            {
+                ((ILoopingSelectorDataSource)e.NewValue).SelectionChanged += picker.OnDataSourceSelectionChanged;
+            }
+
             picker.UpdateData();
-        }
-
-        void DataModel_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!IsReady)
-            {
-                return;
-            }
-
-            if (!_isSelecting && e.AddedItems.Count == 1)
-            {
-                object selection = e.AddedItems[0];
-
-                foreach (LoopingSelectorItem child in _itemsPanel.Children)
-                {
-                    if (child.DataContext == selection)
-                    {
-                        SelectAndSnapTo(child);
-                        break;
-                    }
-                }
-
-                UpdateData();
-            }
         }
 
         /// <summary>
@@ -169,7 +147,14 @@ namespace Microsoft.Phone.Controls.Primitives
         /// The ItemTemplate DependencyProperty
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(LoopingSelector), new PropertyMetadata(null));
+            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(LoopingSelector), new PropertyMetadata(null, OnItemTemplateChanged));
+
+        private static void OnItemTemplateChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            LoopingSelector picker = (LoopingSelector)obj;
+            
+            picker.UpdateItemTemplates();
+        }
 
         /// <summary>
         /// The size of the items, excluding the ItemMargin.
@@ -214,11 +199,16 @@ namespace Microsoft.Phone.Controls.Primitives
         {
             LoopingSelector picker = (LoopingSelector)sender;
 
-            picker.UpdateItemState();
-            if (!picker.IsExpanded)
+            if (picker.IsExpanded)
+            {
+                picker.Balance();
+            }
+            else
             {
                 picker.SelectAndSnapToClosest();
             }
+
+            picker.UpdateItemState();
 
             if (picker._state == State.Normal || picker._state == State.Expanded)
             {
@@ -276,7 +266,15 @@ namespace Microsoft.Phone.Controls.Primitives
         {
             if (_panningTransform != null)
             {
-                SelectAndSnapToClosest();
+                if (this.IsExpanded)
+                {
+                    SelectAndSnapToClosest();
+                }
+                else
+                {
+                    this.IsExpanded = true;
+                }
+
                 e.Handled = true;
             }
         }
@@ -292,6 +290,9 @@ namespace Microsoft.Phone.Controls.Primitives
             if (_isDragging)
             {
                 AnimatePanel(_panDuration, _panEase, _dragTarget += e.DeltaManipulation.Translation.Y);
+#if WP8
+                _changeStateAfterAnimation = false;
+#endif
                 e.Handled = true;
             }
             else if (Math.Abs(e.CumulativeManipulation.Translation.X) > DragSensitivity)
@@ -336,6 +337,9 @@ namespace Microsoft.Phone.Controls.Primitives
                     IEasingFunction flickEase = PhysicsConstants.GetEasingFunction(flickDuration);
 
                     AnimatePanel(new Duration(TimeSpan.FromSeconds(flickDuration)), flickEase, _panningTransform.Y + flickEndPoint.Y);
+#if WP8
+                    _changeStateAfterAnimation = false;
+#endif
 
                     e.Handled = true;
 
@@ -377,6 +381,7 @@ namespace Microsoft.Phone.Controls.Primitives
                 else if (sender != _selectedItem && !_isAnimating)
                 {
                     SelectAndSnapTo((LoopingSelectorItem)sender);
+                    _selectedItem.SetState(LoopingSelectorItem.State.Selected, true);
                 }
             }
         }
@@ -388,7 +393,7 @@ namespace Microsoft.Phone.Controls.Primitives
                 return;
             }
 
-            if (_selectedItem != null)
+            if (_selectedItem != null && _selectedItem != item)
             {
                 _selectedItem.SetState(IsExpanded ? LoopingSelectorItem.State.Expanded : LoopingSelectorItem.State.Normal, true);
             }
@@ -405,7 +410,9 @@ namespace Microsoft.Phone.Controls.Primitives
                 });
             }
 
+#if WP7
             _selectedItem.SetState(LoopingSelectorItem.State.Selected, true);
+#endif
 
             TranslateTransform transform = item.Transform;
             if (transform != null)
@@ -414,6 +421,13 @@ namespace Microsoft.Phone.Controls.Primitives
                 if (_panningTransform.Y != newPosition)
                 {
                     AnimatePanel(_selectDuration, _selectEase, newPosition);
+#if WP8
+                    _changeStateAfterAnimation = true;
+#endif
+                }
+                else
+                {
+                    _selectedItem.SetState(LoopingSelectorItem.State.Selected, true);
                 }
             }
         }
@@ -481,6 +495,7 @@ namespace Microsoft.Phone.Controls.Primitives
         private void StopAnimation()
         {
             _panelStoryboard.Stop();
+            _isAnimating = false;
             CompositionTarget.Rendering -= AnimationPerFrameCallback;
         }
 
@@ -488,11 +503,14 @@ namespace Microsoft.Phone.Controls.Primitives
         {
             double originalDelta = _panelAnimation.To.Value - _panelAnimation.From.Value;
             double remainingDelta = newStoppingPoint - _panningTransform.Y;
-            double factor = remainingDelta / originalDelta;
+            double factor = Math.Abs(remainingDelta / originalDelta);
 
             Duration duration = new Duration(TimeSpan.FromMilliseconds(_panelAnimation.Duration.TimeSpan.Milliseconds * factor));
 
             AnimatePanel(duration, _panelAnimation.EasingFunction, newStoppingPoint);
+#if WP8
+            _changeStateAfterAnimation = false;
+#endif
         }
 
         private bool IsReady
@@ -533,99 +551,102 @@ namespace Microsoft.Phone.Controls.Primitives
                 closestToMiddle = (LoopingSelectorItem)_itemsPanel.Children[closestToMiddleIndex];
             }
 
-            int itemsBeforeCount;
-            LoopingSelectorItem firstItem = GetFirstItem(closestToMiddle, out itemsBeforeCount);
-
-            int itemsAfterCount;
-            LoopingSelectorItem lastItem = GetLastItem(closestToMiddle, out itemsAfterCount);
-
-            // Does the top need items?
-            if (itemsBeforeCount < itemsAfterCount || itemsBeforeCount < _additionalItemsCount)
+            if (IsExpanded)
             {
-                while (itemsBeforeCount < _additionalItemsCount)
+                int itemsBeforeCount;
+                LoopingSelectorItem firstItem = GetFirstItem(closestToMiddle, out itemsBeforeCount);
+
+                int itemsAfterCount;
+                LoopingSelectorItem lastItem = GetLastItem(closestToMiddle, out itemsAfterCount);
+
+                // Does the top need items?
+                if (itemsBeforeCount < itemsAfterCount || itemsBeforeCount < _additionalItemsCount)
                 {
-                    object newData = DataSource.GetPrevious(firstItem.DataContext);
-                    if (newData == null)
+                    while (itemsBeforeCount < _additionalItemsCount)
                     {
-                        // There may be room to display more items, but there is no more data.
-                        _maximumPanelScroll = - firstItem.Transform.Y - actualItemHeight / 2;
-                        if (_isAnimating && _panelAnimation.To.Value > _maximumPanelScroll)
+                        object newData = DataSource.GetPrevious(firstItem.DataContext);
+                        if (newData == null)
                         {
-                            Brake(_maximumPanelScroll);
+                            // There may be room to display more items, but there is no more data.
+                            _maximumPanelScroll = -firstItem.Transform.Y - actualItemHeight / 2;
+                            if (_isAnimating && _panelAnimation.To.Value > _maximumPanelScroll)
+                            {
+                                Brake(_maximumPanelScroll);
+                            }
+                            break;
                         }
-                        break;
+
+                        LoopingSelectorItem newItem = null;
+
+                        // Can an item from the bottom be re-used?
+                        if (itemsAfterCount > _additionalItemsCount)
+                        {
+                            newItem = lastItem;
+                            lastItem = lastItem.Previous;
+                            newItem.Remove();
+                            newItem.Content = newItem.DataContext = newData;
+                        }
+                        else
+                        {
+                            // Make a new item
+                            newItem = CreateAndAddItem(_itemsPanel, newData);
+                            newItem.Transform.X = (ActualWidth - actualItemWidth) / 2;
+                        }
+
+                        // Put the new item on the top
+                        newItem.Transform.Y = firstItem.Transform.Y - actualItemHeight;
+                        newItem.InsertBefore(firstItem);
+                        firstItem = newItem;
+
+                        ++itemsBeforeCount;
                     }
-
-                    LoopingSelectorItem newItem = null;
-
-                    // Can an item from the bottom be re-used?
-                    if (itemsAfterCount > _additionalItemsCount)
-                    {
-                        newItem = lastItem;
-                        lastItem = lastItem.Previous;
-                        newItem.Remove();
-                        newItem.Content = newItem.DataContext = newData;
-                    }
-                    else
-                    {
-                        // Make a new item
-                        newItem = CreateAndAddItem(_itemsPanel, newData);
-                        newItem.Transform.X = (ActualWidth - actualItemWidth) / 2;
-                    }
-
-                    // Put the new item on the top
-                    newItem.Transform.Y = firstItem.Transform.Y - actualItemHeight;
-                    newItem.InsertBefore(firstItem);
-                    firstItem = newItem;
-
-                    ++itemsBeforeCount;
                 }
-            }
-            
-            // Does the bottom need items?
-            if (itemsAfterCount < itemsBeforeCount || itemsAfterCount < _additionalItemsCount)
-            {
-                while (itemsAfterCount < _additionalItemsCount)
+
+                // Does the bottom need items?
+                if (itemsAfterCount < itemsBeforeCount || itemsAfterCount < _additionalItemsCount)
                 {
-                    object newData = DataSource.GetNext(lastItem.DataContext);
-                    if (newData == null)
+                    while (itemsAfterCount < _additionalItemsCount)
                     {
-                        // There may be room to display more items, but there is no more data.
-                        _minimumPanelScroll = - lastItem.Transform.Y - actualItemHeight / 2;
-                        if (_isAnimating && _panelAnimation.To.Value < _minimumPanelScroll)
+                        object newData = DataSource.GetNext(lastItem.DataContext);
+                        if (newData == null)
                         {
-                            Brake(_minimumPanelScroll);
+                            // There may be room to display more items, but there is no more data.
+                            _minimumPanelScroll = -lastItem.Transform.Y - actualItemHeight / 2;
+                            if (_isAnimating && _panelAnimation.To.Value < _minimumPanelScroll)
+                            {
+                                Brake(_minimumPanelScroll);
+                            }
+                            break;
                         }
-                        break;
+
+                        LoopingSelectorItem newItem = null;
+
+                        // Can an item from the top be re-used?
+                        if (itemsBeforeCount > _additionalItemsCount)
+                        {
+                            newItem = firstItem;
+                            firstItem = firstItem.Next;
+                            newItem.Remove();
+                            newItem.Content = newItem.DataContext = newData;
+                        }
+                        else
+                        {
+                            // Make a new item
+                            newItem = CreateAndAddItem(_itemsPanel, newData);
+                            newItem.Transform.X = (ActualWidth - actualItemWidth) / 2;
+                        }
+
+                        // Put the new item on the bottom
+                        newItem.Transform.Y = lastItem.Transform.Y + actualItemHeight;
+                        newItem.InsertAfter(lastItem);
+                        lastItem = newItem;
+
+                        ++itemsAfterCount;
                     }
-
-                    LoopingSelectorItem newItem = null;
-
-                    // Can an item from the top be re-used?
-                    if (itemsBeforeCount > _additionalItemsCount)
-                    {
-                        newItem = firstItem;
-                        firstItem = firstItem.Next;
-                        newItem.Remove();
-                        newItem.Content = newItem.DataContext = newData;
-                    }
-                    else
-                    {
-                        // Make a new item
-                        newItem = CreateAndAddItem(_itemsPanel, newData);
-                        newItem.Transform.X = (ActualWidth - actualItemWidth) / 2;
-                    }
-
-                    // Put the new item on the bottom
-                    newItem.Transform.Y = lastItem.Transform.Y + actualItemHeight;
-                    newItem.InsertAfter(lastItem);
-                    lastItem = newItem;
-
-                    ++itemsAfterCount;
                 }
-            }
 
-            _temporaryItemsPool = null;
+                _temporaryItemsPool = null;
+            }
         }
 
         private static LoopingSelectorItem GetFirstItem(LoopingSelectorItem item, out int count)
@@ -697,6 +718,13 @@ namespace Microsoft.Phone.Controls.Primitives
             _isAnimating = false;
             if (_state != State.Dragging)
             {
+#if WP8
+                if (_changeStateAfterAnimation)
+                {
+                    _selectedItem.SetState(LoopingSelectorItem.State.Selected, true);
+                }
+#endif
+
                 SelectAndSnapToClosest();
             }
         }
@@ -737,6 +765,19 @@ namespace Microsoft.Phone.Controls.Primitives
                 {
                     child.SetState(isExpanded ? LoopingSelectorItem.State.Expanded : LoopingSelectorItem.State.Normal, true);
                 }
+            }
+        }
+
+        private void UpdateItemTemplates()
+        {
+            if (!IsReady)
+            {
+                return;
+            }
+
+            foreach (LoopingSelectorItem child in _itemsPanel.Children)
+            {
+                child.ContentTemplate = this.ItemTemplate;
             }
         }
 
@@ -791,6 +832,12 @@ namespace Microsoft.Phone.Controls.Primitives
             if (!reuse)
             {
                 wrapper.ApplyTemplate();
+            }
+
+            // Item should be visible if this control is expanded.
+            if (IsExpanded)
+            {
+                wrapper.SetState(LoopingSelectorItem.State.Expanded, false);
             }
 
             return wrapper;

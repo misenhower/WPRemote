@@ -221,7 +221,11 @@ namespace Microsoft.Phone.Controls
             if (frame != null)
             {
                 PhoneApplicationPage page = frame.Content as PhoneApplicationPage;
-                return page.Orientation;
+                
+                if (page != null)
+                {
+                    return page.Orientation;
+                }
             }
 
             return PageOrientation.None;

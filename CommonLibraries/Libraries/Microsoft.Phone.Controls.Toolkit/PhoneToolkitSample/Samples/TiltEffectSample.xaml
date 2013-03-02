@@ -14,6 +14,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -70,7 +71,17 @@
                        Text="Be mindful that there are slight performance implications of using this visual effect."/>
             
             <CheckBox Content="Touch this checkbox"/>
-            
+
+            <TextBlock Style="{StaticResource PhoneTextNormalStyle}"
+                       TextWrapping="Wrap"
+                       Text="Tilt effect can now be applied also to ListPicker control"/>
+
+            <toolkit:ListPicker Header="Background">
+                <sys:String>dark</sys:String>
+                <sys:String>light</sys:String>
+                <sys:String>dazzle</sys:String>
+            </toolkit:ListPicker>
+
             <HyperlinkButton Content="Click for online documentation"
                              TargetName="_self"
                              HorizontalAlignment="Stretch"

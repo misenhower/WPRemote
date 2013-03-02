@@ -34,7 +34,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\Bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;WP7</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -47,7 +47,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Bin\Release</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;WP7</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -102,11 +102,16 @@
     <Compile Include="Common\WeakEventListener.cs" />
     <Compile Include="Common\OpacityAnimator.cs" />
     <Compile Include="Common\TransformAnimator.cs" />
+    <Compile Include="Common\WeakReferenceHelper.cs" />
     <Compile Include="ContextMenu\ContextMenu.cs" />
     <Compile Include="ContextMenu\ContextMenuService.cs" />
     <Compile Include="ContextMenu\MenuBase.cs" />
     <Compile Include="ContextMenu\MenuItem.cs" />
     <Compile Include="ContextMenu\Separator.cs" />
+    <Compile Include="CustomMessageBox\CustomMessageBox.cs" />
+    <Compile Include="CustomMessageBox\CustomMessageBoxResult.cs" />
+    <Compile Include="CustomMessageBox\DismissedEventArgs.cs" />
+    <Compile Include="CustomMessageBox\DismissingEventArgs.cs" />
     <Compile Include="Data\HierarchicalDataTemplate.cs" />
     <Compile Include="DateTimeConverters\DailyDateTimeConverter.cs" />
     <Compile Include="DateTimeConverters\DateTimeFormatHelper.cs" />
@@ -131,6 +136,9 @@
     <Compile Include="DateTimePickers\TimePickerPage.xaml.cs">
       <DependentUpon>TimePickerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Effects\SlideInEffect.cs" />
+    <Compile Include="Effects\TiltEffect.cs" />
+    <Compile Include="Effects\TurnstileFeatherEffect.cs" />
     <Compile Include="ExpanderView\ExpanderView.cs" />
     <Compile Include="LongListSelector\LongListSelectorItem.cs" />
     <Compile Include="LongListSelector\LongListSelectorItemType.cs" />
@@ -278,7 +286,8 @@
     <Compile Include="ProgressBar\PerformanceProgressBar.cs" />
     <Compile Include="ProgressBar\RelativeAnimatingContentControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tilt\TiltEffect.cs" />
+    <Compile Include="RatingControl\Rating.cs" />
+    <Compile Include="RatingControl\RatingItem.cs" />
     <Compile Include="ToggleSwitch\OffOnConverter.cs" />
     <Compile Include="ToggleSwitch\ToggleSwitch.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -291,6 +300,7 @@
     <Compile Include="Transitions\TransitionFrame.cs" />
     <Compile Include="Transitions\ITransition.cs" />
     <Compile Include="Transitions\NavigationTransition.cs" />
+    <Compile Include="Transitions\Transitions\FeatheredTransition.cs" />
     <Compile Include="Transitions\Transitions\RollTransition.cs" />
     <Compile Include="Transitions\Transitions\Transition.cs" />
     <Compile Include="Transitions\TransitionService.cs" />
@@ -301,6 +311,8 @@
     <Compile Include="Transitions\Transitions\SwivelTransition.cs" />
     <Compile Include="Transitions\Transitions\SwivelTransitionMode.cs" />
     <Compile Include="Transitions\Transitions\SlideTransition.cs" />
+    <Compile Include="Transitions\Transitions\TurnstileFeatherTransition.cs" />
+    <Compile Include="Transitions\Transitions\TurnstileFeatherTransitionMode.cs" />
     <Compile Include="Transitions\Transitions\TurnstileTransition.cs" />
     <Compile Include="Transitions\Transitions.cs" />
     <Compile Include="Transitions\Transitions\TurnstileTransitionMode.cs" />

@@ -129,11 +129,6 @@ namespace Microsoft.Phone.Controls
         private PhoneApplicationFrame _rootVisual;
 
         /// <summary>
-        /// Stores the last known mouse position (via MouseMove).
-        /// </summary>
-        private Point _mousePosition;
-
-        /// <summary>
         /// Stores a reference to the object that owns the ContextMenu.
         /// </summary>
         private DependencyObject _owner;
@@ -313,7 +308,10 @@ namespace Microsoft.Phone.Controls
             {
                 if (newValue)
                 {
-                    OpenPopup(_mousePosition);
+                    // User is trying to set IsOpen property to true to show the ContextMenu,
+                    // this property can be set anywhere so we don't know the exact position the user wants to show.
+                    // Passing negative numbers so we can put it around the current element
+                    OpenPopup(new Point(-1, -1));
                 }
                 else
                 {
@@ -426,8 +424,16 @@ namespace Microsoft.Phone.Controls
 
             _openingStoryboard = new List<Storyboard>();
 
-            // Temporarily hook LayoutUpdated to find out when Application.Current.RootVisual gets set.
-            LayoutUpdated += OnLayoutUpdated;
+            if (null == Application.Current.RootVisual)
+            {
+                // Temporarily hook LayoutUpdated to find out when Application.Current.RootVisual gets set.
+                LayoutUpdated += OnLayoutUpdated;
+            }
+            else
+            {
+                // We've already missed the LayoutUpdated event, so we are safe to call InitializeRootVisual() to compensate.
+                InitializeRootVisual();
+            }
         }
 
         /// <summary>
@@ -692,16 +698,6 @@ namespace Microsoft.Phone.Controls
         }
 
         /// <summary>
-        /// Handles the RootVisual's MouseMove event to track the last mouse position.
-        /// </summary>
-        /// <param name="sender">Source of the event.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnRootVisualMouseMove(object sender, MouseEventArgs e)
-        {
-            _mousePosition = e.GetPosition(null);
-        }
-
-        /// <summary>
         /// Handles the ManipulationCompleted event for the RootVisual.
         /// </summary>
         /// <param name="sender">Source of the event.</param>
@@ -807,7 +803,6 @@ namespace Microsoft.Phone.Controls
         {
             if (null != _rootVisual)
             {
-                _rootVisual.MouseMove -= OnRootVisualMouseMove;
                 _rootVisual.ManipulationCompleted -= OnRootVisualManipulationCompleted;
                 _rootVisual.OrientationChanged -= OnEventThatClosesContextMenu;
             }
@@ -866,9 +861,6 @@ namespace Microsoft.Phone.Controls
                     PhoneApplicationFrame;
                 if (null != _rootVisual)
                 {
-                    _rootVisual.MouseMove -= OnRootVisualMouseMove;
-                    _rootVisual.MouseMove += OnRootVisualMouseMove;
-
                     _rootVisual.ManipulationCompleted -= OnRootVisualManipulationCompleted;
                     _rootVisual.ManipulationCompleted += OnRootVisualManipulationCompleted;
 
@@ -943,6 +935,67 @@ namespace Microsoft.Phone.Controls
         }
 
         /// <summary>
+        /// Adjust the position (Y) of ContextMenu for Portrait Mode.
+        /// </summary>
+        private double AdjustContextMenuPositionForPortraitMode(Rect bounds, double roiY, double roiHeight, ref bool reversed)
+        {
+            double y = 0.0;
+            bool notEnoughRoom = false;     // if we have enough room to place the menu without moving.
+
+            double lowestTopOfMenu = bounds.Bottom - ActualHeight;
+            double highestBottomOfMenu = bounds.Top + ActualHeight;
+
+            if (bounds.Height <= ActualHeight)
+            {
+                notEnoughRoom = true;
+            }
+            else if (roiY + roiHeight <= lowestTopOfMenu)           // there is enough room below the owner.
+            {
+                y = roiY + roiHeight;
+                reversed = false;
+            }
+            else if (roiY >= highestBottomOfMenu)                   // there is enough room above the owner.
+            {
+                y = roiY - ActualHeight;
+                reversed = true;
+            }
+            else if (_popupAlignmentPoint.Y >= 0)                   // menu is displayed by Tap&Hold gesture, will try to place the menu at touch position                                                                            
+            {
+                y = _popupAlignmentPoint.Y;
+                if (y <= lowestTopOfMenu)
+                {
+                    reversed = false;
+                }
+                else if (y >= highestBottomOfMenu)
+                {
+                    y -= ActualHeight;
+                    reversed = true;
+                }
+                else
+                {
+                    notEnoughRoom = true;
+                }
+            }
+            else                                                    // menu is displayed by calling "IsOpen = true", the point will be (-1, -1)
+            {
+                notEnoughRoom = true;
+            }
+
+            if (notEnoughRoom)                                      // failed to place menu in above scenraios, try to align it to Bottom.
+            {
+                y = lowestTopOfMenu;                              // align to bottom
+                reversed = true;
+
+                if (y <= bounds.Top)                              // if the menu can't be fully displayed, make sure we truncate the bottom items, not the top items.
+                {
+                    y = bounds.Top;
+                    reversed = false;
+                }
+            }
+            return y;
+        }
+
+        /// <summary>
         /// Updates the location and size of the Popup and overlay.
         /// </summary>
         private void UpdateContextMenuPlacement()
@@ -985,37 +1038,10 @@ namespace Microsoft.Phone.Controls
                         roiY = _popupAlignmentPoint.Y;
                         roiHeight = 0;
                     }
-
-                    // Try placing context menu below ROI
-                    p.Y = roiY + roiHeight;
-                    _reversed = false;
-
-                    if (p.Y > (bounds.Bottom - ActualHeight))
-                    {
-                        // Try placing context menu above ROI
-                        p.Y = roiY - ActualHeight;
-                        _reversed = true;
-
-                        if (p.Y < bounds.Top)
-                        {
-                            // Ignore ROI, place Context Menu at touch position and try downwards
-                            p = _popupAlignmentPoint;
-                            _reversed = false;
-
-                            if (p.Y > (bounds.Bottom - ActualHeight))
-                            {
-                                // Expand upwards at touch position
-                                _reversed = true;
-
-                                if (p.Y < bounds.Top)
-                                {
-                                    p.Y = bounds.Bottom - ActualHeight;
-                                    _reversed = true;
-                                }
-                            }
-                        }
-                    }
+                                  
+                    p.Y = AdjustContextMenuPositionForPortraitMode(bounds, roiY, roiHeight, ref _reversed);
                 }
+                    
 
                 // Start with the current Popup alignment point
                 double x = p.X;
@@ -1160,7 +1186,12 @@ namespace Microsoft.Phone.Controls
                 {
                     ((FrameworkElement)Owner).Opacity = 1;
 
-                    Point point = SafeTransformToVisual(ownerElement, _rootVisual).Transform(new Point());
+                    // If the owner's flow direction is right-to-left, then (0, 0) is situated at the
+                    // top-right corner of the element instead of its top-left corner.
+                    // We need for the translated point to be in the top-left corner since we want these elements
+                    // to be drawn on top of the owner's position from left to right,
+                    // so to achieve that, we'll translate (0, ActualWidth) instead if its flow direction is right-to-left.
+                    Point point = SafeTransformToVisual(ownerElement, _rootVisual).Transform(new Point(ownerElement.FlowDirection == System.Windows.FlowDirection.RightToLeft ? ownerElement.ActualWidth : 0, 0));
 
                     // Create a layer for the element's background
                     UIElement elementBackground = new Rectangle

@@ -230,11 +230,12 @@ namespace Microsoft.Phone.Controls
                 if (string.IsNullOrEmpty(Text))
                 {
                     ActualHintVisibility = Visibility.Visible;
-                    //Foreground = ForegroundBrushInactive;
+                    Foreground = ForegroundBrushInactive;
                 }
                 else
                 {
                     ActualHintVisibility = Visibility.Collapsed;
+                    Foreground = ForegroundBrushEdit;
                 }
             }
         }
@@ -481,7 +482,7 @@ namespace Microsoft.Phone.Controls
 
             if (handler != null)
             {
-                handler(sender, e);
+                handler(this, e);
             }
         }
 

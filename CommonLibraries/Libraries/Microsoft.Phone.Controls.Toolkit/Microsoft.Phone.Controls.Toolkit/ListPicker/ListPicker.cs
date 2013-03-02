@@ -84,7 +84,7 @@ namespace Microsoft.Phone.Controls
         /// <summary>
         /// Gets or sets the delegate, which is called to summarize a list of selections into a string.
         /// If not implemented, the default summarizing behavior will be used.
-        /// If this delegate is implemented, default summarizing behavior can be achieved by returning 
+        /// If this delegate is implemented, default summarizing behavior can be achieved by returning
         /// null instead of a string.
         /// </summary>
         public Func<IList, string> SummaryForSelectedItemsDelegate
@@ -173,7 +173,7 @@ namespace Microsoft.Phone.Controls
 
 
         /// <summary>
-        /// Whether the list picker is highlighted. 
+        /// Whether the list picker is highlighted.
         /// This occurs when the user is manipulating the box or when in expanded mode.
         /// </summary>
         private bool IsHighlighted
@@ -183,9 +183,9 @@ namespace Microsoft.Phone.Controls
         }
 
         private static readonly DependencyProperty IsHighlightedProperty =
-            DependencyProperty.Register("IsHighlighted", 
+            DependencyProperty.Register("IsHighlighted",
                                         typeof(bool),
-                                        typeof(ListPicker), 
+                                        typeof(ListPicker),
                                         new PropertyMetadata(false, new PropertyChangedCallback(OnIsHighlightedChanged)));
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Microsoft.Phone.Controls
         {
             UpdateVisualStates(true);
         }
-        
+
         /// <summary>
         /// Gets or sets the index of the selected item.
         /// </summary>
@@ -300,7 +300,7 @@ namespace Microsoft.Phone.Controls
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SelectedItem", Justification = "Property name.")]
         private void OnSelectedItemChanged(object oldValue, object newValue)
         {
-            if (null == Items || Items.Count == 0)
+            if (newValue != null && (null == Items || Items.Count == 0))
             {
                 if (null == Template)
                 {
@@ -473,8 +473,8 @@ namespace Microsoft.Phone.Controls
             "PickerPageUri", typeof(Uri), typeof(ListPicker), null);
 
         /// <summary>
-        /// Gets or sets how the list picker expands when tapped. 
-        /// This property has an effect only when SelectionMode is Single. 
+        /// Gets or sets how the list picker expands when tapped.
+        /// This property has an effect only when SelectionMode is Single.
         /// When SelectionMode is Multiple, the ExpansionMode will be treated as FullScreenOnly.
         /// ExpansionAllowed will only expand when the number of items is less than or equalt to ItemCountThreshold
         /// Single by default.
@@ -697,7 +697,7 @@ namespace Microsoft.Phone.Controls
                     _storyboard.Children.Remove(_translateAnimation);
                 }
             }
-            
+
             SetBinding(ShadowItemTemplateProperty, new Binding("ItemTemplate") { Source = this });
 
 
@@ -996,14 +996,33 @@ namespace Microsoft.Phone.Controls
 
         private void OnItemsPresenterHostParentSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            // Pass width through the Canvas
-            if (null != _itemsPresenterPart)
+            if (null != _itemsPresenterPart && null != _itemsPresenterHostPart && (e.NewSize.Width != e.PreviousSize.Width || e.NewSize.Width == 0))
             {
-                _itemsPresenterPart.Width = e.NewSize.Width;
+                // The control size has changed and we need to update the items presenter's size as well
+                // as its host's size (the canvas).
+                UpdateItemsPresenterWidth(e.NewSize.Width);
             }
 
             // Update clip to show only the selected item in Normal mode
             _itemsPresenterHostParent.Clip = new RectangleGeometry { Rect = new Rect(new Point(), e.NewSize) };
+        }
+
+        private void UpdateItemsPresenterWidth(double availableWidth)
+        {
+            // First, we clear everthing and we measure the items presenter desired size.
+            _itemsPresenterPart.Width = _itemsPresenterHostPart.Width = double.NaN;
+            _itemsPresenterPart.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+            // We set the host's width to the presenter's desired width only if no explicit width is set and
+            // the horizontal alignment isn't stretch (when the horizontal alignment is stretch, the canvas is
+            // automatically stretched).
+            if (double.IsNaN(Width) && HorizontalAlignment != HorizontalAlignment.Stretch)
+            {
+                _itemsPresenterHostPart.Width = _itemsPresenterPart.DesiredSize.Width;
+            }
+
+            if (availableWidth > _itemsPresenterPart.DesiredSize.Width)
+                _itemsPresenterPart.Width = availableWidth;
         }
 
         private void OnListPickerItemSizeChanged(object sender, SizeChangedEventArgs e)
@@ -1013,6 +1032,12 @@ namespace Microsoft.Phone.Controls
             if (object.Equals(ItemContainerGenerator.ItemFromContainer(container), SelectedItem))
             {
                 SizeForAppropriateView(false);
+            }
+
+            // Updates the host's width to reflect the items presenter desired width.
+            if (double.IsNaN(Width) && HorizontalAlignment != HorizontalAlignment.Stretch)
+            {
+                _itemsPresenterHostPart.Width = _itemsPresenterPart.DesiredSize.Width;
             }
         }
 
@@ -1035,7 +1060,7 @@ namespace Microsoft.Phone.Controls
                     break;
                 case ListPickerMode.Full:
                     // Nothing to do
-                    break;
+                    return;
             }
 
             // Play the height/translation animations
@@ -1223,7 +1248,7 @@ namespace Microsoft.Phone.Controls
                         TransitionService.SetNavigationInTransition(frameContentWhenOpenedAsUIElement, null);
                         _savedNavigationOutTransition = TransitionService.GetNavigationOutTransition(frameContentWhenOpenedAsUIElement);
                         TransitionService.SetNavigationOutTransition(frameContentWhenOpenedAsUIElement, null);
-                        
+
                     }
 
                     _frame.Navigated += OnFrameNavigated;
@@ -1239,26 +1264,30 @@ namespace Microsoft.Phone.Controls
 
         private void ClosePickerPage()
         {
-            // Unhook from events
-            if (null != _frame)
+            if (null == _frame)
             {
-                _frame.Navigated -= OnFrameNavigated;
-                _frame.NavigationStopped -= OnFrameNavigationStoppedOrFailed;
-                _frame.NavigationFailed -= OnFrameNavigationStoppedOrFailed;
-
-                // Restore host page transitions for the completed "popup" navigation
-                UIElement frameContentWhenOpenedAsUIElement = _frameContentWhenOpened as UIElement;
-
-                if (null != frameContentWhenOpenedAsUIElement)
+                // Unhook from events
+                _frame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (null != _frame)
                 {
-                    TransitionService.SetNavigationInTransition(frameContentWhenOpenedAsUIElement, _savedNavigationInTransition);
-                    _savedNavigationInTransition = null;
-                    TransitionService.SetNavigationOutTransition(frameContentWhenOpenedAsUIElement, _savedNavigationOutTransition);
-                    _savedNavigationOutTransition = null;
-                }
+                    _frame.Navigated -= OnFrameNavigated;
+                    _frame.NavigationStopped -= OnFrameNavigationStoppedOrFailed;
+                    _frame.NavigationFailed -= OnFrameNavigationStoppedOrFailed;
 
-                _frame = null;
-                _frameContentWhenOpened = null;
+                    // Restore host page transitions for the completed "popup" navigation
+                    UIElement frameContentWhenOpenedAsUIElement = _frameContentWhenOpened as UIElement;
+
+                    if (null != frameContentWhenOpenedAsUIElement)
+                    {
+                        TransitionService.SetNavigationInTransition(frameContentWhenOpenedAsUIElement, _savedNavigationInTransition);
+                        _savedNavigationInTransition = null;
+                        TransitionService.SetNavigationOutTransition(frameContentWhenOpenedAsUIElement, _savedNavigationOutTransition);
+                        _savedNavigationOutTransition = null;
+                    }
+
+                    _frame = null;
+                    _frameContentWhenOpened = null;
+                }
             }
 
             // Commit the value if available
@@ -1289,6 +1318,9 @@ namespace Microsoft.Phone.Controls
                 _listPickerPage = e.Content as ListPickerPage;
                 if (null != _listPickerPage)
                 {
+                    // Sets the flow direction.
+                    _listPickerPage.FlowDirection = this.FlowDirection;
+
                     // Set up the list picker page with the necesarry fields.
                     if (null != FullModeHeader)
                     {
@@ -1328,7 +1360,7 @@ namespace Microsoft.Phone.Controls
                         }
                     }
                 }
-            }        
+            }
         }
 
         private void OnFrameNavigationStoppedOrFailed(object sender, EventArgs e)

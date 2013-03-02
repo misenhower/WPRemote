@@ -16,7 +16,7 @@ namespace Microsoft.Phone.Controls
 {
     /// <summary>
     /// The GestureListener class raises events similar to those provided by the XNA TouchPanel, but it is designed for
-    /// Silverlight's event-driven model, rather than XNA's loop/polling model, and it also takes care of the hit testing
+    /// XAML's event-driven model, rather than XNA's loop/polling model, and it also takes care of the hit testing
     /// and event routing.
     /// </summary>
     public partial class GestureListener
@@ -153,9 +153,20 @@ namespace Microsoft.Phone.Controls
             _timer.Stop();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification="Issue manifests as a varity of exceptions.")]
         static void OnTimerTick(object sender, EventArgs e)
         {
-            ProcessTouchPanelEvents();
+            try
+            {
+                ProcessTouchPanelEvents();
+            }
+            catch
+            {
+                // In certain rare conditions TouchPanel.IsGestureAvailable will
+                // throw an exception due to an internal race condition in XNA.
+                // The exception can be ignored and the next call to the method
+                // will succeed.
+            }            
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]

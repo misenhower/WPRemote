@@ -5,6 +5,6 @@ https://silverlight.svn.codeplex.com/svn/Release/WindowsPhone71/
 
 For the "from" revision, enter the last revision that was imported. For the "to" revision, select HEAD or the desired revision.
 
-Last updated revision: 71382
+Last updated revision: 80285
 
 Complete the merge and this copy should be updated to the latest revision.
