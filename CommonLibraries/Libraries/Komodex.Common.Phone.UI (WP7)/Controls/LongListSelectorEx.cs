@@ -147,8 +147,8 @@ namespace Komodex.Common.Phone.Controls
                 if (list.Count == 0)
                     return true;
 
-                // If this is a flat list, we found items so we don't need to do any further checks
-                if (IsFlatList)
+                // If this is a flat list or if empty groups are displayed, we don't need to do any further checks
+                if (IsFlatList || DisplayAllGroups)
                     return false;
 
                 // Check whether the sub-lists have items

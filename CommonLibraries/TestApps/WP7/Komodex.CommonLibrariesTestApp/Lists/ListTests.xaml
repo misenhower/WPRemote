@@ -60,6 +60,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -75,9 +76,11 @@
 
                     <Button Grid.Column="0" Grid.Row="2" Content="Add Item" Click="AddGroupItem" />
                     <Button Grid.Column="1" Grid.Row="2" Content="Remove Item" Click="RemoveGroupItem" />
+                    
+                    <CheckBox Grid.Row="3" Grid.ColumnSpan="2" Content="Display all groups" IsChecked="{Binding Path=DisplayAllGroups, ElementName=groupedList, Mode=TwoWay}" />
 
                     <commonControls:LongListSelectorEx x:Name="groupedList"
-                                                       Grid.Row="3"
+                                                       Grid.Row="4"
                                                        Grid.ColumnSpan="2"
                                                        IsFlatList="False"
                                                        GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
