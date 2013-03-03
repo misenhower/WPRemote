@@ -21,13 +21,5 @@ namespace Komodex.CommonLibrariesTestApp
         {
             InitializeComponent();
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (mytb.IsEnabled)
-                mytb.IsEnabled = false;
-            else
-                mytb.IsEnabled = true;
-        }
     }
 }
