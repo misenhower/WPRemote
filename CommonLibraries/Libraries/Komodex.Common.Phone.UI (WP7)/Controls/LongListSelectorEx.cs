@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Clarity.Phone.Extensions;
 using System.Collections;
+using System.Collections.Specialized;
 
 namespace Komodex.Common.Phone.Controls
 {
@@ -28,8 +29,6 @@ namespace Komodex.Common.Phone.Controls
             Unlink += new EventHandler<LinkUnlinkEventArgs>(LongListSelectorEx_Unlink);
 
             GotFocus += new RoutedEventHandler(LongListSelectorEx_GotFocus);
-
-            CollectionChanged += new EventHandler(LongListSelectorEx_CollectionChanged);
         }
 
         #region Focus Fix
@@ -85,6 +84,8 @@ namespace Komodex.Common.Phone.Controls
 
         #region EmptyText
 
+        private bool _emptyTextVisible;
+
         #region EmptyText Property
 
         public static readonly DependencyProperty EmptyTextProperty =
@@ -124,14 +125,45 @@ namespace Komodex.Common.Phone.Controls
 
         #endregion
 
+        protected void UpdateEmptyTextVisibility()
+        {
+            SetEmptyTextVisibility(ShouldShowEmptyText());
+        }
+
         protected void SetEmptyTextVisibility(bool visible)
         {
             VisualStateManager.GoToState(this, (visible) ? "EmptyTextVisible" : "EmptyTextCollapsed", true);
+            _emptyTextVisible = visible;
         }
 
-        private void LongListSelectorEx_CollectionChanged(object sender, EventArgs e)
+        protected override void LoadDataIntoListBox()
         {
-            SetEmptyTextVisibility(ShouldShowEmptyText());
+            base.LoadDataIntoListBox();
+
+            UpdateEmptyTextVisibility();
+        }
+
+        protected override void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            base.OnCollectionChanged(sender, e);
+
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    if (_emptyTextVisible)
+                        UpdateEmptyTextVisibility();
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+                    if (!_emptyTextVisible)
+                        UpdateEmptyTextVisibility();
+                    break;
+
+                case NotifyCollectionChangedAction.Replace:
+                case NotifyCollectionChangedAction.Reset:
+                    UpdateEmptyTextVisibility();
+                    break;
+            }
         }
 
         private bool ShouldShowEmptyText()

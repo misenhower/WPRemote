@@ -641,12 +641,6 @@ namespace Microsoft.Phone.Controls
         /// </summary>
         public event EventHandler StretchingTop;
 
-        // NOTE: Adding this for LongListSelectorEx functionality
-        /// <summary>
-        /// Occurs when the source collection changes.
-        /// </summary>
-        public event EventHandler CollectionChanged;
-
         #endregion
 
         #region Constructor
@@ -783,10 +777,6 @@ namespace Microsoft.Phone.Controls
         {
             // Reload the whole list.
             LoadDataIntoListBox();
-
-            // NOTE: Adding this for LongListSelectorEx functionality
-            if (CollectionChanged != null)
-                CollectionChanged(this, new EventArgs());
         }
         #endregion
 
@@ -846,10 +836,6 @@ namespace Microsoft.Phone.Controls
             }
 
             LoadDataIntoListBox();
-
-            // NOTE: Adding this for LongListSelectorEx functionality
-            if (CollectionChanged != null)
-                CollectionChanged(this, new EventArgs());
         }
         #endregion
 
@@ -857,7 +843,7 @@ namespace Microsoft.Phone.Controls
         /// <summary>
         /// Loads ItemsSource into the hosted list box.
         /// </summary>
-        private void LoadDataIntoListBox()
+        protected virtual void LoadDataIntoListBox()
         {
             if (_listBox != null)
             {
@@ -1671,7 +1657,7 @@ namespace Microsoft.Phone.Controls
         /// <summary>
         /// Called when there is a change in the root or a group collection.
         /// </summary>
-        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        protected virtual void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             var senderAsEnumerable = sender as IEnumerable;
 
@@ -1718,10 +1704,6 @@ namespace Microsoft.Phone.Controls
                     LoadDataIntoListBox();
                     break;
             }
-
-            // NOTE: Adding this for LongListSelectorEx functionality
-            if (CollectionChanged != null)
-                CollectionChanged(this, new EventArgs());
         }
         #endregion
 
