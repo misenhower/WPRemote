@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common (WP7)", "Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common.Phone.UI (WP7)", "CommonLibraries\Komodex.Common.Phone.UI (WP7)\Komodex.Common.Phone.UI (WP7).csproj", "{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Phone.Controls.Toolkit", "CommonLibraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj", "{0754458A-7AFC-463A-B27D-2F6980522119}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Phone.Controls.Toolkit.WP7", "CommonLibraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.WP7\Microsoft.Phone.Controls.Toolkit.WP7.csproj", "{0754458A-7AFC-463A-B27D-2F6980522119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
