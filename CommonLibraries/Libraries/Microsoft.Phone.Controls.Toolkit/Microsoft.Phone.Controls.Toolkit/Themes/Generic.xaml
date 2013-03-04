@@ -1742,7 +1742,6 @@
                                                 Style="{TemplateBinding HintStyle}"
                                                 Content="{TemplateBinding Hint}"
                                                 Background="Transparent"
-                                                Foreground="{StaticResource PhoneTextBoxReadOnlyBrush}"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Margin="3,0,3,0"
