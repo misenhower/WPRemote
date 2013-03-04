@@ -9,7 +9,9 @@ namespace PhoneToolkitSample.Data
 {
     public class PeopleByFirstName : List<PeopleInGroup>
     {
-        private static readonly string Groups = "#abcdefghijklmnopqrstuvwxyz";
+        private const string Groups = "#abcdefghijklmnopqrstuvwxyz";
+
+        private const string GlobeGroupKey = "\uD83C\uDF10";
 
         private Dictionary<int, Person> _personLookup = new Dictionary<int, Person>();
 
@@ -26,6 +28,11 @@ namespace PhoneToolkitSample.Data
                 this.Add(group);
                 groups[c.ToString()] = group;
             }
+
+            //Globe group
+            PeopleInGroup globegroup = new PeopleInGroup(GlobeGroupKey);
+            this.Add(globegroup);
+            groups[GlobeGroupKey] = globegroup;
 
             foreach (Person person in people)
             {

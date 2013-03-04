@@ -124,9 +124,9 @@
       <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>
       <Name>Komodex.Common %28WP7%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj">
+    <ProjectReference Include="..\..\..\Libraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.WP7\Microsoft.Phone.Controls.Toolkit.WP7.csproj">
       <Project>{0754458A-7AFC-463A-B27D-2F6980522119}</Project>
-      <Name>Microsoft.Phone.Controls.Toolkit</Name>
+      <Name>Microsoft.Phone.Controls.Toolkit.WP7</Name>
     </ProjectReference>
     <ProjectReference Include="..\Komodex.CommonLibrariesTestApp.BackgroundAgent\Komodex.CommonLibrariesTestApp.BackgroundAgent.csproj">
       <Project>{EFD5EC9B-298C-4D94-9105-284E6BCE7222}</Project>

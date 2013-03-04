@@ -39,7 +39,9 @@ namespace PhoneToolkitSample.Data
             return true;
         }
 
+        #pragma warning disable 67 //Suppressing warning for unused event
         public event EventHandler CanExecuteChanged;
+        #pragma warning restore 67
 
         public void Execute(object parameter)
         {

@@ -125,7 +125,7 @@
                                 CacheMode="BitmapCache"
                                 x:Name="PrintInColors">
                     <sys:String>Cyan</sys:String>
-                    <sys:String>Majenta</sys:String>
+                    <sys:String>Magenta</sys:String>
                     <sys:String>Yellow</sys:String>
                     <sys:String>Black</sys:String>
                 </toolkit:ListPicker>

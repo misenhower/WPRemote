@@ -67,9 +67,9 @@
       <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>
       <Name>Komodex.Common %28WP7%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.csproj">
+    <ProjectReference Include="..\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.WP7\Microsoft.Phone.Controls.Toolkit.WP7.csproj">
       <Project>{0754458A-7AFC-463A-B27D-2F6980522119}</Project>
-      <Name>Microsoft.Phone.Controls.Toolkit</Name>
+      <Name>Microsoft.Phone.Controls.Toolkit.WP7</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

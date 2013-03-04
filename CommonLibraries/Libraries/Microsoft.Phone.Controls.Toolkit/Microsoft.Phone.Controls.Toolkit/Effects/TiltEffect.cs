@@ -343,16 +343,18 @@ namespace Microsoft.Phone.Controls
         private static void StartTiltEffectOnLLS(LongListSelector lls, ManipulationStartedEventArgs e)
         {
             FrameworkElement parent = (FrameworkElement)e.OriginalSource;
-            ContentPresenter[] cp = new ContentPresenter[2];
+            ContentPresenter[] cps = new ContentPresenter[2];
+            ContentPresenter cp;
             int cpCount = 0;
 
             // Starts from OriginalSource and goes up to ViewportControl
-            // while keeping trace of the last 2 ContentPresenter
+            // while keeping trace of the last 2 ContentPresenter            
             do
             {
-                if (parent is ContentPresenter)
+                cp = parent as ContentPresenter;
+                if (cp != null)
                 {
-                    cp[cpCount++ % 2] = (ContentPresenter)parent;
+                    cps[cpCount++ % 2] = cp;
                 }
 
                 parent = parent.GetVisualParent();
@@ -363,19 +365,25 @@ namespace Microsoft.Phone.Controls
             if (parent != lls && cpCount >= 2)
             {
                 // The tilted element is the child of the ContentPresenter that is the farthest from ViewportControl.
-                FrameworkElement element = cp[cpCount % 2].GetVisualChildren().FirstOrDefault() as FrameworkElement;
+                FrameworkElement element = cps[cpCount % 2].GetVisualChildren().FirstOrDefault() as FrameworkElement;
 
+                // Starts tilt only if we found an element on which tilt is not suppressed.
                 if(element != null)
                 {
-                    FrameworkElement container = e.ManipulationContainer as FrameworkElement;
+                    object suppressTilt = element.ReadLocalValue(SuppressTiltProperty);
 
-                    // Touch point relative to the element being tilted.
-                    Point tiltTouchPoint = container.TransformToVisual(element).Transform(e.ManipulationOrigin);
+                    if((suppressTilt is bool) == false || (bool)suppressTilt == false)
+                    {
+                        FrameworkElement container = e.ManipulationContainer as FrameworkElement;
 
-                    // Center of the element being tilted.
-                    Point elementCenter = new Point(element.ActualWidth / 2, element.ActualHeight / 2);
+                        // Touch point relative to the element being tilted.
+                        Point tiltTouchPoint = container.TransformToVisual(element).Transform(e.ManipulationOrigin);
 
-                    BeginTiltEffect(element, tiltTouchPoint, elementCenter, new Point(0, 0));
+                        // Center of the element being tilted.
+                        Point elementCenter = new Point(element.ActualWidth / 2, element.ActualHeight / 2);
+
+                        BeginTiltEffect(element, tiltTouchPoint, elementCenter, new Point(0, 0));
+                    }
                 }
             }
         }

@@ -275,6 +275,9 @@ namespace System.Windows.Controls
         /// <param name="margin">The control's margin.</param>
         /// <param name="controlSize">The <see cref="T:Size"/> of the control.</param>
         /// <returns>The position.</returns>
+#if WP7
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+#endif
         private Point BelowChildPoint(Thickness margin, Size controlSize)
         {
             double x = margin.Left;

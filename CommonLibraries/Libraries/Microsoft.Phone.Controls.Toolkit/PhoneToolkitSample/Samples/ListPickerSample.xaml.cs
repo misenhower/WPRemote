@@ -144,7 +144,7 @@ namespace PhoneToolkitSample.Samples
                 {
                     str += "C";
                 }
-                if (items.Contains("Majenta"))
+                if (items.Contains("Magenta"))
                 {
                     str += "M";
                 }

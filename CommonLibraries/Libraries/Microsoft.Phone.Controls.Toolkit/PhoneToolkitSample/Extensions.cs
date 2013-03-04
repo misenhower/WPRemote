@@ -67,7 +67,7 @@ namespace PhoneToolkitSample
 
         #region IEnumerable<TElement> Members
 
-        public IEnumerator<TElement> GetEnumerator()
+        new public IEnumerator<TElement> GetEnumerator()
         {
             return _internalGrouping.GetEnumerator();
         }
