@@ -98,7 +98,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
             if (interfaces != null)
                 IsNetworkAvailable = interfaces.Any(i => i.InterfaceState == ConnectState.Connected
-                    && !i.InterfaceName.Contains("Loopback")
+                    && !(i.Bandwidth == -1 && (i.InterfaceName.Contains("Loopback") || i.Description.Contains("Loopback")))
                     && (i.InterfaceType == NetworkInterfaceType.Wireless80211 || i.InterfaceType == NetworkInterfaceType.Ethernet));
             else
                 IsNetworkAvailable = false;
