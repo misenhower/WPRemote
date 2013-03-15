@@ -27,6 +27,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
     public static class DACPServerManager
     {
         private static bool _suppressNavigateToHome = false;
+        private static bool _isConnecting = false;
         private static bool _tryToReconnect = false;
         private static bool _isObscured = false;
         private static bool _connectOnNetworkAvailable = false;
@@ -40,6 +41,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
             get { return _Server; }
             private set
             {
+                _isConnecting = false;
+
                 if (_Server != null)
                 {
                     _Server.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(Server_ServerUpdate);
@@ -293,6 +296,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                     return;
                 }
 
+                _isConnecting = true;
                 Server.Start();
             }
         }
@@ -305,6 +309,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         public static void ApplicationDeactivated()
         {
+            _isConnecting = false;
             if (Server != null)
                 Server.Stop();
         }
@@ -317,6 +322,8 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
         {
             if (sender != Server)
                 return;
+
+            _isConnecting = false;
 
             switch (e.Type)
             {
@@ -384,7 +391,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
 
         private static void TryToReconnect()
         {
-            if (Server != null && !Server.IsConnected)
+            if (Server != null && !Server.IsConnected && !_isConnecting)
             {
                 if (!IsNetworkAvailable)
                 {
@@ -396,6 +403,7 @@ namespace Komodex.WP7DACPRemote.DACPServerManagement
                 if (_tryToReconnect)
                 {
                     _tryToReconnect = false;
+                    _isConnecting = true;
                     Server.Start();
                     UpdatePopupDisplay();
                 }
