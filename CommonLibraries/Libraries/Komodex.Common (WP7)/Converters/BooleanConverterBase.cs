@@ -24,17 +24,15 @@ namespace Komodex.Common.Converters
         {
             // Get the input value
             bool result = false;
+
             if (value is bool)
                 result = (bool)value;
             else if (value is bool?)
                 result = ((bool?)value).GetValueOrDefault();
 
-            // Determine if we need to swap the result
-            if (parameter != null)
-            {
-                if (bool.Parse((string)parameter))
-                    result = !result;
-            }
+            // Invert the result if necessary
+            if (ShouldInvert(parameter))
+                result = !result;
 
             // Return the true or false value
             return (result) ? TrueValue : FalseValue;
@@ -42,9 +40,29 @@ namespace Komodex.Common.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            bool result = (value != null && value.Equals(TrueValue));
+
+            if (ShouldInvert(parameter))
+                result = !result;
+            
+            return result;
         }
 
         #endregion
+
+        private static bool ShouldInvert(object parameter)
+        {
+            if (parameter is bool)
+                return (bool)parameter;
+
+            if (parameter is string)
+            {
+                string p = ((string)parameter).ToLower();
+                if (p == "true" || p == "invert")
+                    return true;
+            }
+
+            return false;
+        }
     }
 }
