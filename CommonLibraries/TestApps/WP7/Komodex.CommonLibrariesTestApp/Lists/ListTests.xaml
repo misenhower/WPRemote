@@ -48,7 +48,7 @@
                     <commonControls:LongListSelectorEx x:Name="flatList"
                                                        Grid.Row="2"
                                                        Grid.ColumnSpan="2"
-                                                       IsFlatList="True"
+                                                       IsGroupingEnabled="False"
                                                        EmptyText="No items found."
                         />
                 </Grid>
@@ -82,7 +82,7 @@
                     <commonControls:LongListSelectorEx x:Name="groupedList"
                                                        Grid.Row="4"
                                                        Grid.ColumnSpan="2"
-                                                       IsFlatList="False"
+                                                       IsGroupingEnabled="True"
                                                        GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
                                                        EmptyText="No items found."
                         />

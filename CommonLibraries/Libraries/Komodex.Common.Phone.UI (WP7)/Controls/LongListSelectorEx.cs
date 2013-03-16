@@ -189,7 +189,7 @@ namespace Komodex.Common.Phone.Controls
                     return true;
 
                 // If this is a flat list or if empty groups are displayed, we don't need to do any further checks
-                if (IsFlatList || DisplayAllGroups)
+                if (!IsGroupingEnabled || DisplayAllGroups)
                     return false;
 
                 // Check whether the sub-lists have items
