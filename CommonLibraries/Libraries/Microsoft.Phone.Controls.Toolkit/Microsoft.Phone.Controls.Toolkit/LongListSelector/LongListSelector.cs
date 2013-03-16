@@ -843,7 +843,7 @@ namespace Microsoft.Phone.Controls
         /// <summary>
         /// Loads ItemsSource into the hosted list box.
         /// </summary>
-        protected virtual void LoadDataIntoListBox()
+        private void LoadDataIntoListBox()
         {
             if (_listBox != null)
             {
@@ -1657,7 +1657,7 @@ namespace Microsoft.Phone.Controls
         /// <summary>
         /// Called when there is a change in the root or a group collection.
         /// </summary>
-        protected virtual void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             var senderAsEnumerable = sender as IEnumerable;
 

@@ -14,6 +14,7 @@ using System.Linq;
 using Clarity.Phone.Extensions;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Windows.Data;
 
 namespace Komodex.Common.Phone.Controls
 {
@@ -29,6 +30,19 @@ namespace Komodex.Common.Phone.Controls
             Unlink += new EventHandler<LinkUnlinkEventArgs>(LongListSelectorEx_Unlink);
 
             GotFocus += new RoutedEventHandler(LongListSelectorEx_GotFocus);
+
+            // Bind to base control's ItemsSource property
+            _itemsSourceListenerBinding = new Binding("ItemsSource");
+            _itemsSourceListenerBinding.Mode = BindingMode.OneWay;
+            _itemsSourceListenerBinding.Source = this;
+            SetBinding(ItemsSourceListenerProperty, _itemsSourceListenerBinding);
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            UpdateEmptyTextVisibility();
         }
 
         #region Focus Fix
@@ -56,18 +70,24 @@ namespace Komodex.Common.Phone.Controls
 
         #endregion
 
-        #region ContentPresenter Tracking
+        #region Item Link/Unlink and ContentPresenter Tracking
 
         protected List<ContentPresenter> _currentContentPresenters = new List<ContentPresenter>();
 
         private void LongListSelectorEx_Link(object sender, LinkUnlinkEventArgs e)
         {
             _currentContentPresenters.Add(e.ContentPresenter);
+
+            if (_emptyTextVisible)
+                UpdateEmptyTextVisibility();
         }
 
         private void LongListSelectorEx_Unlink(object sender, LinkUnlinkEventArgs e)
         {
             _currentContentPresenters.Remove(e.ContentPresenter);
+
+            if (!_emptyTextVisible && _currentContentPresenters.Count == 0)
+                UpdateEmptyTextVisibility();
         }
 
         public ContentPresenter GetContentPresenterForItem(object item)
@@ -115,12 +135,31 @@ namespace Komodex.Common.Phone.Controls
         #region ShowEmptyTextWhenNull Property
 
         public static readonly DependencyProperty ShowEmptyTextWhenNullProperty =
-            DependencyProperty.Register("ShowEmptyTextWhenNull", typeof(bool), typeof(LongListSelectorEx), new PropertyMetadata(true));
+            DependencyProperty.Register("ShowEmptyTextWhenNull", typeof(bool), typeof(LongListSelectorEx), new PropertyMetadata(true, OnShowTemptyTextWhenNullChanged));
 
         public bool ShowEmptyTextWhenNull
         {
             get { return (bool)GetValue(ShowEmptyTextWhenNullProperty); }
             set { SetValue(ShowEmptyTextWhenNullProperty, value); }
+        }
+
+        private static void OnShowTemptyTextWhenNullChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            ((LongListSelectorEx)obj).UpdateEmptyTextVisibility();
+        }
+
+        #endregion
+
+        #region ItemsSource Listener
+
+        private Binding _itemsSourceListenerBinding;
+
+        private static readonly DependencyProperty ItemsSourceListenerProperty =
+            DependencyProperty.Register("ItemsSourceListener", typeof(IEnumerable), typeof(LongListSelectorEx), new PropertyMetadata(OnItemsSourceListenerChanged));
+
+        private static void OnItemsSourceListenerChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            ((LongListSelectorEx)obj).UpdateEmptyTextVisibility();
         }
 
         #endregion
@@ -134,36 +173,6 @@ namespace Komodex.Common.Phone.Controls
         {
             VisualStateManager.GoToState(this, (visible) ? "EmptyTextVisible" : "EmptyTextCollapsed", true);
             _emptyTextVisible = visible;
-        }
-
-        protected override void LoadDataIntoListBox()
-        {
-            base.LoadDataIntoListBox();
-
-            UpdateEmptyTextVisibility();
-        }
-
-        protected override void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            base.OnCollectionChanged(sender, e);
-
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    if (_emptyTextVisible)
-                        UpdateEmptyTextVisibility();
-                    break;
-
-                case NotifyCollectionChangedAction.Remove:
-                    if (!_emptyTextVisible)
-                        UpdateEmptyTextVisibility();
-                    break;
-
-                case NotifyCollectionChangedAction.Replace:
-                case NotifyCollectionChangedAction.Reset:
-                    UpdateEmptyTextVisibility();
-                    break;
-            }
         }
 
         private bool ShouldShowEmptyText()
