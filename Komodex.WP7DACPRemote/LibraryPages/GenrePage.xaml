@@ -35,9 +35,6 @@
                         SelectionChanged="Pivot_SelectionChanged">
             <controls:PivotItem x:Name="pivotArtists" Header="{Binding LocalizedStrings.LibraryArtistsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"
-                               Text=""
-                               Visibility="{Binding Path=Artists, Converter={StaticResource noListItemsVisibilityConverter}}" />
                     <commonControls:LongListSelectorEx x:Name="lbArtists"
                                                        ItemsSource="{Binding Artists}"
                                                        EmptyText="{Binding LocalizedStrings.GenreNoArtistsFound, Source={StaticResource LocalizedStrings}}"
