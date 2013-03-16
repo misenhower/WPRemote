@@ -36,6 +36,21 @@ namespace Komodex.Common.Phone.Controls
             _itemsSourceListenerBinding.Mode = BindingMode.OneWay;
             _itemsSourceListenerBinding.Source = this;
             SetBinding(ItemsSourceListenerProperty, _itemsSourceListenerBinding);
+
+//#if WP7
+            // Set default IsGroupingEnabled value to false for WP8 compatibility
+            IsGroupingEnabled = false;
+
+            // Bind HideEmptyGroups to DisplayAllGroups property
+            _hideEmptyGroupsBinding = new Binding("DisplayAllGroups");
+            _hideEmptyGroupsBinding.Mode = BindingMode.TwoWay;
+            _hideEmptyGroupsBinding.Source = this;
+            _hideEmptyGroupsBinding.Converter = _inverseBooleanConverter;
+            SetBinding(HideEmptyGroupsProperty, _hideEmptyGroupsBinding);
+
+            // Set default HideEmptyGroups value to false for WP8 compatibility
+            HideEmptyGroups = false;
+//#endif
         }
 
         public override void OnApplyTemplate()
@@ -205,6 +220,30 @@ namespace Komodex.Common.Phone.Controls
             return false;
         }
 
+        #endregion
+
+        #region Compatibility
+//#if WP7
+
+        public bool IsGroupingEnabled
+        {
+            get { return !IsFlatList; }
+            set { IsFlatList = !value; }
+        }
+
+        private Binding _hideEmptyGroupsBinding;
+        private static Komodex.Common.Converters.InverseBooleanConverter _inverseBooleanConverter = new Komodex.Common.Converters.InverseBooleanConverter();
+
+        public static readonly DependencyProperty HideEmptyGroupsProperty =
+            DependencyProperty.Register("HideEmptyGroups", typeof(bool), typeof(LongListSelectorEx), new PropertyMetadata(false));
+
+        public bool HideEmptyGroups
+        {
+            get { return (bool)GetValue(HideEmptyGroupsProperty); }
+            set { SetValue(HideEmptyGroupsProperty, value); }
+        }
+
+//#endif
         #endregion
     }
 }

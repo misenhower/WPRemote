@@ -111,7 +111,7 @@ namespace Microsoft.Phone.Controls
         /// <summary>
         /// Gets or sets whether the list is flat instead of a group hierarchy.
         /// </summary>
-        public bool IsGroupingEnabled { get; set; }
+        public bool IsFlatList { get; set; }
 
         /// <summary>
         /// Gets or sets whether the list can be (temporarily) scrolled off of the ends. 
@@ -702,7 +702,7 @@ namespace Microsoft.Phone.Controls
         /// </summary>
         public void DisplayGroupView()
         {
-            if (GroupItemTemplate != null && IsGroupingEnabled)
+            if (GroupItemTemplate != null && !IsFlatList)
             {
                 OpenPopup();
             }
@@ -854,7 +854,7 @@ namespace Microsoft.Phone.Controls
                 UnsubscribeFromAllCollections();
                 
                 // if it's a flat list, add the items without grouping.
-                if (!IsGroupingEnabled)
+                if (IsFlatList)
                 {
                     if (ItemsSource != null)
                     {
@@ -1187,7 +1187,7 @@ namespace Microsoft.Phone.Controls
         /// </summary>
         /// <param name="newItems">List of new items to insert.</param>
         /// <param name="newItemsIndex">Insertion index relative to the collection</param>
-        /// <param name="group">Group into which the items are inserted. Can be null if IsGroupingEnabled == false</param>
+        /// <param name="group">Group into which the items are inserted. Can be null if IsFlatList == true</param>
         private void InsertNewItems(IList newItems, int newItemsIndex, IEnumerable group)
         {
             ObservableCollection<LongListSelectorItem> tuples = (ObservableCollection<LongListSelectorItem>)_listBox.ItemsSource;
@@ -1312,7 +1312,7 @@ namespace Microsoft.Phone.Controls
         /// </summary>
         /// <param name="oldItems">List of items to remove.</param>
         /// <param name="oldItemsIndex">Start index relative to the group or root collection.</param>
-        /// <param name="group">Group from which items are removed. Can be null if IsGroupingEnabled == false.</param>
+        /// <param name="group">Group from which items are removed. Can be null if IsFlatList == true.</param>
         private void RemoveOldItems(IList oldItems, int oldItemsIndex, IEnumerable group)
         {
             ObservableCollection<LongListSelectorItem> tuples = (ObservableCollection<LongListSelectorItem>)_listBox.ItemsSource;
@@ -1666,7 +1666,7 @@ namespace Microsoft.Phone.Controls
                 case NotifyCollectionChangedAction.Add:
                     if (sender == _rootCollection)
                     {
-                        if (!IsGroupingEnabled)
+                        if (IsFlatList)
                         {
                             InsertNewItems(e.NewItems, e.NewStartingIndex, null);
                         }
@@ -1684,7 +1684,7 @@ namespace Microsoft.Phone.Controls
                 case NotifyCollectionChangedAction.Remove:
                     if (sender == _rootCollection)
                     {
-                        if (!IsGroupingEnabled)
+                        if (IsFlatList)
                         {
                             RemoveOldItems(e.OldItems, e.OldStartingIndex, null);
                         }
