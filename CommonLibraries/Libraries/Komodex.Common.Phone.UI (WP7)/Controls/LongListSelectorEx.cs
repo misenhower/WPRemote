@@ -47,9 +47,9 @@ namespace Komodex.Common.Phone.Controls
             _hideEmptyGroupsBinding.Source = this;
             _hideEmptyGroupsBinding.Converter = _inverseBooleanConverter;
             SetBinding(HideEmptyGroupsProperty, _hideEmptyGroupsBinding);
-
-            // Set default HideEmptyGroups value to false for WP8 compatibility
-            HideEmptyGroups = false;
+//#else
+            // Set default HideEmptyGroups value to true
+            //HideEmptyGroups = true;
 //#endif
         }
 
