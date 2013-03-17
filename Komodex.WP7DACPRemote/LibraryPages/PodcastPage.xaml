@@ -42,7 +42,7 @@
             <commonControls:LongListSelectorEx Name="lbEpisodes"
                                                Style="{StaticResource LibraryListBoxStyle}"
                                                Tap="LongListSelector_Tap"
-                                               ItemsSource="{Binding Episodes}" IsFlatList="True"
+                                               ItemsSource="{Binding Episodes}"
                                                ItemTemplate="{StaticResource PlayButtonItemTemplate}"
                                                />
         </Grid>

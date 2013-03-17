@@ -77,7 +77,7 @@
                                                Style="{StaticResource LibraryListBoxStyle}"
                                                Link="lbSongs_Link"
                                                Tap="LongListSelector_Tap"
-                                               ItemsSource="{Binding Songs}" IsFlatList="True"
+                                               ItemsSource="{Binding Songs}"
                                                ListHeader="{Binding}"
                                                ListHeaderTemplate="{StaticResource ListHeaderTemplate}"
                                                ItemTemplate="{StaticResource PlayButtonItemTemplate}" />

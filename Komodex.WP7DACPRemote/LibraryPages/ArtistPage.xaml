@@ -41,7 +41,7 @@
                     <commonControls:LongListSelectorEx x:Name="lbAlbums"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
-                                                       ItemsSource="{Binding Albums}" IsFlatList="True"
+                                                       ItemsSource="{Binding Albums}"
                                                        ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
                                                        />
                 </Grid>
@@ -54,7 +54,7 @@
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Link="lbSongs_Link"
                                                        Tap="LongListSelector_Tap"
-                                                       ItemsSource="{Binding Songs}" IsFlatList="True" 
+                                                       ItemsSource="{Binding Songs}"
                                                        ItemTemplate="{StaticResource PlayButtonItemWithAlbumSubtitleTemplate}"
                                                        ListHeader="{Binding}"
                                                        ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}"

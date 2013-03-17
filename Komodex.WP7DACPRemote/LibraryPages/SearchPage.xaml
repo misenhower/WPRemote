@@ -57,6 +57,7 @@
                 <TextBox TextChanged="tbSearchString_TextChanged" Name="tbSearchString" InputScope="Search" KeyUp="tbSearchString_KeyUp" />
             </StackPanel>
             <commonControls:LongListSelectorEx x:Name="lbSearchResults" Background="Transparent" Grid.Row="2"
+                                               IsGroupingEnabled="True"
                                                Margin="0,0,-12,0"
                                                Tap="LongListSelector_Tap"
                                                ListHeaderTemplate="{StaticResource ListHeader}"

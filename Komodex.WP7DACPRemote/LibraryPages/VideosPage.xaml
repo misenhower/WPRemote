@@ -37,6 +37,7 @@
                 <Grid>
                     <commonControls:LongListSelectorEx x:Name="lbMovies"
                                                        ItemsSource="{Binding LibraryMovies}"
+                                                       IsGroupingEnabled="True"
                                                        EmptyText="{Binding LocalizedStrings.VideosNoMoviesFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
@@ -51,6 +52,7 @@
                 <Grid>
                     <commonControls:LongListSelectorEx x:Name="lbTVShows"
                                                        ItemsSource="{Binding LibraryTVShows}"
+                                                       IsGroupingEnabled="True"
                                                        EmptyText="{Binding LocalizedStrings.VideosNoTVShowsFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"

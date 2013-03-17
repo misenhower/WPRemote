@@ -43,7 +43,6 @@
             <commonControls:LongListSelectorEx x:Name="lbSongs"
                                                Style="{StaticResource LibraryListBoxStyle}"
                                                ItemsSource="{Binding Songs}"
-                                               IsFlatList="True"
                                                Tap="LongListSelector_Tap"
                                                Link="lbSongs_Link"
                                                ItemTemplate="{StaticResource PlayButtonItemWithArtistAndAlbumSubtitleTemplate}"

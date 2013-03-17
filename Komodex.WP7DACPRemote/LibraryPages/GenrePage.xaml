@@ -37,6 +37,7 @@
                 <Grid>
                     <commonControls:LongListSelectorEx x:Name="lbArtists"
                                                        ItemsSource="{Binding Artists}"
+                                                       IsGroupingEnabled="True"
                                                        EmptyText="{Binding LocalizedStrings.GenreNoArtistsFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
@@ -50,6 +51,7 @@
                 <Grid>
                     <commonControls:LongListSelectorEx x:Name="lbAlbums"
                                                        ItemsSource="{Binding Albums}"
+                                                       IsGroupingEnabled="True"
                                                        EmptyText="{Binding LocalizedStrings.GenreNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
@@ -63,6 +65,7 @@
                 <Grid>
                     <commonControls:LongListSelectorEx x:Name="lbSongs"
                                                        ItemsSource="{Binding Songs}"
+                                                       IsGroupingEnabled="True"
                                                        EmptyText="{Binding LocalizedStrings.GenreNoSongsFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"

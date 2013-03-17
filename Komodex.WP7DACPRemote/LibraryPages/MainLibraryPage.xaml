@@ -55,6 +55,7 @@
                 <Grid>
                     <commonControls:LongListSelectorEx x:Name="lbArtists"
                                                        ItemsSource="{Binding LibraryArtists}"
+                                                       IsGroupingEnabled="True"
                                                        EmptyText="{Binding LocalizedStrings.LibraryNoArtistsFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
@@ -68,6 +69,7 @@
                 <Grid >
                     <commonControls:LongListSelectorEx x:Name="lbAlbums"
                                                        ItemsSource="{Binding LibraryAlbums}"
+                                                       IsGroupingEnabled="True"
                                                        EmptyText="{Binding LocalizedStrings.LibraryNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
@@ -81,6 +83,7 @@
                 <Grid>
                     <commonControls:LongListSelectorEx x:Name="lbGenres"
                                                        ItemsSource="{Binding LibraryGenres}"
+                                                       IsGroupingEnabled="True"
                                                        EmptyText="{Binding LocalizedStrings.LibraryNoGenresFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
@@ -94,7 +97,6 @@
                 <Grid>
                     <commonControls:LongListSelectorEx x:Name="lbPlaylists"
                                                        ItemsSource="{Binding LibraryPlaylists}"
-                                                       IsFlatList="True"
                                                        EmptyText="{Binding LocalizedStrings.LibraryNoPlaylistsFound, Source={StaticResource LocalizedStrings}}"
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
