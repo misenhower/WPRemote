@@ -12,7 +12,7 @@
     
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneSemitransparentBrush}">
         <Border Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
-            <Grid Margin="12,0,12,0">
+            <Grid Margin="12,0,12,6">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32" />
                     <RowDefinition Height="Auto" />
