@@ -136,7 +136,7 @@
                         <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="http://komodex.com" Style="{StaticResource PhoneTextBlockBase}" />
                     </Grid>
                 </Button>
-                <TextBlock Name="copy1" FontSize="16" Style="{StaticResource PhoneTextSmallStyle}" Text="Copyright 2012 Komodex Systems LLC. All rights reserved." />
+                <TextBlock Name="copy1" FontSize="16" Style="{StaticResource PhoneTextSmallStyle}" Text="Copyright 2013 Komodex Systems LLC. All rights reserved." />
                 <TextBlock Name="copy2" FontSize="16" Style="{StaticResource PhoneTextSmallStyle}" Text="All trademarks are the property of their respective owners." />
             </StackPanel>
         </Grid>
