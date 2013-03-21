@@ -26,8 +26,13 @@ namespace Komodex.Common.Phone.Controls
             // Locate the style in Generic.xaml
             DefaultStyleKey = typeof(LongListSelectorEx);
 
+#if WP7
             Link += new EventHandler<LinkUnlinkEventArgs>(LongListSelectorEx_Link);
             Unlink += new EventHandler<LinkUnlinkEventArgs>(LongListSelectorEx_Unlink);
+#else
+            ItemRealized += LongListSelectorEx_ItemRealized;
+            ItemUnrealized += LongListSelectorEx_ItemUnrealized;
+#endif
 
             GotFocus += new RoutedEventHandler(LongListSelectorEx_GotFocus);
 
@@ -37,7 +42,7 @@ namespace Komodex.Common.Phone.Controls
             _itemsSourceListenerBinding.Source = this;
             SetBinding(ItemsSourceListenerProperty, _itemsSourceListenerBinding);
 
-//#if WP7
+#if WP7
             // Set default IsGroupingEnabled value to false for WP8 compatibility
             IsGroupingEnabled = false;
 
@@ -47,10 +52,10 @@ namespace Komodex.Common.Phone.Controls
             _hideEmptyGroupsBinding.Source = this;
             _hideEmptyGroupsBinding.Converter = _inverseBooleanConverter;
             SetBinding(HideEmptyGroupsProperty, _hideEmptyGroupsBinding);
-//#else
+#else
             // Set default HideEmptyGroups value to true
-            //HideEmptyGroups = true;
-//#endif
+            HideEmptyGroups = true;
+#endif
         }
 
         public override void OnApplyTemplate()
@@ -89,17 +94,39 @@ namespace Komodex.Common.Phone.Controls
 
         protected List<ContentPresenter> _currentContentPresenters = new List<ContentPresenter>();
 
+#if WP7
         private void LongListSelectorEx_Link(object sender, LinkUnlinkEventArgs e)
         {
-            _currentContentPresenters.Add(e.ContentPresenter);
+            Link(e.ContentPresenter);
+        }
+
+        private void LongListSelectorEx_Unlink(object sender, LinkUnlinkEventArgs e)
+        {
+            Unlink(e.ContentPresenter);
+        }
+#else
+        private void LongListSelectorEx_ItemRealized(object sender, ItemRealizationEventArgs e)
+        {
+            Link(e.Container);
+        }
+
+        private void LongListSelectorEx_ItemUnrealized(object sender, ItemRealizationEventArgs e)
+        {
+            Unlink(e.Container);
+        }
+#endif
+
+        private void Link(ContentPresenter contentPresenter)
+        {
+            _currentContentPresenters.Add(contentPresenter);
 
             if (_emptyTextVisible)
                 UpdateEmptyTextVisibility();
         }
 
-        private void LongListSelectorEx_Unlink(object sender, LinkUnlinkEventArgs e)
+        private void Unlink(ContentPresenter contentPresenter)
         {
-            _currentContentPresenters.Remove(e.ContentPresenter);
+            _currentContentPresenters.Remove(contentPresenter);
 
             if (!_emptyTextVisible && _currentContentPresenters.Count == 0)
                 UpdateEmptyTextVisibility();
@@ -223,7 +250,7 @@ namespace Komodex.Common.Phone.Controls
         #endregion
 
         #region Compatibility
-//#if WP7
+#if WP7
 
         public bool IsGroupingEnabled
         {
@@ -243,7 +270,7 @@ namespace Komodex.Common.Phone.Controls
             set { SetValue(HideEmptyGroupsProperty, value); }
         }
 
-//#endif
+#endif
         #endregion
     }
 }
