@@ -97,26 +97,26 @@ namespace Komodex.Common.Phone.Controls
 #if WP7
         private void LongListSelectorEx_Link(object sender, LinkUnlinkEventArgs e)
         {
-            Link(e.ContentPresenter);
+            LinkItem(e.ContentPresenter);
         }
 
         private void LongListSelectorEx_Unlink(object sender, LinkUnlinkEventArgs e)
         {
-            Unlink(e.ContentPresenter);
+            UnlinkItem(e.ContentPresenter);
         }
 #else
         private void LongListSelectorEx_ItemRealized(object sender, ItemRealizationEventArgs e)
         {
-            Link(e.Container);
+            LinkItem(e.Container);
         }
 
         private void LongListSelectorEx_ItemUnrealized(object sender, ItemRealizationEventArgs e)
         {
-            Unlink(e.Container);
+            UnlinkItem(e.Container);
         }
 #endif
 
-        private void Link(ContentPresenter contentPresenter)
+        private void LinkItem(ContentPresenter contentPresenter)
         {
             _currentContentPresenters.Add(contentPresenter);
 
@@ -124,7 +124,7 @@ namespace Komodex.Common.Phone.Controls
                 UpdateEmptyTextVisibility();
         }
 
-        private void Unlink(ContentPresenter contentPresenter)
+        private void UnlinkItem(ContentPresenter contentPresenter)
         {
             _currentContentPresenters.Remove(contentPresenter);
 
