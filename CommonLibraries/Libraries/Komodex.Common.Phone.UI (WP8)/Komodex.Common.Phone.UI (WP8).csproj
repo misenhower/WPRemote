@@ -92,6 +92,9 @@
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\NumericTextBox.cs">
       <Link>Controls\NumericTextBox.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\StandardControls.cs">
+      <Link>Controls\StandardControls.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Phone\DialogUserControlBase.cs">
       <Link>Phone\DialogUserControlBase.cs</Link>
     </Compile>

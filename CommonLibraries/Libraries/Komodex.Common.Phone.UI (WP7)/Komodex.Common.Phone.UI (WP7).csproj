@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -52,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Controls\LongListSelectorEx.cs" />
     <Compile Include="Controls\NumericTextBox.cs" />
+    <Compile Include="Controls\StandardControls.cs" />
     <Compile Include="Phone\DialogUserControlBase.cs" />
     <Compile Include="Analytics\PhoneAppCrashReporter.cs" />
     <Compile Include="Phone\PhoneApplicationBasePage.cs" />
