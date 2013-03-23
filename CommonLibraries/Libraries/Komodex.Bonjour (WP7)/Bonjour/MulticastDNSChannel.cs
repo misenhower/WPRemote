@@ -97,7 +97,7 @@ namespace Komodex.Bonjour
 
         #endregion
 
-#if WINDOWS_PHONE
+#if WP7
         #region UDP Channel Management
 
         // UDP Client
