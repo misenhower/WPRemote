@@ -61,9 +61,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Clarity.PageTransitions\Clarity.PageTransitions.csproj">
+    <ProjectReference Include="..\Clarity.PageTransitions %28WP7%29\Clarity.PageTransitions %28WP7%29.csproj">
       <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
-      <Name>Clarity.PageTransitions</Name>
+      <Name>Clarity.PageTransitions %28WP7%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Komodex.Common %28WP7%29\Komodex.Common %28WP7%29.csproj">
       <Project>{F4CDB590-7DE0-4BC0-8132-CC2BAC19D717}</Project>

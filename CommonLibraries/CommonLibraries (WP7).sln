@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common (WP7)", "Lib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common.Phone.UI (WP7)", "Libraries\Komodex.Common.Phone.UI (WP7)\Komodex.Common.Phone.UI (WP7).csproj", "{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clarity.PageTransitions", "Libraries\Clarity.PageTransitions\Clarity.PageTransitions.csproj", "{6CA892BF-E192-4A00-A126-02F391C07556}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clarity.PageTransitions (WP7)", "Libraries\Clarity.PageTransitions (WP7)\Clarity.PageTransitions (WP7).csproj", "{6CA892BF-E192-4A00-A126-02F391C07556}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Bonjour (WP7)", "Libraries\Komodex.Bonjour (WP7)\Komodex.Bonjour (WP7).csproj", "{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}"
 EndProject

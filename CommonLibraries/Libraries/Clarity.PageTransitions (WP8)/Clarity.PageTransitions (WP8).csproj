@@ -83,46 +83,46 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Clarity.PageTransitions\Animation\AnimatedBasePage.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Animation\AnimatedBasePage.cs">
       <Link>Animation\AnimatedBasePage.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Animation\AnimatorHelperBase.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Animation\AnimatorHelperBase.cs">
       <Link>Animation\AnimatorHelperBase.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Animation\ContinuumAnimator.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Animation\ContinuumAnimator.cs">
       <Link>Animation\ContinuumAnimator.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Animation\SlideAnimator.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Animation\SlideAnimator.cs">
       <Link>Animation\SlideAnimator.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Animation\Storyboards.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Animation\Storyboards.cs">
       <Link>Animation\Storyboards.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Animation\SwivelAnimator.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Animation\SwivelAnimator.cs">
       <Link>Animation\SwivelAnimator.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Animation\TurnstileAnimator.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Animation\TurnstileAnimator.cs">
       <Link>Animation\TurnstileAnimator.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Animation\TurnstileFeatherAnimator.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Animation\TurnstileFeatherAnimator.cs">
       <Link>Animation\TurnstileFeatherAnimator.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Extensions\ApplicationExtensions.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Extensions\ApplicationExtensions.cs">
       <Link>Extensions\ApplicationExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Extensions\CollectionExtensions.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Extensions\CollectionExtensions.cs">
       <Link>Extensions\CollectionExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Extensions\CollectionHelper.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Extensions\CollectionHelper.cs">
       <Link>Extensions\CollectionHelper.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Extensions\DialogService.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Extensions\DialogService.cs">
       <Link>Extensions\DialogService.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Extensions\ItemsControlHelper.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Extensions\ItemsControlHelper.cs">
       <Link>Extensions\ItemsControlHelper.cs</Link>
     </Compile>
-    <Compile Include="..\Clarity.PageTransitions\Extensions\VisualTreeExtensions.cs">
+    <Compile Include="..\Clarity.PageTransitions %28WP7%29\Extensions\VisualTreeExtensions.cs">
       <Link>Extensions\VisualTreeExtensions.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
