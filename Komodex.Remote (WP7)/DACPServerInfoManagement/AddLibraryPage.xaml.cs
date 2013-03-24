@@ -43,7 +43,7 @@ namespace Komodex.Remote.DACPServerInfoManagement
             // Default field content to make debugging easier
             if (DACPServerViewModel.Instance.Items.Count == 0)
             {
-                tbHost.Text = "10.0.0.1";
+                tbHost.Text = "10.0.0.2";
                 tbPIN.Text = "1111";
             }
 #endif
