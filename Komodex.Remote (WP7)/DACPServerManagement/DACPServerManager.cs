@@ -9,20 +9,20 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
-using Komodex.WP7DACPRemote.DACPServerInfoManagement;
+using Komodex.Remote.DACPServerInfoManagement;
 using System.Windows.Controls.Primitives;
-using Komodex.WP7DACPRemote.Controls;
+using Komodex.Remote.Controls;
 using Microsoft.Phone.Controls;
 using System.Windows.Data;
-using Komodex.WP7DACPRemote.Utilities;
-using Komodex.WP7DACPRemote.Settings;
-using Komodex.WP7DACPRemote.Localization;
+using Komodex.Remote.Utilities;
+using Komodex.Remote.Settings;
+using Komodex.Remote.Localization;
 using Komodex.Common.Phone;
 using Microsoft.Phone.Net.NetworkInformation;
 using System.Linq;
 using Komodex.Analytics;
 
-namespace Komodex.WP7DACPRemote.DACPServerManagement
+namespace Komodex.Remote.DACPServerManagement
 {
     public static class DACPServerManager
     {

@@ -9,10 +9,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using Komodex.WP7DACPRemote.Localization;
+using Komodex.Remote.Localization;
 using Komodex.Common;
 
-namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
+namespace Komodex.Remote.DACPServerInfoManagement
 {
     public class DACPServerInfo : INotifyPropertyChanged
     {

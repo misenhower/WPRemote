@@ -13,7 +13,7 @@ using System.Collections.Specialized;
 using System.IO.IsolatedStorage;
 using System.Linq;
 
-namespace Komodex.WP7DACPRemote.DACPServerInfoManagement
+namespace Komodex.Remote.DACPServerInfoManagement
 {
     public class DACPServerViewModel
     {

@@ -12,7 +12,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using Microsoft.Phone.Info;
 
-namespace Komodex.WP7DACPRemote.Controls
+namespace Komodex.Remote.Controls
 {
 #if DEBUG
     public static class MemoryCounters

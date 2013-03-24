@@ -12,16 +12,16 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Komodex.WP7DACPRemote.DACPServerManagement;
-using Komodex.WP7DACPRemote.Settings;
-using Komodex.WP7DACPRemote.Utilities;
-using Komodex.WP7DACPRemote.Controls;
+using Komodex.Remote.DACPServerManagement;
+using Komodex.Remote.Settings;
+using Komodex.Remote.Utilities;
+using Komodex.Remote.Controls;
 using Komodex.Common.Phone;
 using System.Threading;
 using System.Globalization;
 using Komodex.Analytics;
 
-namespace Komodex.WP7DACPRemote
+namespace Komodex.Remote
 {
     public partial class App : Application
     {
@@ -59,7 +59,7 @@ namespace Komodex.WP7DACPRemote
                 //Application.Current.Host.Settings.EnableCacheVisualization = true;
 
 #if DEBUG
-                Komodex.WP7DACPRemote.Controls.MemoryCounters.Show();
+                Komodex.Remote.Controls.MemoryCounters.Show();
 #endif
             }
 
@@ -100,7 +100,7 @@ namespace Komodex.WP7DACPRemote
             set
             {
                 Application.Current.Host.Settings.EnableFrameRateCounter = value;
-                Komodex.WP7DACPRemote.Controls.MemoryCounters.EnableMemoryCounters = value;
+                Komodex.Remote.Controls.MemoryCounters.EnableMemoryCounters = value;
             }
         }
 #endif

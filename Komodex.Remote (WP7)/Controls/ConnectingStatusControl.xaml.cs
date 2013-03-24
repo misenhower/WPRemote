@@ -10,10 +10,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
-using Komodex.WP7DACPRemote.DACPServerManagement;
-using Komodex.WP7DACPRemote.Localization;
+using Komodex.Remote.DACPServerManagement;
+using Komodex.Remote.Localization;
 
-namespace Komodex.WP7DACPRemote.Controls
+namespace Komodex.Remote.Controls
 {
     public partial class ConnectingStatusControl : UserControl
     {

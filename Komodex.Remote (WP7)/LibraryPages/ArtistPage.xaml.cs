@@ -11,12 +11,12 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP.Library;
-using Komodex.WP7DACPRemote.DACPServerManagement;
+using Komodex.Remote.DACPServerManagement;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
 
-namespace Komodex.WP7DACPRemote.LibraryPages
+namespace Komodex.Remote.LibraryPages
 {
     public partial class ArtistPage : DACPServerBoundPhoneApplicationPage
     {

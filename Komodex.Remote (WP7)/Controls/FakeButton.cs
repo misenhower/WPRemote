@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace Komodex.WP7DACPRemote.Controls
+namespace Komodex.Remote.Controls
 {
     public class FakeButton : ContentPresenter
     {

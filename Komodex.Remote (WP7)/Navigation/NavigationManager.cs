@@ -13,7 +13,7 @@ using System.Linq;
 using Komodex.Common;
 using Microsoft.Phone.Tasks;
 
-namespace Komodex.WP7DACPRemote
+namespace Komodex.Remote
 {
     public static class NavigationManager
     {

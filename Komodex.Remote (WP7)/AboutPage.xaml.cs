@@ -11,15 +11,15 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Reflection;
-using Komodex.WP7DACPRemote.Utilities;
-using Komodex.WP7DACPRemote.DACPServerManagement;
+using Komodex.Remote.Utilities;
+using Komodex.Remote.DACPServerManagement;
 using Komodex.DACP;
 using Microsoft.Phone.Tasks;
 using Clarity.Phone.Controls;
-using Komodex.WP7DACPRemote.Localization;
+using Komodex.Remote.Localization;
 using Komodex.Common;
 
-namespace Komodex.WP7DACPRemote
+namespace Komodex.Remote
 {
     public partial class AboutPage : DACPServerBoundPhoneApplicationPage
     {

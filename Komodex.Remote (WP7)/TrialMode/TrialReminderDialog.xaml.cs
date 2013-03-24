@@ -10,9 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.Common.Phone;
-using Komodex.WP7DACPRemote.Localization;
+using Komodex.Remote.Localization;
 
-namespace Komodex.WP7DACPRemote.TrialMode
+namespace Komodex.Remote.TrialMode
 {
     public partial class TrialReminderDialog : DialogUserControlBase
     {

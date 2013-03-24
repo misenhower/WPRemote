@@ -14,11 +14,11 @@ using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
-using Komodex.WP7DACPRemote.Localization;
+using Komodex.Remote.Localization;
 using Komodex.Common;
 using Komodex.Common.Phone;
 
-namespace Komodex.WP7DACPRemote.Settings
+namespace Komodex.Remote.Settings
 {
     public class SettingsManager : INotifyPropertyChanged
     {

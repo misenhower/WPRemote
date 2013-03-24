@@ -16,7 +16,7 @@ using Clarity.Phone.Controls.Animations;
 using Komodex.DACP;
 using System.Collections.ObjectModel;
 
-namespace Komodex.WP7DACPRemote.LibraryPages
+namespace Komodex.Remote.LibraryPages
 {
     public partial class SearchPage : DACPServerBoundPhoneApplicationPage
     {

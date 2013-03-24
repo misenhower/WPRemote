@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP.Library;
 
-namespace Komodex.WP7DACPRemote.LibraryPages
+namespace Komodex.Remote.LibraryPages
 {
     public partial class GeniusMixesPage : DACPServerBoundPhoneApplicationPage
     {

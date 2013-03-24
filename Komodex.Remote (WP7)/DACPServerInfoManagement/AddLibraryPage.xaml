@@ -1,7 +1,7 @@
 ﻿<common:PhoneApplicationBasePage
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
-    xmlns:my="clr-namespace:Komodex.WP7DACPRemote.Controls"  
-    x:Class="Komodex.WP7DACPRemote.DACPServerInfoManagement.AddLibraryPage"
+    xmlns:my="clr-namespace:Komodex.Remote.Controls"  
+    x:Class="Komodex.Remote.DACPServerInfoManagement.AddLibraryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"

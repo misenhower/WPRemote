@@ -10,11 +10,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
-using Komodex.WP7DACPRemote.Controls;
+using Komodex.Remote.Controls;
 using System.Collections.Specialized;
 using System.Collections.ObjectModel;
 
-namespace Komodex.WP7DACPRemote.NowPlaying
+namespace Komodex.Remote.NowPlaying
 {
     public partial class AirPlaySpeakersControl : UserControl
     {

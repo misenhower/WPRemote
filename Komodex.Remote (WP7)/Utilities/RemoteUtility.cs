@@ -14,15 +14,15 @@ using Microsoft.Phone.Net.NetworkInformation;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using System.Linq;
-using Komodex.WP7DACPRemote.Localization;
-using Komodex.WP7DACPRemote.Controls;
+using Komodex.Remote.Localization;
+using Komodex.Remote.Controls;
 using Komodex.Common;
 using System.IO;
 using Komodex.DACP;
-using Komodex.WP7DACPRemote.DACPServerManagement;
+using Komodex.Remote.DACPServerManagement;
 using Komodex.Common.Phone.Controls;
 
-namespace Komodex.WP7DACPRemote
+namespace Komodex.Remote
 {
     public static class RemoteUtility
     {

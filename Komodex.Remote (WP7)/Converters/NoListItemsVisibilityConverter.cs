@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using System.Windows.Data;
 using System.Collections;
 
-namespace Komodex.WP7DACPRemote.Converters
+namespace Komodex.Remote.Converters
 {
     public class NoListItemsVisibilityConverter : IValueConverter
     {

@@ -29,7 +29,7 @@ namespace Komodex.DACP
             : this()
         {
             string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;
-            if (!assemblyName.StartsWith("Komodex.WP7DACPRemote,"))
+            if (!assemblyName.StartsWith("Komodex.Remote,"))
                 throw new Exception();
 
             ID = id;
@@ -42,7 +42,7 @@ namespace Komodex.DACP
             : this()
         {
             string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;
-            if (!assemblyName.StartsWith("Komodex.WP7DACPRemote,"))
+            if (!assemblyName.StartsWith("Komodex.Remote,"))
                 throw new Exception();
 
             ID = Guid.Empty;

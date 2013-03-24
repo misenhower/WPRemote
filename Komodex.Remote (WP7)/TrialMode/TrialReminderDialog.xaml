@@ -1,4 +1,4 @@
-﻿<commonPhone:DialogUserControlBase x:Class="Komodex.WP7DACPRemote.TrialMode.TrialReminderDialog"
+﻿<commonPhone:DialogUserControlBase x:Class="Komodex.Remote.TrialMode.TrialReminderDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

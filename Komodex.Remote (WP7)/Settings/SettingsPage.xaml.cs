@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.ComponentModel;
 
-namespace Komodex.WP7DACPRemote.Settings
+namespace Komodex.Remote.Settings
 {
     public partial class SettingsPage : DACPServerBoundPhoneApplicationPage
     {

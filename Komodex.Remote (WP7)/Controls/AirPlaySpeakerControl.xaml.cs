@@ -13,7 +13,7 @@ using Komodex.DACP;
 using System.ComponentModel;
 using Microsoft.Phone.Controls;
 
-namespace Komodex.WP7DACPRemote.Controls
+namespace Komodex.Remote.Controls
 {
     public partial class AirPlaySpeakerControl : UserControl
     {

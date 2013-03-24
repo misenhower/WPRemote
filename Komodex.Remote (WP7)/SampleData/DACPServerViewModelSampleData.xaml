@@ -1,4 +1,4 @@
-﻿<Komodex_WP7DACPRemote_DACPServerInfoManagement:DACPServerViewModel xmlns:Komodex_WP7DACPRemote_DACPServerInfoManagement="clr-namespace:Komodex.WP7DACPRemote.DACPServerInfoManagement">
+﻿<Komodex_WP7DACPRemote_DACPServerInfoManagement:DACPServerViewModel xmlns:Komodex_WP7DACPRemote_DACPServerInfoManagement="clr-namespace:Komodex.Remote.DACPServerInfoManagement">
     <Komodex_WP7DACPRemote_DACPServerInfoManagement:DACPServerViewModel.Items>
         <Komodex_WP7DACPRemote_DACPServerInfoManagement:DACPServerInfo HostName="http://www.adatum.com/" LibraryName="Contoso, Ltd" PairingCode="Suspendisse" SecondLine="Host: localhost, PIN: 0000"/>
         <Komodex_WP7DACPRemote_DACPServerInfoManagement:DACPServerInfo HostName="http://www.adventure-works.com/" LibraryName="Contoso Pharmaceuticals" PairingCode="Curae" SecondLine="Host: localhost, PIN: 0000"/>

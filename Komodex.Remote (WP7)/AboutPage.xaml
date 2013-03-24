@@ -1,7 +1,7 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
-    xmlns:app="clr-namespace:Komodex.WP7DACPRemote"
+    xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
-    x:Class="Komodex.WP7DACPRemote.AboutPage"
+    x:Class="Komodex.Remote.AboutPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -130,7 +130,7 @@
                         <Rectangle Fill="{StaticResource PhoneAccentBrush}" Width="12" />
                         <Rectangle Grid.Column="1" Fill="{StaticResource PhoneForegroundBrush}" Margin="12,0" Width="188">
                             <Rectangle.OpacityMask>
-                                <ImageBrush ImageSource="/Komodex.WP7DACPRemote;component/Images/komodex-logo-65px.png" />
+                                <ImageBrush ImageSource="/Komodex.Remote;component/Images/komodex-logo-65px.png" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                         <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="http://komodex.com" Style="{StaticResource PhoneTextBlockBase}" />

@@ -14,7 +14,7 @@ using Komodex.DACP;
 using Komodex.DACP.Library;
 using Clarity.Phone.Controls.Animations;
 
-namespace Komodex.WP7DACPRemote.LibraryPages
+namespace Komodex.Remote.LibraryPages
 {
     public partial class PodcastsPage : DACPServerBoundPhoneApplicationPage
     {

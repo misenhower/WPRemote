@@ -16,10 +16,10 @@ using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 using Clarity.Phone.Extensions;
 using System.Collections.Specialized;
-using Komodex.WP7DACPRemote.Settings;
-using Komodex.WP7DACPRemote.Localization;
+using Komodex.Remote.Settings;
+using Komodex.Remote.Localization;
 
-namespace Komodex.WP7DACPRemote.NowPlaying
+namespace Komodex.Remote.NowPlaying
 {
     public partial class NowPlayingPage : DACPServerBoundPhoneApplicationPage
     {

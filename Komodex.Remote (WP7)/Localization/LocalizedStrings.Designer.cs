@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Komodex.WP7DACPRemote.Localization {
+namespace Komodex.Remote.Localization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Komodex.WP7DACPRemote.Localization {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Komodex.WP7DACPRemote.Localization.LocalizedStrings", typeof(LocalizedStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Komodex.Remote.Localization.LocalizedStrings", typeof(LocalizedStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -15,9 +15,9 @@ using Komodex.DACP;
 using Clarity.Phone.Controls.Animations;
 using Microsoft.Phone.Shell;
 using Clarity.Phone.Extensions;
-using Komodex.WP7DACPRemote.Localization;
+using Komodex.Remote.Localization;
 
-namespace Komodex.WP7DACPRemote.LibraryPages
+namespace Komodex.Remote.LibraryPages
 {
     public partial class MainLibraryPage : DACPServerBoundPhoneApplicationPage
     {

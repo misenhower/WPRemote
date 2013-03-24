@@ -13,7 +13,7 @@ using System.Collections;
 using Komodex.DACP;
 using Komodex.DACP.Library;
 
-namespace Komodex.WP7DACPRemote.Converters
+namespace Komodex.Remote.Converters
 {
     public class CollapseIfLessThanOneConverter : IValueConverter
     {

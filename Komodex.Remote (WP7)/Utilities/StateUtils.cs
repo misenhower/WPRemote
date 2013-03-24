@@ -13,7 +13,7 @@ using System.Diagnostics;
 using Microsoft.Phone.Controls;
 using System.Linq;
 
-namespace Komodex.WP7DACPRemote
+namespace Komodex.Remote
 {
     public static class StateUtils
     {

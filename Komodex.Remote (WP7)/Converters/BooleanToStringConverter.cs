@@ -10,7 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Data;
 
-namespace Komodex.WP7DACPRemote.Converters
+namespace Komodex.Remote.Converters
 {
     public class BooleanToStringConverter : DependencyObject, IValueConverter
     {
