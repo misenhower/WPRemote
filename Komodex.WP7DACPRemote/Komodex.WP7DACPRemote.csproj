@@ -340,9 +340,9 @@
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommonLibraries\Clarity.PageTransitions\Clarity.PageTransitions.csproj">
+    <ProjectReference Include="..\CommonLibraries\Clarity.PageTransitions %28WP7%29\Clarity.PageTransitions %28WP7%29.csproj">
       <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
-      <Name>Clarity.PageTransitions</Name>
+      <Name>Clarity.PageTransitions %28WP7%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\CommonLibraries\Komodex.Common.Phone.UI %28WP7%29\Komodex.Common.Phone.UI %28WP7%29.csproj">
       <Project>{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}</Project>
