@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.WP7DACPRemote", "Komodex.WP7DACPRemote\Komodex.WP7DACPRemote.csproj", "{D3454FD2-E767-4C6D-B26B-333C1DCFDA4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Remote (WP7)", "Komodex.Remote (WP7)\Komodex.Remote (WP7).csproj", "{D3454FD2-E767-4C6D-B26B-333C1DCFDA4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.DACP", "Komodex.DACP\Komodex.DACP.csproj", "{A51EFB9B-7F1C-4237-AFA0-CB61340036A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.DACP (WP7)", "Komodex.DACP (WP7)\Komodex.DACP (WP7).csproj", "{A51EFB9B-7F1C-4237-AFA0-CB61340036A3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonLibraries", "CommonLibraries", "{B092CA01-3225-41F7-B3C7-F64434A69A92}"
 EndProject
