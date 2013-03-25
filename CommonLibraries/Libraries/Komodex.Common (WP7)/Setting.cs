@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
@@ -9,6 +10,25 @@ namespace Komodex.Common
     public class Setting<T>
     {
         private static Log.LogInstance _log = new Log.LogInstance("Settings");
+
+        protected string _keyName;
+        protected T _value;
+        protected Action<T> _changeAction;
+
+#if NETFX_CORE
+        private bool _shouldSerializeValue;
+        private XmlSerializer _xmlSerializer;
+
+        // This is a list of types that do not need to be serialized before storing in application settings
+        private static readonly List<Type> _baseDataTypes = new List<Type>()
+        { 
+            typeof(string),
+            typeof(int),
+            typeof(bool),
+            typeof(DateTimeOffset),
+            typeof(Guid),
+        };
+#endif
 
 #if WINDOWS_PHONE
         private static System.IO.IsolatedStorage.IsolatedStorageSettings _isolatedSettings = System.IO.IsolatedStorage.IsolatedStorageSettings.ApplicationSettings;
@@ -32,11 +52,8 @@ namespace Komodex.Common
             }
             catch { }
 #else
-            // Determine whether this value type should be XML serialized
-            Type settingType = typeof(T);
-            if (settingType == typeof(string) || settingType == typeof(int) || settingType == typeof(bool))
-                _shouldSerializeValue = false;
-            else
+            // Determine whether this value type should be serialized to XML
+            if (!_baseDataTypes.Contains(typeof(T)))
             {
                 _shouldSerializeValue = true;
                 _xmlSerializer = new XmlSerializer(typeof(T));
@@ -68,15 +85,6 @@ namespace Komodex.Common
             if (_changeAction != null)
                 _changeAction(_value);
         }
-
-        protected string _keyName;
-        protected T _value;
-        protected Action<T> _changeAction;
-
-#if NETFX_CORE
-        private bool _shouldSerializeValue;
-        private XmlSerializer _xmlSerializer;
-#endif
 
         protected void AttachValueEvents()
         {
