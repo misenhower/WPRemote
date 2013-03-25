@@ -71,6 +71,9 @@ namespace Komodex.Remote
 
             RemoteUtility.Initialize();
 
+            // Update settings if necessary
+            SettingsUpdater.CheckForUpdate();
+
             TrialManager.Initialize(TrialDays, false, true);
 
             // Error reporter initialization

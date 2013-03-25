@@ -87,6 +87,7 @@ namespace Komodex.Remote.Settings
             }
         }
 
+        // TODO: Make sure this is written/read as a string
         private readonly Setting<ArtistClickActions> _artistClickAction = new Setting<ArtistClickActions>("SettingsArtistClickAction", 0);
         public ArtistClickActions ArtistClickAction
         {

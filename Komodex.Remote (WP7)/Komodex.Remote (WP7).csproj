@@ -59,6 +59,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutPage.xaml.cs">
@@ -149,6 +150,7 @@
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\SettingsUpdater.cs" />
     <Compile Include="ThirdParty\LowProfileImageLoader.cs" />
     <Compile Include="TrialMode\TrialReminderDialog.xaml.cs">
       <DependentUpon>TrialReminderDialog.xaml</DependentUpon>
