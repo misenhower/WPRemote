@@ -15,9 +15,8 @@ namespace Komodex.Common
         protected T _value;
         protected Action<T> _changeAction;
 
-#if NETFX_CORE
-        private bool _shouldSerializeValue;
-        private XmlSerializer _xmlSerializer;
+        private readonly bool _shouldSerializeValue;
+        private readonly XmlSerializer _xmlSerializer;
 
         // This is a list of types that do not need to be serialized before storing in application settings
         private static readonly List<Type> _baseDataTypes = new List<Type>()
@@ -28,7 +27,6 @@ namespace Komodex.Common
             typeof(DateTimeOffset),
             typeof(Guid),
         };
-#endif
 
 #if WINDOWS_PHONE
         private static System.IO.IsolatedStorage.IsolatedStorageSettings _isolatedSettings = System.IO.IsolatedStorage.IsolatedStorageSettings.ApplicationSettings;
@@ -41,17 +39,7 @@ namespace Komodex.Common
             _keyName = keyName;
             _changeAction = changeAction;
 
-            bool valueLoaded = false;
 
-#if WINDOWS_PHONE
-            // Try to load the value from isolated storage, or use the default value
-            // TryGetValue<T> will throw an exception if the value in isolated storage is of a different type
-            try
-            {
-                valueLoaded = _isolatedSettings.TryGetValue<T>(_keyName, out _value);
-            }
-            catch { }
-#else
             // Determine whether this value type should be serialized to XML
             if (!_baseDataTypes.Contains(typeof(T)))
             {
@@ -60,15 +48,35 @@ namespace Komodex.Common
             }
 
             // Try to load the value from isolated storage
-            if (_shouldSerializeValue)
+            bool valueLoaded = false;
+
+#if WINDOWS_PHONE
+            // TryGetValue<T> will throw an exception if the value in isolated storage is of a different type
+            try
+            {
+                valueLoaded = _isolatedSettings.TryGetValue<T>(_keyName, out _value);
+            }
+            catch { }
+#else
+            valueLoaded = _localSettings.Values.TryGetValue<T>(_keyName, out _value);
+#endif
+
+            // If we couldn't load the value directly, try to deserialize it
+            if (!valueLoaded && _shouldSerializeValue)
             {
                 string value;
+#if WINDOWS_PHONE
+                try
+                {
+                    if (_isolatedSettings.TryGetValue<string>(_keyName, out value))
+                        valueLoaded = _xmlSerializer.TryDeserialize<T>(value, out _value);
+                }
+                catch { }
+#else
                 if (_localSettings.Values.TryGetValue<string>(_keyName, out value))
                     valueLoaded = _xmlSerializer.TryDeserialize<T>(value, out _value);
-            }
-            else
-                valueLoaded = _localSettings.Values.TryGetValue<T>(_keyName, out _value);
 #endif
+            }
 
             if (valueLoaded)
             {
@@ -128,7 +136,10 @@ namespace Komodex.Common
         {
             // Update isolated storage
 #if WINDOWS_PHONE
-            _isolatedSettings[_keyName] = _value;
+            if (_shouldSerializeValue)
+                _isolatedSettings[_keyName] = _xmlSerializer.SerializeToString(_value);
+            else
+                _isolatedSettings[_keyName] = _value;
             _isolatedSettings.Save();
 #else
             if (_shouldSerializeValue)

@@ -364,7 +364,7 @@ namespace Komodex.Common
         #endregion
 
         #region XmlSerializer Extensions
-#if NETFX_CORE
+
         public static string SerializeToString(this XmlSerializer xmlSerializer, object value)
         {
             StringWriter stringWriter = new StringWriter();
@@ -389,7 +389,7 @@ namespace Komodex.Common
             value = default(T);
             return false;
         }
-#endif
+
         #endregion
     }
 }
