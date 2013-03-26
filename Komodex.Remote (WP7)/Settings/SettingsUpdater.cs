@@ -92,7 +92,7 @@ namespace Komodex.Remote.Settings
                                 break;
 
                             case "SettingsArtistClickAction":
-                                SaveValue("SettingsArtistClickAction", value);
+                                SaveValue("SettingsArtistClickAction", "<ArtistClickAction>" + value + "</ArtistClickAction>");
                                 break;
 
                             case "SettingsExtendedErrorReporting":

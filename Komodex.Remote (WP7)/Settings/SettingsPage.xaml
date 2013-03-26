@@ -44,8 +44,14 @@
             <StackPanel>
                 <toolkit:ListPicker Header="{Binding LocalizedStrings.SettingsArtistTapAction, Source={StaticResource LocalizedStrings}}" Name="lpArtistTap"
                                     Margin="12,12,12,48"
-                                    ItemsSource="{Binding ArtistClickActionStructs}"
-                                    SelectedItem="{Binding BindableArtistClickAction, Mode=TwoWay}" />
+                                    ItemsSource="{Binding ArtistClickActions}"
+                                    SelectedItem="{Binding BindableArtistClickAction, Mode=TwoWay}">
+                    <toolkit:ListPicker.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Value}" />
+                        </DataTemplate>
+                    </toolkit:ListPicker.ItemTemplate>
+                </toolkit:ListPicker>
 
                 <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsStayConnectedUnderLock, Source={StaticResource LocalizedStrings}}" Margin="0,0,0,-24"
                                       IsChecked="{Binding RunUnderLock, Mode=TwoWay}"

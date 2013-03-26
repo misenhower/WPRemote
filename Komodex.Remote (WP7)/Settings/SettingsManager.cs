@@ -72,24 +72,19 @@ namespace Komodex.Remote.Settings
 
         #region Artist Click Action
 
-        private ObservableCollection<ArtistClickActionStruct> _ArtistClickActionStructs = null;
-        public ObservableCollection<ArtistClickActionStruct> ArtistClickActionStructs
+        private readonly List<KeyValuePair<ArtistClickAction, string>> _artistClickActions = new List<KeyValuePair<ArtistClickAction, string>>()
         {
-            get
-            {
-                if (_ArtistClickActionStructs == null)
-                {
-                    _ArtistClickActionStructs = new ObservableCollection<ArtistClickActionStruct>();
-                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenArtistPage, LocalizedStrings.SettingsArtistTapOpenArtistPage));
-                    _ArtistClickActionStructs.Add(new ArtistClickActionStruct(ArtistClickActions.OpenAlbumPage, LocalizedStrings.SettingsArtistTapOpenAlbumPage));
-                }
-                return _ArtistClickActionStructs;
-            }
+            new KeyValuePair<ArtistClickAction, string>(ArtistClickAction.OpenArtistPage, LocalizedStrings.SettingsArtistTapOpenArtistPage),
+            new KeyValuePair<ArtistClickAction, string>(ArtistClickAction.OpenAlbumPage, LocalizedStrings.SettingsArtistTapOpenAlbumPage),
+        };
+
+        public List<KeyValuePair<ArtistClickAction, string>> ArtistClickActions
+        {
+            get { return _artistClickActions; }
         }
 
-        // TODO: Make sure this is written/read as a string
-        private readonly Setting<ArtistClickActions> _artistClickAction = new Setting<ArtistClickActions>("SettingsArtistClickAction", 0);
-        public ArtistClickActions ArtistClickAction
+        private readonly Setting<ArtistClickAction> _artistClickAction = new Setting<ArtistClickAction>("SettingsArtistClickAction");
+        public ArtistClickAction ArtistClickAction
         {
             get { return _artistClickAction.Value; }
             set
@@ -98,43 +93,15 @@ namespace Komodex.Remote.Settings
                     return;
 
                 _artistClickAction.Value = value;
-                PropertyChanged.RaiseOnUIThread(this, "ArtistClickAction", "BindableClickAction");
+                PropertyChanged.RaiseOnUIThread(this, "ArtistClickAction", "BindableArtistClickAction");
             }
         }
 
-        public ArtistClickActionStruct BindableArtistClickAction
+        public KeyValuePair<ArtistClickAction, string> BindableArtistClickAction
         {
-            get { return ArtistClickActionStructs.First(a => a.ArtistClickAction == ArtistClickAction); }
-            set { ArtistClickAction = value.ArtistClickAction; }
+            get { return _artistClickActions.FirstOrDefault(a => a.Key == ArtistClickAction); }
+            set { ArtistClickAction = value.Key; }
         }
-
-        #region Enum and Struct
-
-        public enum ArtistClickActions
-        {
-            OpenArtistPage,
-            OpenAlbumPage,
-        }
-
-        public struct ArtistClickActionStruct
-        {
-            public ArtistClickActionStruct(ArtistClickActions clickAction, string name)
-                : this()
-            {
-                ArtistClickAction = clickAction;
-                Name = name;
-            }
-
-            public ArtistClickActions ArtistClickAction { get; private set; }
-            public string Name { get; private set; }
-
-            public override string ToString()
-            {
-                return Name;
-            }
-        }
-
-        #endregion
 
         #endregion
 

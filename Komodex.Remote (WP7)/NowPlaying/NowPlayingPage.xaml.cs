@@ -293,13 +293,13 @@ namespace Komodex.Remote.NowPlaying
         {
             switch (SettingsManager.Current.ArtistClickAction)
             {
-                case SettingsManager.ArtistClickActions.OpenArtistPage:
+                case ArtistClickAction.OpenArtistPage:
                     if (DACPServer.CurrentArtist == null)
                         return;
                     NavigationManager.OpenArtistPage(DACPServer.CurrentArtist);
                     break;
 
-                case SettingsManager.ArtistClickActions.OpenAlbumPage:
+                case ArtistClickAction.OpenAlbumPage:
                     if (DACPServer.CurrentArtist == null || DACPServer.CurrentAlbum == null || DACPServer.CurrentAlbumPersistentID == 0)
                         return;
                     NavigationManager.OpenAlbumPage(0, DACPServer.CurrentAlbum, DACPServer.CurrentArtist, DACPServer.CurrentAlbumPersistentID);
