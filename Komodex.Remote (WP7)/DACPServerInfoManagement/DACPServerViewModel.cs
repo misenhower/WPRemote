@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO.IsolatedStorage;
 using System.Linq;
+using Komodex.Common;
 
 namespace Komodex.Remote.DACPServerInfoManagement
 {
@@ -35,59 +36,28 @@ namespace Komodex.Remote.DACPServerInfoManagement
 
         #region Properties
 
-        private const string ItemsKey = "DACPServerList";
-        private ObservableCollection<DACPServerInfo> _Items = null;
+        private readonly Setting<ObservableCollection<DACPServerInfo>> _items = new Setting<ObservableCollection<DACPServerInfo>>("DACPServerList", new ObservableCollection<DACPServerInfo>());
         public ObservableCollection<DACPServerInfo> Items
         {
-            get
-            {
-                if (_Items == null)
-                {
-                    if (isolatedSettings.Contains(ItemsKey))
-                        _Items = isolatedSettings[ItemsKey] as ObservableCollection<DACPServerInfo>;
-
-                    if (_Items == null)
-                    {
-                        _Items = new ObservableCollection<DACPServerInfo>();
-                        isolatedSettings[ItemsKey] = _Items;
-                    }
-
-                    _Items.CollectionChanged += Items_CollectionChanged;
-                }
-
-                return _Items;
-            }
+            get { return _items.Value; }
         }
 
-        void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private readonly Setting<Guid> _selectedServerGuid = new Setting<Guid>("SelectedServerGuid");
+        public Guid SelectedServerGuid
         {
-            Save();
+            get { return _selectedServerGuid.Value; }
+            set
+            {
+                if (_selectedServerGuid.Value == value)
+                    return;
+
+                _selectedServerGuid.Value = value;
+            }
         }
 
         public DACPServerInfo CurrentDACPServer
         {
             get { return Items.FirstOrDefault(si => si.ID == SelectedServerGuid); }
-        }
-
-        private const string SelectedServerGuidKey = "SelectedServerGuid";
-        private Guid _SelectedServerGuid = Guid.Empty;
-        public Guid SelectedServerGuid
-        {
-            get
-            {
-                if (_SelectedServerGuid == Guid.Empty)
-                    if (isolatedSettings.Contains(SelectedServerGuidKey))
-                        if (isolatedSettings[SelectedServerGuidKey] is Guid)
-                            _SelectedServerGuid = (Guid)isolatedSettings[SelectedServerGuidKey];
-
-                return _SelectedServerGuid;
-            }
-            set
-            {
-                _SelectedServerGuid = value;
-                isolatedSettings[SelectedServerGuidKey] = _SelectedServerGuid;
-                Save();
-            }
         }
 
         #endregion
@@ -96,7 +66,7 @@ namespace Komodex.Remote.DACPServerInfoManagement
 
         public void Save()
         {
-            isolatedSettings.Save();
+            _items.Save();
         }
 
         #endregion
