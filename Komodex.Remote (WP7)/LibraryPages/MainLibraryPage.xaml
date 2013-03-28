@@ -59,7 +59,7 @@
                         Style="{StaticResource LibraryListBoxStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource PlayButtonItemTemplate}"
-                        ListFooterTemplate="{StaticResource ListFooter72px}"
+                        ListFooterTemplate="{StaticResource ListFooterPadding}"
                         />
                 </Grid>
             </controls:PivotItem>
@@ -72,7 +72,7 @@
                         Style="{StaticResource LibraryListBoxStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
-                        ListFooterTemplate="{StaticResource ListFooter72px}"
+                        ListFooterTemplate="{StaticResource ListFooterPadding}"
                         />
                 </Grid>
             </controls:PivotItem>
@@ -85,7 +85,7 @@
                         Style="{StaticResource LibraryListBoxStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource PlayButtonItemTemplate}"
-                        ListFooterTemplate="{StaticResource ListFooter72px}"
+                        ListFooterTemplate="{StaticResource ListFooterPadding}"
                         />
                 </Grid>
             </controls:PivotItem>
@@ -99,7 +99,8 @@
                         ListHeader="{Binding}"
                         ListHeaderTemplate="{StaticResource PlaylistHeaderTemplate}"
                         ItemTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
-                        ListFooterTemplate="{StaticResource ListFooter72px}" />
+                        ListFooterTemplate="{StaticResource ListFooterPadding}"
+                        />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

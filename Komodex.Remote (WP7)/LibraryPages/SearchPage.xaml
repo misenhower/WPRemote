@@ -62,7 +62,6 @@
                 Tap="LongListSelector_Tap"
                 ListHeaderTemplate="{StaticResource ListHeader}"
                 ItemTemplate="{StaticResource ItemTemplate}"
-                GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
                 GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
                 />
         </Grid>

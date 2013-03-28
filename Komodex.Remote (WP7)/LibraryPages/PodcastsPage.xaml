@@ -46,7 +46,6 @@
                 Style="{StaticResource LibraryListBoxStyle}"
                 Tap="LongListSelector_Tap"
                 ItemTemplate="{StaticResource AlbumArtLargeItemTemplate}"
-                ListFooterTemplate="{StaticResource ListFooter72px}"
                 />
         </Grid>
     </Grid>

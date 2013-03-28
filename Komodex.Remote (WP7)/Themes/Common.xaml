@@ -1,0 +1,47 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:converters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
+    xmlns:appConverters="clr-namespace:Komodex.Remote.Converters"
+    >
+    
+    <!-- Localization -->
+    <localization:LocalizedStringsWrapper xmlns:localization="clr-namespace:Komodex.Remote.Localization" x:Key="LocalizedStrings" />
+
+    <!-- Converters -->
+    <converters:BooleanToBrushConverter x:Key="BooleanToAccentBrushConverter" TrueValue="{StaticResource PhoneAccentBrush}" FalseValue="{StaticResource PhoneChromeBrush}" />
+    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <appConverters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />
+    <appConverters:NoListItemsVisibilityConverter x:Key="noListItemsVisibilityConverter" />
+    <converters:StringToUpperConverter x:Key="StringToUpperConverter" />
+    <appConverters:CollapseIfLessThanOneConverter x:Key="collapseIfLessThanOneConverter" />
+    <appConverters:CollapseIfLessThanTwoConverter x:Key="collapseIfLessThanTwoConverter" />
+    <appConverters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
+    <appConverters:LocalizedOffOnConverter x:Key="LocalizedOffOnConverter" />
+
+    <!-- App Title Style -->
+    <Style x:Key="PhoneTextAppTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextBlockBase}">
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}"/>
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
+    </Style>
+
+    <!-- Button Styles -->
+    <ControlTemplate x:Key="EmptyButton" TargetType="Button" />
+    
+    <ControlTemplate x:Key="PhoneSimpleRepeatButton" TargetType="RepeatButton">
+        <Rectangle Fill="Transparent"/>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="PhoneSimpleThumb" TargetType="Thumb">
+        <Rectangle Fill="Transparent"/>
+    </ControlTemplate>
+
+    <!-- Star Ratings -->
+    <ControlTemplate x:Key="StarIcon" TargetType="ContentControl">
+        <Grid Width="48" Height="48">
+            <Path Data="M19.96875,10.627293 L24.375,23.30698 L37.640625,23.30698 L27.09375,31.627293 L31.195313,44.236668 L19.96875,36.760105 L8.7890625,44.236668 L12.890625,31.627293 L2.34375,23.30698 L15.609375,23.30698 z" Width="45" Height="43" Fill="White" />
+        </Grid>
+    </ControlTemplate>
+
+</ResourceDictionary>

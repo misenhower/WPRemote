@@ -41,7 +41,6 @@
                         Style="{StaticResource LibraryListBoxStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
-                        ListFooterTemplate="{StaticResource ListFooter72px}"
                         />
                 </Grid>
             </controls:PivotItem>
@@ -55,7 +54,6 @@
                         Style="{StaticResource LibraryListBoxStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
-                        ListFooterTemplate="{StaticResource ListFooter72px}"
                         />
                 </Grid>
             </controls:PivotItem>

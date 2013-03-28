@@ -1,0 +1,156 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    >
+
+    <!-- Play Button with Circle -->
+    <ControlTemplate x:Key="PlayButton">
+        <Canvas Width="48" Height="48" Background="Transparent">
+            <Path Data="F1M84.127,709.4629L70.558,719.8039L70.558,699.2159z" Fill="{StaticResource PhoneForegroundBrush}" Stretch="Fill" Height="20" Width="14" Canvas.Left="19" Canvas.Top="14" UseLayoutRounding="False" />
+            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="3" Width="48" Height="48" />
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AlbumButton" TargetType="ContentControl">
+        <Grid Background="{StaticResource PhoneChromeBrush}">
+            <ContentControl x:Name="ContentContainer" Content="{TemplateBinding Content}" />
+            <Canvas Width="43" Height="43" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Margin="0,10,10,0">
+                <Ellipse StrokeThickness="3" Width="43" Height="43" Fill="#26000000" Stroke="White" />
+                <Path Data="F1M84.127,709.4629L70.558,719.8039L70.558,699.2159z" Stretch="Fill" Height="18" Width="12" Canvas.Left="17" Canvas.Top="12" UseLayoutRounding="False" Fill="White" />
+            </Canvas>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="GeniusButton" TargetType="Button">
+        <Grid Background="{StaticResource PhoneChromeBrush}">
+            <ContentControl x:Name="ContentContainer" Content="{TemplateBinding Content}" />
+            <Canvas Width="100" Height="100" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <Ellipse StrokeThickness="3" Width="100" Height="100" Fill="#BB000000" Stroke="White" />
+                <Path Data="F1M84.127,709.4629L70.558,719.8039L70.558,699.2159z" Stretch="Fill" Height="42" Width="28" Canvas.Left="40" Canvas.Top="28" UseLayoutRounding="False" Fill="White" />
+            </Canvas>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- Other Icon Button Control Templates-->
+    <ControlTemplate x:Key="iTunesIconButton" TargetType="ContentControl">
+        <Canvas Width="48" Height="48">
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/custom.appbar.itunes.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="BrowseLibraryIconButton" TargetType="ContentControl">
+        <Canvas Width="48" Height="48">
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/custom.appbar.browse.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="SearchIconButton" TargetType="ContentControl">
+        <Canvas Width="48" Height="48">
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.feature.search.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="SettingsIconButton" TargetType="ContentControl">
+        <Canvas Width="48" Height="48">
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.feature.settings.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="AirPlayIconButton" TargetType="ContentControl">
+        <Canvas Width="48" Height="48">
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/custom.appbar.airplay.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="VideoIconButton" TargetType="ContentControl">
+        <Canvas Width="48" Height="48">
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/custom.appbar.video.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="PodcastIconButton" TargetType="ContentControl">
+        <Canvas Width="48" Height="48">
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/custom.appbar.podcast.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="GeniusMixesIconButton" TargetType="ContentControl">
+        <Canvas Width="48" Height="48">
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/custom.appbar.geniusmixes.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="48" Height="48" >
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="/icons/appbar.basecircle.rest.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Canvas>
+    </ControlTemplate>
+
+</ResourceDictionary>
