@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
-    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -51,10 +51,10 @@
                          LostFocus="tbHost_LostFocus" />
                 <TextBlock Text="{Binding LocalizedStrings.LibraryPIN, Source={StaticResource LocalizedStrings}}"
                            Style="{StaticResource PhoneTextSubtleStyle}" />
-                <commonControls:NumericTextBox Name="tbPIN"
-                                               MaxLength="4"
-                                               KeyUp="tbPIN_KeyUp"
-                                               TextChanged="tbPIN_TextChanged" />
+                <controls:NumericTextBox Name="tbPIN"
+                    MaxLength="4"
+                    KeyUp="tbPIN_KeyUp"
+                    TextChanged="tbPIN_TextChanged" />
             </StackPanel>
         </Grid>
         <my:ConnectingStatusControl x:Name="connectingStatusControl" Visibility="Collapsed" Grid.RowSpan="2" ButtonClick="connectingStatusControl_ButtonClick" />

@@ -1,14 +1,13 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:app="clr-namespace:Komodex.Remote"
-    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     x:Class="Komodex.Remote.LibraryPages.ArtistPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:delay="clr-namespace:Delay"
@@ -38,27 +37,27 @@
             <!--Pivot item one-->
             <controls:PivotItem x:Name="pivotAlbums" Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <commonControls:LongListSelectorEx x:Name="lbAlbums"
-                                                       Style="{StaticResource LibraryListBoxStyle}"
-                                                       Tap="LongListSelector_Tap"
-                                                       ItemsSource="{Binding Albums}"
-                                                       ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
-                                                       />
+                    <controls:LongListSelectorEx x:Name="lbAlbums"
+                        Style="{StaticResource LibraryListBoxStyle}"
+                        Tap="LongListSelector_Tap"
+                        ItemsSource="{Binding Albums}"
+                        ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
+                        />
                 </Grid>
             </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem x:Name="pivotSongs" Header="{Binding LocalizedStrings.LibrarySongsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <commonControls:LongListSelectorEx x:Name="lbSongs"
-                                                       Style="{StaticResource LibraryListBoxStyle}"
-                                                       Link="lbSongs_Link"
-                                                       Tap="LongListSelector_Tap"
-                                                       ItemsSource="{Binding Songs}"
-                                                       ItemTemplate="{StaticResource PlayButtonItemWithAlbumSubtitleTemplate}"
-                                                       ListHeader="{Binding}"
-                                                       ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}"
-                                                       />
+                    <controls:LongListSelectorEx x:Name="lbSongs"
+                        Style="{StaticResource LibraryListBoxStyle}"
+                        Link="lbSongs_Link"
+                        Tap="LongListSelector_Tap"
+                        ItemsSource="{Binding Songs}"
+                        ItemTemplate="{StaticResource PlayButtonItemWithAlbumSubtitleTemplate}"
+                        ListHeader="{Binding}"
+                        ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}"
+                        />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

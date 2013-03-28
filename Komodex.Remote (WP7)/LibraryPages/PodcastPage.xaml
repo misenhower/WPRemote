@@ -1,7 +1,7 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:app="clr-namespace:Komodex.Remote"
-    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     x:Class="Komodex.Remote.LibraryPages.PodcastPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -39,12 +39,12 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
-            <commonControls:LongListSelectorEx Name="lbEpisodes"
-                                               Style="{StaticResource LibraryListBoxStyle}"
-                                               Tap="LongListSelector_Tap"
-                                               ItemsSource="{Binding Episodes}"
-                                               ItemTemplate="{StaticResource PlayButtonItemTemplate}"
-                                               />
+            <controls:LongListSelectorEx Name="lbEpisodes"
+                Style="{StaticResource LibraryListBoxStyle}"
+                Tap="LongListSelector_Tap"
+                ItemsSource="{Binding Episodes}"
+                ItemTemplate="{StaticResource PlayButtonItemTemplate}"
+                />
         </Grid>
     </Grid>
  

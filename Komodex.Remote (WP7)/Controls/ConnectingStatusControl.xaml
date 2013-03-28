@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:localHelpers="clr-namespace:Komodex.Remote.Converters"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -18,7 +19,7 @@
         </Grid.RowDefinitions>
         <Border Background="{StaticResource PhoneBackgroundBrush}" Opacity="0.85" Grid.RowSpan="2" />
         <StackPanel VerticalAlignment="Center">
-            <toolkit:PerformanceProgressBar Margin="0" Padding="0" Name="progressBar" />
+            <controls:PerformanceProgressBar Margin="0" Padding="0" Name="progressBar" />
             <TextBlock Name="tbLibraryConnectionText" Text="{Binding LocalizedStrings.StatusConnectingToLibrary, Source={StaticResource LocalizedStrings}}" TextAlignment="Center" TextWrapping="Wrap" />
             <TextBlock Name="tbLibraryName" Style="{StaticResource PhoneTextAccentStyle}" TextAlignment="Center" />
         </StackPanel>

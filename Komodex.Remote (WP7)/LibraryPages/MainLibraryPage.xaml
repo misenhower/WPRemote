@@ -1,13 +1,12 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:app="clr-namespace:Komodex.Remote"
-    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     x:Class="Komodex.Remote.LibraryPages.MainLibraryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
@@ -53,54 +52,54 @@
                         SelectionChanged="pivotControl_SelectionChanged">
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryArtistsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotArtists">
                 <Grid>
-                    <commonControls:LongListSelectorEx x:Name="lbArtists"
-                                                       ItemsSource="{Binding LibraryArtists}"
-                                                       IsGroupingEnabled="True"
-                                                       EmptyText="{Binding LocalizedStrings.LibraryNoArtistsFound, Source={StaticResource LocalizedStrings}}"
-                                                       Style="{StaticResource LibraryListBoxStyle}"
-                                                       Tap="LongListSelector_Tap"
-                                                       ItemTemplate="{StaticResource PlayButtonItemTemplate}"
-                                                       ListFooterTemplate="{StaticResource ListFooter72px}"
-                                                       />
+                    <controls:LongListSelectorEx x:Name="lbArtists"
+                        ItemsSource="{Binding LibraryArtists}"
+                        IsGroupingEnabled="True"
+                        EmptyText="{Binding LocalizedStrings.LibraryNoArtistsFound, Source={StaticResource LocalizedStrings}}"
+                        Style="{StaticResource LibraryListBoxStyle}"
+                        Tap="LongListSelector_Tap"
+                        ItemTemplate="{StaticResource PlayButtonItemTemplate}"
+                        ListFooterTemplate="{StaticResource ListFooter72px}"
+                        />
                 </Grid>
             </controls:PivotItem>
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotAlbums">
                 <Grid >
-                    <commonControls:LongListSelectorEx x:Name="lbAlbums"
-                                                       ItemsSource="{Binding LibraryAlbums}"
-                                                       IsGroupingEnabled="True"
-                                                       EmptyText="{Binding LocalizedStrings.LibraryNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
-                                                       Style="{StaticResource LibraryListBoxStyle}"
-                                                       Tap="LongListSelector_Tap"
-                                                       ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
-                                                       ListFooterTemplate="{StaticResource ListFooter72px}"
-                                                       />
+                    <controls:LongListSelectorEx x:Name="lbAlbums"
+                        ItemsSource="{Binding LibraryAlbums}"
+                        IsGroupingEnabled="True"
+                        EmptyText="{Binding LocalizedStrings.LibraryNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
+                        Style="{StaticResource LibraryListBoxStyle}"
+                        Tap="LongListSelector_Tap"
+                        ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
+                        ListFooterTemplate="{StaticResource ListFooter72px}"
+                        />
                 </Grid>
             </controls:PivotItem>
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryGenresPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotGenres">
                 <Grid>
-                    <commonControls:LongListSelectorEx x:Name="lbGenres"
-                                                       ItemsSource="{Binding LibraryGenres}"
-                                                       IsGroupingEnabled="True"
-                                                       EmptyText="{Binding LocalizedStrings.LibraryNoGenresFound, Source={StaticResource LocalizedStrings}}"
-                                                       Style="{StaticResource LibraryListBoxStyle}"
-                                                       Tap="LongListSelector_Tap"
-                                                       ItemTemplate="{StaticResource PlayButtonItemTemplate}"
-                                                       ListFooterTemplate="{StaticResource ListFooter72px}"
-                                                       />
+                    <controls:LongListSelectorEx x:Name="lbGenres"
+                        ItemsSource="{Binding LibraryGenres}"
+                        IsGroupingEnabled="True"
+                        EmptyText="{Binding LocalizedStrings.LibraryNoGenresFound, Source={StaticResource LocalizedStrings}}"
+                        Style="{StaticResource LibraryListBoxStyle}"
+                        Tap="LongListSelector_Tap"
+                        ItemTemplate="{StaticResource PlayButtonItemTemplate}"
+                        ListFooterTemplate="{StaticResource ListFooter72px}"
+                        />
                 </Grid>
             </controls:PivotItem>
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryPlaylistsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotPlaylists">
                 <Grid>
-                    <commonControls:LongListSelectorEx x:Name="lbPlaylists"
-                                                       ItemsSource="{Binding LibraryPlaylists}"
-                                                       EmptyText="{Binding LocalizedStrings.LibraryNoPlaylistsFound, Source={StaticResource LocalizedStrings}}"
-                                                       Style="{StaticResource LibraryListBoxStyle}"
-                                                       Tap="LongListSelector_Tap"
-                                                       ListHeader="{Binding}"
-                                                       ListHeaderTemplate="{StaticResource PlaylistHeaderTemplate}"
-                                                       ItemTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
-                                                       ListFooterTemplate="{StaticResource ListFooter72px}" />
+                    <controls:LongListSelectorEx x:Name="lbPlaylists"
+                        ItemsSource="{Binding LibraryPlaylists}"
+                        EmptyText="{Binding LocalizedStrings.LibraryNoPlaylistsFound, Source={StaticResource LocalizedStrings}}"
+                        Style="{StaticResource LibraryListBoxStyle}"
+                        Tap="LongListSelector_Tap"
+                        ListHeader="{Binding}"
+                        ListHeaderTemplate="{StaticResource PlaylistHeaderTemplate}"
+                        ItemTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
+                        ListFooterTemplate="{StaticResource ListFooter72px}" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

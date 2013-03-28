@@ -1,8 +1,7 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:app="clr-namespace:Komodex.Remote"
-    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
-    xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     x:Class="Komodex.Remote.LibraryPages.AlbumPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -73,14 +72,14 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
-            <commonControls:LongListSelectorEx Name="lbSongs"
-                                               Style="{StaticResource LibraryListBoxStyle}"
-                                               Link="lbSongs_Link"
-                                               Tap="LongListSelector_Tap"
-                                               ItemsSource="{Binding Songs}"
-                                               ListHeader="{Binding}"
-                                               ListHeaderTemplate="{StaticResource ListHeaderTemplate}"
-                                               ItemTemplate="{StaticResource PlayButtonItemTemplate}" />
+            <controls:LongListSelectorEx Name="lbSongs"
+                Style="{StaticResource LibraryListBoxStyle}"
+                Link="lbSongs_Link"
+                Tap="LongListSelector_Tap"
+                ItemsSource="{Binding Songs}"
+                ListHeader="{Binding}"
+                ListHeaderTemplate="{StaticResource ListHeaderTemplate}"
+                ItemTemplate="{StaticResource PlayButtonItemTemplate}" />
         </Grid>
     </Grid>
 

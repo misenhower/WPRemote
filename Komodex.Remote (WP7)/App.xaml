@@ -6,7 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:converters="clr-namespace:Komodex.Remote.Converters"
     xmlns:commonConverters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
-    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:delay="clr-namespace:Delay"
@@ -278,7 +278,7 @@
         </DataTemplate>
 
         <!-- Library List Style -->
-        <Style x:Key="LibraryListBoxStyle" TargetType="commonControls:LongListSelectorEx">
+        <Style x:Key="LibraryListBoxStyle" TargetType="controls:LongListSelectorEx">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Margin" Value="0,0,-12,0" />
             <Setter Property="GroupItemTemplate" Value="{StaticResource GroupItemTemplate}" />

@@ -1,7 +1,7 @@
 ﻿<app:DACPServerBoundPhoneApplicationPage
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:app="clr-namespace:Komodex.Remote"
-    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     x:Class="Komodex.Remote.LibraryPages.SearchPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -56,15 +56,15 @@
                 <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.SearchPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
                 <TextBox TextChanged="tbSearchString_TextChanged" Name="tbSearchString" InputScope="Search" KeyUp="tbSearchString_KeyUp" />
             </StackPanel>
-            <commonControls:LongListSelectorEx x:Name="lbSearchResults" Background="Transparent" Grid.Row="2"
-                                               IsGroupingEnabled="True"
-                                               Margin="0,0,-12,0"
-                                               Tap="LongListSelector_Tap"
-                                               ListHeaderTemplate="{StaticResource ListHeader}"
-                                               ItemTemplate="{StaticResource ItemTemplate}"
-                                               GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
-                                               GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
-                                               />
+            <controls:LongListSelectorEx x:Name="lbSearchResults" Background="Transparent" Grid.Row="2"
+                IsGroupingEnabled="True"
+                Margin="0,0,-12,0"
+                Tap="LongListSelector_Tap"
+                ListHeaderTemplate="{StaticResource ListHeader}"
+                ItemTemplate="{StaticResource ItemTemplate}"
+                GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
+                GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
+                />
         </Grid>
     </Grid>
 
