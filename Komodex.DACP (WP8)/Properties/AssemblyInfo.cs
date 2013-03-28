@@ -6,11 +6,11 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Remote")]
+[assembly: AssemblyTitle("Komodex.DACP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Komodex Systems LLC")]
-[assembly: AssemblyProduct("Komodex Remote")]
+[assembly: AssemblyProduct("Komodex.DACP")]
 [assembly: AssemblyCopyright("Copyright 2013 Komodex Systems LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +21,7 @@ using System.Resources;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3834b6ae-f46b-47a6-a19e-326b9a089fbd")]
+[assembly: Guid("382d5f4d-e257-40b3-8d9d-7f21e71e8298")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,4 +34,4 @@ using System.Resources;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.9.2.0")]
 [assembly: AssemblyFileVersion("1.9.2.0")]
-[assembly: NeutralResourcesLanguageAttribute("en")]
+[assembly: NeutralResourcesLanguageAttribute("en-US")]

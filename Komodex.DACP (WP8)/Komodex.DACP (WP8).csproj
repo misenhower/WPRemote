@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{382D5F4D-E257-40B3-8D9D-7F21E71E8298}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Komodex.DACP</RootNamespace>
+    <AssemblyName>Komodex.DACP</AssemblyName>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\AirPlaySpeaker.cs">
+      <Link>Classes\AirPlaySpeaker.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPUtility.cs">
+      <Link>Classes\DACPUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\Enums.cs">
+      <Link>Classes\Enums.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\GroupedItems.cs">
+      <Link>Classes\GroupedItems.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\GroupItems.cs">
+      <Link>Classes\GroupItems.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\HTTPRequestInfo.cs">
+      <Link>Classes\HTTPRequestInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\ServerUpdateEventArgs.cs">
+      <Link>Classes\ServerUpdateEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.AirPlaySpeakers.cs">
+      <Link>DACPServer\DACPServer.AirPlaySpeakers.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.cs">
+      <Link>DACPServer\DACPServer.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.HTTPRequests.cs">
+      <Link>DACPServer\DACPServer.HTTPRequests.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.LibraryManagement.cs">
+      <Link>DACPServer\DACPServer.LibraryManagement.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.Properties.cs">
+      <Link>DACPServer\DACPServer.Properties.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.Search.cs">
+      <Link>DACPServer\DACPServer.Search.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Album.cs">
+      <Link>Library\Album.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Artist.cs">
+      <Link>Library\Artist.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Bases\ILibraryElement.cs">
+      <Link>Library\Bases\ILibraryElement.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Bases\LibraryElementBase.cs">
+      <Link>Library\Bases\LibraryElementBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Genre.cs">
+      <Link>Library\Genre.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\MediaItem.cs">
+      <Link>Library\MediaItem.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Playlist.cs">
+      <Link>Library\Playlist.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Podcast.cs">
+      <Link>Library\Podcast.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\SearchResultSet.cs">
+      <Link>Library\SearchResultSet.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Library\VideoMediaItem.cs">
+      <Link>Library\VideoMediaItem.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Localization\LocalizedDACPStrings.Designer.cs">
+      <Link>Localization\LocalizedDACPStrings.Designer.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLibraries\Komodex.Common %28WP8%29\Komodex.Common %28WP8%29.csproj">
+      <Project>{47446A40-33DF-47E4-9071-23AF4B2C7006}</Project>
+      <Name>Komodex.Common %28WP8%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Komodex.DACP %28WP7%29\Localization\LocalizedDACPStrings.de-DE.resx">
+      <Link>Localization\LocalizedDACPStrings.de-DE.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Komodex.DACP %28WP7%29\Localization\LocalizedDACPStrings.resx">
+      <Link>Localization\LocalizedDACPStrings.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

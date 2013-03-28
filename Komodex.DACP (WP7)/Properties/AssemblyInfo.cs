@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Komodex Systems LLC")]
 [assembly: AssemblyProduct("Komodex.DACP")]
-[assembly: AssemblyCopyright("Copyright 2010 Komodex Systems LLC")]
+[assembly: AssemblyCopyright("Copyright 2013 Komodex Systems LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

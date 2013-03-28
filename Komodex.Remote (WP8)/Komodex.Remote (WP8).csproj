@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B4BBA32A-DB36-4079-8541-26A1C043EED3}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Komodex.Remote</RootNamespace>
+    <AssemblyName>Komodex.Remote</AssemblyName>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>Komodex.Remote.WP8.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>Komodex.Remote.App</SilverlightAppEntry>
+    <ValidateXaml>true</ValidateXaml>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Komodex.Remote %28WP7%29\AboutPage.xaml.cs">
+      <Link>AboutPage.xaml.cs</Link>
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\App.xaml.cs">
+      <Link>App.xaml.cs</Link>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\AirPlaySpeakerControl.xaml.cs">
+      <Link>Controls\AirPlaySpeakerControl.xaml.cs</Link>
+      <DependentUpon>AirPlaySpeakerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\ConnectingStatusControl.xaml.cs">
+      <Link>Controls\ConnectingStatusControl.xaml.cs</Link>
+      <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\FakeButton.cs">
+      <Link>Controls\FakeButton.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\MemoryCounters.cs">
+      <Link>Controls\MemoryCounters.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\StarRating.xaml.cs">
+      <Link>Controls\StarRating.xaml.cs</Link>
+      <DependentUpon>StarRating.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\BooleanToStringConverter.cs">
+      <Link>Converters\BooleanToStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\CollapseIfLessThanOneConverter.cs">
+      <Link>Converters\CollapseIfLessThanOneConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\CollapseIfLessThanTwoConverter.cs">
+      <Link>Converters\CollapseIfLessThanTwoConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\CollectionCountToStringConverter.cs">
+      <Link>Converters\CollectionCountToStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\DisableWhenNullConverter.cs">
+      <Link>Converters\DisableWhenNullConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\LocalizedOffOnConverter.cs">
+      <Link>Converters\LocalizedOffOnConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\NoListItemsVisibilityConverter.cs">
+      <Link>Converters\NoListItemsVisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\AddLibraryPage.xaml.cs">
+      <Link>DACPServerInfoManagement\AddLibraryPage.xaml.cs</Link>
+      <DependentUpon>AddLibraryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\DACPServerInfo.cs">
+      <Link>DACPServerInfoManagement\DACPServerInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\DACPServerViewModel.cs">
+      <Link>DACPServerInfoManagement\DACPServerViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\LibraryChooserPage.xaml.cs">
+      <Link>DACPServerInfoManagement\LibraryChooserPage.xaml.cs</Link>
+      <DependentUpon>LibraryChooserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerManagement\DACPServerManager.cs">
+      <Link>DACPServerManagement\DACPServerManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\AlbumPage.xaml.cs">
+      <Link>LibraryPages\AlbumPage.xaml.cs</Link>
+      <DependentUpon>AlbumPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\ArtistPage.xaml.cs">
+      <Link>LibraryPages\ArtistPage.xaml.cs</Link>
+      <DependentUpon>ArtistPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\GeniusMixesPage.xaml.cs">
+      <Link>LibraryPages\GeniusMixesPage.xaml.cs</Link>
+      <DependentUpon>GeniusMixesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\GenrePage.xaml.cs">
+      <Link>LibraryPages\GenrePage.xaml.cs</Link>
+      <DependentUpon>GenrePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\LibraryViewDialog.xaml.cs">
+      <Link>LibraryPages\LibraryViewDialog.xaml.cs</Link>
+      <DependentUpon>LibraryViewDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\MainLibraryPage.xaml.cs">
+      <Link>LibraryPages\MainLibraryPage.xaml.cs</Link>
+      <DependentUpon>MainLibraryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\PlaylistPage.xaml.cs">
+      <Link>LibraryPages\PlaylistPage.xaml.cs</Link>
+      <DependentUpon>PlaylistPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\PodcastPage.xaml.cs">
+      <Link>LibraryPages\PodcastPage.xaml.cs</Link>
+      <DependentUpon>PodcastPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\PodcastsPage.xaml.cs">
+      <Link>LibraryPages\PodcastsPage.xaml.cs</Link>
+      <DependentUpon>PodcastsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\SearchPage.xaml.cs">
+      <Link>LibraryPages\SearchPage.xaml.cs</Link>
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\VideosPage.xaml.cs">
+      <Link>LibraryPages\VideosPage.xaml.cs</Link>
+      <DependentUpon>VideosPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStrings.Designer.cs">
+      <Link>Localization\LocalizedStrings.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStringsWrapper.cs">
+      <Link>Localization\LocalizedStringsWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\MainPage.xaml.cs">
+      <Link>MainPage.xaml.cs</Link>
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Navigation\NavigationManager.cs">
+      <Link>Navigation\NavigationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\NowPlaying\AirPlaySpeakersControl.xaml.cs">
+      <Link>NowPlaying\AirPlaySpeakersControl.xaml.cs</Link>
+      <DependentUpon>AirPlaySpeakersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\NowPlaying\NowPlayingPage.xaml.cs">
+      <Link>NowPlaying\NowPlayingPage.xaml.cs</Link>
+      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\DACPServerBoundPhoneApplicationPage.cs">
+      <Link>PageBases\DACPServerBoundPhoneApplicationPage.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Settings\ArtistClickAction.cs">
+      <Link>Settings\ArtistClickAction.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Settings\SettingsManager.cs">
+      <Link>Settings\SettingsManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Settings\SettingsPage.xaml.cs">
+      <Link>Settings\SettingsPage.xaml.cs</Link>
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Settings\SettingsUpdater.cs">
+      <Link>Settings\SettingsUpdater.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ThirdParty\LowProfileImageLoader.cs">
+      <Link>ThirdParty\LowProfileImageLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\TrialMode\TrialReminderDialog.xaml.cs">
+      <Link>TrialMode\TrialReminderDialog.xaml.cs</Link>
+      <DependentUpon>TrialReminderDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Utilities\DeviceInfo.cs">
+      <Link>Utilities\DeviceInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Utilities\RemoteUtility.cs">
+      <Link>Utilities\RemoteUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Utilities\StateUtils.cs">
+      <Link>Utilities\StateUtils.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\WMAppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.checked.png">
+      <Link>icons\airplay.checked.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.haspassword.png">
+      <Link>icons\airplay.haspassword.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.hasvideo.png">
+      <Link>icons\airplay.hasvideo.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.speaker.png">
+      <Link>icons\airplay.speaker.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.basecircle.rest.png">
+      <Link>icons\appbar.basecircle.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.cancel.rest.png">
+      <Link>icons\appbar.cancel.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.check.rest.png">
+      <Link>icons\appbar.check.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.feature.search.rest.png">
+      <Link>icons\appbar.feature.search.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.feature.settings.rest.png">
+      <Link>icons\appbar.feature.settings.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.new.rest.png">
+      <Link>icons\appbar.new.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.transport.ff.rest.png">
+      <Link>icons\appbar.transport.ff.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.transport.pause.rest.png">
+      <Link>icons\appbar.transport.pause.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.transport.play.rest.png">
+      <Link>icons\appbar.transport.play.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.transport.rew.rest.png">
+      <Link>icons\appbar.transport.rew.rest.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.airplay.png">
+      <Link>icons\custom.appbar.airplay.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.browse.png">
+      <Link>icons\custom.appbar.browse.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.geniusmixes.png">
+      <Link>icons\custom.appbar.geniusmixes.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.itunes.png">
+      <Link>icons\custom.appbar.itunes.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.moredots.png">
+      <Link>icons\custom.appbar.moredots.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.podcast.png">
+      <Link>icons\custom.appbar.podcast.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.repeat.png">
+      <Link>icons\custom.appbar.repeat.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.repeatone.png">
+      <Link>icons\custom.appbar.repeatone.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.shuffle.png">
+      <Link>icons\custom.appbar.shuffle.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.video.png">
+      <Link>icons\custom.appbar.video.png</Link>
+    </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\Images\komodex-logo-65px.png">
+      <Link>Images\komodex-logo-65px.png</Link>
+    </Content>
+    <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\ApplicationIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileMedium.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\IconicTileMediumLarge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\IconicTileSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLibraries\Clarity.PageTransitions %28WP8%29\Clarity.PageTransitions %28WP8%29.csproj">
+      <Project>{A0C2A02F-A33B-4869-ADC3-1A48743E26B2}</Project>
+      <Name>Clarity.PageTransitions %28WP8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Komodex.Common %28WP8%29\Komodex.Common %28WP8%29.csproj">
+      <Project>{47446A40-33DF-47E4-9071-23AF4B2C7006}</Project>
+      <Name>Komodex.Common %28WP8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Komodex.Common.Phone.UI %28WP8%29\Komodex.Common.Phone.UI %28WP8%29.csproj">
+      <Project>{ED7B21D3-43C4-4699-977F-E6043E4BE516}</Project>
+      <Name>Komodex.Common.Phone.UI %28WP8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.WP8\Microsoft.Phone.Controls.Toolkit.WP8.csproj">
+      <Project>{486642F0-AB94-4F28-B49C-106CA3134239}</Project>
+      <Name>Microsoft.Phone.Controls.Toolkit.WP8</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Komodex.DACP %28WP8%29\Komodex.DACP %28WP8%29.csproj">
+      <Project>{382D5F4D-E257-40B3-8D9D-7F21E71E8298}</Project>
+      <Name>Komodex.DACP %28WP8%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\Komodex.Remote %28WP7%29\AboutPage.xaml">
+      <Link>AboutPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\App.xaml">
+      <Link>App.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Controls\AirPlaySpeakerControl.xaml">
+      <Link>Controls\AirPlaySpeakerControl.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Controls\ConnectingStatusControl.xaml">
+      <Link>Controls\ConnectingStatusControl.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Controls\StarRating.xaml">
+      <Link>Controls\StarRating.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\AddLibraryPage.xaml">
+      <Link>DACPServerInfoManagement\AddLibraryPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\LibraryChooserPage.xaml">
+      <Link>DACPServerInfoManagement\LibraryChooserPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\AlbumPage.xaml">
+      <Link>LibraryPages\AlbumPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\ArtistPage.xaml">
+      <Link>LibraryPages\ArtistPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\GeniusMixesPage.xaml">
+      <Link>LibraryPages\GeniusMixesPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\GenrePage.xaml">
+      <Link>LibraryPages\GenrePage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\LibraryViewDialog.xaml">
+      <Link>LibraryPages\LibraryViewDialog.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\MainLibraryPage.xaml">
+      <Link>LibraryPages\MainLibraryPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\PlaylistPage.xaml">
+      <Link>LibraryPages\PlaylistPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\PodcastPage.xaml">
+      <Link>LibraryPages\PodcastPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\PodcastsPage.xaml">
+      <Link>LibraryPages\PodcastsPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\SearchPage.xaml">
+      <Link>LibraryPages\SearchPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\VideosPage.xaml">
+      <Link>LibraryPages\VideosPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\MainPage.xaml">
+      <Link>MainPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\NowPlaying\AirPlaySpeakersControl.xaml">
+      <Link>NowPlaying\AirPlaySpeakersControl.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\NowPlaying\NowPlayingPage.xaml">
+      <Link>NowPlaying\NowPlayingPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\AlbumSampleData.xaml">
+      <Link>SampleData\AlbumSampleData.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\ArtistSampleData.xaml">
+      <Link>SampleData\ArtistSampleData.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\DACPServerInfoSampleData.xaml">
+      <Link>SampleData\DACPServerInfoSampleData.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\DACPServerSampleData.xaml">
+      <Link>SampleData\DACPServerSampleData.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\DACPServerViewModelSampleData.xaml">
+      <Link>SampleData\DACPServerViewModelSampleData.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <Page Include="..\Komodex.Remote %28WP7%29\Settings\SettingsPage.xaml">
+      <Link>Settings\SettingsPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\TrialMode\TrialReminderDialog.xaml">
+      <Link>TrialMode\TrialReminderDialog.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStrings.de-DE.resx">
+      <Link>Localization\LocalizedStrings.de-DE.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStrings.resx">
+      <Link>Localization\LocalizedStrings.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions />
+</Project>
