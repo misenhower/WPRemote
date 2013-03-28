@@ -51,7 +51,6 @@
                 <Grid>
                     <controls:LongListSelectorEx x:Name="lbSongs"
                         Style="{StaticResource LibraryListBoxStyle}"
-                        Link="lbSongs_Link"
                         Tap="LongListSelector_Tap"
                         ItemsSource="{Binding Songs}"
                         ItemTemplate="{StaticResource PlayButtonItemWithAlbumSubtitleTemplate}"

@@ -66,7 +66,6 @@
                         EmptyText="{Binding LocalizedStrings.GenreNoSongsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListBoxStyle}"
                         Tap="LongListSelector_Tap"
-                        Link="lbSongs_Link"
                         ItemTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
                         ListHeader="{Binding}"
                         ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}"

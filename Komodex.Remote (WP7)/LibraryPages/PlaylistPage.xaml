@@ -44,7 +44,6 @@
                 Style="{StaticResource LibraryListBoxStyle}"
                 ItemsSource="{Binding Songs}"
                 Tap="LongListSelector_Tap"
-                Link="lbSongs_Link"
                 ItemTemplate="{StaticResource PlayButtonItemWithArtistAndAlbumSubtitleTemplate}"
                 ListHeader="{Binding}"
                 ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}" />

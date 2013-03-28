@@ -28,6 +28,12 @@ namespace Komodex.Remote.LibraryPages
 
             //InitializeStandardAppNavApplicationBar();
             //AddChooseLibraryApplicationBarMenuItem();
+
+#if WP7
+            lbSongs.Link += lbSongs_Link;
+#else
+            // TODO
+#endif
         }
 
         #region Properties
@@ -100,6 +106,7 @@ namespace Komodex.Remote.LibraryPages
 
         #region Event Handlers
 
+#if WP7
         private void lbSongs_Link(object sender, LinkUnlinkEventArgs e)
         {
             // Disable tilt effect on shuffle row
@@ -110,6 +117,9 @@ namespace Komodex.Remote.LibraryPages
                 TiltEffect.SetSuppressTilt(listBoxItem, tiltSuppressed);
             }
         }
+#else
+        // TODO
+#endif
 
         #endregion
 
