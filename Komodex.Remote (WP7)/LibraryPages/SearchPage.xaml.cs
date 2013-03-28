@@ -83,19 +83,6 @@ namespace Komodex.Remote.LibraryPages
             return base.GetAnimation(animationType, toOrFrom);
         }
 
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
-        {
-            if (openedGroupViewSelector != null)
-            {
-                openedGroupViewSelector.CloseGroupView();
-                openedGroupViewSelector = null;
-                e.Cancel = true;
-                return;
-            }
-
-            base.OnBackKeyPress(e);
-        }
-
         protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
             base.DACPServer_ServerUpdate(sender, e);
@@ -190,22 +177,6 @@ namespace Komodex.Remote.LibraryPages
         {
             if (DACPServer != null && DACPServer.IsConnected)
                 lbSearchResults.ItemsSource = DACPServer.GetSearchResults(tbSearchString.Text);
-        }
-
-        #endregion
-
-        #region Group View Management
-
-        private LongListSelector openedGroupViewSelector = null;
-
-        private void LongListSelector_GroupViewOpened(object sender, GroupViewOpenedEventArgs e)
-        {
-            openedGroupViewSelector = (LongListSelector)sender;
-        }
-
-        private void LongListSelector_GroupViewClosing(object sender, GroupViewClosingEventArgs e)
-        {
-            openedGroupViewSelector = null;
         }
 
         #endregion

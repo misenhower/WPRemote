@@ -61,8 +61,7 @@
                                                        Tap="LongListSelector_Tap"
                                                        ItemTemplate="{StaticResource PlayButtonItemTemplate}"
                                                        ListFooterTemplate="{StaticResource ListFooter72px}"
-                                                       GroupViewOpened="LongListSelector_GroupViewOpened"
-                                                       GroupViewClosing="LongListSelector_GroupViewClosing" />
+                                                       />
                 </Grid>
             </controls:PivotItem>
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotAlbums">
@@ -75,8 +74,7 @@
                                                        Tap="LongListSelector_Tap"
                                                        ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
                                                        ListFooterTemplate="{StaticResource ListFooter72px}"
-                                                       GroupViewOpened="LongListSelector_GroupViewOpened"
-                                                       GroupViewClosing="LongListSelector_GroupViewClosing" />
+                                                       />
                 </Grid>
             </controls:PivotItem>
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryGenresPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotGenres">
@@ -89,8 +87,7 @@
                                                        Tap="LongListSelector_Tap"
                                                        ItemTemplate="{StaticResource PlayButtonItemTemplate}"
                                                        ListFooterTemplate="{StaticResource ListFooter72px}"
-                                                       GroupViewOpened="LongListSelector_GroupViewOpened"
-                                                       GroupViewClosing="LongListSelector_GroupViewClosing" />
+                                                       />
                 </Grid>
             </controls:PivotItem>
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryPlaylistsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotPlaylists">

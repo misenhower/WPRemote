@@ -42,8 +42,7 @@
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
                                                        ItemTemplate="{StaticResource PlayButtonItemTemplate}"
-                                                       GroupViewOpened="LongListSelector_GroupViewOpened"
-                                                       GroupViewClosing="LongListSelector_GroupViewClosing" />
+                                                       />
                 </Grid>
             </controls:PivotItem>
 
@@ -56,8 +55,7 @@
                                                        Style="{StaticResource LibraryListBoxStyle}"
                                                        Tap="LongListSelector_Tap"
                                                        ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
-                                                       GroupViewOpened="LongListSelector_GroupViewOpened"
-                                                       GroupViewClosing="LongListSelector_GroupViewClosing" />
+                                                       />
                 </Grid>
             </controls:PivotItem>
 
@@ -73,8 +71,7 @@
                                                        ItemTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
                                                        ListHeader="{Binding}"
                                                        ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}"
-                                                       GroupViewOpened="LongListSelector_GroupViewOpened"
-                                                       GroupViewClosing="LongListSelector_GroupViewClosing" />
+                                                       />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

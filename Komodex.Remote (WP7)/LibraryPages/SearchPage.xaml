@@ -64,8 +64,6 @@
                                                ItemTemplate="{StaticResource ItemTemplate}"
                                                GroupItemTemplate="{StaticResource LongGroupItemTemplate}"
                                                GroupHeaderTemplate="{StaticResource LongGroupHeaderTemplate}"
-                                               GroupViewOpened="LongListSelector_GroupViewOpened"
-                                               GroupViewClosing="LongListSelector_GroupViewClosing"
                                                />
         </Grid>
     </Grid>

@@ -54,19 +54,6 @@ namespace Komodex.Remote.LibraryPages
             catch (InvalidOperationException) { }
         }
 
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
-        {
-            if (openedGroupViewSelector != null)
-            {
-                openedGroupViewSelector.CloseGroupView();
-                openedGroupViewSelector = null;
-                e.Cancel = true;
-                return;
-            }
-
-            base.OnBackKeyPress(e);
-        }
-
         #endregion
 
         #region Event Handlers
@@ -129,20 +116,5 @@ namespace Komodex.Remote.LibraryPages
 
         #endregion
 
-        #region Group View Management
-
-        private LongListSelector openedGroupViewSelector = null;
-
-        private void LongListSelector_GroupViewOpened(object sender, GroupViewOpenedEventArgs e)
-        {
-            openedGroupViewSelector = (LongListSelector)sender;
-        }
-
-        private void LongListSelector_GroupViewClosing(object sender, GroupViewClosingEventArgs e)
-        {
-            openedGroupViewSelector = null;
-        }
-
-        #endregion
     }
 }

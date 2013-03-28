@@ -113,20 +113,6 @@ namespace Komodex.Remote.LibraryPages
             return base.GetAnimation(animationType, toOrFrom);
         }
 
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
-        {
-            if (openedGroupViewSelector != null)
-            {
-                openedGroupViewSelector.CloseGroupView();
-                openedGroupViewSelector = null;
-                e.Cancel = true;
-                pivotControl.IsEnabled = true;
-                return;
-            }
-
-            base.OnBackKeyPress(e);
-        }
-
         #endregion
 
         #region Event Handlers
@@ -239,24 +225,6 @@ namespace Komodex.Remote.LibraryPages
                 if (Genre.Songs == null || Genre.Songs.Count == 0)
                     Genre.GetSongs();
             }
-        }
-
-        #endregion
-
-        #region Group View Management
-
-        private LongListSelector openedGroupViewSelector = null;
-
-        private void LongListSelector_GroupViewOpened(object sender, GroupViewOpenedEventArgs e)
-        {
-            pivotControl.IsEnabled = false;
-            openedGroupViewSelector = (LongListSelector)sender;
-        }
-
-        private void LongListSelector_GroupViewClosing(object sender, GroupViewClosingEventArgs e)
-        {
-            openedGroupViewSelector = null;
-            pivotControl.IsEnabled = true;
         }
 
         #endregion

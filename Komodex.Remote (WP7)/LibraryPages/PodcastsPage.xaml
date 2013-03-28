@@ -47,8 +47,7 @@
                                                Tap="LongListSelector_Tap"
                                                ItemTemplate="{StaticResource AlbumArtLargeItemTemplate}"
                                                ListFooterTemplate="{StaticResource ListFooter72px}"
-                                               GroupViewOpened="LongListSelector_GroupViewOpened"
-                                               GroupViewClosing="LongListSelector_GroupViewClosing" />
+                                               />
         </Grid>
     </Grid>
  
