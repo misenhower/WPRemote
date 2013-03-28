@@ -22,7 +22,7 @@ namespace Clarity.Phone.Extensions
         private static readonly string PhoneLightThemeVisibility = "PhoneLightThemeVisibility";
 
         private static bool _listeningToNavEvents;
-        private static bool _isNavigating;
+        internal static bool _isNavigating;
 
         public static Theme GetTheme(this Application application)
         {

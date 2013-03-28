@@ -33,7 +33,7 @@ namespace Clarity.Phone.Controls
         private static Uri _fromUri;
 
         private bool _isAnimating;
-        private static bool _isNavigating;
+        //private static bool _isNavigating;
         private bool _needsOutroAnimation;
         private Uri _nextUri;
         private Uri _arrivedFromUri;
@@ -55,11 +55,11 @@ namespace Clarity.Phone.Controls
         {
             base.OnBackKeyPress(e);
 
-            if (_isNavigating)
-            {
-                e.Cancel = true;
-                return;
-            }
+            //if (_isNavigating)
+            //{
+            //    e.Cancel = true;
+            //    return;
+            //}
 
             if (!CanAnimate())
                 return;
@@ -81,13 +81,13 @@ namespace Clarity.Phone.Controls
 
             if (!IsPopupOpen())
             {
-                _isNavigating = true;
-                e.Cancel = true;
-                _needsOutroAnimation = false;
-                _currentAnimationType = AnimationType.NavigateBackwardOut;
-                _currentNavigationMode = NavigationMode.Back;
+                //_isNavigating = true;
+                //e.Cancel = true;
+                //_needsOutroAnimation = false;
+                //_currentAnimationType = AnimationType.NavigateBackwardOut;
+                //_currentNavigationMode = NavigationMode.Back;
 
-                RunAnimation();
+                //RunAnimation();
             }
             else
             {
@@ -122,11 +122,11 @@ namespace Clarity.Phone.Controls
                 if (!CanAnimate())
                     return;
 
-                if (_isNavigating)
-                {
-                    e.Cancel = true;
-                    return;
-                }
+                //if (_isNavigating)
+                //{
+                //    e.Cancel = true;
+                //    return;
+                //}
 
                 if (!this.NavigationService.CanGoBack && e.NavigationMode == NavigationMode.Back)
                     return;
@@ -142,6 +142,11 @@ namespace Clarity.Phone.Controls
                 // 4. The popup is gone, but the page hasn't been restored.
 
                 e.Cancel = true;
+
+                // If navigation is canceled and the navigation was started by pressing the back key,
+                // the NavigationStopped event will not be fired and _isNavigating will never be cleared.
+                ApplicationExtensions._isNavigating = false;
+
                 _nextUri = e.Uri;
 
                 switch (e.NavigationMode)
@@ -267,7 +272,7 @@ namespace Clarity.Phone.Controls
 
         private bool CanAnimate()
         {
-            return (_isActive && !_isNavigating && AnimationContext != null);
+            return (_isActive /*&& !_isNavigating*/ && AnimationContext != null);
         }
 
         void OnTransitionAnimationCompleted()
@@ -295,7 +300,7 @@ namespace Clarity.Phone.Controls
                             Application.Current.Navigate(_nextUri);
                             break;
                     }
-                    _isNavigating = false;
+                    //_isNavigating = false;
                 });
             }
             catch (Exception ex)
