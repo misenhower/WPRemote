@@ -15,4 +15,11 @@ namespace Komodex.Common.Phone.Controls
     public class Panorama : Microsoft.Phone.Controls.Panorama { }
     public class PanoramaItem : Microsoft.Phone.Controls.PanoramaItem { }
     public class LongListSelector : Microsoft.Phone.Controls.LongListSelector { }
+
+#if WP7
+    public class PerformanceProgressBar : Microsoft.Phone.Controls.PerformanceProgressBar { }
+#else
+    public class PerformanceProgressBar : System.Windows.Controls.ProgressBar { }
+#endif
+
 }
