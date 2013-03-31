@@ -9,7 +9,8 @@
         <ResourceDictionary Source="Icons.xaml" />
         <ResourceDictionary Source="IconButtons.xaml" />
         <ResourceDictionary Source="LibraryLists.xaml" />
-        <ResourceDictionary Source="LongListSelector.xaml" />
+        <ResourceDictionary Source="LongListSelectorStyles.WP8.xaml" />
+        <ResourceDictionary Source="VolumeSliders.WP8.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
