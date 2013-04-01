@@ -9,11 +9,14 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
+using Komodex.Common;
 
 namespace Komodex.DACP
 {
     public class HTTPRequestInfo
     {
+        private static readonly Log _log = new Log("DACP HTTPRequestInfo");
+
         private HTTPRequestInfo() { }
 
         internal HTTPRequestInfo(HttpWebRequest webRequest)
@@ -41,7 +44,8 @@ namespace Komodex.DACP
             {
                 _ResponseBody = value;
 #if DEBUG
-                //PrintDebugBytes();
+                if (_log.EffectiveLevel >= LogLevel.Debug)
+                    PrintDebugBytes();
 #endif
             }
         }
@@ -70,7 +74,7 @@ namespace Komodex.DACP
             string tab1 = new string('\t', tabLevel - 1);
             string tab2 = new string('\t', tabLevel);
 
-            DACPUtility.DebugWrite(string.Format(tab1 + "{0}[{1,3}] +++", code, body.Length));
+            _log.Debug(string.Format(tab1 + "{0}[{1,3}] +++", code, body.Length));
 
             var nodes = DACPUtility.GetResponseNodes(body);
             foreach (var kvp in nodes)
@@ -105,7 +109,7 @@ namespace Komodex.DACP
                             break;
                     }
 
-                    DACPUtility.DebugWrite(debugText);
+                    _log.Debug(debugText);
                 }
             }
 

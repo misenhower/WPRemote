@@ -35,7 +35,7 @@ namespace Komodex.DACP
         /// <param name="callback">If no callback is specified, the default HTTPByteCallback will be used.</param>
         internal HTTPRequestInfo SubmitHTTPRequest(string url, HTTPResponseHandler responseHandlerDelegate = null, bool isDataRetrieval = false, Action<HTTPRequestInfo> additionalSettings = null)
         {
-            DACPUtility.DebugWrite("Submitting HTTP request for: " + url);
+            _log.Info("Submitting HTTP request for: " + url);
 
             try
             {
@@ -64,7 +64,7 @@ namespace Komodex.DACP
             }
             catch (Exception e)
             {
-                DACPUtility.DebugWrite("Caught exception: " + e.Message);
+                _log.Error("Caught exception: " + e.Message);
                 StringBuilder errorString = new StringBuilder("Error creating HTTP Request:\r\n");
                 errorString.AppendLine("URL: " + url);
                 errorString.AppendLine(e.ToString());
@@ -78,7 +78,7 @@ namespace Komodex.DACP
             // Get the HTTPRequestInfo object
             HTTPRequestInfo requestInfo = (HTTPRequestInfo)result.AsyncState;
 
-            DACPUtility.DebugWrite("Got HTTP response for: " + requestInfo.WebRequest.RequestUri);
+            _log.Info("Got HTTP response for: " + requestInfo.WebRequest.RequestUri);
 
             lock (PendingHttpRequests)
             {
@@ -123,14 +123,14 @@ namespace Komodex.DACP
             }
             catch (Exception e)
             {
-                DACPUtility.DebugWrite("Caught exception: " + e.Message);
+                _log.Warning("Caught exception for {0}: {1}", requestInfo.WebRequest.RequestUri, e.Message);
 
                 if (e is WebException)
                 {
                     WebException webException = (WebException)e;
 
-                    DACPUtility.DebugWrite("Caught web exception: " + webException.Message);
-                    DACPUtility.DebugWrite("WebException Status: " + webException.Status.ToString());
+                    _log.Warning("Caught web exception: " + webException.Message);
+                    _log.Debug("WebException Status: " + webException.Status.ToString());
 
                     if (webException.Status == WebExceptionStatus.RequestCanceled)
                         return;
@@ -144,6 +144,8 @@ namespace Komodex.DACP
                 StringBuilder errorString = new StringBuilder("HTTPByteCallback Error:\r\n");
                 errorString.AppendLine("URL: " + requestInfo.WebRequest.RequestUri.GetPathAndQueryString());
                 errorString.AppendLine(e.ToString());
+                _log.Error("Unhandled web exception.");
+                _log.Debug(errorString.ToString());
                 ConnectionError(errorString.ToString());
             }
             finally
@@ -380,7 +382,7 @@ namespace Komodex.DACP
 
         protected void HandlePlayStatusException(HTTPRequestInfo requestInfo, WebException e)
         {
-            DACPUtility.DebugWrite("Caught timed out play status response.");
+            _log.Info("Caught timed out play status response.");
 
             if (canceledPlayStatusRequestInfo == null || requestInfo != canceledPlayStatusRequestInfo)
             {

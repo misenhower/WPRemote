@@ -17,13 +17,6 @@ namespace Komodex.DACP
 {
     internal static class DACPUtility
     {
-        public static void DebugWrite(string message)
-        {
-#if DEBUG
-            Debug.WriteLine(message);
-#endif
-        }
-
         public static List<KeyValuePair<string, byte[]>> GetResponseNodes(byte[] data, bool firstOnly = false)
         {
             // TODO: Error checking

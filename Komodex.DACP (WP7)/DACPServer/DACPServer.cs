@@ -11,11 +11,14 @@ using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Komodex.Common;
 
 namespace Komodex.DACP
 {
     public partial class DACPServer
     {
+        private static readonly Log _log = new Log("DACP");
+
         private DACPServer()
         {
             timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
