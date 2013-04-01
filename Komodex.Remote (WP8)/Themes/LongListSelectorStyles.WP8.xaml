@@ -5,54 +5,85 @@
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     >
 
+    <!-- Converters -->
+    <phone:JumpListItemBackgroundConverter x:Key="JumpListItemBackgroundConverter" />
+    <phone:JumpListItemForegroundConverter x:Key="JumpListItemForegroundConverter" />
 
-    <!-- Grouped ListBox Templates -->
-    <DataTemplate x:Key="GroupItemTemplate">
-        <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Width="99" Height="99" Margin="6" IsHitTestVisible="{Binding HasItems}">
-            <TextBlock Text="{Binding Key}" 
-                    FontFamily="{StaticResource PhoneFontFamilySemiBold}"
-                    FontSize="36"
-                    Margin="{StaticResource PhoneTouchTargetOverhang}"
-                    Foreground="White"
-                    VerticalAlignment="Bottom"/>
-        </Border>
-    </DataTemplate>
-
+    <!-- Grouped List Templates -->
     <DataTemplate x:Name="GroupHeaderTemplate">
         <my:FakeButton>
-            <Border Background="Transparent" Padding="12,6,0,6">
-                <Border Background="{StaticResource PhoneAccentBrush}" Width="75" Height="75" HorizontalAlignment="Left">
+            <Border Background="Transparent" Padding="12,0,0,12">
+                <Border Background="{StaticResource PhoneAccentBrush}" Width="62" Height="62" HorizontalAlignment="Left">
                     <TextBlock Text="{Binding Key}" 
-                            Foreground="White" 
-                            Style="{StaticResource PhoneTextExtraLargeStyle}"
-                            VerticalAlignment="Bottom"/>
+                        Foreground="White"
+                        FontSize="48"
+                        FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                        Margin="6,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"/>
                 </Border>
             </Border>
         </my:FakeButton>
     </DataTemplate>
-
-    <DataTemplate x:Key="LongGroupItemTemplate">
-        <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
-            <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="White" />
+    
+    <DataTemplate x:Key="GroupItemTemplate">
+        <Border Background="{Binding Converter={StaticResource JumpListItemBackgroundConverter}}" Margin="6">
+            <TextBlock Text="{Binding Key}" 
+                    FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                    FontSize="36"
+                    Margin="{StaticResource PhoneTouchTargetOverhang}"
+                    Foreground="{Binding Converter={StaticResource JumpListItemForegroundConverter}}"
+                    VerticalAlignment="Bottom"/>
         </Border>
     </DataTemplate>
-
-    <DataTemplate x:Key="LongGroupHeaderTemplate">
-        <my:FakeButton>
+    
+    <Style x:Key="LibraryJumpListTemplate" TargetType="phone:LongListSelector">
+        <Setter Property="LayoutMode" Value="Grid" />
+        <Setter Property="GridCellSize" Value="111,111" />
+        <Setter Property="Margin" Value="18,13,0,0"/>
+        <Setter Property="ItemTemplate" Value="{StaticResource GroupItemTemplate}" />
+    </Style>
+    
+    <!-- Wide Group Templates -->
+    <DataTemplate x:Key="WideGroupHeaderTemplate">
+        <my:FakeButton Margin="0,0,0,6">
             <Border Background="Transparent">
                 <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextBlockBase}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneAccentBrush}" />
             </Border>
         </my:FakeButton>
     </DataTemplate>
-
-    <!-- Library List Style -->
-    <Style x:Key="LibraryListBoxStyle" TargetType="controls:LongListSelectorEx">
+    
+    <DataTemplate x:Key="WideGroupItemTemplate">
+        <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+            <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="White" />
+        </Border>
+    </DataTemplate>
+    
+    <Style x:Key="WideJumpListTemplate" TargetType="phone:LongListSelector">
+        <Setter Property="LayoutMode" Value="List" />
+        <Setter Property="ItemTemplate" Value="{StaticResource WideGroupItemTemplate}" />
+    </Style>
+    
+    <!-- Library List Style Base -->
+    <Style x:Key="LibraryListStyleBase" TargetType="controls:LongListSelectorEx">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Margin" Value="0,0,-12,0" />
-        <Setter Property="GroupHeaderTemplate" Value="{StaticResource GroupHeaderTemplate}" />
         <Setter Property="ShowEmptyTextWhenNull" Value="False" />
+    </Style>
+
+    <!-- Library List Style -->
+    <Style x:Key="LibraryListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
+        <Setter Property="GroupHeaderTemplate" Value="{StaticResource GroupHeaderTemplate}" />
+        <Setter Property="JumpListStyle" Value="{StaticResource LibraryJumpListTemplate}" />
+    </Style>
+    
+    <!-- Search Results Style -->
+    <Style x:Key="SearchResultsListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
+        <Setter Property="GroupHeaderTemplate" Value="{StaticResource WideGroupHeaderTemplate}" />
+        <Setter Property="JumpListStyle" Value="{StaticResource WideJumpListTemplate}" />
     </Style>
 
 </ResourceDictionary>

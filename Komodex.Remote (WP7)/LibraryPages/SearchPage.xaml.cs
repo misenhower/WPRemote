@@ -29,9 +29,6 @@ namespace Komodex.Remote.LibraryPages
             searchTimer.Interval = TimeSpan.FromMilliseconds(500);
             searchTimer.Tick += new EventHandler(searchTimer_Tick);
 
-#if WP7
-            lbSearchResults.GroupItemTemplate = (DataTemplate)App.Current.Resources["LongGroupItemTemplate"];
-#endif
         }
 
         private void DACPServerBoundPhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)

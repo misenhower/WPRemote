@@ -38,7 +38,7 @@
                         ItemsSource="{Binding LibraryMovies}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.VideosNoMoviesFound, Source={StaticResource LocalizedStrings}}"
-                        Style="{StaticResource LibraryListBoxStyle}"
+                        Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
                         />
@@ -51,7 +51,7 @@
                         ItemsSource="{Binding LibraryTVShows}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.VideosNoTVShowsFound, Source={StaticResource LocalizedStrings}}"
-                        Style="{StaticResource LibraryListBoxStyle}"
+                        Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
                         />

@@ -38,7 +38,7 @@
                         ItemsSource="{Binding Artists}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.GenreNoArtistsFound, Source={StaticResource LocalizedStrings}}"
-                        Style="{StaticResource LibraryListBoxStyle}"
+                        Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource PlayButtonItemTemplate}"
                         />
@@ -51,7 +51,7 @@
                         ItemsSource="{Binding Albums}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.GenreNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
-                        Style="{StaticResource LibraryListBoxStyle}"
+                        Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
                         />
@@ -64,7 +64,7 @@
                         ItemsSource="{Binding Songs}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.GenreNoSongsFound, Source={StaticResource LocalizedStrings}}"
-                        Style="{StaticResource LibraryListBoxStyle}"
+                        Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
                         ItemTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
                         ListHeader="{Binding}"

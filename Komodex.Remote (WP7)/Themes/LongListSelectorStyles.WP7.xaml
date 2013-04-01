@@ -7,8 +7,20 @@
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     >
 
-
-    <!-- Grouped ListBox Templates -->
+    <!-- Grouped List Templates -->
+    <DataTemplate x:Name="GroupHeaderTemplate">
+        <my:FakeButton>
+            <Border Background="Transparent" Padding="12,0,0,12">
+                <Border Background="{StaticResource PhoneAccentBrush}" Width="75" Height="75" HorizontalAlignment="Left">
+                    <TextBlock Text="{Binding Key}" 
+                            Foreground="White" 
+                            Style="{StaticResource PhoneTextExtraLargeStyle}"
+                            VerticalAlignment="Bottom"/>
+                </Border>
+            </Border>
+        </my:FakeButton>
+    </DataTemplate>
+    
     <DataTemplate x:Key="GroupItemTemplate">
         <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Width="99" Height="99" Margin="6" IsHitTestVisible="{Binding HasItems}">
             <TextBlock Text="{Binding Key}" 
@@ -20,40 +32,32 @@
         </Border>
     </DataTemplate>
 
-    <DataTemplate x:Name="GroupHeaderTemplate">
-        <my:FakeButton>
-            <Border Background="Transparent" Padding="12,6,0,6">
-                <Border Background="{StaticResource PhoneAccentBrush}" Width="75" Height="75" HorizontalAlignment="Left">
-                    <TextBlock Text="{Binding Key}" 
-                            Foreground="White" 
-                            Style="{StaticResource PhoneTextExtraLargeStyle}"
-                            VerticalAlignment="Bottom"/>
-                </Border>
-            </Border>
-        </my:FakeButton>
-    </DataTemplate>
-
-    <DataTemplate x:Key="LongGroupItemTemplate">
-        <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
-            <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="White" />
-        </Border>
-    </DataTemplate>
-
-    <DataTemplate x:Key="LongGroupHeaderTemplate">
+    <!-- Wide Group Templates -->
+    <DataTemplate x:Key="WideGroupHeaderTemplate">
         <my:FakeButton>
             <Border Background="Transparent">
                 <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextBlockBase}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneAccentBrush}" />
             </Border>
         </my:FakeButton>
     </DataTemplate>
+    
+    <DataTemplate x:Key="WideGroupItemTemplate">
+        <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+            <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="White" />
+        </Border>
+    </DataTemplate>
 
-    <!-- Library List Style -->
-    <Style x:Key="LibraryListBoxStyle" TargetType="controls:LongListSelectorEx">
+    <!-- Library List Style Base -->
+    <Style x:Key="LibraryListStyleBase" TargetType="controls:LongListSelectorEx">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Margin" Value="0,0,-12,0" />
+        <Setter Property="ShowEmptyTextWhenNull" Value="False" />
+    </Style>
+    
+    <!-- Library List Style -->
+    <Style x:Key="LibraryListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
         <Setter Property="GroupItemTemplate" Value="{StaticResource GroupItemTemplate}" />
         <Setter Property="GroupHeaderTemplate" Value="{StaticResource GroupHeaderTemplate}" />
-        <Setter Property="ShowEmptyTextWhenNull" Value="False" />
         <Setter Property="GroupItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -61,6 +65,12 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    
+    <!-- Search Results Style -->
+    <Style x:Key="SearchResultsListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
+        <Setter Property="GroupItemTemplate" Value="{StaticResource WideGroupItemTemplate}" />
+        <Setter Property="GroupHeaderTemplate" Value="{StaticResource WideGroupHeaderTemplate}" />
     </Style>
 
 </ResourceDictionary>

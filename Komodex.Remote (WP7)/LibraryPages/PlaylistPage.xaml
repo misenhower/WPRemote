@@ -41,7 +41,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
             <controls:LongListSelectorEx x:Name="lbSongs"
-                Style="{StaticResource LibraryListBoxStyle}"
+                Style="{StaticResource LibraryListStyle}"
                 ItemsSource="{Binding Songs}"
                 Tap="LongListSelector_Tap"
                 ItemTemplate="{StaticResource PlayButtonItemWithArtistAndAlbumSubtitleTemplate}"

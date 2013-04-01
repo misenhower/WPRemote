@@ -38,7 +38,7 @@
             <controls:PivotItem x:Name="pivotAlbums" Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
                     <controls:LongListSelectorEx x:Name="lbAlbums"
-                        Style="{StaticResource LibraryListBoxStyle}"
+                        Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
                         ItemsSource="{Binding Albums}"
                         ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
@@ -50,7 +50,7 @@
             <controls:PivotItem x:Name="pivotSongs" Header="{Binding LocalizedStrings.LibrarySongsPivotItem, Source={StaticResource LocalizedStrings}}">
                 <Grid>
                     <controls:LongListSelectorEx x:Name="lbSongs"
-                        Style="{StaticResource LibraryListBoxStyle}"
+                        Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
                         ItemsSource="{Binding Songs}"
                         ItemTemplate="{StaticResource PlayButtonItemWithAlbumSubtitleTemplate}"

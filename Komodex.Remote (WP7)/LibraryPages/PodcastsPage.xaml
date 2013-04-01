@@ -43,7 +43,7 @@
                 ItemsSource="{Binding LibraryPodcasts}"
                 IsGroupingEnabled="True"
                 EmptyText="{Binding LocalizedStrings.LibraryNoPodcastsFound, Source={StaticResource LocalizedStrings}}"
-                Style="{StaticResource LibraryListBoxStyle}"
+                Style="{StaticResource LibraryListStyle}"
                 Tap="LongListSelector_Tap"
                 ItemTemplate="{StaticResource AlbumArtLargeItemTemplate}"
                 />
