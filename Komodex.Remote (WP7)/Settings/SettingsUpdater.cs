@@ -17,7 +17,7 @@ namespace Komodex.Remote.Settings
     {
         private const string AppSettingsFilename = "__ApplicationSettings";
 
-        private static readonly Log.LogInstance _log = new Log.LogInstance("Settings Updater");
+        private static readonly Log _log = new Log("Settings Updater");
 
         private static readonly IsolatedStorageSettings _settings = IsolatedStorageSettings.ApplicationSettings;
 
