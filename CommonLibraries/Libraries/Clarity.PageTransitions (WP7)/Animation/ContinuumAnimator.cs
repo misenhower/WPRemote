@@ -74,6 +74,11 @@ namespace Clarity.Phone.Controls.Animations
             _popup.IsOpen = false;
             _popup.Child = null;
             _popup = null;
+
+            // If the list control reassigns display containers out of order, other elements may end up
+            // keeping an opacity of 0 after when returning back to a page. This should fix that issue.
+            if (this is ContinuumForwardOutAnimator)
+                RootElement.Opacity = 1;
         }
 
         private bool PrepareElement(UIElement element)
