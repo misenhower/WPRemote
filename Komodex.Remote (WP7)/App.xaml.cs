@@ -90,10 +90,11 @@ namespace Komodex.Remote
             // Tilt Effect
             TiltEffect.TiltableItems.Add(typeof(FakeButton));
 
+#if WP7
             // Remove LongListSelector from the TiltableItems list
-            // TODO: This fix is probably only necessary under WP7 and will likely need to be omitted for WP8.
             if (TiltEffect.TiltableItems.Contains(typeof(LongListSelector)))
                 TiltEffect.TiltableItems.Remove(typeof(LongListSelector));
+#endif
         }
 
 #if DEBUG
