@@ -9,7 +9,7 @@ namespace Komodex.Common
 {
     public class Setting<T>
     {
-        private static Log.LogInstance _log = new Log.LogInstance("Settings");
+        private static Log _log = new Log("Settings");
 
         protected string _keyName;
         protected T _value;

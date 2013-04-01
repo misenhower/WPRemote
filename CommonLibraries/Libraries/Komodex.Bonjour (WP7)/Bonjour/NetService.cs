@@ -23,7 +23,7 @@ namespace Komodex.Bonjour
         // Minimum time between (prompted) rebroadcasts (ms)
         private const int MinimumRebroadcastTime = 2000;
 
-        private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour Service");
+        private static readonly Log _log = new Log("Bonjour Service");
 
         public NetService()
         { }

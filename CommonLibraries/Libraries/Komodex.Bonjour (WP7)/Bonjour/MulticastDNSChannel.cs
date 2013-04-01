@@ -11,7 +11,7 @@ namespace Komodex.Bonjour
         private static bool _sendingMessage;
         private static bool _shutdown;
 
-        private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour MDNS");
+        private static readonly Log _log = new Log("Bonjour MDNS");
 
         #region Properties
 

@@ -26,13 +26,13 @@ namespace Komodex.Common.Phone
             var queryString = NavigationContext.QueryString;
 
 #if DEBUG
-            Log.Info("Navigated ({0}) to page: {1}", e.NavigationMode, e.Uri);
+            Log.Main.Info("Navigated ({0}) to page: {1}", e.NavigationMode, e.Uri);
             if (queryString != null && queryString.Count > 0)
             {
                 string navDetails = string.Format("{0} query parameter(s):", queryString.Count);
                 foreach (var item in queryString)
                     navDetails += string.Format("\n {0} => {1}", item.Key, item.Value);
-                Log.Debug(navDetails);
+                Log.Main.Debug(navDetails);
             }
 #endif
 

@@ -38,7 +38,7 @@ namespace Komodex.Bonjour
 #endif
 
         // Logger instance
-        private static readonly Log.LogInstance _log = Log.GetInstance("Bonjour NSBrowser");
+        private static readonly Log _log = new Log("Bonjour NSBrowser");
 
         #region Public Methods
 

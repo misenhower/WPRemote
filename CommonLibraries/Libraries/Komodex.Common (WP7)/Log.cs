@@ -4,33 +4,156 @@ using System.IO;
 
 namespace Komodex.Common
 {
-    public static class Log
+    public class Log
     {
-        static Log()
+        protected const string DefaultLogFilename = "ApplicationLog.txt";
+
+        public Log(string name = null)
         {
-            LogFilename = "ApplicationLog.txt";
+            Name = name;
         }
 
-        private static LogInstance _logger = new LogInstance(null);
+        #region Main Log Instance
 
-        public static LogLevel Level { get; set; }
+        private static Log _main = new Log();
+        public static Log Main
+        {
+            get { return _main; }
+        }
+
+        #endregion
+
+        #region Static Properties
+
+        /// <summary>
+        /// Gets or sets the default minimum message level for all log instances.
+        /// </summary>
+        public static LogLevel DefaultLogLevel { get; set; }
 
         public static bool LogToFile { get; set; }
 
-        public static string LogFilename { get; set; }
+        private static string _logFilename = DefaultLogFilename;
+        public static string LogFilename
+        {
+            get { return _logFilename; }
+            set { _logFilename = value; }
+        }
+
+        #endregion
+
+        #region Properties
+
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum message level for this instance.
+        /// If set, this value overrides the default minimum message level.
+        /// </summary>
+        public LogLevel? Level { get; set; }
+
+        /// <summary>
+        /// Gets the effective minimum message level for this instance.
+        /// </summary>
+        public LogLevel EffectiveLevel
+        {
+            get
+            {
+                if (Level.HasValue)
+                    return Level.Value;
+                return DefaultLogLevel;
+            }
+        }
+
+        #endregion
+
+        #region WriteMessage
+
+        [Conditional("DEBUG")]
+        private void WriteMessage(LogLevel level, string message)
+        {
+            if (EffectiveLevel > level)
+                return;
+
+            // Format the message
+            if (!string.IsNullOrEmpty(Name))
+                message = string.Format("[{0}] ", Name) + message;
+
+            switch (level)
+            {
+                case LogLevel.Debug:
+                    message = "[DEBUG] " + message;
+                    break;
+                case LogLevel.Info:
+                    message = "[INFO] " + message;
+                    break;
+                case LogLevel.Warning:
+                    message = "[WARNING] " + message;
+                    break;
+                case LogLevel.Error:
+                    message = "[ERROR] " + message;
+                    break;
+                default:
+                    break;
+            }
+
+            message = DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + message;
+
+            // Write to the debug output
+            var lines = message.Split('\n');
+            for (int i = 0; i < lines.Length; i++)
+                System.Diagnostics.Debug.WriteLine(((i > 0) ? "    " : "") + lines[i].Trim('\r'));
+
+            // Write to the log file
+
+            if (Log.LogToFile)
+            {
+                LogMessageToFile(message);
+            }
+        }
+
+        [Conditional("DEBUG")]
+        private void WriteMessage(LogLevel level, string format, params object[] args)
+        {
+            WriteMessage(level, string.Format(format, args));
+        }
+
+#if WINDOWS_PHONE
+        [Conditional("DEBUG")]
+        private void LogMessageToFile(string message)
+        {
+            lock (Log.LogFilename)
+            {
+                using (var store = System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForApplication())
+                using (TextWriter writer = new StreamWriter(store.OpenFile(Log.LogFilename, FileMode.Append)))
+                {
+                    writer.WriteLine(message);
+                }
+            }
+        }
+#else
+        [Conditional("DEBUG")]
+        private async void LogMessageToFile(string message)
+        {
+            var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var logFile = await localFolder.CreateFileAsync(Log.LogFilename, Windows.Storage.CreationCollisionOption.OpenIfExists);
+            await Windows.Storage.FileIO.AppendTextAsync(logFile, message + Environment.NewLine);
+        }
+#endif
+
+        #endregion
 
         #region Debug
 
         [Conditional("DEBUG")]
-        public static void Debug(string message)
+        public void Debug(string message)
         {
-            _logger.Debug(message);
+            WriteMessage(LogLevel.Debug, message);
         }
 
         [Conditional("DEBUG")]
-        public static void Debug(string format, params object[] args)
+        public void Debug(string format, params object[] args)
         {
-            _logger.Debug(format, args);
+            WriteMessage(LogLevel.Debug, format, args);
         }
 
         #endregion
@@ -38,15 +161,15 @@ namespace Komodex.Common
         #region Info
 
         [Conditional("DEBUG")]
-        public static void Info(string message)
+        public void Info(string message)
         {
-            _logger.Info(message);
+            WriteMessage(LogLevel.Info, message);
         }
 
         [Conditional("DEBUG")]
-        public static void Info(string format, params object[] args)
+        public void Info(string format, params object[] args)
         {
-            _logger.Info(format, args);
+            WriteMessage(LogLevel.Info, format, args);
         }
 
         #endregion
@@ -54,15 +177,15 @@ namespace Komodex.Common
         #region Warning
 
         [Conditional("DEBUG")]
-        public static void Warning(string message)
+        public void Warning(string message)
         {
-            _logger.Warning(message);
+            WriteMessage(LogLevel.Warning, message);
         }
 
         [Conditional("DEBUG")]
-        public static void Warning(string format, params object[] args)
+        public void Warning(string format, params object[] args)
         {
-            _logger.Warning(format, args);
+            WriteMessage(LogLevel.Warning, format, args);
         }
 
         #endregion
@@ -70,193 +193,15 @@ namespace Komodex.Common
         #region Error
 
         [Conditional("DEBUG")]
-        public static void Error(string message)
+        public void Error(string message)
         {
-            _logger.Error(message);
+            WriteMessage(LogLevel.Error, message);
         }
 
         [Conditional("DEBUG")]
-        public static void Error(string format, params object[] args)
+        public void Error(string format, params object[] args)
         {
-            _logger.Error(format, args);
-        }
-
-        #endregion
-
-        #region LogInstance
-
-        public static LogInstance GetInstance(string source)
-        {
-            return new LogInstance(source);
-        }
-
-        public static LogInstance GetInstance(string source, LogLevel level)
-        {
-            return new LogInstance(source, level);
-        }
-
-        public class LogInstance
-        {
-            public LogInstance(string source)
-            {
-                Source = source;
-                Level = LogLevel.All;
-            }
-
-            public LogInstance(string source, LogLevel level)
-                : this(source)
-            {
-                Level = level;
-            }
-
-            public string Source { get; set; }
-
-            public LogLevel Level { get; set; }
-
-            #region WriteMessage
-
-            [Conditional("DEBUG")]
-            private void WriteMessage(LogLevel level, string message)
-            {
-                if (Log.Level > level || this.Level > level)
-                    return;
-
-                // Format the message
-                if (!string.IsNullOrEmpty(Source))
-                    message = string.Format("[{0}] ", Source) + message;
-
-                switch (level)
-                {
-                    case LogLevel.Debug:
-                        message = "[DEBUG] " + message;
-                        break;
-                    case LogLevel.Info:
-                        message = "[INFO] " + message;
-                        break;
-                    case LogLevel.Warning:
-                        message = "[WARNING] " + message;
-                        break;
-                    case LogLevel.Error:
-                        message = "[ERROR] " + message;
-                        break;
-                    default:
-                        break;
-                }
-
-                message = DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + message;
-
-                // Write to the debug output
-                var lines = message.Split('\n');
-                for (int i = 0; i < lines.Length; i++)
-                    System.Diagnostics.Debug.WriteLine(((i > 0) ? "    " : "") + lines[i].Trim('\r'));
-
-                // Write to the log file
-
-                if (Log.LogToFile)
-                {
-                    LogMessageToFile(message);
-                }
-            }
-
-            [Conditional("DEBUG")]
-            private void WriteMessage(LogLevel level, string format, params object[] args)
-            {
-                if (Log.Level > level || this.Level > level)
-                    return;
-
-                WriteMessage(level, string.Format(format, args));
-            }
-
-#if WINDOWS_PHONE
-            [Conditional("DEBUG")]
-            private void LogMessageToFile(string message)
-            {
-                lock (Log.LogFilename)
-                {
-                    using (var store = System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForApplication())
-                    {
-                        using (TextWriter writer = new StreamWriter(store.OpenFile(Log.LogFilename, FileMode.Append)))
-                        {
-                            writer.WriteLine(message);
-                        }
-                    }
-                }
-            }
-#else
-            [Conditional("DEBUG")]
-            private async void LogMessageToFile(string message)
-            {
-                var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                var logFile = await localFolder.CreateFileAsync(Log.LogFilename, Windows.Storage.CreationCollisionOption.OpenIfExists);
-                await Windows.Storage.FileIO.AppendTextAsync(logFile, message + Environment.NewLine);
-            }
-#endif
-
-            #endregion
-
-            #region Debug
-
-            [Conditional("DEBUG")]
-            public void Debug(string message)
-            {
-                WriteMessage(LogLevel.Debug, message);
-            }
-
-            [Conditional("DEBUG")]
-            public void Debug(string format, params object[] args)
-            {
-                WriteMessage(LogLevel.Debug, format, args);
-            }
-
-            #endregion
-
-            #region Info
-
-            [Conditional("DEBUG")]
-            public void Info(string message)
-            {
-                WriteMessage(LogLevel.Info, message);
-            }
-
-            [Conditional("DEBUG")]
-            public void Info(string format, params object[] args)
-            {
-                WriteMessage(LogLevel.Info, format, args);
-            }
-
-            #endregion
-
-            #region Warning
-
-            [Conditional("DEBUG")]
-            public void Warning(string message)
-            {
-                WriteMessage(LogLevel.Warning, message);
-            }
-
-            [Conditional("DEBUG")]
-            public void Warning(string format, params object[] args)
-            {
-                WriteMessage(LogLevel.Warning, format, args);
-            }
-
-            #endregion
-
-            #region Error
-
-            [Conditional("DEBUG")]
-            public void Error(string message)
-            {
-                WriteMessage(LogLevel.Error, message);
-            }
-
-            [Conditional("DEBUG")]
-            public void Error(string format, params object[] args)
-            {
-                WriteMessage(LogLevel.Error, format, args);
-            }
-
-            #endregion
+            WriteMessage(LogLevel.Error, format, args);
         }
 
         #endregion
