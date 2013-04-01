@@ -124,6 +124,7 @@ namespace Komodex.DACP
             catch (Exception e)
             {
                 _log.Warning("Caught exception for {0}: {1}", requestInfo.WebRequest.RequestUri, e.Message);
+                _log.Debug("Exception details: " + e.ToString());
 
                 if (e is WebException)
                 {
@@ -371,6 +372,7 @@ namespace Komodex.DACP
 
         void playStatusWatchdogTimer_Tick(object sender, EventArgs e)
         {
+            _log.Info("Canceling play status request...");
             if (UseDelayedResponseRequests && !Stopped)
             {
                 canceledPlayStatusRequestInfo = playStatusRequestInfo;
