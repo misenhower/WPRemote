@@ -16,7 +16,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/AppThemes.xaml" />
+                <ResourceDictionary Source="/Komodex.Remote;component/Themes/AppThemes.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
