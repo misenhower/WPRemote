@@ -301,8 +301,6 @@
                             Tag="{Binding BindsDirectlyToSource=True}"
                             Value="{Binding BindableVolume, Mode=TwoWay}" Maximum="100" LargeChange="5"
                             Style="{StaticResource AltVolumeSliderStyle}"
-                            Foreground="{StaticResource PhoneForegroundBrush}"
-                            Background="{StaticResource PhoneBackgroundBrush}"
                             ManipulationStarted="Slider_ManipulationStarted"
                             ManipulationCompleted="Slider_ManipulationCompleted" />
                     </Grid>
