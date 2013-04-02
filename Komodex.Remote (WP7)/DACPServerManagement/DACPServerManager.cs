@@ -21,11 +21,14 @@ using Komodex.Common.Phone;
 using Microsoft.Phone.Net.NetworkInformation;
 using System.Linq;
 using Komodex.Analytics;
+using Komodex.Common;
 
 namespace Komodex.Remote.DACPServerManagement
 {
     public static class DACPServerManager
     {
+        private static readonly Log _log = new Log("DACP Manager");
+
         private static bool _suppressNavigateToHome = false;
         private static bool _isConnecting = false;
         private static bool _tryToReconnect = false;
@@ -97,6 +100,8 @@ namespace Komodex.Remote.DACPServerManagement
 
         private static void UpdateNetworkInterfaceAvailability()
         {
+            _log.Info("Updating network availability...");
+
             NetworkInterfaceList interfaces = new NetworkInterfaceList();
 
             if (interfaces != null)
@@ -105,6 +110,8 @@ namespace Komodex.Remote.DACPServerManagement
                     && (i.InterfaceType == NetworkInterfaceType.Wireless80211 || i.InterfaceType == NetworkInterfaceType.Ethernet));
             else
                 IsNetworkAvailable = false;
+
+            _log.Info("Network available: " + IsNetworkAvailable);
 
             if (IsNetworkAvailable && _connectOnNetworkAvailable)
             {
@@ -328,6 +335,7 @@ namespace Komodex.Remote.DACPServerManagement
             switch (e.Type)
             {
                 case ServerUpdateType.ServerConnected:
+                    _log.Info("Server connected successfully.");
                     _tryToReconnect = true;
                     UpdatePopupDisplay();
                     UpdateSavedLibraryName();
@@ -336,6 +344,8 @@ namespace Komodex.Remote.DACPServerManagement
                 case ServerUpdateType.Error:
                     if (_isObscured)
                         break;
+
+                    _log.Info("Server disconnected.");
 
                     TryToReconnect();
 
@@ -402,6 +412,7 @@ namespace Komodex.Remote.DACPServerManagement
 
                 if (_tryToReconnect)
                 {
+                    _log.Info("Trying to reconnect...");
                     _tryToReconnect = false;
                     _isConnecting = true;
                     Server.Start();
