@@ -144,46 +144,42 @@ namespace Komodex.DACP
 
         protected void ProcessDatabasesResponse(HTTPRequestInfo requestInfo)
         {
-            try
+            byte[] libraryBytes = requestInfo.ResponseNodes.First(rn => rn.Key == "mlcl").Value;
+            var libraryNodes = DACPUtility.GetResponseNodes(libraryBytes, true);
+            byte[] firstLibraryBytes = libraryNodes[0].Value;
+            var firstLibraryNodes = DACPUtility.GetResponseNodes(firstLibraryBytes);
+
+            foreach (var kvp in firstLibraryNodes)
             {
-                byte[] libraryBytes = requestInfo.ResponseNodes.First(rn => rn.Key == "mlcl").Value;
-                var libraryNodes = DACPUtility.GetResponseNodes(libraryBytes, true);
-                byte[] firstLibraryBytes = libraryNodes[0].Value;
-                var firstLibraryNodes = DACPUtility.GetResponseNodes(firstLibraryBytes);
-
-                foreach (var kvp in firstLibraryNodes)
+                switch (kvp.Key)
                 {
-                    switch (kvp.Key)
-                    {
-                        case "miid":
-                            DatabaseID = kvp.Value.GetInt32Value();
-                            break;
-                        case "mper":
-                            DatabasePersistentID = (UInt64)kvp.Value.GetInt64Value();
-                            break;
-                        case "aeIM":
-                            ServiceID = (UInt64)kvp.Value.GetInt64Value();
-                            break;
-                        default:
-                            break;
-                    }
+                    case "miid":
+                        DatabaseID = kvp.Value.GetInt32Value();
+                        break;
+                    case "mper":
+                        DatabasePersistentID = (UInt64)kvp.Value.GetInt64Value();
+                        break;
+                    case "aeIM":
+                        ServiceID = (UInt64)kvp.Value.GetInt64Value();
+                        break;
+                    default:
+                        break;
                 }
-
-                SubmitPlaylistsRequest();
-
-                if (UseDelayedResponseRequests)
-                {
-                    SubmitLibraryUpdateRequest();
-                    SubmitPlayStatusRequest();
-                }
-
-                // If we are using play queue requests, preload the list of artists.
-                // There are a few places where the user can navigate to an artist page with just the artist name (e.g., Now Playing page, Album page, etc.).
-                // Without this, the Artist IDs would not be available for requests from these pages.
-                if (SupportsPlayQueue && (LibraryArtists == null || LibraryArtists.Count == 0))
-                    GetArtists();
             }
-            catch { }
+
+            SubmitPlaylistsRequest();
+
+            if (UseDelayedResponseRequests)
+            {
+                SubmitLibraryUpdateRequest();
+                SubmitPlayStatusRequest();
+            }
+
+            // If we are using play queue requests, preload the list of artists.
+            // There are a few places where the user can navigate to an artist page with just the artist name (e.g., Now Playing page, Album page, etc.).
+            // Without this, the Artist IDs would not be available for requests from these pages.
+            if (SupportsPlayQueue && (LibraryArtists == null || LibraryArtists.Count == 0))
+                GetArtists();
         }
 
         #endregion
