@@ -288,11 +288,6 @@ namespace Komodex.DACP
                 if (!Stopped)
                 {
                     SubmitDatabasesRequest();
-                    if (UseDelayedResponseRequests)
-                    {
-                        SubmitLibraryUpdateRequest();
-                        SubmitPlayStatusRequest();
-                    }
                 }
 
 
