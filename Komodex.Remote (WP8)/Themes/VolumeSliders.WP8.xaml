@@ -13,7 +13,11 @@
         <Setter Property="Maximum" Value="10"/>
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Value" Value="0"/>
-        <Setter Property="Background" Value="{StaticResource PhoneChromeBrush}"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}" Opacity="0.2" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -38,13 +42,13 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid x:Name="HorizontalTemplate" Margin="{StaticResource PhoneHorizontalMargin}">
-                            <Rectangle x:Name="HorizontalTrack" Fill="{TemplateBinding Background}" Height="12" IsHitTestVisible="False" Margin="0,22,0,50"/>
-                            <Rectangle x:Name="HorizontalFill" Fill="{TemplateBinding Foreground}" Height="12" IsHitTestVisible="False" Margin="0,22,0,50">
+                            <Rectangle x:Name="HorizontalTrack" Fill="{TemplateBinding Background}" Height="12" IsHitTestVisible="False" Margin="0"/>
+                            <Rectangle x:Name="HorizontalFill" Fill="{TemplateBinding Foreground}" Height="12" IsHitTestVisible="False" Margin="0">
                                 <Rectangle.Clip>
                                     <RectangleGeometry Rect="0, 0, 6, 12"/>
                                 </Rectangle.Clip>
                             </Rectangle>
-                            <Rectangle x:Name="HorizontalCenterElement" Fill="{StaticResource PhoneForegroundBrush}" HorizontalAlignment="Left" Height="24" Margin="0,16,0,44" Width="12">
+                            <Rectangle x:Name="HorizontalCenterElement" Fill="{StaticResource PhoneForegroundBrush}" HorizontalAlignment="Left" Height="24" Margin="0" Width="12">
                                 <Rectangle.RenderTransform>
                                     <TranslateTransform/>
                                 </Rectangle.RenderTransform>
@@ -70,7 +74,16 @@
     </Style>
 
     <Style x:Key="AltVolumeSliderStyle" TargetType="Slider" BasedOn="{StaticResource VolumeSliderStyle}">
-        <!-- TODO -->
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource PhoneForegroundColor}" Opacity="0.4" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource PhoneBackgroundColor}" Opacity="1.0" />
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>
