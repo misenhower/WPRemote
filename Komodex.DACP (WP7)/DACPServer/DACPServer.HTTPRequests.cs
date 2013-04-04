@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using Komodex.DACP.Library;
 using System.Text;
 using Komodex.Common;
+using System.Threading;
 
 namespace Komodex.DACP
 {
@@ -334,27 +335,20 @@ namespace Komodex.DACP
 
         #region Play Status
 
-        protected int playStatusRevisionNumber = 1;
-        protected HTTPRequestInfo playStatusRequestInfo = null;
-        protected DispatcherTimer playStatusWatchdogTimer = new DispatcherTimer();
+        protected int _playStatusRevisionNumber = 1;
+        protected HTTPRequestInfo _playStatusRequestInfo = null;
+        protected Timer _playStatusCancelTimer;
 
         protected void SubmitPlayStatusRequest()
         {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                playStatusWatchdogTimer.Stop();
-            });
+            // Disable the cancellation timer
+            _playStatusCancelTimer.Change(Timeout.Infinite, Timeout.Infinite);
 
-            if (playStatusRequestInfo != null)
-                playStatusRequestInfo.WebRequest.Abort();
+            string url = "/ctrl-int/1/playstatusupdate?revision-number=" + _playStatusRevisionNumber + "&session-id=" + SessionID;
+            _playStatusRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPlayStatusResponse), false, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandlePlayStatusException));
 
-            string url = "/ctrl-int/1/playstatusupdate?revision-number=" + playStatusRevisionNumber + "&session-id=" + SessionID;
-            playStatusRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPlayStatusResponse), false, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandlePlayStatusException));
-
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                playStatusWatchdogTimer.Start();
-            });
+            // Re-enable the cancellation timer
+            _playStatusCancelTimer.Change(45000, Timeout.Infinite);
         }
 
         // HTTPWebRequests appear to have a timeout of 60 seconds.  I have not found a way to extend
@@ -365,14 +359,13 @@ namespace Komodex.DACP
 
         protected HTTPRequestInfo canceledPlayStatusRequestInfo = null;
 
-        void playStatusWatchdogTimer_Tick(object sender, EventArgs e)
+        private void playStatusCancelTimer_Tick(object state)
         {
             _log.Info("Canceling play status request...");
             if (UseDelayedResponseRequests && !Stopped)
             {
-                canceledPlayStatusRequestInfo = playStatusRequestInfo;
-                // Set the playStatusRequestInfo object to null so SubmitPlayStatusRequest doesn't attempt to abort that request
-                playStatusRequestInfo = null;
+                canceledPlayStatusRequestInfo = _playStatusRequestInfo;
+                _playStatusRequestInfo = null;
                 SubmitPlayStatusRequest();
             }
         }
@@ -417,7 +410,7 @@ namespace Komodex.DACP
                 switch (kvp.Key)
                 {
                     case "cmsr": // Revision number
-                        playStatusRevisionNumber = kvp.Value.GetInt32Value();
+                        _playStatusRevisionNumber = kvp.Value.GetInt32Value();
                         break;
                     case "canp": // Current song and container IDs
                         byte[] value = kvp.Value;

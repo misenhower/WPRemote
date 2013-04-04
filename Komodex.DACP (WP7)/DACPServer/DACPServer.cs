@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Komodex.Common;
+using System.Threading;
 
 namespace Komodex.DACP
 {
@@ -24,8 +25,7 @@ namespace Komodex.DACP
             timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
             timerTrackTimeUpdate.Tick += new EventHandler(timerTrackTimeUpdate_Tick);
 
-            playStatusWatchdogTimer.Interval = TimeSpan.FromSeconds(45);
-            playStatusWatchdogTimer.Tick += new EventHandler(playStatusWatchdogTimer_Tick);
+            _playStatusCancelTimer = new Timer(playStatusCancelTimer_Tick);
         }
 
         public DACPServer(Guid id, string hostName, string pairingKey)
@@ -105,7 +105,7 @@ namespace Komodex.DACP
         public void Start(bool useDelayedResponseRequests)
         {
             UseDelayedResponseRequests = useDelayedResponseRequests;
-            playStatusRevisionNumber = 1;
+            _playStatusRevisionNumber = 1;
             ignoringTrackTimeChanges = false;
             ignoringVolumeChanges = false;
             sendTrackTimeChangeWhenFinished = -1;
