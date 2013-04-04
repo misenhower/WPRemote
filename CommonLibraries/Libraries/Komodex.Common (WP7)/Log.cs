@@ -58,9 +58,13 @@ namespace Komodex.Common
         {
             get
             {
+#if DEBUG
                 if (Level.HasValue)
                     return Level.Value;
                 return DefaultLogLevel;
+#else
+                return LogLevel.None;
+#endif
             }
         }
 
