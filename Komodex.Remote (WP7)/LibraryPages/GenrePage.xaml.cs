@@ -31,8 +31,6 @@ namespace Komodex.Remote.LibraryPages
 
 #if WP7
             lbSongs.Link += lbSongs_Link;
-#else
-            // TODO
 #endif
         }
 
@@ -134,8 +132,6 @@ namespace Komodex.Remote.LibraryPages
                 TiltEffect.SetSuppressTilt(listBoxItem, tiltSuppressed);
             }
         }
-#else
-        // TODO
 #endif
 
         #endregion
