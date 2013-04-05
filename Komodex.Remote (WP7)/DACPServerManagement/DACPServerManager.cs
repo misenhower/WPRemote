@@ -107,7 +107,7 @@ namespace Komodex.Remote.DACPServerManagement
             if (interfaces != null)
             {
 #if DEBUG
-                if (_log.EffectiveLevel >= LogLevel.Debug)
+                if (_log.EffectiveLevel <= LogLevel.Debug)
                 {
                     string interfaceFormat = "[{0}]\n\tDescription: {1}\n\tType: {2}\n\tSubtype: {3}\n\tState: {4}\n\tBandwidth: {5}\n\n";
                     string interfaceList = string.Empty;
