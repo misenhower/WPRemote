@@ -118,7 +118,7 @@ namespace Komodex.Remote.DACPServerManagement
 #endif
 
                 IsNetworkAvailable = interfaces.Any(i => i.InterfaceState == ConnectState.Connected
-                    && !(i.Bandwidth == -1 && (i.InterfaceName.Contains("Loopback") || i.Description.Contains("Loopback")))
+                    && !(i.Bandwidth == -1 && (i.InterfaceName.Contains("Loopback") || i.Description.Contains("Loopback") || i.InterfaceName.Contains("{22C7611B-530E-11DB-BA31-806E6F6E6963}")))
                     && (i.InterfaceType == NetworkInterfaceType.Wireless80211 || i.InterfaceType == NetworkInterfaceType.Ethernet));
             }
             else
