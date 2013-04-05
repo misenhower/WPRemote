@@ -105,11 +105,26 @@ namespace Komodex.Remote.DACPServerManagement
             NetworkInterfaceList interfaces = new NetworkInterfaceList();
 
             if (interfaces != null)
+            {
+#if DEBUG
+                if (_log.EffectiveLevel >= LogLevel.Debug)
+                {
+                    string interfaceFormat = "[{0}]\n\tDescription: {1}\n\tType: {2}\n\tSubtype: {3}\n\tState: {4}\n\tBandwidth: {5}\n\n";
+                    string interfaceList = string.Empty;
+                    foreach (var i in interfaces)
+                        interfaceList += string.Format(interfaceFormat, i.InterfaceName, i.Description,  i.InterfaceType, i.InterfaceSubtype,i.InterfaceState, i.Bandwidth);
+                    _log.Debug("Network interfaces:\n" + interfaceList.TrimEnd());
+                }
+#endif
+
                 IsNetworkAvailable = interfaces.Any(i => i.InterfaceState == ConnectState.Connected
                     && !(i.Bandwidth == -1 && (i.InterfaceName.Contains("Loopback") || i.Description.Contains("Loopback")))
                     && (i.InterfaceType == NetworkInterfaceType.Wireless80211 || i.InterfaceType == NetworkInterfaceType.Ethernet));
+            }
             else
+            {
                 IsNetworkAvailable = false;
+            }
 
             _log.Info("Network available: " + IsNetworkAvailable);
 
@@ -123,6 +138,8 @@ namespace Komodex.Remote.DACPServerManagement
 
         private static void DeviceNetworkInformation_NetworkAvailabilityChanged(object sender, NetworkNotificationEventArgs e)
         {
+            _log.Info("Network availability changed. Name: '{0}' Type: '{1}'", e.NetworkInterface.InterfaceName, e.NotificationType);
+
             // TODO: Do something better than just refreshing the entire list
             UpdateNetworkInterfaceAvailability();
         }
