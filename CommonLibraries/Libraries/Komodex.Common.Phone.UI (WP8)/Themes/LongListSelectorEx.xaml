@@ -42,10 +42,8 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <ViewportControl x:Name="ViewportControl" HorizontalContentAlignment="Stretch" VerticalAlignment="Top"/>
-                            <TextBlock Name="EmptyTextTextBlock" Text="{TemplateBinding EmptyText}" Style="{TemplateBinding EmptyTextStyle}" TextWrapping="Wrap" Visibility="Collapsed" />
-                            <!--<TextBlock Name="EmptyTextTextBlock" Text="{TemplateBinding EmptyText}"  TextWrapping="Wrap" Visibility="Collapsed" />-->
-                            <!--<TextBlock Text="Foobar" />-->
+                            <ViewportControl x:Name="ViewportControl" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                            <TextBlock Name="EmptyTextTextBlock" Text="{TemplateBinding EmptyText}" Style="{TemplateBinding EmptyTextStyle}" TextWrapping="Wrap" Visibility="Collapsed" Grid.ColumnSpan="2" />
                             <ScrollBar x:Name="VerticalScrollBar" Grid.Column="1" Margin="4,0,4,0" Opacity="0" Orientation="Vertical"/>
                         </Grid>
                     </Grid>
