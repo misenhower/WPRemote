@@ -127,7 +127,7 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Grid Margin="{StaticResource PhoneTouchTargetLargeOverhang}">
+                        <Grid Margin="12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="32"/>
                                 <ColumnDefinition Width="*"/>
@@ -137,7 +137,7 @@
                                 <Rectangle x:Name="IndeterminateMark" Fill="{StaticResource PhoneRadioCheckBoxCheckBrush}" HorizontalAlignment="Center" Height="16" IsHitTestVisible="False" Visibility="Collapsed" VerticalAlignment="Center" Width="16"/>
                                 <Path x:Name="CheckMark" Data="M0,123 L39,93 L124,164 L256,18 L295,49 L124,240 z" Fill="{StaticResource PhoneRadioCheckBoxCheckBrush}" FlowDirection="LeftToRight" HorizontalAlignment="Center" Height="21" IsHitTestVisible="False" Stretch="Fill" StrokeThickness="3" StrokeLineJoin="Round" Visibility="Collapsed" VerticalAlignment="Center" Width="23"/>
                             </Grid>
-                            <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,0,0" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ContentControl x:Name="ContentContainer" Visibility="Collapsed" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,0,0" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Grid>
                     </Grid>
                 </ControlTemplate>
