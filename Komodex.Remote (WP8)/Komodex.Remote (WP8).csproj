@@ -542,6 +542,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\CheckBoxStyles.WP8.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\LongListSelectorStyles.WP8.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
