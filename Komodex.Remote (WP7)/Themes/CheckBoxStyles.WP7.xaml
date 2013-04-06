@@ -136,7 +136,7 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Grid Margin="{StaticResource PhoneTouchTargetLargeOverhang}">
+                        <Grid Margin="12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="32"/>
                                 <ColumnDefinition Width="*"/>
@@ -144,7 +144,7 @@
                             <Border x:Name="CheckBackground" BorderBrush="{TemplateBinding Background}" BorderThickness="{StaticResource PhoneBorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="Left" Height="32" IsHitTestVisible="False" VerticalAlignment="Center" Width="32"/>
                             <Rectangle x:Name="IndeterminateMark" Fill="{StaticResource PhoneRadioCheckBoxCheckBrush}" HorizontalAlignment="Center" Height="16" IsHitTestVisible="False" Grid.Row="0" Visibility="Collapsed" VerticalAlignment="Center" Width="16"/>
                             <Path x:Name="CheckMark" Data="M0,119 L31,92 L119,185 L267,0 L300,24 L122,250 z" Fill="{StaticResource PhoneRadioCheckBoxCheckBrush}" HorizontalAlignment="Center" Height="18" IsHitTestVisible="False" Stretch="Fill" StrokeThickness="2" StrokeLineJoin="Round" Visibility="Collapsed" VerticalAlignment="Center" Width="24"/>
-                            <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,0,0" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ContentControl x:Name="ContentContainer" Visibility="Collapsed" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,0,0" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Grid>
                     </Grid>
                 </ControlTemplate>
