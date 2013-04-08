@@ -39,7 +39,7 @@ namespace Komodex.Remote.DACPServerInfoManagement
             base.InitializeApplicationBar();
 
             // Add
-            AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, "/icons/appbar.new.rest.png", () => NavigationManager.OpenAddNewServerPage());
+            AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, "/icons/appbar.new.rest.png", () => NavigationManager.OpenManualPairingPage());
 
             // About
             AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, () => NavigationManager.OpenAboutPage());

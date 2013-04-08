@@ -232,7 +232,7 @@ namespace Komodex.Remote
 
         private void btnAddLibrary_Click(object sender, RoutedEventArgs e)
         {
-            NavigationManager.OpenAddNewServerPage();
+            NavigationManager.OpenManualPairingPage();
         }
 
         private void btnTrial_Click(object sender, RoutedEventArgs e)

@@ -22,6 +22,7 @@ using Microsoft.Phone.Net.NetworkInformation;
 using System.Linq;
 using Komodex.Analytics;
 using Komodex.Common;
+using Komodex.Remote.Pages.Pairing;
 
 namespace Komodex.Remote.DACPServerManagement
 {
@@ -169,7 +170,7 @@ namespace Komodex.Remote.DACPServerManagement
                     return;
 
                 bool connecting = (Server == null || !Server.IsConnected);
-                bool canShow = ShowPopups && !(currentPage is LibraryChooserPage || currentPage is AddLibraryPage || currentPage is AboutPage);
+                bool canShow = ShowPopups && !(currentPage is LibraryChooserPage || currentPage is AddLibraryPage || currentPage is AboutPage || currentPage is ManualPairingPage);
                 bool hasServers = (DACPServerViewModel.Instance.Items.Count > 0);
 
                 if (currentPage is MainPage)
