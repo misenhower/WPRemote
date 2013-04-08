@@ -360,6 +360,10 @@
       <Project>{A0C2A02F-A33B-4869-ADC3-1A48743E26B2}</Project>
       <Name>Clarity.PageTransitions %28WP8%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Komodex.Bonjour %28WP8%29\Komodex.Bonjour %28WP8%29.csproj">
+      <Project>{357BA6E8-4239-4C7C-8A92-D5E6A878EB15}</Project>
+      <Name>Komodex.Bonjour %28WP8%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibraries\Komodex.Common %28WP8%29\Komodex.Common %28WP8%29.csproj">
       <Project>{47446A40-33DF-47E4-9071-23AF4B2C7006}</Project>
       <Name>Komodex.Common %28WP8%29</Name>
