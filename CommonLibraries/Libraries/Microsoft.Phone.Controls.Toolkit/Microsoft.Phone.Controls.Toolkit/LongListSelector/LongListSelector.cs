@@ -356,14 +356,14 @@ namespace Microsoft.Phone.Controls
         /// </summary>
         public DataTemplate GroupHeaderTemplate
         {
-            get { return (DataTemplate)GetValue(GroupHeaderProperty); }
-            set { SetValue(GroupHeaderProperty, value); }
+            get { return (DataTemplate)GetValue(GroupHeaderTemplateProperty); }
+            set { SetValue(GroupHeaderTemplateProperty, value); }
         }
 
         /// <summary>
         /// The GroupHeaderTemplate DependencyProperty.
         /// </summary>
-        public static readonly DependencyProperty GroupHeaderProperty =
+        public static readonly DependencyProperty GroupHeaderTemplateProperty =
             DependencyProperty.Register("GroupHeaderTemplate", typeof(DataTemplate), typeof(LongListSelector), new PropertyMetadata(null, OnDataTemplateChanged));
         #endregion
 
@@ -1558,7 +1558,7 @@ namespace Microsoft.Phone.Controls
                 }
 
             }
-            else if (e.Property == GroupHeaderProperty)
+            else if (e.Property == GroupHeaderTemplateProperty)
             {
                 lls.UpdateItemsTemplate(LongListSelectorItemType.GroupHeader, newTemplate);
 
