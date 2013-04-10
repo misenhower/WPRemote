@@ -34,7 +34,7 @@
                 </my:FakeButton>
                 <Grid Grid.Column="1">
                     <my:FakeButton x:Name="ArtistButton" VerticalAlignment="Top">
-                        <TextBlock Text="{Binding Path=ArtistName}" TextWrapping="Wrap" MaxHeight="115" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                        <TextBlock Text="{Binding ArtistName}" TextWrapping="Wrap" MaxHeight="115" Style="{StaticResource PhoneTextExtraLargeStyle}" />
                     </my:FakeButton>
                     <my:FakeButton x:Name="ShuffleButton"
                                    Margin="12,0,0,0"

@@ -18,6 +18,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
+    d:DataContext="{d:DesignData /SampleData/GenreSampleData.xaml}"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0">
     <phone:PhoneApplicationPage.Resources>

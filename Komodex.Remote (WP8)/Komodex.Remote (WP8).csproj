@@ -222,6 +222,9 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\DACPServerBoundPhoneApplicationPage.cs">
       <Link>PageBases\DACPServerBoundPhoneApplicationPage.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\SampleData\SampleDataClasses.cs">
+      <Link>SampleData\SampleDataClasses.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Settings\ArtistClickAction.cs">
       <Link>Settings\ArtistClickAction.cs</Link>
     </Compile>
@@ -497,11 +500,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\DACPServerInfoSampleData.xaml">
-      <Link>SampleData\DACPServerInfoSampleData.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
     <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\DACPServerSampleData.xaml">
       <Link>SampleData\DACPServerSampleData.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -509,6 +507,21 @@
     </DesignData>
     <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\DACPServerViewModelSampleData.xaml">
       <Link>SampleData\DACPServerViewModelSampleData.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\GenreSampleData.xaml">
+      <Link>SampleData\GenreSampleData.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\PlaylistSampleData.xaml">
+      <Link>SampleData\PlaylistSampleData.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\PodcastSampleData.xaml">
+      <Link>SampleData\PodcastSampleData.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>

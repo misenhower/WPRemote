@@ -18,6 +18,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    d:DataContext="{d:DesignData /SampleData/PlaylistSampleData.xaml}"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0">
 
