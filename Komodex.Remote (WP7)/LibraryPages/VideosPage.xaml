@@ -17,6 +17,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
+    d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0">
 

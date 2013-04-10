@@ -1,0 +1,14 @@
+<SampleData:SampleDataPlaylist xmlns:SampleData="clr-namespace:Komodex.Remote.SampleData" Name="Hac augue placerat" SecondLine="Pulvinar enim dolor leo sagittis">
+	<SampleData:SampleDataPlaylist.Songs>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Nam vestibulum aliquam" Name="Class curae curabitur integer maecenas" SecondLine="Phasellus adipiscing"/>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Praesent aenean parturient" Name="Sed cras" SecondLine="Mauris donec duis nullam"/>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Dis etiam est quisque" Name="Vestibulum aptent" SecondLine="Vivamus aliquam aliquet consequat vestibulum"/>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Convallis blandit auctor commodo" Name="Adipiscing nunc hac accumsan amet" SecondLine="Conubia dignissim ante"/>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Elementum congue bibendum" Name="Dictumst cubilia" SecondLine="Cursus leo mus"/>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Eleifend nec parturient" Name="Dictum vestibulum non lectus facilisi" SecondLine="Vestibulum faucibus"/>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Fusce per" Name="Facilisis fermentum sed sem" SecondLine="Sit lorem"/>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Arcu vel libero" Name="Habitant nam adipiscing" SecondLine="Morbi sed"/>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Diam dis" Name="Eget inceptos parturient est dapibus" SecondLine="Interdum nulla"/>
+		<SampleData:SampleDataPlaylistSong ArtistAndAlbum="Fringilla egestas vestibulum lobortis habitasse" Name="Nascetur proin pharetra ligula" SecondLine="Elit hendrerit litora"/>
+	</SampleData:SampleDataPlaylist.Songs>
+</SampleData:SampleDataPlaylist>

@@ -1,21 +1,14 @@
-<Komodex_DACP_Library:Album xmlns:Komodex_DACP_Library="clr-namespace:Komodex.DACP.Library;assembly=Komodex.DACP" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Komodex_DACP="clr-namespace:Komodex.DACP;assembly=Komodex.DACP" ArtistName="Nunc aenean" AlbumArtURL="Class cras duis" EncodedArtistName="Aliquam mauris" ID="92" Name="Curae nam">
-	<Komodex_DACP_Library:Album.Server>
-		<Komodex_DACP:DACPServer BasePlaylistID="39" CurrentTrackTimePositionString="Adipiscing phasellus nullam parturient" CurrentTrackTimePosition="34" CurrentTrackTimeRemainingString="Dis aliquet consequat" CurrentAlbum="Integer donec sed" CurrentTrackTimePercentage="431.49" CurrentSongName="Aliquam morbi nulla" CurrentArtist="Vestibulum quisque vivamus" CurrentTrackTimeRemaining="96" CurrentAlbumArtURL="Curabitur etiam fusce lorem" CurrentTrackTimePositionOrPausedString="Maecenas praesent" DatabaseID="48" HostName="Proin amet convallis ante accumsan" HTTPPrefix="Blandit commodo" IsConnected="True" LibraryName="Vestibulum augue conubia" PlayStateBool="False" PairingKey="Aptent vestibulum dignissim" PlayState="Stopped" RepeatState="RepeatOne" SessionID="15" ShuffleState="True" TrackTimeRemaining="48" TrackTimeTotal="34" TrackTimeUpdatedAt="11/29/2010 22:38:01" Volume="63">
-			<Komodex_DACP:DACPServer.ID>
-				<System:Guid/>
-			</Komodex_DACP:DACPServer.ID>
-		</Komodex_DACP:DACPServer>
-	</Komodex_DACP_Library:Album.Server>
-	<Komodex_DACP_Library:Album.Songs>
-		<Komodex_DACP_Library:Song ArtistName="Diam eget elit congue dolor" AlbumName="Auctor arcu cubilia" Name="Dapibus fames enim est"/>
-		<Komodex_DACP_Library:Song ArtistName="Hac dictum felis lectus" AlbumName="Cursus egestas erat euismod" Name="Bibendum elementum libero"/>
-		<Komodex_DACP_Library:Song ArtistName="Leo nibh dictumst ipsum" AlbumName="Feugiat eros ligula" Name="Adipiscing facilisis justo parturient"/>
-		<Komodex_DACP_Library:Song ArtistName="Habitasse nisl gravida vestibulum magna" AlbumName="Nisi fermentum lacus lorem fringilla" Name="Mus nec massa"/>
-		<Komodex_DACP_Library:Song ArtistName="Odio lacinia" AlbumName="Iaculis litora metus morbi nunc" Name="Non eleifend hendrerit per"/>
-		<Komodex_DACP_Library:Song ArtistName="Neque netus nulla habitant" AlbumName="Vestibulum facilisi sed orci faucibus" Name="Laoreet luctus magnis porta"/>
-		<Komodex_DACP_Library:Song ArtistName="Pede quam" AlbumName="Inceptos interdum mattis" Name="Himenaeos quis mauris urna sem"/>
-		<Komodex_DACP_Library:Song ArtistName="Mollis sit malesuada lobortis" AlbumName="Natoque imperdiet" Name="Penatibus porttitor posuere adipiscing cras"/>
-		<Komodex_DACP_Library:Song ArtistName="Nam tristique nascetur sed" AlbumName="Montes vel tincidunt" Name="Pharetra nostra ultricies"/>
-		<Komodex_DACP_Library:Song ArtistName="Placerat purus venenatis vestibulum pulvinar" AlbumName="Duis parturient vestibulum potenti ornare" Name="Sagittis vulputate senectus"/>
-	</Komodex_DACP_Library:Album.Songs>
-</Komodex_DACP_Library:Album>
+<SampleData:SampleDataAlbum xmlns:SampleData="clr-namespace:Komodex.Remote.SampleData" ArtistName="Curabitur aenean mauris phasellus" Name="Feugiat nostra mus" SecondLine="Eget proin ornare">
+	<SampleData:SampleDataAlbum.Songs>
+		<SampleData:SampleDataNamedItemBase Name="Maecenas nam aliquam" SecondLine="Integer consequat sed nullam"/>
+		<SampleData:SampleDataNamedItemBase Name="Vestibulum quisque aptent class convallis" SecondLine="Curae vivamus auctor"/>
+		<SampleData:SampleDataNamedItemBase Name="Congue aliquam" SecondLine="Cursus dictum lectus praesent libero"/>
+		<SampleData:SampleDataNamedItemBase Name="Accumsan bibendum" SecondLine="Cras dis dictumst"/>
+		<SampleData:SampleDataNamedItemBase Name="Adipiscing donec ligula aliquet eleifend" SecondLine="Facilisi litora parturient dignissim"/>
+		<SampleData:SampleDataNamedItemBase Name="Blandit etiam vestibulum commodo elementum" SecondLine="Duis luctus magnis fusce"/>
+		<SampleData:SampleDataNamedItemBase Name="Faucibus mattis conubia" SecondLine="Est lorem facilisis morbi hac"/>
+		<SampleData:SampleDataNamedItemBase Name="Leo nunc amet mauris vestibulum" SecondLine="Nulla habitant"/>
+		<SampleData:SampleDataNamedItemBase Name="Mollis montes inceptos ante" SecondLine="Fermentum cubilia arcu"/>
+		<SampleData:SampleDataNamedItemBase Name="Fringilla dapibus egestas" SecondLine="Habitasse diam euismod adipiscing"/>
+	</SampleData:SampleDataAlbum.Songs>
+</SampleData:SampleDataAlbum>

@@ -1,0 +1,14 @@
+<SampleData:SampleDataPodcast xmlns:SampleData="clr-namespace:Komodex.Remote.SampleData" Name="Lobortis enim" SecondLine="Erat vestibulum eros">
+	<SampleData:SampleDataPodcast.Episodes>
+		<SampleData:SampleDataNamedItemBase Name="Class maecenas praesent" SecondLine="Accumsan curabitur cras aliquam"/>
+		<SampleData:SampleDataNamedItemBase Name="Vestibulum integer aenean curae" SecondLine="Quisque nam mauris duis"/>
+		<SampleData:SampleDataNamedItemBase Name="Adipiscing donec vivamus bibendum parturient" SecondLine="Nunc nullam"/>
+		<SampleData:SampleDataNamedItemBase Name="Sed aptent dictumst vestibulum" SecondLine="Auctor dis etiam congue cursus"/>
+		<SampleData:SampleDataNamedItemBase Name="Dictum fusce lectus vestibulum" SecondLine="Aliquam amet est"/>
+		<SampleData:SampleDataNamedItemBase Name="Hac leo eleifend" SecondLine="Adipiscing libero phasellus parturient"/>
+		<SampleData:SampleDataNamedItemBase Name="Ligula mus" SecondLine="Nec non lorem"/>
+		<SampleData:SampleDataNamedItemBase Name="Consequat ante" SecondLine="Facilisi convallis litora vestibulum faucibus"/>
+		<SampleData:SampleDataNamedItemBase Name="Arcu per vestibulum" SecondLine="Dignissim luctus habitant diam"/>
+		<SampleData:SampleDataNamedItemBase Name="Adipiscing parturient eget inceptos" SecondLine="Magnis aliquet interdum elit mattis"/>
+	</SampleData:SampleDataPodcast.Episodes>
+</SampleData:SampleDataPodcast>

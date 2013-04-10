@@ -1,15 +1,470 @@
-﻿<Komodex_DACP:DACPServer xmlns:Komodex_DACP="clr-namespace:Komodex.DACP;assembly=Komodex.DACP" xmlns:Komodex_DACP_Library="clr-namespace:Komodex.DACP.Library;assembly=Komodex.DACP"  xmlns:System="clr-namespace:System;assembly=mscorlib" CurrentTrackTimePositionString="Dis integer nullam" CurrentTrackTimePosition="53" CurrentTrackTimeRemainingString="Donec bibendum" CurrentAlbum="Maecenas aenean aliquam curabitur" CurrentTrackTimePercentage="755.86" CurrentSongName="Phasellus accumsan curae parturient consequat" CurrentArtist="Sed class adipiscing praesent" CurrentTrackTimeRemaining="74" CurrentAlbumArtURL="Mauris nam vestibulum" DatabaseID="30" HostName="Vivamus cras" HTTPPrefix="Etiam fusce aptent lorem quisque" IsConnected="True" LibraryName="Est hac vestibulum" PlayStateBool="False" PairingKey="Leo duis dictumst mus eleifend" PlayState="Paused" RepeatState="RepeatOne" SessionID="80" ShuffleState="True" TrackTimeRemaining="32" TrackTimeTotal="37" Volume="57">
-    <Komodex_DACP:DACPServer.LibraryGeniusMixes>
-        <Komodex_DACP_Library:Playlist Name="EThis is a sample longer playlist name" GeniusMixDescription="Beck, Bjork, and The Prodigy" />
-    </Komodex_DACP:DACPServer.LibraryGeniusMixes>
-	<Komodex_DACP:DACPServer.ID>
-		<System:Guid/>
-	</Komodex_DACP:DACPServer.ID>
-    <Komodex_DACP:DACPServer.Speakers>
-        <Komodex_DACP:AirPlaySpeaker BindableActive="False" Name="Turpis consequat feugiat" BindableVolume="73"/>
-        <Komodex_DACP:AirPlaySpeaker BindableActive="True" Name="Sit vel convallis" BindableVolume="68"/>
-        <Komodex_DACP:AirPlaySpeaker BindableActive="False" Name="Orci dignissim metus" BindableVolume="34"/>
-        <Komodex_DACP:AirPlaySpeaker BindableActive="True" Name="Varius morbi" BindableVolume="71"/>
-        <Komodex_DACP:AirPlaySpeaker BindableActive="False" Name="Gravida iaculis elementum" BindableVolume="87"/>
-    </Komodex_DACP:DACPServer.Speakers>
-</Komodex_DACP:DACPServer>
+<SampleData:SampleDataDACPServer xmlns:SampleData="clr-namespace:Komodex.Remote.SampleData" CurrentAlbum="Curabitur maecenas" CurrentSongName="Nunc amet consequat aenean praesent" CurrentArtist="Phasellus cras duis" LibraryName="Donec eros pulvinar nibh sagittis" Volume="28">
+	<SampleData:SampleDataDACPServer.LibraryAlbums>
+		<SampleData:SampleDataNamedItemGroup Capacity="14" Key="Aliquam ante class convallis dignissim">
+			<SampleData:SampleDataNamedItemBase Name="Arcu elementum mauris nullam accumsan" SecondLine="Bibendum nam facilisis vestibulum aptent"/>
+			<SampleData:SampleDataNamedItemBase Name="Dictumst diam" SecondLine="Fermentum integer"/>
+			<SampleData:SampleDataNamedItemBase Name="Quisque sed eget vivamus" SecondLine="Elit auctor aliquam"/>
+			<SampleData:SampleDataNamedItemBase Name="Dis curae" SecondLine="Est congue eleifend hac leo"/>
+			<SampleData:SampleDataNamedItemBase Name="Donec fringilla habitasse adipiscing mus" SecondLine="Facilisi cursus hendrerit nec parturient"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="89" Key="Etiam enim faucibus himenaeos">
+			<SampleData:SampleDataNamedItemBase Name="Imperdiet habitant" SecondLine="Aliquet vestibulum fusce erat"/>
+			<SampleData:SampleDataNamedItemBase Name="Malesuada inceptos" SecondLine="Dictum blandit eros lorem nibh"/>
+			<SampleData:SampleDataNamedItemBase Name="Non commodo" SecondLine="Lectus vestibulum adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Conubia parturient cubilia" SecondLine="Per interdum penatibus nisi"/>
+			<SampleData:SampleDataNamedItemBase Name="Nisl nunc" SecondLine="Porttitor vestibulum morbi nulla"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="59" Key="Vestibulum lobortis tincidunt">
+			<SampleData:SampleDataNamedItemBase Name="Odio nascetur libero" SecondLine="Ligula litora adipiscing proin"/>
+			<SampleData:SampleDataNamedItemBase Name="Dapibus luctus" SecondLine="Augue pharetra placerat egestas"/>
+			<SampleData:SampleDataNamedItemBase Name="Dolor fames pulvinar parturient" SecondLine="Magnis euismod sagittis orci"/>
+			<SampleData:SampleDataNamedItemBase Name="Senectus sed tristique" SecondLine="Ultricies pede sem"/>
+			<SampleData:SampleDataNamedItemBase Name="Sit venenatis vel quam" SecondLine="Quis sociosqu mattis vestibulum vestibulum"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="41" Key="Adipiscing mauris mollis">
+			<SampleData:SampleDataNamedItemBase Name="Suscipit torquent" SecondLine="Nam ultrices montes sed nostra"/>
+			<SampleData:SampleDataNamedItemBase Name="Feugiat vulputate ornare" SecondLine="Felis ipsum parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Justo dis gravida platea vehicula" SecondLine="Volutpat maecenas lacus"/>
+			<SampleData:SampleDataNamedItemBase Name="Curabitur urna praesent lorem" SecondLine="Est primis hac"/>
+			<SampleData:SampleDataNamedItemBase Name="Cras rutrum sapien accumsan semper" SecondLine="Vestibulum vestibulum adipiscing duis"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="12" Key="Leo iaculis">
+			<SampleData:SampleDataNamedItemBase Name="Bibendum sociis lacinia magna laoreet" SecondLine="Natoque phasellus massa"/>
+			<SampleData:SampleDataNamedItemBase Name="Parturient posuere vestibulum potenti metus" SecondLine="Morbi consequat"/>
+			<SampleData:SampleDataNamedItemBase Name="Nunc convallis pretium" SecondLine="Taciti neque netus dictumst"/>
+			<SampleData:SampleDataNamedItemBase Name="Tellus tempor nulla mus rhoncus" SecondLine="Dignissim vestibulum porta nec"/>
+			<SampleData:SampleDataNamedItemBase Name="Purus risus non adipiscing amet" SecondLine="Elementum sodales viverra ante aliquam"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="19" Key="Eleifend integer">
+			<SampleData:SampleDataNamedItemBase Name="Tempus velit parturient arcu" SecondLine="Tortor quisque facilisis diam"/>
+			<SampleData:SampleDataNamedItemBase Name="Turpis facilisi faucibus eget" SecondLine="Per vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Sed vestibulum vivamus adipiscing parturient" SecondLine="Vitae aliquam aliquet blandit elit"/>
+			<SampleData:SampleDataNamedItemBase Name="Enim class habitant curae" SecondLine="Erat vestibulum eros"/>
+			<SampleData:SampleDataNamedItemBase Name="Fermentum inceptos sem vestibulum" SecondLine="Nibh varius adipiscing"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="36" Key="Nisi nisl nunc odio">
+			<SampleData:SampleDataNamedItemBase Name="Commodo interdum lobortis fringilla parturient" SecondLine="Orci habitasse nascetur"/>
+			<SampleData:SampleDataNamedItemBase Name="Sit donec" SecondLine="Pharetra aenean vel vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Placerat hendrerit vestibulum nam adipiscing" SecondLine="Mauris sed conubia nullam"/>
+			<SampleData:SampleDataNamedItemBase Name="Parturient cubilia" SecondLine="Vestibulum vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Himenaeos aptent dapibus pulvinar sagittis" SecondLine="Dis etiam adipiscing imperdiet auctor"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="22" Key="Congue fusce cursus egestas dictum">
+			<SampleData:SampleDataNamedItemBase Name="Parturient vestibulum est" SecondLine="Pede hac leo lectus"/>
+			<SampleData:SampleDataNamedItemBase Name="Senectus mus quam lorem" SecondLine="Malesuada quis nec urna"/>
+			<SampleData:SampleDataNamedItemBase Name="Penatibus cras non" SecondLine="Morbi vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Duis libero euismod per" SecondLine="Nulla sociosqu adipiscing porttitor"/>
+			<SampleData:SampleDataNamedItemBase Name="Proin ligula tincidunt feugiat tristique" SecondLine="Gravida suscipit"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="49" Key="Litora ultricies luctus">
+			<SampleData:SampleDataNamedItemBase Name="Parturient vestibulum" SecondLine="Augue venenatis iaculis"/>
+			<SampleData:SampleDataNamedItemBase Name="Lacinia magnis dolor nunc vulputate" SecondLine="Torquent ultrices fames felis amet"/>
+			<SampleData:SampleDataNamedItemBase Name="Laoreet ante mattis mauris" SecondLine="Sed vestibulum ipsum"/>
+			<SampleData:SampleDataNamedItemBase Name="Arcu natoque mollis posuere" SecondLine="Justo vehicula adipiscing potenti"/>
+			<SampleData:SampleDataNamedItemBase Name="Montes volutpat sem" SecondLine="Maecenas sit"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="70" Key="Lacus praesent nostra curabitur">
+			<SampleData:SampleDataNamedItemBase Name="Vel accumsan parturient" SecondLine="Ornare nam diam pretium"/>
+			<SampleData:SampleDataNamedItemBase Name="Eget platea primis lorem" SecondLine="Magna elit sed bibendum rhoncus"/>
+			<SampleData:SampleDataNamedItemBase Name="Sodales dictumst eleifend massa" SecondLine="Dis enim facilisi rutrum faucibus"/>
+			<SampleData:SampleDataNamedItemBase Name="Sapien est habitant" SecondLine="Viverra erat phasellus vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Inceptos aliquam semper sociis vestibulum" SecondLine="Adipiscing hac"/>
+		</SampleData:SampleDataNamedItemGroup>
+	</SampleData:SampleDataDACPServer.LibraryAlbums>
+	<SampleData:SampleDataDACPServer.LibraryPlaylists>
+		<SampleData:SampleDataNamedItemBase Name="Nisi nam facilisis adipiscing" SecondLine="Auctor sed"/>
+		<SampleData:SampleDataNamedItemBase Name="Dis congue fermentum" SecondLine="Senectus nisl"/>
+		<SampleData:SampleDataNamedItemBase Name="Viverra fringilla est sociosqu" SecondLine="Nunc suscipit aliquam integer"/>
+		<SampleData:SampleDataNamedItemBase Name="Quisque cursus" SecondLine="Etiam habitasse"/>
+		<SampleData:SampleDataNamedItemBase Name="Hac odio" SecondLine="Hendrerit leo himenaeos torquent"/>
+		<SampleData:SampleDataNamedItemBase Name="Imperdiet vivamus mus malesuada" SecondLine="Aliquam ultrices dictum nec"/>
+		<SampleData:SampleDataNamedItemBase Name="Aliquet vehicula parturient" SecondLine="Volutpat lectus maecenas blandit"/>
+		<SampleData:SampleDataNamedItemBase Name="Penatibus non orci vestibulum porttitor" SecondLine="Commodo praesent accumsan pede bibendum"/>
+		<SampleData:SampleDataNamedItemBase Name="Quam vestibulum fusce" SecondLine="Dictumst eleifend conubia per quis"/>
+		<SampleData:SampleDataNamedItemBase Name="Tincidunt sed urna cras tristique" SecondLine="Lorem libero morbi duis nunc"/>
+	</SampleData:SampleDataDACPServer.LibraryPlaylists>
+	<SampleData:SampleDataDACPServer.LibraryTVShows>
+		<SampleData:SampleDataNamedItemGroup Capacity="76" Key="Vel porta arcu nam platea">
+			<SampleData:SampleDataNamedItemBase Name="Lacinia diam curabitur eget" SecondLine="Purus bibendum elit dictumst"/>
+			<SampleData:SampleDataNamedItemBase Name="Laoreet risus" SecondLine="Sed velit"/>
+			<SampleData:SampleDataNamedItemBase Name="Eleifend dis" SecondLine="Vitae enim parturient vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Phasellus vestibulum consequat" SecondLine="Facilisi est erat hac"/>
+			<SampleData:SampleDataNamedItemBase Name="Primis faucibus leo convallis rutrum" SecondLine="Adipiscing parturient eros dignissim habitant"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="28" Key="Mus sapien inceptos">
+			<SampleData:SampleDataNamedItemBase Name="Class nec" SecondLine="Vestibulum vestibulum non"/>
+			<SampleData:SampleDataNamedItemBase Name="Adipiscing elementum" SecondLine="Nibh parturient per sed"/>
+			<SampleData:SampleDataNamedItemBase Name="Curae nisi" SecondLine="Semper sociis sem interdum vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Nisl natoque sit" SecondLine="Facilisis vestibulum vel adipiscing nunc"/>
+			<SampleData:SampleDataNamedItemBase Name="Taciti odio orci parturient donec" SecondLine="Pede fermentum etiam posuere lobortis"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="95" Key="Nam fringilla potenti sed tellus">
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum pretium nascetur dis" SecondLine="Rhoncus fusce sodales"/>
+			<SampleData:SampleDataNamedItemBase Name="Viverra est hac habitasse" SecondLine="Vestibulum hendrerit"/>
+			<SampleData:SampleDataNamedItemBase Name="Aliquam integer quam himenaeos" SecondLine="Leo adipiscing quisque pharetra"/>
+			<SampleData:SampleDataNamedItemBase Name="Mus parturient placerat" SecondLine="Vestibulum tempor imperdiet"/>
+			<SampleData:SampleDataNamedItemBase Name="Malesuada pulvinar" SecondLine="Nec vestibulum lorem non"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="31" Key="Quis per morbi urna">
+			<SampleData:SampleDataNamedItemBase Name="Sed tempus penatibus adipiscing vivamus" SecondLine="Sem porttitor aliquam nulla sit"/>
+			<SampleData:SampleDataNamedItemBase Name="Sagittis vel aliquet cras senectus" SecondLine="Sociosqu blandit tincidunt"/>
+			<SampleData:SampleDataNamedItemBase Name="Tristique commodo nam sed dis" SecondLine="Tortor suscipit ultricies est duis"/>
+			<SampleData:SampleDataNamedItemBase Name="Conubia venenatis cubilia" SecondLine="Turpis nunc parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Vulputate torquent" SecondLine="Hac dapibus leo"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="54" Key="Mus amet ante">
+			<SampleData:SampleDataNamedItemBase Name="Ultrices varius nec" SecondLine="Curabitur arcu phasellus diam egestas"/>
+			<SampleData:SampleDataNamedItemBase Name="Euismod aenean proin" SecondLine="Vehicula eget"/>
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum augue mauris dolor" SecondLine="Volutpat vestibulum maecenas"/>
+			<SampleData:SampleDataNamedItemBase Name="Adipiscing nullam aptent elit" SecondLine="Consequat feugiat fames non gravida"/>
+			<SampleData:SampleDataNamedItemBase Name="Parturient praesent convallis auctor" SecondLine="Vestibulum congue iaculis"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="23" Key="Felis dignissim accumsan ipsum per">
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum justo enim erat lacinia" SecondLine="Bibendum adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Lacus dictumst lorem magna" SecondLine="Sed cursus eros"/>
+			<SampleData:SampleDataNamedItemBase Name="Nibh parturient elementum sem laoreet" SecondLine="Dictum sit"/>
+			<SampleData:SampleDataNamedItemBase Name="Vel natoque eleifend posuere" SecondLine="Massa metus"/>
+			<SampleData:SampleDataNamedItemBase Name="Lectus facilisi nam" SecondLine="Libero sed faucibus habitant"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="62" Key="Vestibulum dis nisi est morbi">
+			<SampleData:SampleDataNamedItemBase Name="Facilisis ligula inceptos fermentum" SecondLine="Interdum litora lobortis vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Nascetur neque" SecondLine="Potenti pretium fringilla hac"/>
+			<SampleData:SampleDataNamedItemBase Name="Habitasse adipiscing parturient pharetra rhoncus" SecondLine="Sodales netus luctus viverra placerat"/>
+			<SampleData:SampleDataNamedItemBase Name="Pulvinar hendrerit nisl magnis" SecondLine="Himenaeos nunc leo imperdiet"/>
+			<SampleData:SampleDataNamedItemBase Name="Malesuada sagittis senectus mus" SecondLine="Nulla odio vestibulum porta vestibulum"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="26" Key="Purus aliquam orci nec">
+			<SampleData:SampleDataNamedItemBase Name="Integer sociosqu" SecondLine="Adipiscing penatibus"/>
+			<SampleData:SampleDataNamedItemBase Name="Suscipit non mattis torquent mauris" SecondLine="Per risus porttitor sed pede"/>
+			<SampleData:SampleDataNamedItemBase Name="Tincidunt quam quis" SecondLine="Urna mollis cras tristique ultrices"/>
+			<SampleData:SampleDataNamedItemBase Name="Sem velit" SecondLine="Ultricies quisque vehicula venenatis duis"/>
+			<SampleData:SampleDataNamedItemBase Name="Volutpat parturient vestibulum" SecondLine="Montes vivamus sit nunc amet"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="89" Key="Aliquam vel nam">
+			<SampleData:SampleDataNamedItemBase Name="Maecenas sed vitae praesent nostra" SecondLine="Ante class"/>
+			<SampleData:SampleDataNamedItemBase Name="Dis est hac accumsan" SecondLine="Leo mus vestibulum arcu"/>
+			<SampleData:SampleDataNamedItemBase Name="Vulputate aliquet bibendum" SecondLine="Nec diam"/>
+			<SampleData:SampleDataNamedItemBase Name="Ornare blandit" SecondLine="Commodo curabitur non platea"/>
+			<SampleData:SampleDataNamedItemBase Name="Primis conubia" SecondLine="Per dictumst adipiscing eleifend eget"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="94" Key="Curae rutrum phasellus sapien">
+			<SampleData:SampleDataNamedItemBase Name="Donec parturient cubilia" SecondLine="Etiam dapibus"/>
+			<SampleData:SampleDataNamedItemBase Name="Consequat sed sem vestibulum convallis" SecondLine="Semper fusce"/>
+			<SampleData:SampleDataNamedItemBase Name="Lorem egestas euismod sociis vestibulum" SecondLine="Facilisi elit taciti"/>
+			<SampleData:SampleDataNamedItemBase Name="Tellus faucibus adipiscing dignissim" SecondLine="Habitant parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Morbi enim" SecondLine="Sit vestibulum inceptos feugiat"/>
+		</SampleData:SampleDataNamedItemGroup>
+	</SampleData:SampleDataDACPServer.LibraryTVShows>
+	<SampleData:SampleDataDACPServer.LibraryArtists>
+		<SampleData:SampleDataNamedItemGroup Capacity="79" Key="Taciti consequat metus">
+			<SampleData:SampleDataNamedItemBase Name="Parturient eros integer nibh" SecondLine="Morbi quisque"/>
+			<SampleData:SampleDataNamedItemBase Name="Neque nisi vivamus interdum vestibulum" SecondLine="Nisl convallis dignissim vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Tellus elementum" SecondLine="Lobortis leo adipiscing nascetur"/>
+			<SampleData:SampleDataNamedItemBase Name="Nunc pharetra netus placerat" SecondLine="Aliquam pulvinar odio aliquet"/>
+			<SampleData:SampleDataNamedItemBase Name="Sagittis blandit nulla commodo senectus" SecondLine="Porta tempor facilisis"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="32" Key="Tempus orci tortor purus">
+			<SampleData:SampleDataNamedItemBase Name="Risus sociosqu mus" SecondLine="Nec conubia"/>
+			<SampleData:SampleDataNamedItemBase Name="Fermentum cubilia dapibus turpis non" SecondLine="Varius velit fringilla suscipit torquent"/>
+			<SampleData:SampleDataNamedItemBase Name="Egestas vitae euismod ultrices parturient" SecondLine="Per vehicula vestibulum sed volutpat"/>
+			<SampleData:SampleDataNamedItemBase Name="Feugiat sem gravida aenean iaculis" SecondLine="Class mauris maecenas"/>
+			<SampleData:SampleDataNamedItemBase Name="Lacinia curae" SecondLine="Laoreet natoque donec"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="65" Key="Sit habitasse pede praesent vel">
+			<SampleData:SampleDataNamedItemBase Name="Posuere quam vestibulum accumsan" SecondLine="Adipiscing potenti parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Pretium vestibulum nullam rhoncus etiam" SecondLine="Sodales hendrerit"/>
+			<SampleData:SampleDataNamedItemBase Name="Nam fusce vestibulum himenaeos" SecondLine="Adipiscing sed parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Imperdiet vestibulum bibendum lorem aptent" SecondLine="Quis vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Dis auctor adipiscing" SecondLine="Dictumst morbi eleifend"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="90" Key="Nulla malesuada penatibus">
+			<SampleData:SampleDataNamedItemBase Name="Parturient est vestibulum congue hac" SecondLine="Cursus leo mus proin"/>
+			<SampleData:SampleDataNamedItemBase Name="Facilisi porttitor viverra vestibulum" SecondLine="Nec adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Urna faucibus" SecondLine="Cras tincidunt"/>
+			<SampleData:SampleDataNamedItemBase Name="Duis nunc" SecondLine="Dictum aliquam"/>
+			<SampleData:SampleDataNamedItemBase Name="Lectus non libero ligula integer" SecondLine="Tristique parturient"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="25" Key="Vestibulum litora">
+			<SampleData:SampleDataNamedItemBase Name="Amet quisque per habitant" SecondLine="Vestibulum vivamus ultricies"/>
+			<SampleData:SampleDataNamedItemBase Name="Augue adipiscing inceptos" SecondLine="Parturient interdum"/>
+			<SampleData:SampleDataNamedItemBase Name="Dolor luctus sed magnis vestibulum" SecondLine="Mattis aliquam"/>
+			<SampleData:SampleDataNamedItemBase Name="Mauris aliquet lobortis blandit" SecondLine="Commodo mollis conubia montes cubilia"/>
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum nostra ante" SecondLine="Fames nascetur ornare felis platea"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="84" Key="Sem ipsum">
+			<SampleData:SampleDataNamedItemBase Name="Justo arcu lacus primis lorem" SecondLine="Dapibus rutrum adipiscing diam"/>
+			<SampleData:SampleDataNamedItemBase Name="Egestas sapien sit" SecondLine="Euismod semper magna feugiat"/>
+			<SampleData:SampleDataNamedItemBase Name="Venenatis gravida" SecondLine="Parturient iaculis"/>
+			<SampleData:SampleDataNamedItemBase Name="Eget sociis" SecondLine="Vel massa taciti tellus tempor"/>
+			<SampleData:SampleDataNamedItemBase Name="Pharetra vestibulum vestibulum nam" SecondLine="Placerat tempus"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="75" Key="Pulvinar elit tortor">
+			<SampleData:SampleDataNamedItemBase Name="Enim erat" SecondLine="Metus sed eros"/>
+			<SampleData:SampleDataNamedItemBase Name="Lacinia turpis" SecondLine="Vulputate nibh adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Curabitur phasellus parturient nisi laoreet" SecondLine="Consequat varius aenean dis"/>
+			<SampleData:SampleDataNamedItemBase Name="Convallis est hac leo" SecondLine="Dignissim mus"/>
+			<SampleData:SampleDataNamedItemBase Name="Sagittis vestibulum" SecondLine="Nisl natoque senectus"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="92" Key="Posuere vestibulum nunc elementum">
+			<SampleData:SampleDataNamedItemBase Name="Mauris sociosqu odio" SecondLine="Adipiscing nullam suscipit parturient orci"/>
+			<SampleData:SampleDataNamedItemBase Name="Nec aptent torquent ultrices" SecondLine="Vehicula volutpat auctor pede"/>
+			<SampleData:SampleDataNamedItemBase Name="Morbi vestibulum maecenas" SecondLine="Neque congue non per"/>
+			<SampleData:SampleDataNamedItemBase Name="Cursus sed dictum potenti quam" SecondLine="Netus lectus nulla vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Praesent quis facilisis fermentum" SecondLine="Pretium rhoncus sem libero adipiscing"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="94" Key="Fringilla parturient sodales">
+			<SampleData:SampleDataNamedItemBase Name="Urna porta sit cras" SecondLine="Habitasse purus ligula accumsan"/>
+			<SampleData:SampleDataNamedItemBase Name="Risus hendrerit litora velit viverra" SecondLine="Himenaeos vestibulum vel nam"/>
+			<SampleData:SampleDataNamedItemBase Name="Imperdiet vestibulum aliquam" SecondLine="Sed malesuada dis integer adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Quisque bibendum" SecondLine="Penatibus parturient vitae luctus vivamus"/>
+			<SampleData:SampleDataNamedItemBase Name="Duis magnis class dictumst curae" SecondLine="Mattis mauris vestibulum"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="45" Key="Est eleifend">
+			<SampleData:SampleDataNamedItemBase Name="Aliquam porttitor facilisi" SecondLine="Mollis nunc"/>
+			<SampleData:SampleDataNamedItemBase Name="Tincidunt faucibus" SecondLine="Hac donec amet vestibulum etiam"/>
+			<SampleData:SampleDataNamedItemBase Name="Aliquet montes fusce" SecondLine="Blandit lorem"/>
+			<SampleData:SampleDataNamedItemBase Name="Morbi habitant commodo tristique leo" SecondLine="Nulla adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Ante arcu" SecondLine="Nostra proin inceptos conubia augue"/>
+		</SampleData:SampleDataNamedItemGroup>
+	</SampleData:SampleDataDACPServer.LibraryArtists>
+	<SampleData:SampleDataDACPServer.LibraryGenres>
+		<SampleData:SampleDataNamedItemGroup Capacity="18" Key="Suscipit varius vestibulum aenean imperdiet">
+			<SampleData:SampleDataNamedItemBase Name="Mauris natoque malesuada penatibus" SecondLine="Torquent quis vestibulum nullam adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Aptent urna risus" SecondLine="Posuere cras"/>
+			<SampleData:SampleDataNamedItemBase Name="Auctor ultrices velit sed" SecondLine="Parturient vestibulum vitae duis porttitor"/>
+			<SampleData:SampleDataNamedItemBase Name="Nunc tincidunt" SecondLine="Congue potenti"/>
+			<SampleData:SampleDataNamedItemBase Name="Pretium vestibulum class" SecondLine="Rhoncus sodales adipiscing vehicula"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="91" Key="Viverra curae parturient volutpat">
+			<SampleData:SampleDataNamedItemBase Name="Maecenas dis praesent tristique ultricies" SecondLine="Cursus donec"/>
+			<SampleData:SampleDataNamedItemBase Name="Est hac aliquam amet" SecondLine="Accumsan dictum lectus vestibulum integer"/>
+			<SampleData:SampleDataNamedItemBase Name="Libero etiam bibendum" SecondLine="Quisque vestibulum fusce"/>
+			<SampleData:SampleDataNamedItemBase Name="Dictumst lorem ligula" SecondLine="Eleifend venenatis facilisi morbi vulputate"/>
+			<SampleData:SampleDataNamedItemBase Name="Vivamus leo" SecondLine="Curabitur faucibus nulla adipiscing"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="36" Key="Ante litora proin">
+			<SampleData:SampleDataNamedItemBase Name="Luctus parturient" SecondLine="Phasellus magnis mus mattis"/>
+			<SampleData:SampleDataNamedItemBase Name="Augue vestibulum" SecondLine="Arcu aliquam mauris dolor fames"/>
+			<SampleData:SampleDataNamedItemBase Name="Habitant mollis inceptos montes felis" SecondLine="Nostra ornare"/>
+			<SampleData:SampleDataNamedItemBase Name="Nec aliquet interdum lobortis" SecondLine="Ipsum vestibulum non adipiscing nascetur"/>
+			<SampleData:SampleDataNamedItemBase Name="Per parturient justo sed vestibulum" SecondLine="Diam pharetra"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="42" Key="Eget consequat placerat">
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum elit convallis" SecondLine="Blandit sem"/>
+			<SampleData:SampleDataNamedItemBase Name="Adipiscing commodo lacus platea" SecondLine="Lorem sit dignissim"/>
+			<SampleData:SampleDataNamedItemBase Name="Conubia elementum vel enim" SecondLine="Facilisis erat nam eros sed"/>
+			<SampleData:SampleDataNamedItemBase Name="Magna primis nibh nisi" SecondLine="Pulvinar dis"/>
+			<SampleData:SampleDataNamedItemBase Name="Nisl massa" SecondLine="Rutrum sagittis cubilia"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="52" Key="Dapibus senectus egestas">
+			<SampleData:SampleDataNamedItemBase Name="Nunc odio est sociosqu" SecondLine="Fermentum suscipit euismod torquent"/>
+			<SampleData:SampleDataNamedItemBase Name="Feugiat ultrices" SecondLine="Orci sapien semper parturient fringilla"/>
+			<SampleData:SampleDataNamedItemBase Name="Sociis taciti pede vehicula" SecondLine="Gravida iaculis"/>
+			<SampleData:SampleDataNamedItemBase Name="Habitasse volutpat" SecondLine="Tellus tempor hendrerit"/>
+			<SampleData:SampleDataNamedItemBase Name="Metus vestibulum vestibulum" SecondLine="Lacinia tempus morbi himenaeos"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="18" Key="Neque imperdiet">
+			<SampleData:SampleDataNamedItemBase Name="Adipiscing malesuada laoreet" SecondLine="Quam tortor turpis natoque"/>
+			<SampleData:SampleDataNamedItemBase Name="Penatibus posuere parturient netus" SecondLine="Maecenas quis"/>
+			<SampleData:SampleDataNamedItemBase Name="Potenti hac nulla varius" SecondLine="Porttitor urna vestibulum aenean pretium"/>
+			<SampleData:SampleDataNamedItemBase Name="Rhoncus porta vestibulum purus praesent" SecondLine="Accumsan adipiscing cras parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Sodales leo duis tincidunt" SecondLine="Viverra tristique vestibulum nunc"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="63" Key="Amet mus vestibulum">
+			<SampleData:SampleDataNamedItemBase Name="Nec aliquam ante arcu" SecondLine="Diam mauris adipiscing risus non"/>
+			<SampleData:SampleDataNamedItemBase Name="Nullam bibendum aptent velit" SecondLine="Vitae class"/>
+			<SampleData:SampleDataNamedItemBase Name="Curae eget elit ultricies venenatis" SecondLine="Parturient donec per dictumst integer"/>
+			<SampleData:SampleDataNamedItemBase Name="Sed vulputate auctor" SecondLine="Congue cursus quisque"/>
+			<SampleData:SampleDataNamedItemBase Name="Sem vestibulum" SecondLine="Vivamus dictum vestibulum"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="50" Key="Sit curabitur enim etiam phasellus">
+			<SampleData:SampleDataNamedItemBase Name="Eleifend vel lectus consequat" SecondLine="Aliquam convallis"/>
+			<SampleData:SampleDataNamedItemBase Name="Libero fusce ligula facilisi" SecondLine="Nam lorem erat sed"/>
+			<SampleData:SampleDataNamedItemBase Name="Dignissim aliquet" SecondLine="Litora blandit dis"/>
+			<SampleData:SampleDataNamedItemBase Name="Commodo conubia elementum cubilia" SecondLine="Facilisis faucibus dapibus fermentum"/>
+			<SampleData:SampleDataNamedItemBase Name="Adipiscing morbi eros luctus" SecondLine="Est egestas hac nibh nulla"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="50" Key="Euismod parturient vestibulum nisi proin">
+			<SampleData:SampleDataNamedItemBase Name="Leo vestibulum" SecondLine="Fringilla feugiat habitant habitasse gravida"/>
+			<SampleData:SampleDataNamedItemBase Name="Inceptos magnis interdum augue mus" SecondLine="Lobortis nisl hendrerit mattis"/>
+			<SampleData:SampleDataNamedItemBase Name="Nascetur nunc nec" SecondLine="Non iaculis adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Dolor fames per himenaeos" SecondLine="Sed imperdiet"/>
+			<SampleData:SampleDataNamedItemBase Name="Mauris sem lacinia laoreet" SecondLine="Malesuada odio mollis penatibus"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="19" Key="Porttitor felis sit tincidunt">
+			<SampleData:SampleDataNamedItemBase Name="Ipsum orci" SecondLine="Parturient natoque vel vestibulum tristique"/>
+			<SampleData:SampleDataNamedItemBase Name="Ultricies montes venenatis" SecondLine="Vulputate curabitur"/>
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum pede phasellus nam" SecondLine="Pharetra posuere"/>
+			<SampleData:SampleDataNamedItemBase Name="Nostra adipiscing placerat" SecondLine="Consequat quam justo quis convallis"/>
+			<SampleData:SampleDataNamedItemBase Name="Lacus ornare dignissim sed pulvinar" SecondLine="Platea dis lorem"/>
+		</SampleData:SampleDataNamedItemGroup>
+	</SampleData:SampleDataDACPServer.LibraryGenres>
+	<SampleData:SampleDataDACPServer.LibraryPodcasts>
+		<SampleData:SampleDataNamedItemGroup Capacity="87" Key="Ultricies cubilia venenatis">
+			<SampleData:SampleDataNamedItemBase Name="Adipiscing dapibus" SecondLine="Amet nulla"/>
+			<SampleData:SampleDataNamedItemBase Name="Ante facilisi arcu sem sit" SecondLine="Diam parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Vulputate vel proin curabitur nam" SecondLine="Ligula phasellus"/>
+			<SampleData:SampleDataNamedItemBase Name="Eget vestibulum egestas" SecondLine="Euismod faucibus"/>
+			<SampleData:SampleDataNamedItemBase Name="Litora feugiat elit vestibulum gravida" SecondLine="Iaculis luctus magnis consequat lacinia"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="36" Key="Convallis augue dolor">
+			<SampleData:SampleDataNamedItemBase Name="Enim fames laoreet" SecondLine="Adipiscing dignissim sed"/>
+			<SampleData:SampleDataNamedItemBase Name="Habitant elementum erat felis inceptos" SecondLine="Parturient natoque eros"/>
+			<SampleData:SampleDataNamedItemBase Name="Interdum ipsum" SecondLine="Lobortis nascetur"/>
+			<SampleData:SampleDataNamedItemBase Name="Justo mattis" SecondLine="Vestibulum pharetra placerat"/>
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum pulvinar" SecondLine="Posuere potenti sagittis senectus nibh"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="21" Key="Nisi lacus dis">
+			<SampleData:SampleDataNamedItemBase Name="Mauris adipiscing nisl lorem" SecondLine="Nunc est mollis parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Facilisis magna" SecondLine="Massa pretium hac vestibulum metus"/>
+			<SampleData:SampleDataNamedItemBase Name="Sociosqu leo mus fermentum" SecondLine="Rhoncus vestibulum morbi"/>
+			<SampleData:SampleDataNamedItemBase Name="Montes sodales viverra neque" SecondLine="Netus aliquam"/>
+			<SampleData:SampleDataNamedItemBase Name="Nec non" SecondLine="Adipiscing per nostra fringilla"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="41" Key="Sed nulla integer">
+			<SampleData:SampleDataNamedItemBase Name="Sem quisque suscipit" SecondLine="Parturient ornare odio"/>
+			<SampleData:SampleDataNamedItemBase Name="Porta platea" SecondLine="Primis torquent ultrices orci"/>
+			<SampleData:SampleDataNamedItemBase Name="Sit vivamus" SecondLine="Pede purus habitasse quam quis"/>
+			<SampleData:SampleDataNamedItemBase Name="Rutrum aliquam vehicula vestibulum" SecondLine="Hendrerit himenaeos vestibulum volutpat"/>
+			<SampleData:SampleDataNamedItemBase Name="Risus urna" SecondLine="Vel cras"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="31" Key="Imperdiet adipiscing nam sed sapien">
+			<SampleData:SampleDataNamedItemBase Name="Duis aliquet semper" SecondLine="Nunc dis"/>
+			<SampleData:SampleDataNamedItemBase Name="Est amet blandit commodo velit" SecondLine="Parturient conubia malesuada penatibus"/>
+			<SampleData:SampleDataNamedItemBase Name="Maecenas praesent vestibulum vestibulum" SecondLine="Hac sociis accumsan adipiscing leo"/>
+			<SampleData:SampleDataNamedItemBase Name="Cubilia taciti mus" SecondLine="Vitae class dapibus porttitor"/>
+			<SampleData:SampleDataNamedItemBase Name="Curae parturient egestas" SecondLine="Bibendum ante arcu tincidunt"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="22" Key="Nec donec euismod tellus">
+			<SampleData:SampleDataNamedItemBase Name="Etiam diam tempor vestibulum eget" SecondLine="Feugiat tempus tortor"/>
+			<SampleData:SampleDataNamedItemBase Name="Turpis vestibulum non" SecondLine="Per gravida"/>
+			<SampleData:SampleDataNamedItemBase Name="Tristique elit varius ultricies dictumst" SecondLine="Sed venenatis adipiscing sem"/>
+			<SampleData:SampleDataNamedItemBase Name="Vulputate sit" SecondLine="Vel parturient nam"/>
+			<SampleData:SampleDataNamedItemBase Name="Iaculis lacinia vestibulum vestibulum laoreet" SecondLine="Natoque adipiscing fusce curabitur"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="88" Key="Eleifend facilisi lorem posuere">
+			<SampleData:SampleDataNamedItemBase Name="Phasellus parturient sed vestibulum enim" SecondLine="Vestibulum adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Parturient dis faucibus vestibulum" SecondLine="Morbi nulla"/>
+			<SampleData:SampleDataNamedItemBase Name="Habitant potenti proin" SecondLine="Aenean mauris consequat erat nullam"/>
+			<SampleData:SampleDataNamedItemBase Name="Convallis vestibulum pretium" SecondLine="Est rhoncus sodales inceptos aptent"/>
+			<SampleData:SampleDataNamedItemBase Name="Auctor dignissim eros augue" SecondLine="Viverra adipiscing hac leo"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="97" Key="Elementum facilisis">
+			<SampleData:SampleDataNamedItemBase Name="Mus nec nibh aliquam fermentum" SecondLine="Parturient integer"/>
+			<SampleData:SampleDataNamedItemBase Name="Dolor fringilla congue non fames" SecondLine="Nisi habitasse nisl nunc vestibulum"/>
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum cursus hendrerit interdum dictum" SecondLine="Felis lectus quisque himenaeos imperdiet"/>
+			<SampleData:SampleDataNamedItemBase Name="Per malesuada lobortis libero ipsum" SecondLine="Vivamus aliquam nascetur odio orci"/>
+			<SampleData:SampleDataNamedItemBase Name="Justo sed pharetra aliquet" SecondLine="Lacus placerat"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="80" Key="Pede lorem sem pulvinar">
+			<SampleData:SampleDataNamedItemBase Name="Magna quam massa sit" SecondLine="Vel blandit nam quis"/>
+			<SampleData:SampleDataNamedItemBase Name="Sagittis senectus penatibus adipiscing" SecondLine="Sed dis ligula"/>
+			<SampleData:SampleDataNamedItemBase Name="Litora urna" SecondLine="Parturient porttitor tincidunt commodo est"/>
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum hac sociosqu vestibulum tristique" SecondLine="Metus luctus suscipit leo"/>
+			<SampleData:SampleDataNamedItemBase Name="Mus conubia cras cubilia" SecondLine="Adipiscing magnis torquent"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="28" Key="Mattis ultrices dapibus">
+			<SampleData:SampleDataNamedItemBase Name="Mauris nec mollis montes nostra" SecondLine="Non vehicula"/>
+			<SampleData:SampleDataNamedItemBase Name="Per ultricies egestas morbi euismod" SecondLine="Duis sed"/>
+			<SampleData:SampleDataNamedItemBase Name="Nunc amet neque" SecondLine="Netus ante venenatis"/>
+			<SampleData:SampleDataNamedItemBase Name="Volutpat maecenas sem" SecondLine="Praesent accumsan nulla"/>
+			<SampleData:SampleDataNamedItemBase Name="Vulputate feugiat gravida sit" SecondLine="Ornare iaculis"/>
+		</SampleData:SampleDataNamedItemGroup>
+	</SampleData:SampleDataDACPServer.LibraryPodcasts>
+	<SampleData:SampleDataDACPServer.LibraryGeniusMixes>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Parturient ornare dolor diam" Name="Eget ultricies" SecondLine="Platea fames"/>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Venenatis elit vulputate vestibulum" Name="Felis cubilia" SecondLine="Curabitur vestibulum adipiscing"/>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Ipsum phasellus enim erat" Name="Eros primis parturient" SecondLine="Dapibus rutrum consequat justo mus"/>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Lacus lorem" Name="Magna interdum convallis nec" SecondLine="Dignissim nibh nisi"/>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Non lobortis elementum vestibulum vestibulum" Name="Sapien adipiscing per sed" SecondLine="Massa metus nisl"/>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Egestas parturient vestibulum" Name="Semper nunc" SecondLine="Nascetur vestibulum sociis"/>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Pharetra placerat sem sit morbi" Name="Euismod facilisis" SecondLine="Feugiat odio"/>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Gravida iaculis adipiscing pulvinar" Name="Fermentum orci pede" SecondLine="Neque netus nulla"/>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Vel nam taciti" Name="Tellus tempor parturient" SecondLine="Fringilla habitasse tempus tortor"/>
+		<SampleData:SampleDataGeniusPlaylist GeniusMixDescription="Quam lacinia porta hendrerit" Name="Himenaeos laoreet purus" SecondLine="Sagittis senectus sociosqu turpis"/>
+	</SampleData:SampleDataDACPServer.LibraryGeniusMixes>
+	<SampleData:SampleDataDACPServer.LibraryMovies>
+		<SampleData:SampleDataNamedItemGroup Capacity="78" Key="Sagittis magna est senectus urna">
+			<SampleData:SampleDataNamedItemBase Name="Cras parturient duis" SecondLine="Primis sociosqu"/>
+			<SampleData:SampleDataNamedItemBase Name="Nunc elementum suscipit potenti" SecondLine="Rutrum massa hac amet"/>
+			<SampleData:SampleDataNamedItemBase Name="Facilisis ante leo sapien vestibulum" SecondLine="Pretium metus morbi torquent semper"/>
+			<SampleData:SampleDataNamedItemBase Name="Mus neque arcu" SecondLine="Sociis ultrices"/>
+			<SampleData:SampleDataNamedItemBase Name="Vehicula rhoncus taciti nec vestibulum" SecondLine="Netus nulla"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="12" Key="Adipiscing tellus tempor">
+			<SampleData:SampleDataNamedItemBase Name="Sodales diam tempus eget volutpat" SecondLine="Non tortor parturient turpis"/>
+			<SampleData:SampleDataNamedItemBase Name="Viverra vestibulum elit porta" SecondLine="Purus varius"/>
+			<SampleData:SampleDataNamedItemBase Name="Aenean vestibulum aliquam" SecondLine="Integer enim per"/>
+			<SampleData:SampleDataNamedItemBase Name="Quisque maecenas" SecondLine="Sed sem sit adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Risus vel parturient vivamus erat" SecondLine="Praesent nam mauris nullam vestibulum"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="62" Key="Sed vestibulum velit">
+			<SampleData:SampleDataNamedItemBase Name="Accumsan vitae bibendum adipiscing dictumst" SecondLine="Aptent eros dis eleifend aliquam"/>
+			<SampleData:SampleDataNamedItemBase Name="Auctor fermentum congue nibh" SecondLine="Class est cursus"/>
+			<SampleData:SampleDataNamedItemBase Name="Curae nisi aliquet hac leo" SecondLine="Fringilla blandit mus habitasse commodo"/>
+			<SampleData:SampleDataNamedItemBase Name="Nisl parturient vestibulum" SecondLine="Dictum hendrerit conubia"/>
+			<SampleData:SampleDataNamedItemBase Name="Nunc cubilia facilisi himenaeos" SecondLine="Imperdiet lectus dapibus malesuada penatibus"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="47" Key="Faucibus egestas libero">
+			<SampleData:SampleDataNamedItemBase Name="Porttitor tincidunt ligula" SecondLine="Habitant litora nec inceptos"/>
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum luctus donec euismod magnis" SecondLine="Odio adipiscing"/>
+			<SampleData:SampleDataNamedItemBase Name="Parturient vestibulum non orci interdum" SecondLine="Pede feugiat quam"/>
+			<SampleData:SampleDataNamedItemBase Name="Quis lobortis nascetur urna pharetra" SecondLine="Tristique gravida placerat cras"/>
+			<SampleData:SampleDataNamedItemBase Name="Mattis etiam per fusce" SecondLine="Vestibulum sed mauris iaculis adipiscing"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="91" Key="Pulvinar parturient sem vestibulum">
+			<SampleData:SampleDataNamedItemBase Name="Sit duis sagittis vestibulum lacinia" SecondLine="Senectus ultricies"/>
+			<SampleData:SampleDataNamedItemBase Name="Sociosqu adipiscing lorem parturient" SecondLine="Laoreet natoque venenatis vel"/>
+			<SampleData:SampleDataNamedItemBase Name="Nunc morbi vulputate" SecondLine="Nulla suscipit nam sed dis"/>
+			<SampleData:SampleDataNamedItemBase Name="Est torquent vestibulum curabitur ultrices" SecondLine="Posuere vehicula mollis volutpat hac"/>
+			<SampleData:SampleDataNamedItemBase Name="Proin potenti" SecondLine="Montes pretium maecenas augue"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="81" Key="Vestibulum adipiscing">
+			<SampleData:SampleDataNamedItemBase Name="Rhoncus sodales leo amet praesent" SecondLine="Nostra dolor fames"/>
+			<SampleData:SampleDataNamedItemBase Name="Ornare viverra phasellus aliquam" SecondLine="Platea consequat mus nec integer"/>
+			<SampleData:SampleDataNamedItemBase Name="Ante quisque convallis arcu" SecondLine="Non diam dignissim felis primis"/>
+			<SampleData:SampleDataNamedItemBase Name="Ipsum eget accumsan vivamus" SecondLine="Aliquam aliquet rutrum bibendum"/>
+			<SampleData:SampleDataNamedItemBase Name="Blandit commodo per" SecondLine="Elementum parturient conubia"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="66" Key="Cubilia justo elit">
+			<SampleData:SampleDataNamedItemBase Name="Enim dapibus sed" SecondLine="Dictumst sapien egestas"/>
+			<SampleData:SampleDataNamedItemBase Name="Lacus vestibulum" SecondLine="Euismod facilisis sem"/>
+			<SampleData:SampleDataNamedItemBase Name="Fermentum semper lorem" SecondLine="Erat vestibulum magna"/>
+			<SampleData:SampleDataNamedItemBase Name="Sit eros eleifend fringilla" SecondLine="Adipiscing massa nibh facilisi metus"/>
+			<SampleData:SampleDataNamedItemBase Name="Sociis vel" SecondLine="Faucibus morbi nam"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="89" Key="Neque habitasse parturient">
+			<SampleData:SampleDataNamedItemBase Name="Sed netus" SecondLine="Nisi habitant"/>
+			<SampleData:SampleDataNamedItemBase Name="Hendrerit feugiat taciti inceptos" SecondLine="Dis himenaeos nulla vestibulum est"/>
+			<SampleData:SampleDataNamedItemBase Name="Porta vestibulum adipiscing" SecondLine="Gravida tellus purus"/>
+			<SampleData:SampleDataNamedItemBase Name="Interdum tempor nisl risus" SecondLine="Parturient vestibulum hac"/>
+			<SampleData:SampleDataNamedItemBase Name="Nunc odio orci pede imperdiet" SecondLine="Malesuada vestibulum iaculis quam adipiscing"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="62" Key="Lobortis lacinia velit laoreet quis">
+			<SampleData:SampleDataNamedItemBase Name="Urna penatibus" SecondLine="Natoque porttitor tincidunt cras"/>
+			<SampleData:SampleDataNamedItemBase Name="Duis leo tristique" SecondLine="Nascetur posuere parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Nunc tempus" SecondLine="Vestibulum vestibulum amet ultricies venenatis"/>
+			<SampleData:SampleDataNamedItemBase Name="Tortor ante turpis adipiscing mus" SecondLine="Potenti parturient"/>
+			<SampleData:SampleDataNamedItemBase Name="Pretium nec non arcu vestibulum" SecondLine="Diam vulputate varius"/>
+		</SampleData:SampleDataNamedItemGroup>
+		<SampleData:SampleDataNamedItemGroup Capacity="24" Key="Vitae class">
+			<SampleData:SampleDataNamedItemBase Name="Curabitur per sed" SecondLine="Phasellus vestibulum eget aenean"/>
+			<SampleData:SampleDataNamedItemBase Name="Mauris elit" SecondLine="Consequat convallis sem"/>
+			<SampleData:SampleDataNamedItemBase Name="Enim adipiscing" SecondLine="Rhoncus dignissim nullam erat"/>
+			<SampleData:SampleDataNamedItemBase Name="Parturient pharetra vestibulum" SecondLine="Aptent curae"/>
+			<SampleData:SampleDataNamedItemBase Name="Vestibulum placerat sit" SecondLine="Vel sodales elementum"/>
+		</SampleData:SampleDataNamedItemGroup>
+	</SampleData:SampleDataDACPServer.LibraryMovies>
+	<SampleData:SampleDataDACPServer.Speakers>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="55" BindableActive="True" HasVideo="True" HasPassword="False" Name="Tempor nulla"/>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="86" BindableActive="False" HasVideo="False" HasPassword="True" Name="Erat interdum gravida"/>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="72" BindableActive="True" HasVideo="True" HasPassword="False" Name="Elementum facilisis fermentum tempus fringilla"/>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="39" BindableActive="False" HasVideo="False" HasPassword="True" Name="Eros iaculis vel proin"/>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="91" BindableActive="True" HasVideo="True" HasPassword="False" Name="Habitasse nibh augue nisi"/>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="76" BindableActive="False" HasVideo="False" HasPassword="True" Name="Nisl lobortis"/>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="69" BindableActive="True" HasVideo="True" HasPassword="False" Name="Dolor fames vestibulum nascetur"/>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="27" BindableActive="False" HasVideo="False" HasPassword="True" Name="Adipiscing hendrerit lacinia pharetra tortor"/>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="99" BindableActive="True" HasVideo="True" HasPassword="False" Name="Parturient vestibulum vestibulum nunc adipiscing"/>
+		<SampleData:SampleDataAirPlaySpeaker BindableVolume="44" BindableActive="False" HasVideo="False" HasPassword="True" Name="Parturient vestibulum felis"/>
+	</SampleData:SampleDataDACPServer.Speakers>
+</SampleData:SampleDataDACPServer>
