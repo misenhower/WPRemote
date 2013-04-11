@@ -22,6 +22,7 @@
             <Grid>
                 <StackPanel>
                     <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                    <TextBlock Text="Tap to pair with this library" Style="{StaticResource PhoneTextSubtleStyle}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -45,7 +46,9 @@
             <controls:LongListSelectorEx
                 x:Name="libraryList"
                 ItemTemplate="{StaticResource DiscoveredUtilityTemplate}"
-                EmptyText="Searching..." />
+                EmptyText="Searching..."
+                Tap="libraryList_Tap"
+                />
         </Grid>
     </Grid>
 

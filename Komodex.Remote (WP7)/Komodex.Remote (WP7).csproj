@@ -152,6 +152,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="SampleData\SampleDataClasses.cs" />
+    <Compile Include="ServerManagement\BonjourManager.cs" />
     <Compile Include="ServerManagement\ServerConnectionInfo.cs" />
     <Compile Include="ServerManagement\ServerType.cs" />
     <Compile Include="Settings\ArtistClickAction.cs" />

@@ -20,6 +20,7 @@ using Komodex.Common.Phone;
 using System.Threading;
 using System.Globalization;
 using Komodex.Analytics;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote
 {
@@ -83,6 +84,9 @@ namespace Komodex.Remote
             // Set up hooks
             NavigationManager.DoFirstLoad(RootFrame);
             DACPServerManager.DoFirstLoad(RootFrame);
+
+            // TEMP/TODO: Use network manager to check wifi status, etc.
+            BonjourManager.Start();
 
             // Other initialization
             SettingsManager.Initialize();
