@@ -13,6 +13,8 @@ namespace Komodex.Remote.ServerManagement
     {
         private static readonly Log _log = new Log("Network Manager");
 
+        public static event EventHandler<NetworkAvailabilityChangedEventArgs> NetworkAvailabilityChanged;
+
         public static void Initialize()
         {
             // Hook into events
@@ -35,16 +37,8 @@ namespace Komodex.Remote.ServerManagement
                 _log.Info("Local network available: " + value);
 
                 _isLocalNetworkAvailable = value;
-                SendNetworkAvailabilityUpdatedEvent();
+                NetworkAvailabilityChanged.Raise(null, new NetworkAvailabilityChangedEventArgs(IsLocalNetworkAvailable));
             }
-        }
-
-        public static event EventHandler<NetworkAvailabilityChangedEventArgs> NetworkAvailabilityChanged;
-
-        private static void SendNetworkAvailabilityUpdatedEvent()
-        {
-            if (NetworkAvailabilityChanged != null)
-                NetworkAvailabilityChanged(null, new NetworkAvailabilityChangedEventArgs(IsLocalNetworkAvailable));
         }
 
         private static void UpdateNetworkAvailability()

@@ -9,9 +9,12 @@ namespace Komodex.Remote.ServerManagement
 {
     public static class BonjourManager
     {
-        private static Log _log = new Log("Bonjour Manager");
+        private static readonly Log _log = new Log("Bonjour Manager");
 
         private static NetServiceBrowser _serverBrowser;
+
+        public static event EventHandler<NetServiceEventArgs> ServiceAdded;
+        public static event EventHandler<NetServiceEventArgs> ServiceRemoved;
 
         public static void Initialize()
         {
@@ -22,7 +25,7 @@ namespace Komodex.Remote.ServerManagement
             _serverBrowser.ServiceRemoved += ServerBrowser_ServiceRemoved;
         }
 
-        static void NetworkManager_NetworkAvailabilityChanged(object sender, NetworkAvailabilityChangedEventArgs e)
+        private static void NetworkManager_NetworkAvailabilityChanged(object sender, NetworkAvailabilityChangedEventArgs e)
         {
             if (e.IsLocalNetworkAvailable)
                 Start();
@@ -69,6 +72,8 @@ namespace Komodex.Remote.ServerManagement
 
             lock (DiscoveredServers)
                 DiscoveredServers[e.Service.Name] = e.Service;
+
+            ServiceAdded.Raise(null, e);
         }
 
         private static void ServerBrowser_ServiceRemoved(object sender, NetServiceEventArgs e)
@@ -80,6 +85,8 @@ namespace Komodex.Remote.ServerManagement
                 if (DiscoveredServers.ContainsKey(e.Service.Name))
                     DiscoveredServers.Remove(e.Service.Name);
             }
+
+            ServiceRemoved.Raise(null, e);
         }
     }
 }

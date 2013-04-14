@@ -54,6 +54,7 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="mscorlib.Extensions" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -155,6 +156,9 @@
     <Compile Include="ServerManagement\BonjourManager.cs" />
     <Compile Include="ServerManagement\NetworkManager.cs" />
     <Compile Include="ServerManagement\ServerConnectionInfo.cs" />
+    <Compile Include="ServerManagement\ServerConnectionInfoCollection.cs" />
+    <Compile Include="ServerManagement\ServerConnectionState.cs" />
+    <Compile Include="ServerManagement\ServerManager.cs" />
     <Compile Include="ServerManagement\ServerType.cs" />
     <Compile Include="Settings\ArtistClickAction.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
