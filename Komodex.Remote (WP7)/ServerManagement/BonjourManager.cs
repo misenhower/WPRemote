@@ -13,11 +13,21 @@ namespace Komodex.Remote.ServerManagement
 
         private static NetServiceBrowser _serverBrowser;
 
-        static BonjourManager()
+        public static void Initialize()
         {
+            NetworkManager.NetworkAvailabilityChanged += NetworkManager_NetworkAvailabilityChanged;
+
             _serverBrowser = new NetServiceBrowser();
             _serverBrowser.ServiceFound += ServerBrowser_ServiceFound;
             _serverBrowser.ServiceRemoved += ServerBrowser_ServiceRemoved;
+        }
+
+        static void NetworkManager_NetworkAvailabilityChanged(object sender, NetworkAvailabilityChangedEventArgs e)
+        {
+            if (e.IsLocalNetworkAvailable)
+                Start();
+            else
+                Stop();
         }
 
         private static readonly Dictionary<string, NetService> _discoveredServers = new Dictionary<string, NetService>();
@@ -26,13 +36,19 @@ namespace Komodex.Remote.ServerManagement
             get { return _discoveredServers; }
         }
 
-        public static void Start()
+        private static void Start()
         {
+            if (_serverBrowser.IsRunning)
+                return;
+
             _serverBrowser.SearchForServices("_touch-able._tcp.local.");
         }
 
-        public static void Stop()
+        private static void Stop()
         {
+            if (!_serverBrowser.IsRunning)
+                return;
+
             _serverBrowser.Stop();
 
             lock (DiscoveredServers)

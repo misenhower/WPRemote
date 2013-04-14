@@ -85,8 +85,9 @@ namespace Komodex.Remote
             NavigationManager.DoFirstLoad(RootFrame);
             DACPServerManager.DoFirstLoad(RootFrame);
 
-            // TEMP/TODO: Use network manager to check wifi status, etc.
-            BonjourManager.Start();
+            NetworkManager.Initialize();
+
+            BonjourManager.Initialize();
 
             // Other initialization
             SettingsManager.Initialize();
