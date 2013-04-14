@@ -1,5 +1,6 @@
 ﻿using Komodex.Bonjour;
 using Komodex.Common;
+using Komodex.Remote.ServerManagement;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ namespace Komodex.Remote.Pairing
     public static class ManualPairingManager
     {
         private static Log _log = new Log("Manual Pairing");
+        private const string PairingUtilityServiceName = "_komodex-pairing._tcp.local.";
 
         private static NetServiceBrowser _pairingUtilityBrowser;
 
@@ -31,7 +33,8 @@ namespace Komodex.Remote.Pairing
             HookEvents();
 
             // Begin searching for services
-            _pairingUtilityBrowser.SearchForServices("_komodex-pairing._tcp.local.");
+            if (NetworkManager.IsLocalNetworkAvailable)
+                _pairingUtilityBrowser.SearchForServices(PairingUtilityServiceName);
         }
 
         public static void StopSearchingForPairingUtility()
@@ -50,6 +53,26 @@ namespace Komodex.Remote.Pairing
             });
 
             _pairingUtilityBrowser = null;
+        }
+
+        private static void NetworkManager_NetworkAvailabilityChanged(object sender, NetworkAvailabilityChangedEventArgs e)
+        {
+            if (_pairingUtilityBrowser == null)
+                return;
+
+            if (e.IsLocalNetworkAvailable)
+            {
+                if (!_pairingUtilityBrowser.IsRunning)
+                    _pairingUtilityBrowser.SearchForServices(PairingUtilityServiceName);
+            }
+            else
+            {
+                _pairingUtilityBrowser.Stop();
+                Utility.BeginInvokeOnUIThread(() =>
+                {
+                    DiscoveredPairingUtilities.Clear();
+                });
+            }
         }
 
         private static void Browser_ServiceFound(object sender, NetServiceEventArgs e)
@@ -90,12 +113,14 @@ namespace Komodex.Remote.Pairing
 
         private static void HookEvents()
         {
+            NetworkManager.NetworkAvailabilityChanged += NetworkManager_NetworkAvailabilityChanged;
             _pairingUtilityBrowser.ServiceFound += Browser_ServiceFound;
             _pairingUtilityBrowser.ServiceRemoved += Browser_ServiceRemoved;
         }
 
         private static void UnhookEvents()
         {
+            NetworkManager.NetworkAvailabilityChanged -= NetworkManager_NetworkAvailabilityChanged;
             _pairingUtilityBrowser.ServiceFound -= Browser_ServiceFound;
             _pairingUtilityBrowser.ServiceRemoved -= Browser_ServiceRemoved;
         }
