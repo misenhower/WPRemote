@@ -76,9 +76,8 @@ namespace Komodex.Remote.Pages.Pairing
                 SetProgressIndicator("Connecting to Library...", true);
 
                 NetService service = BonjourManager.DiscoveredServers[_selectedUtilityInfo.Service.Name];
-                string host = string.Format("{0}:{1}", service.IPAddresses[0], service.Port);
                 string pin = string.Format("{0:0000}{0:0000}{0:0000}{0:0000}", _pinTextBox.IntValue ?? 0);
-                DACPServer server = new DACPServer(host, pin);
+                DACPServer server = new DACPServer(service.IPAddresses[0].ToString(), service.Port, pin);
                 server.ServerUpdate += DACPServer_ServerUpdate;
                 server.Start(false);
             }

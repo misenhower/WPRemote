@@ -10,9 +10,14 @@ namespace Komodex.Remote.ServerManagement
     public class ServerConnectionInfo : INotifyPropertyChanged
     {
         /// <summary>
-        /// Gets or sets the service ID, e.g., "17B30BC453C4B6A0"
+        /// Gets the service ID, e.g., "17B30BC453C4B6A0"
         /// </summary>
-        public string ServiceID { get; set; }
+        public string ServiceID { get; protected set; }
+
+        /// <summary>
+        /// Gets the pairing code, e.g., "7474C23600F8710E"
+        /// </summary>
+        public string PairingCode { get; protected set; }
 
         /// <summary>
         /// Gets or sets the server type.
@@ -45,6 +50,11 @@ namespace Komodex.Remote.ServerManagement
         /// Gets or sets the last known IP address, e.g., "10.0.0.1"
         /// </summary>
         public string LastIPAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last known port, e.g., 3689
+        /// </summary>
+        public int LastPort { get; set; }
 
         private bool _isAvailable;
         /// <summary>

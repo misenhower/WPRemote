@@ -261,7 +261,7 @@ namespace Komodex.DACP
 
         protected void SubmitLoginRequest()
         {
-            string url = "/login?pairing-guid=0x" + PairingKey;
+            string url = "/login?pairing-guid=0x" + PairingCode;
             SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessLoginResponse), false, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandleLoginException));
         }
 

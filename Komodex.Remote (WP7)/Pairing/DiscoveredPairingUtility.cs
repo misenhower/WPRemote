@@ -1,4 +1,5 @@
 ﻿using Komodex.Bonjour;
+using Komodex.Common;
 using Komodex.Remote.ServerManagement;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,7 @@ namespace Komodex.Remote.Pairing
         {
             Service = service;
 
-            if (service.TXTRecordData.ContainsKey("CtlN"))
-                Name = service.TXTRecordData["CtlN"];
-            else
-                Name = service.Hostname;
+            Name = service.TXTRecordData.GetValueOrDefault("CtlN", service.Hostname);
         }
 
         public string Name { get; protected set; }

@@ -28,6 +28,8 @@ namespace Komodex.DACP
             _playStatusCancelTimer = new Timer(playStatusCancelTimer_Tick);
         }
 
+        // TODO: Remove this constructor
+        [Obsolete]
         public DACPServer(Guid id, string hostName, string pairingKey)
             : this()
         {
@@ -37,20 +39,19 @@ namespace Komodex.DACP
 
             ID = id;
             HostName = hostName;
-            PairingKey = pairingKey;
+            PairingCode = pairingKey;
         }
 
-        public DACPServer(string hostName, string pairingKey)
-            //: this(Guid.Empty, hostName, pairingKey)
-            : this()
+        public DACPServer(string hostname, int port, string pairingCode)
         {
             string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;
             if (!assemblyName.StartsWith("Komodex.Remote,"))
                 throw new Exception();
 
-            ID = Guid.Empty;
-            HostName = hostName;
-            PairingKey = pairingKey;
+            _hostname = hostname;
+            _port = port;
+            UpdateHTTPPrefix();
+            PairingCode = pairingCode;
         }
 
         public static string GetAssemblyName()
@@ -68,9 +69,13 @@ namespace Komodex.DACP
 
         #region Properties
 
+        // TODO: Remove this property
+        [Obsolete]
         public Guid ID { get; protected set; }
 
         private string _HostName = null;
+        // TODO: Remove this property
+        [Obsolete]
         public string HostName
         {
             get { return _HostName; }
@@ -89,7 +94,40 @@ namespace Komodex.DACP
             }
         }
 
-        public string PairingKey { get; protected set; }
+        private string _hostname;
+        public string Hostname
+        {
+            get { return _hostname; }
+            set
+            {
+                if (_hostname == value)
+                    return;
+
+                _hostname = value;
+                UpdateHTTPPrefix();
+            }
+        }
+
+        private int _port = 3689;
+        public int Port
+        {
+            get { return _port; }
+            set
+            {
+                if (_port == value)
+                    return;
+
+                _port = value;
+                UpdateHTTPPrefix();
+            }
+        }
+
+        protected void UpdateHTTPPrefix()
+        {
+            HTTPPrefix = "http://" + Hostname + ":" + Port;
+        }
+
+        public string PairingCode { get; protected set; }
 
         public int SessionID { get; protected set; }
 

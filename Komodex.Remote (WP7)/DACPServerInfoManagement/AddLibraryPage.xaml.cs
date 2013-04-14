@@ -257,7 +257,8 @@ namespace Komodex.Remote.DACPServerInfoManagement
 
             // Validate the server info
             SetStatusOverlayVisibility(true);
-            _currentServer = new DACPServer(tbHost.Text.Trim(), pairingKey);
+            // TODO: The port number should be parsed out
+            _currentServer = new DACPServer(tbHost.Text.Trim(), 3689, pairingKey);
             _currentServer.ServerUpdate += server_ServerUpdate;
             _currentServer.Start(false);
         }
@@ -278,7 +279,7 @@ namespace Komodex.Remote.DACPServerInfoManagement
             DACPServerInfo serverInfo = new DACPServerInfo();
             serverInfo.ID = Guid.NewGuid();
             serverInfo.HostName = server.HostName;
-            serverInfo.PIN = int.Parse(server.PairingKey.Substring(0, 4)); // TODO: Fix this, should store the whole pairing key instead
+            serverInfo.PIN = int.Parse(server.PairingCode.Substring(0, 4)); // TODO: Fix this, should store the whole pairing key instead
             serverInfo.LibraryName = server.LibraryName;
 
             // Get the service ID for Bonjour

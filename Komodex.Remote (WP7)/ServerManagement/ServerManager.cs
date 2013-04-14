@@ -1,5 +1,6 @@
 ﻿using Komodex.Bonjour;
 using Komodex.Common;
+using Komodex.DACP;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,7 +19,9 @@ namespace Komodex.Remote.ServerManagement
             BonjourManager.ServiceAdded += BonjourManager_ServiceAdded;
             BonjourManager.ServiceRemoved += BonjourManager_ServiceRemoved;
 
-            if (SelectedServerInfo != null)
+            if (SelectedServerInfo == null)
+                ConnectionState = ServerConnectionState.NoLibrarySelected;
+            else
                 ConnectionState = ServerConnectionState.WaitingForWiFiConnection;
         }
 
@@ -41,14 +44,15 @@ namespace Komodex.Remote.ServerManagement
 
         public static void RemoveServerInfo(ServerConnectionInfo info)
         {
-            // TODO: Check whether this is the server we're connected to
+            if (SelectedServerInfo == info)
+                ChooseServer(null);
 
             PairedServers.Remove(info);
         }
 
         #endregion
 
-        #region State
+        #region Connection State
 
         public static event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
@@ -76,10 +80,36 @@ namespace Komodex.Remote.ServerManagement
             if (info != null)
             {
                 info.IsAvailable = true;
-                // TODO: Save new host. (New IP is saved if we connect to it.)
-                if (SelectedServerInfo == info)
+
+                // Check whether any of the stored data for this server is out of date
+                bool dirty = false;
+
+                string serviceName = e.Service.TXTRecordData.GetValueOrDefault("CtlN", info.Name);
+                if (info.Name != serviceName)
                 {
-                    // TODO
+                    info.Name = serviceName;
+                    dirty = true;
+                }
+                if (info.LastHostname != e.Service.Hostname)
+                {
+                    info.LastHostname = e.Service.Hostname;
+                    dirty = true;
+                }
+                if (info.LastPort != e.Service.Port)
+                {
+                    info.LastPort = e.Service.Port;
+                    dirty = true;
+                }
+
+                // Save the paired servers list if necessary
+                if (dirty)
+                    _pairedServers.Save();
+
+                // Connect to the server if necessary
+                if (SelectedServerInfo == info && CurrentServer == null)
+                {
+                    CurrentServer = GetDACPServer(info);
+                    ConnectToServer();
                 }
             }
         }
@@ -95,7 +125,7 @@ namespace Komodex.Remote.ServerManagement
 
         #endregion
 
-        #region Server Connections
+        #region Server Connection
 
         private static readonly Setting<string> _selectedServerID = new Setting<string>("SelectedServerID");
         public static ServerConnectionInfo SelectedServerInfo
@@ -110,9 +140,60 @@ namespace Komodex.Remote.ServerManagement
             }
         }
 
+        public static event EventHandler<EventArgs> CurrentServerChanged;
+
+        private static DACPServer _currentServer;
+        public static DACPServer CurrentServer
+        {
+            get { return _currentServer; }
+            private set
+            {
+                if (_currentServer == value)
+                    return;
+
+                _currentServer = value;
+                CurrentServerChanged.RaiseOnUIThread(null, new EventArgs());
+            }
+        }
+
+        private static DACPServer GetDACPServer(ServerConnectionInfo info)
+        {
+            if (BonjourManager.DiscoveredServers.ContainsKey(info.ServiceID))
+            {
+                var service = BonjourManager.DiscoveredServers[info.ServiceID];
+                string ip;
+                if (service.IPAddresses.Count > 0)
+                    ip = service.IPAddresses[0].ToString();
+                else
+                    ip = info.LastIPAddress;
+
+                return new DACPServer(ip, service.Port, info.PairingCode);
+            }
+            else
+            {
+                return new DACPServer(info.LastIPAddress, info.LastPort, info.PairingCode);
+            }
+        }
+
         public static void ChooseServer(ServerConnectionInfo info)
         {
+            if (!PairedServers.Contains(info))
+            {
+                CurrentServer = null;
+                // TODO: Disconnect from server
+                SelectedServerInfo = null;
+                return;
+            }
+
             SelectedServerInfo = info;
+
+            CurrentServer = GetDACPServer(info);
+
+            ConnectToServer();
+        }
+
+        public static void ConnectToServer()
+        {
         }
 
         #endregion
@@ -127,6 +208,7 @@ namespace Komodex.Remote.ServerManagement
             else
             {
                 // TODO
+                // Set all services to unavailable
             }
         }
     }
