@@ -145,6 +145,7 @@
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageBases\DACPServerBoundPhoneApplicationPage.cs" />
+    <Compile Include="PageBases\RemoteBasePage.cs" />
     <Compile Include="Pages\Pairing\ManualPairingPage.xaml.cs">
       <DependentUpon>ManualPairingPage.xaml</DependentUpon>
     </Compile>
@@ -154,6 +155,7 @@
     <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="SampleData\SampleDataClasses.cs" />
     <Compile Include="ServerManagement\BonjourManager.cs" />
+    <Compile Include="ServerManagement\ConnectionStatusPopupManager.cs" />
     <Compile Include="ServerManagement\NetworkManager.cs" />
     <Compile Include="ServerManagement\ServerConnectionInfo.cs" />
     <Compile Include="ServerManagement\ServerConnectionInfoCollection.cs" />

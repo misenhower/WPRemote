@@ -18,10 +18,10 @@ using Komodex.Common.Phone;
 
 namespace Komodex.Remote
 {
-    public class DACPServerBoundPhoneApplicationPage : PhoneApplicationBasePage
+    // TODO: This class needs a lot of cleanup.
+    public class DACPServerBoundPhoneApplicationPage : RemoteBasePage
     {
         public DACPServerBoundPhoneApplicationPage()
-            : base()
         {
             ApplicationBarOpenOpacity = 0.9;
             ApplicationBarClosedOpacity = 0.5;

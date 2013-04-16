@@ -27,6 +27,8 @@ namespace Komodex.Remote
         {
             InitializeComponent();
 
+            DisableConnectionStatusPopup = true;
+
             AnimationContext = LayoutRoot;
 
             // Localized contact and twitter links

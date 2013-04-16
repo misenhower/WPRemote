@@ -17,11 +17,13 @@ using Komodex.Bonjour;
 
 namespace Komodex.Remote.Pages.Pairing
 {
-    public partial class ManualPairingPage : PhoneApplicationBasePage
+    public partial class ManualPairingPage : RemoteBasePage
     {
         public ManualPairingPage()
         {
             InitializeComponent();
+
+            DisableConnectionStatusPopup = true;
 
             libraryList.ItemsSource = ManualPairingManager.DiscoveredPairingUtilities;
         }

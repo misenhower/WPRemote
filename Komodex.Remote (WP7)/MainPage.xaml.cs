@@ -18,6 +18,7 @@ using Komodex.DACP.Library;
 using Komodex.Common.Phone;
 using Komodex.Remote.TrialMode;
 using Komodex.Remote.Localization;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote
 {
@@ -26,6 +27,8 @@ namespace Komodex.Remote
         public MainPage()
         {
             InitializeComponent();
+
+            DisableConnectionStatusPopup = true;
 
             ApplicationBarClosedOpacity = 0.9;
             ApplicationBarOpenOpacity = 0.9;
@@ -113,6 +116,11 @@ namespace Komodex.Remote
             base.OnNavigatedTo(e);
             UpdateBindings();
             UpdateVisualState(false);
+
+            if (ServerManager.PairedServers.Count > 0)
+                DisableConnectionStatusPopup = false;
+            else
+                DisableConnectionStatusPopup = true;
 
             if (TrialManager.Current.IsTrial)
             {

@@ -19,7 +19,7 @@ using Komodex.Common.Phone;
 
 namespace Komodex.Remote.DACPServerInfoManagement
 {
-    public partial class LibraryChooserPage : PhoneApplicationBasePage
+    public partial class LibraryChooserPage : RemoteBasePage
     {
         public LibraryChooserPage()
         {
@@ -30,6 +30,8 @@ namespace Komodex.Remote.DACPServerInfoManagement
             AnimationContext = LayoutRoot;
 
             InitializeApplicationBar();
+
+            DisableConnectionStatusPopup = true;
         }
 
         #region Overrides

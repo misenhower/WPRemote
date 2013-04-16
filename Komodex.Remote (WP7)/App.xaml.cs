@@ -86,8 +86,8 @@ namespace Komodex.Remote
             DACPServerManager.DoFirstLoad(RootFrame);
 
             NetworkManager.Initialize();
-
             BonjourManager.Initialize();
+            ConnectionStatusPopupManager.Initialize();
 
             // Other initialization
             SettingsManager.Initialize();

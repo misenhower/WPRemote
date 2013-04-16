@@ -1,4 +1,5 @@
-﻿<common:PhoneApplicationBasePage
+﻿<app:RemoteBasePage
+    xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     xmlns:my="clr-namespace:Komodex.Remote.Controls"  
     x:Class="Komodex.Remote.DACPServerInfoManagement.AddLibraryPage"
@@ -60,4 +61,4 @@
         <my:ConnectingStatusControl x:Name="connectingStatusControl" Visibility="Collapsed" Grid.RowSpan="2" ButtonClick="connectingStatusControl_ButtonClick" />
     </Grid>
  
-</common:PhoneApplicationBasePage>
+</app:RemoteBasePage>

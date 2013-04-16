@@ -20,7 +20,7 @@ using Komodex.Common.Phone;
 
 namespace Komodex.Remote.DACPServerInfoManagement
 {
-    public partial class AddLibraryPage : PhoneApplicationBasePage
+    public partial class AddLibraryPage : RemoteBasePage
     {
         DACPServer _currentServer;
 
@@ -31,6 +31,8 @@ namespace Komodex.Remote.DACPServerInfoManagement
             connectingStatusControl.ButtonText = LocalizedStrings.CancelButton;
 
             InitializeApplicationBar();
+
+            DisableConnectionStatusPopup = true;
 
             AnimationContext = LayoutRoot;
 
