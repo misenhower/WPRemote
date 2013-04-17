@@ -13,6 +13,7 @@ using System.Text;
 using System.Linq;
 using Komodex.Common;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace Komodex.DACP
 {
@@ -22,8 +23,12 @@ namespace Komodex.DACP
 
         private DACPServer()
         {
-            timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
-            timerTrackTimeUpdate.Tick += new EventHandler(timerTrackTimeUpdate_Tick);
+            Utility.BeginInvokeOnUIThread(() =>
+            {
+                timerTrackTimeUpdate = new DispatcherTimer();
+                timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
+                timerTrackTimeUpdate.Tick += new EventHandler(timerTrackTimeUpdate_Tick);
+            });
 
             _playStatusCancelTimer = new Timer(playStatusCancelTimer_Tick);
         }
@@ -43,6 +48,7 @@ namespace Komodex.DACP
         }
 
         public DACPServer(string hostname, int port, string pairingCode)
+            : this()
         {
             string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;
             if (!assemblyName.StartsWith("Komodex.Remote,"))
