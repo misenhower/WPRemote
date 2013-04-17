@@ -83,8 +83,8 @@ namespace Komodex.Remote
 
             // Set up hooks
             NavigationManager.DoFirstLoad(RootFrame);
-            DACPServerManager.DoFirstLoad(RootFrame);
 
+            ServerManager.Initialize();
             NetworkManager.Initialize();
             BonjourManager.Initialize();
             ConnectionStatusPopupManager.Initialize();

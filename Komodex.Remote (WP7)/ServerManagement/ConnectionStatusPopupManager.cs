@@ -79,14 +79,14 @@ namespace Komodex.Remote.ServerManagement
                         _canDisplay = true;
                         _showProgressBar = true;
                         _statusControl.LibraryConnectionText = "Looking for Library"; // TODO: Localization
-                        _statusControl.LibraryName = ServerManager.CurrentServer.LibraryName;
+                        _statusControl.LibraryName = ServerManager.SelectedServerInfo.Name;
                         break;
 
                     case ServerConnectionState.ConnectingToLibrary:
                         _canDisplay = true;
                         _showProgressBar = true;
                         _statusControl.LibraryConnectionText = LocalizedStrings.StatusConnectingToLibrary;
-                        _statusControl.LibraryName = ServerManager.CurrentServer.LibraryName;
+                        _statusControl.LibraryName = ServerManager.SelectedServerInfo.Name;
                         break;
 
                     case ServerConnectionState.Connected:

@@ -12,12 +12,12 @@ namespace Komodex.Remote.ServerManagement
         /// <summary>
         /// Gets the service ID, e.g., "17B30BC453C4B6A0"
         /// </summary>
-        public string ServiceID { get; protected set; }
+        public string ServiceID { get; set; }
 
         /// <summary>
         /// Gets the pairing code, e.g., "7474C23600F8710E"
         /// </summary>
-        public string PairingCode { get; protected set; }
+        public string PairingCode { get; set; }
 
         /// <summary>
         /// Gets or sets the server type.

@@ -40,6 +40,8 @@ namespace Komodex.Remote.ServerManagement
                 RemoveServerInfo(oldServerInfo);
 
             PairedServers.Add(info);
+
+            info.IsAvailable = BonjourManager.DiscoveredServers.ContainsKey(info.ServiceID);
         }
 
         public static void RemoveServerInfo(ServerConnectionInfo info)
@@ -151,7 +153,17 @@ namespace Komodex.Remote.ServerManagement
                 if (_currentServer == value)
                     return;
 
+                if (_currentServer != null)
+                {
+                    _currentServer.ServerUpdate -= DACPServer_ServerUpdate;
+                    _currentServer.Stop();
+                }
+
                 _currentServer = value;
+
+                if (_currentServer != null)
+                    _currentServer.ServerUpdate += DACPServer_ServerUpdate;
+
                 CurrentServerChanged.RaiseOnUIThread(null, new EventArgs());
             }
         }
@@ -182,6 +194,7 @@ namespace Komodex.Remote.ServerManagement
                 CurrentServer = null;
                 // TODO: Disconnect from server
                 SelectedServerInfo = null;
+                ConnectionState = ServerConnectionState.NoLibrarySelected;
                 return;
             }
 
@@ -194,6 +207,33 @@ namespace Komodex.Remote.ServerManagement
 
         public static void ConnectToServer()
         {
+            if (CurrentServer == null || CurrentServer.IsConnected)
+                return;
+
+            if (ConnectionState == ServerConnectionState.ConnectingToLibrary)
+                return;
+
+            ConnectionState = ServerConnectionState.ConnectingToLibrary;
+            CurrentServer.Start();
+        }
+
+        private static void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        {
+            if (sender != CurrentServer)
+                return;
+
+            switch (e.Type)
+            {
+                case ServerUpdateType.ServerConnected:
+                    ConnectionState = ServerConnectionState.Connected;
+                    break;
+
+                case ServerUpdateType.Error:
+                    break;
+
+                case ServerUpdateType.LibraryError:
+                    break;
+            }
         }
 
         #endregion

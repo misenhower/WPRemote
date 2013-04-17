@@ -45,6 +45,8 @@ namespace Komodex.Remote.Pages.Pairing
         CustomMessageBox _messageBox;
         NumericTextBox _pinTextBox;
         DiscoveredPairingUtility _selectedUtilityInfo;
+        NetService _selectedService;
+        string _pairingCode;
 
         private void libraryList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -77,9 +79,9 @@ namespace Komodex.Remote.Pages.Pairing
                 _messageBox.IsLeftButtonEnabled = false; // TODO: This doesn't seem to have an effect once the message box is displayed
                 SetProgressIndicator("Connecting to Library...", true);
 
-                NetService service = BonjourManager.DiscoveredServers[_selectedUtilityInfo.Service.Name];
-                string pin = string.Format("{0:0000}{0:0000}{0:0000}{0:0000}", _pinTextBox.IntValue ?? 0);
-                DACPServer server = new DACPServer(service.IPAddresses[0].ToString(), service.Port, pin);
+                _selectedService = BonjourManager.DiscoveredServers[_selectedUtilityInfo.Service.Name];
+                _pairingCode = string.Format("{0:0000}{0:0000}{0:0000}{0:0000}", _pinTextBox.IntValue ?? 0);
+                DACPServer server = new DACPServer(_selectedService.IPAddresses[0].ToString(), _selectedService.Port, _pairingCode);
                 server.ServerUpdate += DACPServer_ServerUpdate;
                 server.Start(false);
             }
@@ -99,7 +101,20 @@ namespace Komodex.Remote.Pages.Pairing
                 {
                     case ServerUpdateType.ServerConnected:
                         ClearProgressIndicator("Connected!");
+                        ServerConnectionInfo connectionInfo = new ServerConnectionInfo();
+                        connectionInfo.Name = ((DACPServer)sender).LibraryName;
+                        connectionInfo.ServiceID = _selectedService.Name;
+                        connectionInfo.PairingCode = _pairingCode;
+                        connectionInfo.LastHostname = _selectedService.Hostname;
+                        connectionInfo.LastIPAddress = _selectedService.IPAddresses[0].ToString();
+                        connectionInfo.LastPort = _selectedService.Port;
+
+                        ServerManager.AddServerInfo(connectionInfo);
+                        ServerManager.ChooseServer(connectionInfo);
+
+                        NavigationManager.GoToFirstPage();
                         break;
+
                     case ServerUpdateType.Error:
                     default:
                         ClearProgressIndicator("Error");

@@ -202,7 +202,7 @@ namespace Komodex.Remote
 
             // Panel visibility
             ContentPanel.Visibility = (DACPServer != null && DACPServer.IsConnected) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            FirstStartPanel.Visibility = (DACPServer == null && DACPServerViewModel.Instance.Items.Count == 0) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            FirstStartPanel.Visibility = (DACPServer == null && ServerManager.PairedServers.Count == 0) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
         private void UpdateVisualState(bool useTransitions = true)
