@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Komodex.Remote.ServerManagement
 {
+    [XmlType("ServerConnectionInfo")]
     public class ServerConnectionInfo : INotifyPropertyChanged
     {
         /// <summary>
@@ -60,6 +62,7 @@ namespace Komodex.Remote.ServerManagement
         /// <summary>
         /// Gets or sets whether the server is currently available
         /// </summary>
+        [XmlIgnore]
         public bool IsAvailable
         {
             get { return _isAvailable; }
