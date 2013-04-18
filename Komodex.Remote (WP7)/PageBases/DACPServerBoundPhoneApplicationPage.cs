@@ -127,7 +127,7 @@ namespace Komodex.Remote
 
         protected void AddChooseLibraryApplicationBarMenuItem()
         {
-            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, () => NavigationManager.OpenLibraryChooserPage());
+            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, () => NavigationManager.OpenChooseLibraryPage());
         }
 
         protected void AddAboutApplicationBarMenuItem()

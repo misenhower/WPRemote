@@ -31,6 +31,21 @@ namespace Komodex.Remote.SampleData
         public string SecondLine { get; set; }
     }
 
+    #region Server Connection Info
+
+    class SampleDataServerConnectionInfoCollection : List<SampleDataServerConnectionInfo>
+    {
+
+    }
+
+    class SampleDataServerConnectionInfo
+    {
+        public string Name { get; set; }
+        public bool IsAvailable { get; set; }
+    }
+
+    #endregion
+
     #region Groups
 
     class SampleDataGroupItems<T> : List<T>

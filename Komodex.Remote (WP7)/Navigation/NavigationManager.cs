@@ -68,6 +68,12 @@ namespace Komodex.Remote
             RootVisual.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
+        public static void OpenChooseLibraryPage()
+        {
+            RootVisual.Navigate(new Uri("/Pages/ChooseLibraryPage.xaml", UriKind.Relative));
+        }
+
+        [Obsolete]
         public static void OpenLibraryChooserPage()
         {
             RootVisual.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));

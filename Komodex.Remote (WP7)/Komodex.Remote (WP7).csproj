@@ -146,6 +146,9 @@
     </Compile>
     <Compile Include="PageBases\DACPServerBoundPhoneApplicationPage.cs" />
     <Compile Include="PageBases\RemoteBasePage.cs" />
+    <Compile Include="Pages\ChooseLibraryPage.xaml.cs">
+      <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Pairing\ManualPairingPage.xaml.cs">
       <DependentUpon>ManualPairingPage.xaml</DependentUpon>
     </Compile>
@@ -258,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NowPlaying\NowPlayingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ChooseLibraryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -440,6 +447,9 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
     <DesignData Include="SampleData\PodcastSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\ServerConnectionInfoCollection.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
   </ItemGroup>

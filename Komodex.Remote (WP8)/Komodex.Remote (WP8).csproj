@@ -225,6 +225,10 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\RemoteBasePage.cs">
       <Link>PageBases\RemoteBasePage.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\ChooseLibraryPage.xaml.cs">
+      <Link>Pages\ChooseLibraryPage.xaml.cs</Link>
+      <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\ManualPairingPage.xaml.cs">
       <Link>Pages\Pairing\ManualPairingPage.xaml.cs</Link>
       <DependentUpon>ManualPairingPage.xaml</DependentUpon>
@@ -562,11 +566,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\ChooseLibraryPage.xaml">
+      <Link>Pages\ChooseLibraryPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\ManualPairingPage.xaml">
       <Link>Pages\Pairing\ManualPairingPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\ServerConnectionInfoCollection.xaml">
+      <Link>SampleData\ServerConnectionInfoCollection.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
     <Page Include="..\Komodex.Remote %28WP7%29\Settings\SettingsPage.xaml">
       <Link>Settings\SettingsPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

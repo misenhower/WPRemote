@@ -37,6 +37,7 @@ namespace Komodex.Remote.ServerManagement
 
             _popup = new Popup();
             _statusControl = new ConnectingStatusControl();
+            _statusControl.ButtonClick += StatusControl_ButtonClick;
             _popup.Child = _statusControl;
 
             UpdateSize();
@@ -129,6 +130,11 @@ namespace Komodex.Remote.ServerManagement
                     _popup.IsOpen = false;
                 }
             });
+        }
+
+        private static void StatusControl_ButtonClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NavigationManager.OpenChooseLibraryPage();
         }
     }
 }

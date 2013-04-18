@@ -1,0 +1,12 @@
+<SampleData:SampleDataServerConnectionInfoCollection xmlns:SampleData="clr-namespace:Komodex.Remote.SampleData" Capacity="49">
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="True" Name="Vestibulum cras aliquam maecenas aenean"/>
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="False" Name="Mauris adipiscing"/>
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="True" Name="Nam class duis parturient"/>
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="False" Name="Nunc amet vestibulum ante"/>
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="True" Name="Integer praesent vestibulum"/>
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="False" Name="Quisque sed nullam"/>
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="True" Name="Accumsan curabitur adipiscing vivamus parturient"/>
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="False" Name="Aliquam aptent"/>
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="True" Name="Bibendum phasellus curae"/>
+	<SampleData:SampleDataServerConnectionInfo IsAvailable="False" Name="Consequat auctor"/>
+</SampleData:SampleDataServerConnectionInfoCollection>

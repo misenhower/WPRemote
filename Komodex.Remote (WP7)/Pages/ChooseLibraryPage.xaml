@@ -1,0 +1,58 @@
+﻿<app:RemoteBasePage
+    x:Class="Komodex.Remote.Pages.ChooseLibraryPage"
+    xmlns:app="clr-namespace:Komodex.Remote"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:converters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+    
+    <phone:PhoneApplicationPage.Resources>
+        <converters:BooleanToStringConverter x:Key="AvailabilityConverter" TrueValue="Available" FalseValue="Not Available" />
+        <DataTemplate x:Key="ServerConnectionInfoTemplate">
+            <Grid>
+                <StackPanel Margin="0,0,-12,0">
+                    <TextBlock Text="{Binding Name}"
+                               Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                    <TextBlock Text="{Binding IsAvailable, Converter={StaticResource AvailabilityConverter}}"
+                               Style="{StaticResource PhoneTextSubtleStyle}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/ServerConnectionInfoCollection.xaml}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="REMOTE" Style="{StaticResource PhoneTextAppTitleStyle}" />
+            <TextBlock Text="{Binding LocalizedStrings.ChooseLibraryPageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <controls:LongListSelectorEx
+                x:Name="LibraryList"
+                ItemsSource="{Binding}"
+                ItemTemplate="{StaticResource ServerConnectionInfoTemplate}"
+                Tap="LibraryList_Tap"
+                Style="{StaticResource LibraryListStyle}"
+                />
+        </Grid>
+    </Grid>
+
+</app:RemoteBasePage>
