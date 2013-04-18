@@ -26,10 +26,22 @@ namespace Komodex.Remote.ServerManagement
         /// </summary>
         public ServerType ServerType { get; set; }
 
+        private string _name;
         /// <summary>
         /// Gets or sets the server name, e.g., "Matt's Library"
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (_name == value)
+                    return;
+
+                _name = value;
+                PropertyChanged.RaiseOnUIThread(this, "Name");
+            }
+        }
 
         private string _lastHostname;
         /// <summary>
