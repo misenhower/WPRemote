@@ -35,6 +35,8 @@ namespace Komodex.Remote.ServerManagement
 
         public static void AddServerInfo(ServerConnectionInfo info)
         {
+            _log.Info("Saving server info: {0} ({1})", info.ServiceID, info.Name);
+
             var oldServerInfo = PairedServers.FirstOrDefault(si => si.ServiceID == info.ServiceID);
             if (oldServerInfo != null)
                 RemoveServerInfo(oldServerInfo);
@@ -46,6 +48,8 @@ namespace Komodex.Remote.ServerManagement
 
         public static void RemoveServerInfo(ServerConnectionInfo info)
         {
+            _log.Info("Removing server info: {0} ({1})", info.ServiceID, info.Name);
+
             if (SelectedServerInfo == info)
                 ChooseServer(null);
 
@@ -67,6 +71,8 @@ namespace Komodex.Remote.ServerManagement
                 if (_connectionState == value)
                     return;
 
+                _log.Info("Updating connection state: " + value);
+
                 _connectionState = value;
                 ConnectionStateChanged.Raise(null, new ConnectionStateChangedEventArgs(_connectionState));
             }
@@ -81,6 +87,8 @@ namespace Komodex.Remote.ServerManagement
             ServerConnectionInfo info = PairedServers.FirstOrDefault(si => si.ServiceID == e.Service.Name);
             if (info != null)
             {
+                _log.Info("Bonjour found service: {0} ({1})", info.ServiceID, info.Name);
+
                 info.IsAvailable = true;
 
                 // Check whether any of the stored data for this server is out of date
@@ -108,9 +116,10 @@ namespace Komodex.Remote.ServerManagement
                     _pairedServers.Save();
 
                 // Connect to the server if necessary
-                if (SelectedServerInfo == info && CurrentServer == null)
+                if (SelectedServerInfo == info)
                 {
-                    CurrentServer = GetDACPServer(info);
+                    if (CurrentServer == null)
+                        CurrentServer = GetDACPServer(info);
                     ConnectToServer();
                 }
             }
@@ -121,6 +130,8 @@ namespace Komodex.Remote.ServerManagement
             ServerConnectionInfo info = PairedServers.FirstOrDefault(si => si.ServiceID == e.Service.Name);
             if (info != null)
             {
+                _log.Info("Bonjour removed service: {0} ({1})", info.ServiceID, info.Name);
+
                 info.IsAvailable = false;
             }
         }
@@ -191,12 +202,16 @@ namespace Komodex.Remote.ServerManagement
         {
             if (!PairedServers.Contains(info))
             {
+                _log.Info("Setting current server to null...");
+
                 CurrentServer = null;
                 // TODO: Disconnect from server
                 SelectedServerInfo = null;
                 ConnectionState = ServerConnectionState.NoLibrarySelected;
                 return;
             }
+
+            _log.Info("Setting current server to: {0} ({1})", info.ServiceID, info.Name);
 
             SelectedServerInfo = info;
 
@@ -214,6 +229,7 @@ namespace Komodex.Remote.ServerManagement
                 return;
 
             ConnectionState = ServerConnectionState.ConnectingToLibrary;
+            _log.Info("Connecting to server...");
             CurrentServer.Start();
         }
 
@@ -225,14 +241,83 @@ namespace Komodex.Remote.ServerManagement
             switch (e.Type)
             {
                 case ServerUpdateType.ServerConnected:
-                    ConnectionState = ServerConnectionState.Connected;
+                    ServerConnected();
                     break;
 
                 case ServerUpdateType.Error:
+                    ServerError(e.ErrorType);
                     break;
 
                 case ServerUpdateType.LibraryError:
                     break;
+            }
+        }
+
+        private static void ServerConnected()
+        {
+            ConnectionState = ServerConnectionState.Connected;
+            _log.Info("Server connected successfully.");
+
+            // Update saved data
+            SelectedServerInfo.LastIPAddress = CurrentServer.Hostname;
+            SelectedServerInfo.Name = CurrentServer.LibraryName;
+            _pairedServers.Save();
+        }
+
+        private static void ServerError(ServerErrorType type)
+        {
+            if (type == ServerErrorType.InvalidPIN)
+            {
+                _log.Warning("Invalid PIN error.");
+
+                // Server is no longer paired with this client
+                RemoveServerInfo(SelectedServerInfo);
+
+                // TODO: Notify the user
+            }
+            else
+            {
+                if (!NetworkManager.IsLocalNetworkAvailable)
+                {
+                    ConnectionState = ServerConnectionState.WaitingForWiFiConnection;
+                    return;
+                }
+
+                if (ConnectionState == ServerConnectionState.Connected)
+                {
+                    // The server was previously connected, just try to reconnect
+                    ConnectionState = ServerConnectionState.ConnectingToLibrary;
+                    _log.Info("Server disconnected, reconnecting...");
+                    CurrentServer.Start();
+                }
+                else if (BonjourManager.DiscoveredServers.ContainsKey(SelectedServerInfo.ServiceID))
+                {
+                    _log.Info("Server reconnection failed, but still available via Bonjour.");
+
+                    // A connection attempt failed, but we have the service in Bonjour.
+                    // Select the next IP address and try to connect to it.
+                    var ips = BonjourManager.DiscoveredServers[SelectedServerInfo.ServiceID].IPAddresses.Select(ip => ip.ToString()).ToList();
+                    if (ips.Count > 0)
+                    {
+                        int index = ips.IndexOf(CurrentServer.Hostname);
+                        index++;
+                        if (index >= ips.Count)
+                            index = 0;
+
+                        _log.Info("Trying new IP: {0} (Previous: {1})", ips[index], CurrentServer.Hostname);
+
+                        CurrentServer.Hostname = ips[index];
+                    }
+
+                    // TODO: Delay reconnection requests (particularly if the IP didn't change)
+
+                    CurrentServer.Start();
+                }
+                else
+                {
+                    _log.Info("Server is no longer available via Bonjour.");
+                    ConnectionState = ServerConnectionState.LookingForLibrary;
+                }
             }
         }
 
