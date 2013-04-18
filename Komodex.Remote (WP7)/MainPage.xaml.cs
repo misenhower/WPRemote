@@ -176,9 +176,9 @@ namespace Komodex.Remote
             });
         }
 
-        protected override void DACPServerManager_ServerChanged(object sender, EventArgs e)
+        protected override void ServerManager_CurrentServerChanged(object sender, EventArgs e)
         {
-            base.DACPServerManager_ServerChanged(sender, e);
+            base.ServerManager_CurrentServerChanged(sender, e);
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 UpdateBindings();

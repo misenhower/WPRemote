@@ -15,6 +15,7 @@ using Komodex.DACP.Library;
 using Komodex.Remote.DACPServerManagement;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -73,7 +74,7 @@ namespace Komodex.Remote.LibraryPages
                     return;
                 }
 
-                Playlist = new Playlist(DACPServerManager.Server, playlistID, playlistName, playlistPersistentID);
+                Playlist = new Playlist(ServerManager.CurrentServer, playlistID, playlistName, playlistPersistentID);
                 if (Playlist.Server != null && Playlist.Server.IsConnected)
                     Playlist.GetSongs();
             }

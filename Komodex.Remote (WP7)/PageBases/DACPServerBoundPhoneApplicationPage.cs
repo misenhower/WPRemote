@@ -15,6 +15,7 @@ using Microsoft.Phone.Shell;
 using Clarity.Phone.Controls;
 using Komodex.Remote.Localization;
 using Komodex.Common.Phone;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote
 {
@@ -147,10 +148,10 @@ namespace Komodex.Remote
         {
             base.OnNavigatedTo(e);
 
-            DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
+            ServerManager.CurrentServerChanged += ServerManager_CurrentServerChanged;
 
-            if (DACPServer != DACPServerManager.Server)
-                DACPServer = DACPServerManager.Server;
+            if (DACPServer != ServerManager.CurrentServer)
+                DACPServer = ServerManager.CurrentServer;
             else
                 AttachServerEvents();
 
@@ -164,7 +165,7 @@ namespace Komodex.Remote
         {
             base.OnNavigatedFrom(e);
 
-            DACPServerManager.ServerChanged -= new EventHandler(DACPServerManager_ServerChanged);
+            ServerManager.CurrentServerChanged -= ServerManager_CurrentServerChanged;
             DetachServerEvents();
         }
 
@@ -172,9 +173,9 @@ namespace Komodex.Remote
 
         #region Event Handlers
 
-        protected virtual void DACPServerManager_ServerChanged(object sender, EventArgs e)
+        protected virtual void ServerManager_CurrentServerChanged(object sender, EventArgs e)
         {
-            DACPServer = DACPServerManager.Server;
+            DACPServer = ServerManager.CurrentServer;
             UpdateApplicationBarVisibility();
         }
 

@@ -15,6 +15,7 @@ using Komodex.Remote.DACPServerManagement;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -62,7 +63,7 @@ namespace Komodex.Remote.LibraryPages
             catch (InvalidOperationException) { }
 
             if (Genre == null)
-                Genre = new Genre(DACPServerManager.Server, genreName);
+                Genre = new Genre(ServerManager.CurrentServer, genreName);
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
