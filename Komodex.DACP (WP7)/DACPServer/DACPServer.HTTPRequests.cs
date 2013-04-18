@@ -361,9 +361,9 @@ namespace Komodex.DACP
 
         private void playStatusCancelTimer_Tick(object state)
         {
-            _log.Info("Canceling play status request...");
             if (UseDelayedResponseRequests && !Stopped)
             {
+                _log.Info("Canceling play status request...");
                 canceledPlayStatusRequestInfo = _playStatusRequestInfo;
                 _playStatusRequestInfo = null;
                 SubmitPlayStatusRequest();
@@ -372,8 +372,6 @@ namespace Komodex.DACP
 
         protected void HandlePlayStatusException(HTTPRequestInfo requestInfo, WebException e)
         {
-            _log.Info("Caught timed out play status response.");
-
             if (canceledPlayStatusRequestInfo == null || requestInfo != canceledPlayStatusRequestInfo)
             {
                 ConnectionError();
@@ -384,6 +382,8 @@ namespace Komodex.DACP
 
             if (e.Status != WebExceptionStatus.UnknownError)
                 ConnectionError();
+
+            _log.Info("Caught timed out play status response.");
         }
 
         // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well
