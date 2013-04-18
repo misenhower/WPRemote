@@ -222,8 +222,45 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\DACPServerBoundPhoneApplicationPage.cs">
       <Link>PageBases\DACPServerBoundPhoneApplicationPage.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\RemoteBasePage.cs">
+      <Link>PageBases\RemoteBasePage.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\ManualPairingPage.xaml.cs">
+      <Link>Pages\Pairing\ManualPairingPage.xaml.cs</Link>
+      <DependentUpon>ManualPairingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pairing\DiscoveredPairingUtility.cs">
+      <Link>Pairing\DiscoveredPairingUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pairing\ManualPairingManager.cs">
+      <Link>Pairing\ManualPairingManager.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\SampleData\SampleDataClasses.cs">
       <Link>SampleData\SampleDataClasses.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\BonjourManager.cs">
+      <Link>ServerManagement\BonjourManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ConnectionStatusPopupManager.cs">
+      <Link>ServerManagement\ConnectionStatusPopupManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\NetworkManager.cs">
+      <Link>ServerManagement\NetworkManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerConnectionInfo.cs">
+      <Link>ServerManagement\ServerConnectionInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerConnectionInfoCollection.cs">
+      <Link>ServerManagement\ServerConnectionInfoCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerConnectionState.cs">
+      <Link>ServerManagement\ServerConnectionState.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerManager.cs">
+      <Link>ServerManagement\ServerManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerType.cs">
+      <Link>ServerManagement\ServerType.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Settings\ArtistClickAction.cs">
       <Link>Settings\ArtistClickAction.cs</Link>
@@ -525,6 +562,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\ManualPairingPage.xaml">
+      <Link>Pages\Pairing\ManualPairingPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Settings\SettingsPage.xaml">
       <Link>Settings\SettingsPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
