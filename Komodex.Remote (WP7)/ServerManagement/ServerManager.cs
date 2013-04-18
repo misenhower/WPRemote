@@ -260,6 +260,7 @@ namespace Komodex.Remote.ServerManagement
 
             // Update saved data
             SelectedServerInfo.LastIPAddress = CurrentServer.Hostname;
+            SelectedServerInfo.LastPort = CurrentServer.Port;
             SelectedServerInfo.Name = CurrentServer.LibraryName;
             _pairedServers.Save();
         }
@@ -295,8 +296,10 @@ namespace Komodex.Remote.ServerManagement
                     _log.Info("Server reconnection failed, but still available via Bonjour.");
 
                     // A connection attempt failed, but we have the service in Bonjour.
+                    NetService service = BonjourManager.DiscoveredServers[SelectedServerInfo.ServiceID];
+
                     // Select the next IP address and try to connect to it.
-                    var ips = BonjourManager.DiscoveredServers[SelectedServerInfo.ServiceID].IPAddresses.Select(ip => ip.ToString()).ToList();
+                    var ips = service.IPAddresses.Select(ip => ip.ToString()).ToList();
                     if (ips.Count > 0)
                     {
                         int index = ips.IndexOf(CurrentServer.Hostname);
@@ -308,6 +311,9 @@ namespace Komodex.Remote.ServerManagement
 
                         CurrentServer.Hostname = ips[index];
                     }
+
+                    // Update the port if necessary
+                    CurrentServer.Port = service.Port;
 
                     // TODO: Delay reconnection requests (particularly if the IP didn't change)
 
