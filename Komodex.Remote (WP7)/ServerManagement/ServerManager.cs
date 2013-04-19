@@ -200,21 +200,20 @@ namespace Komodex.Remote.ServerManagement
 
         public static void ChooseServer(ServerConnectionInfo info)
         {
+            ConnectionState = ServerConnectionState.NoLibrarySelected;
+
             if (!PairedServers.Contains(info))
             {
                 _log.Info("Setting current server to null...");
 
                 CurrentServer = null;
-                // TODO: Disconnect from server
                 SelectedServerInfo = null;
-                ConnectionState = ServerConnectionState.NoLibrarySelected;
                 return;
             }
 
             _log.Info("Setting current server to: {0} ({1})", info.ServiceID, info.Name);
 
             SelectedServerInfo = info;
-
             CurrentServer = GetDACPServer(info);
 
             ConnectToServer();
