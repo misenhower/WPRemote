@@ -98,6 +98,9 @@
     <Compile Include="..\Komodex.Common %28WP7%29\Converters\BooleanToBrushConverter.cs">
       <Link>Converters\BooleanToBrushConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\BooleanToDoubleConverter.cs">
+      <Link>Converters\BooleanToDoubleConverter.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common %28WP7%29\Converters\BooleanToStringConverter.cs">
       <Link>Converters\BooleanToStringConverter.cs</Link>
     </Compile>
