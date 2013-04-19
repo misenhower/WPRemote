@@ -7,6 +7,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:converters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -14,18 +15,36 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
+    toolkit:TiltEffect.IsTiltEnabled="True"
     shell:SystemTray.IsVisible="True">
     
     <phone:PhoneApplicationPage.Resources>
         <converters:BooleanToStringConverter x:Key="AvailabilityConverter" TrueValue="Available" FalseValue="Not Available" />
+        <converters:BooleanToDoubleConverter x:Key="AvailabilityOpacityConverter" TrueValue="1" FalseValue="0.5" />
+        
         <DataTemplate x:Key="ServerConnectionInfoTemplate">
-            <Grid>
-                <StackPanel Margin="0,0,-12,0">
-                    <TextBlock Text="{Binding Name}"
-                               Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                    <TextBlock Text="{Binding IsAvailable, Converter={StaticResource AvailabilityConverter}}"
-                               Style="{StaticResource PhoneTextSubtleStyle}" />
-                </StackPanel>
+            <Grid Margin="{StaticResource ListItemMargin}" Opacity="{Binding IsAvailable, Converter={StaticResource AvailabilityOpacityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ContentControl Template="{StaticResource iTunesIconButton}" />
+
+                <TextBlock Text="{Binding Name}"
+                            Grid.Column="1"
+                            Style="{StaticResource PhoneTextExtraLargeStyle}"
+                            Margin="{StaticResource ListItemTextMargin}"
+                            />
+                <TextBlock Text="{Binding IsAvailable, Converter={StaticResource AvailabilityConverter}}"
+                            Grid.Column="1" Grid.Row="1"
+                            Style="{StaticResource PhoneTextSubtleStyle}"
+                            Margin="{StaticResource ListItemTextMargin}"
+                            />
             </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
