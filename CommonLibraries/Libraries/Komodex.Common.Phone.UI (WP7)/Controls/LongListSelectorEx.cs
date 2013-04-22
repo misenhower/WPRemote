@@ -27,14 +27,16 @@ namespace Komodex.Common.Phone.Controls
             DefaultStyleKey = typeof(LongListSelectorEx);
 
 #if WP7
-            Link += new EventHandler<LinkUnlinkEventArgs>(LongListSelectorEx_Link);
-            Unlink += new EventHandler<LinkUnlinkEventArgs>(LongListSelectorEx_Unlink);
+            Link += LongListSelectorEx_Link;
+            Unlink += LongListSelectorEx_Unlink;
 #else
             ItemRealized += LongListSelectorEx_ItemRealized;
             ItemUnrealized += LongListSelectorEx_ItemUnrealized;
 #endif
 
-            GotFocus += new RoutedEventHandler(LongListSelectorEx_GotFocus);
+#if WP7
+            GotFocus += LongListSelectorEx_GotFocus;
+#endif
 
             // Bind to base control's ItemsSource property
             _itemsSourceListenerBinding = new Binding("ItemsSource");
@@ -67,6 +69,7 @@ namespace Komodex.Common.Phone.Controls
 
         #region Focus Fix
 
+#if WP7
         private bool _preventFocus = true;
         public bool PreventFocus
         {
@@ -87,6 +90,7 @@ namespace Komodex.Common.Phone.Controls
             if (c != null)
                 c.Focus();
         }
+#endif
 
         #endregion
 
