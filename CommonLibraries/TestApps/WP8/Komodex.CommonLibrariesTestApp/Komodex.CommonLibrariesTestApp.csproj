@@ -115,6 +115,9 @@
       <Link>MainPage.xaml.cs</Link>
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HTTP\HttpTestPage.xaml.cs">
+      <DependentUpon>HttpTestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +140,10 @@
       <Link>MainPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HTTP\HttpTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +189,10 @@
     <ProjectReference Include="..\..\..\Libraries\Komodex.Common.Phone.UI %28WP8%29\Komodex.Common.Phone.UI %28WP8%29.csproj">
       <Project>{ED7B21D3-43C4-4699-977F-E6043E4BE516}</Project>
       <Name>Komodex.Common.Phone.UI %28WP8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\Komodex.HTTP %28WP8%29\Komodex.HTTP %28WP8%29.csproj">
+      <Project>{ED2A21FB-464A-4287-9F8B-B308CC35F8C3}</Project>
+      <Name>Komodex.HTTP %28WP8%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Libraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.WP8\Microsoft.Phone.Controls.Toolkit.WP8.csproj">
       <Project>{486642F0-AB94-4F28-B49C-106CA3134239}</Project>

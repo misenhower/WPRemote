@@ -20,6 +20,10 @@ namespace Komodex.CommonLibrariesTestApp
         public MainPage()
         {
             InitializeComponent();
+
+#if WP8
+            httpLink.Visibility = System.Windows.Visibility.Visible;
+#endif
         }
     }
 }
