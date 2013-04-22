@@ -10,7 +10,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
-using Komodex.Remote.DACPServerManagement;
 using Microsoft.Phone.Shell;
 using Clarity.Phone.Controls;
 using Komodex.Remote.Localization;

@@ -12,7 +12,6 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Clarity.Phone.Controls;
 using Komodex.DACP.Library;
-using Komodex.Remote.DACPServerManagement;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
 using Komodex.Remote.ServerManagement;

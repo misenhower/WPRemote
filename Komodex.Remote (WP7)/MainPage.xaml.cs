@@ -11,9 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
-using Komodex.Remote.DACPServerInfoManagement;
 using Microsoft.Phone.Shell;
-using Komodex.Remote.DACPServerManagement;
 using Komodex.DACP.Library;
 using Komodex.Common.Phone;
 using Komodex.Remote.TrialMode;
@@ -63,24 +61,16 @@ namespace Komodex.Remote
             if (!TrialManager.Current.IsTrial)
                 return;
 
-            if (DACPServerViewModel.Instance.CurrentDACPServer == null)
-                return;
-
             TrialReminderDialog trialDialog = new TrialReminderDialog();
             trialDialog.Closed += new EventHandler<DialogControlClosedEventArgs>(trialDialog_Closed);
 
-            DACPServerManager.ShowPopups = false;
             ShowDialog(trialDialog);
         }
 
         private void trialDialog_Closed(object sender, DialogControlClosedEventArgs e)
         {
-            DACPServerManager.ShowPopups = true;
-
             if (e.Result == MessageBoxResult.OK)
                 return;
-
-            DACPServerManager.ConnectToServer();
         }
 
 #if DEBUG

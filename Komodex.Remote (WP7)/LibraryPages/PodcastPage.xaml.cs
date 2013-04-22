@@ -11,7 +11,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP.Library;
-using Komodex.Remote.DACPServerManagement;
 using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote.LibraryPages

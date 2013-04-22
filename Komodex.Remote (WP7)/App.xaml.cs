@@ -12,7 +12,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Komodex.Remote.DACPServerManagement;
 using Komodex.Remote.Settings;
 using Komodex.Remote.Utilities;
 using Komodex.Remote.Controls;
@@ -125,14 +124,12 @@ namespace Komodex.Remote
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            DACPServerManager.ApplicationActivated();
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            DACPServerManager.ApplicationDeactivated();
         }
 
         // Code to execute when the application is closing (eg, user hit Back)

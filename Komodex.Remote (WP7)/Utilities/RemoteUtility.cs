@@ -19,7 +19,6 @@ using Komodex.Remote.Controls;
 using Komodex.Common;
 using System.IO;
 using Komodex.DACP;
-using Komodex.Remote.DACPServerManagement;
 using Komodex.Common.Phone.Controls;
 using Komodex.Remote.ServerManagement;
 
