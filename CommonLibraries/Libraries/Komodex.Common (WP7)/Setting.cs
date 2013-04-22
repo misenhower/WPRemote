@@ -153,15 +153,18 @@ namespace Komodex.Common
                 _changeAction(_value);
 
             _log.Debug("Wrote value for key '{0}'", _keyName);
+            _log.Trace("Updated value: '{0}' => {1}", _keyName, _isolatedSettings[_keyName]);
         }
 
         protected void Value_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            _log.Trace("Saving triggered by property '{0}' changing.", e.PropertyName);
             Save();
         }
 
         protected void Value_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            _log.Trace("Saving triggered by collection changing. Action: " + e.Action);
             Save();
         }
     }
