@@ -73,20 +73,9 @@ namespace Komodex.Remote
             RootVisual.Navigate(new Uri("/Pages/ChooseLibraryPage.xaml", UriKind.Relative));
         }
 
-        [Obsolete]
-        public static void OpenLibraryChooserPage()
-        {
-            RootVisual.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
-        }
-
         public static void OpenManualPairingPage()
         {
             RootVisual.Navigate(new Uri("/Pages/Pairing/ManualPairingPage.xaml", UriKind.Relative));
-        }
-
-        public static void OpenAddNewServerPage()
-        {
-            RootVisual.Navigate(new Uri("/DACPServerInfoManagement/AddLibraryPage.xaml", UriKind.Relative));
         }
 
         public static void OpenArtistPage(string artistName)

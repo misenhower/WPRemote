@@ -33,20 +33,6 @@ namespace Komodex.DACP
             _playStatusCancelTimer = new Timer(playStatusCancelTimer_Tick);
         }
 
-        // TODO: Remove this constructor
-        [Obsolete]
-        public DACPServer(Guid id, string hostName, string pairingKey)
-            : this()
-        {
-            string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;
-            if (!assemblyName.StartsWith("Komodex.Remote,"))
-                throw new Exception();
-
-            ID = id;
-            HostName = hostName;
-            PairingCode = pairingKey;
-        }
-
         public DACPServer(string hostname, int port, string pairingCode)
             : this()
         {
@@ -74,31 +60,6 @@ namespace Komodex.DACP
         #endregion
 
         #region Properties
-
-        // TODO: Remove this property
-        [Obsolete]
-        public Guid ID { get; protected set; }
-
-        private string _HostName = null;
-        // TODO: Remove this property
-        [Obsolete]
-        public string HostName
-        {
-            get { return _HostName; }
-            protected set
-            {
-                _HostName = value;
-                HTTPPrefix = null;
-                if (_HostName == null)
-                    return;
-
-                HTTPPrefix = "http://" + _HostName;
-
-                // If the hostname doesn't contain a colon, add the default DACP port
-                if (!_HostName.Contains(':'))
-                    HTTPPrefix += ":3689";
-            }
-        }
 
         private string _hostname;
         public string Hostname

@@ -137,23 +137,6 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\NoListItemsVisibilityConverter.cs">
       <Link>Converters\NoListItemsVisibilityConverter.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\AddLibraryPage.xaml.cs">
-      <Link>DACPServerInfoManagement\AddLibraryPage.xaml.cs</Link>
-      <DependentUpon>AddLibraryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\DACPServerInfo.cs">
-      <Link>DACPServerInfoManagement\DACPServerInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\DACPServerViewModel.cs">
-      <Link>DACPServerInfoManagement\DACPServerViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\LibraryChooserPage.xaml.cs">
-      <Link>DACPServerInfoManagement\LibraryChooserPage.xaml.cs</Link>
-      <DependentUpon>LibraryChooserPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerManagement\DACPServerManager.cs">
-      <Link>DACPServerManagement\DACPServerManager.cs</Link>
-    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\AlbumPage.xaml.cs">
       <Link>LibraryPages\AlbumPage.xaml.cs</Link>
       <DependentUpon>AlbumPage.xaml</DependentUpon>
@@ -448,16 +431,6 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Controls\StarRating.xaml">
       <Link>Controls\StarRating.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\AddLibraryPage.xaml">
-      <Link>DACPServerInfoManagement\AddLibraryPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\LibraryChooserPage.xaml">
-      <Link>DACPServerInfoManagement\LibraryChooserPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

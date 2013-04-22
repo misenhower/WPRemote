@@ -87,15 +87,6 @@
     <Compile Include="Converters\CollapseIfLessThanTwoConverter.cs" />
     <Compile Include="Converters\LocalizedOffOnConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
-    <Compile Include="DACPServerInfoManagement\AddLibraryPage.xaml.cs">
-      <DependentUpon>AddLibraryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DACPServerInfoManagement\DACPServerInfo.cs" />
-    <Compile Include="DACPServerInfoManagement\DACPServerViewModel.cs" />
-    <Compile Include="DACPServerInfoManagement\LibraryChooserPage.xaml.cs">
-      <DependentUpon>LibraryChooserPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DACPServerManagement\DACPServerManager.cs" />
     <Compile Include="LibraryPages\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
@@ -198,14 +189,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StarRating.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DACPServerInfoManagement\AddLibraryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DACPServerInfoManagement\LibraryChooserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
