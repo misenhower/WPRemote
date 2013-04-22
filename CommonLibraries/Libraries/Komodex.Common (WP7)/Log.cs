@@ -84,6 +84,9 @@ namespace Komodex.Common
 
             switch (level)
             {
+                case LogLevel.Trace:
+                    message = "[TRACE] " + message;
+                    break;
                 case LogLevel.Debug:
                     message = "[DEBUG] " + message;
                     break;
@@ -95,6 +98,9 @@ namespace Komodex.Common
                     break;
                 case LogLevel.Error:
                     message = "[ERROR] " + message;
+                    break;
+                case LogLevel.Fatal:
+                    message = "[FATAL] " + message;
                     break;
                 default:
                     break;
@@ -143,6 +149,22 @@ namespace Komodex.Common
             await Windows.Storage.FileIO.AppendTextAsync(logFile, message + Environment.NewLine);
         }
 #endif
+
+        #endregion
+
+        #region Trace
+
+        [Conditional("DEBUG")]
+        public void Trace(string message)
+        {
+            WriteMessage(LogLevel.Trace, message);
+        }
+
+        [Conditional("DEBUG")]
+        public void Trace(string format, params object[] args)
+        {
+            WriteMessage(LogLevel.Trace, format, args);
+        }
 
         #endregion
 
@@ -209,15 +231,33 @@ namespace Komodex.Common
         }
 
         #endregion
+
+        #region Fatal
+
+        [Conditional("DEBUG")]
+        public void Fatal(string message)
+        {
+            WriteMessage(LogLevel.Fatal, message);
+        }
+
+        [Conditional("DEBUG")]
+        public void Fatal(string format, params object[] args)
+        {
+            WriteMessage(LogLevel.Fatal, format, args);
+        }
+
+        #endregion
     }
 
     public enum LogLevel
     {
         All = int.MinValue,
+        Trace = -2,
         Debug = -1,
         Info = 0,
         Warning = 1,
         Error = 2,
+        Fatal = 3,
         None = int.MaxValue,
     }
 }
