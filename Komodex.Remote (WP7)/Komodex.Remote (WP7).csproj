@@ -421,9 +421,6 @@
     <DesignData Include="SampleData\DACPServerSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
-    <DesignData Include="SampleData\DACPServerViewModelSampleData.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-    </DesignData>
     <DesignData Include="SampleData\GenreSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>

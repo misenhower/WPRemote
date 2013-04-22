@@ -519,11 +519,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\DACPServerViewModelSampleData.xaml">
-      <Link>SampleData\DACPServerViewModelSampleData.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
     <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\GenreSampleData.xaml">
       <Link>SampleData\GenreSampleData.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
