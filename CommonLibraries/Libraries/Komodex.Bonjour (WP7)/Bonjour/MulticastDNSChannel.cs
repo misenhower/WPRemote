@@ -236,8 +236,8 @@ namespace Komodex.Bonjour
                 return;
             }
 
-            _log.Info("Received " + message.Summary);
-            _log.Debug("Message details (received from {0}):\n{1}", sourceIPEndpoint, message.ToString());
+            _log.Debug("Received " + message.Summary);
+            _log.Trace("Message details (received from {0}):\n{1}", sourceIPEndpoint, message.ToString());
 
             SendMessageToListeners(message);
 
@@ -336,8 +336,8 @@ namespace Komodex.Bonjour
                 return;
             }
 
-            _log.Info("Received " + message.Summary);
-            _log.Debug("Message details (received from {0}):\n{1}", remoteIP.DisplayName, message.ToString());
+            _log.Debug("Received " + message.Summary);
+            _log.Trace("Message details (received from {0}):\n{1}", remoteIP.DisplayName, message.ToString());
 
             SendMessageToListeners(message);
         }
