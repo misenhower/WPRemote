@@ -135,17 +135,18 @@ namespace Komodex.Common
         public void Save()
         {
             // Update isolated storage
-#if WINDOWS_PHONE
+            object value;
             if (_shouldSerializeValue)
-                _isolatedSettings[_keyName] = _xmlSerializer.SerializeToString(_value);
+                value = _xmlSerializer.SerializeToString(_value);
             else
-                _isolatedSettings[_keyName] = _value;
+                value = _value;
+
+
+#if WINDOWS_PHONE
+            _isolatedSettings[_keyName] = value;
             _isolatedSettings.Save();
 #else
-            if (_shouldSerializeValue)
-                _localSettings.Values[_keyName] = _xmlSerializer.SerializeToString(_value);
-            else
-                _localSettings.Values[_keyName] = _value;
+            _localSettings.Values[_keyName] = value;
 #endif
 
             // Run modified action
@@ -153,7 +154,7 @@ namespace Komodex.Common
                 _changeAction(_value);
 
             _log.Debug("Wrote value for key '{0}'", _keyName);
-            _log.Trace("Updated value: '{0}' => {1}", _keyName, _isolatedSettings[_keyName]);
+            _log.Trace("Updated value: '{0}' => {1}", _keyName, value);
         }
 
         protected void Value_PropertyChanged(object sender, PropertyChangedEventArgs e)
