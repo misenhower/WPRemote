@@ -367,24 +367,28 @@ namespace Komodex.Common
 
         public static string SerializeToString(this XmlSerializer xmlSerializer, object value)
         {
-            StringWriter stringWriter = new StringWriter();
-            xmlSerializer.Serialize(stringWriter, value);
-            return stringWriter.ToString();
+            using (StringWriter stringWriter = new StringWriter())
+            {
+                xmlSerializer.Serialize(stringWriter, value);
+                return stringWriter.ToString();
+            }
         }
 
         public static bool TryDeserialize<T>(this XmlSerializer xmlSerializer, string input, out T value)
         {
-            StringReader stringReader = new StringReader(input);
-            try
+            using (StringReader stringReader = new StringReader(input))
             {
-                object obj = xmlSerializer.Deserialize(stringReader);
-                if (obj is T)
+                try
                 {
-                    value = (T)obj;
-                    return true;
+                    object obj = xmlSerializer.Deserialize(stringReader);
+                    if (obj is T)
+                    {
+                        value = (T)obj;
+                        return true;
+                    }
                 }
+                catch { }
             }
-            catch { }
 
             value = default(T);
             return false;
