@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Komodex Systems LLC")]
 [assembly: AssemblyProduct("Komodex.Common.Phone")]
-[assembly: AssemblyCopyright("Copyright 2012 Komodex Systems LLC")]
+[assembly: AssemblyCopyright("Copyright 2013 Komodex Systems LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
