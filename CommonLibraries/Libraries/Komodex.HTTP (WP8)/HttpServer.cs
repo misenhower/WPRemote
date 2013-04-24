@@ -72,7 +72,7 @@ namespace Komodex.HTTP
             _socketListener = null;
         }
 
-        private void SocketListener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
+        private async void SocketListener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
         {
             if (sender != _socketListener)
                 return;
@@ -81,7 +81,7 @@ namespace Komodex.HTTP
 
             _log.Debug("Incoming connection to {0}:{1} from {2}...", socket.Information.LocalAddress.DisplayName, socket.Information.LocalPort, socket.Information.RemoteAddress.DisplayName);
 
-            HttpRequest request = HttpRequest.GetHttpRequest(args.Socket);
+            HttpRequest request = await HttpRequest.GetHttpRequest(args.Socket);
             if (request == null)
             {
                 args.Socket.Dispose();
