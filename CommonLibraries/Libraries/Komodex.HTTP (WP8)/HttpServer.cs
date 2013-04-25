@@ -26,6 +26,8 @@ namespace Komodex.HTTP
             ServiceName = serviceName;
         }
 
+        public event EventHandler<HttpRequestEventArgs> RequestReceived;
+
         #region Properties
 
         private string _serviceName = "80";
@@ -86,7 +88,7 @@ namespace Komodex.HTTP
             if (request == null)
                 return;
 
-
+            RequestReceived.Raise(this, new HttpRequestEventArgs(request));
         }
 
     }

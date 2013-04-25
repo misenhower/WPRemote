@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Enums.cs" />
     <Compile Include="HttpRequest.cs" />
+    <Compile Include="HttpRequestEventArgs.cs" />
     <Compile Include="HttpResponse.cs" />
     <Compile Include="HttpServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
