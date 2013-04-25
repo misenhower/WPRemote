@@ -1,6 +1,7 @@
 ﻿using Komodex.Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -37,6 +38,7 @@ namespace Komodex.HTTP
             if (parsed)
                 return request;
 
+            request.SendResponse(HttpStatusCode.BadRequest, "Bad request");
             _log.Debug("Could not handle request from " + socket.Information.RemoteAddress.DisplayName);
             return null;
         }
@@ -131,6 +133,8 @@ namespace Komodex.HTTP
                         _log.Trace("Query String: {0} => {1}", name, value);
                     }
                 }
+
+                reader.DetachStream();
             }
 
             return true;
@@ -188,6 +192,45 @@ namespace Komodex.HTTP
                     Host = value;
                     break;
             }
+        }
+
+        #endregion
+
+        #region Response
+
+        public async Task SendResponse(HttpStatusCode statusCode, string body)
+        {
+            HttpResponse response = new HttpResponse();
+            response.StatusCode = statusCode;
+            var bodyBytes = Encoding.UTF8.GetBytes(body);
+            response.Body.Write(bodyBytes, 0, bodyBytes.Length);
+            await SendResponse(response);
+        }
+
+        public async Task SendResponse(HttpResponse response)
+        {
+            response.Body.Seek(0, SeekOrigin.Begin);
+            response.Headers["Content-Length"] = response.Body.Length.ToString();
+
+            using (DataWriter writer = new DataWriter(_socket.OutputStream))
+            {
+                writer.WriteString(string.Format("HTTP/1.1 {0} {1}\r\n", (int)response.StatusCode, response.StatusCode.ToString()));
+
+                // Write headers
+                foreach (var header in response.Headers)
+                    writer.WriteString(string.Format("{0}: {1}\r\n", header.Key, header.Value));
+
+                writer.WriteString("\r\n");
+
+                // Write body
+                writer.WriteBytes(response.Body.ToArray());
+
+                // Send response
+                await writer.StoreAsync();
+                writer.DetachStream();
+            }
+
+            _socket.Dispose();
         }
 
         #endregion

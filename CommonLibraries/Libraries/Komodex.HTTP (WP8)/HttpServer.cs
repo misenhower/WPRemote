@@ -1,6 +1,7 @@
 ﻿using Komodex.Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,10 +84,9 @@ namespace Komodex.HTTP
 
             HttpRequest request = await HttpRequest.GetHttpRequest(args.Socket);
             if (request == null)
-            {
-                args.Socket.Dispose();
                 return;
-            }
+
+
         }
 
     }
