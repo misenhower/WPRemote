@@ -11,7 +11,7 @@ namespace Komodex.HTTP
 {
     public class HttpServer
     {
-        private static readonly Log _log = new Log("HTTP Server") { Level = LogLevel.All };
+        private static readonly Log _log = new Log("HTTP Server");
 
         protected StreamSocketListener _socketListener;
 
@@ -87,6 +87,8 @@ namespace Komodex.HTTP
             HttpRequest request = await HttpRequest.GetHttpRequest(args.Socket);
             if (request == null)
                 return;
+
+            _log.Info("Received request from {0}: {1}", socket.Information.RemoteAddress.DisplayName, request.Uri.AbsolutePath);
 
             RequestReceived.Raise(this, new HttpRequestEventArgs(request));
         }

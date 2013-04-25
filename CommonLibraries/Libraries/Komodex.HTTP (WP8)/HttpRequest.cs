@@ -13,7 +13,7 @@ namespace Komodex.HTTP
 {
     public class HttpRequest
     {
-        private static readonly Log _log = new Log("HTTP Request") { Level = LogLevel.All };
+        private static readonly Log _log = new Log("HTTP Request");
 
         private readonly StreamSocket _socket;
         private byte[] _lineBuffer = new byte[2048];
@@ -231,6 +231,8 @@ namespace Komodex.HTTP
             }
 
             _socket.Dispose();
+
+            _log.Info("Sent response code {0} for path: {1}", (int)response.StatusCode, Uri.AbsolutePath);
         }
 
         #endregion
