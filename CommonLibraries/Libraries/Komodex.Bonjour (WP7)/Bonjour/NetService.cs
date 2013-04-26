@@ -23,7 +23,7 @@ namespace Komodex.Bonjour
         // Minimum time between (prompted) rebroadcasts (ms)
         private const int MinimumRebroadcastTime = 2000;
 
-        private static readonly Log _log = new Log("Bonjour Service");
+        private static readonly Log _log = new Log("Bonjour Service") { Level = LogLevel.Debug };
 
         public NetService()
         { }
@@ -234,6 +234,14 @@ namespace Komodex.Bonjour
             // This message is a response
             message.QueryResponse = true;
 
+            // PTR Record for DNS-SD Service Type Enumeration
+            record = new ResourceRecord();
+            record.Type = ResourceRecordType.PTR;
+            record.TimeToLive = BroadcastTTL;
+            record.Name = BonjourUtility.DNSSDServiceTypeEnumerationName;
+            record.Data = Type;
+            message.AnswerRecords.Add(record);
+
             // PTR Record
             record = new ResourceRecord();
             record.Type = ResourceRecordType.PTR;
@@ -441,6 +449,8 @@ namespace Komodex.Bonjour
                 {
                     case ResourceRecordType.PTR:
                         if (question.Name == Type + Domain)
+                            shouldRespond = true;
+                        else if (question.Name == BonjourUtility.DNSSDServiceTypeEnumerationName)
                             shouldRespond = true;
                         break;
                 }

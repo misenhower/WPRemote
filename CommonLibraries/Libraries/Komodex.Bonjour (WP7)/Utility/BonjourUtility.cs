@@ -14,6 +14,8 @@ namespace Komodex.Bonjour
         public const string MulticastDNSAddress = "224.0.0.251";
         public const int MulticastDNSPort = 5353;
 
+        public const string DNSSDServiceTypeEnumerationName = "_services._dns-sd._udp.local.";
+
         #endregion
 
         #region List<byte> Extensions
