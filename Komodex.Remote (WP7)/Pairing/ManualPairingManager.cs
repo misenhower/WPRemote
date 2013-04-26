@@ -11,7 +11,7 @@ namespace Komodex.Remote.Pairing
 {
     public static class ManualPairingManager
     {
-        private static Log _log = new Log("Manual Pairing");
+        private static readonly Log _log = new Log("Manual Pairing");
         private const string PairingUtilityServiceName = "_komodex-pairing._tcp.local.";
 
         private static NetServiceBrowser _pairingUtilityBrowser;
