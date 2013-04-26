@@ -15,7 +15,7 @@ namespace Komodex.Remote.Pairing
 {
     public static class PairingManager
     {
-        private static readonly Log _log = new Log("Pairing");
+        private static readonly Log _log = new Log("Pairing") { Level = LogLevel.All };
 
         private const string DeviceName = "Windows Phone 8 Device";
         private const string DeviceHostnameFormat = "WP8-{0}";
@@ -23,7 +23,7 @@ namespace Komodex.Remote.Pairing
         private static int _port = 8080;
         private static string _hostname;
         private static string _pin;
-        private static string _pairingCode;
+        private static string _validPairingHash;
 
         private static NetService _pairingService;
         private static HttpServer _httpServer;
@@ -49,12 +49,11 @@ namespace Komodex.Remote.Pairing
             _pin = _random.Next(1, 9999).ToString("0000");
 
             // Generate pairing code
-            var buffer = new byte[sizeof(ulong)];
-            _random.NextBytes(buffer);
-            ulong code = (ulong)BitConverter.ToInt64(buffer, 0);
-            if (code == 0)
-                code = 1;
-            _pairingCode = code.ToString("X16");
+            string pairingCode = GetRandomUInt64().ToString("X16");
+
+            // Generate valid pairing code hash
+            string validPairingString = string.Format("{0}{1}\0{2}\0{3}\0{4}\0", pairingCode, _pin[0], _pin[1], _pin[2], _pin[3]);
+            _validPairingHash = MD5Core.GetHashString(validPairingString).ToLower();
 
             // Set up NetService
             _pairingService = new NetService();
@@ -67,7 +66,7 @@ namespace Komodex.Remote.Pairing
             txt["RemV"] = "10000";
             txt["DvTy"] = "iPhone";
             txt["RemN"] = "Remote";
-            txt["Pair"] = _pairingCode;
+            txt["Pair"] = pairingCode;
             _pairingService.TXTRecordData = txt;
 
             // Set up HttpServer
@@ -84,22 +83,27 @@ namespace Komodex.Remote.Pairing
                 await _httpServer.Start();
                 _pairingService.Publish();
             }
+
+            _log.Trace("Pairing parameters:\nHostname: {0}\nPort: {1}\nPIN: {2}\nPairing Code: {3}", _hostname, _port, _pin, pairingCode);
         }
+
+        
 
         public static void Stop()
         {
             NetworkManager.NetworkAvailabilityChanged -= NetworkManager_NetworkAvailabilityChanged;
 
+            if (_httpServer != null)
+            {
+                _httpServer.RequestReceived -= HttpServer_RequestReceived;
+                _httpServer.Stop();
+                _httpServer = null;
+            }
+
             if (_pairingService != null)
             {
                 _pairingService.Stop();
                 _pairingService = null;
-            }
-
-            if (_httpServer != null)
-            {
-                _httpServer.Stop();
-                _httpServer = null;
             }
         }
 
@@ -123,7 +127,54 @@ namespace Komodex.Remote.Pairing
 
         private static async void HttpServer_RequestReceived(object sender, HttpRequestEventArgs e)
         {
-            await e.Request.SendResponse(HttpStatusCode.NotFound, "Not found");
+            if (sender != _httpServer)
+                return;
+
+            if (IsValidPairingRequest(e.Request))
+            {
+                string servicename = e.Request.QueryString["servicename"].ToLower();
+                _log.Info("Paired with service ID: " + servicename);
+
+                // Stop HTTP server and Bonjour publisher
+                Stop();
+
+                // Generate new pairing code
+                ulong pairingCode = GetRandomUInt64();
+
+                // Build response
+                List<byte> bodyBytes = new List<byte>();
+                bodyBytes.AddRange(GetDACPFormattedBytes("cmpg", pairingCode));
+                bodyBytes.AddRange(GetDACPFormattedBytes("cmnm", DeviceName));
+                bodyBytes.AddRange(GetDACPFormattedBytes("cmty", "iPhone"));
+                byte[] responseBytes = GetDACPFormattedBytes("cmpa", bodyBytes.ToArray());
+
+                // Send response
+                HttpResponse response = new HttpResponse();
+                response.Body.Write(responseBytes, 0, responseBytes.Length);
+                await e.Request.SendResponse(response);
+
+                // Save server conenction info
+            }
+            else
+            {
+                await e.Request.SendResponse(HttpStatusCode.NotFound, "Not found");
+            }
+        }
+
+        private static bool IsValidPairingRequest(HttpRequest request)
+        {
+            if (request.Uri.AbsolutePath != "/pair")
+                return false;
+
+            if (!request.QueryString.ContainsKey("pairingcode") || !request.QueryString.ContainsKey("servicename"))
+                return false;
+
+            string pairingcode = request.QueryString["pairingcode"].ToLower();
+
+            if (pairingcode != _validPairingHash)
+                return false;
+
+            return true;
         }
 
         private static async void NetworkManager_NetworkAvailabilityChanged(object sender, NetworkAvailabilityChangedEventArgs e)
@@ -144,5 +195,39 @@ namespace Komodex.Remote.Pairing
             }
         }
 
+        private static ulong GetRandomUInt64()
+        {
+            var buffer = new byte[sizeof(ulong)];
+            _random.NextBytes(buffer);
+            ulong value = (ulong)BitConverter.ToInt64(buffer, 0);
+            if (value == 0)
+                value = 1;
+            return value;
+        }
+
+        private static byte[] GetDACPFormattedBytes(string tag, string value)
+        {
+            return GetDACPFormattedBytes(tag, Encoding.UTF8.GetBytes(value));
+        }
+
+        private static byte[] GetDACPFormattedBytes(string tag, ulong value)
+        {
+            value = (ulong)BitUtility.HostToNetworkOrder((long)value);
+            return GetDACPFormattedBytes(tag, BitConverter.GetBytes(value));
+        }
+
+        private static byte[] GetDACPFormattedBytes(string tag, byte[] value)
+        {
+            byte[] result = new byte[4 + value.Length];
+
+            result[0] = (byte)tag[0];
+            result[1] = (byte)tag[1];
+            result[2] = (byte)tag[2];
+            result[3] = (byte)tag[3];
+
+            value.CopyTo(result, 4);
+
+            return result;
+        }
     }
 }
