@@ -88,7 +88,7 @@ namespace Komodex.HTTP
             if (request == null)
                 return;
 
-            _log.Info("Received request from {0}: {1}", socket.Information.RemoteAddress.DisplayName, request.Uri.AbsolutePath);
+            _log.Info("Received request from {0}: {1}", socket.Information.RemoteAddress.DisplayName, request.Uri.PathAndQuery);
 
             RequestReceived.Raise(this, new HttpRequestEventArgs(request));
         }

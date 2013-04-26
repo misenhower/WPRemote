@@ -232,7 +232,7 @@ namespace Komodex.HTTP
 
             _socket.Dispose();
 
-            _log.Info("Sent response code {0} for path: {1}", (int)response.StatusCode, Uri.AbsolutePath);
+            _log.Info("Sent response code {0} for path: {1}", (int)response.StatusCode, Uri.PathAndQuery);
         }
 
         #endregion
