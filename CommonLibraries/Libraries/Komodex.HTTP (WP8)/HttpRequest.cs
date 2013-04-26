@@ -38,8 +38,8 @@ namespace Komodex.HTTP
             if (parsed)
                 return request;
 
-            request.SendResponse(HttpStatusCode.BadRequest, "Bad request");
             _log.Debug("Could not handle request from " + socket.Information.RemoteAddress.DisplayName);
+            await request.SendResponse(HttpStatusCode.BadRequest, "Bad request");
             return null;
         }
 
