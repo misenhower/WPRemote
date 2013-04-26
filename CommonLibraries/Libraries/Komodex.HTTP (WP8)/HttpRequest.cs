@@ -106,8 +106,8 @@ namespace Komodex.HTTP
 
                 // Process URI
                 if (Host == null)
-                    Host = _socket.Information.LocalAddress.CanonicalName;
-                string uriString = string.Format("http://{0}:{1}{2}", Host, _socket.Information.LocalPort, Path);
+                    Host = _socket.Information.LocalAddress.CanonicalName + ":" + _socket.Information.LocalPort;
+                string uriString = "http://" + Host + Path;
                 _log.Trace("URI String: " + uriString);
                 Uri = new Uri(uriString);
 
