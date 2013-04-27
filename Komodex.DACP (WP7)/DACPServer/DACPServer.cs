@@ -131,9 +131,14 @@ namespace Komodex.DACP
 
             try
             {
-                var tempRequests = PendingHttpRequests.ToList();
+                List<HTTPRequestInfo> oldRequests;
+                lock (PendingHttpRequests)
+                {
+                    oldRequests = PendingHttpRequests.ToList();
+                    PendingHttpRequests.Clear();
+                }
 
-                foreach (HTTPRequestInfo request in tempRequests)
+                foreach (HTTPRequestInfo request in oldRequests)
                 {
                     try
                     {
@@ -143,11 +148,6 @@ namespace Komodex.DACP
                 }
             }
             catch { }
-
-            lock (PendingHttpRequests)
-            {
-                PendingHttpRequests.Clear();
-            }
         }
 
         #endregion

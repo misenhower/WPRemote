@@ -81,12 +81,6 @@ namespace Komodex.DACP
 
             _log.Info("Got HTTP response for: " + requestInfo.WebRequest.RequestUri);
 
-            lock (PendingHttpRequests)
-            {
-                if (PendingHttpRequests.Contains(requestInfo))
-                    PendingHttpRequests.Remove(requestInfo);
-            }
-
             try
             {
                 WebResponse response = requestInfo.WebRequest.EndGetResponse(result);
@@ -135,7 +129,13 @@ namespace Komodex.DACP
                     _log.Debug("WebException Status: " + webException.Status.ToString());
 
                     if (webException.Status == WebExceptionStatus.RequestCanceled)
-                        return;
+                    {
+                        lock (PendingHttpRequests)
+                        {
+                            if (!PendingHttpRequests.Contains(requestInfo))
+                                return;
+                        }
+                    }
 
                     if (requestInfo.ExceptionHandlerDelegate != null)
                     {
@@ -152,6 +152,8 @@ namespace Komodex.DACP
             }
             finally
             {
+                lock (PendingHttpRequests)
+                    PendingHttpRequests.Remove(requestInfo);
                 UpdateGettingData();
             }
         }
