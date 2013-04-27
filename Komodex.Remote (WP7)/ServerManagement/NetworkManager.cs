@@ -15,12 +15,22 @@ namespace Komodex.Remote.ServerManagement
 
         public static event EventHandler<NetworkAvailabilityChangedEventArgs> NetworkAvailabilityChanged;
 
+#if WP7
+        private static bool _updateOnNavigate;
+#endif
+
         public static void Initialize()
         {
             // Hook into events
             DeviceNetworkInformation.NetworkAvailabilityChanged += (sender, e) => UpdateNetworkAvailability();
+#if WP7
+            App.RootFrame.Navigated += (sender, e) => { if (_updateOnNavigate) { UpdateNetworkAvailability(); _updateOnNavigate = false; } };
+            PhoneApplicationService.Current.Launching += (sender, e) => _updateOnNavigate = true;
+            PhoneApplicationService.Current.Activated += (sender, e) => _updateOnNavigate = true;
+#else
             PhoneApplicationService.Current.Launching += (sender, e) => UpdateNetworkAvailability();
             PhoneApplicationService.Current.Activated += (sender, e) => UpdateNetworkAvailability();
+#endif
             PhoneApplicationService.Current.Deactivated += (sender, e) => IsLocalNetworkAvailable = false;
             PhoneApplicationService.Current.Closing += (sender, e) => IsLocalNetworkAvailable = false;
         }
