@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Komodex.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace Komodex.Bonjour.DNS
 
         public int Class { get; set; }
 
+        public bool CacheFlush { get; set; }
+
         public TimeSpan TimeToLive { get; set; }
 
         public object Data { get; set; }
@@ -33,9 +36,18 @@ namespace Komodex.Bonjour.DNS
         {
             ResourceRecord record = new ResourceRecord();
 
+            // Hostname
             record.Name = BonjourUtility.ReadHostnameFromBytes(reader);
+
+            // Record Type
             record.Type = (ResourceRecordType)reader.ReadNetworkOrderUInt16();
-            record.Class = reader.ReadNetworkOrderUInt16();
+
+            // Class and Cache Flush bit
+            ushort rrclass = reader.ReadNetworkOrderUInt16();
+            record.Class = (rrclass & 0x7fff);
+            record.CacheFlush = rrclass.GetBit(15);
+
+            // TTL
             record.TimeToLive = TimeSpan.FromSeconds(reader.ReadNetworkOrderInt32());
 
             ushort dataLength = reader.ReadNetworkOrderUInt16();
@@ -73,8 +85,10 @@ namespace Komodex.Bonjour.DNS
             // Record Type
             result.AddNetworkOrderBytes((ushort)Type);
 
-            // Class
-            result.AddNetworkOrderBytes((ushort)Class);
+            // Class and Cache Flush bit
+            ushort rrclass = (ushort)Class;
+            BitUtility.SetBit(ref rrclass, 15, CacheFlush);
+            result.AddNetworkOrderBytes(rrclass);
 
             // TTL
             result.AddNetworkOrderBytes((int)TimeToLive.TotalSeconds);
@@ -143,12 +157,14 @@ namespace Komodex.Bonjour.DNS
         /// </summary>
         public override string ToString()
         {
+            string cacheFlush = (CacheFlush) ? ", cache flush" : string.Empty;
+
             switch (Type)
             {
                 case ResourceRecordType.A:
                 case ResourceRecordType.PTR:
                 case ResourceRecordType.SRV:
-                    return string.Format("{0}: {1} => {2} (TTL: {3})", Type, Name, (Data != null) ? Data.ToString() : "(No data)", TimeToLive);
+                    return string.Format("{0}: {1} => {2} (TTL: {3}{4})", Type, Name, (Data != null) ? Data.ToString() : "(No data)", TimeToLive, cacheFlush);
 
                 case ResourceRecordType.TXT:
                     string data;
@@ -157,10 +173,10 @@ namespace Komodex.Bonjour.DNS
                     else
                         data = "(No data)";
 
-                    return string.Format("TXT: {0} => {1} (TTL: {2})", Name, data, TimeToLive);
+                    return string.Format("TXT: {0} => {1} (TTL: {2}{3})", Name, data, TimeToLive, cacheFlush);
 
                 default:
-                    return string.Format("[{0}] {1} (TTL: {2})", Type, Name, TimeToLive);
+                    return string.Format("[{0}] {1} (TTL: {2}{3})", Type, Name, TimeToLive, cacheFlush);
             }
         }
 

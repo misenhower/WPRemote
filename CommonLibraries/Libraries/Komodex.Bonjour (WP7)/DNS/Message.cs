@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+// RFC 6762:
+// http://tools.ietf.org/html/rfc6762
+
 namespace Komodex.Bonjour.DNS
 {
     internal class Message
@@ -39,7 +42,8 @@ namespace Komodex.Bonjour.DNS
         public byte Opcode { get; set; }
 
         /// <summary>
-        /// Authoritative Answer (AA) bit. Must be zero on transmission.
+        /// Authoritative Answer (AA) bit. In query messages, AA must be zero on transmission and ignored on reception.
+        /// In response messages, AA must be set to one.
         /// Bit 10 in the message flags.
         /// </summary>
         public bool AuthoritativeAnswer { get; set; }

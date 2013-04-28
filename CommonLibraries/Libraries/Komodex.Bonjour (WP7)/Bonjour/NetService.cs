@@ -233,6 +233,8 @@ namespace Komodex.Bonjour
 
             // This message is a response
             message.QueryResponse = true;
+            // This is an authoritative response
+            message.AuthoritativeAnswer = true;
 
             // PTR Record for DNS-SD Service Type Enumeration
             record = new ResourceRecord();
@@ -254,6 +256,7 @@ namespace Komodex.Bonjour
             record = new ResourceRecord();
             record.Type = ResourceRecordType.SRV;
             record.TimeToLive = BroadcastTTL;
+            record.CacheFlush = true;
             record.Name = FullServiceInstanceName;
             SRVRecordData srv = new SRVRecordData();
             srv.Target = Hostname;
@@ -267,6 +270,7 @@ namespace Komodex.Bonjour
                 record = new ResourceRecord();
                 record.Type = ResourceRecordType.A;
                 record.TimeToLive = BroadcastTTL;
+                record.CacheFlush = true;
                 record.Name = Hostname;
                 record.Data = ip;
                 message.AnswerRecords.Add(record);
@@ -278,6 +282,7 @@ namespace Komodex.Bonjour
                 record = new ResourceRecord();
                 record.Type = ResourceRecordType.TXT;
                 record.TimeToLive = BroadcastTTL;
+                record.CacheFlush = true;
                 record.Name = FullServiceInstanceName;
                 record.Data = TXTRecordData;
                 message.AnswerRecords.Add(record);
@@ -293,6 +298,8 @@ namespace Komodex.Bonjour
 
             // This message is a response
             message.QueryResponse = true;
+            // This is an authoritative response
+            message.AuthoritativeAnswer = true;
 
             // PTR Record
             record = new ResourceRecord();
