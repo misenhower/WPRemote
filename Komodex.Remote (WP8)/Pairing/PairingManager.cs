@@ -132,7 +132,7 @@ namespace Komodex.Remote.Pairing
 
             if (IsValidPairingRequest(e.Request))
             {
-                string servicename = e.Request.QueryString["servicename"].ToLower();
+                string servicename = e.Request.QueryString["servicename"];
                 _log.Info("Paired with service ID: " + servicename);
 
                 // Stop HTTP server and Bonjour publisher
@@ -154,6 +154,15 @@ namespace Komodex.Remote.Pairing
                 await e.Request.SendResponse(response);
 
                 // Save server conenction info
+                ServerConnectionInfo info = new ServerConnectionInfo();
+                info.ServiceID = servicename;
+                info.PairingCode = pairingCode.ToString("X16");
+
+                ServerManager.AddServerInfo(info);
+                ServerManager.ChooseServer(info);
+
+                // TODO: Send event
+                // TODO: Don't add server/just allow the event handler to do this?
             }
             else
             {
@@ -218,14 +227,18 @@ namespace Komodex.Remote.Pairing
 
         private static byte[] GetDACPFormattedBytes(string tag, byte[] value)
         {
-            byte[] result = new byte[4 + value.Length];
+            byte[] result = new byte[8 + value.Length];
 
+            // Tag
             result[0] = (byte)tag[0];
             result[1] = (byte)tag[1];
             result[2] = (byte)tag[2];
             result[3] = (byte)tag[3];
 
-            value.CopyTo(result, 4);
+            // Length
+            BitConverter.GetBytes(BitUtility.HostToNetworkOrder(value.Length)).CopyTo(result, 4);
+
+            value.CopyTo(result, 8);
 
             return result;
         }
