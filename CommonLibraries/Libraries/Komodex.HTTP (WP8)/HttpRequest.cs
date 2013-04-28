@@ -201,6 +201,7 @@ namespace Komodex.HTTP
         public async Task SendResponse(HttpStatusCode statusCode, string body)
         {
             HttpResponse response = new HttpResponse();
+            response.Headers.Clear();
             response.StatusCode = statusCode;
             var bodyBytes = Encoding.UTF8.GetBytes(body);
             response.Body.Write(bodyBytes, 0, bodyBytes.Length);
@@ -214,7 +215,7 @@ namespace Komodex.HTTP
 
             using (DataWriter writer = new DataWriter(_socket.OutputStream))
             {
-                writer.WriteString(string.Format("HTTP/1.1 {0} {1}\r\n", (int)response.StatusCode, response.StatusCode.ToString()));
+                writer.WriteString(string.Format("HTTP/1.1 {0} {1}\r\n", (int)response.StatusCode, GetStatusCodeDescription(response.StatusCode)));
 
                 // Write headers
                 foreach (var header in response.Headers)
@@ -233,6 +234,21 @@ namespace Komodex.HTTP
             _socket.Dispose();
 
             _log.Info("Sent response code {0} for path: {1}", (int)response.StatusCode, Uri.PathAndQuery);
+        }
+
+        private string GetStatusCodeDescription(HttpStatusCode statusCode)
+        {
+            switch (statusCode)
+            {
+                case HttpStatusCode.BadRequest:
+                    return "Bad Request";
+                case HttpStatusCode.NotFound:
+                    return "Not Found";
+                case HttpStatusCode.InternalServerError:
+                    return "Internal Server Error";
+            }
+
+            return statusCode.ToString();
         }
 
         #endregion
