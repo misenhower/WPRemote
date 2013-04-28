@@ -20,9 +20,6 @@ namespace Komodex.Remote.Pairing
         private const string DeviceName = "Windows Phone 8 Device";
         private const string DeviceHostnameFormat = "WP8-{0}";
 
-        private static int _port = 8080;
-        private static string _hostname;
-        private static string _pin;
         private static string _validPairingHash;
 
         private static NetService _pairingService;
@@ -30,36 +27,63 @@ namespace Komodex.Remote.Pairing
 
         private static Random _random = new Random();
 
+        #region Properties
+
+        private static readonly Setting<string> _hostname = new Setting<string>("PairingHostname");
+        public static string Hostname
+        {
+            get { return _hostname.Value; }
+            private set
+            {
+                if (_hostname.Value == value)
+                    return;
+
+                _hostname.Value = value;
+            }
+        }
+
+        private static int _port = 8080;
+        public static int Port
+        {
+            get { return _port; }
+            private set { _port = value; }
+        }
+
+        public static string PIN { get; private set; }
+
+        #endregion
+
         public static async void Start()
         {
             if (_pairingService != null)
                 return;
 
             // Generate hostname
-            if (_hostname == null)
+            if (Hostname == null)
             {
                 var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                 var charArray = new char[8];
                 for (int i = 0; i < charArray.Length; i++)
                     charArray[i] = chars[_random.Next(chars.Length)];
-                _hostname = string.Format(DeviceHostnameFormat, new string(charArray));
+                Hostname = string.Format(DeviceHostnameFormat, new string(charArray));
             }
 
             // Generate PIN
-            _pin = _random.Next(1, 9999).ToString("0000");
+            PIN = _random.Next(1, 9999).ToString("0000");
 
             // Generate pairing code
             string pairingCode = GetRandomUInt64().ToString("X16");
 
             // Generate valid pairing code hash
-            string validPairingString = string.Format("{0}{1}\0{2}\0{3}\0{4}\0", pairingCode, _pin[0], _pin[1], _pin[2], _pin[3]);
+            string validPairingString = string.Format("{0}{1}\0{2}\0{3}\0{4}\0", pairingCode, PIN[0], PIN[1], PIN[2], PIN[3]);
             _validPairingHash = MD5Core.GetHashString(validPairingString).ToLower();
 
             // Set up NetService
             _pairingService = new NetService();
-            _pairingService.FullServiceInstanceName = _hostname + "._touch-remote._tcp.local.";
+
+            _pairingService.FullServiceInstanceName = Hostname + "._touch-remote._tcp.local.";
             _pairingService.Port = _port;
-            _pairingService.Hostname = _hostname + ".local.";
+            _pairingService.Hostname = _hostname.Value + ".local.";
             Dictionary<string, string> txt = new Dictionary<string, string>();
             txt["txtvers"] = "1";
             txt["DvNm"] = DeviceName;
@@ -84,10 +108,8 @@ namespace Komodex.Remote.Pairing
                 _pairingService.Publish();
             }
 
-            _log.Trace("Pairing parameters:\nHostname: {0}\nPort: {1}\nPIN: {2}\nPairing Code: {3}", _hostname, _port, _pin, pairingCode);
+            _log.Trace("Pairing parameters:\nHostname: {0}\nPort: {1}\nPIN: {2}\nPairing Code: {3}", Hostname, _port, PIN, pairingCode);
         }
-
-        
 
         public static void Stop()
         {
@@ -166,7 +188,7 @@ namespace Komodex.Remote.Pairing
             }
             else
             {
-                await e.Request.SendResponse(HttpStatusCode.NotFound, "Not found");
+                await e.Request.SendResponse(HttpStatusCode.NotFound, string.Empty);
             }
         }
 
