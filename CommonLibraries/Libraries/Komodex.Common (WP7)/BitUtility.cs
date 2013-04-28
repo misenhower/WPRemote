@@ -48,23 +48,71 @@ namespace Komodex.Common
         /// </summary>
         /// <param name="index">The zero-based index of the value to get.</param>
         /// <returns></returns>
-        public static bool GetBit(this byte b, int index)
+        public static bool GetBit(this byte value, int index)
         {
-            return (b & (1 << index)) != 0;
+            return (value & (1 << index)) != 0;
+        }
+
+        /// <summary>
+        /// Gets the value of the bit at a specific position.
+        /// </summary>
+        /// <param name="index">The zero-based index of the value to get.</param>
+        /// <returns></returns>
+        public static bool GetBit(this ushort value, int index)
+        {
+            return (value & (1 << index)) != 0;
+        }
+
+        /// <summary>
+        /// Gets the value of the bit at a specific position.
+        /// </summary>
+        /// <param name="index">The zero-based index of the value to get.</param>
+        /// <returns></returns>
+        public static bool GetBit(this uint value, int index)
+        {
+            return (value & (1 << index)) != 0;
         }
 
         /// <summary>
         /// Sets the bit at a specific position to the specified value.
         /// </summary>
-        /// <param name="index">The zero-based index of the value to get.</param>
+        /// <param name="index">The zero-based index of the value to set.</param>
         /// <param name="value">The Boolean value to assign to the bit.</param>
         /// <returns></returns>
-        public static void SetBit(ref byte b, int index, bool value)
+        public static void SetBit(ref byte input, int index, bool value)
         {
             if (value)
-                b = (byte)(b | (1 << index));
+                input = (byte)(input | (1 << index));
             else
-                b = (byte)(b & ~(1 << index));
+                input = (byte)(input & ~(1 << index));
+        }
+
+        /// <summary>
+        /// Sets the bit at a specific position to the specified value.
+        /// </summary>
+        /// <param name="index">The zero-based index of the value to set.</param>
+        /// <param name="value">The Boolean value to assign to the bit.</param>
+        /// <returns></returns>
+        public static void SetBit(ref ushort input, int index, bool value)
+        {
+            if (value)
+                input = (ushort)(input | (1 << index));
+            else
+                input = (ushort)(input & ~(1 << index));
+        }
+
+        /// <summary>
+        /// Sets the bit at a specific position to the specified value.
+        /// </summary>
+        /// <param name="index">The zero-based index of the value to set.</param>
+        /// <param name="value">The Boolean value to assign to the bit.</param>
+        /// <returns></returns>
+        public static void SetBit(ref uint input, int index, bool value)
+        {
+            if (value)
+                input = (uint)(input | (uint)(1 << index));
+            else
+                input = (uint)(input & ~(uint)(1 << index));
         }
 
         #endregion
