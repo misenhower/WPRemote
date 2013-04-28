@@ -37,5 +37,15 @@ namespace Komodex.Remote.Pages
             ServerManager.ChooseServer(info);
             NavigationManager.GoToFirstPage();
         }
+
+        private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+            ServerConnectionInfo info = menuItem.Tag as ServerConnectionInfo;
+            if (info == null)
+                return;
+
+            ServerManager.RemoveServerInfo(info);
+        }
     }
 }

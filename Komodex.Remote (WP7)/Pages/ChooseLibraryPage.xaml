@@ -45,6 +45,12 @@
                             Style="{StaticResource PhoneTextSubtleStyle}"
                             Margin="{StaticResource ListItemTextMargin}"
                             />
+                
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu>
+                        <toolkit:MenuItem Header="delete" Tag="{Binding}" Click="DeleteMenuItem_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
             </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
