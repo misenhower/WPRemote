@@ -117,11 +117,7 @@ namespace Komodex.Remote.ServerManagement
 
                 // Connect to the server if necessary
                 if (SelectedServerInfo == info)
-                {
-                    if (CurrentServer == null)
-                        CurrentServer = GetDACPServer(info);
                     ConnectToServer();
-                }
             }
         }
 
@@ -179,6 +175,53 @@ namespace Komodex.Remote.ServerManagement
             }
         }
 
+        public static void ChooseServer(ServerConnectionInfo info)
+        {
+            CurrentServer = null;
+            ConnectionState = ServerConnectionState.NoLibrarySelected;
+
+            if (!PairedServers.Contains(info))
+            {
+                _log.Info("Setting current server to null...");
+                SelectedServerInfo = null;
+                return;
+            }
+
+            _log.Info("Setting current server to: {0} ({1})", info.ServiceID, info.Name);
+            SelectedServerInfo = info;
+            ConnectToServer();
+        }
+
+        public static void ConnectToServer()
+        {
+            if (SelectedServerInfo == null)
+                return;
+
+            if (CurrentServer == null)
+            {
+                DACPServer newServer = GetDACPServer(SelectedServerInfo);
+                if (newServer == null)
+                {
+                    ConnectionState = ServerConnectionState.LookingForLibrary;
+                    return;
+                }
+
+                CurrentServer = newServer;
+            }
+            else
+            {
+                if (CurrentServer.IsConnected)
+                    return;
+
+                if (ConnectionState == ServerConnectionState.ConnectingToLibrary)
+                    return;
+            }
+
+            ConnectionState = ServerConnectionState.ConnectingToLibrary;
+            _log.Info("Connecting to server...");
+            CurrentServer.Start();
+        }
+
         private static DACPServer GetDACPServer(ServerConnectionInfo info)
         {
             if (BonjourManager.DiscoveredServers.ContainsKey(info.ServiceID))
@@ -190,46 +233,17 @@ namespace Komodex.Remote.ServerManagement
                 else
                     ip = info.LastIPAddress;
 
+                if (ip == null)
+                    return null;
+
                 return new DACPServer(ip, service.Port, info.PairingCode);
             }
-            else
+            else if (info.LastIPAddress != null && info.LastPort > 0)
             {
                 return new DACPServer(info.LastIPAddress, info.LastPort, info.PairingCode);
             }
-        }
 
-        public static void ChooseServer(ServerConnectionInfo info)
-        {
-            ConnectionState = ServerConnectionState.NoLibrarySelected;
-
-            if (!PairedServers.Contains(info))
-            {
-                _log.Info("Setting current server to null...");
-
-                CurrentServer = null;
-                SelectedServerInfo = null;
-                return;
-            }
-
-            _log.Info("Setting current server to: {0} ({1})", info.ServiceID, info.Name);
-
-            SelectedServerInfo = info;
-            CurrentServer = GetDACPServer(info);
-
-            ConnectToServer();
-        }
-
-        public static void ConnectToServer()
-        {
-            if (CurrentServer == null || CurrentServer.IsConnected)
-                return;
-
-            if (ConnectionState == ServerConnectionState.ConnectingToLibrary)
-                return;
-
-            ConnectionState = ServerConnectionState.ConnectingToLibrary;
-            _log.Info("Connecting to server...");
-            CurrentServer.Start();
+            return null;
         }
 
         private static void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
@@ -266,6 +280,7 @@ namespace Komodex.Remote.ServerManagement
 
         private static void ServerError(ServerErrorType type)
         {
+            _log.Info("Server error: " + type);
             if (type == ServerErrorType.InvalidPIN)
             {
                 _log.Warning("Invalid PIN error.");
@@ -277,12 +292,14 @@ namespace Komodex.Remote.ServerManagement
             }
             else
             {
+                // If the network is no longer available, wait for it to become available again
                 if (!NetworkManager.IsLocalNetworkAvailable)
                 {
                     ConnectionState = ServerConnectionState.WaitingForWiFiConnection;
                     return;
                 }
 
+                // If we were previously connected, just try reconnecting first
                 if (ConnectionState == ServerConnectionState.Connected)
                 {
                     // The server was previously connected, just try to reconnect
@@ -290,6 +307,8 @@ namespace Komodex.Remote.ServerManagement
                     _log.Info("Server disconnected, reconnecting...");
                     CurrentServer.Start();
                 }
+
+                // If the server is still visible in Bonjour, try to connect to any other IPs
                 else if (BonjourManager.DiscoveredServers.ContainsKey(SelectedServerInfo.ServiceID))
                 {
                     _log.Info("Server reconnection failed, but still available via Bonjour.");
@@ -337,8 +356,12 @@ namespace Komodex.Remote.ServerManagement
             }
             else
             {
-                // TODO
+                if (ConnectionState == ServerConnectionState.LookingForLibrary)
+                    ConnectionState = ServerConnectionState.WaitingForWiFiConnection;
+
                 // Set all services to unavailable
+                foreach (ServerConnectionInfo info in PairedServers)
+                    info.IsAvailable = false;
             }
         }
     }
