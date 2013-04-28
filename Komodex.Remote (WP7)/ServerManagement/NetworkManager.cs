@@ -39,7 +39,7 @@ namespace Komodex.Remote.ServerManagement
         public static bool IsLocalNetworkAvailable
         {
             get { return _isLocalNetworkAvailable; }
-            set
+            private set
             {
                 if (_isLocalNetworkAvailable == value)
                     return;
@@ -54,6 +54,13 @@ namespace Komodex.Remote.ServerManagement
         private static void UpdateNetworkAvailability()
         {
             _log.Info("Updating local network availability...");
+
+            if (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator)
+            {
+                _log.Info("Running in emulator, so assuming network is available...");
+                IsLocalNetworkAvailable = true;
+                return;
+            }
 
             NetworkInterfaceList interfaces = new NetworkInterfaceList();
 
@@ -70,9 +77,8 @@ namespace Komodex.Remote.ServerManagement
                 }
 #endif
 
-                IsLocalNetworkAvailable = interfaces.Any(i => i.InterfaceState == ConnectState.Connected
-                    && !(i.Bandwidth == -1 && (i.InterfaceName.Contains("Loopback") || i.Description.Contains("Loopback") || i.InterfaceName.Contains("{22C7611B-530E-11DB-BA31-806E6F6E6963}")))
-                    && (i.InterfaceType == NetworkInterfaceType.Wireless80211 || i.InterfaceType == NetworkInterfaceType.Ethernet));
+                IsLocalNetworkAvailable = interfaces.Any(i => i.InterfaceState == ConnectState.Connected && i.InterfaceType == NetworkInterfaceType.Wireless80211);
+
             }
             else
             {
