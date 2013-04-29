@@ -8,10 +8,12 @@ namespace Komodex.Bonjour
 {
     internal static class MulticastDNSChannel
     {
+        private static readonly Log _log = new Log("Bonjour MDNS");
+
+        private static readonly object _sync = new object();
+
         private static bool _sendingMessage;
         private static bool _shutdown;
-
-        private static readonly Log _log = new Log("Bonjour MDNS");
 
         #region Properties
 
@@ -108,20 +110,26 @@ namespace Komodex.Bonjour
 
         private static void Start()
         {
-            // If the client already exists, don't attempt to replace it
-            if (_client != null)
-                return;
+            lock (_sync)
+            {
+                // If the client already exists, don't attempt to replace it
+                if (_client != null)
+                    return;
 
-            // Create the client and attempt to join
-            _log.Info("Joining multicast DNS channel...");
-            _client = new System.Net.Sockets.UdpAnySourceMulticastClient(IPAddress.Parse(BonjourUtility.MulticastDNSAddress), BonjourUtility.MulticastDNSPort);
-            _client.BeginJoinGroup(UDPClientJoinGroupCallback, _client);
+                // Create the client and attempt to join
+                _log.Info("Joining multicast DNS channel...");
+                _client = new System.Net.Sockets.UdpAnySourceMulticastClient(IPAddress.Parse(BonjourUtility.MulticastDNSAddress), BonjourUtility.MulticastDNSPort);
+                _client.BeginJoinGroup(UDPClientJoinGroupCallback, _client);
+            }
         }
 
         private static void Stop()
         {
-            if (_client != null)
+            lock (_sync)
             {
+                if (_client == null)
+                    return;
+
                 _shutdown = true;
                 if (_sendingMessage)
                     return;
@@ -254,11 +262,15 @@ namespace Komodex.Bonjour
 
         private static async void Start()
         {
-            if (_udpSocket != null)
-                return;
+            lock (_sync)
+            {
+                if (_udpSocket != null)
+                    return;
 
-            _log.Info("Creating UDP socket...");
-            _udpSocket = new Windows.Networking.Sockets.DatagramSocket();
+                _log.Info("Creating UDP socket...");
+                _udpSocket = new Windows.Networking.Sockets.DatagramSocket();
+            }
+
             _udpSocket.MessageReceived += UDPSocket_MessageReceived;
             await _udpSocket.BindServiceNameAsync(BonjourUtility.MulticastDNSPort.ToString());
 
@@ -273,17 +285,20 @@ namespace Komodex.Bonjour
 
         private static void Stop()
         {
-            if (_udpSocket == null)
-                return;
+            lock (_sync)
+            {
+                if (_udpSocket == null)
+                    return;
 
-            _shutdown = true;
-            if (_sendingMessage)
-                return;
+                _shutdown = true;
+                if (_sendingMessage)
+                    return;
 
-            _log.Info("Closing UDP socket...");
-            IsJoined = false;
-            _udpSocket.Dispose();
-            _udpSocket = null;
+                _log.Info("Closing UDP socket...");
+                IsJoined = false;
+                _udpSocket.Dispose();
+                _udpSocket = null;
+            }
         }
 
         private static async void SendMessage(byte[] buffer)
