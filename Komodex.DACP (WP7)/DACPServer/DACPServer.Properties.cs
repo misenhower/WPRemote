@@ -439,7 +439,7 @@ namespace Komodex.DACP
                 "CurrentTrackTimePositionOrPausedString");
         }
 
-        private DispatcherTimer timerTrackTimeUpdate = new DispatcherTimer();
+        private DispatcherTimer timerTrackTimeUpdate;
         void timerTrackTimeUpdate_Tick(object sender, EventArgs e)
         {
             SendTrackTimePropertyChanged();

@@ -12,7 +12,6 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Reflection;
 using Komodex.Remote.Utilities;
-using Komodex.Remote.DACPServerManagement;
 using Komodex.DACP;
 using Microsoft.Phone.Tasks;
 using Clarity.Phone.Controls;
@@ -26,6 +25,8 @@ namespace Komodex.Remote
         public AboutPage()
         {
             InitializeComponent();
+
+            DisableConnectionStatusPopup = true;
 
             AnimationContext = LayoutRoot;
 

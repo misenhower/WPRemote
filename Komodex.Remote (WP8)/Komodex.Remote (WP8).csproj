@@ -137,23 +137,6 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\NoListItemsVisibilityConverter.cs">
       <Link>Converters\NoListItemsVisibilityConverter.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\AddLibraryPage.xaml.cs">
-      <Link>DACPServerInfoManagement\AddLibraryPage.xaml.cs</Link>
-      <DependentUpon>AddLibraryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\DACPServerInfo.cs">
-      <Link>DACPServerInfoManagement\DACPServerInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\DACPServerViewModel.cs">
-      <Link>DACPServerInfoManagement\DACPServerViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\LibraryChooserPage.xaml.cs">
-      <Link>DACPServerInfoManagement\LibraryChooserPage.xaml.cs</Link>
-      <DependentUpon>LibraryChooserPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\DACPServerManagement\DACPServerManager.cs">
-      <Link>DACPServerManagement\DACPServerManager.cs</Link>
-    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\AlbumPage.xaml.cs">
       <Link>LibraryPages\AlbumPage.xaml.cs</Link>
       <DependentUpon>AlbumPage.xaml</DependentUpon>
@@ -222,8 +205,49 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\DACPServerBoundPhoneApplicationPage.cs">
       <Link>PageBases\DACPServerBoundPhoneApplicationPage.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\RemoteBasePage.cs">
+      <Link>PageBases\RemoteBasePage.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\ChooseLibraryPage.xaml.cs">
+      <Link>Pages\ChooseLibraryPage.xaml.cs</Link>
+      <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\ManualPairingPage.xaml.cs">
+      <Link>Pages\Pairing\ManualPairingPage.xaml.cs</Link>
+      <DependentUpon>ManualPairingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pairing\DiscoveredPairingUtility.cs">
+      <Link>Pairing\DiscoveredPairingUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pairing\ManualPairingManager.cs">
+      <Link>Pairing\ManualPairingManager.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\SampleData\SampleDataClasses.cs">
       <Link>SampleData\SampleDataClasses.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\BonjourManager.cs">
+      <Link>ServerManagement\BonjourManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ConnectionStatusPopupManager.cs">
+      <Link>ServerManagement\ConnectionStatusPopupManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\NetworkManager.cs">
+      <Link>ServerManagement\NetworkManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerConnectionInfo.cs">
+      <Link>ServerManagement\ServerConnectionInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerConnectionInfoCollection.cs">
+      <Link>ServerManagement\ServerConnectionInfoCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerConnectionState.cs">
+      <Link>ServerManagement\ServerConnectionState.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerManager.cs">
+      <Link>ServerManagement\ServerManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\ServerManagement\ServerType.cs">
+      <Link>ServerManagement\ServerType.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Settings\ArtistClickAction.cs">
       <Link>Settings\ArtistClickAction.cs</Link>
@@ -254,7 +278,12 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Utilities\StateUtils.cs">
       <Link>Utilities\StateUtils.cs</Link>
     </Compile>
+    <Compile Include="Pages\Pairing\PairingPage.xaml.cs">
+      <DependentUpon>PairingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pairing\PairingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\MD5.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
@@ -363,6 +392,10 @@
       <Project>{A0C2A02F-A33B-4869-ADC3-1A48743E26B2}</Project>
       <Name>Clarity.PageTransitions %28WP8%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Komodex.Bonjour %28WP8%29\Komodex.Bonjour %28WP8%29.csproj">
+      <Project>{357BA6E8-4239-4C7C-8A92-D5E6A878EB15}</Project>
+      <Name>Komodex.Bonjour %28WP8%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibraries\Komodex.Common %28WP8%29\Komodex.Common %28WP8%29.csproj">
       <Project>{47446A40-33DF-47E4-9071-23AF4B2C7006}</Project>
       <Name>Komodex.Common %28WP8%29</Name>
@@ -370,6 +403,10 @@
     <ProjectReference Include="..\CommonLibraries\Komodex.Common.Phone.UI %28WP8%29\Komodex.Common.Phone.UI %28WP8%29.csproj">
       <Project>{ED7B21D3-43C4-4699-977F-E6043E4BE516}</Project>
       <Name>Komodex.Common.Phone.UI %28WP8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Komodex.HTTP %28WP8%29\Komodex.HTTP %28WP8%29.csproj">
+      <Project>{ED2A21FB-464A-4287-9F8B-B308CC35F8C3}</Project>
+      <Name>Komodex.HTTP %28WP8%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\CommonLibraries\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.WP8\Microsoft.Phone.Controls.Toolkit.WP8.csproj">
       <Project>{486642F0-AB94-4F28-B49C-106CA3134239}</Project>
@@ -403,16 +440,6 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Controls\StarRating.xaml">
       <Link>Controls\StarRating.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\AddLibraryPage.xaml">
-      <Link>DACPServerInfoManagement\AddLibraryPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\DACPServerInfoManagement\LibraryChooserPage.xaml">
-      <Link>DACPServerInfoManagement\LibraryChooserPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -501,11 +528,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\DACPServerViewModelSampleData.xaml">
-      <Link>SampleData\DACPServerViewModelSampleData.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
     <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\GenreSampleData.xaml">
       <Link>SampleData\GenreSampleData.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -518,6 +540,21 @@
     </DesignData>
     <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\PodcastSampleData.xaml">
       <Link>SampleData\PodcastSampleData.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\ChooseLibraryPage.xaml">
+      <Link>Pages\ChooseLibraryPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\ManualPairingPage.xaml">
+      <Link>Pages\Pairing\ManualPairingPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\ServerConnectionInfoCollection.xaml">
+      <Link>SampleData\ServerConnectionInfoCollection.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
@@ -550,6 +587,10 @@
       <Link>TrialMode\TrialReminderDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Pairing\PairingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\AppThemes.xaml">
       <SubType>Designer</SubType>

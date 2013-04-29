@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.DACP;
-using Komodex.Remote.DACPServerManagement;
 using Komodex.Remote.Localization;
 
 namespace Komodex.Remote.Controls
@@ -24,40 +23,7 @@ namespace Komodex.Remote.Controls
             LayoutRoot.DataContext = this;
         }
 
-        public ConnectingStatusControl(bool useServerManager)
-            : this()
-        {
-            if (useServerManager)
-            {
-                DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
-                DACPServer = DACPServerManager.Server;
-            }
-        }
-
         #region Properties
-
-        private DACPServer _DACPServer = null;
-        protected DACPServer DACPServer
-        {
-            get { return _DACPServer; }
-            set
-            {
-                if (_DACPServer != null)
-                {
-                    _DACPServer.ServerUpdate -= new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
-                }
-
-                _DACPServer = value;
-
-
-                if (_DACPServer != null)
-                {
-                    _DACPServer.ServerUpdate += new EventHandler<ServerUpdateEventArgs>(DACPServer_ServerUpdate);
-                }
-
-                UpdateFromServer();
-            }
-        }
 
         public bool ShowProgressBar
         {
@@ -82,53 +48,6 @@ namespace Komodex.Remote.Controls
         {
             get { return tbLibraryConnectionText.Text; }
             set { tbLibraryConnectionText.Text = value; }
-        }
-
-        #endregion
-
-        #region Event Handlers
-
-        void DACPServerManager_ServerChanged(object sender, EventArgs e)
-        {
-            DACPServer = DACPServerManager.Server;
-        }
-
-        void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
-        {
-            UpdateFromServer();
-        }
-
-        #endregion
-
-        #region Methods
-
-        public void UpdateFromServer()
-        {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                if (DACPServer == null)
-                {
-                    ShowProgressBar = false;
-                    LibraryConnectionText = LocalizedStrings.StatusTapChooseLibrary;
-                    LibraryName = string.Empty;
-                }
-                else if (!DACPServerManager.IsNetworkAvailable)
-                {
-                    ShowProgressBar = true;
-                    LibraryConnectionText = LocalizedStrings.WaitingForWiFiConnection;
-                    LibraryName = string.Empty;
-                }
-                else if (!DACPServer.IsConnected)
-                {
-                    ShowProgressBar = true;
-                    LibraryConnectionText = LocalizedStrings.StatusConnectingToLibrary;
-                    LibraryName = DACPServer.LibraryName;
-                }
-                else // Connected, this control shouldn't be visible at all
-                {
-                    ShowProgressBar = false;
-                }
-            });
         }
 
         #endregion

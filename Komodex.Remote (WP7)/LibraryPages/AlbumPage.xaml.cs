@@ -11,10 +11,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP.Library;
-using Komodex.Remote.DACPServerManagement;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -61,7 +61,7 @@ namespace Komodex.Remote.LibraryPages
 
             if (Album == null)
             {
-                Album = new Album(DACPServerManager.Server, albumID, albumName, artistName, albumPersistentID);
+                Album = new Album(ServerManager.CurrentServer, albumID, albumName, artistName, albumPersistentID);
                 if (Album.Server != null && Album.Server.IsConnected)
                     Album.GetSongs();
             }

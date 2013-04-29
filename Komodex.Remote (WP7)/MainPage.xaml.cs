@@ -11,13 +11,14 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
-using Komodex.Remote.DACPServerInfoManagement;
 using Microsoft.Phone.Shell;
-using Komodex.Remote.DACPServerManagement;
 using Komodex.DACP.Library;
 using Komodex.Common.Phone;
 using Komodex.Remote.TrialMode;
 using Komodex.Remote.Localization;
+using Komodex.Remote.ServerManagement;
+using Komodex.Remote.Pairing;
+using Komodex.Common;
 
 namespace Komodex.Remote
 {
@@ -26,6 +27,8 @@ namespace Komodex.Remote
         public MainPage()
         {
             InitializeComponent();
+
+            DisableConnectionStatusPopup = true;
 
             ApplicationBarClosedOpacity = 0.9;
             ApplicationBarOpenOpacity = 0.9;
@@ -46,6 +49,8 @@ namespace Komodex.Remote
 #endif
 
             Loaded += new RoutedEventHandler(MainPage_Loaded);
+
+            ServerManager.ConnectionStateChanged += (sender, e) => Utility.BeginInvokeOnUIThread(() => UpdateBindings());
         }
 
         protected bool _initialized;
@@ -60,24 +65,16 @@ namespace Komodex.Remote
             if (!TrialManager.Current.IsTrial)
                 return;
 
-            if (DACPServerViewModel.Instance.CurrentDACPServer == null)
-                return;
-
             TrialReminderDialog trialDialog = new TrialReminderDialog();
             trialDialog.Closed += new EventHandler<DialogControlClosedEventArgs>(trialDialog_Closed);
 
-            DACPServerManager.ShowPopups = false;
             ShowDialog(trialDialog);
         }
 
         private void trialDialog_Closed(object sender, DialogControlClosedEventArgs e)
         {
-            DACPServerManager.ShowPopups = true;
-
             if (e.Result == MessageBoxResult.OK)
                 return;
-
-            DACPServerManager.ConnectToServer();
         }
 
 #if DEBUG
@@ -113,6 +110,11 @@ namespace Komodex.Remote
             base.OnNavigatedTo(e);
             UpdateBindings();
             UpdateVisualState(false);
+
+            if (ServerManager.PairedServers.Count > 0)
+                DisableConnectionStatusPopup = false;
+            else
+                DisableConnectionStatusPopup = true;
 
             if (TrialManager.Current.IsTrial)
             {
@@ -168,9 +170,9 @@ namespace Komodex.Remote
             });
         }
 
-        protected override void DACPServerManager_ServerChanged(object sender, EventArgs e)
+        protected override void ServerManager_CurrentServerChanged(object sender, EventArgs e)
         {
-            base.DACPServerManager_ServerChanged(sender, e);
+            base.ServerManager_CurrentServerChanged(sender, e);
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 UpdateBindings();
@@ -194,7 +196,7 @@ namespace Komodex.Remote
 
             // Panel visibility
             ContentPanel.Visibility = (DACPServer != null && DACPServer.IsConnected) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            FirstStartPanel.Visibility = (DACPServer == null && DACPServerViewModel.Instance.Items.Count == 0) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            FirstStartPanel.Visibility = (DACPServer == null && ServerManager.PairedServers.Count == 0) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
         private void UpdateVisualState(bool useTransitions = true)
@@ -232,7 +234,11 @@ namespace Komodex.Remote
 
         private void btnAddLibrary_Click(object sender, RoutedEventArgs e)
         {
-            NavigationManager.OpenAddNewServerPage();
+#if WP7
+            NavigationManager.OpenManualPairingPage();
+#else
+            NavigationManager.OpenPairingPage();
+#endif
         }
 
         private void btnTrial_Click(object sender, RoutedEventArgs e)

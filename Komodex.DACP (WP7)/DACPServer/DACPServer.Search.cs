@@ -46,6 +46,9 @@ namespace Komodex.DACP
         {
             foreach (HTTPRequestInfo requestInfo in currentSearchRequests)
             {
+                lock (PendingHttpRequests)
+                    PendingHttpRequests.Remove(requestInfo);
+
                 try
                 {
                     requestInfo.WebRequest.Abort();

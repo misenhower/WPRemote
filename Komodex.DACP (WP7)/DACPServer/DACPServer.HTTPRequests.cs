@@ -81,12 +81,6 @@ namespace Komodex.DACP
 
             _log.Info("Got HTTP response for: " + requestInfo.WebRequest.RequestUri);
 
-            lock (PendingHttpRequests)
-            {
-                if (PendingHttpRequests.Contains(requestInfo))
-                    PendingHttpRequests.Remove(requestInfo);
-            }
-
             try
             {
                 WebResponse response = requestInfo.WebRequest.EndGetResponse(result);
@@ -135,7 +129,13 @@ namespace Komodex.DACP
                     _log.Debug("WebException Status: " + webException.Status.ToString());
 
                     if (webException.Status == WebExceptionStatus.RequestCanceled)
-                        return;
+                    {
+                        lock (PendingHttpRequests)
+                        {
+                            if (!PendingHttpRequests.Contains(requestInfo))
+                                return;
+                        }
+                    }
 
                     if (requestInfo.ExceptionHandlerDelegate != null)
                     {
@@ -152,6 +152,8 @@ namespace Komodex.DACP
             }
             finally
             {
+                lock (PendingHttpRequests)
+                    PendingHttpRequests.Remove(requestInfo);
                 UpdateGettingData();
             }
         }
@@ -261,7 +263,7 @@ namespace Komodex.DACP
 
         protected void SubmitLoginRequest()
         {
-            string url = "/login?pairing-guid=0x" + PairingKey;
+            string url = "/login?pairing-guid=0x" + PairingCode;
             SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessLoginResponse), false, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandleLoginException));
         }
 
@@ -361,9 +363,9 @@ namespace Komodex.DACP
 
         private void playStatusCancelTimer_Tick(object state)
         {
-            _log.Info("Canceling play status request...");
             if (UseDelayedResponseRequests && !Stopped)
             {
+                _log.Info("Canceling play status request...");
                 canceledPlayStatusRequestInfo = _playStatusRequestInfo;
                 _playStatusRequestInfo = null;
                 SubmitPlayStatusRequest();
@@ -372,8 +374,6 @@ namespace Komodex.DACP
 
         protected void HandlePlayStatusException(HTTPRequestInfo requestInfo, WebException e)
         {
-            _log.Info("Caught timed out play status response.");
-
             if (canceledPlayStatusRequestInfo == null || requestInfo != canceledPlayStatusRequestInfo)
             {
                 ConnectionError();
@@ -384,6 +384,8 @@ namespace Komodex.DACP
 
             if (e.Status != WebExceptionStatus.UnknownError)
                 ConnectionError();
+
+            _log.Info("Caught timed out play status response.");
         }
 
         // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well

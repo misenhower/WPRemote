@@ -10,18 +10,18 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
-using Komodex.Remote.DACPServerManagement;
 using Microsoft.Phone.Shell;
 using Clarity.Phone.Controls;
 using Komodex.Remote.Localization;
 using Komodex.Common.Phone;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote
 {
-    public class DACPServerBoundPhoneApplicationPage : PhoneApplicationBasePage
+    // TODO: This class needs a lot of cleanup.
+    public class DACPServerBoundPhoneApplicationPage : RemoteBasePage
     {
         public DACPServerBoundPhoneApplicationPage()
-            : base()
         {
             ApplicationBarOpenOpacity = 0.9;
             ApplicationBarClosedOpacity = 0.5;
@@ -126,7 +126,7 @@ namespace Komodex.Remote
 
         protected void AddChooseLibraryApplicationBarMenuItem()
         {
-            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, () => NavigationManager.OpenLibraryChooserPage());
+            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, () => NavigationManager.OpenChooseLibraryPage());
         }
 
         protected void AddAboutApplicationBarMenuItem()
@@ -147,10 +147,10 @@ namespace Komodex.Remote
         {
             base.OnNavigatedTo(e);
 
-            DACPServerManager.ServerChanged += new EventHandler(DACPServerManager_ServerChanged);
+            ServerManager.CurrentServerChanged += ServerManager_CurrentServerChanged;
 
-            if (DACPServer != DACPServerManager.Server)
-                DACPServer = DACPServerManager.Server;
+            if (DACPServer != ServerManager.CurrentServer)
+                DACPServer = ServerManager.CurrentServer;
             else
                 AttachServerEvents();
 
@@ -164,7 +164,7 @@ namespace Komodex.Remote
         {
             base.OnNavigatedFrom(e);
 
-            DACPServerManager.ServerChanged -= new EventHandler(DACPServerManager_ServerChanged);
+            ServerManager.CurrentServerChanged -= ServerManager_CurrentServerChanged;
             DetachServerEvents();
         }
 
@@ -172,9 +172,9 @@ namespace Komodex.Remote
 
         #region Event Handlers
 
-        protected virtual void DACPServerManager_ServerChanged(object sender, EventArgs e)
+        protected virtual void ServerManager_CurrentServerChanged(object sender, EventArgs e)
         {
-            DACPServer = DACPServerManager.Server;
+            DACPServer = ServerManager.CurrentServer;
             UpdateApplicationBarVisibility();
         }
 

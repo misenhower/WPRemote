@@ -19,8 +19,8 @@ using Komodex.Remote.Controls;
 using Komodex.Common;
 using System.IO;
 using Komodex.DACP;
-using Komodex.Remote.DACPServerManagement;
 using Komodex.Common.Phone.Controls;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote
 {
@@ -40,7 +40,7 @@ namespace Komodex.Remote
         public static void DACPInfoCrashReporterCallback(TextWriter writer)
         {
             writer.WriteLine("Library Information");
-            DACPServer server = DACPServerManager.Server;
+            DACPServer server = ServerManager.CurrentServer;
             if (server != null)
             {
                 writer.Write("-> Connection status: ");

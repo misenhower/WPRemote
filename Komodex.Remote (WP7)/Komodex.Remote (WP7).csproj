@@ -54,12 +54,14 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="mscorlib.Extensions" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutPage.xaml.cs">
@@ -85,15 +87,6 @@
     <Compile Include="Converters\CollapseIfLessThanTwoConverter.cs" />
     <Compile Include="Converters\LocalizedOffOnConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
-    <Compile Include="DACPServerInfoManagement\AddLibraryPage.xaml.cs">
-      <DependentUpon>AddLibraryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DACPServerInfoManagement\DACPServerInfo.cs" />
-    <Compile Include="DACPServerInfoManagement\DACPServerViewModel.cs" />
-    <Compile Include="DACPServerInfoManagement\LibraryChooserPage.xaml.cs">
-      <DependentUpon>LibraryChooserPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DACPServerManagement\DACPServerManager.cs" />
     <Compile Include="LibraryPages\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
@@ -144,9 +137,26 @@
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageBases\DACPServerBoundPhoneApplicationPage.cs" />
+    <Compile Include="PageBases\RemoteBasePage.cs" />
+    <Compile Include="Pages\ChooseLibraryPage.xaml.cs">
+      <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Pairing\ManualPairingPage.xaml.cs">
+      <DependentUpon>ManualPairingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pairing\DiscoveredPairingUtility.cs" />
+    <Compile Include="Pairing\ManualPairingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="SampleData\SampleDataClasses.cs" />
+    <Compile Include="ServerManagement\BonjourManager.cs" />
+    <Compile Include="ServerManagement\ConnectionStatusPopupManager.cs" />
+    <Compile Include="ServerManagement\NetworkManager.cs" />
+    <Compile Include="ServerManagement\ServerConnectionInfo.cs" />
+    <Compile Include="ServerManagement\ServerConnectionInfoCollection.cs" />
+    <Compile Include="ServerManagement\ServerConnectionState.cs" />
+    <Compile Include="ServerManagement\ServerManager.cs" />
+    <Compile Include="ServerManagement\ServerType.cs" />
     <Compile Include="Settings\ArtistClickAction.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Settings\SettingsPage.xaml.cs">
@@ -179,14 +189,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StarRating.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DACPServerInfoManagement\AddLibraryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DACPServerInfoManagement\LibraryChooserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +245,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NowPlaying\NowPlayingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ChooseLibraryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Pairing\ManualPairingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -380,6 +390,10 @@
       <Project>{6CA892BF-E192-4A00-A126-02F391C07556}</Project>
       <Name>Clarity.PageTransitions %28WP7%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CommonLibraries\Komodex.Bonjour %28WP7%29\Komodex.Bonjour %28WP7%29.csproj">
+      <Project>{41FC9483-C6E8-4DD1-B829-F33958E0D6BB}</Project>
+      <Name>Komodex.Bonjour %28WP7%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibraries\Komodex.Common.Phone.UI %28WP7%29\Komodex.Common.Phone.UI %28WP7%29.csproj">
       <Project>{5875BE74-8A86-4235-919E-1DAEC3F3BD5F}</Project>
       <Name>Komodex.Common.Phone.UI %28WP7%29</Name>
@@ -407,9 +421,6 @@
     <DesignData Include="SampleData\DACPServerSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
-    <DesignData Include="SampleData\DACPServerViewModelSampleData.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-    </DesignData>
     <DesignData Include="SampleData\GenreSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
@@ -417,6 +428,9 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
     <DesignData Include="SampleData\PodcastSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\ServerConnectionInfoCollection.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
   </ItemGroup>

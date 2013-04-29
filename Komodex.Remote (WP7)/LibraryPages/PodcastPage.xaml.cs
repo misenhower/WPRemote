@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP.Library;
-using Komodex.Remote.DACPServerManagement;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -48,7 +48,7 @@ namespace Komodex.Remote.LibraryPages
 
             if (Podcast == null)
             {
-                Podcast = new Podcast(DACPServerManager.Server, podcastID, podcastName, podcastPersistentID);
+                Podcast = new Podcast(ServerManager.CurrentServer, podcastID, podcastName, podcastPersistentID);
                 if (Podcast.Server != null && Podcast.Server.IsConnected)
                     Podcast.GetEpisodes();
             }

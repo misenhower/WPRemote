@@ -1,5 +1,5 @@
 ﻿using Komodex.Common;
-using Komodex.Remote.DACPServerInfoManagement;
+using Komodex.Remote.ServerManagement;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,9 +7,11 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace Komodex.Remote.Settings
 {
@@ -20,6 +22,9 @@ namespace Komodex.Remote.Settings
         private static readonly Log _log = new Log("Settings Updater");
 
         private static readonly IsolatedStorageSettings _settings = IsolatedStorageSettings.ApplicationSettings;
+
+        private static readonly Dictionary<Guid, string> _discoveredServerIDs = new Dictionary<Guid, string>();
+        private static Guid _selectedServerID;
 
         public static void CheckForUpdate()
         {
@@ -84,7 +89,7 @@ namespace Komodex.Remote.Settings
                                 break;
 
                             case "SelectedServerGuid":
-                                SaveValue("SelectedServerGuid", Guid.Parse(value));
+                                _selectedServerID = Guid.Parse(value);
                                 break;
 
                             case "SettingsRunUnderLock":
@@ -118,11 +123,15 @@ namespace Komodex.Remote.Settings
                                 break;
                         }
                     }
-                    catch
+                    catch (Exception e)
                     {
                         _log.Error("Exception while processing key '{0}'", key);
+                        _log.Debug("Exception details: " + e.ToString());
                     }
                 }
+
+                if (_selectedServerID != Guid.Empty && _discoveredServerIDs.ContainsKey(_selectedServerID))
+                    SaveValue("SelectedServerID", _discoveredServerIDs[_selectedServerID]);
 
                 _log.Info("Settings update complete.");
             }
@@ -131,13 +140,14 @@ namespace Komodex.Remote.Settings
 
         private static void HandleServerList(XElement node)
         {
-            // TODO: Will need to make sure this outputs a string of serialized server data rather than saving the object directly
-            ObservableCollection<DACPServerInfo> servers = new ObservableCollection<DACPServerInfo>();
+            ServerConnectionInfoCollection servers = new ServerConnectionInfoCollection();
 
             var serverNodes = node.Descendants().Where(n => n.Name.LocalName == "DACPServerInfo");
             foreach (var serverNode in serverNodes)
             {
-                DACPServerInfo serverInfo = new DACPServerInfo();
+                ServerConnectionInfo info = new ServerConnectionInfo();
+                Guid id = Guid.Empty;
+
                 var serverNodeDataNodes = serverNode.Descendants();
                 foreach (var serverNodeDataNode in serverNodeDataNodes)
                 {
@@ -147,31 +157,60 @@ namespace Komodex.Remote.Settings
                     switch (key)
                     {
                         case "ID":
-                            serverInfo.ID = Guid.Parse(value);
+                            id = Guid.Parse(value);
                             break;
 
                         case "ServiceID":
-                            serverInfo.ServiceID = value;
+                            info.ServiceID = value;
                             break;
 
                         case "HostName":
-                            serverInfo.HostName = value;
+                            // Look for a specified port
+                            int port = 3689;
+                            string[] hostParts = value.Split(':');
+                            if (hostParts.Length > 1)
+                                port = int.Parse(hostParts[1]);
+                            info.LastPort = port;
+                            // Determine whether this is an IP address or a hostname
+                            IPAddress ip;
+                            if (IPAddress.TryParse(hostParts[0], out ip))
+                                info.LastIPAddress = ip.ToString();
+                            info.LastHostname = hostParts[0];
                             break;
 
                         case "LibraryName":
-                            serverInfo.LibraryName=value;
+                            info.Name = value;
                             break;
 
                         case "PIN":
-                            serverInfo.PIN = int.Parse(value);
+                            int pin = int.Parse(value);
+                            info.PairingCode = string.Format("{0:0000}{0:0000}{0:0000}{0:0000}", pin);
                             break;
                     }
                 }
 
-                servers.Add(serverInfo);
+                // Check to see whether we have all the necessary parts
+                if (string.IsNullOrEmpty(info.ServiceID) || string.IsNullOrEmpty(info.LastHostname) || string.IsNullOrEmpty(info.PairingCode))
+                    continue;
+
+                // Store the old GUID for later
+                _discoveredServerIDs[id] = info.ServiceID;
+
+                // Make sure we don't have any duplicates
+                var oldInfo = servers.FirstOrDefault(s => s.ServiceID == info.ServiceID);
+                if (oldInfo != null)
+                    servers.Remove(oldInfo);
+
+                // Add the server to the list
+                servers.Add(info);
             }
 
-            SaveValue("DACPServerList", servers);
+            if (servers.Count > 0)
+            {
+                XmlSerializer xml = new XmlSerializer(typeof(ServerConnectionInfoCollection));
+                string serversXML = xml.SerializeToString(servers);
+                SaveValue("PairedServerList", serversXML);
+            }
         }
 
 

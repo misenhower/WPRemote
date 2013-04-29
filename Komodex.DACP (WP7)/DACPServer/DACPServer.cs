@@ -13,6 +13,7 @@ using System.Text;
 using System.Linq;
 using Komodex.Common;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace Komodex.DACP
 {
@@ -22,35 +23,27 @@ namespace Komodex.DACP
 
         private DACPServer()
         {
-            timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
-            timerTrackTimeUpdate.Tick += new EventHandler(timerTrackTimeUpdate_Tick);
+            Utility.BeginInvokeOnUIThread(() =>
+            {
+                timerTrackTimeUpdate = new DispatcherTimer();
+                timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
+                timerTrackTimeUpdate.Tick += new EventHandler(timerTrackTimeUpdate_Tick);
+            });
 
             _playStatusCancelTimer = new Timer(playStatusCancelTimer_Tick);
         }
 
-        public DACPServer(Guid id, string hostName, string pairingKey)
+        public DACPServer(string hostname, int port, string pairingCode)
             : this()
         {
             string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;
             if (!assemblyName.StartsWith("Komodex.Remote,"))
                 throw new Exception();
 
-            ID = id;
-            HostName = hostName;
-            PairingKey = pairingKey;
-        }
-
-        public DACPServer(string hostName, string pairingKey)
-            //: this(Guid.Empty, hostName, pairingKey)
-            : this()
-        {
-            string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;
-            if (!assemblyName.StartsWith("Komodex.Remote,"))
-                throw new Exception();
-
-            ID = Guid.Empty;
-            HostName = hostName;
-            PairingKey = pairingKey;
+            _hostname = hostname;
+            _port = port;
+            UpdateHTTPPrefix();
+            PairingCode = pairingCode;
         }
 
         public static string GetAssemblyName()
@@ -68,28 +61,40 @@ namespace Komodex.DACP
 
         #region Properties
 
-        public Guid ID { get; protected set; }
-
-        private string _HostName = null;
-        public string HostName
+        private string _hostname;
+        public string Hostname
         {
-            get { return _HostName; }
-            protected set
+            get { return _hostname; }
+            set
             {
-                _HostName = value;
-                HTTPPrefix = null;
-                if (_HostName == null)
+                if (_hostname == value)
                     return;
 
-                HTTPPrefix = "http://" + _HostName;
-
-                // If the hostname doesn't contain a colon, add the default DACP port
-                if (!_HostName.Contains(':'))
-                    HTTPPrefix += ":3689";
+                _hostname = value;
+                UpdateHTTPPrefix();
             }
         }
 
-        public string PairingKey { get; protected set; }
+        private int _port = 3689;
+        public int Port
+        {
+            get { return _port; }
+            set
+            {
+                if (_port == value)
+                    return;
+
+                _port = value;
+                UpdateHTTPPrefix();
+            }
+        }
+
+        protected void UpdateHTTPPrefix()
+        {
+            HTTPPrefix = "http://" + Hostname + ":" + Port;
+        }
+
+        public string PairingCode { get; protected set; }
 
         public int SessionID { get; protected set; }
 
@@ -126,9 +131,14 @@ namespace Komodex.DACP
 
             try
             {
-                var tempRequests = PendingHttpRequests.ToList();
+                List<HTTPRequestInfo> oldRequests;
+                lock (PendingHttpRequests)
+                {
+                    oldRequests = PendingHttpRequests.ToList();
+                    PendingHttpRequests.Clear();
+                }
 
-                foreach (HTTPRequestInfo request in tempRequests)
+                foreach (HTTPRequestInfo request in oldRequests)
                 {
                     try
                     {
@@ -138,11 +148,6 @@ namespace Komodex.DACP
                 }
             }
             catch { }
-
-            lock (PendingHttpRequests)
-            {
-                PendingHttpRequests.Clear();
-            }
         }
 
         #endregion

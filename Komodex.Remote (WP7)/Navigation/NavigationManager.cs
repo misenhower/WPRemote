@@ -68,14 +68,21 @@ namespace Komodex.Remote
             RootVisual.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
-        public static void OpenLibraryChooserPage()
+        public static void OpenChooseLibraryPage()
         {
-            RootVisual.Navigate(new Uri("/DACPServerInfoManagement/LibraryChooserPage.xaml", UriKind.Relative));
+            RootVisual.Navigate(new Uri("/Pages/ChooseLibraryPage.xaml", UriKind.Relative));
         }
 
-        public static void OpenAddNewServerPage()
+#if WP8
+        public static void OpenPairingPage()
         {
-            RootVisual.Navigate(new Uri("/DACPServerInfoManagement/AddLibraryPage.xaml", UriKind.Relative));
+            RootVisual.Navigate(new Uri("/Pages/Pairing/PairingPage.xaml", UriKind.Relative));
+        }
+#endif
+
+        public static void OpenManualPairingPage()
+        {
+            RootVisual.Navigate(new Uri("/Pages/Pairing/ManualPairingPage.xaml", UriKind.Relative));
         }
 
         public static void OpenArtistPage(string artistName)
