@@ -35,25 +35,31 @@ namespace Komodex.Remote.ServerManagement
 
         public static void AddServerInfo(ServerConnectionInfo info)
         {
-            _log.Info("Saving server info: {0} ({1})", info.ServiceID, info.Name);
+            Utility.BeginInvokeOnUIThread(() =>
+            {
+                _log.Info("Saving server info: {0} ({1})", info.ServiceID, info.Name);
 
-            var oldServerInfo = PairedServers.FirstOrDefault(si => si.ServiceID == info.ServiceID);
-            if (oldServerInfo != null)
-                RemoveServerInfo(oldServerInfo);
+                var oldServerInfo = PairedServers.FirstOrDefault(si => si.ServiceID == info.ServiceID);
+                if (oldServerInfo != null)
+                    RemoveServerInfo(oldServerInfo);
 
-            PairedServers.Add(info);
+                PairedServers.Add(info);
 
-            info.IsAvailable = BonjourManager.DiscoveredServers.ContainsKey(info.ServiceID);
+                info.IsAvailable = BonjourManager.DiscoveredServers.ContainsKey(info.ServiceID);
+            });
         }
 
         public static void RemoveServerInfo(ServerConnectionInfo info)
         {
-            _log.Info("Removing server info: {0} ({1})", info.ServiceID, info.Name);
+            Utility.BeginInvokeOnUIThread(() =>
+            {
+                _log.Info("Removing server info: {0} ({1})", info.ServiceID, info.Name);
 
-            if (SelectedServerInfo == info)
-                ChooseServer(null);
+                if (SelectedServerInfo == info)
+                    ChooseServer(null);
 
-            PairedServers.Remove(info);
+                PairedServers.Remove(info);
+            });
         }
 
         #endregion

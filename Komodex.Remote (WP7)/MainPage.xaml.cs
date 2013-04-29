@@ -17,6 +17,8 @@ using Komodex.Common.Phone;
 using Komodex.Remote.TrialMode;
 using Komodex.Remote.Localization;
 using Komodex.Remote.ServerManagement;
+using Komodex.Remote.Pairing;
+using Komodex.Common;
 
 namespace Komodex.Remote
 {
@@ -47,6 +49,8 @@ namespace Komodex.Remote
 #endif
 
             Loaded += new RoutedEventHandler(MainPage_Loaded);
+
+            ServerManager.ConnectionStateChanged += (sender, e) => Utility.BeginInvokeOnUIThread(() => UpdateBindings());
         }
 
         protected bool _initialized;
@@ -230,7 +234,11 @@ namespace Komodex.Remote
 
         private void btnAddLibrary_Click(object sender, RoutedEventArgs e)
         {
+#if WP7
             NavigationManager.OpenManualPairingPage();
+#else
+            NavigationManager.OpenPairingPage();
+#endif
         }
 
         private void btnTrial_Click(object sender, RoutedEventArgs e)

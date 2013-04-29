@@ -278,6 +278,9 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Utilities\StateUtils.cs">
       <Link>Utilities\StateUtils.cs</Link>
     </Compile>
+    <Compile Include="Pages\Pairing\PairingPage.xaml.cs">
+      <DependentUpon>PairingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pairing\PairingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\MD5.cs" />
@@ -584,6 +587,10 @@
       <Link>TrialMode\TrialReminderDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Pairing\PairingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\AppThemes.xaml">
       <SubType>Designer</SubType>

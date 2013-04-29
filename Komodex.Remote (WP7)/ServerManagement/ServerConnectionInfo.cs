@@ -90,4 +90,14 @@ namespace Komodex.Remote.ServerManagement
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
+
+    public class ServerConnectionInfoEventArgs : EventArgs
+    {
+        public ServerConnectionInfoEventArgs(ServerConnectionInfo info)
+        {
+            ConnectionInfo = info;
+        }
+
+        public ServerConnectionInfo ConnectionInfo { get; protected set; }
+    }
 }

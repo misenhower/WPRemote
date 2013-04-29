@@ -27,6 +27,8 @@ namespace Komodex.Remote.Pairing
 
         private static Random _random = new Random();
 
+        public static event EventHandler<ServerConnectionInfoEventArgs> PairingComplete;
+
         #region Properties
 
         private static readonly Setting<string> _hostname = new Setting<string>("PairingHostname");
@@ -181,10 +183,8 @@ namespace Komodex.Remote.Pairing
                 info.PairingCode = pairingCode.ToString("X16");
 
                 ServerManager.AddServerInfo(info);
-                ServerManager.ChooseServer(info);
 
-                // TODO: Send event
-                // TODO: Don't add server/just allow the event handler to do this?
+                PairingComplete.Raise(null, new ServerConnectionInfoEventArgs(info));
             }
             else
             {

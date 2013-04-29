@@ -73,6 +73,13 @@ namespace Komodex.Remote
             RootVisual.Navigate(new Uri("/Pages/ChooseLibraryPage.xaml", UriKind.Relative));
         }
 
+#if WP8
+        public static void OpenPairingPage()
+        {
+            RootVisual.Navigate(new Uri("/Pages/Pairing/PairingPage.xaml", UriKind.Relative));
+        }
+#endif
+
         public static void OpenManualPairingPage()
         {
             RootVisual.Navigate(new Uri("/Pages/Pairing/ManualPairingPage.xaml", UriKind.Relative));
