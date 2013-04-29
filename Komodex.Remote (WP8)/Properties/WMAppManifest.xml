@@ -14,9 +14,9 @@
     <Tokens>
       <PrimaryToken TokenID="Komodex.Remote__WP8_Token" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\AppTileSmall.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\AppTileMedium.png</BackgroundImageURI>
           <Title>Remote</Title>
           <BackContent>
           </BackContent>
