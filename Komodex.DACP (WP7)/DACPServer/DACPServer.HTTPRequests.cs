@@ -359,33 +359,37 @@ namespace Komodex.DACP
         // Also, it appears that the web exception's status will NOT be set to WebExceptionStatus.Timeout
         // To get around the session ending issue, I am re-requesting the play status every 45 seconds.
 
-        protected HTTPRequestInfo canceledPlayStatusRequestInfo = null;
-
         private void playStatusCancelTimer_Tick(object state)
         {
             if (UseDelayedResponseRequests && !Stopped)
             {
                 _log.Info("Canceling play status request...");
-                canceledPlayStatusRequestInfo = _playStatusRequestInfo;
+                var requestInfo = _playStatusRequestInfo;
                 _playStatusRequestInfo = null;
+
+                // Ignore any response we get for this request in case it isn't cancelled immediately
+                requestInfo.ResponseHandlerDelegate = null;
+
+                // Remove it from the list of pending HTTP requests
+                lock (PendingHttpRequests)
+                    PendingHttpRequests.Remove(requestInfo);
+
+                // Submitting a new play status request will cause iTunes to abort the previous one without ending the session
                 SubmitPlayStatusRequest();
             }
         }
 
         protected void HandlePlayStatusException(HTTPRequestInfo requestInfo, WebException e)
         {
-            if (canceledPlayStatusRequestInfo == null || requestInfo != canceledPlayStatusRequestInfo)
+            // If we've canceled this request, ignore any exceptions
+            if (requestInfo.ResponseHandlerDelegate == null)
             {
-                ConnectionError();
+                _log.Info("Caught timed out play status response.");
                 return;
             }
 
-            canceledPlayStatusRequestInfo = null;
-
-            if (e.Status != WebExceptionStatus.UnknownError)
-                ConnectionError();
-
-            _log.Info("Caught timed out play status response.");
+            // Otherwise, this is a legitimate connection error
+            ConnectionError();
         }
 
         // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well
