@@ -17,17 +17,12 @@ namespace Komodex.Remote
 {
     public static class NavigationManager
     {
-        private static PhoneApplicationFrame RootVisual { get; set; }
-
-        public static void DoFirstLoad(PhoneApplicationFrame frame)
+        private static void Navigate(string uri)
         {
-            RootVisual = frame;
-
-            RootVisual.Navigated += new System.Windows.Navigation.NavigatedEventHandler(RootVisual_Navigated);
-        }
-
-        static void RootVisual_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
-        {
+            Utility.BeginInvokeOnUIThread(() =>
+            {
+                App.RootFrame.Navigate(new Uri(uri, UriKind.Relative));
+            });
         }
 
         #region Pages
@@ -39,15 +34,15 @@ namespace Komodex.Remote
                 // Accessing RootVisual.BackStack can throw a NullReferenceException (rather than simply returning null)
                 try
                 {
-                    if (RootVisual == null || RootVisual.BackStack == null)
+                    if (App.RootFrame == null || App.RootFrame.BackStack == null)
                         return;
                 }
                 catch { return; }
 
-                int remaining = RootVisual.BackStack.Count();
+                int remaining = App.RootFrame.BackStack.Count();
                 while (remaining > 1)
                 {
-                    RootVisual.RemoveBackEntry();
+                    App.RootFrame.RemoveBackEntry();
                     remaining--;
                 }
             });
@@ -58,108 +53,108 @@ namespace Komodex.Remote
             Utility.BeginInvokeOnUIThread(() =>
             {
                 ClearPageHistory();
-                if (RootVisual.CanGoBack)
-                    RootVisual.GoBack();
+                if (App.RootFrame.CanGoBack)
+                    App.RootFrame.GoBack();
             });
         }
 
         public static void OpenMainPage()
         {
-            RootVisual.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            Navigate("/MainPage.xaml");
         }
 
         public static void OpenChooseLibraryPage()
         {
-            RootVisual.Navigate(new Uri("/Pages/ChooseLibraryPage.xaml", UriKind.Relative));
+            Navigate("/Pages/ChooseLibraryPage.xaml");
         }
 
 #if WP8
         public static void OpenPairingPage()
         {
-            RootVisual.Navigate(new Uri("/Pages/Pairing/PairingPage.xaml", UriKind.Relative));
+            Navigate("/Pages/Pairing/PairingPage.xaml");
         }
 #endif
 
         public static void OpenManualPairingPage()
         {
-            RootVisual.Navigate(new Uri("/Pages/Pairing/ManualPairingPage.xaml", UriKind.Relative));
+            Navigate("/Pages/Pairing/ManualPairingPage.xaml");
         }
 
         public static void OpenArtistPage(string artistName)
         {
             artistName = Uri.EscapeDataString(artistName);
-            RootVisual.Navigate(new Uri("/LibraryPages/ArtistPage.xaml?name=" + artistName, UriKind.Relative));
+            Navigate("/LibraryPages/ArtistPage.xaml?name=" + artistName);
         }
 
         public static void OpenAlbumPage(int albumID, string albumName, string artistName, UInt64 albumPersistentID)
         {
             albumName = Uri.EscapeDataString(albumName);
             artistName = Uri.EscapeDataString(artistName);
-            RootVisual.Navigate(new Uri("/LibraryPages/AlbumPage.xaml?id=" + albumID + "&name=" + albumName + "&artist=" + artistName + "&perid=" + albumPersistentID, UriKind.Relative));
+            Navigate("/LibraryPages/AlbumPage.xaml?id=" + albumID + "&name=" + albumName + "&artist=" + artistName + "&perid=" + albumPersistentID);
         }
 
         public static void OpenGenrePage(string genreName)
         {
             genreName = Uri.EscapeDataString(genreName);
-            RootVisual.Navigate(new Uri("/LibraryPages/GenrePage.xaml?name=" + genreName, UriKind.Relative));
+            Navigate("/LibraryPages/GenrePage.xaml?name=" + genreName);
         }
 
         public static void OpenPlaylistPage(int playlistID, string playlistName, UInt64 playlistPersistentID)
         {
             playlistName = Uri.EscapeDataString(playlistName);
-            RootVisual.Navigate(new Uri("/LibraryPages/PlaylistPage.xaml?id=" + playlistID + "&name=" + playlistName + "&perid=" + playlistPersistentID, UriKind.Relative));
+            Navigate("/LibraryPages/PlaylistPage.xaml?id=" + playlistID + "&name=" + playlistName + "&perid=" + playlistPersistentID);
         }
 
         public static void OpenNowPlayingPage()
         {
-            RootVisual.Navigate(new Uri("/NowPlaying/NowPlayingPage.xaml", UriKind.Relative));
+            Navigate("/NowPlaying/NowPlayingPage.xaml");
         }
 
         public static void OpenMainLibraryPage()
         {
-            RootVisual.Navigate(new Uri("/LibraryPages/MainLibraryPage.xaml", UriKind.Relative));
+            Navigate("/LibraryPages/MainLibraryPage.xaml");
         }
 
         public static void OpenSearchPage()
         {
-            RootVisual.Navigate(new Uri("/LibraryPages/SearchPage.xaml", UriKind.Relative));
+            Navigate("/LibraryPages/SearchPage.xaml");
         }
 
         public static void OpenAboutPage()
         {
-            RootVisual.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
+            Navigate("/AboutPage.xaml");
         }
 
         public static void OpenAboutPage(string iTunesVersion, int iTunesProtocolVersion, int iTunesDMAPVersion, int iTunesDAAPVersion)
         {
             iTunesVersion = Uri.EscapeDataString(iTunesVersion);
-            RootVisual.Navigate(new Uri("/AboutPage.xaml?version=" + iTunesVersion + "&protocol=" + iTunesProtocolVersion + "&dmap=" + iTunesDMAPVersion + "&daap=" + iTunesDAAPVersion, UriKind.Relative));
+            Navigate("/AboutPage.xaml?version=" + iTunesVersion + "&protocol=" + iTunesProtocolVersion + "&dmap=" + iTunesDMAPVersion + "&daap=" + iTunesDAAPVersion);
         }
 
         public static void OpenVideosPage()
         {
-            RootVisual.Navigate(new Uri("/LibraryPages/VideosPage.xaml", UriKind.Relative));
+            Navigate("/LibraryPages/VideosPage.xaml");
         }
 
         public static void OpenPodcastsPage()
         {
-            RootVisual.Navigate(new Uri("/LibraryPages/PodcastsPage.xaml", UriKind.Relative));
+            Navigate("/LibraryPages/PodcastsPage.xaml");
         }
 
         public static void OpenPodcastPage(int podcastID, string podcastName, UInt64 podcastPersistentID)
         {
             podcastName = Uri.EscapeDataString(podcastName);
-            RootVisual.Navigate(new Uri("/LibraryPages/PodcastPage.xaml?id=" + podcastID + "&name=" + podcastName + "&perid=" + podcastPersistentID, UriKind.Relative));
+            Navigate("/LibraryPages/PodcastPage.xaml?id=" + podcastID + "&name=" + podcastName + "&perid=" + podcastPersistentID);
         }
 
         public static void OpenSettingsPage()
         {
-            RootVisual.Navigate(new Uri("/Settings/SettingsPage.xaml", UriKind.Relative));
+            Navigate("/Settings/SettingsPage.xaml");
         }
 
         public static void OpenGeniusMixesPage()
         {
-            RootVisual.Navigate(new Uri("/LibraryPages/GeniusMixesPage.xaml", UriKind.Relative));
+            Navigate("/LibraryPages/GeniusMixesPage.xaml");
         }
 
         #endregion

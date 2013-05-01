@@ -86,9 +86,6 @@ namespace Komodex.Remote
             PhoneAppCrashReporter.Initialize(this, RootFrame);
             CrashReporter.AdditionalLogInfoCallbacks.Add(RemoteUtility.DACPInfoCrashReporterCallback);
 
-            // Set up hooks
-            NavigationManager.DoFirstLoad(RootFrame);
-
             ServerManager.Initialize();
             NetworkManager.Initialize();
             BonjourManager.Initialize();
