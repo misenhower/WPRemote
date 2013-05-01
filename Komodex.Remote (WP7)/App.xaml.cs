@@ -45,6 +45,12 @@ namespace Komodex.Remote
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
+            // Standard XAML initialization
+            InitializeComponent();
+
+            // Phone-specific initialization
+            InitializePhoneApplication();
+
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -58,16 +64,16 @@ namespace Komodex.Remote
                 // which shows areas of a page that are being GPU accelerated with a colored overlay.
                 //Application.Current.Host.Settings.EnableCacheVisualization = true;
 
+                // Prevent the screen from turning off while under the debugger by disabling
+                // the application's idle detection.
+                // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
+                // and consume battery power when the user is not using the phone.
+                PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
+
 #if DEBUG
                 Komodex.Remote.Controls.MemoryCounters.Show();
 #endif
             }
-
-            // Standard Silverlight initialization
-            InitializeComponent();
-
-            // Phone-specific initialization
-            InitializePhoneApplication();
 
             RemoteUtility.Initialize();
 
