@@ -29,23 +29,73 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <controls:WizardControl>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <controls:WizardControl x:Name="wizard">
                 <controls:WizardItem>
-                    <Grid>
+                    <StackPanel>
                         <TextBlock Text="Page 1" Style="{StaticResource PhoneTextLargeStyle}" />
-                    </Grid>
+                        <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at magna nec libero interdum mattis. Vivamus eu tortor mi. Donec pulvinar porta egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida elit et arcu semper vitae bibendum neque tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sagittis est quis nisl dictum lobortis. Donec iaculis lorem sit amet urna sollicitudin at tempor velit venenatis. Fusce in nibh nisl, id lacinia massa. Cras dictum neque in diam consequat sed semper purus posuere. Vestibulum augue sapien, commodo quis feugiat vitae, fermentum nec purus. Cras a massa dui. Donec egestas, augue in luctus vulputate, ligula arcu luctus nisi, at fringilla elit leo vitae turpis. Ut velit felis, malesuada ac condimentum sed, vestibulum quis ipsum. Cras ut diam non neque euismod hendrerit. In cursus pharetra felis, vitae mollis nunc molestie non.
+                        </TextBlock>
+                    </StackPanel>
                 </controls:WizardItem>
                 <controls:WizardItem>
-                    <Grid>
+                    <StackPanel>
                         <TextBlock Text="Page 2" Style="{StaticResource PhoneTextLargeStyle}" />
-                    </Grid>
+                        <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget purus dui, in imperdiet odio. Suspendisse sit amet fermentum justo. Fusce auctor orci at elit tempus lacinia sodales purus pulvinar. In vel tristique urna. Sed in mi nisl, in sollicitudin augue. Curabitur in lacus ac ante sodales pharetra. Aliquam erat volutpat. Donec non porttitor tellus. Pellentesque elementum molestie mi, ac vehicula erat commodo a. Suspendisse ac arcu massa. Aenean lacinia ipsum lorem, at eleifend risus. Vestibulum luctus, arcu eu blandit aliquam, enim magna egestas ipsum, eget venenatis mauris metus at leo. Integer ac augue mauris, eget sollicitudin purus. Nulla blandit, massa sed pretium facilisis, ligula purus rutrum nisl, quis lobortis erat elit nec turpis. Integer at tellus nec nisl auctor fermentum et eget dolor. Pellentesque eget laoreet orci.
+                        </TextBlock>
+                    </StackPanel>
                 </controls:WizardItem>
                 <controls:WizardItem>
-                    <Grid>
+                    <StackPanel>
                         <TextBlock Text="Page 3" Style="{StaticResource PhoneTextLargeStyle}" />
-                    </Grid>
+                        <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tincidunt ultricies elementum. Nunc ac eros nec ligula egestas pretium congue non sapien. Sed blandit pellentesque felis, a consectetur turpis pretium vestibulum. Duis tortor elit, consectetur eu facilisis a, pellentesque sed nibh. Vivamus in erat non velit eleifend venenatis. Nunc quis diam facilisis ipsum tempor ultricies a ut odio. Quisque tincidunt lacinia blandit. Proin accumsan iaculis molestie. Praesent at nibh egestas libero sollicitudin faucibus et nec est. Nulla rutrum scelerisque metus sed dignissim. Duis eu libero risus.
+                        </TextBlock>
+                    </StackPanel>
+                </controls:WizardItem>
+                <controls:WizardItem>
+                    <StackPanel>
+                        <TextBlock Text="Page 4" Style="{StaticResource PhoneTextLargeStyle}" />
+                        <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lobortis rhoncus purus, eu sodales turpis consequat vitae. Quisque nisl tortor, lacinia ut ornare sit amet, suscipit id orci. Curabitur dolor quam, scelerisque at dignissim nec, porta vitae mi. Nunc tincidunt risus enim, eget scelerisque enim. Aliquam porttitor pellentesque sapien eget rhoncus. Suspendisse est metus, commodo eget hendrerit vitae, dapibus ut erat. Donec nisi mi, volutpat id vulputate id, elementum faucibus purus. Duis et urna nulla, vel dictum arcu. Nullam vitae iaculis nunc. Nullam lobortis congue augue, vel pretium orci molestie eget. Morbi malesuada nulla euismod felis accumsan pulvinar. Vestibulum cursus pharetra volutpat. Cras at aliquet arcu. Praesent ut est dignissim erat lobortis luctus. Nunc auctor fringilla nunc nec lacinia.
+                        </TextBlock>
+                    </StackPanel>
                 </controls:WizardItem>
             </controls:WizardControl>
+            
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource PhoneTextNormalStyle}" Text="Animated" />
+                <TextBlock Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource PhoneTextNormalStyle}" Text="Instant" />
+                
+                <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Content="#1" Tag="1" Click="AnimatedNavigationButton_Click" />
+                    <Button Content="#2" Tag="2" Click="AnimatedNavigationButton_Click" />
+                    <Button Content="#3" Tag="3" Click="AnimatedNavigationButton_Click" />
+                    <Button Content="#4" Tag="4" Click="AnimatedNavigationButton_Click" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Content="#1" Tag="1" Click="InstantNavigationButton_Click" />
+                    <Button Content="#2" Tag="2" Click="InstantNavigationButton_Click" />
+                    <Button Content="#3" Tag="3" Click="InstantNavigationButton_Click" />
+                    <Button Content="#4" Tag="4" Click="InstantNavigationButton_Click" />
+                </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 
