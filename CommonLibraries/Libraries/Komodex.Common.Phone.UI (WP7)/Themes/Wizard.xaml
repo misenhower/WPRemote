@@ -26,6 +26,7 @@
     </Style>
     
     <Style TargetType="controls:WizardItem">
+        <Setter Property="CacheMode" Value="BitmapCache" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
     </Style>

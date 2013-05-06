@@ -241,13 +241,14 @@ namespace Komodex.Common.Phone.Controls
             DoubleAnimation itemAnimation = new DoubleAnimation();
             itemAnimation.Duration = duration;
             itemAnimation.EasingFunction = _animationEasingFunction;
+            itemAnimation.To = destX;
             Storyboard.SetTarget(itemAnimation, oldItem.RenderTransform);
             Storyboard.SetTargetProperty(itemAnimation, new PropertyPath(TranslateTransform.XProperty));
             _currentStoryboard.Children.Add(itemAnimation);
-            itemAnimation.To = destX;
             _currentStoryboard.Completed += (s1, e1) =>
             {
                 oldItem.Visibility = System.Windows.Visibility.Collapsed;
+                _currentStoryboard.Stop();
 
                 // Get the new item
                 int newIndex = _selectedIndex;
@@ -265,12 +266,14 @@ namespace Komodex.Common.Phone.Controls
                 itemAnimation = new DoubleAnimation();
                 itemAnimation.Duration = duration;
                 itemAnimation.EasingFunction = _animationEasingFunction;
+                itemAnimation.To = 0;
                 Storyboard.SetTarget(itemAnimation, newItem.RenderTransform);
                 Storyboard.SetTargetProperty(itemAnimation, new PropertyPath(TranslateTransform.XProperty));
                 _currentStoryboard.Children.Add(itemAnimation);
-                itemAnimation.To = 0;
                 _currentStoryboard.Completed += (s2, e2) =>
                 {
+                    ((TranslateTransform)newItem.RenderTransform).X = 0;
+                    _currentStoryboard.Stop();
                     _currentStoryboard = null;
                     SetSelectedIndex(newIndex, _selectedIndex);
                 };
