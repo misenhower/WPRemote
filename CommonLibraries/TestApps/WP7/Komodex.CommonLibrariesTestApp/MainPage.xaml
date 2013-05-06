@@ -41,15 +41,19 @@
                                  Margin="0,0,0,12"
                                  NavigateUri="/Bonjour/BonjourTests.xaml"
                                  Style="{StaticResource HyperlinkStyle}" />
-                <HyperlinkButton Content="List Tests"
-                                 Margin="0,0,0,12"
-                                 NavigateUri="/Lists/ListTests.xaml"
-                                 Style="{StaticResource HyperlinkStyle}" />
                 <HyperlinkButton x:Name="httpLink"
                                  Visibility="Collapsed"
                                  Content="HTTP Tests"
                                  Margin="0,0,0,12"
                                  NavigateUri="/HTTP/HttpTestPage.xaml"
+                                 Style="{StaticResource HyperlinkStyle}" />
+                <HyperlinkButton Content="List Tests"
+                                 Margin="0,0,0,12"
+                                 NavigateUri="/Lists/ListTests.xaml"
+                                 Style="{StaticResource HyperlinkStyle}" />
+                <HyperlinkButton Content="WizardControl Tests"
+                                 Margin="0,0,0,12"
+                                 NavigateUri="/WizardControl/WizardControlTestPage.xaml"
                                  Style="{StaticResource HyperlinkStyle}" />
             </StackPanel>
         </Grid>

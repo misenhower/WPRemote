@@ -53,7 +53,9 @@
   <ItemGroup>
     <Compile Include="Controls\LongListSelectorEx.cs" />
     <Compile Include="Controls\NumericTextBox.cs" />
+    <Compile Include="Controls\WizardControl.cs" />
     <Compile Include="Controls\StandardControls.cs" />
+    <Compile Include="Controls\WizardItem.cs" />
     <Compile Include="Phone\DialogUserControlBase.cs" />
     <Compile Include="Analytics\PhoneAppCrashReporter.cs" />
     <Compile Include="Phone\PhoneApplicationBasePage.cs" />
@@ -81,6 +83,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\LongListSelectorEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Wizard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

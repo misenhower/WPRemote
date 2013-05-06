@@ -95,6 +95,12 @@
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\StandardControls.cs">
       <Link>Controls\StandardControls.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\WizardControl.cs">
+      <Link>Controls\WizardControl.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\WizardItem.cs">
+      <Link>Controls\WizardItem.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Phone\DialogUserControlBase.cs">
       <Link>Phone\DialogUserControlBase.cs</Link>
     </Compile>
@@ -109,6 +115,11 @@
   <ItemGroup>
     <Page Include="..\Komodex.Common.Phone.UI %28WP7%29\Themes\Generic.xaml">
       <Link>Themes\Generic.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Common.Phone.UI %28WP7%29\Themes\Wizard.xaml">
+      <Link>Themes\Wizard.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
