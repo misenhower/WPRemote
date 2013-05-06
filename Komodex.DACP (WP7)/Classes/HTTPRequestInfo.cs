@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 using Komodex.Common;
+using System.Text;
 
 namespace Komodex.DACP
 {
@@ -44,7 +45,7 @@ namespace Komodex.DACP
             {
                 _ResponseBody = value;
 #if DEBUG
-                if (_log.EffectiveLevel >= LogLevel.Debug)
+                if (_log.EffectiveLevel <= LogLevel.Trace)
                     PrintDebugBytes();
 #endif
             }
@@ -65,23 +66,25 @@ namespace Komodex.DACP
 
         private void PrintDebugBytes()
         {
-            PrintDebugBytes(ResponseCode, ResponseBody, 1);
+            _log.Trace(GetDebugBytes(ResponseCode, ResponseBody, 1));
         }
 
-        private void PrintDebugBytes(string code, byte[] body, int tabLevel)
+        private string GetDebugBytes(string code, byte[] body, int tabLevel, StringBuilder sb=null)
         {
             string debugText;
             string tab1 = new string('\t', tabLevel - 1);
             string tab2 = new string('\t', tabLevel);
 
-            _log.Debug(string.Format(tab1 + "{0}[{1,3}] +++", code, body.Length));
+            if (sb == null)
+                sb = new StringBuilder("Response content:\n");
+            sb.AppendFormat(tab1 + "{0}[{1,3}] +++", code, body.Length).AppendLine();
 
             var nodes = DACPUtility.GetResponseNodes(body);
             foreach (var kvp in nodes)
             {
                 if (containerNodes.Contains(kvp.Key))
                 {
-                    PrintDebugBytes(kvp.Key, kvp.Value, tabLevel + 1);
+                    GetDebugBytes(kvp.Key, kvp.Value, tabLevel + 1, sb);
                 }
                 else
                 {
@@ -109,11 +112,11 @@ namespace Komodex.DACP
                             break;
                     }
 
-                    _log.Debug(debugText);
+                    sb.AppendLine(debugText);
                 }
             }
 
-
+            return sb.ToString();
         }
 
         private List<string> containerNodes = new List<string>(new string[]{
