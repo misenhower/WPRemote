@@ -7,10 +7,11 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Komodex.Common.Phone;
 
 namespace Komodex.CommonLibrariesTestApp.WizardControl
 {
-    public partial class WizardControlTestPage : PhoneApplicationPage
+    public partial class WizardControlTestPage : PhoneApplicationBasePage
     {
         public WizardControlTestPage()
         {

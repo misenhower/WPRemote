@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage
+﻿<commonPhoneUI:PhoneApplicationBasePage
     x:Class="Komodex.CommonLibrariesTestApp.WizardControl.WizardControlTestPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:commonPhoneUI="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -99,4 +100,4 @@
         </Grid>
     </Grid>
 
-</phone:PhoneApplicationPage>
+</commonPhoneUI:PhoneApplicationBasePage>

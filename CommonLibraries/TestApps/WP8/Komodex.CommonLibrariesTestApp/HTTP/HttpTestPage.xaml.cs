@@ -12,10 +12,11 @@ using Windows.Networking.Connectivity;
 using Komodex.Common;
 using System.IO;
 using Microsoft.Phone.Info;
+using Komodex.Common.Phone;
 
 namespace Komodex.CommonLibrariesTestApp.HTTP
 {
-    public partial class HttpTestPage : PhoneApplicationPage
+    public partial class HttpTestPage : PhoneApplicationBasePage
     {
         protected HttpServer _httpServer;
 

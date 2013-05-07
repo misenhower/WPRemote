@@ -32,6 +32,7 @@ namespace Clarity.Phone.Controls
 
         private static Uri _fromUri;
 
+        private bool _initialized;
         private bool _isAnimating;
         //private static bool _isNavigating;
         private bool _needsOutroAnimation;
@@ -172,6 +173,12 @@ namespace Clarity.Phone.Controls
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (!_initialized)
+            {
+                AnimationContext = this.FindName("LayoutRoot") as FrameworkElement;
+                _initialized = true;
+            }
+
             base.OnNavigatedTo(e);
 
             _currentNavigationMode = null;

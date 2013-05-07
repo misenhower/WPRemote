@@ -11,10 +11,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Collections.ObjectModel;
+using Komodex.Common.Phone;
 
 namespace Komodex.CommonLibrariesTestApp.Lists
 {
-    public partial class ListTests : PhoneApplicationPage
+    public partial class ListTests : PhoneApplicationBasePage
     {
 
         public ListTests()

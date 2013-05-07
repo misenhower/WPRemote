@@ -13,10 +13,11 @@ using Microsoft.Phone.Controls;
 using System.Collections.ObjectModel;
 using Komodex.Bonjour;
 using Komodex.Common;
+using Komodex.Common.Phone;
 
 namespace Komodex.CommonLibrariesTestApp.Bonjour
 {
-    public partial class BonjourTests : PhoneApplicationPage
+    public partial class BonjourTests : PhoneApplicationBasePage
     {
         public BonjourTests()
         {
