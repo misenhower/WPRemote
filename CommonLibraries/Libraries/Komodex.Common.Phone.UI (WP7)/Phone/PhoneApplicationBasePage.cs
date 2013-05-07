@@ -40,22 +40,28 @@ namespace Komodex.Common.Phone
             if (e.NavigationMode == NavigationMode.New && queryString.GetBoolValue(PhoneApplicationUtility.NavigationRemoveBackEntryParameterName))
                 NavigationService.RemoveBackEntry();
 
+            InitializeApplicationBar(false);
             ClearProgressIndicator();
         }
 
         #region Application Bar
 
-        protected bool _applicationBarInitialized;
-
         protected virtual void InitializeApplicationBar()
         {
-            if (_applicationBarInitialized)
-                return;
+            InitializeApplicationBar(true);
+        }
 
+        private void InitializeApplicationBar(bool createIfNull)
+        {
             if (ApplicationBar == null)
-                ApplicationBar = new ApplicationBar();
+            {
+                if (!createIfNull)
+                    return;
 
-            ApplicationBar.StateChanged += new EventHandler<ApplicationBarStateChangedEventArgs>(ApplicationBar_StateChanged);
+                ApplicationBar = new ApplicationBar();
+            }
+
+            ApplicationBar.StateChanged += ApplicationBar_StateChanged;
 
             UpdateApplicationBarOpacity();
         }
@@ -70,30 +76,30 @@ namespace Komodex.Common.Phone
 
         #region Automatic Opacity
 
-        private double _applicationBarClosedOpacity = 100;
-        protected double ApplicationBarClosedOpacity
+        private double _applicationBarMenuClosedOpacity = 100;
+        protected double ApplicationBarMenuClosedOpacity
         {
-            get { return _applicationBarClosedOpacity; }
+            get { return _applicationBarMenuClosedOpacity; }
             set
             {
-                if (_applicationBarClosedOpacity == value)
+                if (_applicationBarMenuClosedOpacity == value)
                     return;
 
-                _applicationBarClosedOpacity = value;
+                _applicationBarMenuClosedOpacity = value;
                 UpdateApplicationBarOpacity();
             }
         }
 
-        private double _applicationBarOpenOpacity = 100;
-        protected double ApplicationBarOpenOpacity
+        private double _applicationBarMenuOpenOpacity = 100;
+        protected double ApplicationBarMenuOpenOpacity
         {
-            get { return _applicationBarOpenOpacity; }
+            get { return _applicationBarMenuOpenOpacity; }
             set
             {
-                if (_applicationBarOpenOpacity == value)
+                if (_applicationBarMenuOpenOpacity == value)
                     return;
 
-                _applicationBarOpenOpacity = value;
+                _applicationBarMenuOpenOpacity = value;
                 UpdateApplicationBarOpacity();
             }
         }
@@ -104,9 +110,9 @@ namespace Komodex.Common.Phone
                 return;
 
             if (IsApplicationBarMenuVisible)
-                ApplicationBar.Opacity = ApplicationBarOpenOpacity;
+                ApplicationBar.Opacity = ApplicationBarMenuOpenOpacity;
             else
-                ApplicationBar.Opacity = ApplicationBarClosedOpacity;
+                ApplicationBar.Opacity = ApplicationBarMenuClosedOpacity;
         }
 
         #endregion
@@ -121,6 +127,8 @@ namespace Komodex.Common.Phone
 
         protected ApplicationBarIconButton AddApplicationBarIconButton(string buttonText, Uri buttonIcon, Action a)
         {
+            InitializeApplicationBar(true);
+
             ApplicationBarIconButton button = new ApplicationBarIconButton();
             button.Text = buttonText;
             button.IconUri = buttonIcon;
@@ -137,6 +145,8 @@ namespace Komodex.Common.Phone
 
         protected ApplicationBarMenuItem AddApplicationBarMenuItem(string menuItemText, Action a)
         {
+            InitializeApplicationBar(true);
+
             ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem();
             menuItem.Text = menuItemText;
             menuItem.Click += (sender, e) => a();
@@ -164,6 +174,8 @@ namespace Komodex.Common.Phone
 
         protected void AddTrialSimulationMenuItem()
         {
+            InitializeApplicationBar(true);
+
             ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem(TrialMenuItemString);
             menuItem.Click += TrialSimulationMenuItem_Click;
             ApplicationBar.MenuItems.Add(menuItem);
