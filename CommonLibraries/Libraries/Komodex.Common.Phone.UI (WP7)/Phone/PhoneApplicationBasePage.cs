@@ -267,11 +267,11 @@ namespace Komodex.Common.Phone
         /// </summary>
         protected ContentPresenter DialogContainer { get; set; }
 
-        private DialogUserControlBase _currentDialog;
+        private DialogUserControlBase _currentDialogControl;
 
-        protected DialogUserControlBase CurrentDialog
+        protected DialogUserControlBase CurrentDialogControl
         {
-            get { return _currentDialog; }
+            get { return _currentDialogControl; }
         }
 
         /// <summary>
@@ -279,26 +279,35 @@ namespace Komodex.Common.Phone
         /// </summary>
         protected bool IsDialogOpen
         {
-            get { return (_currentDialog != null && _currentDialog.IsOpen); }
+            get { return (_currentDialogControl != null && _currentDialogControl.IsOpen); }
         }
 
         protected void ShowDialog(DialogUserControlBase dialog)
         {
             if (DialogContainer == null)
-                throw new InvalidOperationException("DialogContainer must not be null when displaying a dialog.");
+            {
+                Panel layoutRoot = this.FindName("LayoutRoot") as Panel;
+                if (layoutRoot == null)
+                    throw new InvalidOperationException("Could not automatically create dialog container.");
+                ContentPresenter dialogContainer = new ContentPresenter();
+                layoutRoot.Children.Add(dialogContainer);
+                Grid.SetColumnSpan(dialogContainer, int.MaxValue);
+                Grid.SetRowSpan(dialogContainer, int.MaxValue);
+                DialogContainer = dialogContainer;
+            }
 
             if (IsDialogOpen)
                 return;
 
-            _currentDialog = dialog;
-            _currentDialog.Closed += Dialog_Closed;
-            _currentDialog.Show(DialogContainer);
+            _currentDialogControl = dialog;
+            _currentDialogControl.Closed += Dialog_Closed;
+            _currentDialogControl.Show(DialogContainer);
         }
 
         private void Dialog_Closed(object sender, DialogControlClosedEventArgs e)
         {
-            if (_currentDialog == sender)
-                _currentDialog = null;
+            if (_currentDialogControl == sender)
+                _currentDialogControl = null;
         }
 
         protected override bool IsPopupOpen()
