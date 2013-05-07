@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Clarity.Phone.Extensions;
+using System.ComponentModel;
 
 namespace Komodex.Common.Phone
 {
@@ -80,15 +81,17 @@ namespace Komodex.Common.Phone
 
         #endregion
 
-        protected virtual void DialogService_Closing(object sender, EventArgs e)
-        {
-            Closing.RaiseOnUIThread(this, new DialogControlClosingEventArgs(_result));
-        }
-
-
         protected virtual void DialogService_Opened(object sender, EventArgs e)
         {
             // Do nothing
+        }
+
+        protected virtual void DialogService_Closing(object sender, CancelEventArgs e)
+        {
+            DialogControlClosingEventArgs args = new DialogControlClosingEventArgs(_result);
+            Closing.RaiseOnUIThread(this, args);
+            if (args.Cancel)
+                e.Cancel = true;
         }
 
         protected virtual void DialogService_Closed(object sender, EventArgs e)
@@ -99,7 +102,7 @@ namespace Komodex.Common.Phone
         }
     }
 
-    public class DialogControlClosingEventArgs : EventArgs
+    public class DialogControlClosingEventArgs : CancelEventArgs
     {
         public DialogControlClosingEventArgs(MessageBoxResult result)
         {
