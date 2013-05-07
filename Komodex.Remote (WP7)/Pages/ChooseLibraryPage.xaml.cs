@@ -20,8 +20,6 @@ namespace Komodex.Remote.Pages
 
             DisableConnectionStatusPopup = true;
 
-            AnimationContext = LayoutRoot;
-
             LayoutRoot.DataContext = ServerManager.PairedServers;
 
             ApplicationBar = new ApplicationBar();

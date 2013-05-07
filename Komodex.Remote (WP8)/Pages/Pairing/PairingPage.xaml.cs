@@ -19,8 +19,6 @@ namespace Komodex.Remote.Pages.Pairing
         {
             InitializeComponent();
 
-            AnimationContext = LayoutRoot;
-
             DisableConnectionStatusPopup = true;
         }
 

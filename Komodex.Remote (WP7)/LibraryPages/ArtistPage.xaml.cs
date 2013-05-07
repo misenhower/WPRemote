@@ -24,8 +24,6 @@ namespace Komodex.Remote.LibraryPages
         {
             InitializeComponent();
 
-            AnimationContext = LayoutRoot;
-
             //InitializeStandardAppNavApplicationBar();
             //AddChooseLibraryApplicationBarMenuItem();
 

@@ -33,7 +33,6 @@ namespace Komodex.Remote
             ApplicationBarClosedOpacity = 0.9;
             ApplicationBarOpenOpacity = 0.9;
 
-            AnimationContext = LayoutRoot;
             DialogContainer = DialogPopupContainer;
 
             // Application Bar

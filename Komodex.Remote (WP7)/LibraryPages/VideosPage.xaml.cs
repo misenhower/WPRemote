@@ -20,8 +20,6 @@ namespace Komodex.Remote.LibraryPages
         public VideosPage()
         {
             InitializeComponent();
-
-            AnimationContext = LayoutRoot;
         }
 
         #region Overrides

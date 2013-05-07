@@ -20,8 +20,6 @@ namespace Komodex.Remote.Settings
         {
             InitializeComponent();
 
-            AnimationContext = LayoutRoot;
-
             ContentPanel.DataContext = SettingsManager.Current;
         }
 

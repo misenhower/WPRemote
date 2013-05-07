@@ -34,8 +34,6 @@ namespace Komodex.Remote.NowPlaying
         {
             InitializeComponent();
 
-            AnimationContext = LayoutRoot;
-
             // Application bar
             InitializeApplicationBar();
             InitializeStandardPlayTransportApplicationBar();

@@ -20,8 +20,6 @@ namespace Komodex.Remote.LibraryPages
         public PodcastPage()
         {
             InitializeComponent();
-
-            AnimationContext = LayoutRoot;
         }
 
         #region Properties

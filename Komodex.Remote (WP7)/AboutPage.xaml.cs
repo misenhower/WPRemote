@@ -28,8 +28,6 @@ namespace Komodex.Remote
 
             DisableConnectionStatusPopup = true;
 
-            AnimationContext = LayoutRoot;
-
             // Localized contact and twitter links
             string contactString = LocalizedStrings.ContactUs;
             string[] contactStringParts = contactString.Split('[', ']');

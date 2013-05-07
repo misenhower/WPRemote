@@ -24,8 +24,6 @@ namespace Komodex.Remote.LibraryPages
         {
             InitializeComponent();
 
-            AnimationContext = LayoutRoot;
-
             searchTimer.Interval = TimeSpan.FromMilliseconds(500);
             searchTimer.Tick += new EventHandler(searchTimer_Tick);
 

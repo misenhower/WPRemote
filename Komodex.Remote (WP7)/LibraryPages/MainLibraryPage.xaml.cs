@@ -25,7 +25,6 @@ namespace Komodex.Remote.LibraryPages
         {
             InitializeComponent();
 
-            AnimationContext = LayoutRoot;
             DialogContainer = MorePopup;
 
             // Application Bar
