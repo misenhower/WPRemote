@@ -35,7 +35,6 @@ namespace Komodex.Remote.NowPlaying
             InitializeComponent();
 
             // Application bar
-            InitializeApplicationBar();
             InitializeStandardPlayTransportApplicationBar();
 
             // Browse Library

@@ -23,8 +23,8 @@ namespace Komodex.Remote
     {
         public DACPServerBoundPhoneApplicationPage()
         {
-            ApplicationBarOpenOpacity = 0.9;
-            ApplicationBarClosedOpacity = 0.5;
+            ApplicationBarMenuOpenOpacity = 0.9;
+            ApplicationBarMenuClosedOpacity = 0.5;
         }
 
         #region Properties

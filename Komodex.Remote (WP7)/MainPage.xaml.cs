@@ -30,13 +30,10 @@ namespace Komodex.Remote
 
             DisableConnectionStatusPopup = true;
 
-            ApplicationBarClosedOpacity = 0.9;
-            ApplicationBarOpenOpacity = 0.9;
-
-            DialogContainer = DialogPopupContainer;
+            ApplicationBarMenuClosedOpacity = 0.9;
+            ApplicationBarMenuOpenOpacity = 0.9;
 
             // Application Bar
-            InitializeApplicationBar();
             InitializeStandardPlayTransportApplicationBar();
             AddChooseLibraryApplicationBarMenuItem();
             AddSettingsApplicationBarMenuItem();
@@ -135,8 +132,8 @@ namespace Komodex.Remote
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            if (TrialManager.Current.TrialExpired && CurrentDialog != null && CurrentDialog.IsOpen)
-                CurrentDialog.Hide();
+            if (TrialManager.Current.TrialExpired && IsDialogOpen)
+                CurrentDialogControl.Hide();
 
             base.OnBackKeyPress(e);
         }

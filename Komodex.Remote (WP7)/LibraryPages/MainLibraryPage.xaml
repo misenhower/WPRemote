@@ -104,8 +104,6 @@
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
-
-        <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" />
     </Grid>
     
 </app:DACPServerBoundPhoneApplicationPage>

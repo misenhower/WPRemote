@@ -25,10 +25,7 @@ namespace Komodex.Remote.LibraryPages
         {
             InitializeComponent();
 
-            DialogContainer = MorePopup;
-
             // Application Bar
-            InitializeApplicationBar();
             InitializeStandardAppNavApplicationBar(true, false, true);
 
             // Shuffle All Songs
