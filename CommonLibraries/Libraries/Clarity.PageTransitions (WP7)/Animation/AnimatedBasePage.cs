@@ -80,8 +80,8 @@ namespace Clarity.Phone.Controls
             if (!this.NavigationService.CanGoBack)
                 return;
 
-            if (!IsPopupOpen())
-            {
+            //if (!IsPopupOpen())
+            //{
                 //_isNavigating = true;
                 //e.Cancel = true;
                 //_needsOutroAnimation = false;
@@ -89,13 +89,13 @@ namespace Clarity.Phone.Controls
                 //_currentNavigationMode = NavigationMode.Back;
 
                 //RunAnimation();
-            }
-            else
-            {
+            //}
+            //else
+            //{
                 // A popup is open
-                e.Cancel = true;
-                return;
-            }
+                //e.Cancel = true;
+                //return;
+            //}
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -385,10 +385,10 @@ namespace Clarity.Phone.Controls
             return animation;
         }
 
-        protected virtual bool IsPopupOpen()
-        {
-            return false;
-        }
+        //protected virtual bool IsPopupOpen()
+        //{
+        //    return false;
+        //}
 
         public void CancelAnimation()
         {

@@ -322,14 +322,6 @@ namespace Komodex.Common.Phone
                 _currentDialogControl = null;
         }
 
-        protected override bool IsPopupOpen()
-        {
-            if (IsDialogOpen)
-                return true;
-
-            return base.IsPopupOpen();
-        }
-
         #endregion
     }
 }
