@@ -16,12 +16,14 @@ namespace Komodex.Common.Phone.Controls
     {
         private Storyboard _currentStoryboard;
         private IEasingFunction _animationEasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseInOut };
+        private const int _offscreenPosition = 1000;
 
         public WizardControl()
         {
             DefaultStyleKey = typeof(WizardControl);
 
             SizeChanged += WizardControl_SizeChanged;
+            Loaded += WizardControl_Loaded;
         }
 
         #region Properties
@@ -136,12 +138,24 @@ namespace Komodex.Common.Phone.Controls
             base.PrepareContainerForItemOverride(element, item);
 
             WizardItem wizardItem = (WizardItem)element;
-            wizardItem.RenderTransform = new TranslateTransform();
+            TranslateTransform transform = new TranslateTransform();
+            wizardItem.RenderTransform = transform;
 
             if (!DesignerProperties.IsInDesignTool)
             {
+                // Don't set visibility to collapsed yet. This gives all items time to render, reducing the chance of lost animations.
                 if (Items.IndexOf(wizardItem) != _selectedIndex)
-                    wizardItem.Visibility = System.Windows.Visibility.Collapsed;
+                    transform.X = _offscreenPosition;
+            }
+        }
+
+        private void WizardControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= WizardControl_Loaded;
+            if (!DesignerProperties.IsInDesignTool)
+            {
+                // Set all off-screen items to Collapsed
+                SetSelectedIndex(-1, _selectedIndex, false);
             }
         }
 
@@ -229,7 +243,6 @@ namespace Komodex.Common.Phone.Controls
             // Divide the animation time by two since it will be used twice (once for the outgoing item, and again for the incoming item)
             TimeSpan halfAnimationTime = new TimeSpan(AnimationDuration.Ticks / 2);
             Duration duration = new Duration(halfAnimationTime);
-            duration = new Duration(AnimationDuration);
 
             if (_currentStoryboard != null)
                 _currentStoryboard.Stop();
