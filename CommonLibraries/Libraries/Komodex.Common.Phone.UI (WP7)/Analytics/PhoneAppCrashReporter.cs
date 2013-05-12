@@ -31,11 +31,11 @@ namespace Komodex.Analytics
             RootFrame = rootFrame;
 
             // Hook into navigation failed event
-            RootFrame.NavigationFailed += new NavigationFailedEventHandler(RootFrame_NavigationFailed);
+            RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
             // Hook into obscured/unobscured events
-            RootFrame.Obscured += new EventHandler<ObscuredEventArgs>(RootFrame_Obscured);
-            RootFrame.Unobscured += new EventHandler(RootFrame_Unobscured);
+            RootFrame.Obscured += RootFrame_Obscured;
+            RootFrame.Unobscured += RootFrame_Unobscured;
 
             // Add the navigation info callback to the CrashReporter
             CrashReporter.AdditionalLogInfoCallbacks.Add(NavigationInfoCallback);

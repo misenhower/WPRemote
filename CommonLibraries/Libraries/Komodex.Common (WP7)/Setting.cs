@@ -97,17 +97,17 @@ namespace Komodex.Common
         protected void AttachValueEvents()
         {
             if (_value is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)_value).PropertyChanged += new PropertyChangedEventHandler(Value_PropertyChanged);
+                ((INotifyPropertyChanged)_value).PropertyChanged += Value_PropertyChanged;
             if (_value is INotifyCollectionChanged)
-                ((INotifyCollectionChanged)_value).CollectionChanged += new NotifyCollectionChangedEventHandler(Value_CollectionChanged);
+                ((INotifyCollectionChanged)_value).CollectionChanged += Value_CollectionChanged;
         }
 
         protected void DetatchValueEvents()
         {
             if (_value is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)_value).PropertyChanged -= new PropertyChangedEventHandler(Value_PropertyChanged);
+                ((INotifyPropertyChanged)_value).PropertyChanged -= Value_PropertyChanged;
             if (_value is INotifyCollectionChanged)
-                ((INotifyCollectionChanged)_value).CollectionChanged -= new NotifyCollectionChangedEventHandler(Value_CollectionChanged);
+                ((INotifyCollectionChanged)_value).CollectionChanged -= Value_CollectionChanged;
         }
 
         public T Value

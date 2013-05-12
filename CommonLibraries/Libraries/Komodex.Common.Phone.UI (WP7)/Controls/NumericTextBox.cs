@@ -19,7 +19,7 @@ namespace Komodex.Common.Phone.Controls
         {
             InputScope = new InputScope();
             InputScope.Names.Add(new InputScopeName() { NameValue = InputScopeNameValue.Number });
-            TextChanged += new TextChangedEventHandler(NumericTextBox_TextChanged);
+            TextChanged += NumericTextBox_TextChanged;
         }
 
         void NumericTextBox_TextChanged(object sender, TextChangedEventArgs e)
