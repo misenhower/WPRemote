@@ -136,7 +136,6 @@
     <Compile Include="NowPlaying\NowPlayingPage.xaml.cs">
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageBases\DACPServerBoundPhoneApplicationPage.cs" />
     <Compile Include="PageBases\RemoteBasePage.cs" />
     <Compile Include="Pages\ChooseLibraryPage.xaml.cs">
       <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>

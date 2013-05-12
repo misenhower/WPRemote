@@ -15,7 +15,7 @@ using Komodex.DACP.Library;
 
 namespace Komodex.Remote.LibraryPages
 {
-    public partial class VideosPage : DACPServerBoundPhoneApplicationPage
+    public partial class VideosPage : RemoteBasePage
     {
         public VideosPage()
         {
@@ -56,9 +56,9 @@ namespace Komodex.Remote.LibraryPages
 
         #region Event Handlers
 
-        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == ServerUpdateType.ServerConnected)
             {
@@ -97,18 +97,18 @@ namespace Komodex.Remote.LibraryPages
 
         private void GetDataForPivotItem()
         {
-            if (DACPServer == null || !DACPServer.IsConnected)
+            if (CurrentServer == null || !CurrentServer.IsConnected)
                 return;
 
             if (pivotControl.SelectedItem == pivotMovies)
             {
-                if (DACPServer.LibraryMovies == null || DACPServer.LibraryMovies.Count == 0)
-                    DACPServer.GetMovies();
+                if (CurrentServer.LibraryMovies == null || CurrentServer.LibraryMovies.Count == 0)
+                    CurrentServer.GetMovies();
             }
             else if (pivotControl.SelectedItem == pivotTVShows)
             {
-                if (DACPServer.LibraryTVShows == null || DACPServer.LibraryTVShows.Count == 0)
-                    DACPServer.GetTVShows();
+                if (CurrentServer.LibraryTVShows == null || CurrentServer.LibraryTVShows.Count == 0)
+                    CurrentServer.GetTVShows();
             }
         }
 

@@ -1,4 +1,4 @@
-﻿<app:DACPServerBoundPhoneApplicationPage
+﻿<app:RemoteBasePage
     xmlns:my="clr-namespace:Komodex.Remote.Controls" 
     xmlns:app="clr-namespace:Komodex.Remote"
     x:Class="Komodex.Remote.NowPlaying.NowPlayingPage"
@@ -19,7 +19,9 @@
     ManipulationStarted="Page_ManipulationStarted"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0"
-    d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    >
+    
     <phone:PhoneApplicationPage.Resources>
         <Style x:Key="BorderlessButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -112,7 +114,7 @@
         </Style>
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding CurrentServer}" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="RepeatShuffleControlsStateGroup">
                 <VisualStateGroup.Transitions>
@@ -240,4 +242,4 @@
         <ContentPresenter x:Name="MorePopup" Visibility="Collapsed" Grid.RowSpan="3" />
     </Grid>
 
-</app:DACPServerBoundPhoneApplicationPage>
+</app:RemoteBasePage>

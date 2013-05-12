@@ -1,4 +1,4 @@
-﻿<app:DACPServerBoundPhoneApplicationPage
+﻿<app:RemoteBasePage
     x:Class="Komodex.Remote.LibraryPages.GeniusMixesPage"
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -16,7 +16,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     toolkit:TiltEffect.IsTiltEnabled="False"
-    d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0">
 
@@ -49,7 +49,7 @@
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot contains the root grid where all other page content is placed-->
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" DataContext="{Binding CurrentServer}" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="Auto"/>
@@ -71,4 +71,4 @@
 
     <!--Panorama-based applications should not show an ApplicationBar-->
 
-</app:DACPServerBoundPhoneApplicationPage>
+</app:RemoteBasePage>

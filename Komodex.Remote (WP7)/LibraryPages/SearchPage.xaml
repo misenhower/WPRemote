@@ -1,4 +1,4 @@
-﻿<app:DACPServerBoundPhoneApplicationPage
+﻿<app:RemoteBasePage
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
-    Loaded="DACPServerBoundPhoneApplicationPage_Loaded"
+    Loaded="SearchPage_Loaded"
     toolkit:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -66,4 +66,4 @@
         </Grid>
     </Grid>
 
-</app:DACPServerBoundPhoneApplicationPage>
+</app:RemoteBasePage>

@@ -19,23 +19,22 @@ using Komodex.Remote.Localization;
 
 namespace Komodex.Remote.LibraryPages
 {
-    public partial class MainLibraryPage : DACPServerBoundPhoneApplicationPage
+    public partial class MainLibraryPage : RemoteBasePage
     {
         public MainLibraryPage()
         {
             InitializeComponent();
 
-            // Application Bar
-            InitializeStandardAppNavApplicationBar(true, false, true);
+            // Application Bar Icons
+            AddAppBarNowPlayingButton();
+            AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, "/icons/appbar.feature.search.rest.png", NavigationManager.OpenSearchPage);
+            AddApplicationBarIconButton(LocalizedStrings.MoreAppBarButton, "/icons/custom.appbar.moredots.png", AppBarMoreButton_Click);
 
             // Shuffle All Songs
             AddApplicationBarMenuItem(LocalizedStrings.ShuffleAllSongsMenuItem, ShuffleAllSongs);
 
             // Choose Library
-            AddChooseLibraryApplicationBarMenuItem();
-
-            // More
-            AddApplicationBarIconButton(LocalizedStrings.MoreAppBarButton, "/icons/custom.appbar.moredots.png", AppBarMoreButton_Click);
+            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, NavigationManager.OpenChooseLibraryPage);
         }
 
         #region Overrides
@@ -104,9 +103,9 @@ namespace Komodex.Remote.LibraryPages
 
         #region Event Handlers
 
-        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == ServerUpdateType.ServerConnected)
             {
@@ -224,9 +223,9 @@ namespace Komodex.Remote.LibraryPages
 
         private void ShuffleAllSongs()
         {
-            if (DACPServer != null && DACPServer.IsConnected)
+            if (CurrentServer != null && CurrentServer.IsConnected)
             {
-                DACPServer.SendShuffleAllSongsCommand();
+                CurrentServer.SendShuffleAllSongsCommand();
                 NavigationManager.OpenNowPlayingPage();
             }
         }
@@ -239,23 +238,23 @@ namespace Komodex.Remote.LibraryPages
 
         private void GetDataForPivotItem()
         {
-            if (DACPServer == null || !DACPServer.IsConnected)
+            if (CurrentServer == null || !CurrentServer.IsConnected)
                 return;
 
             if (pivotControl.SelectedItem == pivotArtists)
             {
-                if (DACPServer.LibraryArtists == null || DACPServer.LibraryArtists.Count == 0)
-                    DACPServer.GetArtists();
+                if (CurrentServer.LibraryArtists == null || CurrentServer.LibraryArtists.Count == 0)
+                    CurrentServer.GetArtists();
             }
             else if (pivotControl.SelectedItem == pivotAlbums)
             {
-                if (DACPServer.LibraryAlbums == null || DACPServer.LibraryAlbums.Count == 0)
-                    DACPServer.GetAlbums();
+                if (CurrentServer.LibraryAlbums == null || CurrentServer.LibraryAlbums.Count == 0)
+                    CurrentServer.GetAlbums();
             }
             else if (pivotControl.SelectedItem == pivotGenres)
             {
-                if (DACPServer.LibraryGenres == null || DACPServer.LibraryGenres.Count == 0)
-                    DACPServer.GetGenres();
+                if (CurrentServer.LibraryGenres == null || CurrentServer.LibraryGenres.Count == 0)
+                    CurrentServer.GetGenres();
             }
         }
 

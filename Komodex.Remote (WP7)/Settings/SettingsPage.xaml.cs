@@ -14,7 +14,7 @@ using System.ComponentModel;
 
 namespace Komodex.Remote.Settings
 {
-    public partial class SettingsPage : DACPServerBoundPhoneApplicationPage
+    public partial class SettingsPage : RemoteBasePage
     {
         public SettingsPage()
         {

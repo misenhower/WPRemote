@@ -20,7 +20,7 @@ using Komodex.Common;
 
 namespace Komodex.Remote
 {
-    public partial class AboutPage : DACPServerBoundPhoneApplicationPage
+    public partial class AboutPage : RemoteBasePage
     {
         public AboutPage()
         {
@@ -63,16 +63,16 @@ namespace Komodex.Remote
             UpdateServerInfo();
         }
 
-        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
 
             Dispatcher.BeginInvoke(() => UpdateServerInfo());
         }
 
-        protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected override void CurrentServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            base.DACPServer_PropertyChanged(sender, e);
+            base.CurrentServer_PropertyChanged(sender, e);
 
             UpdateServerInfo();
         }
@@ -101,15 +101,15 @@ namespace Komodex.Remote
                 tbiTunesDMAPVersion.Text = iTunesDMAPVersion.ToString("x").ToUpper();
                 tbiTunesDAAPVersion.Text = iTunesDAAPVersion.ToString("x").ToUpper();
             }
-            else if (DACPServer != null && DACPServer.IsConnected)
+            else if (CurrentServer != null && CurrentServer.IsConnected)
             {
                 tbiTunesNotConnected.Visibility = System.Windows.Visibility.Collapsed;
                 gridiTunesInfo.Visibility = System.Windows.Visibility.Visible;
 
-                tbiTunesVersion.Text = DACPServer.ServerVersionString;
-                tbiTunesProtocolVersion.Text = DACPServer.ServerVersion.ToString("x").ToUpper();
-                tbiTunesDMAPVersion.Text = DACPServer.ServerDMAPVersion.ToString("x").ToUpper();
-                tbiTunesDAAPVersion.Text = DACPServer.ServerDAAPVersion.ToString("x").ToUpper();
+                tbiTunesVersion.Text = CurrentServer.ServerVersionString;
+                tbiTunesProtocolVersion.Text = CurrentServer.ServerVersion.ToString("x").ToUpper();
+                tbiTunesDMAPVersion.Text = CurrentServer.ServerDMAPVersion.ToString("x").ToUpper();
+                tbiTunesDAAPVersion.Text = CurrentServer.ServerDAAPVersion.ToString("x").ToUpper();
             }
             else
             {

@@ -18,7 +18,7 @@ using System.Collections.ObjectModel;
 
 namespace Komodex.Remote.LibraryPages
 {
-    public partial class SearchPage : DACPServerBoundPhoneApplicationPage
+    public partial class SearchPage : RemoteBasePage
     {
         public SearchPage()
         {
@@ -29,7 +29,7 @@ namespace Komodex.Remote.LibraryPages
 
         }
 
-        private void DACPServerBoundPhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        private void SearchPage_Loaded(object sender, RoutedEventArgs e)
         {
             tbSearchString.Focus();
         }
@@ -82,9 +82,9 @@ namespace Komodex.Remote.LibraryPages
             return base.GetAnimation(animationType, toOrFrom);
         }
 
-        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
                 Deployment.Current.Dispatcher.BeginInvoke(() => { StartSearch(); });
@@ -97,9 +97,9 @@ namespace Komodex.Remote.LibraryPages
         private void tbSearchString_TextChanged(object sender, TextChangedEventArgs e)
         {
             searchTimer.Stop();
-            if (DACPServer != null && DACPServer.IsConnected)
+            if (CurrentServer != null && CurrentServer.IsConnected)
             {
-                DACPServer.StopSearch();
+                CurrentServer.StopSearch();
                 lbSearchResults.ItemsSource = null;
                 searchTimer.Start();
             }
@@ -143,7 +143,7 @@ namespace Komodex.Remote.LibraryPages
                 {
                     if (resultSet.Type == SearchResultsType.Songs)
                     {
-                        if (DACPServer.SupportsPlayQueue)
+                        if (CurrentServer.SupportsPlayQueue)
                             mediaItem.SendPlayQueueCommand();
                         else
                             resultSet.SendPlayItemCommand(mediaItem);
@@ -174,8 +174,8 @@ namespace Komodex.Remote.LibraryPages
 
         private void StartSearch()
         {
-            if (DACPServer != null && DACPServer.IsConnected)
-                lbSearchResults.ItemsSource = DACPServer.GetSearchResults(tbSearchString.Text);
+            if (CurrentServer != null && CurrentServer.IsConnected)
+                lbSearchResults.ItemsSource = CurrentServer.GetSearchResults(tbSearchString.Text);
         }
 
         #endregion

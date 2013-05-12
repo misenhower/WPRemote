@@ -16,7 +16,7 @@ using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.Remote.LibraryPages
 {
-    public partial class PodcastsPage : DACPServerBoundPhoneApplicationPage
+    public partial class PodcastsPage : RemoteBasePage
     {
         public PodcastsPage()
         {
@@ -32,9 +32,9 @@ namespace Komodex.Remote.LibraryPages
             GetPodcasts();
         }
 
-        protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == ServerUpdateType.ServerConnected)
             {
@@ -64,11 +64,11 @@ namespace Komodex.Remote.LibraryPages
 
         protected void GetPodcasts()
         {
-            if (DACPServer == null || !DACPServer.IsConnected)
+            if (CurrentServer == null || !CurrentServer.IsConnected)
                 return;
 
-            if (DACPServer.LibraryPodcasts == null || DACPServer.LibraryPodcasts.Count == 0)
-                DACPServer.GetPodcasts();
+            if (CurrentServer.LibraryPodcasts == null || CurrentServer.LibraryPodcasts.Count == 0)
+                CurrentServer.GetPodcasts();
         }
 
         #endregion

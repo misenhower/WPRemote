@@ -110,24 +110,30 @@ namespace Komodex.Remote.ServerManagement
 
             Utility.BeginInvokeOnUIThread(() =>
             {
-                bool visible = false;
+                bool visible = _canDisplay;
+                RemoteBasePage page = App.RootFrame.Content as RemoteBasePage;
 
                 if (_canDisplay)
                 {
-                    var page = App.RootFrame.Content as RemoteBasePage;
-                    if (!page.DisableConnectionStatusPopup)
-                        visible = true;
+                    if (page != null && page.DisableConnectionStatusPopup)
+                        visible = false;
                 }
 
                 if (visible)
                 {
                     _statusControl.ShowProgressBar = _showProgressBar;
                     _popup.IsOpen = true;
+                    // Hide the page's application bar
+                    if (page != null && page.ApplicationBar != null)
+                        page.ApplicationBar.IsVisible = false;
                 }
                 else
                 {
                     _statusControl.ShowProgressBar = false;
                     _popup.IsOpen = false;
+                    // Show the page's application bar
+                    if (page != null && page.ApplicationBar != null)
+                        page.ApplicationBar.IsVisible = !page.HideApplicationBar;
                 }
             });
         }

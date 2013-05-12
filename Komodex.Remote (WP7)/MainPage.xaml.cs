@@ -22,7 +22,7 @@ using Komodex.Common;
 
 namespace Komodex.Remote
 {
-    public partial class MainPage : DACPServerBoundPhoneApplicationPage
+    public partial class MainPage : RemoteBasePage
     {
         public MainPage()
         {
@@ -34,10 +34,10 @@ namespace Komodex.Remote
             ApplicationBarMenuOpenOpacity = 0.9;
 
             // Application Bar
-            InitializeStandardPlayTransportApplicationBar();
-            AddChooseLibraryApplicationBarMenuItem();
-            AddSettingsApplicationBarMenuItem();
-            AddAboutApplicationBarMenuItem();
+            AddAppBarPlayTransportButtons();
+            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, NavigationManager.OpenChooseLibraryPage);
+            AddApplicationBarMenuItem(LocalizedStrings.SettingsMenuItem, NavigationManager.OpenSettingsPage);
+            AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, NavigationManager.OpenAboutPage);
 
 #if DEBUG
             UpdateDebugDataMenuItem();
@@ -138,9 +138,9 @@ namespace Komodex.Remote
             base.OnBackKeyPress(e);
         }
 
-        protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected override void CurrentServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            base.DACPServer_PropertyChanged(sender, e);
+            base.CurrentServer_PropertyChanged(sender, e);
 
             switch (e.PropertyName)
             {
@@ -156,9 +156,9 @@ namespace Komodex.Remote
             }
         }
 
-        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 UpdateBindings();
@@ -166,9 +166,9 @@ namespace Komodex.Remote
             });
         }
 
-        protected override void ServerManager_CurrentServerChanged(object sender, EventArgs e)
+        protected override void OnServerChanged()
         {
-            base.ServerManager_CurrentServerChanged(sender, e);
+            base.OnServerChanged();
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 UpdateBindings();
@@ -183,21 +183,24 @@ namespace Komodex.Remote
         private void UpdateBindings()
         {
             // Page title
-            if (DACPServer == null || string.IsNullOrEmpty(DACPServer.LibraryName))
+            if (CurrentServer == null || string.IsNullOrEmpty(CurrentServer.LibraryName))
                 ApplicationTitle.Text = "REMOTE";
-            else if (!string.IsNullOrEmpty(DACPServer.LibraryName))
-                ApplicationTitle.Text = DACPServer.LibraryName.ToUpper();
+            else if (!string.IsNullOrEmpty(CurrentServer.LibraryName))
+                ApplicationTitle.Text = CurrentServer.LibraryName.ToUpper();
             else
                 ApplicationTitle.Text = string.Empty;
 
             // Panel visibility
-            ContentPanel.Visibility = (DACPServer != null && DACPServer.IsConnected) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            FirstStartPanel.Visibility = (DACPServer == null && ServerManager.PairedServers.Count == 0) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            bool showContentPanel = (CurrentServer != null && CurrentServer.IsConnected);
+            bool showFirstStartPanel = (CurrentServer == null && ServerManager.PairedServers.Count == 0);
+            ContentPanel.Visibility = (showContentPanel) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            FirstStartPanel.Visibility = (showFirstStartPanel) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            HideApplicationBar = showFirstStartPanel;
         }
 
         private void UpdateVisualState(bool useTransitions = true)
         {
-            if (DACPServer == null || (DACPServer.PlayState == DACP.PlayStates.Stopped && DACPServer.CurrentSongName == null))
+            if (CurrentServer == null || (CurrentServer.PlayState == DACP.PlayStates.Stopped && CurrentServer.CurrentSongName == null))
             {
                 VisualStateManager.GoToState(this, "StoppedState", useTransitions);
                 btnNowPlaying.IsEnabled = false;

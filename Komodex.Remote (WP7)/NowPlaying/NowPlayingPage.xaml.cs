@@ -21,7 +21,7 @@ using Komodex.Remote.Localization;
 
 namespace Komodex.Remote.NowPlaying
 {
-    public partial class NowPlayingPage : DACPServerBoundPhoneApplicationPage
+    public partial class NowPlayingPage : RemoteBasePage
     {
         protected DialogService AirPlayDialog = null;
         protected AirPlaySpeakersControl AirPlaySpeakersControl = null;
@@ -35,16 +35,16 @@ namespace Komodex.Remote.NowPlaying
             InitializeComponent();
 
             // Application bar
-            InitializeStandardPlayTransportApplicationBar();
+            AddAppBarPlayTransportButtons();
 
             // Browse Library
-            AddApplicationBarMenuItem(LocalizedStrings.BrowseLibraryMenuItem, () => NavigationManager.OpenMainLibraryPage());
+            AddApplicationBarMenuItem(LocalizedStrings.BrowseLibraryMenuItem, NavigationManager.OpenMainLibraryPage);
 
             // Search
-            AddApplicationBarMenuItem(LocalizedStrings.SearchMenuItem, () => NavigationManager.OpenSearchPage());
+            AddApplicationBarMenuItem(LocalizedStrings.SearchMenuItem, NavigationManager.OpenSearchPage);
 
             // Choose Library
-            AddChooseLibraryApplicationBarMenuItem();
+            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, NavigationManager.OpenChooseLibraryPage);
 
             repeatShuffleControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
             repeatShuffleControlDisplayTimer.Tick += new EventHandler(repeatShuffleControlDisplayTimer_Tick);
@@ -120,9 +120,9 @@ namespace Komodex.Remote.NowPlaying
             catch (InvalidOperationException) { }
         }
 
-        protected override void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
@@ -149,9 +149,9 @@ namespace Komodex.Remote.NowPlaying
             });
         }
 
-        protected override void DACPServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected override void CurrentServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            base.DACPServer_PropertyChanged(sender, e);
+            base.CurrentServer_PropertyChanged(sender, e);
 
             switch (e.PropertyName)
             {
@@ -184,22 +184,6 @@ namespace Komodex.Remote.NowPlaying
             }
 
             base.OnBackKeyPress(e);
-        }
-
-        protected override void AttachServerEvents()
-        {
-            base.AttachServerEvents();
-
-            if (DACPServer != null)
-                DACPServer.AirPlaySpeakerUpdate += new EventHandler(DACPServer_AirPlaySpeakerUpdate);
-        }
-
-        protected override void DetachServerEvents()
-        {
-            base.DetachServerEvents();
-
-            if (DACPServer != null)
-                DACPServer.AirPlaySpeakerUpdate -= new EventHandler(DACPServer_AirPlaySpeakerUpdate);
         }
 
         #endregion
@@ -253,28 +237,28 @@ namespace Komodex.Remote.NowPlaying
         private void btnRepeat_Click(object sender, RoutedEventArgs e)
         {
             ShowRepeatShuffleControls();
-            if (DACPServer != null && DACPServer.IsConnected)
-                DACPServer.SendRepeatStateCommand();
+            if (CurrentServer != null && CurrentServer.IsConnected)
+                CurrentServer.SendRepeatStateCommand();
         }
 
         private void btnShuffle_Click(object sender, RoutedEventArgs e)
         {
             ShowRepeatShuffleControls();
-            if (DACPServer != null && DACPServer.IsConnected)
-                DACPServer.SendShuffleStateCommand();
+            if (CurrentServer != null && CurrentServer.IsConnected)
+                CurrentServer.SendShuffleStateCommand();
         }
 
         private void UpdateRepeatShuffleButtons()
         {
-            if (DACPServer == null || !DACPServer.IsConnected)
+            if (CurrentServer == null || !CurrentServer.IsConnected)
                 return;
 
             // Repeat button
-            btnRepeat.Opacity = (DACPServer.RepeatState != RepeatStates.None) ? 1.0 : 0.5;
-            imgRepeat.Source = (DACPServer.RepeatState != RepeatStates.RepeatOne) ? iconRepeat : iconRepeatOne;
+            btnRepeat.Opacity = (CurrentServer.RepeatState != RepeatStates.None) ? 1.0 : 0.5;
+            imgRepeat.Source = (CurrentServer.RepeatState != RepeatStates.RepeatOne) ? iconRepeat : iconRepeatOne;
 
             // Shuffle button
-            btnShuffle.Opacity = (DACPServer.ShuffleState) ? 1.0 : 0.5;
+            btnShuffle.Opacity = (CurrentServer.ShuffleState) ? 1.0 : 0.5;
         }
 
         #endregion
@@ -291,15 +275,15 @@ namespace Komodex.Remote.NowPlaying
             switch (SettingsManager.Current.ArtistClickAction)
             {
                 case ArtistClickAction.OpenArtistPage:
-                    if (DACPServer.CurrentArtist == null)
+                    if (CurrentServer.CurrentArtist == null)
                         return;
-                    NavigationManager.OpenArtistPage(DACPServer.CurrentArtist);
+                    NavigationManager.OpenArtistPage(CurrentServer.CurrentArtist);
                     break;
 
                 case ArtistClickAction.OpenAlbumPage:
-                    if (DACPServer.CurrentArtist == null || DACPServer.CurrentAlbum == null || DACPServer.CurrentAlbumPersistentID == 0)
+                    if (CurrentServer.CurrentArtist == null || CurrentServer.CurrentAlbum == null || CurrentServer.CurrentAlbumPersistentID == 0)
                         return;
-                    NavigationManager.OpenAlbumPage(0, DACPServer.CurrentAlbum, DACPServer.CurrentArtist, DACPServer.CurrentAlbumPersistentID);
+                    NavigationManager.OpenAlbumPage(0, CurrentServer.CurrentAlbum, CurrentServer.CurrentArtist, CurrentServer.CurrentAlbumPersistentID);
                     break;
 
                 default:
@@ -340,23 +324,23 @@ namespace Komodex.Remote.NowPlaying
 
         protected bool ShouldGoBack()
         {
-            return (DACPServer != null && DACPServer.IsConnected && DACPServer.PlayState == DACP.PlayStates.Stopped && DACPServer.CurrentSongName == null);
+            return (CurrentServer != null && CurrentServer.IsConnected && CurrentServer.PlayState == DACP.PlayStates.Stopped && CurrentServer.CurrentSongName == null);
         }
 
         protected void ShowAirPlayDialog()
         {
-            if (DACPServer == null || DACPServer.Speakers.Count <= 1)
+            if (CurrentServer == null || CurrentServer.Speakers.Count <= 1)
                 return;
 
             if (AirPlayDialog != null && AirPlayDialog.IsOpen)
                 return;
 
             // Refresh the speaker data
-            DACPServer.GetSpeakers();
+            CurrentServer.GetSpeakers();
 
             if (AirPlaySpeakersControl == null)
             {
-                AirPlaySpeakersControl = new NowPlaying.AirPlaySpeakersControl(DACPServer);
+                AirPlaySpeakersControl = new NowPlaying.AirPlaySpeakersControl(CurrentServer);
                 AirPlaySpeakersControl.SingleSpeakerClicked += new EventHandler(AirPlaySpeakersControl_SingleSpeakerClicked);
             }
 
@@ -369,10 +353,10 @@ namespace Komodex.Remote.NowPlaying
 
         protected void UpdateAirPlayButtons()
         {
-            if (DACPServer == null)
+            if (CurrentServer == null)
                 return;
 
-            if (DACPServer.Speakers.Count > 1)
+            if (CurrentServer.Speakers.Count > 1)
             {
                 btnAirPlay.Visibility = System.Windows.Visibility.Visible;
                 if (!ApplicationBar.MenuItems.Contains(AirPlayMenuItem))
@@ -382,7 +366,7 @@ namespace Komodex.Remote.NowPlaying
                 // It looks like the application bar doesn't recognize the Insert method so I'm just going to use the Add method for now.
 
                 // Set button opacity
-                bool airPlayEnabled = DACPServer.Speakers.Any(s => s.ID != 0 && s.Active);
+                bool airPlayEnabled = CurrentServer.Speakers.Any(s => s.ID != 0 && s.Active);
                 btnAirPlay.Opacity = (airPlayEnabled) ? 1.0 : 0.5;
             }
             else
@@ -399,9 +383,9 @@ namespace Komodex.Remote.NowPlaying
         {
             bool enableMasterVolume = true;
 
-            if (DACPServer.IsCurrentlyPlayingVideo)
+            if (CurrentServer.IsCurrentlyPlayingVideo)
             {
-                var mainSpeaker = DACPServer.Speakers.FirstOrDefault(s => s.ID == 0);
+                var mainSpeaker = CurrentServer.Speakers.FirstOrDefault(s => s.ID == 0);
                 if (mainSpeaker != null)
                     enableMasterVolume = mainSpeaker.Active;
             }
@@ -411,10 +395,10 @@ namespace Komodex.Remote.NowPlaying
 
         protected void UpdateMediaKind()
         {
-            if (DACPServer == null)
+            if (CurrentServer == null)
                 return;
 
-            btnArtist.IsEnabled = (DACPServer.CurrentMediaKind == 1);
+            btnArtist.IsEnabled = (CurrentServer.CurrentMediaKind == 1);
             UpdateMasterVolumeSlider();
         }
 
@@ -428,7 +412,7 @@ namespace Komodex.Remote.NowPlaying
                 NavigationService.GoBack();
         }
 
-        void DACPServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
+        protected override void CurrentServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {

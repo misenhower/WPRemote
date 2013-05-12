@@ -1,4 +1,4 @@
-﻿<app:DACPServerBoundPhoneApplicationPage
+﻿<app:RemoteBasePage
     xmlns:my="clr-namespace:Komodex.Remote.Controls" 
     xmlns:app="clr-namespace:Komodex.Remote"
     x:Class="Komodex.Remote.Settings.SettingsPage"
@@ -17,13 +17,14 @@
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0">
-    <app:DACPServerBoundPhoneApplicationPage.Resources>
+    
+    <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="WrappingHeaderTemplate">
             <Grid>
                 <TextBlock TextWrapping="Wrap" Text="{Binding}" />
             </Grid>
         </DataTemplate>
-    </app:DACPServerBoundPhoneApplicationPage.Resources>
+    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -71,4 +72,4 @@
         </Grid>
     </Grid>
  
-</app:DACPServerBoundPhoneApplicationPage>
+</app:RemoteBasePage>

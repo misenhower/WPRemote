@@ -202,9 +202,6 @@
       <Link>NowPlaying\NowPlayingPage.xaml.cs</Link>
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\DACPServerBoundPhoneApplicationPage.cs">
-      <Link>PageBases\DACPServerBoundPhoneApplicationPage.cs</Link>
-    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\RemoteBasePage.cs">
       <Link>PageBases\RemoteBasePage.cs</Link>
     </Compile>

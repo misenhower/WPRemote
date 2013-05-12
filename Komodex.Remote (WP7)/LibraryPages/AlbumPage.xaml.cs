@@ -18,7 +18,7 @@ using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote.LibraryPages
 {
-    public partial class AlbumPage : DACPServerBoundPhoneApplicationPage
+    public partial class AlbumPage : RemoteBasePage
     {
         public AlbumPage()
         {
@@ -65,9 +65,9 @@ namespace Komodex.Remote.LibraryPages
             }
         }
 
-        protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
                 Deployment.Current.Dispatcher.BeginInvoke(() => { Album.GetSongs(); });

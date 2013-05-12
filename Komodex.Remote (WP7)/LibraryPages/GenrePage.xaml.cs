@@ -18,7 +18,7 @@ using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote.LibraryPages
 {
-    public partial class GenrePage : DACPServerBoundPhoneApplicationPage
+    public partial class GenrePage : RemoteBasePage
     {
         public GenrePage()
         {
@@ -75,9 +75,9 @@ namespace Komodex.Remote.LibraryPages
             catch (InvalidOperationException) { }
         }
 
-        protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
                 Deployment.Current.Dispatcher.BeginInvoke(() => { GetDataForPivotItem(); });

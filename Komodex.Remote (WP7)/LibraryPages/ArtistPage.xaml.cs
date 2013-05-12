@@ -15,10 +15,11 @@ using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
 using Komodex.Remote.ServerManagement;
+using Komodex.Common;
 
 namespace Komodex.Remote.LibraryPages
 {
-    public partial class ArtistPage : DACPServerBoundPhoneApplicationPage
+    public partial class ArtistPage : RemoteBasePage
     {
         public ArtistPage()
         {
@@ -75,9 +76,9 @@ namespace Komodex.Remote.LibraryPages
             catch (InvalidOperationException) { }
         }
 
-        protected override void DACPServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
         {
-            base.DACPServer_ServerUpdate(sender, e);
+            base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
                 Deployment.Current.Dispatcher.BeginInvoke(() => { GetDataForPivotItem(); });

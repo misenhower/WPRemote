@@ -1,4 +1,4 @@
-﻿<app:DACPServerBoundPhoneApplicationPage
+﻿<app:RemoteBasePage
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.PageTransitions"
     x:Class="Komodex.Remote.AboutPage"
@@ -142,4 +142,4 @@
         </Grid>
     </Grid>
 
-</app:DACPServerBoundPhoneApplicationPage>
+</app:RemoteBasePage>

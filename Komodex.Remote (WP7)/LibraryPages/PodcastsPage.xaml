@@ -1,4 +1,4 @@
-﻿<app:DACPServerBoundPhoneApplicationPage
+﻿<app:RemoteBasePage
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
@@ -17,7 +17,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0">
     
@@ -25,7 +25,7 @@
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding CurrentServer}" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="Auto"/>
@@ -51,4 +51,4 @@
         </Grid>
     </Grid>
  
-</app:DACPServerBoundPhoneApplicationPage>
+</app:RemoteBasePage>

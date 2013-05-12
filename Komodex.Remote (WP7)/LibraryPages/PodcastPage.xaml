@@ -1,4 +1,4 @@
-﻿<app:DACPServerBoundPhoneApplicationPage
+﻿<app:RemoteBasePage
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
@@ -49,4 +49,4 @@
         </Grid>
     </Grid>
  
-</app:DACPServerBoundPhoneApplicationPage>
+</app:RemoteBasePage>

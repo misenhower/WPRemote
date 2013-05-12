@@ -14,7 +14,7 @@ using Komodex.DACP.Library;
 
 namespace Komodex.Remote.LibraryPages
 {
-    public partial class GeniusMixesPage : DACPServerBoundPhoneApplicationPage
+    public partial class GeniusMixesPage : RemoteBasePage
     {
         public GeniusMixesPage()
         {
