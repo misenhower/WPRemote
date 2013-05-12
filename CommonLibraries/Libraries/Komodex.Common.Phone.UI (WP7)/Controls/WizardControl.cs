@@ -42,6 +42,17 @@ namespace Komodex.Common.Phone.Controls
             set { SetSelectedIndex(value); }
         }
 
+        public WizardItem SelectedItem
+        {
+            get
+            {
+                if (SelectedIndex >= 0)
+                    return Items[SelectedIndex] as WizardItem;
+                return null;
+            }
+            set { SelectedIndex = Items.IndexOf(value); }
+        }
+
         #endregion
 
         #region Design Mode
