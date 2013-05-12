@@ -30,9 +30,9 @@ namespace Komodex.Remote.NowPlaying
             Server = server;
             ReloadSpeakerList();
             UpdateIsPlayingVideo();
-            Server.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Server_PropertyChanged);
-            Server.Speakers.CollectionChanged += new NotifyCollectionChangedEventHandler(Speakers_CollectionChanged);
-            Server.AirPlaySpeakerUpdate += new EventHandler(Server_AirPlaySpeakerUpdate);
+            Server.PropertyChanged += Server_PropertyChanged;
+            Server.Speakers.CollectionChanged += Speakers_CollectionChanged;
+            Server.AirPlaySpeakerUpdate += Server_AirPlaySpeakerUpdate;
         }
 
         DACPServer Server = null;
@@ -121,7 +121,7 @@ namespace Komodex.Remote.NowPlaying
             AirPlaySpeakerControl speakerControl = new AirPlaySpeakerControl(speaker, SingleSelectMode);
             if (Server.IsCurrentlyPlayingVideo && !speaker.HasVideo)
                 speakerControl.Visibility = System.Windows.Visibility.Collapsed;
-            speakerControl.SingleSpeakerClicked += new EventHandler(SpeakerControl_SingleSpeakerClicked);
+            speakerControl.SingleSpeakerClicked += SpeakerControl_SingleSpeakerClicked;
             SpeakerControls.Add(speaker, speakerControl);
             AirPlaySpeakerStackPanel.Children.Add(speakerControl);
         }
@@ -131,7 +131,7 @@ namespace Komodex.Remote.NowPlaying
             if (SpeakerControls.ContainsKey(speaker))
             {
                 AirPlaySpeakerControl speakerControl = SpeakerControls[speaker];
-                speakerControl.SingleSpeakerClicked -= new EventHandler(SpeakerControl_SingleSpeakerClicked);
+                speakerControl.SingleSpeakerClicked -= SpeakerControl_SingleSpeakerClicked;
                 if (AirPlaySpeakerStackPanel.Children.Contains(speakerControl))
                     AirPlaySpeakerStackPanel.Children.Remove(speakerControl);
                 SpeakerControls.Remove(speaker);

@@ -27,7 +27,7 @@ namespace Komodex.DACP
             {
                 timerTrackTimeUpdate = new DispatcherTimer();
                 timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
-                timerTrackTimeUpdate.Tick += new EventHandler(timerTrackTimeUpdate_Tick);
+                timerTrackTimeUpdate.Tick += timerTrackTimeUpdate_Tick;
             });
 
             _playStatusCancelTimer = new Timer(playStatusCancelTimer_Tick);

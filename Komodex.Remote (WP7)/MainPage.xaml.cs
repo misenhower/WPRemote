@@ -44,7 +44,7 @@ namespace Komodex.Remote
             AddTrialSimulationMenuItem();
 #endif
 
-            Loaded += new RoutedEventHandler(MainPage_Loaded);
+            Loaded += MainPage_Loaded;
 
             ServerManager.ConnectionStateChanged += (sender, e) => Utility.BeginInvokeOnUIThread(() => UpdateBindings());
         }
@@ -62,7 +62,7 @@ namespace Komodex.Remote
                 return;
 
             TrialReminderDialog trialDialog = new TrialReminderDialog();
-            trialDialog.Closed += new EventHandler<DialogControlClosedEventArgs>(trialDialog_Closed);
+            trialDialog.Closed += trialDialog_Closed;
 
             ShowDialog(trialDialog);
         }
@@ -81,7 +81,7 @@ namespace Komodex.Remote
             if (debugDataMenuItem == null)
             {
                 debugDataMenuItem = new ApplicationBarMenuItem("diagnostic data");
-                debugDataMenuItem.Click += new EventHandler(debugDataMenuItem_Click);
+                debugDataMenuItem.Click += debugDataMenuItem_Click;
                 ApplicationBar.MenuItems.Add(debugDataMenuItem);
             }
 

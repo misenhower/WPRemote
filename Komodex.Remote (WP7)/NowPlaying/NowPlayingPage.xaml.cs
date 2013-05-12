@@ -48,13 +48,13 @@ namespace Komodex.Remote.NowPlaying
             AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, NavigationManager.OpenChooseLibraryPage);
 
             repeatShuffleControlDisplayTimer.Interval = TimeSpan.FromSeconds(5);
-            repeatShuffleControlDisplayTimer.Tick += new EventHandler(repeatShuffleControlDisplayTimer_Tick);
+            repeatShuffleControlDisplayTimer.Tick += repeatShuffleControlDisplayTimer_Tick;
 
             goBackTimer.Interval = TimeSpan.FromSeconds(5);
-            goBackTimer.Tick += new EventHandler(goBackTimer_Tick);
+            goBackTimer.Tick += goBackTimer_Tick;
 
             AirPlayMenuItem = new ApplicationBarMenuItem(LocalizedStrings.AirPlaySpeakersMenuItem);
-            AirPlayMenuItem.Click += new EventHandler(AirPlayMenuItem_Click);
+            AirPlayMenuItem.Click += AirPlayMenuItem_Click;
         }
 
         private readonly BitmapImage iconRepeat = new BitmapImage(new Uri("/icons/custom.appbar.repeat.png", UriKind.Relative));
@@ -93,8 +93,8 @@ namespace Komodex.Remote.NowPlaying
 
             UpdateAirPlayButtons();
 
-            ((PhoneApplicationFrame)App.Current.RootVisual).Obscured += new EventHandler<ObscuredEventArgs>(RootVisual_Obscured);
-            ((PhoneApplicationFrame)App.Current.RootVisual).Unobscured += new EventHandler(RootVisual_Unobscured);
+            ((PhoneApplicationFrame)App.Current.RootVisual).Obscured += RootVisual_Obscured;
+            ((PhoneApplicationFrame)App.Current.RootVisual).Unobscured += RootVisual_Unobscured;
         }
 
         protected override void AnimationsComplete(Clarity.Phone.Controls.Animations.AnimationType animationType)
@@ -107,8 +107,8 @@ namespace Komodex.Remote.NowPlaying
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            ((PhoneApplicationFrame)App.Current.RootVisual).Obscured -= new EventHandler<ObscuredEventArgs>(RootVisual_Obscured);
-            ((PhoneApplicationFrame)App.Current.RootVisual).Unobscured -= new EventHandler(RootVisual_Unobscured);
+            ((PhoneApplicationFrame)App.Current.RootVisual).Obscured -= RootVisual_Obscured;
+            ((PhoneApplicationFrame)App.Current.RootVisual).Unobscured -= RootVisual_Unobscured;
 
             goBackTimer.Stop();
 
@@ -342,7 +342,7 @@ namespace Komodex.Remote.NowPlaying
             if (AirPlaySpeakersControl == null)
             {
                 AirPlaySpeakersControl = new NowPlaying.AirPlaySpeakersControl(CurrentServer);
-                AirPlaySpeakersControl.SingleSpeakerClicked += new EventHandler(AirPlaySpeakersControl_SingleSpeakerClicked);
+                AirPlaySpeakersControl.SingleSpeakerClicked += AirPlaySpeakersControl_SingleSpeakerClicked;
             }
 
             AirPlayDialog = new DialogService();

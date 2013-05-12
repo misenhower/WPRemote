@@ -125,7 +125,7 @@ namespace Komodex.DACP.Library
                 // It's not the most efficient way possible, but it works and reduces the amount of extra code needed for a special case.
                 // Also this may end up being more reasonable if object caching is implemented.
                 _artist = new Artist(Server, ArtistName);
-                _artist.PropertyChanged += new PropertyChangedEventHandler(artist_PropertyChanged);
+                _artist.PropertyChanged += artist_PropertyChanged;
                 _artist.GetAlbums();
             }
         }
@@ -135,7 +135,7 @@ namespace Komodex.DACP.Library
             if (e.PropertyName == "Albums")
             {
                 GetAlbumID(false);
-                _artist.PropertyChanged -= new PropertyChangedEventHandler(artist_PropertyChanged);
+                _artist.PropertyChanged -= artist_PropertyChanged;
             }
         }
 

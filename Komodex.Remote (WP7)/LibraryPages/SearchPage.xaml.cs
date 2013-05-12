@@ -26,7 +26,7 @@ namespace Komodex.Remote.LibraryPages
             InitializeComponent();
 
             searchTimer.Interval = TimeSpan.FromMilliseconds(500);
-            searchTimer.Tick += new EventHandler(searchTimer_Tick);
+            searchTimer.Tick += searchTimer_Tick;
 
         }
 

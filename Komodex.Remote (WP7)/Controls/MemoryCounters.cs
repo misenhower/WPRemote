@@ -86,7 +86,7 @@ namespace Komodex.Remote.Controls
 
                 timer = new DispatcherTimer();
                 timer.Interval = TimeSpan.FromSeconds(1);
-                timer.Tick += new EventHandler(timer_Tick);
+                timer.Tick += timer_Tick;
             }
 
             UpdateMemoryCounterText();

@@ -28,7 +28,7 @@ namespace Komodex.Remote.Controls
             AirPlaySpeaker = speaker;
             UpdateVisualState(false);
             SetSingleSelectMode(singleSelect, false);
-            AirPlaySpeaker.PropertyChanged += new PropertyChangedEventHandler(AirPlaySpeaker_PropertyChanged);
+            AirPlaySpeaker.PropertyChanged += AirPlaySpeaker_PropertyChanged;
         }
 
         void AirPlaySpeaker_PropertyChanged(object sender, PropertyChangedEventArgs e)
