@@ -81,7 +81,7 @@ namespace Komodex.Remote.LibraryPages
             base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
-                Deployment.Current.Dispatcher.BeginInvoke(() => { GetDataForPivotItem(); });
+                Utility.BeginInvokeOnUIThread(GetDataForPivotItem);
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)

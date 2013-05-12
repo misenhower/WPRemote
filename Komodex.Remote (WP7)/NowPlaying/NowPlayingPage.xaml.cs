@@ -18,6 +18,7 @@ using Clarity.Phone.Extensions;
 using System.Collections.Specialized;
 using Komodex.Remote.Settings;
 using Komodex.Remote.Localization;
+using Komodex.Common;
 
 namespace Komodex.Remote.NowPlaying
 {
@@ -124,7 +125,7 @@ namespace Komodex.Remote.NowPlaying
         {
             base.CurrentServer_ServerUpdate(sender, e);
 
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            Utility.BeginInvokeOnUIThread(() =>
             {
                 switch (e.Type)
                 {
@@ -414,10 +415,7 @@ namespace Komodex.Remote.NowPlaying
 
         protected override void CurrentServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
         {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                UpdateAirPlayButtons();
-            });
+            Utility.BeginInvokeOnUIThread(UpdateAirPlayButtons);
         }
         
         void AirPlaySpeakersControl_SingleSpeakerClicked(object sender, EventArgs e)

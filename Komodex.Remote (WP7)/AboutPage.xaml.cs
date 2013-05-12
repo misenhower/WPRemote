@@ -67,7 +67,7 @@ namespace Komodex.Remote
         {
             base.CurrentServer_ServerUpdate(sender, e);
 
-            Dispatcher.BeginInvoke(() => UpdateServerInfo());
+            Utility.BeginInvokeOnUIThread(UpdateServerInfo);
         }
 
         protected override void CurrentServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

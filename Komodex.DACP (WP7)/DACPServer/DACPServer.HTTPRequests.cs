@@ -395,7 +395,7 @@ namespace Komodex.DACP
         // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well
         protected void ProcessPlayStatusResponse(HTTPRequestInfo requestInfo)
         {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            Utility.BeginInvokeOnUIThread(() =>
             {
                 timerTrackTimeUpdate.Stop();
             });
@@ -482,7 +482,7 @@ namespace Komodex.DACP
             TrackTimeRemaining = newTrackTimeRemaining ?? newTrackTimeTotal;
             CurrentMediaKind = newMediaKind;
 
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            Utility.BeginInvokeOnUIThread(() =>
             {
                 if (PlayState == PlayStates.Playing)
                     timerTrackTimeUpdate.Start();

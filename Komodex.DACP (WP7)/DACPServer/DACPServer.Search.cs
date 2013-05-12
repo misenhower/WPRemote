@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Komodex.DACP.Library;
 using Komodex.DACP.Localization;
+using Komodex.Common;
 
 namespace Komodex.DACP
 {
@@ -233,7 +234,7 @@ namespace Komodex.DACP
 
             SearchResultSet searchResults = (SearchResultSet)requestInfo.ActionObject;
 
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            Utility.BeginInvokeOnUIThread(() =>
             {
                 foreach (ILibraryElement item in libraryElements)
                     searchResults.Add(item);

@@ -15,6 +15,7 @@ using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
 using Komodex.Remote.ServerManagement;
+using Komodex.Common;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -80,7 +81,7 @@ namespace Komodex.Remote.LibraryPages
             base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
-                Deployment.Current.Dispatcher.BeginInvoke(() => { GetDataForPivotItem(); });
+                Utility.BeginInvokeOnUIThread(GetDataForPivotItem);
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)

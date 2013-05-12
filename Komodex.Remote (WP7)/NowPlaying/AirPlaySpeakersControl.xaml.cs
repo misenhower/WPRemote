@@ -13,6 +13,7 @@ using Komodex.DACP;
 using Komodex.Remote.Controls;
 using System.Collections.Specialized;
 using System.Collections.ObjectModel;
+using Komodex.Common;
 
 namespace Komodex.Remote.NowPlaying
 {
@@ -69,12 +70,12 @@ namespace Komodex.Remote.NowPlaying
 
         void Server_AirPlaySpeakerUpdate(object sender, EventArgs e)
         {
-            Dispatcher.BeginInvoke(() => UpdateMasterVolumeSlider());
+            Utility.BeginInvokeOnUIThread(UpdateMasterVolumeSlider);
         }
 
         void Speakers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            Utility.BeginInvokeOnUIThread(() =>
             {
                 ReloadSpeakerList();
                 /* TODO:

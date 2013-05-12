@@ -159,7 +159,7 @@ namespace Komodex.Remote
         protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
         {
             base.CurrentServer_ServerUpdate(sender, e);
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            Utility.BeginInvokeOnUIThread(() =>
             {
                 UpdateBindings();
                 UpdateVisualState();
@@ -169,7 +169,7 @@ namespace Komodex.Remote
         protected override void OnServerChanged()
         {
             base.OnServerChanged();
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            Utility.BeginInvokeOnUIThread(() =>
             {
                 UpdateBindings();
                 UpdateVisualState();

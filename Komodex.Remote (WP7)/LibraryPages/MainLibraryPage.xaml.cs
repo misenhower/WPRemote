@@ -16,6 +16,7 @@ using Clarity.Phone.Controls.Animations;
 using Microsoft.Phone.Shell;
 using Clarity.Phone.Extensions;
 using Komodex.Remote.Localization;
+using Komodex.Common;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -108,12 +109,7 @@ namespace Komodex.Remote.LibraryPages
             base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == ServerUpdateType.ServerConnected)
-            {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    GetDataForPivotItem();
-                });
-            }
+                Utility.BeginInvokeOnUIThread(GetDataForPivotItem);
         }
 
         #endregion

@@ -15,6 +15,7 @@ using Komodex.DACP.Library;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
 using Komodex.Remote.ServerManagement;
+using Komodex.Common;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -95,7 +96,7 @@ namespace Komodex.Remote.LibraryPages
             base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
-                Deployment.Current.Dispatcher.BeginInvoke(() => { Playlist.GetSongs(); });
+                Utility.BeginInvokeOnUIThread(Playlist.GetSongs);
         }
 
         #endregion
