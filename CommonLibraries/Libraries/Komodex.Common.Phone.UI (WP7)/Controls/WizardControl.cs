@@ -141,6 +141,19 @@ namespace Komodex.Common.Phone.Controls
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
+
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (var item in e.NewItems)
+                {
+                    WizardItem wizardItem = item as WizardItem;
+                    if (wizardItem == null)
+                        continue;
+
+                    wizardItem.RenderTransform = new TranslateTransform();
+                }
+            }
+
             UpdateDesignModeDisplay();
         }
 
@@ -149,7 +162,7 @@ namespace Komodex.Common.Phone.Controls
             base.PrepareContainerForItemOverride(element, item);
 
             WizardItem wizardItem = (WizardItem)element;
-            TranslateTransform transform = new TranslateTransform();
+            TranslateTransform transform = (TranslateTransform)wizardItem.RenderTransform;
             wizardItem.RenderTransform = transform;
 
             if (!DesignerProperties.IsInDesignTool)
@@ -172,7 +185,7 @@ namespace Komodex.Common.Phone.Controls
 
         #endregion
 
-        #region Step Animation
+        #region Wizard Item Animation
 
         public void SetSelectedIndex(int value, bool useTransitions = true)
         {
@@ -180,6 +193,11 @@ namespace Komodex.Common.Phone.Controls
                 return;
 
             SetSelectedIndex(_selectedIndex, value, useTransitions);
+        }
+
+        public void SetSelectedItem(WizardItem item, bool useTransitions = true)
+        {
+            SetSelectedIndex(Items.IndexOf(item), useTransitions);
         }
 
         private void SetSelectedIndex(int oldValue, int value, bool useTransitions = true)
