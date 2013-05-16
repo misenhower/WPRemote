@@ -233,11 +233,7 @@ namespace Komodex.Remote
 
         private void btnAddLibrary_Click(object sender, RoutedEventArgs e)
         {
-#if WP7
-            NavigationManager.OpenManualPairingPage();
-#else
             NavigationManager.OpenPairingPage();
-#endif
         }
 
         private void btnTrial_Click(object sender, RoutedEventArgs e)

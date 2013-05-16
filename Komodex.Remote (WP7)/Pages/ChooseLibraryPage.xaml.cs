@@ -23,11 +23,8 @@ namespace Komodex.Remote.Pages
             LayoutRoot.DataContext = ServerManager.PairedServers;
 
             ApplicationBar = new ApplicationBar();
-#if WP7
-            AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, "/icons/appbar.new.rest.png", () => NavigationManager.OpenManualPairingPage());
-#else
+
             AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, "/icons/appbar.new.rest.png", () => NavigationManager.OpenPairingPage());
-#endif
         }
 
         private void LibraryList_Tap(object sender, System.Windows.Input.GestureEventArgs e)

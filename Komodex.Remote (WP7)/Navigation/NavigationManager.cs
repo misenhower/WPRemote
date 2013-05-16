@@ -68,12 +68,10 @@ namespace Komodex.Remote
             Navigate("/Pages/ChooseLibraryPage.xaml");
         }
 
-#if WP8
         public static void OpenPairingPage()
         {
             Navigate("/Pages/Pairing/PairingPage.xaml");
         }
-#endif
 
         public static void OpenManualPairingPage()
         {
