@@ -142,18 +142,6 @@ namespace Komodex.Common.Phone.Controls
         {
             base.OnItemsChanged(e);
 
-            if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                foreach (var item in e.NewItems)
-                {
-                    WizardItem wizardItem = item as WizardItem;
-                    if (wizardItem == null)
-                        continue;
-
-                    wizardItem.RenderTransform = new TranslateTransform();
-                }
-            }
-
             UpdateDesignModeDisplay();
         }
 
