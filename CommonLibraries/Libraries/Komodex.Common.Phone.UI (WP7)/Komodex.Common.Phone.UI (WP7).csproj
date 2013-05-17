@@ -51,6 +51,7 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\IconButton.cs" />
     <Compile Include="Controls\LongListSelectorEx.cs" />
     <Compile Include="Controls\NumericTextBox.cs" />
     <Compile Include="Controls\WizardControl.cs" />
@@ -79,6 +80,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\IconButton.WP7.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

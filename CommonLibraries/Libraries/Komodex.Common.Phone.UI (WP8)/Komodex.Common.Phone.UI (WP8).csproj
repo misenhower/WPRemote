@@ -86,6 +86,9 @@
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Analytics\PhoneAppCrashReporter.cs">
       <Link>Analytics\PhoneAppCrashReporter.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\IconButton.cs">
+      <Link>Controls\IconButton.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\LongListSelectorEx.cs">
       <Link>Controls\LongListSelectorEx.cs</Link>
     </Compile>
@@ -113,15 +116,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\Komodex.Common.Phone.UI %28WP7%29\Themes\Generic.xaml">
-      <Link>Themes\Generic.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\Komodex.Common.Phone.UI %28WP7%29\Themes\Wizard.xaml">
       <Link>Themes\Wizard.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\IconButton.WP8.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\LongListSelectorEx.xaml">
       <SubType>Designer</SubType>
