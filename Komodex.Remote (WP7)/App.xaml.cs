@@ -99,8 +99,7 @@ namespace Komodex.Remote
 
 #if WP7
             // Remove LongListSelector from the TiltableItems list
-            if (TiltEffect.TiltableItems.Contains(typeof(LongListSelector)))
-                TiltEffect.TiltableItems.Remove(typeof(LongListSelector));
+            TiltEffect.TiltableItems.Remove(typeof(LongListSelector));
 #endif
         }
 
