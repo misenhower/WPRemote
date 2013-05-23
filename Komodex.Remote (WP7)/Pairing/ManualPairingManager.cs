@@ -99,7 +99,7 @@ namespace Komodex.Remote.Pairing
 
         private static void Browser_ServiceRemoved(object sender, NetServiceEventArgs e)
         {
-            _log.Info("Removed instance '{0}'");
+            _log.Info("Removed instance '{0}'", e.Service.FullServiceInstanceName);
 
             Utility.BeginInvokeOnUIThread(() =>
             {
