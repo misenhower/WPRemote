@@ -124,6 +124,13 @@ namespace Clarity.Phone.Extensions
         // set this to prevent the dialog service from closing on back click
         public bool HasPopup { get; set; }
 
+        private bool _hideOnNavigate = true;
+        public bool HideOnNavigate
+        {
+            get { return _hideOnNavigate; }
+            set { _hideOnNavigate = value; }
+        }
+
         internal FrameworkElement RootVisual
         {
             get
@@ -261,7 +268,8 @@ namespace Clarity.Phone.Extensions
 
         void OnNavigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            Hide();
+            if (HideOnNavigate)
+                Hide();
         }
 
         public void Hide()

@@ -34,7 +34,7 @@ namespace Komodex.Common.Phone
 
         #region Methods
 
-        internal virtual void Show(ContentPresenter container)
+        protected internal virtual void Show(ContentPresenter container)
         {
             if (_dialogService != null && _dialogService.IsOpen)
                 return;
