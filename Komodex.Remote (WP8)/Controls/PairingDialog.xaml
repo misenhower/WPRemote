@@ -1,0 +1,91 @@
+﻿<base:DialogUserControlBase
+    x:Class="Komodex.Remote.Controls.PairingDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:base="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="800" d:DesignWidth="480">
+    
+    <UserControl.Resources>
+        <Style x:Key="PasscodeNumberBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource PhoneSemitransparentBrush}" />
+            <Setter Property="Width" Value="60" />
+            <Setter Property="Margin" Value="6" />
+            <Setter Property="Padding" Value="0,6" />
+        </Style>
+        <Style x:Key="PasscodeNumberTextStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}" />
+            <Setter Property="FontSize" Value="52" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneSemitransparentBrush}">
+        <Grid Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
+            <Grid Margin="12,32,12,12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <TextBlock Text="Add library"
+                            Name="headerTextBlock"
+                            Margin="12"
+                            FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                            FontSize="{StaticResource PhoneFontSizeLarge}" />
+                
+                <controls:WizardControl x:Name="wizard" Grid.Row="1" Margin="-12,0" Padding="12,0,12,12" SelectedIndex="1">
+                    <controls:WizardItem x:Name="wizardItemWifi">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Waiting for Wi-Fi Connection..."
+                                       Style="{StaticResource PhoneTextNormalStyle}"
+                                       HorizontalAlignment="Center"
+                                       />
+                        </StackPanel>
+                    </controls:WizardItem>
+                    <controls:WizardItem x:Name="wizardItemPasscode">
+                        <StackPanel>
+                            <TextBlock Text="passcode"
+                                       Style="{StaticResource PhoneTextLargeStyle}"
+                                       />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,30">
+                                <Border Style="{StaticResource PasscodeNumberBorderStyle}">
+                                    <TextBlock x:Name="pinTextBox1" Text="1" Style="{StaticResource PasscodeNumberTextStyle}" />
+                                </Border>
+                                <Border Style="{StaticResource PasscodeNumberBorderStyle}">
+                                    <TextBlock x:Name="pinTextBox2" Text="2" Style="{StaticResource PasscodeNumberTextStyle}" />
+                                </Border>
+                                <Border Style="{StaticResource PasscodeNumberBorderStyle}">
+                                    <TextBlock x:Name="pinTextBox3" Text="3" Style="{StaticResource PasscodeNumberTextStyle}" />
+                                </Border>
+                                <Border Style="{StaticResource PasscodeNumberBorderStyle}">
+                                    <TextBlock x:Name="pinTextBox4" Text="4" Style="{StaticResource PasscodeNumberTextStyle}" />
+                                </Border>
+                            </StackPanel>
+                            <TextBlock
+                                   Text="To add a library, open iTunes (or another compatible application) on your computer and select &quot;Windows Phone 8 Device&quot; from the Devices list."
+                                   TextWrapping="Wrap"
+                                   Style="{StaticResource PhoneTextNormalStyle}"
+                                   />
+                        </StackPanel>
+                    </controls:WizardItem>
+                </controls:WizardControl>
+                
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="leftButton" Content=" " Click="leftButton_Click" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</base:DialogUserControlBase>

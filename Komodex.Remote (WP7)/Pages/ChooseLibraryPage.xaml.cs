@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Komodex.Remote.ServerManagement;
 using Komodex.Remote.Localization;
+using Komodex.Remote.Controls;
 
 namespace Komodex.Remote.Pages
 {
@@ -24,7 +25,7 @@ namespace Komodex.Remote.Pages
 
             ApplicationBar = new ApplicationBar();
 
-            AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, "/icons/appbar.new.rest.png", () => NavigationManager.OpenPairingPage());
+            AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, "/icons/appbar.new.rest.png", ShowPairingDialog);
         }
 
         private void LibraryList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -45,6 +46,18 @@ namespace Komodex.Remote.Pages
                 return;
 
             ServerManager.RemoveServerInfo(info);
+        }
+
+        protected void ShowPairingDialog()
+        {
+            if (IsDialogOpen)
+                return;
+
+#if WP7
+#else
+            PairingDialog pairingDialog = new PairingDialog();
+            ShowDialog(pairingDialog);
+#endif
         }
     }
 }

@@ -19,6 +19,7 @@ using Komodex.Remote.Localization;
 using Komodex.Remote.ServerManagement;
 using Komodex.Remote.Pairing;
 using Komodex.Common;
+using Komodex.Remote.Controls;
 
 namespace Komodex.Remote
 {
@@ -233,7 +234,14 @@ namespace Komodex.Remote
 
         private void btnAddLibrary_Click(object sender, RoutedEventArgs e)
         {
-            NavigationManager.OpenPairingPage();
+            if (IsDialogOpen)
+                return;
+
+#if WP7
+#else
+            PairingDialog pairingDialog = new PairingDialog();
+            ShowDialog(pairingDialog);
+#endif
         }
 
         private void btnTrial_Click(object sender, RoutedEventArgs e)

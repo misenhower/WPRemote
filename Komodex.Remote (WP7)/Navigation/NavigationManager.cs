@@ -68,11 +68,6 @@ namespace Komodex.Remote
             Navigate("/Pages/ChooseLibraryPage.xaml");
         }
 
-        public static void OpenPairingPage()
-        {
-            Navigate("/Pages/Pairing/PairingPage.xaml");
-        }
-
         public static void OpenManualPairingPage()
         {
             Navigate("/Pages/Pairing/ManualPairingPage.xaml");

@@ -213,10 +213,6 @@
       <Link>Pages\Pairing\ManualPairingPage.xaml.cs</Link>
       <DependentUpon>ManualPairingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\PairingPage.xaml.cs">
-      <Link>Pages\Pairing\PairingPage.xaml.cs</Link>
-      <DependentUpon>PairingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pairing\DiscoveredPairingUtility.cs">
       <Link>Pairing\DiscoveredPairingUtility.cs</Link>
     </Compile>
@@ -278,6 +274,9 @@
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Utilities\StateUtils.cs">
       <Link>Utilities\StateUtils.cs</Link>
+    </Compile>
+    <Compile Include="Controls\PairingDialog.xaml.cs">
+      <DependentUpon>PairingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pairing\PairingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -543,11 +542,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\PairingPage.xaml">
-      <Link>Pages\Pairing\PairingPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Settings\SettingsPage.xaml">
       <Link>Settings\SettingsPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -577,6 +571,10 @@
       <Link>TrialMode\TrialReminderDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PairingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\AppThemes.xaml">
       <SubType>Designer</SubType>
