@@ -81,6 +81,9 @@
     <Compile Include="Controls\StarRating.xaml.cs">
       <DependentUpon>StarRating.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UtilityPairingDialog.xaml.cs">
+      <DependentUpon>UtilityPairingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\CollapseIfLessThanOneConverter.cs" />
     <Compile Include="Converters\CollectionCountToStringConverter.cs" />
     <Compile Include="Converters\DisableWhenNullConverter.cs" />
@@ -188,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StarRating.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UtilityPairingDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

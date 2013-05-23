@@ -1,0 +1,104 @@
+﻿<base:DialogUserControlBase
+    x:Class="Komodex.Remote.Controls.UtilityPairingDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:base="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="800" d:DesignWidth="480">
+    
+    <UserControl.Resources>
+        <DataTemplate x:Key="ListPickerItemTemplate">
+            <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneSemitransparentBrush}">
+        <Grid Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
+            <Grid Margin="12,32,12,12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Add library"
+                            Name="headerTextBlock"
+                            Margin="12"
+                            FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                            FontSize="{StaticResource PhoneFontSizeLarge}" />
+
+                <controls:WizardControl x:Name="wizard" Grid.Row="1" Margin="-12,0" Padding="12,0,12,12" SelectedIndex="1" Background="{StaticResource PhoneChromeBrush}">
+                    <controls:WizardItem x:Name="wizardItemWifi">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Waiting for Wi-Fi Connection..."
+                                       Style="{StaticResource PhoneTextNormalStyle}"
+                                       HorizontalAlignment="Center"
+                                       />
+                        </StackPanel>
+                    </controls:WizardItem>
+                    <controls:WizardItem x:Name="wizardItemWaitingForUtility">
+                        <StackPanel>
+                            <TextBlock Text="To pair this device with a new library, download the Pairing Utility from our website:"
+                                       TextWrapping="Wrap"
+                                       Style="{StaticResource PhoneTextTitle3Style}"
+                                       />
+                            <TextBlock Text="http://wp7remote.com"
+                                       Style="{StaticResource PhoneTextLargeStyle}"
+                                       Foreground="{StaticResource PhoneAccentBrush}"
+                                       />
+                            <TextBlock Text="Waiting for pairing to complete..."
+                                       Style="{StaticResource PhoneTextNormalStyle}"
+                                       Margin="12,12,12,0"
+                                       />
+                        </StackPanel>
+                    </controls:WizardItem>
+                    <controls:WizardItem x:Name="wizardItemEnterPIN">
+                        <StackPanel>
+                            <TextBlock Text="enter pin"
+                                       Style="{StaticResource PhoneTextLargeStyle}"
+                                       Margin="12,0,12,12"
+                                       />
+                            <toolkit:ListPicker x:Name="libraryPicker"
+                                                Header="Library"
+                                                ItemTemplate="{StaticResource ListPickerItemTemplate}"
+                                                SelectionChanged="libraryPicker_SelectionChanged"
+                                                toolkit:TiltEffect.SuppressTilt="True"
+                                                />
+                            <TextBlock Text="PIN"
+                                       Style="{StaticResource PhoneTextSubtleStyle}"
+                                       />
+                            <controls:NumericTextBox
+                                x:Name="pinTextBox"
+                                MaxLength="4"
+                                KeyUp="pinTextBox_KeyUp"
+                                TextChanged="pinTextBox_TextChanged"
+                                />
+                        </StackPanel>
+                    </controls:WizardItem>
+                    <controls:WizardItem x:Name="wizardItemConnecting">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Connecting to library..."
+                                       HorizontalAlignment="Center"
+                                       />
+                        </StackPanel>
+                    </controls:WizardItem>
+                </controls:WizardControl>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="leftButton" Content=" " Click="leftButton_Click" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</base:DialogUserControlBase>

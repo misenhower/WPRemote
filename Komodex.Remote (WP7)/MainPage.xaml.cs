@@ -238,6 +238,8 @@ namespace Komodex.Remote
                 return;
 
 #if WP7
+            UtilityPairingDialog pairingDialog = new UtilityPairingDialog();
+            ShowDialog(pairingDialog);
 #else
             PairingDialog pairingDialog = new PairingDialog();
             ShowDialog(pairingDialog);
