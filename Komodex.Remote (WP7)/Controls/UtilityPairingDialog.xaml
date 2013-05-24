@@ -35,8 +35,9 @@
                             FontSize="{StaticResource PhoneFontSizeLarge}" />
 
                 <controls:WizardControl x:Name="wizard" Grid.Row="1" Margin="-12,0" Padding="12,0,12,12" SelectedIndex="1" Background="{StaticResource PhoneChromeBrush}">
-                    <controls:WizardItem x:Name="wizardItemWifi">
+                    <controls:WizardItem x:Name="wizardItemWiFi">
                         <StackPanel VerticalAlignment="Center">
+                            <controls:PerformanceProgressBar IsIndeterminate="{Binding IsVisible, ElementName=wizardItemWiFi}" Margin="-12,0" />
                             <TextBlock Text="Waiting for Wi-Fi Connection..."
                                        Style="{StaticResource PhoneTextNormalStyle}"
                                        HorizontalAlignment="Center"
@@ -44,20 +45,33 @@
                         </StackPanel>
                     </controls:WizardItem>
                     <controls:WizardItem x:Name="wizardItemWaitingForUtility">
-                        <StackPanel>
-                            <TextBlock Text="To pair this device with a new library, download the Pairing Utility from our website:"
-                                       TextWrapping="Wrap"
-                                       Style="{StaticResource PhoneTextTitle3Style}"
-                                       />
-                            <TextBlock Text="http://wp7remote.com"
-                                       Style="{StaticResource PhoneTextLargeStyle}"
-                                       Foreground="{StaticResource PhoneAccentBrush}"
-                                       />
-                            <TextBlock Text="Waiting for pairing to complete..."
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            
+                            <StackPanel>
+                                <TextBlock Text="To pair this device with a new library, download the Pairing Utility from our website:"
+                                           TextWrapping="Wrap"
+                                           Style="{StaticResource PhoneTextTitle3Style}"
+                                           />
+                                <TextBlock Text="http://wp7remote.com"
+                                           Style="{StaticResource PhoneTextLargeStyle}"
+                                           Foreground="{StaticResource PhoneAccentBrush}"
+                                           />
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                                <controls:PerformanceProgressBar IsIndeterminate="{Binding IsVisible, ElementName=wizardItemWaitingForUtility}" Margin="-12,0" />
+                                <TextBlock Text="Waiting for pairing to complete..."
                                        Style="{StaticResource PhoneTextNormalStyle}"
-                                       Margin="12,12,12,0"
+                                       HorizontalAlignment="Center"
                                        />
-                        </StackPanel>
+                            </StackPanel>
+                            
+                            
+                        </Grid>
                     </controls:WizardItem>
                     <controls:WizardItem x:Name="wizardItemEnterPIN">
                         <StackPanel>
@@ -84,6 +98,7 @@
                     </controls:WizardItem>
                     <controls:WizardItem x:Name="wizardItemConnecting">
                         <StackPanel VerticalAlignment="Center">
+                            <controls:PerformanceProgressBar IsIndeterminate="{Binding IsVisible, ElementName=wizardItemConnecting}" Margin="-12,0" />
                             <TextBlock Text="Connecting to library..."
                                        HorizontalAlignment="Center"
                                        />

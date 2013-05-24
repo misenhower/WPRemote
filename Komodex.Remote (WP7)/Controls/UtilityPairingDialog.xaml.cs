@@ -81,7 +81,7 @@ namespace Komodex.Remote.Controls
             }
             else
             {
-                wizard.SetSelectedItem(wizardItemWifi, useTransitions);
+                wizard.SetSelectedItem(wizardItemWiFi, useTransitions);
                 leftButton.Content = "wi-fi settings";
             }
 
@@ -91,7 +91,7 @@ namespace Komodex.Remote.Controls
         private void leftButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = wizard.SelectedItem;
-            if (selectedItem == wizardItemWifi)
+            if (selectedItem == wizardItemWiFi)
             {
                 ConnectionSettingsTask task = new ConnectionSettingsTask();
                 task.ConnectionSettingsType = ConnectionSettingsType.WiFi;

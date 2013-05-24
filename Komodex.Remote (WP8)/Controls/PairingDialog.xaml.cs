@@ -56,14 +56,14 @@ namespace Komodex.Remote.Controls
             }
             else
             {
-                wizard.SetSelectedItem(wizardItemWifi, useTransitions);
+                wizard.SetSelectedItem(wizardItemWiFi, useTransitions);
                 leftButton.Content = "wi-fi settings";
             }
         }
 
         private void leftButton_Click(object sender, RoutedEventArgs e)
         {
-            if (wizard.SelectedItem == wizardItemWifi)
+            if (wizard.SelectedItem == wizardItemWiFi)
             {
                 ConnectionSettingsTask task = new ConnectionSettingsTask();
                 task.ConnectionSettingsType = ConnectionSettingsType.WiFi;

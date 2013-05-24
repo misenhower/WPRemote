@@ -42,8 +42,9 @@
                             FontSize="{StaticResource PhoneFontSizeLarge}" />
                 
                 <controls:WizardControl x:Name="wizard" Grid.Row="1" Margin="-12,0" Padding="12,0,12,12" SelectedIndex="1" Background="{StaticResource PhoneChromeBrush}">
-                    <controls:WizardItem x:Name="wizardItemWifi">
+                    <controls:WizardItem x:Name="wizardItemWiFi">
                         <StackPanel VerticalAlignment="Center">
+                            <controls:PerformanceProgressBar IsIndeterminate="{Binding IsVisible, ElementName=wizardItemWiFi}" Margin="-12,0" />
                             <TextBlock Text="Waiting for Wi-Fi Connection..."
                                        Style="{StaticResource PhoneTextNormalStyle}"
                                        HorizontalAlignment="Center"
