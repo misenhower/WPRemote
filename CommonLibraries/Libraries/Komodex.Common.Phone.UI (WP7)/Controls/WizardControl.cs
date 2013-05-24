@@ -18,6 +18,8 @@ namespace Komodex.Common.Phone.Controls
         private IEasingFunction _animationEasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseInOut };
         private const int _offscreenPosition = 1000;
         private readonly bool _isInDesignTool = DesignerProperties.IsInDesignTool;
+        private bool _setMinHeight;
+        private ItemsPresenter _itemsPresenter;
 
         public WizardControl()
         {
@@ -124,6 +126,7 @@ namespace Komodex.Common.Phone.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            _itemsPresenter = (ItemsPresenter)GetTemplateChild("WizardItemPresenter");
             UpdateDesignModeDisplay();
         }
 
@@ -220,6 +223,10 @@ namespace Komodex.Common.Phone.Controls
                 for (int i = 0; i < Items.Count; i++)
                 {
                     WizardItem item = (WizardItem)Items[i];
+
+                    if (!_setMinHeight && !_isInDesignTool)
+                        _itemsPresenter.MinHeight = Math.Max(_itemsPresenter.MinHeight, item.ActualHeight);
+
                     if (i == _selectedIndex)
                     {
                         item.Visibility = System.Windows.Visibility.Visible;
@@ -230,6 +237,8 @@ namespace Komodex.Common.Phone.Controls
                         item.Visibility = System.Windows.Visibility.Collapsed;
                     }
                 }
+
+                _setMinHeight = true;
 
                 return;
             }
