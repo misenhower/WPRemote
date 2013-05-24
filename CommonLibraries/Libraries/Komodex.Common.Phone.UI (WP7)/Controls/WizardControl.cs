@@ -230,11 +230,13 @@ namespace Komodex.Common.Phone.Controls
                     if (i == _selectedIndex)
                     {
                         item.Visibility = System.Windows.Visibility.Visible;
+                        item.IsVisible = true;
                         ((TranslateTransform)item.RenderTransform).X = 0;
                     }
                     else
                     {
                         item.Visibility = System.Windows.Visibility.Collapsed;
+                        item.IsVisible = false;
                     }
                 }
 
@@ -248,6 +250,7 @@ namespace Komodex.Common.Phone.Controls
             WizardItem newItem = (WizardItem)Items[_selectedIndex];
             ((TranslateTransform)newItem.RenderTransform).X = ActualWidth;
             newItem.Visibility = System.Windows.Visibility.Visible;
+            newItem.IsVisible = true;
 
             // If we're already animating, don't do anything since the new index will be handled automatically
             if (_currentStoryboard != null)
@@ -287,6 +290,7 @@ namespace Komodex.Common.Phone.Controls
             _currentStoryboard.Completed += (s1, e1) =>
             {
                 oldItem.Visibility = System.Windows.Visibility.Collapsed;
+                oldItem.IsVisible = false;
                 _currentStoryboard.Stop();
 
                 // Get the new item
