@@ -17,6 +17,7 @@ namespace Komodex.Common.Phone.Controls
         private Storyboard _currentStoryboard;
         private IEasingFunction _animationEasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseInOut };
         private const int _offscreenPosition = 1000;
+        private readonly bool _isInDesignTool = DesignerProperties.IsInDesignTool;
 
         public WizardControl()
         {
@@ -59,7 +60,7 @@ namespace Komodex.Common.Phone.Controls
 
         protected void UpdateDesignModeDisplay()
         {
-            if (!DesignerProperties.IsInDesignTool)
+            if (!_isInDesignTool)
                 return;
 
             // Get the background panel
@@ -130,7 +131,7 @@ namespace Komodex.Common.Phone.Controls
         {
             UpdateDesignModeDisplay();
 
-            if (!DesignerProperties.IsInDesignTool)
+            if (!_isInDesignTool)
             {
                 var geometry = new RectangleGeometry();
                 geometry.Rect = new Rect(0, 0, ActualWidth, ActualHeight);
@@ -151,9 +152,8 @@ namespace Komodex.Common.Phone.Controls
 
             WizardItem wizardItem = (WizardItem)element;
             TranslateTransform transform = (TranslateTransform)wizardItem.RenderTransform;
-            wizardItem.RenderTransform = transform;
 
-            if (!DesignerProperties.IsInDesignTool)
+            if (!_isInDesignTool)
             {
                 // Don't set visibility to collapsed yet. This gives all items time to render, reducing the chance of lost animations.
                 if (Items.IndexOf(wizardItem) != _selectedIndex)
@@ -202,7 +202,7 @@ namespace Komodex.Common.Phone.Controls
                 useTransitions = false;
 
             // If we're in design mode, just update the item positions and return
-            if (DesignerProperties.IsInDesignTool)
+            if (_isInDesignTool)
             {
                 UpdateDesignModeDisplay();
                 return;

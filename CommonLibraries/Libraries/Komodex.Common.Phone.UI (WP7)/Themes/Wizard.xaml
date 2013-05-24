@@ -9,7 +9,7 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <Grid x:Name="aaa" />
+                    <Grid />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
