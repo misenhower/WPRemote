@@ -46,32 +46,13 @@ namespace Komodex.Remote
 #endif
 
             Loaded += MainPage_Loaded;
-
-            ServerManager.ConnectionStateChanged += (sender, e) => Utility.BeginInvokeOnUIThread(() => UpdateBindings());
         }
-
-        protected bool _initialized;
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_initialized)
-                return;
+            Loaded -= MainPage_Loaded;
 
-            _initialized = true;
-
-            if (!TrialManager.Current.IsTrial)
-                return;
-
-            TrialReminderDialog trialDialog = new TrialReminderDialog();
-            trialDialog.Closed += trialDialog_Closed;
-
-            ShowDialog(trialDialog);
-        }
-
-        private void trialDialog_Closed(object sender, DialogControlClosedEventArgs e)
-        {
-            if (e.Result == MessageBoxResult.OK)
-                return;
+            // TODO: Trial reminder
         }
 
 #if DEBUG
@@ -105,13 +86,11 @@ namespace Komodex.Remote
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            AttachEvents();
+
             UpdateBindings();
             UpdateVisualState(false);
-
-            if (ServerManager.PairedServers.Count > 0)
-                DisableConnectionStatusPopup = false;
-            else
-                DisableConnectionStatusPopup = true;
 
             if (TrialManager.Current.IsTrial)
             {
@@ -181,22 +160,37 @@ namespace Komodex.Remote
 
         #region Methods
 
+        protected void AttachEvents()
+        {
+            ServerManager.PairedServers.CollectionChanged += PairedServers_CollectionChanged;
+        }
+
+        protected void DetachEvents()
+        {
+            ServerManager.PairedServers.CollectionChanged -= PairedServers_CollectionChanged;
+        }
+
+        private void PairedServers_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            UpdateBindings();
+        }
+
         private void UpdateBindings()
         {
             // Page title
             if (CurrentServer == null || string.IsNullOrEmpty(CurrentServer.LibraryName))
                 ApplicationTitle.Text = "REMOTE";
-            else if (!string.IsNullOrEmpty(CurrentServer.LibraryName))
-                ApplicationTitle.Text = CurrentServer.LibraryName.ToUpper();
             else
-                ApplicationTitle.Text = string.Empty;
+                ApplicationTitle.Text = CurrentServer.LibraryName.ToUpper();
 
             // Panel visibility
             bool showContentPanel = (CurrentServer != null && CurrentServer.IsConnected);
             bool showFirstStartPanel = (CurrentServer == null && ServerManager.PairedServers.Count == 0);
             ContentPanel.Visibility = (showContentPanel) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             FirstStartPanel.Visibility = (showFirstStartPanel) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+
             HideApplicationBar = showFirstStartPanel;
+            DisableConnectionStatusPopup = showFirstStartPanel;
         }
 
         private void UpdateVisualState(bool useTransitions = true)
