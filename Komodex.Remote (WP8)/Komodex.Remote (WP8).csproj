@@ -109,6 +109,10 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\FakeButton.cs">
       <Link>Controls\FakeButton.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\ManualPairingDialog.xaml.cs">
+      <Link>Controls\ManualPairingDialog.xaml.cs</Link>
+      <DependentUpon>ManualPairingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\MemoryCounters.cs">
       <Link>Controls\MemoryCounters.cs</Link>
     </Compile>
@@ -419,6 +423,11 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Controls\ConnectingStatusControl.xaml">
       <Link>Controls\ConnectingStatusControl.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Controls\ManualPairingDialog.xaml">
+      <Link>Controls\ManualPairingDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

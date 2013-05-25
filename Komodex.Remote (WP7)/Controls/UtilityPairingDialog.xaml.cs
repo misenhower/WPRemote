@@ -228,6 +228,8 @@ namespace Komodex.Remote.Controls
                         info.LastIPAddress = _server.Hostname;
                         info.LastPort = _server.Port;
 
+                        _server = null;
+
                         ServerManager.AddServerInfo(info);
                         ServerManager.ChooseServer(info);
 
@@ -243,6 +245,7 @@ namespace Komodex.Remote.Controls
                         if (e.ErrorType == ServerErrorType.InvalidPIN)
                         {
                             MessageBox.Show(LocalizedStrings.LibraryPINErrorBody, LocalizedStrings.LibraryPINErrorTitle, MessageBoxButton.OK);
+                            _server.ServerUpdate -= DACPServer_ServerUpdate;
                             _server = null;
                             UpdateWizardItem(true);
                             return;
@@ -263,6 +266,7 @@ namespace Komodex.Remote.Controls
                         }
 
                         // No other IPs, so we can't do anything else
+                        // TODO: Display error
                         _server.ServerUpdate -= DACPServer_ServerUpdate;
                         _server = null;
                         UpdateWizardItem(true);
