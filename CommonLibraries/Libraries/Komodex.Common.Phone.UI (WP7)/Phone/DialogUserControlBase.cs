@@ -30,6 +30,8 @@ namespace Komodex.Common.Phone
             }
         }
 
+        protected bool ShowSemitransparentBackground { get; set; }
+
         #endregion
 
         #region Methods
@@ -49,6 +51,8 @@ namespace Komodex.Common.Phone
             _dialogService.Closed += DialogService_Closed;
 
             _dialogService.Child = this;
+
+            _dialogService.ShowSemitransparentBackground = ShowSemitransparentBackground;
 
             _dialogService.Show();
         }

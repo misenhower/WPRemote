@@ -131,6 +131,8 @@ namespace Clarity.Phone.Extensions
             set { _hideOnNavigate = value; }
         }
 
+        public bool ShowSemitransparentBackground { get; set; }
+
         internal FrameworkElement RootVisual
         {
             get
@@ -208,7 +210,17 @@ namespace Clarity.Phone.Extensions
             Child.Width = _rootVisual.ActualWidth;
 
             // Initialize popup to draw the context menu over all controls
-            PopupContainer.Content = _overlay;
+            if (ShowSemitransparentBackground)
+            {
+                Border backgroundBorder = new Border();
+                backgroundBorder.Background = (Brush)Application.Current.Resources["PhoneSemitransparentBrush"];
+                backgroundBorder.Child = _overlay;
+                PopupContainer.Content = backgroundBorder;
+            }
+            else
+            {
+                PopupContainer.Content = _overlay;
+            }
 
             if (BackgroundBrush != null)
                 _overlay.Background = BackgroundBrush;
