@@ -37,11 +37,17 @@ namespace Komodex.Remote.Controls
             // Prepare the dialog
             NetworkManager.NetworkAvailabilityChanged += NetworkManager_NetworkAvailabilityChanged;
             UpdateWizardItem(false);
-            StartManualPairingManager();
 
             base.Show(container);
 
             _dialogService.HideOnNavigate = false;
+        }
+
+        protected override void DialogService_Opened(object sender, EventArgs e)
+        {
+            base.DialogService_Opened(sender, e);
+
+            StartManualPairingManager();
         }
 
         protected override void DialogService_Closed(object sender, EventArgs e)

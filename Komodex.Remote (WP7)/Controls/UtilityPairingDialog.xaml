@@ -65,9 +65,9 @@
                             <StackPanel Grid.Row="1" VerticalAlignment="Center">
                                 <controls:PerformanceProgressBar IsIndeterminate="{Binding IsVisible, ElementName=wizardItemWaitingForUtility}" Margin="-12,0" />
                                 <TextBlock Text="Waiting for pairing to complete..."
-                                       Style="{StaticResource PhoneTextNormalStyle}"
-                                       HorizontalAlignment="Center"
-                                       />
+                                           Style="{StaticResource PhoneTextNormalStyle}"
+                                           HorizontalAlignment="Center"
+                                           />
                             </StackPanel>
                             
                             
