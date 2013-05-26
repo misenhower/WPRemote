@@ -159,20 +159,12 @@ namespace Komodex.Remote
             UpdateAppBarNowPlayingButtons();
         }
 
-        private bool _hideApplicationBar;
-        public bool HideApplicationBar
+        public virtual void UpdateApplicationBarVisibility()
         {
-            get { return _hideApplicationBar; }
-            protected set
-            {
-                if (_hideApplicationBar == value)
-                    return;
+            if (ApplicationBar == null)
+                return;
 
-                _hideApplicationBar = value;
-                // ConnectionStatusPopupManager will update the application bar's visibility
-                ConnectionStatusPopupManager.UpdatePopupVisibility();
-                // TODO: There may be a better way to handle this
-            }
+            ApplicationBar.IsVisible = !ConnectionStatusPopupManager.IsVisible;
         }
 
         #region Play Transport Icons

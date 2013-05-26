@@ -25,6 +25,9 @@ namespace Komodex.Remote
 {
     public partial class MainPage : RemoteBasePage
     {
+        private IApplicationBar _standardAppBar;
+        private IApplicationBar _firstRunAppBar;
+
         public MainPage()
         {
             InitializeComponent();
@@ -44,6 +47,8 @@ namespace Komodex.Remote
             UpdateDebugDataMenuItem();
             AddTrialSimulationMenuItem();
 #endif
+
+            _standardAppBar = ApplicationBar;
 
             Loaded += MainPage_Loaded;
         }
@@ -189,8 +194,35 @@ namespace Komodex.Remote
             ContentPanel.Visibility = (showContentPanel) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             FirstStartPanel.Visibility = (showFirstStartPanel) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 
-            HideApplicationBar = showFirstStartPanel;
             DisableConnectionStatusPopup = showFirstStartPanel;
+
+            if (showFirstStartPanel)
+            {
+                ShowFirstRunAppBar();
+                ApplicationBarMenuClosedOpacity = 0;
+            }
+            else
+            {
+                ApplicationBar = _standardAppBar;
+                ApplicationBarMenuClosedOpacity = 0.9;
+            }
+
+            UpdateApplicationBarVisibility();
+        }
+
+        protected void ShowFirstRunAppBar()
+        {
+            if (_firstRunAppBar != null)
+            {
+                ApplicationBar = _firstRunAppBar;
+                return;
+            }
+
+            _firstRunAppBar = new ApplicationBar();
+            _firstRunAppBar.Mode = ApplicationBarMode.Minimized;
+            ApplicationBar = _firstRunAppBar;
+            AddApplicationBarMenuItem("manual pairing", OpenManualPairingDialog);
+            AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, NavigationManager.OpenAboutPage);
         }
 
         private void UpdateVisualState(bool useTransitions = true)
@@ -238,6 +270,15 @@ namespace Komodex.Remote
             PairingDialog pairingDialog = new PairingDialog();
             ShowDialog(pairingDialog);
 #endif
+        }
+
+        private void OpenManualPairingDialog()
+        {
+            if (IsDialogOpen)
+                return;
+
+            ManualPairingDialog pairingDialog = new ManualPairingDialog();
+            ShowDialog(pairingDialog);
         }
 
         private void btnTrial_Click(object sender, RoutedEventArgs e)

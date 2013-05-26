@@ -17,6 +17,8 @@ namespace Komodex.Remote.ServerManagement
         private static bool _canDisplay;
         private static bool _showProgressBar;
 
+        public static bool IsVisible { get; private set; }
+
         public static void Initialize()
         {
             // Popup display size
@@ -123,18 +125,16 @@ namespace Komodex.Remote.ServerManagement
                 {
                     _statusControl.ShowProgressBar = _showProgressBar;
                     _popup.IsOpen = true;
-                    // Hide the page's application bar
-                    if (page != null && page.ApplicationBar != null)
-                        page.ApplicationBar.IsVisible = false;
                 }
                 else
                 {
                     _statusControl.ShowProgressBar = false;
                     _popup.IsOpen = false;
-                    // Show the page's application bar
-                    if (page != null && page.ApplicationBar != null)
-                        page.ApplicationBar.IsVisible = !page.HideApplicationBar;
                 }
+
+                IsVisible = visible;
+                if (page != null)
+                    page.UpdateApplicationBarVisibility();
             });
         }
 

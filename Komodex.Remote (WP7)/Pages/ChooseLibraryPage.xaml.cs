@@ -26,6 +26,7 @@ namespace Komodex.Remote.Pages
             ApplicationBar = new ApplicationBar();
 
             AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, "/icons/appbar.new.rest.png", ShowPairingDialog);
+            AddApplicationBarMenuItem("manual pairing", ShowManualPairingDialog);
         }
 
         private void LibraryList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -60,6 +61,15 @@ namespace Komodex.Remote.Pages
             PairingDialog pairingDialog = new PairingDialog();
             ShowDialog(pairingDialog);
 #endif
+        }
+
+        protected void ShowManualPairingDialog()
+        {
+            if (IsDialogOpen)
+                return;
+
+            ManualPairingDialog pairingDialog = new ManualPairingDialog();
+            ShowDialog(pairingDialog);
         }
     }
 }
