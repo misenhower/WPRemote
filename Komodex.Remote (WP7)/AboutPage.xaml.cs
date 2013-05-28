@@ -175,7 +175,7 @@ namespace Komodex.Remote
         private void btnLogo_Click(object sender, RoutedEventArgs e)
         {
             WebBrowserTask t = new WebBrowserTask();
-            t.Uri = new Uri("http://komodex.com/wp7remote");
+            t.Uri = new Uri("http://komodex.com/");
             t.Show();
         }
 
