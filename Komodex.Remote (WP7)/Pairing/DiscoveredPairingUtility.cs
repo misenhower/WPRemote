@@ -15,9 +15,11 @@ namespace Komodex.Remote.Pairing
             Service = service;
 
             Name = service.TXTRecordData.GetValueOrDefault("CtlN", service.Hostname);
+            ServiceID = service.TXTRecordData.GetValueOrDefault("ServiceID", service.Name);
         }
 
         public string Name { get; protected set; }
+        public string ServiceID { get; protected set; }
         public NetService Service { get; protected set; }
         public ServerType ServerType { get; protected set; }
     }

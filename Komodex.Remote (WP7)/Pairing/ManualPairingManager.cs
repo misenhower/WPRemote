@@ -77,16 +77,12 @@ namespace Komodex.Remote.Pairing
 
         private static void Browser_ServiceFound(object sender, NetServiceEventArgs e)
         {
-            _log.Info("Found instance '{0}'", e.Service.FullServiceInstanceName);
-
             e.Service.ServiceResolved += Service_ServiceResolved;
             e.Service.Resolve();
         }
 
         private static void Service_ServiceResolved(object sender, NetServiceEventArgs e)
         {
-            _log.Info("Resolved instance '{0}'", e.Service.FullServiceInstanceName);
-
             Utility.BeginInvokeOnUIThread(() =>
             {
                 if (DiscoveredPairingUtilities.Any(u => u.Service == e.Service))
@@ -94,18 +90,20 @@ namespace Komodex.Remote.Pairing
 
                 var utility = new DiscoveredPairingUtility(e.Service);
                 DiscoveredPairingUtilities.Add(utility);
+                _log.Info("Added service {0} ({1})", utility.ServiceID, utility.Name);
             });
         }
 
         private static void Browser_ServiceRemoved(object sender, NetServiceEventArgs e)
         {
-            _log.Info("Removed instance '{0}'", e.Service.FullServiceInstanceName);
-
             Utility.BeginInvokeOnUIThread(() =>
             {
                 var utility = DiscoveredPairingUtilities.FirstOrDefault(u => u.Service == e.Service);
                 if (utility != null)
+                {
                     DiscoveredPairingUtilities.Remove(utility);
+                    _log.Info("Removed service {0} ({1})", utility.ServiceID, utility.Name);
+                }
             });
         }
 

@@ -24,7 +24,6 @@ namespace Komodex.Remote.Controls
         protected readonly Log _log = new Log("Utility Pairing Dialog");
 
         protected DACPServer _server;
-        protected NetService _utilityService;
         protected NetService _libraryService;
 
         public UtilityPairingDialog()
@@ -182,16 +181,14 @@ namespace Komodex.Remote.Controls
             if (utility == null)
                 return;
 
-            _utilityService = utility.Service;
-
-            string serviceName = _utilityService.Name; // TODO: This should come from the dictionary instead
-            if (!BonjourManager.DiscoveredServers.ContainsKey(serviceName))
+            string serviceID = utility.ServiceID;
+            if (!BonjourManager.DiscoveredServers.ContainsKey(serviceID))
             {
                 MessageBox.Show("The selected library could not be located. Make sure iTunes (or another compatible application) is running on your computer and try again.", "Connection error", MessageBoxButton.OK);
                 return;
             }
 
-            _libraryService = BonjourManager.DiscoveredServers[serviceName];
+            _libraryService = BonjourManager.DiscoveredServers[serviceID];
 
             string hostname = _libraryService.IPAddresses[0].ToString();
             string pairingCode = string.Format("{0:0000}{0:0000}{0:0000}{0:0000}", pinTextBox.IntValue.Value);
@@ -201,7 +198,7 @@ namespace Komodex.Remote.Controls
 
             UpdateWizardItem(true);
 
-            _log.Info("Connecting to server with ID '{0}' at {1}:{2}...", serviceName, _server.Hostname, _server.Port);
+            _log.Info("Connecting to server with ID '{0}' at {1}:{2}...", serviceID, _server.Hostname, _server.Port);
 
             _server.Start(false);
         }
