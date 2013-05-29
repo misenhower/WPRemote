@@ -105,19 +105,22 @@
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="1" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="REMOTE" Style="{StaticResource PhoneTextAppTitleStyle}" Margin="12,0,0,0" />
-            <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.HomePageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
-
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,-12,12,0" d:IsHidden="True">
-            <Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" d:IsHidden="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+                <TextBlock x:Name="ApplicationTitle" Text="REMOTE" Style="{StaticResource PhoneTextAppTitleStyle}" Margin="12,0,0,0" />
+                <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.HomePageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="12,-12,12,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -198,20 +201,28 @@
                 </Button>
             </Grid>
         </Grid>
-        <Grid x:Name="FirstStartPanel" Grid.Row="2" Margin="12,-12">
-            <Grid Margin="12,12,12,0" Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <TextBlock Text="{Binding LocalizedStrings.FirstRunTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource ItemHeaderStyle}" />
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="{Binding LocalizedStrings.FirstRunIntro1, Source={StaticResource LocalizedStrings}}"/>
-                    <TextBlock TextWrapping="Wrap" Text="http://wp7remote.com" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Padding="0,0,0,12" />
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="{Binding LocalizedStrings.FirstRunIntro2, Source={StaticResource LocalizedStrings}}"/>
-                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Margin="12" Text="{Binding LocalizedStrings.FirstRunIntro3, Source={StaticResource LocalizedStrings}}"/>
+        <Grid x:Name="FirstStartPanel" Grid.Row="1" Margin="12" d:IsHidden="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="84" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="84" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="84" />
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="1">
+                <StackPanel VerticalAlignment="Center">
+                    <Image Source="/Images/remote-icon-192px.png" Height="192" Width="192" />
+                    <TextBlock Text="Remote"
+                               Style="{StaticResource PhoneTextTitle1Style}"
+                               TextAlignment="Center"
+                               FontSize="58"
+                               />
                 </StackPanel>
-                <Button Grid.Row="1" Content="{Binding LocalizedStrings.AddLibraryButton, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Margin="12" Click="btnAddLibrary_Click" />
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Button Content="Add a Library" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnAddLibrary_Click" FontSize="28" />
             </Grid>
         </Grid>
     </Grid>

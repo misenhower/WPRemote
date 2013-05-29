@@ -368,6 +368,9 @@
     <Content Include="..\Komodex.Remote %28WP7%29\Images\komodex-logo-65px.png">
       <Link>Images\komodex-logo-65px.png</Link>
     </Content>
+    <Content Include="..\Komodex.Remote %28WP7%29\Images\remote-icon-192px.png">
+      <Link>Images\remote-icon-192px.png</Link>
+    </Content>
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

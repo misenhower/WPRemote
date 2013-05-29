@@ -220,6 +220,7 @@ namespace Komodex.Remote
 
             _firstRunAppBar = new ApplicationBar();
             _firstRunAppBar.Mode = ApplicationBarMode.Minimized;
+            _firstRunAppBar.BackgroundColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
             ApplicationBar = _firstRunAppBar;
             AddApplicationBarMenuItem("manual pairing", OpenManualPairingDialog);
             AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, NavigationManager.OpenAboutPage);
