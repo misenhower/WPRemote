@@ -125,6 +125,9 @@
     <Compile Include="..\Komodex.Common %28WP7%29\Phone\TrialManager.cs">
       <Link>Phone\TrialManager.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\ResolutionUtility.cs">
+      <Link>ResolutionUtility.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common %28WP7%29\Setting.cs">
       <Link>Setting.cs</Link>
     </Compile>

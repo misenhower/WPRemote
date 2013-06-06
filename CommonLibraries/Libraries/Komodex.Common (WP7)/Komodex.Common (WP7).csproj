@@ -65,6 +65,7 @@
     <Compile Include="Analytics\CrashReporter.cs" />
     <Compile Include="Analytics\FirstRunNotifier.cs" />
     <Compile Include="Phone\PhoneUtility.cs" />
+    <Compile Include="ResolutionUtility.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Phone\TrialManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
