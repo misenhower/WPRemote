@@ -110,6 +110,9 @@
     <Compile Include="..\Komodex.Common %28WP7%29\Converters\InverseBooleanConverter.cs">
       <Link>Converters\InverseBooleanConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\MultiResolutionImageSourceConverter.cs">
+      <Link>Converters\MultiResolutionImageSourceConverter.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common %28WP7%29\Converters\StringToUpperConverter.cs">
       <Link>Converters\StringToUpperConverter.cs</Link>
     </Compile>

@@ -92,6 +92,9 @@
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\LongListSelectorEx.cs">
       <Link>Controls\LongListSelectorEx.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\MultiResolutionImage.cs">
+      <Link>Controls\MultiResolutionImage.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\NumericTextBox.cs">
       <Link>Controls\NumericTextBox.cs</Link>
     </Compile>

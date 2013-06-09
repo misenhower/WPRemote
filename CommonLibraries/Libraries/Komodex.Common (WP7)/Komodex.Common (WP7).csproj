@@ -59,6 +59,7 @@
     <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\MultiResolutionImageSourceConverter.cs" />
     <Compile Include="Converters\StringToUpperConverter.cs" />
     <Compile Include="EnumT.cs" />
     <Compile Include="Log.cs" />

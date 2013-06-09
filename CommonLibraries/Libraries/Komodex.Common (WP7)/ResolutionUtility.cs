@@ -10,6 +10,10 @@ namespace Komodex.Common
     {
         static ResolutionUtility()
         {
+            FilenameSuffixWVGA = ".WVGA";
+            FilenameSuffixWXGA = ".WXGA";
+            FilenameSuffix720p = ".720p";
+
 #if WP7
             ScreenResolution = ScreenResolution.WVGA;
 #else
@@ -30,10 +34,48 @@ namespace Komodex.Common
             }
 #endif
 
-            Log.Main.Info("Screen resolution: " + ScreenResolution);
+            Log.Main.Info("Current device screen resolution: " + ScreenResolution);
         }
 
+        public static string FilenameSuffixWVGA { get; set; }
+        public static string FilenameSuffixWXGA { get; set; }
+        public static string FilenameSuffix720p { get; set; }
+
         public static ScreenResolution ScreenResolution { get; private set; }
+
+        private static string GetCurrentFilenameSuffix()
+        {
+            switch (ScreenResolution)
+            {
+                case ScreenResolution.WVGA:
+                default:
+                    return FilenameSuffixWVGA;
+
+                case ScreenResolution.WXGA:
+                    return FilenameSuffixWXGA;
+
+                case ScreenResolution.HD720p:
+                    return FilenameSuffix720p;
+            }
+        }
+
+        public static Uri GetUriWithResolutionSuffix(string source)
+        {
+            return GetUriWithResolutionSuffix(new Uri(source, UriKind.RelativeOrAbsolute));
+        }
+
+        public static Uri GetUriWithResolutionSuffix(Uri source)
+        {
+            if (source == null || source.IsAbsoluteUri)
+                return source;
+
+            string uriString = source.ToString();
+            int separatorIndex = uriString.LastIndexOf('.');
+            string filename = uriString.Substring(0, separatorIndex);
+            string extension = uriString.Substring(separatorIndex, uriString.Length - separatorIndex);
+
+            return new Uri(filename + GetCurrentFilenameSuffix() + extension, UriKind.Relative);
+        }
     }
 
     public enum ScreenResolution
