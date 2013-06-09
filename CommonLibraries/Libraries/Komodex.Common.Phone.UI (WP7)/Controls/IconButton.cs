@@ -10,9 +10,6 @@ namespace Komodex.Common.Phone.Controls
 {
     public class IconButton : Button
     {
-        private UIElement _iconContainer;
-        private ImageBrush _imageBrush;
-
         public IconButton()
         {
             DefaultStyleKey = typeof(IconButton);
@@ -21,7 +18,7 @@ namespace Komodex.Common.Phone.Controls
         #region ImageSource
 
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(IconButton), new PropertyMetadata(ImageSourceChanged));
+            DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(IconButton), new PropertyMetadata(null));
 
         public ImageSource ImageSource
         {
@@ -29,40 +26,19 @@ namespace Komodex.Common.Phone.Controls
             set { SetValue(ImageSourceProperty, value); }
         }
 
-        private static void ImageSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        #endregion
+
+        #region UseMultiResolutionImages
+
+        public static readonly DependencyProperty UseMultiResolutionImagesProperty =
+            DependencyProperty.Register("UseMultiResolutionImages", typeof(bool), typeof(IconButton), new PropertyMetadata(false));
+
+        public bool UseMultiResolutionImages
         {
-            IconButton button = (IconButton)d;
-            button.UpdateImageBrush();
+            get { return (bool)GetValue(UseMultiResolutionImagesProperty); }
+            set { SetValue(UseMultiResolutionImagesProperty, value); }
         }
 
         #endregion
-
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            UpdateImageBrush();
-        }
-
-        protected void UpdateImageBrush()
-        {
-            if (_imageBrush == null)
-            {
-                _iconContainer = GetTemplateChild("IconContainer") as UIElement;
-                if (_iconContainer == null)
-                    return;
-
-                _imageBrush = new ImageBrush();
-                _iconContainer.OpacityMask = _imageBrush;
-            }
-
-            _imageBrush.ImageSource = ImageSource;
-
-            // Hide the icon container if the image source is null. With no image, the icon container will appear as a solid square.
-            if (ImageSource == null)
-                _iconContainer.Visibility = System.Windows.Visibility.Collapsed;
-            else
-                _iconContainer.Visibility = System.Windows.Visibility.Visible;
-        }
     }
 }
