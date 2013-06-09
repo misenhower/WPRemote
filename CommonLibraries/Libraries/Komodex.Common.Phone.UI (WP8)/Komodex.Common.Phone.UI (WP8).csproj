@@ -95,6 +95,9 @@
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\MultiResolutionImage.cs">
       <Link>Controls\MultiResolutionImage.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\MultiResolutionImageMask.cs">
+      <Link>Controls\MultiResolutionImageMask.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\NumericTextBox.cs">
       <Link>Controls\NumericTextBox.cs</Link>
     </Compile>
@@ -119,6 +122,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="..\Komodex.Common.Phone.UI %28WP7%29\Themes\MultiResolutionImageMask.xaml">
+      <Link>Themes\MultiResolutionImageMask.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Komodex.Common.Phone.UI %28WP7%29\Themes\Wizard.xaml">
       <Link>Themes\Wizard.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

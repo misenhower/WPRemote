@@ -7,6 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Komodex.Common.Phone.UI;component/Themes/IconButton.WP7.xaml" />
         <ResourceDictionary Source="/Komodex.Common.Phone.UI;component/Themes/LongListSelectorEx.xaml" />
+        <ResourceDictionary Source="/Komodex.Common.Phone.UI;component/Themes/MultiResolutionImageMask.xaml" />
         <ResourceDictionary Source="/Komodex.Common.Phone.UI;component/Themes/Wizard.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

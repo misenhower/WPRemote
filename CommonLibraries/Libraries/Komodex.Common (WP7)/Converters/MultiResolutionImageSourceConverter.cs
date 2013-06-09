@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Data;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Komodex.Common.Converters
@@ -22,7 +23,12 @@ namespace Komodex.Common.Converters
             if (uri == null)
                 return value;
 
-            return ResolutionUtility.GetUriWithResolutionSuffix(uri);
+            uri = ResolutionUtility.GetUriWithResolutionSuffix(uri);
+
+            if (targetType == typeof(ImageSource))
+                return new BitmapImage(uri);
+
+            return uri;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

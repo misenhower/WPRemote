@@ -54,6 +54,7 @@
     <Compile Include="Controls\IconButton.cs" />
     <Compile Include="Controls\LongListSelectorEx.cs" />
     <Compile Include="Controls\MultiResolutionImage.cs" />
+    <Compile Include="Controls\MultiResolutionImageMask.cs" />
     <Compile Include="Controls\NumericTextBox.cs" />
     <Compile Include="Controls\WizardControl.cs" />
     <Compile Include="Controls\StandardControls.cs" />
@@ -89,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\LongListSelectorEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\MultiResolutionImageMask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
