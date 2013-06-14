@@ -317,6 +317,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Assets\FirstRunIcon.WVGA.png">
+      <Link>Assets\FirstRunIcon.WVGA.png</Link>
+    </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -396,7 +399,6 @@
     <Content Include="icons\custom.appbar.video.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\remote-icon-192px.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
