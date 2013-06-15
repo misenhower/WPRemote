@@ -293,8 +293,8 @@ namespace Komodex.DACP
                     SubmitDatabasesRequest();
                 }
 
-
-                CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?mw=300&mh=300&session-id=" + SessionID;
+                int pixels = ResolutionUtility.GetScaledPixels(300);
+                CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?mw=" + pixels + "&mh=" + pixels + "&session-id=" + SessionID;
             }
             else
             {

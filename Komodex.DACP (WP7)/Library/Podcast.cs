@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using Komodex.Common;
 
 namespace Komodex.DACP.Library
 {
@@ -52,8 +53,9 @@ namespace Komodex.DACP.Library
         {
             get
             {
+                int pixels = ResolutionUtility.GetScaledPixels(175);
                 return Server.HTTPPrefix + "/databases/" + Server.DatabaseID + "/groups/" + ID
-                    + "/extra_data/artwork?mw=175&mh=175&group-type=albums&session-id=" + Server.SessionID;
+                    + "/extra_data/artwork?mw=" + pixels + "&mh=" + pixels + "&group-type=albums&session-id=" + Server.SessionID;
             }
         }
 

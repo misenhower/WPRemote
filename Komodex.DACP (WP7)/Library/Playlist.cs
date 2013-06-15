@@ -74,8 +74,9 @@ namespace Komodex.DACP.Library
         {
             get
             {
+                int pixels = ResolutionUtility.GetScaledPixels(350);
                 return Server.HTTPPrefix + "/databases/" + Server.DatabaseID + "/containers/" + ID
-                    + "/extra_data/artwork?mw=350&mh=350&session-id=" + Server.SessionID;
+                    + "/extra_data/artwork?mw=" + pixels + "&mh=" + pixels + "&session-id=" + Server.SessionID;
             }
         }
 
