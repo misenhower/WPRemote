@@ -323,6 +323,12 @@
     <Content Include="..\Assets\Icons\Add.WVGA.png">
       <Link>Assets\Icons\Add.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\AirPlay.WVGA.png">
+      <Link>Assets\Icons\AirPlay.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.iTunes.WVGA.png">
+      <Link>Assets\Icons\App.iTunes.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Ellipsis.WVGA.png">
       <Link>Assets\Icons\Ellipsis.WVGA.png</Link>
     </Content>

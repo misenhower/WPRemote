@@ -10,6 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:delay="clr-namespace:Delay"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     toolkit:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -234,7 +235,14 @@
                                 Style="{StaticResource VolumeSliderStyle}"
                                 VerticalAlignment="Center" />
                     </Border>
-                    <Button Grid.Column="1" Name="btnAirPlay" Click="btnAirPlay_Click" Template="{StaticResource AirPlayIconButton}" />
+                    <controls:IconButton
+                        x:Name="btnAirPlay"
+                        Click="btnAirPlay_Click"
+                        Grid.Column="1"
+                        Padding="0"
+                        ImageSource="/Assets/Icons/AirPlay.png"
+                        UseMultiResolutionImages="True"
+                        />
                 </Grid>
                 
             </Grid>

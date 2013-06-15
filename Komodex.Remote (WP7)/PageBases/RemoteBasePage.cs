@@ -238,7 +238,7 @@ namespace Komodex.Remote
 
         protected void AddAppBarNowPlayingButton()
         {
-            _nowPlayingButton = AddApplicationBarIconButton(LocalizedStrings.NowPlayingAppBarButton, "/icons/custom.appbar.itunes.png", NavigationManager.OpenNowPlayingPage);
+            _nowPlayingButton = AddApplicationBarIconButton(LocalizedStrings.NowPlayingAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/App.iTunes.png"), NavigationManager.OpenNowPlayingPage);
         }
 
         protected void AddAppBarNowPlayingMenuItem()

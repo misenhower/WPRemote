@@ -311,6 +311,24 @@
     <Content Include="..\Assets\Icons\Add.WXGA.png">
       <Link>Assets\Icons\Add.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\AirPlay.720p.png">
+      <Link>Assets\Icons\AirPlay.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\AirPlay.WVGA.png">
+      <Link>Assets\Icons\AirPlay.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\AirPlay.WXGA.png">
+      <Link>Assets\Icons\AirPlay.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.iTunes.720p.png">
+      <Link>Assets\Icons\App.iTunes.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.iTunes.WVGA.png">
+      <Link>Assets\Icons\App.iTunes.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.iTunes.WXGA.png">
+      <Link>Assets\Icons\App.iTunes.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Ellipsis.720p.png">
       <Link>Assets\Icons\Ellipsis.720p.png</Link>
     </Content>
