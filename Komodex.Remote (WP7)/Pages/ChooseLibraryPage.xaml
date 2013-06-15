@@ -34,7 +34,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <ContentControl Template="{StaticResource iTunesIconButton}" />
+                <controls:MultiResolutionImageMask Source="/Assets/Icons/App.iTunes.png" Style="{StaticResource IconCircleStyle}" />
 
                 <TextBlock Text="{Binding Name}"
                             Grid.Column="1"

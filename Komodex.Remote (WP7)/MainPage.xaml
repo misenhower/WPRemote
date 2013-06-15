@@ -110,7 +110,7 @@
         </Grid.RowDefinitions>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" d:IsHidden="True">
+        <Grid x:Name="ContentPanel" Grid.Row="1" d:IsHidden="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -138,7 +138,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ContentControl Template="{StaticResource iTunesIconButton}" />
+                        <controls:MultiResolutionImageMask Source="/Assets/Icons/App.iTunes.png" Style="{StaticResource IconCircleStyle}" />
                         <TextBlock Text="{Binding LocalizedStrings.NowPlayingButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                         <Grid x:Name="grid" Margin="0,6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
