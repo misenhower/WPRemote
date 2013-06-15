@@ -347,6 +347,24 @@
     <Content Include="..\Assets\Icons\Ellipsis.WXGA.png">
       <Link>Assets\Icons\Ellipsis.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\GeniusMixes.720p.png">
+      <Link>Assets\Icons\GeniusMixes.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\GeniusMixes.WVGA.png">
+      <Link>Assets\Icons\GeniusMixes.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\GeniusMixes.WXGA.png">
+      <Link>Assets\Icons\GeniusMixes.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Podcasts.720p.png">
+      <Link>Assets\Icons\Podcasts.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Podcasts.WVGA.png">
+      <Link>Assets\Icons\Podcasts.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Podcasts.WXGA.png">
+      <Link>Assets\Icons\Podcasts.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Search.720p.png">
       <Link>Assets\Icons\Search.720p.png</Link>
     </Content>
@@ -391,6 +409,15 @@
     </Content>
     <Content Include="..\Assets\Icons\Transport.Rew.WXGA.png">
       <Link>Assets\Icons\Transport.Rew.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Videos.720p.png">
+      <Link>Assets\Icons\Videos.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Videos.WVGA.png">
+      <Link>Assets\Icons\Videos.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Videos.WXGA.png">
+      <Link>Assets\Icons\Videos.WXGA.png</Link>
     </Content>
     <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.checked.png">
       <Link>icons\airplay.checked.png</Link>

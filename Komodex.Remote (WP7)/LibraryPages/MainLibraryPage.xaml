@@ -33,7 +33,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <my:FakeButton x:Name="PlayButton">
-                    <ContentControl Template="{StaticResource GeniusMixesIconButton}" />
+                    <controls:MultiResolutionImageMask Source="/Assets/Icons/GeniusMixes.png" Style="{StaticResource IconCircleStyle}" />
                 </my:FakeButton>
                 <TextBlock Grid.Column="1" Text="{Binding LocalizedStrings.GeniusMixesListItem, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding LibraryGeniusMixes, Converter={StaticResource collectionCountToStringConverter}}" Style="{StaticResource PhoneTextSubtleStyle}"/>

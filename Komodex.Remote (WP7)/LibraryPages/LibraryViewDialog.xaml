@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:commonPhoneUI="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -60,7 +61,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     
-                    <ContentControl Template="{StaticResource VideoIconButton}" />
+                    <controls:MultiResolutionImageMask Source="/Assets/Icons/Videos.png" Style="{StaticResource IconCircleStyle}" />
                     <TextBlock Text="{Binding LocalizedStrings.LibraryVideosButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                 </Grid>
             </Button>
@@ -71,7 +72,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <ContentControl Template="{StaticResource PodcastIconButton}" />
+                    <controls:MultiResolutionImageMask Source="/Assets/Icons/Podcasts.png" Style="{StaticResource IconCircleStyle}" />
                     <TextBlock Text="{Binding LocalizedStrings.LibraryPodcastsButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                 </Grid>
             </Button>
