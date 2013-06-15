@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using Komodex.Remote.ServerManagement;
 using Komodex.Remote.Localization;
 using Komodex.Remote.Controls;
+using Komodex.Common;
 
 namespace Komodex.Remote.Pages
 {
@@ -25,7 +26,7 @@ namespace Komodex.Remote.Pages
 
             ApplicationBar = new ApplicationBar();
 
-            AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, "/icons/appbar.new.rest.png", ShowPairingDialog);
+            AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Add.png"), ShowPairingDialog);
             AddApplicationBarMenuItem("manual pairing", ShowManualPairingDialog);
         }
 

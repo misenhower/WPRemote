@@ -320,6 +320,27 @@
     <Content Include="..\Assets\FirstRunIcon.WVGA.png">
       <Link>Assets\FirstRunIcon.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Add.WVGA.png">
+      <Link>Assets\Icons\Add.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Ellipsis.WVGA.png">
+      <Link>Assets\Icons\Ellipsis.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Search.WVGA.png">
+      <Link>Assets\Icons\Search.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.FF.WVGA.png">
+      <Link>Assets\Icons\Transport.FF.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Pause.WVGA.png">
+      <Link>Assets\Icons\Transport.Pause.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Play.WVGA.png">
+      <Link>Assets\Icons\Transport.Play.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Rew.WVGA.png">
+      <Link>Assets\Icons\Transport.Rew.WVGA.png</Link>
+    </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

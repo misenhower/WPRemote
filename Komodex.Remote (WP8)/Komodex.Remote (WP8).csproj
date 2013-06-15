@@ -302,6 +302,69 @@
     <Content Include="..\Assets\FirstRunIcon.WXGA.png">
       <Link>Assets\FirstRunIcon.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Add.720p.png">
+      <Link>Assets\Icons\Add.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Add.WVGA.png">
+      <Link>Assets\Icons\Add.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Add.WXGA.png">
+      <Link>Assets\Icons\Add.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Ellipsis.720p.png">
+      <Link>Assets\Icons\Ellipsis.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Ellipsis.WVGA.png">
+      <Link>Assets\Icons\Ellipsis.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Ellipsis.WXGA.png">
+      <Link>Assets\Icons\Ellipsis.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Search.720p.png">
+      <Link>Assets\Icons\Search.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Search.WVGA.png">
+      <Link>Assets\Icons\Search.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Search.WXGA.png">
+      <Link>Assets\Icons\Search.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.FF.720p.png">
+      <Link>Assets\Icons\Transport.FF.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.FF.WVGA.png">
+      <Link>Assets\Icons\Transport.FF.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.FF.WXGA.png">
+      <Link>Assets\Icons\Transport.FF.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Pause.720p.png">
+      <Link>Assets\Icons\Transport.Pause.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Pause.WVGA.png">
+      <Link>Assets\Icons\Transport.Pause.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Pause.WXGA.png">
+      <Link>Assets\Icons\Transport.Pause.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Play.720p.png">
+      <Link>Assets\Icons\Transport.Play.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Play.WVGA.png">
+      <Link>Assets\Icons\Transport.Play.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Play.WXGA.png">
+      <Link>Assets\Icons\Transport.Play.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Rew.720p.png">
+      <Link>Assets\Icons\Transport.Rew.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Rew.WVGA.png">
+      <Link>Assets\Icons\Transport.Rew.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Rew.WXGA.png">
+      <Link>Assets\Icons\Transport.Rew.WXGA.png</Link>
+    </Content>
     <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.checked.png">
       <Link>icons\airplay.checked.png</Link>
     </Content>

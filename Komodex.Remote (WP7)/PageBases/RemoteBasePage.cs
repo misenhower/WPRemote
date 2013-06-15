@@ -173,10 +173,10 @@ namespace Komodex.Remote
         private ApplicationBarIconButton _playTransportPreviousTrackButton;
         private ApplicationBarIconButton _playTransportPlayPauseButton;
         private ApplicationBarIconButton _playTransportNextTrackButton;
-        private static readonly Uri _playTransportPreviousTrackIcon = new Uri("/icons/appbar.transport.rew.rest.png", UriKind.Relative);
-        private static readonly Uri _playTransportPlayIcon = new Uri("/icons/appbar.transport.play.rest.png", UriKind.Relative);
-        private static readonly Uri _playTransportPauseIcon = new Uri("/icons/appbar.transport.pause.rest.png", UriKind.Relative);
-        private static readonly Uri _playTransportNextTrackIcon = new Uri("/icons/appbar.transport.ff.rest.png", UriKind.Relative);
+        private static readonly Uri _playTransportPreviousTrackIcon = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Transport.Rew.png");
+        private static readonly Uri _playTransportPlayIcon = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Transport.Play.png");
+        private static readonly Uri _playTransportPauseIcon = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Transport.Pause.png");
+        private static readonly Uri _playTransportNextTrackIcon = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Transport.FF.png");
 
         protected void AddAppBarPlayTransportButtons()
         {

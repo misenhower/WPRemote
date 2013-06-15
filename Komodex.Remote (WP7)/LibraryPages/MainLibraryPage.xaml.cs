@@ -28,8 +28,8 @@ namespace Komodex.Remote.LibraryPages
 
             // Application Bar Icons
             AddAppBarNowPlayingButton();
-            AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, "/icons/appbar.feature.search.rest.png", NavigationManager.OpenSearchPage);
-            AddApplicationBarIconButton(LocalizedStrings.MoreAppBarButton, "/icons/custom.appbar.moredots.png", AppBarMoreButton_Click);
+            AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), NavigationManager.OpenSearchPage);
+            AddApplicationBarIconButton(LocalizedStrings.MoreAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Ellipsis.png"), AppBarMoreButton_Click);
 
             // Shuffle All Songs
             AddApplicationBarMenuItem(LocalizedStrings.ShuffleAllSongsMenuItem, ShuffleAllSongs);
