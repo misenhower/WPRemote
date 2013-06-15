@@ -19,17 +19,17 @@ namespace Komodex.Common
 #else
             switch (Application.Current.Host.Content.ScaleFactor)
             {
+                case 100:
+                default:
+                    ScreenResolution = ScreenResolution.WVGA;
+                    break;
+
                 case 150:
                     ScreenResolution = ScreenResolution.HD720p;
                     break;
 
                 case 160:
                     ScreenResolution = ScreenResolution.WXGA;
-                    break;
-
-                case 100:
-                default:
-                    ScreenResolution = ScreenResolution.WVGA;
                     break;
             }
 #endif
@@ -75,6 +75,26 @@ namespace Komodex.Common
             string extension = uriString.Substring(separatorIndex, uriString.Length - separatorIndex);
 
             return new Uri(filename + GetCurrentFilenameSuffix() + extension, UriKind.Relative);
+        }
+
+        public static int GetScaledPixels(int points)
+        {
+#if WP7
+            return points;
+#else
+            switch (ScreenResolution)
+            {
+                case ScreenResolution.WVGA:
+                default:
+                    return points;
+
+                case ScreenResolution.HD720p:
+                    return (int)Math.Ceiling(points * 1.5);
+
+                case ScreenResolution.WXGA:
+                    return (int)Math.Ceiling(points * 1.6);
+            }
+#endif
         }
     }
 
