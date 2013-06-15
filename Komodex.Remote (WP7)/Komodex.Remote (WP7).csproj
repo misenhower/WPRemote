@@ -329,6 +329,9 @@
     <Content Include="..\Assets\Icons\App.iTunes.WVGA.png">
       <Link>Assets\Icons\App.iTunes.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Browse.WVGA.png">
+      <Link>Assets\Icons\Browse.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Ellipsis.WVGA.png">
       <Link>Assets\Icons\Ellipsis.WVGA.png</Link>
     </Content>

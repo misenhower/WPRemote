@@ -162,7 +162,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ContentControl Template="{StaticResource BrowseLibraryIconButton}" VerticalAlignment="Top" Margin="0,8,0,0" />
+                        <controls:MultiResolutionImageMask Source="/Assets/Icons/Browse.png" Style="{StaticResource IconCircleStyle}" VerticalAlignment="Top" Margin="0,8,0,0" />
                         <TextBlock Text="{Binding LocalizedStrings.BrowseLibraryButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
@@ -172,7 +172,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ContentControl Template="{StaticResource SearchIconButton}" />
+                        <controls:MultiResolutionImageMask Source="/Assets/Icons/Search.png" Style="{StaticResource IconCircleStyle}" />
                         <TextBlock Text="{Binding LocalizedStrings.SearchButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>

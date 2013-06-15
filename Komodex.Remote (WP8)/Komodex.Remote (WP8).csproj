@@ -329,6 +329,15 @@
     <Content Include="..\Assets\Icons\App.iTunes.WXGA.png">
       <Link>Assets\Icons\App.iTunes.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Browse.720p.png">
+      <Link>Assets\Icons\Browse.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Browse.WVGA.png">
+      <Link>Assets\Icons\Browse.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Browse.WXGA.png">
+      <Link>Assets\Icons\Browse.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Ellipsis.720p.png">
       <Link>Assets\Icons\Ellipsis.720p.png</Link>
     </Content>
