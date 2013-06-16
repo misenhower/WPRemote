@@ -365,6 +365,24 @@
     <Content Include="..\Assets\Icons\Podcasts.WXGA.png">
       <Link>Assets\Icons\Podcasts.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Repeat.720p.png">
+      <Link>Assets\Icons\Repeat.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Repeat.WVGA.png">
+      <Link>Assets\Icons\Repeat.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Repeat.WXGA.png">
+      <Link>Assets\Icons\Repeat.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\RepeatOne.720p.png">
+      <Link>Assets\Icons\RepeatOne.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\RepeatOne.WVGA.png">
+      <Link>Assets\Icons\RepeatOne.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\RepeatOne.WXGA.png">
+      <Link>Assets\Icons\RepeatOne.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Search.720p.png">
       <Link>Assets\Icons\Search.720p.png</Link>
     </Content>
@@ -373,6 +391,15 @@
     </Content>
     <Content Include="..\Assets\Icons\Search.WXGA.png">
       <Link>Assets\Icons\Search.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Shuffle.720p.png">
+      <Link>Assets\Icons\Shuffle.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Shuffle.WVGA.png">
+      <Link>Assets\Icons\Shuffle.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Shuffle.WXGA.png">
+      <Link>Assets\Icons\Shuffle.WXGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Transport.FF.720p.png">
       <Link>Assets\Icons\Transport.FF.720p.png</Link>

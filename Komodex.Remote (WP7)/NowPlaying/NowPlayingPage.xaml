@@ -187,14 +187,14 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 25">
                                 <Button Name="btnRepeat" Template="{StaticResource EmptyButton}" Click="btnRepeat_Click" Margin="25,0">
                                     <Grid Width="48" Height="48">
-                                        <Image Name="imgRepeat" Source="/icons/custom.appbar.repeat.png" />
-                                        <Image Source="/icons/appbar.basecircle.rest.png" />
+                                        <Ellipse Style="{StaticResource BaseCircleStyle}" Stroke="White" />
+                                        <Image Name="imgRepeat" />
                                     </Grid>
                                 </Button>
                                 <Button Name="btnShuffle" Template="{StaticResource EmptyButton}" Click="btnShuffle_Click" Margin="25,0">
                                     <Grid Width="48" Height="48">
-                                        <Image Source="/icons/custom.appbar.shuffle.png" />
-                                        <Image Source="/icons/appbar.basecircle.rest.png" />
+                                        <Ellipse Style="{StaticResource BaseCircleStyle}" Stroke="White" />
+                                        <controls:MultiResolutionImage Source="/Assets/Icons/Shuffle.png" />
                                     </Grid>
                                 </Button>
                             </StackPanel>

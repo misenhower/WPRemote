@@ -57,8 +57,8 @@ namespace Komodex.Remote.NowPlaying
             AirPlayMenuItem.Click += AirPlayMenuItem_Click;
         }
 
-        private readonly BitmapImage iconRepeat = new BitmapImage(new Uri("/icons/custom.appbar.repeat.png", UriKind.Relative));
-        private readonly BitmapImage iconRepeatOne = new BitmapImage(new Uri("/icons/custom.appbar.repeatone.png", UriKind.Relative));
+        private readonly BitmapImage iconRepeat = new BitmapImage(ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Repeat.png"));
+        private readonly BitmapImage iconRepeatOne = new BitmapImage(ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/RepeatOne.png"));
 
         private DispatcherTimer goBackTimer = new DispatcherTimer();
         private bool closing = false;

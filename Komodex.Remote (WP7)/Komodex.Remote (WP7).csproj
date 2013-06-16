@@ -335,8 +335,23 @@
     <Content Include="..\Assets\Icons\Ellipsis.WVGA.png">
       <Link>Assets\Icons\Ellipsis.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\GeniusMixes.WVGA.png">
+      <Link>Assets\Icons\GeniusMixes.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Podcasts.WVGA.png">
+      <Link>Assets\Icons\Podcasts.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Repeat.WVGA.png">
+      <Link>Assets\Icons\Repeat.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\RepeatOne.WVGA.png">
+      <Link>Assets\Icons\RepeatOne.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Search.WVGA.png">
       <Link>Assets\Icons\Search.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Shuffle.WVGA.png">
+      <Link>Assets\Icons\Shuffle.WVGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Transport.FF.WVGA.png">
       <Link>Assets\Icons\Transport.FF.WVGA.png</Link>
@@ -349,6 +364,9 @@
     </Content>
     <Content Include="..\Assets\Icons\Transport.Rew.WVGA.png">
       <Link>Assets\Icons\Transport.Rew.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Videos.WVGA.png">
+      <Link>Assets\Icons\Videos.WVGA.png</Link>
     </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
