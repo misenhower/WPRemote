@@ -46,6 +46,7 @@ namespace Komodex.Remote
 
             ServerManager.CurrentServerChanged += ServerManager_CurrentServerChanged;
             CurrentServer = ServerManager.CurrentServer;
+            AttachServerEvents(CurrentServer);
             UpdateBusyState();
             UpdateAppBar();
         }
@@ -98,8 +99,6 @@ namespace Komodex.Remote
             server.PropertyChanged += CurrentServer_PropertyChanged;
             server.AirPlaySpeakerUpdate += CurrentServer_AirPlaySpeakerUpdate;
         }
-
-        
 
         private void DetachServerEvents(DACPServer server)
         {
