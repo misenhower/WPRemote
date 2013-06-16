@@ -213,7 +213,6 @@
             
             <Grid Grid.Row="1">
                 <StackPanel VerticalAlignment="Center">
-                    <!--<Image Source="/Images/remote-icon-192px.png" Stretch="None" />-->
                     <controls:MultiResolutionImage Source="/Assets/FirstRunIcon.png" Width="192" Height="192" />
                     <TextBlock Text="Remote"
                                Style="{StaticResource PhoneTextTitle1Style}"

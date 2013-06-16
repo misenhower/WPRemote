@@ -317,6 +317,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Assets\AirPlay\Check.WVGA.png">
+      <Link>Assets\AirPlay\Check.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\AirPlay\HasVideo.WVGA.png">
+      <Link>Assets\AirPlay\HasVideo.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\AirPlay\Lock.WVGA.png">
+      <Link>Assets\AirPlay\Lock.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\AirPlay\Speaker.WVGA.png">
+      <Link>Assets\AirPlay\Speaker.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\FirstRunIcon.WVGA.png">
       <Link>Assets\FirstRunIcon.WVGA.png</Link>
     </Content>

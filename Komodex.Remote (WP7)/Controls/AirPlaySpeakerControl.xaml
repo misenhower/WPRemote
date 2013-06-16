@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Komodex.Remote.Controls.AirPlaySpeakerControl"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     mc:Ignorable="d"
     d:DesignHeight="240" d:DesignWidth="480">
 
@@ -123,19 +124,30 @@
                                   Style="{StaticResource AirPlayCheckBoxStyle}"
                                   Click="AirPlaySpeakerCheckBox_Click" Margin="0,0,0,-42" />
                     <Border x:Name="border" Grid.Column="3">
-                        <ContentControl VerticalAlignment="Center"
-                                        Margin="6,0,12,0"
-                                        Template="{StaticResource AirPlayCheckedIcon}"
-                                        Visibility="{Binding BindableActive, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <controls:MultiResolutionImageMask
+                            VerticalAlignment="Center"
+                            Margin="6,0,12,0"
+                            Source="/Assets/AirPlay/Check.png"
+                            Width="24" Height="21"
+                            Visibility="{Binding BindableActive, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            />
                     </Border>
-                    <ContentControl Grid.Column="1" VerticalAlignment="Center"
-                                    Margin="0,5,6,0"
-                                    Template="{StaticResource AirPlaySpeakerIcon}"
-                                    Visibility="{Binding HasVideo, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=true}" />
-                    <ContentControl Grid.Column="1" VerticalAlignment="Center"
-                                    Margin="0,5,6,0"
-                                    Template="{StaticResource AirPlayHasVideoIcon}"
-                                    Visibility="{Binding HasVideo, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <controls:MultiResolutionImageMask
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="0,5,6,0"
+                        Source="/Assets/AirPlay/Speaker.png"
+                        Width="31" Height="26"
+                        Visibility="{Binding HasVideo, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=true}"
+                        />
+                    <controls:MultiResolutionImageMask
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="0,5,6,0"
+                        Source="/Assets/AirPlay/HasVideo.png"
+                        Width="31" Height="26"
+                        Visibility="{Binding HasVideo, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        />
                     <Grid Grid.Column="2" HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -144,10 +156,14 @@
                         <TextBlock Text="{Binding Name}"
                                    Margin="6,10,0,6"
                                    FontWeight="Bold" FontSize="{StaticResource PhoneFontSizeMediumLarge}" />
-                        <ContentControl Grid.Column="1" VerticalAlignment="Center"
-                                        Margin="6,3,12,0"
-                                        Template="{StaticResource AirPlayHasPasswordIcon}"
-                                        Visibility="{Binding HasPassword, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <controls:MultiResolutionImageMask
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Margin="6,3,12,0"
+                            Source="/Assets/AirPlay/Lock.png"
+                            Width="14" Height="18"
+                            Visibility="{Binding HasPassword, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            />
                     </Grid>
                     <Grid x:Name="grid1" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Height="48" VerticalAlignment="Top" Margin="0,0,36,0">
                         <Slider x:Name="slider"
