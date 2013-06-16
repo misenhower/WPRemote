@@ -376,13 +376,15 @@
     <Content Include="..\Assets\Icons\Videos.WVGA.png">
       <Link>Assets\Icons\Videos.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\KomodexLogo.WVGA.png">
+      <Link>Assets\KomodexLogo.WVGA.png</Link>
+    </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\komodex-logo-65px.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
