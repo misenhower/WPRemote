@@ -6,7 +6,6 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Common.xaml" />
-        <ResourceDictionary Source="Icons.xaml" />
         <ResourceDictionary Source="IconButtons.xaml" />
         <ResourceDictionary Source="LibraryLists.xaml" />
         <ResourceDictionary Source="LongListSelectorStyles.WP7.xaml" />

@@ -482,78 +482,6 @@
     <Content Include="..\Assets\Icons\Videos.WXGA.png">
       <Link>Assets\Icons\Videos.WXGA.png</Link>
     </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.checked.png">
-      <Link>icons\airplay.checked.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.haspassword.png">
-      <Link>icons\airplay.haspassword.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.hasvideo.png">
-      <Link>icons\airplay.hasvideo.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\airplay.speaker.png">
-      <Link>icons\airplay.speaker.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.basecircle.rest.png">
-      <Link>icons\appbar.basecircle.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.cancel.rest.png">
-      <Link>icons\appbar.cancel.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.check.rest.png">
-      <Link>icons\appbar.check.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.feature.search.rest.png">
-      <Link>icons\appbar.feature.search.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.feature.settings.rest.png">
-      <Link>icons\appbar.feature.settings.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.new.rest.png">
-      <Link>icons\appbar.new.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.transport.ff.rest.png">
-      <Link>icons\appbar.transport.ff.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.transport.pause.rest.png">
-      <Link>icons\appbar.transport.pause.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.transport.play.rest.png">
-      <Link>icons\appbar.transport.play.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\appbar.transport.rew.rest.png">
-      <Link>icons\appbar.transport.rew.rest.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.airplay.png">
-      <Link>icons\custom.appbar.airplay.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.browse.png">
-      <Link>icons\custom.appbar.browse.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.geniusmixes.png">
-      <Link>icons\custom.appbar.geniusmixes.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.itunes.png">
-      <Link>icons\custom.appbar.itunes.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.moredots.png">
-      <Link>icons\custom.appbar.moredots.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.podcast.png">
-      <Link>icons\custom.appbar.podcast.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.repeat.png">
-      <Link>icons\custom.appbar.repeat.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.repeatone.png">
-      <Link>icons\custom.appbar.repeatone.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.shuffle.png">
-      <Link>icons\custom.appbar.shuffle.png</Link>
-    </Content>
-    <Content Include="..\Komodex.Remote %28WP7%29\icons\custom.appbar.video.png">
-      <Link>icons\custom.appbar.video.png</Link>
-    </Content>
     <Content Include="..\Komodex.Remote %28WP7%29\Images\komodex-logo-65px.png">
       <Link>Images\komodex-logo-65px.png</Link>
     </Content>
@@ -752,11 +680,6 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Themes\IconButtons.xaml">
       <Link>Themes\IconButtons.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\Themes\Icons.xaml">
-      <Link>Themes\Icons.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

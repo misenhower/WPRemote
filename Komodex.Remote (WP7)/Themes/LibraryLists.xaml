@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
     >
@@ -21,7 +22,10 @@
                                Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}">
                 <Border Background="{StaticResource PhoneChromeBrush}">
                     <StackPanel Orientation="Horizontal">
-                        <ContentControl Template="{StaticResource ShuffleIcon}" />
+                        <controls:MultiResolutionImageMask
+                                    Source="/Assets/Icons/Shuffle.png"
+                                    Width="48" Height="48"
+                                    />
                         <TextBlock Text="{Binding LocalizedStrings.ShuffleAllButton, Source={StaticResource LocalizedStrings}}" Margin="0,3,12,0" FontSize="28"
                                        Style="{StaticResource PhoneTextBlockBase}"
                                        FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
