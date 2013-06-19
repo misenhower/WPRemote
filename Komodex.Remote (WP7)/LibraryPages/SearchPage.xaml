@@ -32,7 +32,7 @@
                     <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                 </Border>
                 <StackPanel VerticalAlignment="Center" Grid.Column="1">
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextLargeStyle}" />
                     <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" />
                 </StackPanel>
             </Grid>
