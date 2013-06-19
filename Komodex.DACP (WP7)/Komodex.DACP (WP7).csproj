@@ -51,6 +51,8 @@
     <Compile Include="Classes\AirPlaySpeaker.cs" />
     <Compile Include="Classes\GroupedItems.cs" />
     <Compile Include="Classes\GroupItems.cs" />
+    <Compile Include="Classes\PlayQueue.cs" />
+    <Compile Include="Classes\PlayQueueItem.cs" />
     <Compile Include="DACPServer\DACPServer.AirPlaySpeakers.cs" />
     <Compile Include="Library\Bases\LibraryElementBase.cs" />
     <Compile Include="Library\Genre.cs" />

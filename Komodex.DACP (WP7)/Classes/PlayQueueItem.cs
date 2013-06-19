@@ -1,0 +1,77 @@
+﻿using Komodex.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Komodex.DACP
+{
+    public class PlayQueueItem
+    {
+        internal PlayQueueItem(DACPServer server, byte[] data)
+        {
+            Server = server;
+
+            var nodes = DACPUtility.GetResponseNodes(data);
+            foreach (var node in nodes)
+            {
+                switch (node.Key)
+                {
+                    case "ceQs":
+                        byte[] value = node.Value;
+                        byte[] dbID = { value[0], value[1], value[2], value[3] };
+                        byte[] songID = { value[12], value[13], value[14], value[15] };
+                        DatabaseID = dbID.GetInt32Value();
+                        SongID = songID.GetInt32Value();
+                        break;
+
+                    case "ceQn":
+                        SongName = node.Value.GetStringValue();
+                        break;
+
+                    case "ceQr":
+                        ArtistName = node.Value.GetStringValue();
+                        break;
+
+                    case "ceQa":
+                        AlbumName = node.Value.GetStringValue();
+                        break;
+
+                    case "ceQI":
+                        QueueIndex = node.Value.GetInt32Value();
+                        break;
+                }
+            }
+        }
+
+        public DACPServer Server { get; protected set; }
+
+        public int DatabaseID { get; protected set; }
+        public int SongID { get; protected set; }
+
+        public string ArtistName { get; protected set; }
+        public string SongName { get; protected set; }
+        public string AlbumName { get; protected set; }
+        public int QueueIndex { get; protected set; }
+
+        public string SecondLine
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(AlbumName))
+                    return ArtistName + " – " + AlbumName;
+                return ArtistName;
+            }
+        }
+
+        public string AlbumArtURL
+        {
+            get
+            {
+                int pixels = ResolutionUtility.GetScaledPixels(75);
+                return Server.HTTPPrefix + "/databases/" + DatabaseID + "/items/" + SongID
+                    + "/extra_data/artwork?mw=" + pixels + "&mh=" + pixels + "&session-id=" + Server.SessionID;
+            }
+        }
+    }
+}

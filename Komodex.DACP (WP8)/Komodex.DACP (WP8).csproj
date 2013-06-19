@@ -101,6 +101,12 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\HTTPRequestInfo.cs">
       <Link>Classes\HTTPRequestInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\PlayQueue.cs">
+      <Link>Classes\PlayQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\PlayQueueItem.cs">
+      <Link>Classes\PlayQueueItem.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\ServerUpdateEventArgs.cs">
       <Link>Classes\ServerUpdateEventArgs.cs</Link>
     </Compile>

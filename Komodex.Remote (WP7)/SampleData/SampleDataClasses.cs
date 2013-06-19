@@ -14,6 +14,7 @@ namespace Komodex.Remote.SampleData
         public string CurrentSongName { get; set; }
         public int Volume { get; set; }
         public List<SampleDataAirPlaySpeaker> Speakers { get; set; }
+        public List<SampleDataPlayQueue> PlayQueues { get; set; }
 
         public List<SampleDataNamedItemBase> LibraryPlaylists { get; set; }
         public List<SampleDataGeniusPlaylist> LibraryGeniusMixes { get; set; }
@@ -114,6 +115,22 @@ namespace Komodex.Remote.SampleData
         public bool HasVideo { get; set; }
         public bool HasPassword { get; set; }
         public int BindableVolume { get; set; }
+    }
+
+    #endregion
+
+    #region Play Queue
+
+    class SampleDataPlayQueue : List<SampleDataPlayQueueItem>
+    {
+        public string Title1 { get; set; }
+        public string Title2 { get; set; }
+    }
+
+    class SampleDataPlayQueueItem
+    {
+        public string SongName { get; set; }
+        public string SecondLine { get; set; }
     }
 
     #endregion

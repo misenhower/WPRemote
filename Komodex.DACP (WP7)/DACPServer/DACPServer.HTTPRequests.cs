@@ -692,5 +692,85 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Play Queue
+
+        private List<PlayQueue> _playQueues;
+        public List<PlayQueue> PlayQueues
+        {
+            get { return _playQueues; }
+            protected set
+            {
+                if (_playQueues == value)
+                    return;
+
+                _playQueues = value;
+                PropertyChanged.RaiseOnUIThread(this, "PlayQueues");
+            }
+        }
+
+        // TODO: Make this private/protected and automatic based on play status updater
+        public void SubmitPlayQueueRequest()
+        {
+            if (!SupportsPlayQueue)
+                return;
+
+            string url = "/ctrl-int/1/playqueue-contents?span=50&session-id=" + SessionID;
+            SubmitHTTPRequest(url, HandlePlayQueueResponse);
+        }
+
+        private void HandlePlayQueueResponse(HTTPRequestInfo requestInfo)
+        {
+            List<PlayQueue> queues = new List<PlayQueue>();
+            List<PlayQueueItem> queueItems = new List<PlayQueueItem>();
+
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        var nodes = DACPUtility.GetResponseNodes(kvp.Value);
+
+                        foreach (var node in nodes)
+                        {
+                            switch (node.Key)
+                            {
+                                case "ceQS":
+                                    var queueNodes = DACPUtility.GetResponseNodes(node.Value);
+                                    foreach (var queueNode in queueNodes)
+                                    {
+                                        if (queueNode.Key != "mlit")
+                                            continue;
+
+                                        var queue = new PlayQueue(this, queueNode.Value);
+                                        if (queue.ID == "main" || queue.ID == "subm")
+                                            queues.Add(queue);
+                                    }
+                                    break;
+
+                                case "mlit":
+                                    queueItems.Add(new PlayQueueItem(this, node.Value));
+                                    break;
+                            }
+                        }
+                        break;
+                }
+            }
+
+            // Put queue items in queues
+            foreach (var queue in queues)
+            {
+                int index = queue.StartIndex - 1;
+                if (index < 0)
+                    continue;
+
+                var items = queueItems.Skip(index).Take(queue.ItemCount);
+                queue.AddRange(items);
+            }
+
+            PlayQueues = queues;
+        }
+
+        #endregion
+
     }
 }

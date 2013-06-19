@@ -455,6 +455,78 @@
 			<SampleData:SampleDataNamedItemBase Name="Vestibulum placerat sit" SecondLine="Vel sodales elementum"/>
 		</SampleData:SampleDataNamedItemGroup>
 	</SampleData:SampleDataDACPServer.LibraryMovies>
+	<SampleData:SampleDataDACPServer.PlayQueues>
+		<SampleData:SampleDataPlayQueue Capacity="42" Title2="Inceptos hac interdum risus leo" Title1="Nunc adipiscing odio parturient sapien">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Velit vestibulum semper sociis" SongName="Lobortis orci mus blandit"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Vitae fringilla" SongName="Commodo conubia nec vestibulum class"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Cubilia habitasse pede" SongName="Non dapibus nascetur curae per"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Taciti hendrerit quam" SongName="Himenaeos egestas tellus"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Donec adipiscing" SongName="Imperdiet quis urna parturient cras"/>
+		</SampleData:SampleDataPlayQueue>
+		<SampleData:SampleDataPlayQueue Capacity="61" Title2="Euismod vestibulum" Title1="Sed malesuada sem tempor">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Pharetra feugiat placerat" SongName="Gravida vestibulum etiam"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Pulvinar adipiscing penatibus porttitor" SongName="Iaculis sagittis tempus parturient vestibulum"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Sit senectus lacinia fusce" SongName="Tortor vel vestibulum adipiscing sociosqu"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Lorem tincidunt nam" SongName="Sed turpis dis duis suscipit"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Est tristique torquent varius ultricies" SongName="Morbi nulla laoreet parturient natoque"/>
+		</SampleData:SampleDataPlayQueue>
+		<SampleData:SampleDataPlayQueue Capacity="49" Title2="Proin posuere venenatis vestibulum augue" Title1="Aenean nunc">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Vestibulum hac potenti leo" SongName="Amet vulputate"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Ultrices vehicula adipiscing" SongName="Ante mus dolor"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Pretium mauris curabitur volutpat" SongName="Parturient maecenas rhoncus fames"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Nullam felis" SongName="Ipsum arcu phasellus sodales viverra"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Aliquam consequat" SongName="Aptent convallis nec non"/>
+		</SampleData:SampleDataPlayQueue>
+		<SampleData:SampleDataPlayQueue Capacity="23" Title2="Integer quisque elementum" Title1="Dignissim auctor vestibulum">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Per vestibulum facilisis fermentum sed" SongName="Justo lacus lorem sem"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Praesent congue magna adipiscing" SongName="Diam vivamus fringilla accumsan bibendum"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Cursus massa aliquam eget" SongName="Elit parturient"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Aliquet dictum sit enim habitasse" SongName="Vel hendrerit erat lectus"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Himenaeos blandit metus dictumst commodo" SongName="Morbi vestibulum libero neque"/>
+		</SampleData:SampleDataPlayQueue>
+		<SampleData:SampleDataPlayQueue Capacity="92" Title2="Netus nam imperdiet malesuada" Title1="Ligula vestibulum">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Litora adipiscing penatibus eros" SongName="Sed nibh"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Nulla porttitor tincidunt parturient" SongName="Porta eleifend purus dis luctus"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Est tristique risus vestibulum" SongName="Nisi facilisi nisl nunc odio"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Magnis conubia vestibulum velit faucibus" SongName="Orci cubilia mattis dapibus"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Pede habitant ultricies vitae" SongName="Inceptos hac"/>
+		</SampleData:SampleDataPlayQueue>
+		<SampleData:SampleDataPlayQueue Capacity="10" Title2="Venenatis egestas vulputate" Title1="Class mauris">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Quam interdum lobortis" SongName="Curae curabitur mollis quis adipiscing"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Urna nascetur cras donec phasellus" SongName="Euismod pharetra feugiat etiam"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Leo mus gravida fusce consequat" SongName="Nec non montes placerat"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Convallis per" SongName="Lorem pulvinar sagittis dignissim senectus"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Nostra parturient" SongName="Elementum vestibulum"/>
+		</SampleData:SampleDataPlayQueue>
+		<SampleData:SampleDataPlayQueue Capacity="89" Title2="Nulla facilisis" Title1="Iaculis ornare morbi sed sociosqu">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Sem platea" SongName="Sit suscipit vestibulum lacinia"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Vel primis fermentum" SongName="Adipiscing laoreet proin natoque"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Posuere parturient nam torquent sed" SongName="Ultrices rutrum dis augue"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Potenti sapien" SongName="Vehicula vestibulum volutpat maecenas pretium"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Fringilla rhoncus sodales viverra dolor" SongName="Vestibulum adipiscing praesent est duis"/>
+		</SampleData:SampleDataPlayQueue>
+		<SampleData:SampleDataPlayQueue Capacity="61" Title2="Parturient aliquam fames felis" Title1="Habitasse accumsan nunc hac hendrerit">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Integer semper" SongName="Quisque vestibulum"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Vestibulum himenaeos" SongName="Bibendum dictumst"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Imperdiet eleifend leo adipiscing" SongName="Malesuada ipsum parturient vestibulum justo"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Vestibulum penatibus amet vivamus adipiscing" SongName="Sociis aliquam parturient vestibulum porttitor"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Vestibulum ante tincidunt" SongName="Taciti mus facilisi"/>
+		</SampleData:SampleDataPlayQueue>
+		<SampleData:SampleDataPlayQueue Capacity="35" Title2="Eget aliquet blandit faucibus habitant" Title1="Lacus arcu diam">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Lorem elit nec" SongName="Non enim adipiscing"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Tellus erat per tempor parturient" SongName="Tristique sed"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Inceptos commodo vestibulum sem" SongName="Sit vel"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Vestibulum interdum tempus nam" SongName="Eros adipiscing magna"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Conubia sed" SongName="Ultricies venenatis vulputate"/>
+		</SampleData:SampleDataPlayQueue>
+		<SampleData:SampleDataPlayQueue Capacity="83" Title2="Curabitur morbi" Title1="Massa dis cubilia metus">
+			<SampleData:SampleDataPlayQueueItem SecondLine="Tortor phasellus est turpis" SongName="Consequat nibh"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Neque varius nisi lobortis" SongName="Nascetur dapibus nisl nunc egestas"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Euismod pharetra" SongName="Parturient convallis"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Odio vestibulum hac" SongName="Dignissim aenean netus nulla"/>
+			<SampleData:SampleDataPlayQueueItem SecondLine="Porta placerat pulvinar sagittis mauris" SongName="Nullam elementum feugiat"/>
+		</SampleData:SampleDataPlayQueue>
+	</SampleData:SampleDataDACPServer.PlayQueues>
 	<SampleData:SampleDataDACPServer.Speakers>
 		<SampleData:SampleDataAirPlaySpeaker BindableVolume="55" BindableActive="True" HasVideo="True" HasPassword="False" Name="Tempor nulla"/>
 		<SampleData:SampleDataAirPlaySpeaker BindableVolume="86" BindableActive="False" HasVideo="False" HasPassword="True" Name="Erat interdum gravida"/>
