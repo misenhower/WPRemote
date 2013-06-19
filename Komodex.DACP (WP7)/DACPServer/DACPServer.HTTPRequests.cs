@@ -759,11 +759,10 @@ namespace Komodex.DACP
             // Put queue items in queues
             foreach (var queue in queues)
             {
-                int index = queue.StartIndex - 1;
-                if (index < 0)
-                    continue;
+                int start = queue.StartIndex;
+                int stop = start + queue.ItemCount;
 
-                var items = queueItems.Skip(index).Take(queue.ItemCount);
+                var items = queueItems.Where(i => i.QueueIndex >= start && i.QueueIndex < stop).OrderBy(i => i.QueueIndex);
                 queue.AddRange(items);
             }
 

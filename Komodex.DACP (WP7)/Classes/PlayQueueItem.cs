@@ -38,7 +38,11 @@ namespace Komodex.DACP
                         break;
 
                     case "ceQI":
-                        QueueIndex = node.Value.GetInt32Value();
+                        // ceQI is a queue index value. The "currently playing" song has an index of 1. The first queued item has
+                        // an index of 2. The first "history" item has an index of 0.
+                        // This appears to be one off from how the index values are dealt with elsewhere, so I'm subtracting 1
+                        // from the ceQI value to get the item's queue index.
+                        QueueIndex = node.Value.GetInt32Value() - 1;
                         break;
                 }
             }
