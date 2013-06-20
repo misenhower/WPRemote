@@ -77,5 +77,23 @@ namespace Komodex.DACP
                     + "/extra_data/artwork?mw=" + pixels + "&mh=" + pixels + "&session-id=" + Server.SessionID;
             }
         }
+
+        public void SendPlayCommand()
+        {
+            string url = "/ctrl-int/1/playqueue-edit"
+                + "?command=playnow"
+                + "&index=" + QueueIndex
+                + "&session-id=" + Server.SessionID;
+            Server.SubmitHTTPPlayRequest(url);
+        }
+
+        public void SendDeleteCommand()
+        {
+            string url = "/ctrl-int/1/playqueue-edit"
+                + "?command=remove"
+                + "&items=" + QueueIndex
+                + "&session-id=" + Server.SessionID;
+            Server.SubmitHTTPPlayRequest(url);
+        }
     }
 }

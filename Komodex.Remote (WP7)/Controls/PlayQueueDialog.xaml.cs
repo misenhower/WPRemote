@@ -9,6 +9,8 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Komodex.Common.Phone;
 using Komodex.Remote.ServerManagement;
+using Komodex.DACP;
+using Clarity.Phone.Extensions;
 
 namespace Komodex.Remote.Controls
 {
@@ -19,6 +21,26 @@ namespace Komodex.Remote.Controls
             InitializeComponent();
 
             DataContext = ServerManager.CurrentServer;
+        }
+
+        private void PlayQueueList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            LongListSelector list = (LongListSelector)sender;
+            PlayQueueItem item = list.SelectedItem as PlayQueueItem;
+            if (item == null)
+                return;
+
+            DependencyObject originalSource = e.OriginalSource as DependencyObject;
+            if (originalSource == null)
+                return;
+
+            var ancestors = originalSource.GetVisualAncestors();
+            bool isDeleteButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "DeleteButton");
+
+            if (isDeleteButton)
+                item.SendDeleteCommand();
+            else
+                item.SendPlayCommand();
         }
     }
 }

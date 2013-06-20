@@ -378,6 +378,15 @@
     <Content Include="..\Assets\Icons\Browse.WXGA.png">
       <Link>Assets\Icons\Browse.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Delete.720p.png">
+      <Link>Assets\Icons\Delete.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Delete.WVGA.png">
+      <Link>Assets\Icons\Delete.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Delete.WXGA.png">
+      <Link>Assets\Icons\Delete.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Ellipsis.720p.png">
       <Link>Assets\Icons\Ellipsis.720p.png</Link>
     </Content>

@@ -490,6 +490,7 @@ namespace Komodex.DACP
             SubmitUserRatingRequest();
             SubmitVolumeStatusRequest();
             SubmitGetSpeakersRequest();
+            SubmitPlayQueueRequest();
             if (UseDelayedResponseRequests && !Stopped)
                 SubmitPlayStatusRequest();
         }
@@ -709,7 +710,7 @@ namespace Komodex.DACP
         }
 
         // TODO: Make this private/protected and automatic based on play status updater
-        public void SubmitPlayQueueRequest()
+        protected void SubmitPlayQueueRequest()
         {
             if (!SupportsPlayQueue)
                 return;

@@ -7,6 +7,7 @@
     xmlns:base="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:delay="clr-namespace:Delay"
+    xmlns:my="clr-namespace:Komodex.Remote.Controls"
     mc:Ignorable="d"
     d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -40,10 +41,11 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="PlayQueueItemTemplate">
-            <Grid Margin="12,6,-12,6">
+            <Grid Margin="12,6,0,6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <Border Width="75" Height="75" Background="{StaticResource PhoneSemitransparentBrush}">
@@ -51,9 +53,19 @@
                 </Border>
 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Text="{Binding SongName}" Style="{StaticResource PhoneTextLargeStyle}" />
-                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                    <TextBlock Text="{Binding SongName}" Style="{StaticResource PhoneTextLargeStyle}" Margin="12,0,0,0" />
+                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
                 </StackPanel>
+                
+                <my:FakeButton x:Name="DeleteButton" Grid.Column="2">
+                    <Grid Background="Transparent">
+                        <controls:MultiResolutionImageMask
+                            Source="/Assets/Icons/Delete.png"
+                            Width="48" Height="48"
+                            Margin="12"
+                            />
+                    </Grid>
+                </my:FakeButton>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -67,6 +79,7 @@
                 IsGroupingEnabled="True"
                 GroupHeaderTemplate="{StaticResource PlayQueueHeaderTemplate}"
                 ItemTemplate="{StaticResource PlayQueueItemTemplate}"
+                Tap="PlayQueueList_Tap"
                 />
         </Grid>
     </Grid>
