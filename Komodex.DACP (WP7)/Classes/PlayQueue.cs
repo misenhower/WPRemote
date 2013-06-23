@@ -1,12 +1,20 @@
-﻿using System;
+﻿using Komodex.Common;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
 namespace Komodex.DACP
 {
-    public class PlayQueue : List<PlayQueueItem>
+    public sealed class PlayQueue : ObservableCollection<PlayQueueItem>
     {
+        internal PlayQueue(string id)
+        {
+            ID = id;
+        }
+
         internal PlayQueue(DACPServer server, byte[] data)
         {
             var nodes = DACPUtility.GetResponseNodes(data);
@@ -37,11 +45,37 @@ namespace Komodex.DACP
             }
         }
 
-        public string ID { get; protected set; }
-        public string Title1 { get; protected set; }
-        public string Title2 { get; protected set; }
+        public string ID { get; private set; }
 
-        internal int StartIndex { get; private set; }
-        internal int ItemCount { get; private set; }
+        private string _title1;
+        public string Title1
+        {
+            get { return _title1; }
+            internal set
+            {
+                if (_title1 == value)
+                    return;
+
+                _title1 = value;
+                Utility.BeginInvokeOnUIThread(() => OnPropertyChanged(new PropertyChangedEventArgs("Title1")));
+            }
+        }
+
+        private string _title2;
+        public string Title2
+        {
+            get { return _title2; }
+            internal set
+            {
+                if (_title2 == value)
+                    return;
+
+                _title2 = value;
+                Utility.BeginInvokeOnUIThread(() => OnPropertyChanged(new PropertyChangedEventArgs("Title2")));
+            }
+        }
+
+        internal int StartIndex { get; set; }
+        internal int ItemCount { get; set; }
     }
 }

@@ -17,6 +17,7 @@ using Komodex.DACP.Library;
 using System.Text;
 using Komodex.Common;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace Komodex.DACP
 {
@@ -695,8 +696,8 @@ namespace Komodex.DACP
 
         #region Play Queue
 
-        private List<PlayQueue> _playQueues;
-        public List<PlayQueue> PlayQueues
+        private ObservableCollection<PlayQueue> _playQueues;
+        public ObservableCollection<PlayQueue> PlayQueues
         {
             get { return _playQueues; }
             protected set
@@ -721,6 +722,9 @@ namespace Komodex.DACP
 
         private void HandlePlayQueueResponse(HTTPRequestInfo requestInfo)
         {
+            if (PlayQueues == null)
+                PlayQueues = new ObservableCollection<PlayQueue>();
+
             List<PlayQueue> queues = new List<PlayQueue>();
             List<PlayQueueItem> queueItems = new List<PlayQueueItem>();
 
@@ -742,9 +746,7 @@ namespace Komodex.DACP
                                         if (queueNode.Key != "mlit")
                                             continue;
 
-                                        var queue = new PlayQueue(this, queueNode.Value);
-                                        if (queue.ID == "main" || queue.ID == "subm")
-                                            queues.Add(queue);
+                                        queues.Add(new PlayQueue(this, queueNode.Value));
                                     }
                                     break;
 
@@ -757,17 +759,67 @@ namespace Komodex.DACP
                 }
             }
 
-            // Put queue items in queues
-            foreach (var queue in queues)
+            // Update the queues and queue items with minimal changes to avoid reloading the list while it's displayed.
+            // This is optimized for simple inserts and deletions. Reordering items will still cause most of the list to reload.
+            // Updating on the UI thread because of the observable collections being tied to UI elements.
+            Utility.BeginInvokeOnUIThread(() =>
             {
-                int start = queue.StartIndex;
-                int stop = start + queue.ItemCount;
+                // Remove queues
+                var removedQueues = PlayQueues.Where(q1 => !queues.Any(q2 => q1.ID == q2.ID)).ToArray();
+                foreach (var q in removedQueues)
+                    PlayQueues.Remove(q);
 
-                var items = queueItems.Where(i => i.QueueIndex >= start && i.QueueIndex < stop).OrderBy(i => i.QueueIndex);
-                queue.AddRange(items);
-            }
+                // Update/insert queues
+                for (int i = 0; i < queues.Count; i++)
+                {
+                    var queue = queues[i];
 
-            PlayQueues = queues;
+                    // Add the queue to the list if we don't already have it
+                    if (PlayQueues.Count <= i || PlayQueues[i].ID != queue.ID)
+                    {
+                        PlayQueues.Insert(i, queue);
+                    }
+                    // Update the existing queue object's start index and item count
+                    else
+                    {
+                        PlayQueues[i].Title1 = queue.Title1;
+                        PlayQueues[i].Title2 = queue.Title2;
+                        PlayQueues[i].StartIndex = queue.StartIndex;
+                        PlayQueues[i].ItemCount = queue.ItemCount;
+                    }
+                }
+
+                // Remove extra queues
+                while (PlayQueues.Count > queues.Count)
+                    PlayQueues.RemoveAt(queues.Count);
+
+                // Put queue items in queues
+                foreach (var queue in PlayQueues)
+                {
+                    int start = queue.StartIndex;
+                    int stop = start + queue.ItemCount;
+
+                    var items = queueItems.Where(i => i.QueueIndex >= start && i.QueueIndex < stop).OrderBy(i => i.QueueIndex).ToArray();
+
+                    // Remove items
+                    var removedItems = queue.Where(i1 => !items.Any(i2 => i1.SongID == i2.SongID && i1.DatabaseID == i2.DatabaseID)).ToArray();
+                    foreach (var i in removedItems)
+                        queue.Remove(i);
+
+                    // Update/insert items
+                    for (int i = 0; i < items.Length; i++)
+                    {
+                        if (queue.Count <= i || queue[i].SongID != items[i].SongID || queue[i].DatabaseID != items[i].DatabaseID)
+                            queue.Insert(i, items[i]);
+                        else
+                            queue[i].QueueIndex = items[i].QueueIndex;
+                    }
+
+                    // Remove extra items
+                    while (queue.Count > items.Length)
+                        queue.RemoveAt(items.Length);
+                }
+            });
         }
 
         #endregion

@@ -56,7 +56,7 @@ namespace Komodex.DACP
         public string ArtistName { get; protected set; }
         public string SongName { get; protected set; }
         public string AlbumName { get; protected set; }
-        public int QueueIndex { get; protected set; }
+        public int QueueIndex { get; protected internal set; }
 
         public string SecondLine
         {
