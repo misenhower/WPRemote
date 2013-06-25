@@ -32,6 +32,13 @@ namespace Komodex.Common.Phone
 
         protected bool ShowSemitransparentBackground { get; set; }
 
+        private bool _hideApplicationBar = true;
+        public bool HideApplicationBar
+        {
+            get { return _hideApplicationBar; }
+            set { _hideApplicationBar = value; }
+        }
+
         #endregion
 
         #region Methods
@@ -54,7 +61,7 @@ namespace Komodex.Common.Phone
 
             _dialogService.ShowSemitransparentBackground = ShowSemitransparentBackground;
 
-            _dialogService.Show();
+            _dialogService.Show(HideApplicationBar);
         }
 
         public virtual void Hide(MessageBoxResult result = MessageBoxResult.None)
