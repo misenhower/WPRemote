@@ -24,28 +24,6 @@
     >
     
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="BorderlessButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
-            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
-            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid Background="Transparent">
-                            <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0">
-                                <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-                            </Border>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="PlayPositionSliderStyle" TargetType="Slider">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -165,7 +143,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="72" />
                 </Grid.RowDefinitions>
-                <Button Name="btnArtist" Margin="0,0,0,10" Style="{StaticResource BorderlessButtonStyle}" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Bottom" Click="btnArtist_Click">
+                <Button Name="btnArtist" Margin="-12,-12,-12,-2" Style="{StaticResource SimpleButton}" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Bottom" Click="btnArtist_Click">
                     <StackPanel>
                         <TextBlock Text="{Binding CurrentArtist}"
                                TextWrapping="Wrap" MaxHeight="132"

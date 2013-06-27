@@ -23,28 +23,9 @@
     >
     
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="BorderlessButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource PhoneChromeBrush}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
-            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
-            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
+        <Style x:Key="ChromeBrushButtonStyle" TargetType="Button" BasedOn="{StaticResource SimpleButton}">
+            <Setter Property="Background" Value="{StaticResource PhoneChromeBrush}" />
             <Setter Property="Padding" Value="12,6" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="VerticalContentAlignment" Value="Stretch" />
-            <Setter Property="Padding" Value="12,6,0,6" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid Background="Transparent">
-                            <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" Margin="{StaticResource PhoneTouchTargetOverhang}">
-                                <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            </Border>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
         <Style x:Key="ItemHeaderStyle" BasedOn="{StaticResource PhoneTextBlockBase}" TargetType="TextBlock">
             <Setter Property="Margin" Value="12,0,0,6" />
@@ -129,7 +110,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="72" />
                 </Grid.RowDefinitions>
-                <Button Name="btnNowPlaying" Grid.Row="0" Click="btnNowPlaying_Click" Style="{StaticResource BorderlessButtonStyle}">
+                <Button Name="btnNowPlaying" Grid.Row="0" Click="btnNowPlaying_Click" Style="{StaticResource ChromeBrushButtonStyle}">
                     <Grid x:Name="grid1" Height="200">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -157,7 +138,7 @@
                         </Grid>
                     </Grid>
                 </Button>
-                <Button Name="btnLibrary" Grid.Row="1" Click="btnLibrary_Click" Style="{StaticResource BorderlessButtonStyle}" CacheMode="BitmapCache">
+                <Button Name="btnLibrary" Grid.Row="1" Click="btnLibrary_Click" Style="{StaticResource ChromeBrushButtonStyle}" CacheMode="BitmapCache">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -167,7 +148,7 @@
                         <TextBlock Text="{Binding LocalizedStrings.BrowseLibraryButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
-                <Button Name="btnSearch" Grid.Row="2" Click="btnSearch_Click" Style="{StaticResource BorderlessButtonStyle}" CacheMode="BitmapCache">
+                <Button Name="btnSearch" Grid.Row="2" Click="btnSearch_Click" Style="{StaticResource ChromeBrushButtonStyle}" CacheMode="BitmapCache">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
