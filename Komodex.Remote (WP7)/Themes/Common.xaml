@@ -27,7 +27,37 @@
     </Style>
 
     <!-- Button Styles -->
-    <ControlTemplate x:Key="EmptyButton" TargetType="Button" />
+    <Style x:Key="SimpleButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}" />
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="Transparent">
+                        <Border Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}"
+                                Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                >
+                            <ContentControl x:Name="ContentContainer"
+                                            Content="{TemplateBinding Content}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
     <ControlTemplate x:Key="PhoneSimpleRepeatButton" TargetType="RepeatButton">
         <Rectangle Fill="Transparent"/>

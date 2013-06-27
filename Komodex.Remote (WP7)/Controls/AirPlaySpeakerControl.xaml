@@ -103,7 +103,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Button Template="{StaticResource EmptyButton}" Background="Transparent" d:DataContext="{Binding Speakers[0]}"
+        <Button Style="{StaticResource SimpleButton}" Margin="-12" Background="Transparent" d:DataContext="{Binding Speakers[0]}"
                 Name="SpeakerButton" Click="SpeakerButton_Click">
             <Border Background="Transparent">
                 <Grid x:Name="grid" VerticalAlignment="Top" Margin="12,6,0,12">
@@ -155,7 +155,9 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Name}"
                                    Margin="6,10,0,6"
-                                   FontWeight="Bold" FontSize="{StaticResource PhoneFontSizeMediumLarge}" />
+                                   FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                                   FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                                   />
                         <controls:MultiResolutionImageMask
                             Grid.Column="1"
                             VerticalAlignment="Center"

@@ -34,7 +34,7 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,-12,12,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -43,17 +43,17 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Button Template="{StaticResource EmptyButton}" Click="btnAssemblyInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
-                <StackPanel Background="{StaticResource PhoneChromeBrush}" Margin="12,0,12,12">
+            <Button Style="{StaticResource SimpleButton}" Click="btnAssemblyInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
+                <StackPanel Background="{StaticResource PhoneChromeBrush}">
                     <TextBlock TextWrapping="Wrap" Text="Remote" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                     <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.ForWP, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle3Style}"/>
                     <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}" Name="tbAppVersion" Margin="12,0,12,12" />
                 </StackPanel>
             </Button>
 
-            <Button Grid.Row="1" Template="{StaticResource EmptyButton}" Click="btniTunesInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
+            <Button Grid.Row="1" Style="{StaticResource SimpleButton}" Click="btniTunesInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
                 <Grid>
-                    <StackPanel Name="iTunesInfoPanel" Background="{StaticResource PhoneChromeBrush}" Margin="12">
+                    <StackPanel Name="iTunesInfoPanel" Background="{StaticResource PhoneChromeBrush}">
                         <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.AboutLibraryInformation, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle2Style}"/>
                         <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.NotConnected, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" Name="tbiTunesNotConnected" />
                         <Grid Margin="0,12,0,0" Name="gridiTunesInfo">
@@ -80,7 +80,7 @@
                         <Border Margin="0,0,0,12" />
                     </StackPanel>
 
-                    <StackPanel Name="DeviceInfoPanel" Background="{StaticResource PhoneChromeBrush}" Margin="12" Visibility="Collapsed">
+                    <StackPanel Name="DeviceInfoPanel" Background="{StaticResource PhoneChromeBrush}" Visibility="Collapsed">
                         <TextBlock TextWrapping="Wrap" Text="Device Information" Style="{StaticResource PhoneTextTitle2Style}"/>
                         <Grid Margin="0,12,0,12">
                             <Grid.RowDefinitions>
@@ -119,9 +119,9 @@
                     <TextBlock Name="twitter3" Text=" on Twitter" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                 </toolkit:WrapPanel>
             </StackPanel>
-            
+
             <StackPanel Grid.Row="4" Margin="0,0,0,12">
-                <Button Template="{StaticResource EmptyButton}" Margin="12,0,12,12" Click="btnLogo_Click">
+                <Button Style="{StaticResource SimpleButton}" Margin="0,-12,0,0" Click="btnLogo_Click">
                     <Grid Height="65" Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />

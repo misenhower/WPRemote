@@ -127,6 +127,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="72" />
                 </Grid.RowDefinitions>
                 <Button Name="btnNowPlaying" Grid.Row="0" Click="btnNowPlaying_Click" Style="{StaticResource BorderlessButtonStyle}">
                     <Grid x:Name="grid1" Height="200">
@@ -176,7 +177,7 @@
                         <TextBlock Text="{Binding LocalizedStrings.SearchButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
-                <Button Name="btnTrial" Grid.Row="3" Template="{StaticResource EmptyButton}" Margin="0,0,0,78" VerticalAlignment="Bottom" Click="btnTrial_Click">
+                <Button Name="btnTrial" Grid.Row="3" Style="{StaticResource SimpleButton}" Margin="-12,-12,-12,-6" VerticalAlignment="Bottom" Click="btnTrial_Click">
                     <Grid Margin="6,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />

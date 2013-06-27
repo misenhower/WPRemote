@@ -147,7 +147,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="1">
-            <Button Template="{StaticResource EmptyButton}" Click="btnLibrary_Click">
+            <Button Style="{StaticResource SimpleButton}" Margin="-12" Click="btnLibrary_Click">
                 <Border>
                     <TextBlock x:Name="ApplicationTitle" Margin="24,17,0,2" Text="{Binding LibraryName, Converter={StaticResource StringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
                 </Border>
@@ -184,14 +184,14 @@
                     </Border>
                     <Border Background="#CC000000" Name="bdrRepeatShuffleControls" Opacity="0" ManipulationStarted="bdrRepeatShuffleControls_ManipulationStarted" ManipulationCompleted="bdrRepeatShuffleControls_ManipulationCompleted">
                         <StackPanel x:Name="stackPanel" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 25">
-                                <Button Name="btnRepeat" Template="{StaticResource EmptyButton}" Click="btnRepeat_Click" Margin="25,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,25">
+                                <Button Name="btnRepeat" Style="{StaticResource SimpleButton}" Click="btnRepeat_Click" Margin="25,0">
                                     <Grid Width="48" Height="48">
                                         <Ellipse Style="{StaticResource BaseCircleStyle}" Stroke="White" />
                                         <Image Name="imgRepeat" />
                                     </Grid>
                                 </Button>
-                                <Button Name="btnShuffle" Template="{StaticResource EmptyButton}" Click="btnShuffle_Click" Margin="25,0">
+                                <Button Name="btnShuffle" Style="{StaticResource SimpleButton}" Click="btnShuffle_Click" Margin="25,0">
                                     <Grid Width="48" Height="48">
                                         <Ellipse Style="{StaticResource BaseCircleStyle}" Stroke="White" />
                                         <controls:MultiResolutionImage Source="/Assets/Icons/Shuffle.png" />
