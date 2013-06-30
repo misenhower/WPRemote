@@ -131,8 +131,16 @@
                                 <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}" delay:LowProfileImageLoader.DisableCache="True" />
                             </Border>
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="{Binding Path=CurrentArtist}" Style="{StaticResource PhoneTextLargeStyle}" />
-                                <TextBlock Text="{Binding Path=CurrentSongName}" FontWeight="Normal" Style="{StaticResource PhoneTextNormalStyle}" FontSize="{StaticResource PhoneFontSizeMedium}" />
+                                <TextBlock Text="{Binding CurrentArtist}"
+                                           Style="{StaticResource PhoneTextLargeStyle}"
+                                           Margin="12,0,0,0"
+                                           TextTrimming="WordEllipsis"
+                                           />
+                                <TextBlock Text="{Binding CurrentSongName}"
+                                           Style="{StaticResource PhoneTextTitle3Style}"
+                                           Margin="12,0,0,0"
+                                           TextTrimming="WordEllipsis"
+                                           />
                             </StackPanel>
                             <TextBlock Grid.Column="1" Text="{Binding Path=CurrentTrackTimePositionOrPausedString}" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSubtleStyle}" />
                         </Grid>
