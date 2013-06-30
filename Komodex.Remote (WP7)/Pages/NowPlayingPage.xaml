@@ -98,6 +98,23 @@
                            FontSize="14"
                            TextAlignment="Right"
                            />
+                
+                <StackPanel Grid.Column="1" Margin="-12,0,0,-12" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <Button Style="{StaticResource SimpleButton}" Click="ShuffleButton_Click">
+                        <controls:MultiResolutionImageMask
+                            x:Name="ShuffleImage"
+                            Source="/Assets/Icons/Shuffle.png"
+                            Width="48" Height="48"
+                            />
+                    </Button>
+                    <Button Style="{StaticResource SimpleButton}" Click="RepeatButton_Click">
+                        <controls:MultiResolutionImageMask
+                            x:Name="RepeatImage"
+                            Source="/Assets/Icons/Repeat.png"
+                            Width="48" Height="48"
+                            />
+                    </Button>
+                </StackPanel>
             </Grid>
             
             <Button Style="{StaticResource SimpleButton}" Margin="0,-12,0,0">
