@@ -710,6 +710,34 @@ namespace Komodex.DACP
             }
         }
 
+        private string _playQueueUpcomingSongName1;
+        public string PlayQueueUpcomingSongName1
+        {
+            get { return _playQueueUpcomingSongName1; }
+            protected set
+            {
+                if (_playQueueUpcomingSongName1 == value)
+                    return;
+
+                _playQueueUpcomingSongName1 = value;
+                PropertyChanged.RaiseOnUIThread(this, "PlayQueueUpcomingSongName1");
+            }
+        }
+
+        private string _playQueueUpcomingSongName2;
+        public string PlayQueueUpcomingSongName2
+        {
+            get { return _playQueueUpcomingSongName2; }
+            protected set
+            {
+                if (_playQueueUpcomingSongName2 == value)
+                    return;
+
+                _playQueueUpcomingSongName2 = value;
+                PropertyChanged.RaiseOnUIThread(this, "PlayQueueUpcomingSongName2");
+            }
+        }
+
         // TODO: Make this private/protected and automatic based on play status updater
         protected void SubmitPlayQueueRequest()
         {
@@ -819,6 +847,21 @@ namespace Komodex.DACP
                     while (queue.Count > items.Length)
                         queue.RemoveAt(items.Length);
                 }
+
+                // Update upcoming songs
+                string upcomingSongName1 = null;
+                string upcomingSongName2 = null;
+
+                var upcomingItem1 = queueItems.FirstOrDefault(i => i.QueueIndex == 1);
+                if (upcomingItem1 != null)
+                    upcomingSongName1 = upcomingItem1.SongName;
+
+                var upcomingItem2 = queueItems.FirstOrDefault(i => i.QueueIndex == 2);
+                if (upcomingItem2 != null)
+                    upcomingSongName2 = upcomingItem2.SongName;
+
+                PlayQueueUpcomingSongName1 = upcomingSongName1;
+                PlayQueueUpcomingSongName2 = upcomingSongName2;
             });
         }
 
