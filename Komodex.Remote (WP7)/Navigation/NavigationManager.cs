@@ -100,7 +100,7 @@ namespace Komodex.Remote
 
         public static void OpenNowPlayingPage()
         {
-            Navigate("/NowPlaying/NowPlayingPage.xaml");
+            Navigate("/Pages/NowPlayingPage.xaml");
         }
 
         public static void OpenMainLibraryPage()

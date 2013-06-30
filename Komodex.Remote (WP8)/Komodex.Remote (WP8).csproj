@@ -217,6 +217,10 @@
       <Link>Pages\ChooseLibraryPage.xaml.cs</Link>
       <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\NowPlayingPage.xaml.cs">
+      <Link>Pages\NowPlayingPage.xaml.cs</Link>
+      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\ManualPairingPage.xaml.cs">
       <Link>Pages\Pairing\ManualPairingPage.xaml.cs</Link>
       <DependentUpon>ManualPairingPage.xaml</DependentUpon>
@@ -679,6 +683,11 @@
     </DesignData>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\ChooseLibraryPage.xaml">
       <Link>Pages\ChooseLibraryPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\NowPlayingPage.xaml">
+      <Link>Pages\NowPlayingPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

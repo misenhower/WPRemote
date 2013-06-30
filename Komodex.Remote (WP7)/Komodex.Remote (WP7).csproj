@@ -149,6 +149,9 @@
     <Compile Include="Pages\ChooseLibraryPage.xaml.cs">
       <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\NowPlayingPage.xaml.cs">
+      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Pairing\ManualPairingPage.xaml.cs">
       <DependentUpon>ManualPairingPage.xaml</DependentUpon>
     </Compile>
@@ -269,6 +272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ChooseLibraryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\NowPlayingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
