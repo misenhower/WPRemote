@@ -105,6 +105,38 @@ namespace Komodex.Remote.Pages
             CurrentServer.SendNextItemCommand();
         }
 
+        private void RewButton_RepeatBegin(object sender, EventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            CurrentServer.SendBeginRewCommand();
+        }
+
+        private void RewButton_RepeatEnd(object sender, EventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            CurrentServer.SendPlayResumeCommand();
+        }
+
+        private void FFButton_RepeatBegin(object sender, EventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            CurrentServer.SendBeginFFCommand();
+        }
+
+        private void FFButton_RepeatEnd(object sender, EventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            CurrentServer.SendPlayResumeCommand();
+        }
+
         #endregion
 
         #region Play Mode Buttons

@@ -625,6 +625,24 @@ namespace Komodex.DACP
             SubmitHTTPRequest(url);
         }
 
+        public void SendBeginRewCommand()
+        {
+            string url = "/ctrl-int/1/beginrew?session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        public void SendBeginFFCommand()
+        {
+            string url = "/ctrl-int/1/beginff?session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        public void SendPlayResumeCommand()
+        {
+            string url = "/ctrl-int/1/playresume?session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
         /// <summary>
         /// Toggles the shuffle state
         /// </summary>

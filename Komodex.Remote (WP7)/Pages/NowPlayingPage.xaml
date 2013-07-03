@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="clr-namespace:Komodex.Remote"
+    xmlns:appControls="clr-namespace:Komodex.Remote.Controls"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
@@ -107,22 +108,28 @@
         
         <StackPanel Grid.Row="1" Margin="0,24,0,0" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
-                <controls:IconButton
+                <appControls:IconRepeatButton
                     x:Name="RewButton"
                     Style="{StaticResource PlayTransportButton}"
                     ImageSource="/Assets/PlayTransport/Rew.png"
+                    Interval="-1"
                     Click="RewButton_Click"
+                    RepeatBegin="RewButton_RepeatBegin"
+                    RepeatEnd="RewButton_RepeatEnd"
                     />
                 <controls:IconButton
                     x:Name="PlayPauseButton"
                     Style="{StaticResource PlayTransportButton}"
                     Click="PlayPauseButton_Click"
                     />
-                <controls:IconButton
+                <appControls:IconRepeatButton
                     x:Name="FFButton"
                     Style="{StaticResource PlayTransportButton}"
                     ImageSource="/Assets/PlayTransport/FF.png"
+                    Interval="-1"
                     Click="FFButton_Click"
+                    RepeatBegin="FFButton_RepeatBegin"
+                    RepeatEnd="FFButton_RepeatEnd"
                     />
             </StackPanel>
 

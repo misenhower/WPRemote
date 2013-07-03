@@ -109,6 +109,9 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\FakeButton.cs">
       <Link>Controls\FakeButton.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\IconRepeatButton.cs">
+      <Link>Controls\IconRepeatButton.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\ManualPairingDialog.xaml.cs">
       <Link>Controls\ManualPairingDialog.xaml.cs</Link>
       <DependentUpon>ManualPairingDialog.xaml</DependentUpon>
