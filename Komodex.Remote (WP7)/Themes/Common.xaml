@@ -10,6 +10,7 @@
     <localization:LocalizedStringsWrapper xmlns:localization="clr-namespace:Komodex.Remote.Localization" x:Key="LocalizedStrings" />
 
     <!-- Converters -->
+    <appConverters:AppendFilenameConverter x:Key="AppendFilenameConverter" />
     <converters:BooleanToBrushConverter x:Key="BooleanToAccentBrushConverter" TrueValue="{StaticResource PhoneAccentBrush}" FalseValue="{StaticResource PhoneChromeBrush}" />
     <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <appConverters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />

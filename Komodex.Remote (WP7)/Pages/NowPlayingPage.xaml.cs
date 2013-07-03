@@ -30,6 +30,7 @@ namespace Komodex.Remote.Pages
         {
             base.OnNavigatedTo(e);
 
+            UpdatePlayTransportButtons();
             UpdatePlayModeButtons();
         }
 
@@ -39,12 +40,72 @@ namespace Komodex.Remote.Pages
 
             switch (e.PropertyName)
             {
+                case "PlayState":
+                case "CurrentSongName":
+                    UpdatePlayTransportButtons();
+                    break;
+
                 case "ShuffleState":
                 case "RepeatState":
                     UpdatePlayModeButtons();
                     break;
             }
         }
+
+        #region Play Transport Buttons
+
+        protected readonly ImageSource _playIcon = new BitmapImage(new Uri("/Assets/PlayTransport/Play.png", UriKind.Relative));
+        protected readonly ImageSource _pauseIcon = new BitmapImage(new Uri("/Assets/PlayTransport/Pause.png", UriKind.Relative));
+
+        protected void UpdatePlayTransportButtons()
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            bool isStopped = true;
+            bool isPlaying = false;
+
+            if (CurrentServer != null)
+            {
+                isStopped = (CurrentServer.PlayState == PlayStates.Stopped && CurrentServer.CurrentSongName == null);
+                isPlaying = (CurrentServer.PlayState == PlayStates.Playing);
+            }
+
+            RewButton.IsEnabled = !isStopped;
+            PlayPauseButton.IsEnabled = !isStopped;
+            FFButton.IsEnabled = !isStopped;
+
+            if (isPlaying)
+                PlayPauseButton.ImageSource = _pauseIcon;
+            else
+                PlayPauseButton.ImageSource = _playIcon;
+        }
+
+        private void RewButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            CurrentServer.SendPrevItemCommand();
+        }
+
+        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            CurrentServer.SendPlayPauseCommand();
+        }
+
+        private void FFButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            CurrentServer.SendNextItemCommand();
+        }
+
+        #endregion
 
         #region Play Mode Buttons
 

@@ -124,6 +124,9 @@
       <Link>Controls\StarRating.xaml.cs</Link>
       <DependentUpon>StarRating.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\AppendFilenameConverter.cs">
+      <Link>Converters\AppendFilenameConverter.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\BooleanToStringConverter.cs">
       <Link>Converters\BooleanToStringConverter.cs</Link>
     </Compile>
@@ -507,6 +510,78 @@
     </Content>
     <Content Include="..\Assets\KomodexLogo.WXGA.png">
       <Link>Assets\KomodexLogo.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\FF.720p.png">
+      <Link>Assets\PlayTransport\FF.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\FF.Pressed.720p.png">
+      <Link>Assets\PlayTransport\FF.Pressed.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\FF.Pressed.WVGA.png">
+      <Link>Assets\PlayTransport\FF.Pressed.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\FF.Pressed.WXGA.png">
+      <Link>Assets\PlayTransport\FF.Pressed.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\FF.WVGA.png">
+      <Link>Assets\PlayTransport\FF.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\FF.WXGA.png">
+      <Link>Assets\PlayTransport\FF.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Pause.720p.png">
+      <Link>Assets\PlayTransport\Pause.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Pause.Pressed.720p.png">
+      <Link>Assets\PlayTransport\Pause.Pressed.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Pause.Pressed.WVGA.png">
+      <Link>Assets\PlayTransport\Pause.Pressed.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Pause.Pressed.WXGA.png">
+      <Link>Assets\PlayTransport\Pause.Pressed.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Pause.WVGA.png">
+      <Link>Assets\PlayTransport\Pause.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Pause.WXGA.png">
+      <Link>Assets\PlayTransport\Pause.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Play.720p.png">
+      <Link>Assets\PlayTransport\Play.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Play.Pressed.720p.png">
+      <Link>Assets\PlayTransport\Play.Pressed.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Play.Pressed.WVGA.png">
+      <Link>Assets\PlayTransport\Play.Pressed.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Play.Pressed.WXGA.png">
+      <Link>Assets\PlayTransport\Play.Pressed.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Play.WVGA.png">
+      <Link>Assets\PlayTransport\Play.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Play.WXGA.png">
+      <Link>Assets\PlayTransport\Play.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Rew.720p.png">
+      <Link>Assets\PlayTransport\Rew.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Rew.Pressed.720p.png">
+      <Link>Assets\PlayTransport\Rew.Pressed.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Rew.Pressed.WVGA.png">
+      <Link>Assets\PlayTransport\Rew.Pressed.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Rew.Pressed.WXGA.png">
+      <Link>Assets\PlayTransport\Rew.Pressed.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Rew.WVGA.png">
+      <Link>Assets\PlayTransport\Rew.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\Rew.WXGA.png">
+      <Link>Assets\PlayTransport\Rew.WXGA.png</Link>
     </Content>
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\ApplicationIcon.png">
