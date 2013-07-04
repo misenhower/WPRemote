@@ -399,6 +399,8 @@ namespace Komodex.DACP
             Utility.BeginInvokeOnUIThread(() =>
             {
                 timerTrackTimeUpdate.Stop();
+                if (_trackTimeRequestTimer != null)
+                    _trackTimeRequestTimer.Stop();
             });
 
             int newSongID = 0;
@@ -487,6 +489,16 @@ namespace Komodex.DACP
             {
                 if (PlayState == PlayStates.Playing)
                     timerTrackTimeUpdate.Start();
+                else if (PlayState == PlayStates.FastForward || PlayState == PlayStates.Rewind)
+                {
+                    if (_trackTimeRequestTimer == null)
+                    {
+                        _trackTimeRequestTimer = new DispatcherTimer();
+                        _trackTimeRequestTimer.Tick += TrackTimeRequestTimer_Tick;
+                        _trackTimeRequestTimer.Interval = TimeSpan.FromMilliseconds(250);
+                    }
+                    _trackTimeRequestTimer.Start();
+                }
             });
             SubmitUserRatingRequest();
             SubmitVolumeStatusRequest();
@@ -494,6 +506,48 @@ namespace Komodex.DACP
             SubmitPlayQueueRequest();
             if (UseDelayedResponseRequests && !Stopped)
                 SubmitPlayStatusRequest();
+        }
+
+        #endregion
+
+        #region Track Time
+
+        protected DispatcherTimer _trackTimeRequestTimer;
+
+        private void TrackTimeRequestTimer_Tick(object sender, EventArgs e)
+        {
+            SubmitTrackTimeRequest();
+        }
+
+        protected void SubmitTrackTimeRequest()
+        {
+            string url = "/ctrl-int/1/getproperty"
+                + "?properties=dacp.playingtime"
+                + "&session-id=" + SessionID;
+
+            SubmitHTTPRequest(url, ProcessTrackTimeResponse);
+        }
+
+        protected void ProcessTrackTimeResponse(HTTPRequestInfo requestInfo)
+        {
+            int newTrackTimeTotal = 0;
+            int? newTrackTimeRemaining = null;
+
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "cast": // Track length (ms)
+                        newTrackTimeTotal = kvp.Value.GetInt32Value();
+                        break;
+                    case "cant": // Remaining track length (ms)
+                        newTrackTimeRemaining = kvp.Value.GetInt32Value();
+                        break;
+                }
+            }
+
+            TrackTimeTotal = newTrackTimeTotal;
+            TrackTimeRemaining = newTrackTimeRemaining ?? newTrackTimeTotal;
         }
 
         #endregion

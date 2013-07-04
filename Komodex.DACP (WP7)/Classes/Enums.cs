@@ -16,6 +16,8 @@ namespace Komodex.DACP
         Stopped = 2,
         Paused = 3,
         Playing = 4,
+        FastForward = 5,
+        Rewind = 6,
     }
 
     public enum RepeatStates

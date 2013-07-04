@@ -215,7 +215,7 @@ namespace Komodex.Remote
             if (CurrentServer != null)
             {
                 isStopped = (CurrentServer.PlayState == PlayStates.Stopped && CurrentServer.CurrentSongName == null);
-                isPlaying = (CurrentServer.PlayState == PlayStates.Playing);
+                isPlaying = (CurrentServer.PlayState == PlayStates.Playing || CurrentServer.PlayState == PlayStates.FastForward || CurrentServer.PlayState == PlayStates.Rewind);
             }
 
             _playTransportPreviousTrackButton.IsEnabled = !isStopped;
