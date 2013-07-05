@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
+using Microsoft.Phone.Controls.LocalizedResources;
 using Microsoft.Phone.Shell;
 
 namespace Microsoft.Phone.Controls
@@ -113,15 +114,30 @@ namespace Microsoft.Phone.Controls
                     {
                         if ("DONE" == button.Text)
                         {
-                            button.Text = LocalizedResources.ControlResources.DateTimePickerDoneText;
+                            button.Text = ControlResources.DateTimePickerDoneText;
                             button.Click += OnDoneButtonClick;
                         }
                         else if ("CANCEL" == button.Text)
                         {
-                            button.Text = LocalizedResources.ControlResources.DateTimePickerCancelText;
+                            button.Text = ControlResources.DateTimePickerCancelText;
                             button.Click += OnCancelButtonClick;
                         }
                     }
+                }
+            }
+
+            // Scroll the selected item into view, needs to be done before the
+            // animations are setup because the animations are only attached to
+            // the items in view.
+            if (SelectionMode == SelectionMode.Single)
+            {
+                Picker.ScrollIntoView(SelectedItem);
+            }
+            else
+            {
+                if (SelectedItems.Count > 0)
+                {
+                    Picker.ScrollIntoView(SelectedItems[0]);
                 }
             }
 
@@ -152,7 +168,7 @@ namespace Microsoft.Phone.Controls
 
         private void SetupListItems(double degree)
         {
-            _itemsToAnimate = ItemsControlExtensions.GetItemsInViewPort(Picker);
+            _itemsToAnimate = Picker.GetItemsInViewPort();
 
             for (int i = 0; i < _itemsToAnimate.Count; i++)
             {

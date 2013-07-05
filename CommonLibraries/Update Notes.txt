@@ -5,6 +5,6 @@ https://phone.svn.codeplex.com/svn
 
 For the "from" revision, enter the last revision that was imported. For the "to" revision, select HEAD or the desired revision.
 
-Last updated revision: 80797
+Last updated revision: 85255
 
 Complete the merge and this copy should be updated to the latest revision.

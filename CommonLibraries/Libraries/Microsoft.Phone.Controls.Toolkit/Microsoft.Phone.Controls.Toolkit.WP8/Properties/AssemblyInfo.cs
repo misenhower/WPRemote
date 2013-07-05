@@ -40,7 +40,7 @@ using System.Windows.Markup;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("8.0.0.0")]
-[assembly: AssemblyFileVersion("5.0.0.0")]
+[assembly: AssemblyFileVersion("5.0.1.0")]
 
 [assembly: CLSCompliant(false)] // IApplicationBar is not CLS-compliant, but its use matches the type of the platform's PhoneApplicationPage.ApplicationBar property
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
