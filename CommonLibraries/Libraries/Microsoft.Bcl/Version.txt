@@ -1,0 +1,4 @@
+Package: Microsoft.Bcl
+http://nuget.org/packages/Microsoft.Bcl
+
+Version: 1.0.19
