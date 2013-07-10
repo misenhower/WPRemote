@@ -24,6 +24,7 @@ namespace Komodex.Remote.Pages
             // Set up Application Bar
             InitializeApplicationBar();
             ApplicationBar.Mode = ApplicationBarMode.Minimized;
+            ApplicationBarMenuClosedOpacity = 0;
             ApplicationBar.BackgroundColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
         }
 

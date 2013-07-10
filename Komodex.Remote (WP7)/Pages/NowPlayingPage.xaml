@@ -18,7 +18,7 @@
     toolkit:TiltEffect.IsTiltEnabled="True"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True"
-    shell:SystemTray.Opacity="0.5"
+    shell:SystemTray.Opacity="0"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     >
     
@@ -110,7 +110,7 @@
                Grid.RowSpan="3"
                Stretch="UniformToFill"
                HorizontalAlignment="Center"
-               Opacity="0.5"
+               Opacity="0.35"
                />
         
         <StackPanel Grid.Row="1" Margin="0,24,0,0" VerticalAlignment="Top">
