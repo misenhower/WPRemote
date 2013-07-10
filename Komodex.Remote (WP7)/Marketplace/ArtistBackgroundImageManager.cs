@@ -49,6 +49,7 @@ namespace Komodex.Remote.Marketplace
             CurrentArtistName = artistName;
             CurrentArtistImageSource = null;
 
+            // If the artist name is null, the Now Playing page will be exiting soon anyway, so don't change the background.
             if (artistName == null)
                 return;
 
@@ -125,7 +126,7 @@ namespace Komodex.Remote.Marketplace
 
                 return null;
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
