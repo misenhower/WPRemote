@@ -164,6 +164,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Marketplace\ArtistBackgroundImageManager.cs" />
     <Compile Include="Navigation\NavigationManager.cs" />
     <Compile Include="NowPlaying\AirPlaySpeakersControl.xaml.cs">
       <DependentUpon>AirPlaySpeakersControl.xaml</DependentUpon>

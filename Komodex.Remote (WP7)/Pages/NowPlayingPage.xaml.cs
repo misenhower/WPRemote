@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Komodex.Common;
 using Komodex.DACP;
+using Komodex.Remote.Marketplace;
 
 namespace Komodex.Remote.Pages
 {
@@ -32,6 +33,17 @@ namespace Komodex.Remote.Pages
 
             UpdatePlayTransportButtons();
             UpdatePlayModeButtons();
+
+            ArtistBackgroundImageManager.CurrentArtistImageSourceUpdated += ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated;
+            SetArtistBackgroundImage();
+            UpdateArtistName();
+        }
+        
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            ArtistBackgroundImageManager.CurrentArtistImageSourceUpdated -= ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated;
         }
 
         protected override void CurrentServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -48,6 +60,10 @@ namespace Komodex.Remote.Pages
                 case "ShuffleState":
                 case "RepeatState":
                     UpdatePlayModeButtons();
+                    break;
+
+                case "CurrentArtist":
+                    UpdateArtistName();
                     break;
             }
         }
@@ -174,6 +190,34 @@ namespace Komodex.Remote.Pages
                 return;
 
             CurrentServer.SendRepeatStateCommand();
+        }
+
+        #endregion
+
+        #region Artist Background Images
+
+        protected void UpdateArtistName()
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            ArtistBackgroundImageManager.SetArtistName(CurrentServer.CurrentArtist);
+        }
+
+        private void ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated(object sender, ArtistBackgroundImageSourceUpdatedEventArgs e)
+        {
+            SetArtistBackgroundImage();
+        }
+
+        protected void SetArtistBackgroundImage()
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            if (ArtistBackgroundImageManager.CurrentArtistName != CurrentServer.CurrentArtist)
+                return;
+
+            ArtistBackgroundImage.Source = ArtistBackgroundImageManager.CurrentArtistImageSource;
         }
 
         #endregion

@@ -205,6 +205,9 @@
       <Link>MainPage.xaml.cs</Link>
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Marketplace\ArtistBackgroundImageManager.cs">
+      <Link>Marketplace\ArtistBackgroundImageManager.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Navigation\NavigationManager.cs">
       <Link>Navigation\NavigationManager.cs</Link>
     </Compile>
