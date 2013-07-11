@@ -35,9 +35,9 @@ namespace Komodex.Remote.Pages
             UpdatePlayTransportButtons();
             UpdatePlayModeButtons();
 
-            ArtistBackgroundImageManager.CurrentArtistImageSourceUpdated += ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated;
-            SetArtistBackgroundImage();
             UpdateArtistName();
+            ArtistBackgroundImageManager.CurrentArtistImageSourceUpdated += ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated;
+            SetArtistBackgroundImage(false);
         }
         
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -207,18 +207,29 @@ namespace Komodex.Remote.Pages
 
         private void ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated(object sender, ArtistBackgroundImageSourceUpdatedEventArgs e)
         {
-            SetArtistBackgroundImage();
+            SetArtistBackgroundImage(true);
         }
 
-        protected void SetArtistBackgroundImage()
+        private string _currentArtistBackgroundImageArtistName;
+
+        protected void SetArtistBackgroundImage(bool useTransitions)
         {
             if (CurrentServer == null || !CurrentServer.IsConnected)
                 return;
 
-            if (ArtistBackgroundImageManager.CurrentArtistName != CurrentServer.CurrentArtist)
+            string newArtistName = ArtistBackgroundImageManager.CurrentArtistName;
+
+            if (_currentArtistBackgroundImageArtistName == newArtistName || newArtistName != CurrentServer.CurrentArtist)
                 return;
 
-            ArtistBackgroundImage.Source = ArtistBackgroundImageManager.CurrentArtistImageSource;
+            ImageSource newImageSource = ArtistBackgroundImageManager.CurrentArtistImageSource;
+
+            if (newImageSource != null)
+                _currentArtistBackgroundImageArtistName = newArtistName;
+            else
+                _currentArtistBackgroundImageArtistName = null;
+
+            ArtistBackgroundImage.SetImageSource(ArtistBackgroundImageManager.CurrentArtistImageSource, useTransitions);
         }
 
         #endregion

@@ -100,6 +100,7 @@
     <Compile Include="Controls\ConnectingStatusControl.xaml.cs">
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CrossfadeImage.cs" />
     <Compile Include="Controls\FakeButton.cs" />
     <Compile Include="Controls\IconRepeatButton.cs" />
     <Compile Include="Controls\ManualPairingDialog.xaml.cs">

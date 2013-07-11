@@ -106,12 +106,14 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         
-        <Image x:Name="ArtistBackgroundImage"
-               Grid.RowSpan="3"
-               Stretch="UniformToFill"
-               HorizontalAlignment="Center"
-               Opacity="0.35"
-               />
+        <appControls:CrossfadeImage
+            x:Name="ArtistBackgroundImage"
+            Grid.RowSpan="3"
+            />
+        <Rectangle Fill="{StaticResource PhoneBackgroundBrush}"
+                   Grid.RowSpan="3"
+                   Opacity="0.65"
+                   />
         
         <StackPanel Grid.Row="1" Margin="0,24,0,0" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">

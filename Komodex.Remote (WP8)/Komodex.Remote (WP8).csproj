@@ -106,6 +106,9 @@
       <Link>Controls\ConnectingStatusControl.xaml.cs</Link>
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\CrossfadeImage.cs">
+      <Link>Controls\CrossfadeImage.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\FakeButton.cs">
       <Link>Controls\FakeButton.cs</Link>
     </Compile>
