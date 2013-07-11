@@ -19,9 +19,38 @@ namespace Komodex.Remote.Marketplace
 
         private const string Locale = "en-US"; // TODO: Load from environment variables?
 
+        private static readonly TimeSpan CacheExpiryTime = TimeSpan.FromDays(14);
+
         private const string MarketplaceSearchURIFormat = "http://catalog.zune.net/v3.2/{0}/music/{1}/?chunksize=20&isActionable=true&q={2}";
         private const string MarketplaceArtistBackgroundURIFormat = "http://image.catalog.zune.net/v3.2/{0}/music/artist/{1}/primaryimage?height={2}&contenttype=image/jpeg&resize=true";
         private const string ArtistBackgroundImageCacheDirectory = "/ArtistBackgroundImageCache";
+
+        private static readonly Setting<List<CachedArtistID>> _artistIDCache = new Setting<List<CachedArtistID>>("MarketplaceArtistIDCache", new List<CachedArtistID>());
+        private static readonly Dictionary<string, string> _artistIDs = new Dictionary<string, string>();
+
+        static ArtistBackgroundImageManager()
+        {
+            // Load the cached artist IDs and remove out-of-date IDs
+            var cachedArtistIDs = _artistIDCache.Value;
+            DateTime cacheCutoff = DateTime.Now - CacheExpiryTime;
+            for (int i = 0; i < cachedArtistIDs.Count; i++)
+            {
+                var cachedID = cachedArtistIDs[i];
+                if (cachedID.Date <= cacheCutoff)
+                {
+                    _log.Trace("Removing out-of-date artist ID for artist '{0}', ID '{1}' (cache date {2})", cachedID.Name, cachedID.ID, cachedID.Date);
+                    cachedArtistIDs.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
+                _log.Trace("Found cached ID for artist '{0}', ID '{1}' (cache date {2})", cachedID.Name, cachedID.ID, cachedID.Date);
+                _artistIDs[cachedID.Name] = cachedID.ID;
+            }
+
+            // Save any changes
+            _artistIDCache.Save();
+        }
 
         #region Properties
 
@@ -89,7 +118,9 @@ namespace Komodex.Remote.Marketplace
 
         private static async Task<string> GetArtistID(string artistName)
         {
-            // TODO: Look for artist ID in cache
+            // Look for artist ID in cache
+            if (_artistIDs.ContainsKey(artistName))
+                return _artistIDs[artistName];
 
             _log.Info("Looking up ID for artist '{0}'...", artistName);
 
@@ -113,18 +144,30 @@ namespace Komodex.Remote.Marketplace
                               };
 
                 // Try to locate an artist with a matching name
+                string artistID = null;
                 foreach (var artist in artists)
                 {
                     if (artist.Name == normalizedArtistName)
-                        return artist.ID;
+                        artistID = artist.ID;
                 }
 
                 // Otherwise, try to return the first artist
-                var firstArtist = artists.FirstOrDefault();
-                if (firstArtist != null)
-                    return firstArtist.ID;
+                if (artistID == null)
+                {
+                    var firstArtist = artists.FirstOrDefault();
+                    if (firstArtist != null)
+                        artistID = firstArtist.ID;
+                }
 
-                return null;
+                // If we found an artist ID, store it to the cache
+                if (artistID != null)
+                {
+                    _artistIDs[artistName] = artistID;
+                    _artistIDCache.Value.Add(new CachedArtistID() { Name = artistName, ID = artistID, Date = DateTime.Now });
+                    _artistIDCache.Save();
+                }
+
+                return artistID;
             }
             catch
             {
@@ -185,5 +228,12 @@ namespace Komodex.Remote.Marketplace
         }
 
         public ImageSource ImageSource { get; protected set; }
+    }
+
+    public class CachedArtistID
+    {
+        public string Name { get; set; }
+        public string ID { get; set; }
+        public DateTime Date { get; set; }
     }
 }
