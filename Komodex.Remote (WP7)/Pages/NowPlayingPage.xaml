@@ -115,12 +115,13 @@
                    Opacity="0.65"
                    />
         
-        <StackPanel Grid.Row="1" Margin="0,24,0,0" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Margin="0,24,0,0" VerticalAlignment="Top" CacheMode="BitmapCache">
             <StackPanel Orientation="Horizontal">
                 <appControls:IconRepeatButton
                     x:Name="RewButton"
                     Style="{StaticResource PlayTransportButton}"
                     ImageSource="/Assets/PlayTransport/Rew.png"
+                    CacheMode="BitmapCache"
                     Interval="-1"
                     Click="RewButton_Click"
                     RepeatBegin="RewButton_RepeatBegin"
@@ -129,12 +130,14 @@
                 <controls:IconButton
                     x:Name="PlayPauseButton"
                     Style="{StaticResource PlayTransportButton}"
+                    CacheMode="BitmapCache"
                     Click="PlayPauseButton_Click"
                     />
                 <appControls:IconRepeatButton
                     x:Name="FFButton"
                     Style="{StaticResource PlayTransportButton}"
                     ImageSource="/Assets/PlayTransport/FF.png"
+                    CacheMode="BitmapCache"
                     Interval="-1"
                     Click="FFButton_Click"
                     RepeatBegin="FFButton_RepeatBegin"
@@ -142,14 +145,14 @@
                     />
             </StackPanel>
 
-            <Button Style="{StaticResource SimpleButton}">
+            <Button Style="{StaticResource SimpleButton}" CacheMode="BitmapCache">
                 <TextBlock Text="{Binding LibraryName, Converter={StaticResource StringToUpperConverter}}"
                            Style="{StaticResource PhoneTextAppTitleStyle}"
                            Margin="12,0,-24,-6"
                            />
             </Button>
 
-            <Button Style="{StaticResource SimpleButton}" Margin="0,0,0,-6" Canvas.ZIndex="10">
+            <Button Style="{StaticResource SimpleButton}" Margin="0,0,0,-6" CacheMode="BitmapCache" Canvas.ZIndex="10">
                 <StackPanel Margin="0,-6,-24,0">
                     <TextBlock Text="{Binding CurrentArtist}"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}"
@@ -175,7 +178,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Border Width="284" Height="284" Background="{StaticResource PhoneChromeBrush}">
+                <Border Width="284" Height="284" Background="{StaticResource PhoneChromeBrush}" CacheMode="BitmapCache">
                     <Image delay:LowProfileImageLoader.UriSource="{Binding CurrentAlbumArtURL}"
                            delay:LowProfileImageLoader.DisableCache="True"
                            HorizontalAlignment="Center"
@@ -204,6 +207,7 @@
                         <controls:MultiResolutionImageMask
                             x:Name="ShuffleImage"
                             Source="/Assets/Icons/Shuffle.png"
+                            CacheMode="BitmapCache"
                             Width="48" Height="48"
                             />
                     </Button>
@@ -211,13 +215,14 @@
                         <controls:MultiResolutionImageMask
                             x:Name="RepeatImage"
                             Source="/Assets/Icons/Repeat.png"
+                            CacheMode="BitmapCache"
                             Width="48" Height="48"
                             />
                     </Button>
                 </StackPanel>
             </Grid>
 
-            <Button Style="{StaticResource SimpleButton}" Margin="0,-12,0,0">
+            <Button Style="{StaticResource SimpleButton}" Margin="0,-12,0,0" CacheMode="BitmapCache">
                 <StackPanel Margin="0,0,-24,0">
                     <TextBlock Text="{Binding CurrentSongName}"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}"
@@ -241,10 +246,11 @@
 
         <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="12,0,12,36">
             <Slider Value="{Binding Volume, Mode=TwoWay}"
-                        Maximum="100"
-                        LargeChange="5"
-                        Style="{StaticResource VolumeSliderStyle}"
-                        />
+                    CacheMode="BitmapCache"
+                    Maximum="100"
+                    LargeChange="5"
+                    Style="{StaticResource VolumeSliderStyle}"
+                    />
         </Grid>
     </Grid>
 
