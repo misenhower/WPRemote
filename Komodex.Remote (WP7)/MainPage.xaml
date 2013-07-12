@@ -110,7 +110,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="72" />
                 </Grid.RowDefinitions>
-                <Button Name="btnNowPlaying" Grid.Row="0" Click="btnNowPlaying_Click" Style="{StaticResource ChromeBrushButtonStyle}">
+                <Button Name="btnNowPlaying" Grid.Row="0" Click="btnNowPlaying_Click" Style="{StaticResource ChromeBrushButtonStyle}" CacheMode="BitmapCache">
                     <Grid x:Name="grid1" Height="200">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -120,9 +120,18 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <controls:MultiResolutionImageMask Source="/Assets/Icons/App.iTunes.png" Style="{StaticResource IconCircleStyle}" />
-                        <TextBlock Text="{Binding LocalizedStrings.NowPlayingButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
-                        <Grid x:Name="grid" Margin="0,6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                        <controls:MultiResolutionImageMask
+                            Source="/Assets/Icons/App.iTunes.png"
+                            Style="{StaticResource IconCircleStyle}"
+                            CacheMode="BitmapCache"
+                            />
+                        <TextBlock Text="{Binding LocalizedStrings.NowPlayingButton, Source={StaticResource LocalizedStrings}}"
+                                   Grid.Row="0" Grid.Column="1"
+                                   Style="{StaticResource ItemHeaderStyle}"
+                                   VerticalAlignment="Center"
+                                   CacheMode="BitmapCache"
+                                   />
+                        <Grid x:Name="grid" Margin="0,6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" CacheMode="BitmapCache">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="125" />
                                 <ColumnDefinition Width="*" />
@@ -142,7 +151,12 @@
                                            TextTrimming="WordEllipsis"
                                            />
                             </StackPanel>
-                            <TextBlock Grid.Column="1" Text="{Binding Path=CurrentTrackTimePositionOrPausedString}" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSubtleStyle}" />
+                            <TextBlock Text="{Binding Path=CurrentTrackTimePositionOrPausedString}"
+                                       VerticalAlignment="Bottom"
+                                       Grid.Column="1"
+                                       Style="{StaticResource PhoneTextSubtleStyle}"
+                                       CacheMode="BitmapCache"
+                                       />
                         </Grid>
                     </Grid>
                 </Button>
