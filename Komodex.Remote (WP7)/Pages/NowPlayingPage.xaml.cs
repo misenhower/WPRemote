@@ -28,6 +28,10 @@ namespace Komodex.Remote.Pages
             ApplicationBar.Mode = ApplicationBarMode.Minimized;
             ApplicationBarMenuClosedOpacity = 0;
             ApplicationBar.BackgroundColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
+
+#if WP7
+            PlayPositionProgressBar.Background = Resources["PhoneForegroundBrush"] as Brush;
+#endif
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
