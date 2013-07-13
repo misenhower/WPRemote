@@ -145,14 +145,24 @@
                     />
             </StackPanel>
 
-            <Button Style="{StaticResource SimpleButton}" CacheMode="BitmapCache">
+            <Button x:Name="LibraryButton"
+                    Click="LibraryButton_Click"
+                    Style="{StaticResource SimpleButton}"
+                    CacheMode="BitmapCache"
+                    >
                 <TextBlock Text="{Binding LibraryName, Converter={StaticResource StringToUpperConverter}}"
                            Style="{StaticResource PhoneTextAppTitleStyle}"
                            Margin="12,0,-24,-6"
                            />
             </Button>
 
-            <Button Style="{StaticResource SimpleButton}" Margin="0,0,0,-6" CacheMode="BitmapCache" Canvas.ZIndex="10">
+            <Button x:Name="ArtistButton"
+                    Click="ArtistButton_Click"
+                    Style="{StaticResource SimpleButton}"
+                    Margin="0,0,0,-6"
+                    CacheMode="BitmapCache"
+                    Canvas.ZIndex="10"
+                    >
                 <StackPanel Margin="0,-6,-24,0">
                     <TextBlock Text="{Binding CurrentArtist}"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}"
@@ -222,7 +232,12 @@
                 </StackPanel>
             </Grid>
 
-            <Button Style="{StaticResource SimpleButton}" Margin="0,-12,0,0" CacheMode="BitmapCache">
+            <Button x:Name="PlayQueueButton"
+                    Click="PlayQueueButton_Click"
+                    Style="{StaticResource SimpleButton}"
+                    Margin="0,-12,0,0"
+                    CacheMode="BitmapCache"
+                    >
                 <StackPanel Margin="0,0,-24,0">
                     <TextBlock Text="{Binding CurrentSongName}"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}"
@@ -245,7 +260,8 @@
         </StackPanel>
 
         <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="12,0,12,36">
-            <Slider Value="{Binding Volume, Mode=TwoWay}"
+            <Slider x:Name="VolumeSlider"
+                    Value="{Binding Volume, Mode=TwoWay}"
                     CacheMode="BitmapCache"
                     Maximum="100"
                     LargeChange="5"

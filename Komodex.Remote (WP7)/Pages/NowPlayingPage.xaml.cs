@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using Komodex.Common;
 using Komodex.DACP;
 using Komodex.Remote.Marketplace;
+using Komodex.Remote.Settings;
+using Komodex.Remote.Controls;
 
 namespace Komodex.Remote.Pages
 {
@@ -32,6 +34,7 @@ namespace Komodex.Remote.Pages
         {
             base.OnNavigatedTo(e);
 
+            UpdateControlEnabledStates();
             UpdatePlayTransportButtons();
             UpdatePlayModeButtons();
 
@@ -66,7 +69,48 @@ namespace Komodex.Remote.Pages
                 case "CurrentArtist":
                     UpdateArtistName();
                     break;
+
+                case "CurrentMediaKind":
+                    UpdateControlEnabledStates();
+                    break;
             }
+        }
+
+        protected override void OnServerChanged()
+        {
+            base.OnServerChanged();
+
+            UpdateControlEnabledStates();
+        }
+
+        protected void UpdateControlEnabledStates()
+        {
+            // TODO: AirPlay
+
+            bool enableArtistButton = false;
+            bool enablePlayQueueButton = false;
+            bool enableVolumeSlider = true;
+
+            if (CurrentServer != null && CurrentServer.IsConnected)
+            {
+                // Artist/Album button
+                enableArtistButton = (CurrentServer.CurrentMediaKind == 1);
+
+                // Play Queue button
+                enablePlayQueueButton = CurrentServer.SupportsPlayQueue;
+
+                // Volume control
+                if (CurrentServer.IsCurrentlyPlayingVideo)
+                {
+                    var mainSpeaker = CurrentServer.Speakers.FirstOrDefault(s => s.ID == 0);
+                    if (mainSpeaker == null || !mainSpeaker.Active)
+                        enableVolumeSlider = false;
+                }
+            }
+
+            ArtistButton.IsEnabled = enableArtistButton;
+            PlayQueueButton.IsEnabled = enablePlayQueueButton;
+            VolumeSlider.IsEnabled = enableVolumeSlider;
         }
 
         #region Play Transport Buttons
@@ -152,6 +196,40 @@ namespace Komodex.Remote.Pages
                 return;
 
             CurrentServer.SendPlayResumeCommand();
+        }
+
+        #endregion
+
+        #region Navigation Buttons
+
+        private void LibraryButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationManager.OpenMainLibraryPage();
+        }
+
+        private void ArtistButton_Click(object sender, RoutedEventArgs e)
+        {
+            switch (SettingsManager.Current.ArtistClickAction)
+            {
+                case ArtistClickAction.OpenArtistPage:
+                    if (CurrentServer != null && CurrentServer.CurrentArtist != null)
+                        NavigationManager.OpenArtistPage(CurrentServer.CurrentArtist);
+                    break;
+
+                case ArtistClickAction.OpenAlbumPage:
+                    if (CurrentServer != null && CurrentServer.CurrentArtist != null && CurrentServer.CurrentAlbum != null && CurrentServer.CurrentAlbumPersistentID != 0)
+                        NavigationManager.OpenAlbumPage(0, CurrentServer.CurrentAlbum, CurrentServer.CurrentArtist, CurrentServer.CurrentAlbumPersistentID);
+                    break;
+            }
+        }
+
+        private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsDialogOpen)
+                return;
+
+            PlayQueueDialog dialog = new PlayQueueDialog();
+            ShowDialog(dialog);
         }
 
         #endregion
