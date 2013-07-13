@@ -11,12 +11,16 @@
         <Setter Property="Maximum" Value="10"/>
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Value" Value="0"/>
-        <Setter Property="Background">
+        <Setter Property="Foreground">
             <Setter.Value>
-                <SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}" Opacity="0.2" />
+                <SolidColorBrush Color="{StaticResource PhoneForegroundColor}" Opacity="0.5" />
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}" Opacity="0.15" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Slider">
