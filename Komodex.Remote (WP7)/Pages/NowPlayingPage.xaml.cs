@@ -14,6 +14,7 @@ using Komodex.DACP;
 using Komodex.Remote.Marketplace;
 using Komodex.Remote.Settings;
 using Komodex.Remote.Controls;
+using Komodex.Remote.Localization;
 
 namespace Komodex.Remote.Pages
 {
@@ -23,15 +24,21 @@ namespace Komodex.Remote.Pages
         {
             InitializeComponent();
 
-            // Set up Application Bar
-            InitializeApplicationBar();
-            ApplicationBar.Mode = ApplicationBarMode.Minimized;
-            ApplicationBarMenuClosedOpacity = 0;
-            ApplicationBar.BackgroundColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
-
 #if WP7
             PlayPositionProgressBar.Background = Resources["PhoneForegroundBrush"] as Brush;
 #endif
+
+            // Set up Application Bar
+            InitializeApplicationBar();
+            ApplicationBar.Mode = ApplicationBarMode.Minimized;
+            //ApplicationBarMenuClosedOpacity = 0;
+            ApplicationBar.BackgroundColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
+
+            // Icon Buttons
+            AddApplicationBarIconButton(LocalizedStrings.BrowseLibraryAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Browse.png"), NavigationManager.OpenMainLibraryPage);
+            AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), NavigationManager.OpenSearchPage);
+
+            RebuildApplicationBarMenuItems();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -53,6 +60,8 @@ namespace Komodex.Remote.Pages
 
             ArtistBackgroundImageManager.CurrentArtistImageSourceUpdated -= ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated;
         }
+
+        #region Server Events
 
         protected override void CurrentServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -87,6 +96,18 @@ namespace Komodex.Remote.Pages
             UpdateControlEnabledStates();
         }
 
+        #endregion
+
+        #region Page Structure
+
+        protected void RebuildApplicationBarMenuItems()
+        {
+            // TODO: AirPlay
+            // TODO: Visualizer
+
+            ApplicationBar.MenuItems.Clear();
+        }
+
         protected void UpdateControlEnabledStates()
         {
             // TODO: AirPlay
@@ -116,6 +137,8 @@ namespace Komodex.Remote.Pages
             PlayQueueButton.IsEnabled = enablePlayQueueButton;
             VolumeSlider.IsEnabled = enableVolumeSlider;
         }
+
+        #endregion
 
         #region Play Transport Buttons
 
