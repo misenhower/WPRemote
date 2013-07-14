@@ -255,21 +255,21 @@ namespace Komodex.DACP.Library
 
         #region Play Song Command
 
-        public void SendPlayCommand()
+        public void SendPlayCommand(PlayQueueMode mode = PlayQueueMode.Replace)
         {
             if (Server.SupportsPlayQueue)
-                SendPlayQueueCommand(PlayQueueMode.Replace);
+                SendPlayQueueCommand(mode);
             else
                 SendPlaySongCommand(0);
         }
 
-        public void SendPlaySongCommand(MediaItem song)
+        public void SendPlaySongCommand(MediaItem song, PlayQueueMode mode = PlayQueueMode.Replace)
         {
             if (song == null)
                 return;
 
             if (Server.SupportsPlayQueue)
-                SendPlayQueueCommand(PlayQueueMode.Replace, song.ID);
+                SendPlayQueueCommand(mode, song.ID);
             else
             {
                 if (Songs == null)
