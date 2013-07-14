@@ -174,6 +174,7 @@ namespace Komodex.Remote.LibraryPages
                 default: return;
             }
 
+            // Songs
             if (menuItem.DataContext is MediaItem)
             {
                 MediaItem song = (MediaItem)menuItem.DataContext;
@@ -182,7 +183,8 @@ namespace Komodex.Remote.LibraryPages
                 NavigationManager.OpenNowPlayingPage();
             }
 
-            if (menuItem.DataContext is Album)
+            // Album
+            else if (menuItem.DataContext is Album)
             {
                 Album.SendPlayCommand(mode);
                 NavigationManager.OpenNowPlayingPage();

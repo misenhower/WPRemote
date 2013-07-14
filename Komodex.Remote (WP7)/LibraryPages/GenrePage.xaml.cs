@@ -208,6 +208,7 @@ namespace Komodex.Remote.LibraryPages
                 default: return;
             }
 
+            // Artists
             if (menuItem.DataContext is Artist)
             {
                 Artist artist = (Artist)menuItem.DataContext;
@@ -216,7 +217,8 @@ namespace Komodex.Remote.LibraryPages
                 NavigationManager.OpenNowPlayingPage();
             }
 
-            if (menuItem.DataContext is Album)
+            // Albums
+            else if (menuItem.DataContext is Album)
             {
                 Album album = (Album)menuItem.DataContext;
 
@@ -224,7 +226,8 @@ namespace Komodex.Remote.LibraryPages
                 NavigationManager.OpenNowPlayingPage();
             }
 
-            if (menuItem.DataContext is MediaItem)
+            // Songs
+            else if (menuItem.DataContext is MediaItem)
             {
                 MediaItem song = (MediaItem)menuItem.DataContext;
 

@@ -63,7 +63,7 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="AlbumSongTemplate">
+        <DataTemplate x:Key="SongTemplate">
             <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource PlayButtonItemTemplate}">
                 <toolkit:ContextMenuService.ContextMenu>
                     <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
@@ -97,7 +97,7 @@
                 ItemsSource="{Binding Songs}"
                 ListHeader="{Binding}"
                 ListHeaderTemplate="{StaticResource ListHeaderTemplate}"
-                ItemTemplate="{StaticResource AlbumSongTemplate}" />
+                ItemTemplate="{StaticResource SongTemplate}" />
         </Grid>
     </Grid>
 

@@ -157,6 +157,7 @@ namespace Komodex.Remote.LibraryPages
                 default: return;
             }
 
+            // Songs
             if (menuItem.DataContext is MediaItem)
             {
                 MediaItem song = (MediaItem)menuItem.DataContext;
