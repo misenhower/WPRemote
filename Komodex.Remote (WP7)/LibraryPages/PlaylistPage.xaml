@@ -23,6 +23,16 @@
     shell:SystemTray.Opacity="0">
 
     <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="SongTemplate">
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource PlayButtonItemWithArtistAndAlbumSubtitleTemplate}">
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="play next" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="add to up next" Click="PlayQueueButton_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
+            </ContentPresenter>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -45,7 +55,7 @@
                 Style="{StaticResource LibraryListStyle}"
                 ItemsSource="{Binding Songs}"
                 Tap="LongListSelector_Tap"
-                ItemTemplate="{StaticResource PlayButtonItemWithArtistAndAlbumSubtitleTemplate}"
+                ItemTemplate="{StaticResource SongTemplate}"
                 ListHeader="{Binding}"
                 ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}" />
         </Grid>
