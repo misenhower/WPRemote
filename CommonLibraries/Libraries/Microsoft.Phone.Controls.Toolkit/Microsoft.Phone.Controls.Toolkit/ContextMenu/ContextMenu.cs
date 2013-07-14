@@ -708,6 +708,11 @@ namespace Microsoft.Phone.Controls
         /// <param name="e">Event arguments.</param>
         private void OnOwnerHold(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            // Adding this to prevent opening the dialog if the ContextMenu control is disabled.
+            // Without this, the dialog will open and all menu items would be grayed out.
+            if (!IsEnabled)
+                return;
+
             if (!IsOpen)
             {
                 OpenPopup(e.GetPosition(null));
