@@ -1,4 +1,5 @@
 ﻿<app:RemoteBasePage
+    x:Name="Page"
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
@@ -39,6 +40,36 @@
                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding LibraryGeniusMixes, Converter={StaticResource collectionCountToStringConverter}}" Style="{StaticResource PhoneTextSubtleStyle}"/>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="ArtistGenreTemplate">
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource PlayButtonItemTemplate}">
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="play next" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="add to up next" Click="PlayQueueButton_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
+            </ContentPresenter>
+        </DataTemplate>
+        <DataTemplate x:Key="AlbumTemplate">
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}">
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="play next" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="add to up next" Click="PlayQueueButton_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
+            </ContentPresenter>
+        </DataTemplate>
+        <DataTemplate x:Key="PlaylistTemplate">
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}">
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="play next" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="add to up next" Click="PlayQueueButton_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
+            </ContentPresenter>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -58,7 +89,7 @@
                         EmptyText="{Binding LocalizedStrings.LibraryNoArtistsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
-                        ItemTemplate="{StaticResource PlayButtonItemTemplate}"
+                        ItemTemplate="{StaticResource ArtistGenreTemplate}"
                         ListFooterTemplate="{StaticResource ListFooterPadding}"
                         />
                 </Grid>
@@ -71,7 +102,7 @@
                         EmptyText="{Binding LocalizedStrings.LibraryNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
-                        ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
+                        ItemTemplate="{StaticResource AlbumTemplate}"
                         ListFooterTemplate="{StaticResource ListFooterPadding}"
                         />
                 </Grid>
@@ -84,7 +115,7 @@
                         EmptyText="{Binding LocalizedStrings.LibraryNoGenresFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
-                        ItemTemplate="{StaticResource PlayButtonItemTemplate}"
+                        ItemTemplate="{StaticResource ArtistGenreTemplate}"
                         ListFooterTemplate="{StaticResource ListFooterPadding}"
                         />
                 </Grid>
@@ -98,7 +129,7 @@
                         Tap="LongListSelector_Tap"
                         ListHeader="{Binding}"
                         ListHeaderTemplate="{StaticResource PlaylistHeaderTemplate}"
-                        ItemTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
+                        ItemTemplate="{StaticResource PlaylistTemplate}"
                         ListFooterTemplate="{StaticResource ListFooterPadding}"
                         />
                 </Grid>

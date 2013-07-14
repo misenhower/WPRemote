@@ -215,6 +215,57 @@ namespace Komodex.Remote.LibraryPages
 
         #endregion
 
+        private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+
+            PlayQueueMode mode;
+            switch (menuItem.Name)
+            {
+                case "PlayNextButton": mode = PlayQueueMode.PlayNext; break;
+                case "AddToUpNextButton": mode = PlayQueueMode.AddToQueue; break;
+                default: return;
+            }
+
+            var item = menuItem.DataContext;
+
+            // Artists
+            if (item is Artist)
+            {
+                Artist artist = (Artist)item;
+
+                artist.SendPlayCommand(mode);
+                NavigationManager.OpenNowPlayingPage();
+            }
+
+            // Albums
+            else if (item is Album)
+            {
+                Album album = (Album)item;
+
+                album.SendPlayCommand(mode);
+                NavigationManager.OpenNowPlayingPage();
+            }
+
+            // Genres
+            else if (item is Genre)
+            {
+                Genre genre = (Genre)item;
+
+                genre.SendPlayCommand(mode);
+                NavigationManager.OpenNowPlayingPage();
+            }
+
+            // Playlists
+            else if (item is Playlist)
+            {
+                Playlist playlist = (Playlist)item;
+
+                playlist.SendPlayCommand(mode);
+                NavigationManager.OpenNowPlayingPage();
+            }
+        }
+
         #region Shuffle All Songs
 
         private void ShuffleAllSongs()
