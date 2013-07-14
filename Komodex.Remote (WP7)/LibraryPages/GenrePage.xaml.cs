@@ -16,6 +16,7 @@ using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
 using Komodex.Remote.ServerManagement;
 using Komodex.Common;
+using Komodex.DACP;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -192,6 +193,43 @@ namespace Komodex.Remote.LibraryPages
                     NavigationManager.OpenNowPlayingPage();
                 }
 
+            }
+        }
+
+        private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+
+            PlayQueueMode mode;
+            switch (menuItem.Name)
+            {
+                case "PlayNextButton": mode = PlayQueueMode.PlayNext; break;
+                case "AddToUpNextButton": mode = PlayQueueMode.AddToQueue; break;
+                default: return;
+            }
+
+            if (menuItem.DataContext is Artist)
+            {
+                Artist artist = (Artist)menuItem.DataContext;
+
+                artist.SendPlayCommand(mode);
+                NavigationManager.OpenNowPlayingPage();
+            }
+
+            if (menuItem.DataContext is Album)
+            {
+                Album album = (Album)menuItem.DataContext;
+
+                album.SendPlayCommand(mode);
+                NavigationManager.OpenNowPlayingPage();
+            }
+
+            if (menuItem.DataContext is MediaItem)
+            {
+                MediaItem song = (MediaItem)menuItem.DataContext;
+
+                Genre.SendPlaySongCommand(song, mode);
+                NavigationManager.OpenNowPlayingPage();
             }
         }
 

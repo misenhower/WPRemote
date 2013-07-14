@@ -1,4 +1,5 @@
 ﻿<app:RemoteBasePage
+    x:Name="Page"
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
@@ -22,6 +23,36 @@
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0">
     <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ArtistTemplate">
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource PlayButtonItemTemplate}">
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="play next" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="add to up next" Click="PlayQueueButton_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
+            </ContentPresenter>
+        </DataTemplate>
+        <DataTemplate x:Key="AlbumTemplate">
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}">
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="play next" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="add to up next" Click="PlayQueueButton_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
+            </ContentPresenter>
+        </DataTemplate>
+        <DataTemplate x:Key="SongTemplate">
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}">
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="play next" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="add to up next" Click="PlayQueueButton_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
+            </ContentPresenter>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -41,7 +72,7 @@
                         EmptyText="{Binding LocalizedStrings.GenreNoArtistsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
-                        ItemTemplate="{StaticResource PlayButtonItemTemplate}"
+                        ItemTemplate="{StaticResource ArtistTemplate}"
                         />
                 </Grid>
             </controls:PivotItem>
@@ -54,7 +85,7 @@
                         EmptyText="{Binding LocalizedStrings.GenreNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
-                        ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
+                        ItemTemplate="{StaticResource AlbumTemplate}"
                         />
                 </Grid>
             </controls:PivotItem>
@@ -67,7 +98,7 @@
                         EmptyText="{Binding LocalizedStrings.GenreNoSongsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
-                        ItemTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
+                        ItemTemplate="{StaticResource SongTemplate}"
                         ListHeader="{Binding}"
                         ListHeaderTemplate="{StaticResource ShuffleAllHeaderTemplate}"
                         />
