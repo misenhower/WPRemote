@@ -15,6 +15,8 @@ using Komodex.Remote.Marketplace;
 using Komodex.Remote.Settings;
 using Komodex.Remote.Controls;
 using Komodex.Remote.Localization;
+using System.Windows.Threading;
+using System.ComponentModel;
 
 namespace Komodex.Remote.Pages
 {
@@ -49,7 +51,14 @@ namespace Komodex.Remote.Pages
             UpdatePlayTransportButtons();
             UpdatePlayModeButtons();
 
-            UpdateArtistName();
+            App.RootFrame.Obscured += RootFrame_Obscured;
+            App.RootFrame.Unobscured += RootFrame_Unobscured;
+
+            // Go Back Timer
+            UpdateGoBackTimer();
+
+            // Artist Background Image
+            UpdateArtistBackgroundImageName();
             ArtistBackgroundImageManager.CurrentArtistImageSourceUpdated += ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated;
             SetArtistBackgroundImage(false);
         }
@@ -58,12 +67,38 @@ namespace Komodex.Remote.Pages
         {
             base.OnNavigatedFrom(e);
 
+            App.RootFrame.Obscured -= RootFrame_Obscured;
+            App.RootFrame.Unobscured -= RootFrame_Unobscured;
+
+            // Go Back Timer
+            if (_goBackTimer != null)
+                _goBackTimer.Stop();
+
+            // Artist Background Image
             ArtistBackgroundImageManager.CurrentArtistImageSourceUpdated -= ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated;
+        }
+
+        private void RootFrame_Obscured(object sender, ObscuredEventArgs e)
+        {
+            if (_goBackTimer != null)
+                _goBackTimer.Stop();
+        }
+
+        private void RootFrame_Unobscured(object sender, EventArgs e)
+        {
+            UpdateGoBackTimer();
         }
 
         #region Server Events
 
-        protected override void CurrentServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        {
+            base.CurrentServer_ServerUpdate(sender, e);
+
+            Utility.BeginInvokeOnUIThread(UpdateGoBackTimer);
+        }
+
+        protected override void CurrentServer_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.CurrentServer_PropertyChanged(sender, e);
 
@@ -71,6 +106,7 @@ namespace Komodex.Remote.Pages
             {
                 case "PlayState":
                 case "CurrentSongName":
+                    UpdateGoBackTimer();
                     UpdatePlayTransportButtons();
                     break;
 
@@ -80,7 +116,7 @@ namespace Komodex.Remote.Pages
                     break;
 
                 case "CurrentArtist":
-                    UpdateArtistName();
+                    UpdateArtistBackgroundImageName();
                     break;
 
                 case "CurrentMediaKind":
@@ -94,6 +130,38 @@ namespace Komodex.Remote.Pages
             base.OnServerChanged();
 
             UpdateControlEnabledStates();
+        }
+
+        #endregion
+
+        #region Go Back Timer
+
+        protected DispatcherTimer _goBackTimer;
+
+        protected void UpdateGoBackTimer()
+        {
+            if (_goBackTimer != null)
+                _goBackTimer.Stop();
+
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            if (CurrentServer.PlayState == PlayStates.Stopped && CurrentServer.CurrentSongName == null)
+            {
+                if (_goBackTimer == null)
+                {
+                    _goBackTimer = new DispatcherTimer();
+                    _goBackTimer.Interval = TimeSpan.FromSeconds(5);
+                    _goBackTimer.Tick += GoBackTimer_Tick;
+                }
+
+                _goBackTimer.Start();
+            }
+        }
+
+        private void GoBackTimer_Tick(object sender, EventArgs e)
+        {
+            NavigationService.GoBack();
         }
 
         #endregion
@@ -302,7 +370,7 @@ namespace Komodex.Remote.Pages
 
         #region Artist Background Images
 
-        protected void UpdateArtistName()
+        protected void UpdateArtistBackgroundImageName()
         {
             if (CurrentServer == null || !CurrentServer.IsConnected)
                 return;
