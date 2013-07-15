@@ -70,7 +70,6 @@ namespace Komodex.Remote
         {
             RemoteBasePage page = (RemoteBasePage)d;
 
-            page.DetachServerEvents(e.OldValue as DACPServer);
             page.AttachServerEvents(e.NewValue as DACPServer);
             page.OnServerChanged();
         }
@@ -90,14 +89,23 @@ namespace Komodex.Remote
 
         #region Server Events
 
+        private DACPServer _attachedServer;
+
         private void AttachServerEvents(DACPServer server)
         {
+            // Make sure we only attach once and to one server at a time
+            if (server == _attachedServer)
+                return;
+            DetachServerEvents(_attachedServer);
+
             if (server == null)
                 return;
 
             server.ServerUpdate += CurrentServer_ServerUpdate;
             server.PropertyChanged += CurrentServer_PropertyChanged;
             server.AirPlaySpeakerUpdate += CurrentServer_AirPlaySpeakerUpdate;
+
+            _attachedServer = server;
         }
 
         private void DetachServerEvents(DACPServer server)
@@ -108,6 +116,9 @@ namespace Komodex.Remote
             server.ServerUpdate -= CurrentServer_ServerUpdate;
             server.PropertyChanged -= CurrentServer_PropertyChanged;
             server.AirPlaySpeakerUpdate -= CurrentServer_AirPlaySpeakerUpdate;
+
+            if (server == _attachedServer)
+                _attachedServer = null;
         }
 
         protected virtual void OnServerChanged()
