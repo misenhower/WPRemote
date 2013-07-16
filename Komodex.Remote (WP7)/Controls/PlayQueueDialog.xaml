@@ -41,7 +41,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="PlayQueueItemTemplate">
-            <Grid Margin="12,6,0,6">
+            <Grid Margin="12,6,12,6" Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -57,15 +57,12 @@
                     <TextBlock Text="{Binding SecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12,0,0,0" />
                 </StackPanel>
                 
-                <my:FakeButton x:Name="DeleteButton" Grid.Column="2">
-                    <Grid Background="Transparent">
-                        <controls:MultiResolutionImageMask
-                            Source="/Assets/Icons/Delete.png"
-                            Width="48" Height="48"
-                            Margin="12"
-                            />
-                    </Grid>
-                </my:FakeButton>
+                <controls:IconButton
+                    x:Name="DeleteButton"
+                    Grid.Column="2"
+                    ImageSource="/Assets/Icons/Delete.png"
+                    UseMultiResolutionImages="True"
+                    />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>

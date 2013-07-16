@@ -40,6 +40,10 @@ namespace Komodex.Remote.Controls
             if (isDeleteButton)
             {
                 item.SendDeleteCommand();
+                // Setting the selected item to null will prevent an issue where, after deleting an item, tapping anywhere
+                // in the listbox will cause an item to begin playing.  This can be caused by tapping in an "empty" margin
+                // area, etc.
+                list.SelectedItem = null;
             }
             else
             {
