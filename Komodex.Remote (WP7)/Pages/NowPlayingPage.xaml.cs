@@ -58,9 +58,12 @@ namespace Komodex.Remote.Pages
             UpdateGoBackTimer();
 
             // Artist Background Image
-            UpdateArtistBackgroundImageName();
-            ArtistBackgroundImageManager.CurrentArtistImageSourceUpdated += ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated;
-            SetArtistBackgroundImage(false);
+            if (SettingsManager.Current.ShowArtistBackgroundImages)
+            {
+                UpdateArtistBackgroundImageName();
+                ArtistBackgroundImageManager.CurrentArtistImageSourceUpdated += ArtistBackgroundImageManager_CurrentArtistImageSourceUpdated;
+                SetArtistBackgroundImage(false);
+            }
         }
         
         protected override void OnNavigatedFrom(NavigationEventArgs e)

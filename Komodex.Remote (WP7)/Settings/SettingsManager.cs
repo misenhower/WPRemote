@@ -70,6 +70,25 @@ namespace Komodex.Remote.Settings
 
         #endregion
 
+        #region Artist Background Images
+
+        private readonly Setting<bool> _showArtistBackgroundImages = new Setting<bool>("SettingsShowArtistBackgroundImages", true);
+
+        public bool ShowArtistBackgroundImages
+        {
+            get { return _showArtistBackgroundImages.Value; }
+            set
+            {
+                if (_showArtistBackgroundImages.Value == value)
+                    return;
+
+                _showArtistBackgroundImages.Value = value;
+                PropertyChanged.RaiseOnUIThread(this, "ShowArtistBackgroundImages");
+            }
+        }
+
+        #endregion
+
         #region Artist Click Action
 
         private readonly List<KeyValuePair<ArtistClickAction, string>> _artistClickActions = new List<KeyValuePair<ArtistClickAction, string>>()
