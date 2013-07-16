@@ -23,19 +23,5 @@ namespace Komodex.Remote.Settings
             ContentPanel.DataContext = SettingsManager.Current;
         }
 
-        #region Overrides
-
-        protected override void OnBackKeyPress(CancelEventArgs e)
-        {
-            if (lpArtistTap.ListPickerMode != ListPickerMode.Normal)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            base.OnBackKeyPress(e);
-        }
-
-        #endregion
     }
 }

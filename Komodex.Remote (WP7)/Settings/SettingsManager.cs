@@ -93,7 +93,8 @@ namespace Komodex.Remote.Settings
                     return;
 
                 _artistClickAction.Value = value;
-                PropertyChanged.RaiseOnUIThread(this, "ArtistClickAction", "BindableArtistClickAction");
+                // Notifying that BindableArtistClickAction changed here will cancel the ListPicker close animation.
+                PropertyChanged.RaiseOnUIThread(this, "ArtistClickAction"); 
             }
         }
 

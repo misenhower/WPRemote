@@ -41,34 +41,52 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
-            <StackPanel>
-                <toolkit:ListPicker Header="{Binding LocalizedStrings.SettingsArtistTapAction, Source={StaticResource LocalizedStrings}}" Name="lpArtistTap"
-                                    Margin="12,12,12,48"
-                                    ItemsSource="{Binding ArtistClickActions}"
-                                    SelectedItem="{Binding BindableArtistClickAction, Mode=TwoWay}">
-                    <toolkit:ListPicker.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Value}" />
-                        </DataTemplate>
-                    </toolkit:ListPicker.ItemTemplate>
-                </toolkit:ListPicker>
-
-                <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsStayConnectedUnderLock, Source={StaticResource LocalizedStrings}}" Margin="0,0,0,-24"
-                                      IsChecked="{Binding RunUnderLock, Mode=TwoWay}"
-                                      Content="{Binding IsChecked, RelativeSource={RelativeSource Self}, Converter={StaticResource LocalizedOffOnConverter}}"
-                                      CacheMode="BitmapCache" HeaderTemplate="{StaticResource WrappingHeaderTemplate}" />
-                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" CacheMode="BitmapCache"
-                           Text="{Binding LocalizedStrings.SettingsStayConnectedDescription, Source={StaticResource LocalizedStrings}}" />
-                <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12" CacheMode="BitmapCache"
-                           Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Text="{Binding LocalizedStrings.SettingsTakeEffectNextRun, Source={StaticResource LocalizedStrings}}" />
-
-                <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsExtendedErrorReporting, Source={StaticResource LocalizedStrings}}" Margin="0,36,0,0"
-                                      IsChecked="{Binding ExtendedErrorReporting, Mode=TwoWay}"
-                                      Content="{Binding IsChecked, RelativeSource={RelativeSource Self}, Converter={StaticResource LocalizedOffOnConverter}}"
-                                      CacheMode="BitmapCache" />
-            </StackPanel>
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,0,0">
+            <ScrollViewer>
+                <StackPanel Margin="0,0,12,0">
+                    <!-- Artist tap action -->
+                    <toolkit:ListPicker Header="{Binding LocalizedStrings.SettingsArtistTapAction, Source={StaticResource LocalizedStrings}}"
+                                        Margin="12,12,12,48"
+                                        ItemsSource="{Binding ArtistClickActions}"
+                                        SelectedItem="{Binding BindableArtistClickAction, Mode=TwoWay}"
+                                        >
+                        <toolkit:ListPicker.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" />
+                            </DataTemplate>
+                        </toolkit:ListPicker.ItemTemplate>
+                    </toolkit:ListPicker>
+                    
+                    <!-- Stay connected under lock screen -->
+                    <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsStayConnectedUnderLock, Source={StaticResource LocalizedStrings}}"
+                                          HeaderTemplate="{StaticResource WrappingHeaderTemplate}"
+                                          Margin="0,0,0,-24"
+                                          IsChecked="{Binding RunUnderLock, Mode=TwoWay}"
+                                          Content="{Binding IsChecked, RelativeSource={RelativeSource Self}, Converter={StaticResource LocalizedOffOnConverter}}"
+                                          CacheMode="BitmapCache"
+                                          />
+                    <TextBlock Text="{Binding LocalizedStrings.SettingsStayConnectedDescription, Source={StaticResource LocalizedStrings}}"
+                               Style="{StaticResource PhoneTextNormalStyle}"
+                               TextWrapping="Wrap"
+                               CacheMode="BitmapCache"
+                               />
+                    <TextBlock Text="{Binding LocalizedStrings.SettingsTakeEffectNextRun, Source={StaticResource LocalizedStrings}}"
+                               Style="{StaticResource PhoneTextSubtleStyle}"
+                               TextWrapping="Wrap"
+                               Margin="12"
+                               Visibility="{Binding RunUnderLockTakesEffectNextRun, Converter={StaticResource BooleanToVisibilityConverter}}"
+                               CacheMode="BitmapCache"
+                               />
+                    
+                    <!-- Extended error reporting -->
+                    <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsExtendedErrorReporting, Source={StaticResource LocalizedStrings}}"
+                                          Margin="0,36,0,0"
+                                          IsChecked="{Binding ExtendedErrorReporting, Mode=TwoWay}"
+                                          Content="{Binding IsChecked, RelativeSource={RelativeSource Self}, Converter={StaticResource LocalizedOffOnConverter}}"
+                                          CacheMode="BitmapCache"
+                                          />
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
  
