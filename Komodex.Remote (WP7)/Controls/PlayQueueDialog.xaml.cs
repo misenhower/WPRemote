@@ -38,9 +38,14 @@ namespace Komodex.Remote.Controls
             bool isDeleteButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "DeleteButton");
 
             if (isDeleteButton)
+            {
                 item.SendDeleteCommand();
+            }
             else
+            {
                 item.SendPlayCommand();
+                Hide();
+            }
         }
     }
 }
