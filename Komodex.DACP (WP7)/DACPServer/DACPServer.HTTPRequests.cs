@@ -682,19 +682,24 @@ namespace Komodex.DACP
         public void SendBeginRewCommand()
         {
             string url = "/ctrl-int/1/beginrew?session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, null, false, r => r.ExceptionHandlerDelegate = HandlePlayTransportException);
         }
 
         public void SendBeginFFCommand()
         {
             string url = "/ctrl-int/1/beginff?session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, null, false, r => r.ExceptionHandlerDelegate = HandlePlayTransportException);
         }
 
         public void SendPlayResumeCommand()
         {
             string url = "/ctrl-int/1/playresume?session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            SubmitHTTPRequest(url, null, false, r => r.ExceptionHandlerDelegate = HandlePlayTransportException);
+        }
+
+        private void HandlePlayTransportException(HTTPRequestInfo requestInfo, WebException e)
+        {
+            // Do nothing
         }
 
         /// <summary>
