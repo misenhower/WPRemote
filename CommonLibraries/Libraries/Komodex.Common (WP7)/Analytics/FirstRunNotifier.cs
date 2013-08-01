@@ -67,26 +67,21 @@ namespace Komodex.Analytics
         public static void CheckFirstRun()
         {
 #if WINDOWS_PHONE
-            var trialManager = Komodex.Common.Phone.TrialManager.Current;
+            bool isTrial = Komodex.Common.Phone.TrialManager.IsTrial;
 #else
-            var trialManager = Komodex.Common.Store.TrialManager.Current;
+            bool isTrial = Komodex.Common.Store.TrialManager.Current.IsTrial;
 #endif
 
             IsUpgrade = PreviousVersion != Utility.ApplicationVersion;
-            WasTrial = PreviousTrialMode && !trialManager.IsTrial;
+            WasTrial = PreviousTrialMode && !isTrial;
             
             if (IsUpgrade || WasTrial)
                 SetFirstRunNotification();
 
             PreviousVersion = Utility.ApplicationVersion;
-            PreviousTrialMode = trialManager.IsTrial;
+            PreviousTrialMode = isTrial;
 
             SendFirstRunNotification();
-
-#if WINDOWS_PHONE
-            if (IsUpgrade && trialManager.IsTrial && trialManager.TrialExpirationDate > DateTime.MinValue && trialManager.ResetTrialExpirationOnNewVersion)
-                trialManager.ResetTrialExpiration();
-#endif
         }
 
         #endregion
@@ -98,7 +93,7 @@ namespace Komodex.Analytics
             string version = Utility.ApplicationVersion;
             string previousVersion = PreviousVersion;
 #if WINDOWS_PHONE
-            bool isTrial = Komodex.Common.Phone.TrialManager.Current.IsTrial;
+            bool isTrial = Komodex.Common.Phone.TrialManager.IsTrial;
 #else
             bool isTrial = Komodex.Common.Store.TrialManager.Current.IsTrial;
 #endif

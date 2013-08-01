@@ -158,40 +158,6 @@ namespace Komodex.Common.Phone
 
         #endregion
 
-        #region Trial Simulation Menu Item
-
-#if DEBUG
-
-        private string TrialMenuItemString
-        {
-            get
-            {
-                if (TrialManager.Current.SimulateTrial)
-                    return "disable trial mode simulation";
-                return "enable trial mode simulation";
-            }
-        }
-
-        protected void AddTrialSimulationMenuItem()
-        {
-            InitializeApplicationBar(true);
-
-            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem(TrialMenuItemString);
-            menuItem.Click += TrialSimulationMenuItem_Click;
-            ApplicationBar.MenuItems.Add(menuItem);
-        }
-
-        private void TrialSimulationMenuItem_Click(object sender, EventArgs e)
-        {
-            TrialManager.Current.SimulateTrial = !TrialManager.Current.SimulateTrial;
-            ((ApplicationBarMenuItem)sender).Text = TrialMenuItemString;
-            MessageBox.Show("Restart the application to see the trial mode changes.", "Trial mode", MessageBoxButton.OK);
-        }
-
-#endif
-
-        #endregion
-
         #endregion
 
         #region Progress Indicator
