@@ -29,10 +29,20 @@ namespace Komodex.Common
         };
 
 #if WINDOWS_PHONE
-        private static System.IO.IsolatedStorage.IsolatedStorageSettings _isolatedSettings = System.IO.IsolatedStorage.IsolatedStorageSettings.ApplicationSettings;
+        private static readonly System.IO.IsolatedStorage.IsolatedStorageSettings _isolatedSettings;
 #else
         private static Windows.Storage.ApplicationDataContainer _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 #endif
+
+        static Setting()
+        {
+            if (DesignerProperties.IsInDesignTool)
+                return;
+
+#if WINDOWS_PHONE
+            _isolatedSettings = System.IO.IsolatedStorage.IsolatedStorageSettings.ApplicationSettings;
+#endif
+        }
 
         public Setting(string keyName, T defaultValue = default(T), Action<T> changeAction = null)
         {
@@ -134,6 +144,9 @@ namespace Komodex.Common
         /// </summary>
         public void Save()
         {
+            if (DesignerProperties.IsInDesignTool)
+                return;
+
             // Update isolated storage
             object value;
             if (_shouldSerializeValue)
