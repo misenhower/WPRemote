@@ -102,7 +102,7 @@
                 <TextBlock x:Name="PageTitle" Text="{Binding LocalizedStrings.HomePageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
             </StackPanel>
 
-            <Grid Grid.Row="1" Margin="12,-12,12,0">
+            <Grid x:Name="MainButtonGrid" Grid.Row="1" Margin="12,-12,12,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -180,7 +180,14 @@
                         <TextBlock Text="{Binding LocalizedStrings.SearchButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
-                <Button Name="btnTrial" Grid.Row="3" Style="{StaticResource SimpleButton}" Margin="-12,-12,-12,-6" VerticalAlignment="Bottom" Click="btnTrial_Click">
+                <Button Name="TrialButton"
+                        Visibility="{Binding IsTrial, Source={StaticResource TrialManager}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Grid.Row="3"
+                        Style="{StaticResource SimpleButton}"
+                        Margin="-12,-12,-12,-6"
+                        VerticalAlignment="Bottom"
+                        Click="TrialButton_Click"
+                        >
                     <Grid Margin="6,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />

@@ -1,5 +1,6 @@
 ﻿using Komodex.Bonjour;
 using Komodex.Common;
+using Komodex.Common.Phone;
 using Komodex.DACP;
 using System;
 using System.Collections.Generic;
@@ -222,6 +223,10 @@ namespace Komodex.Remote.ServerManagement
                 if (ConnectionState == ServerConnectionState.ConnectingToLibrary)
                     return;
             }
+
+            TrialManager.StartTrial();
+            if (TrialManager.TrialState == TrialState.Expired)
+                return;
 
             ConnectionState = ServerConnectionState.ConnectingToLibrary;
             _log.Info("Connecting to server...");

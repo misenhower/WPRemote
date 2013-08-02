@@ -80,7 +80,12 @@ namespace Komodex.Remote
             // Update settings if necessary
             SettingsUpdater.CheckForUpdate();
 
-            TrialManager.Initialize(TrialDays, false, true);
+            // Initialize trial manager
+            //TrialManager.SimulateTrialMode = true;
+            //TrialManager.SimulateTrialExpired = true;
+            TrialManager.TrialDays = TrialDays;
+            TrialManager.AutoStartTrial = false;
+            TrialManager.Initialize();
 
             // Error reporter initialization
             PhoneAppCrashReporter.Initialize(this, RootFrame);

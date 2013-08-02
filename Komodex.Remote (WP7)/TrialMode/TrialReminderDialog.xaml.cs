@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.Common.Phone;
 using Komodex.Remote.Localization;
+using System.ComponentModel;
 
 namespace Komodex.Remote.TrialMode
 {
@@ -20,13 +21,13 @@ namespace Komodex.Remote.TrialMode
         {
             InitializeComponent();
 
+            HideOnNavigate = false;
             UpdateContent();
         }
 
         protected void UpdateContent()
         {
-            var daysLeft = TrialManager.Current.TrialDaysLeft;
-
+            int daysLeft = TrialManager.TrialDaysRemaining ?? TrialManager.TrialDays;
             if (daysLeft > 0)
             {
                 cancelButton.Visibility = System.Windows.Visibility.Visible;
@@ -41,6 +42,7 @@ namespace Komodex.Remote.TrialMode
                 cancelButton.Visibility = System.Windows.Visibility.Collapsed;
                 headerTextBlock.Text = LocalizedStrings.TrialReminderExpiredHeader;
                 content1TextBlock.Text = LocalizedStrings.TrialReminderExpiredContent;
+                HandleBackKeyPress = false;
             }
         }
 

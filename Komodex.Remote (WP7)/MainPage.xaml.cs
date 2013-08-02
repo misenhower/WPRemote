@@ -45,20 +45,16 @@ namespace Komodex.Remote
 
 #if DEBUG
             UpdateDebugDataMenuItem();
-            AddTrialSimulationMenuItem();
 #endif
 
             _standardAppBar = ApplicationBar;
 
-            Loaded += MainPage_Loaded;
+            UpdateTrialModeText();
+            Loaded += ShowTrialDialogOnFirstLoad;
+
+            DialogClosed += MainPage_DialogClosed;
         }
 
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            Loaded -= MainPage_Loaded;
-
-            // TODO: Trial reminder
-        }
 
 #if DEBUG
         ApplicationBarMenuItem debugDataMenuItem = null;
@@ -96,31 +92,6 @@ namespace Komodex.Remote
 
             UpdateBindings();
             UpdateVisualState(false);
-
-            if (TrialManager.Current.IsTrial)
-            {
-                if (TrialManager.Current.TrialDaysLeft == 1)
-                    trialBannerContent.Text = LocalizedStrings.TrialBannerContentSingular;
-                else
-                    trialBannerContent.Text = string.Format(LocalizedStrings.TrialBannerContentPlural, TrialManager.Current.TrialDaysLeft);
-
-                // Adjust the content panel margin to allow some more space around the trial banner
-                var margin = ContentPanel.Margin;
-                margin.Top = -36;
-                ContentPanel.Margin = margin;
-            }
-            else
-            {
-                btnTrial.Visibility = System.Windows.Visibility.Collapsed;
-            }
-        }
-
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
-        {
-            if (TrialManager.Current.TrialExpired && IsDialogOpen)
-                CurrentDialogControl.Hide();
-
-            base.OnBackKeyPress(e);
         }
 
         protected override void CurrentServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -161,6 +132,11 @@ namespace Komodex.Remote
             });
         }
 
+        private void MainPage_DialogClosed(object sender, DialogControlClosedEventArgs e)
+        {
+            UpdateBindings();
+        }
+
         #endregion
 
         #region Methods
@@ -194,9 +170,13 @@ namespace Komodex.Remote
             ContentPanel.Visibility = (showContentPanel) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             FirstStartPanel.Visibility = (showFirstStartPanel) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 
-            DisableConnectionStatusPopup = showFirstStartPanel;
+            DisableConnectionStatusPopup = showFirstStartPanel || IsDialogOpen;
 
-            if (showFirstStartPanel)
+            if (IsDialogOpen)
+            {
+                ApplicationBar = null;
+            }
+            else if (showFirstStartPanel)
             {
                 ShowFirstRunAppBar();
                 ApplicationBarMenuClosedOpacity = 0;
@@ -282,10 +262,53 @@ namespace Komodex.Remote
             ShowDialog(pairingDialog);
         }
 
-        private void btnTrial_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region Trial Mode
+
+        protected void UpdateTrialModeText()
         {
-            TrialReminderDialog trialDialog = new TrialReminderDialog();
-            ShowDialog(trialDialog);
+            var days = TrialManager.TrialDaysRemaining ?? TrialManager.TrialDays;
+
+            if (days == 1)
+                trialBannerContent.Text = LocalizedStrings.TrialBannerContentSingular;
+            else
+                trialBannerContent.Text = string.Format(LocalizedStrings.TrialBannerContentPlural, days);
+
+            // Adjust content panel margin to give the trial button some more room
+            if (ResolutionUtility.ScreenResolution != ScreenResolution.HD720p)
+            {
+                var margin = MainButtonGrid.Margin;
+                margin.Top = -36;
+                MainButtonGrid.Margin = margin;
+            }
+        }
+
+        private void ShowTrialDialogOnFirstLoad(object sender, RoutedEventArgs e)
+        {
+            Loaded -= ShowTrialDialogOnFirstLoad;
+
+            if (!TrialManager.IsTrial)
+                return;
+
+            // Don't show the reminder dialog before the trial period has begun
+            if (TrialManager.TrialState != TrialState.Expired && TrialManager.TrialDaysRemaining == null)
+                return;
+
+            ShowTrialDialog();
+        }
+
+
+        private void TrialButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowTrialDialog();
+        }
+
+        protected void ShowTrialDialog()
+        {
+            TrialReminderDialog dialog = new TrialReminderDialog();
+            ShowDialog(dialog);
+            UpdateBindings();
         }
 
         #endregion

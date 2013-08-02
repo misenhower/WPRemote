@@ -4,8 +4,12 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:converters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
     xmlns:appConverters="clr-namespace:Komodex.Remote.Converters"
+    xmlns:commonPhone="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common"
     >
-    
+
+    <!-- Trial Manager -->
+    <commonPhone:TrialManager x:Key="TrialManager" />
+
     <!-- Localization -->
     <localization:LocalizedStringsWrapper xmlns:localization="clr-namespace:Komodex.Remote.Localization" x:Key="LocalizedStrings" />
 
