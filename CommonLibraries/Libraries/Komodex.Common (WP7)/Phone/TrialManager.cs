@@ -22,9 +22,6 @@ namespace Komodex.Common.Phone
 
 #if DEBUG
         private static bool _simulateTrialMode;
-        /// <summary>
-        /// When true, 
-        /// </summary>
         public static bool SimulateTrialMode
         {
             get { return _simulateTrialMode; }
@@ -32,6 +29,19 @@ namespace Komodex.Common.Phone
             {
                 ThrowIfInitialized();
                 _simulateTrialMode = value;
+            }
+        }
+
+        private static bool _simulateTrialExpired;
+        public static bool SimulateTrialExpired
+        {
+            get { return _simulateTrialExpired; }
+            set
+            {
+                ThrowIfInitialized();
+                _simulateTrialExpired = value;
+                if (_simulateTrialExpired)
+                    _simulateTrialMode = true;
             }
         }
 #endif
@@ -218,6 +228,10 @@ namespace Komodex.Common.Phone
 
             // Determine whether the trial period has expired
             var days = (TrialExpirationDate.Value - DateTime.Now).TotalDays;
+#if DEBUG
+            if (SimulateTrialExpired)
+                days = 0;
+#endif
             if (days <= 0)
             {
                 TrialState = TrialState.Expired;
