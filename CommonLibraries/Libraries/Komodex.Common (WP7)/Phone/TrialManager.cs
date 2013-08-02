@@ -121,6 +121,10 @@ namespace Komodex.Common.Phone
             get
             {
                 ThrowIfNotInitialized();
+#if DEBUG
+                if (SimulateTrialExpired)
+                    return DateTime.Now.AddDays(-1);
+#endif
                 return _trialExpirationDate.Value;
             }
             protected set { _trialExpirationDate.Value = value; }
@@ -228,10 +232,6 @@ namespace Komodex.Common.Phone
 
             // Determine whether the trial period has expired
             var days = (TrialExpirationDate.Value - DateTime.Now).TotalDays;
-#if DEBUG
-            if (SimulateTrialExpired)
-                days = 0;
-#endif
             if (days <= 0)
             {
                 TrialState = TrialState.Expired;
