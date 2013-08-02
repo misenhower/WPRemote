@@ -121,9 +121,6 @@ namespace Clarity.Phone.Extensions
         public event EventHandler Closed;
         public event EventHandler Opened;
 
-        // set this to prevent the dialog service from closing on back click
-        public bool HasPopup { get; set; }
-
         private bool _hideOnNavigate = true;
         public bool HideOnNavigate
         {
@@ -349,11 +346,6 @@ namespace Clarity.Phone.Extensions
 
         public void OnBackKeyPress(object sender, CancelEventArgs e)
         {
-            if (HasPopup)
-            {
-                e.Cancel = true;
-                return;
-            }
             if (IsOpen)
             {
                 e.Cancel = true;
