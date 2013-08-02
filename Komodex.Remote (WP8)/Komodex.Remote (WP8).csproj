@@ -233,10 +233,6 @@
       <Link>Pages\NowPlayingPage.xaml.cs</Link>
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\ManualPairingPage.xaml.cs">
-      <Link>Pages\Pairing\ManualPairingPage.xaml.cs</Link>
-      <DependentUpon>ManualPairingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pairing\DiscoveredPairingUtility.cs">
       <Link>Pairing\DiscoveredPairingUtility.cs</Link>
     </Compile>
@@ -772,11 +768,6 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\NowPlayingPage.xaml">
       <Link>Pages\NowPlayingPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Pairing\ManualPairingPage.xaml">
-      <Link>Pages\Pairing\ManualPairingPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

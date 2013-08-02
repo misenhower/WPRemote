@@ -68,11 +68,6 @@ namespace Komodex.Remote
             Navigate("/Pages/ChooseLibraryPage.xaml");
         }
 
-        public static void OpenManualPairingPage()
-        {
-            Navigate("/Pages/Pairing/ManualPairingPage.xaml");
-        }
-
         public static void OpenArtistPage(string artistName)
         {
             artistName = Uri.EscapeDataString(artistName);

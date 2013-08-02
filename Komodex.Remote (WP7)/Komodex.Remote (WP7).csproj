@@ -180,9 +180,6 @@
     <Compile Include="Pages\NowPlayingPage.xaml.cs">
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Pairing\ManualPairingPage.xaml.cs">
-      <DependentUpon>ManualPairingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pairing\DiscoveredPairingUtility.cs" />
     <Compile Include="Pairing\ManualPairingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -304,10 +301,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\NowPlayingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Pairing\ManualPairingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
