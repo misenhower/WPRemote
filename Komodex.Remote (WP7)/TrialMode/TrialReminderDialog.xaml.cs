@@ -50,7 +50,8 @@ namespace Komodex.Remote.TrialMode
         {
             NavigationManager.OpenMarketplaceDetailPage();
 
-            Hide(MessageBoxResult.OK);
+            if (TrialManager.TrialState != TrialState.Expired)
+                Hide(MessageBoxResult.OK);
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
