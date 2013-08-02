@@ -246,11 +246,12 @@ namespace Komodex.Common.Phone
         protected ContentPresenter DialogContainer { get; set; }
 
         private DialogUserControlBase _currentDialogControl;
-
         protected DialogUserControlBase CurrentDialogControl
         {
             get { return _currentDialogControl; }
         }
+
+        public event EventHandler<DialogControlClosedEventArgs> DialogClosed;
 
         /// <summary>
         /// Returns true if a dialog is currently open.
@@ -285,7 +286,10 @@ namespace Komodex.Common.Phone
         private void Dialog_Closed(object sender, DialogControlClosedEventArgs e)
         {
             if (_currentDialogControl == sender)
+            {
                 _currentDialogControl = null;
+                DialogClosed.Raise(sender, e);
+            }
         }
 
         #endregion

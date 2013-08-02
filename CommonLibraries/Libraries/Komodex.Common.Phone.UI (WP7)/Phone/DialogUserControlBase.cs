@@ -39,6 +39,20 @@ namespace Komodex.Common.Phone
             set { _hideApplicationBar = value; }
         }
 
+        private bool _hideOnNavigate = true;
+        public bool HideOnNavigate
+        {
+            get { return _hideOnNavigate; }
+            set { _hideOnNavigate = value; }
+        }
+
+        private bool _handleBackKeyPress = true;
+        public bool HandleBackKeyPress
+        {
+            get { return _handleBackKeyPress; }
+            set { _handleBackKeyPress = value; }
+        }
+
         #endregion
 
         #region Methods
@@ -60,6 +74,8 @@ namespace Komodex.Common.Phone
             _dialogService.Child = this;
 
             _dialogService.ShowSemitransparentBackground = ShowSemitransparentBackground;
+            _dialogService.HideOnNavigate = HideOnNavigate;
+            _dialogService.HandleBackKeyPress = HandleBackKeyPress;
 
             _dialogService.Show(HideApplicationBar);
         }

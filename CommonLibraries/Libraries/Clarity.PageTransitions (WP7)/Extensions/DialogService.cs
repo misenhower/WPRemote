@@ -128,6 +128,13 @@ namespace Clarity.Phone.Extensions
             set { _hideOnNavigate = value; }
         }
 
+        private bool _handleBackKeyPress = true;
+        public bool HandleBackKeyPress
+        {
+            get { return _handleBackKeyPress; }
+            set { _handleBackKeyPress = value; }
+        }
+
         public bool ShowSemitransparentBackground { get; set; }
 
         internal FrameworkElement RootVisual
@@ -346,7 +353,7 @@ namespace Clarity.Phone.Extensions
 
         public void OnBackKeyPress(object sender, CancelEventArgs e)
         {
-            if (IsOpen)
+            if (IsOpen && HandleBackKeyPress)
             {
                 e.Cancel = true;
                 Hide();
