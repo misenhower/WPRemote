@@ -268,6 +268,9 @@ namespace Komodex.Remote
 
         protected void UpdateTrialModeText()
         {
+            if (!TrialManager.IsTrial)
+                return;
+
             var days = TrialManager.TrialDaysRemaining ?? TrialManager.TrialDays;
 
             if (days == 1)
