@@ -173,16 +173,20 @@ namespace Komodex.Remote.Pages
 
         protected void RebuildApplicationBarMenuItems()
         {
-            // TODO: AirPlay
             // TODO: Visualizer
 
+            if (ApplicationBar == null)
+                return;
+
             ApplicationBar.MenuItems.Clear();
+
+            _airPlayAppBarMenuItemAdded = false;
+
+            AddAirPlayAppBarMenuItem();
         }
 
         protected void UpdateControlEnabledStates()
         {
-            // TODO: AirPlay
-
             bool enableArtistButton = false;
             bool enablePlayQueueButton = false;
             bool enableVolumeSlider = true;
@@ -207,6 +211,8 @@ namespace Komodex.Remote.Pages
             ArtistButton.IsEnabled = enableArtistButton;
             PlayQueueButton.IsEnabled = enablePlayQueueButton;
             VolumeSlider.IsEnabled = enableVolumeSlider;
+
+            UpdateAirPlayButtons();
         }
 
         #endregion
@@ -410,5 +416,66 @@ namespace Komodex.Remote.Pages
 
         #endregion
 
+        #region AirPlay
+
+        protected void UpdateAirPlayButtons()
+        {
+            if (CurrentServer == null)
+                return;
+
+            bool showAirPlayButtons = (CurrentServer.Speakers.Count > 1);
+
+            // Rebuild the application bar if necessary
+            if (showAirPlayButtons != _airPlayAppBarMenuItemAdded)
+                RebuildApplicationBarMenuItems();
+
+            // Update the AirPlay button
+            if (showAirPlayButtons)
+            {
+                AirPlayButton.Visibility = Visibility.Visible;
+
+                bool airPlayEnabled = CurrentServer.Speakers.Any(s => s.ID != 0 && s.Active);
+                if (airPlayEnabled)
+                    AirPlayButton.Foreground = Resources["PhoneForegroundBrush"] as Brush;
+                else
+                    AirPlayButton.Foreground = Resources["AirPlayDisabledBrush"] as Brush;
+            }
+            else
+            {
+                AirPlayButton.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private bool _airPlayAppBarMenuItemAdded;
+
+        protected void AddAirPlayAppBarMenuItem()
+        {
+            if (CurrentServer == null || _airPlayAppBarMenuItemAdded)
+                return;
+
+            if (CurrentServer.Speakers.Count > 1)
+            {
+                AddApplicationBarMenuItem(LocalizedStrings.AirPlaySpeakersMenuItem, ShowAirPlayDialog);
+                _airPlayAppBarMenuItemAdded = true;
+            }
+        }
+
+        private void AirPlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowAirPlayDialog();
+        }
+
+        protected override void CurrentServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
+        {
+            Utility.BeginInvokeOnUIThread(UpdateAirPlayButtons);
+        }
+
+        protected void ShowAirPlayDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+        
     }
 }

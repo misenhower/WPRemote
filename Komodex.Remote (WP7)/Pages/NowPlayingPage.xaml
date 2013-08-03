@@ -94,6 +94,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <SolidColorBrush x:Key="AirPlayDisabledBrush" Color="{StaticResource PhoneForegroundColor}" Opacity="0.66" />
     </phone:PhoneApplicationPage.Resources>
 
     <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding CurrentServer}" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
@@ -261,10 +263,11 @@
 
         </StackPanel>
 
-        <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="24,0,12,36">
+        <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="24,0,12,30" Height="48">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             
             <controls:MultiResolutionImageMask
@@ -280,6 +283,16 @@
                     LargeChange="5"
                     Style="{StaticResource VolumeSliderStyle}"
                     />
+            
+            <controls:IconButton
+                x:Name="AirPlayButton"
+                Click="AirPlayButton_Click"
+                Grid.Column="2"
+                Padding="6,12,12,12"
+                Margin="0,-12"
+                ImageSource="/Assets/Icons/AirPlay.png"
+                UseMultiResolutionImages="True"
+                />
         </Grid>
     </Grid>
 
