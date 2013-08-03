@@ -261,8 +261,19 @@
 
         </StackPanel>
 
-        <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="12,0,12,36">
+        <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="24,0,12,36">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <controls:MultiResolutionImageMask
+                Source="/Assets/AirPlay/Speaker.png"
+                Width="31" Height="26"
+                />
+            
             <Slider x:Name="VolumeSlider"
+                    Grid.Column="1"
                     Value="{Binding Volume, Mode=TwoWay}"
                     CacheMode="BitmapCache"
                     Maximum="100"
