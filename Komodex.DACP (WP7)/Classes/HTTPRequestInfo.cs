@@ -66,7 +66,8 @@ namespace Komodex.DACP
 
         private void PrintDebugBytes()
         {
-            _log.Trace(GetDebugBytes(ResponseCode, ResponseBody, 1));
+            lock(_log)
+                _log.Trace(GetDebugBytes(ResponseCode, ResponseBody, 1));
         }
 
         private string GetDebugBytes(string code, byte[] body, int tabLevel, StringBuilder sb=null)
@@ -123,6 +124,7 @@ namespace Komodex.DACP
             "msrv", "msml", "mlog", "cmst",
             "mlcl", "abar", "mshl", "mlit",
             "mdcl",
+            "ceQS",
         });
 #endif
 
