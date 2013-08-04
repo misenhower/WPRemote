@@ -414,7 +414,7 @@ namespace Clarity.Phone.Extensions
             return null;
         }
 
-        public static childItem FindVisualChild<childItem>(DependencyObject obj) where childItem : DependencyObject
+        public static childItem FindVisualChild<childItem>(this DependencyObject obj) where childItem : DependencyObject
         {
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
