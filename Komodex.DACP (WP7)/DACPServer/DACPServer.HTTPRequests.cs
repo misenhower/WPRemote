@@ -929,13 +929,34 @@ namespace Komodex.DACP
                 string upcomingSongName1 = null;
                 string upcomingSongName2 = null;
 
+                // If an upcoming song is from a different artist than the currently playing artist, display both the
+                // artist name and the song name. Also, if the first upcoming song is from a different artist, make sure
+                // the artist name is shown for both songs to avoid any confusion.
+                bool includeArtistName = false;
+
                 var upcomingItem1 = queueItems.FirstOrDefault(i => i.QueueIndex == 1);
                 if (upcomingItem1 != null)
-                    upcomingSongName1 = upcomingItem1.SongName;
+                {
+                    if (upcomingItem1.ArtistName != CurrentArtist)
+                        includeArtistName = true;
+
+                    if (includeArtistName)
+                        upcomingSongName1 = upcomingItem1.ArtistName + " – " + upcomingItem1.SongName;
+                    else
+                        upcomingSongName1 = upcomingItem1.SongName;
+                }
 
                 var upcomingItem2 = queueItems.FirstOrDefault(i => i.QueueIndex == 2);
                 if (upcomingItem2 != null)
-                    upcomingSongName2 = upcomingItem2.SongName;
+                {
+                    if (upcomingItem2.ArtistName != CurrentArtist)
+                        includeArtistName = true;
+
+                    if (includeArtistName)
+                        upcomingSongName2 = upcomingItem2.ArtistName + " – " + upcomingItem2.SongName;
+                    else
+                        upcomingSongName2 = upcomingItem2.SongName;
+                }
 
                 PlayQueueUpcomingSongName1 = upcomingSongName1;
                 PlayQueueUpcomingSongName2 = upcomingSongName2;
