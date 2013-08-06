@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Clarity.Phone.Extensions;
+using Komodex.Common;
+using Komodex.Common.Phone;
+using Komodex.DACP;
+using Komodex.Remote.ServerManagement;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Komodex.Common.Phone;
-using Komodex.Remote.ServerManagement;
 using System.Windows.Media;
-using Clarity.Phone.Extensions;
-using Komodex.DACP;
-using System.ComponentModel;
+using System.Windows.Navigation;
 
 namespace Komodex.Remote.Controls
 {
@@ -26,14 +27,15 @@ namespace Komodex.Remote.Controls
             InitializeComponent();
 
 #if WP7
-            SpeakerList.Link += (sender, e) => ItemRealized(e.ContentPresenter);
-            SpeakerList.Unlink += (sender, e) => ItemUnrealized(e.ContentPresenter);
+            SpeakerList.Link += SpeakerList_Link;
+            SpeakerList.Unlink += SpeakerList_Unlink;
 #else
-            SpeakerList.ItemRealized += (sender, e) => ItemRealized(e.Container);
-            SpeakerList.ItemUnrealized += (sender, e) => ItemUnrealized(e.Container);
+            SpeakerList.ItemRealized += SpeakerList_ItemRealized;
+            SpeakerList.ItemUnrealized += SpeakerList_ItemUnrealized;
 #endif
         }
 
+        
         protected override void Show(ContentPresenter container)
         {
             DataContext = ServerManager.CurrentServer;
@@ -49,6 +51,58 @@ namespace Komodex.Remote.Controls
 
             DetachServerEvents(ServerManager.CurrentServer);
         }
+
+        #region Speaker Control Management
+
+#if WP7
+        private void SpeakerList_Link(object sender, LinkUnlinkEventArgs e)
+        {
+            e.ContentPresenter.Loaded += SpeakerContentPresenter_Loaded;
+        }
+
+        private void SpeakerContentPresenter_Loaded(object sender, RoutedEventArgs e)
+        {
+            ContentPresenter contentPresenter = (ContentPresenter)sender;
+            contentPresenter.Loaded -= SpeakerContentPresenter_Loaded;
+
+            AirPlaySpeakerControl control = contentPresenter.FindVisualChild<AirPlaySpeakerControl>();
+            if (control == null)
+                return;
+
+            _currentSpeakerControls.Add(control);
+            control.SetSingleSelectionMode(_singleSelectionModeEnabled, false);
+        }
+
+        private void SpeakerList_Unlink(object sender, LinkUnlinkEventArgs e)
+        {
+            AirPlaySpeakerControl control = e.ContentPresenter.FindVisualChild<AirPlaySpeakerControl>();
+            if (control == null)
+                return;
+
+            _currentSpeakerControls.Remove(control);
+        }
+#else
+        private void SpeakerList_ItemRealized(object sender, ItemRealizationEventArgs e)
+        {
+            AirPlaySpeakerControl control = e.Container.FindVisualChild<AirPlaySpeakerControl>();
+            if (control == null)
+                return;
+
+            _currentSpeakerControls.Add(control);
+            control.SetSingleSelectionMode(_singleSelectionModeEnabled, false);
+        }
+
+        private void SpeakerList_ItemUnrealized(object sender, ItemRealizationEventArgs e)
+        {
+            AirPlaySpeakerControl control = e.Container.FindVisualChild<AirPlaySpeakerControl>();
+            if (control == null)
+                return;
+
+            _currentSpeakerControls.Remove(control);
+        }
+#endif
+
+        #endregion
 
         #region Server Events
 
@@ -72,29 +126,6 @@ namespace Komodex.Remote.Controls
         {
             if (e.PropertyName == "IsCurrentlyPlayingVideo")
                 UpdateSingleSelectionMode(true);
-        }
-
-        #endregion
-
-        #region Speaker Control Management
-
-        private void ItemRealized(ContentPresenter contentPresenter)
-        {
-            AirPlaySpeakerControl control = contentPresenter.FindVisualChild<AirPlaySpeakerControl>();
-            if (control == null)
-                return;
-
-            _currentSpeakerControls.Add(control);
-            control.SetSingleSelectionMode(_singleSelectionModeEnabled, false);
-        }
-
-        private void ItemUnrealized(ContentPresenter contentPresenter)
-        {
-            AirPlaySpeakerControl control = contentPresenter.FindVisualChild<AirPlaySpeakerControl>();
-            if (control == null)
-                return;
-
-            _currentSpeakerControls.Remove(control);
         }
 
         #endregion
