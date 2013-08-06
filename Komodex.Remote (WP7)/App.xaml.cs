@@ -45,6 +45,11 @@ namespace Komodex.Remote
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
+            RemoteUtility.Initialize();
+
+            // Update settings if necessary
+            SettingsUpdater.CheckForUpdate();
+
             // Standard XAML initialization
             InitializeComponent();
 
@@ -74,11 +79,6 @@ namespace Komodex.Remote
                 Komodex.Remote.Controls.MemoryCounters.Show();
 #endif
             }
-
-            RemoteUtility.Initialize();
-
-            // Update settings if necessary
-            SettingsUpdater.CheckForUpdate();
 
             // Initialize trial manager
             //TrialManager.SimulateTrialMode = true;
