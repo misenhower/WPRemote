@@ -23,78 +23,6 @@
     >
     
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="PlayTransportButton" TargetType="controls:IconButton">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Padding" Value="{StaticResource PhoneTouchTargetOverhang}" />
-            <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}" />
-            <Setter Property="BorderThickness" Value="{StaticResource PhoneBorderThickness}" />
-            <Setter Property="Margin" Value="12,0" />
-            <Setter Property="UseMultiResolutionImages" Value="True" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="controls:IconButton">
-                        <Border Background="Transparent" Padding="{TemplateBinding Padding}">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="MouseOver" />
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IconContainer" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IconPressedContainer" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonBackground" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonBorder" Storyboard.TargetProperty="BorderBrush">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IconContainer" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-
-                            <Grid Width="62" Height="62">
-                                <Border x:Name="ButtonBackground"
-    								Background="{TemplateBinding Background}"
-    								CornerRadius="62"
-                                    />
-                                <Border x:Name="ButtonBorder"
-    								BorderBrush="{TemplateBinding BorderBrush}"
-    								BorderThickness="{TemplateBinding BorderThickness}"
-    								CornerRadius="62"
-                                    />
-                                <controls:MultiResolutionImageMask
-    								x:Name="IconContainer"
-    								Foreground="{TemplateBinding Foreground}"
-    								Source="{TemplateBinding ImageSource}"
-    								UseResolutionSuffix="{TemplateBinding UseMultiResolutionImages}"
-                                />
-                                <controls:MultiResolutionImageMask
-    								x:Name="IconPressedContainer"
-    								Foreground="{TemplateBinding Foreground}"
-    								Source="{Binding ImageSource, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AppendFilenameConverter}, ConverterParameter='.Pressed'}"
-    								UseResolutionSuffix="{TemplateBinding UseMultiResolutionImages}"
-                                    Visibility="Collapsed"
-                                />
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        
         <SolidColorBrush x:Key="AirPlayDisabledBrush" Color="{StaticResource PhoneForegroundColor}" Opacity="0.66" />
     </phone:PhoneApplicationPage.Resources>
 
@@ -118,34 +46,7 @@
                    />
         
         <StackPanel Grid.Row="1" Margin="0,24,0,0" VerticalAlignment="Top" CacheMode="BitmapCache">
-            <StackPanel Orientation="Horizontal">
-                <appControls:IconRepeatButton
-                    x:Name="RewButton"
-                    Style="{StaticResource PlayTransportButton}"
-                    ImageSource="/Assets/PlayTransport/Rew.png"
-                    CacheMode="BitmapCache"
-                    Interval="-1"
-                    Click="RewButton_Click"
-                    RepeatBegin="RewButton_RepeatBegin"
-                    RepeatEnd="RewButton_RepeatEnd"
-                    />
-                <controls:IconButton
-                    x:Name="PlayPauseButton"
-                    Style="{StaticResource PlayTransportButton}"
-                    CacheMode="BitmapCache"
-                    Click="PlayPauseButton_Click"
-                    />
-                <appControls:IconRepeatButton
-                    x:Name="FFButton"
-                    Style="{StaticResource PlayTransportButton}"
-                    ImageSource="/Assets/PlayTransport/FF.png"
-                    CacheMode="BitmapCache"
-                    Interval="-1"
-                    Click="FFButton_Click"
-                    RepeatBegin="FFButton_RepeatBegin"
-                    RepeatEnd="FFButton_RepeatEnd"
-                    />
-            </StackPanel>
+            <appControls:PlayTransportButtonsControl Server="{Binding}" />
 
             <Button x:Name="LibraryButton"
                     Click="LibraryButton_Click"

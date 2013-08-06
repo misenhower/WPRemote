@@ -130,6 +130,10 @@
       <Link>Controls\PlayQueueDialog.xaml.cs</Link>
       <DependentUpon>PlayQueueDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\PlayTransportButtonsControl.xaml.cs">
+      <Link>Controls\PlayTransportButtonsControl.xaml.cs</Link>
+      <DependentUpon>PlayTransportButtonsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\StarRating.xaml.cs">
       <Link>Controls\StarRating.xaml.cs</Link>
       <DependentUpon>StarRating.xaml</DependentUpon>
@@ -654,6 +658,11 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Controls\PlayQueueDialog.xaml">
       <Link>Controls\PlayQueueDialog.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Controls\PlayTransportButtonsControl.xaml">
+      <Link>Controls\PlayTransportButtonsControl.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

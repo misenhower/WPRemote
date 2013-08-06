@@ -113,6 +113,9 @@
     <Compile Include="Controls\PlayQueueDialog.xaml.cs">
       <DependentUpon>PlayQueueDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PlayTransportButtonsControl.xaml.cs">
+      <DependentUpon>PlayTransportButtonsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StarRating.xaml.cs">
       <DependentUpon>StarRating.xaml</DependentUpon>
     </Compile>
@@ -230,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PlayQueueDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PlayTransportButtonsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

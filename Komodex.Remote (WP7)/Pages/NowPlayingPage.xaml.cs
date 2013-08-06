@@ -48,7 +48,6 @@ namespace Komodex.Remote.Pages
             base.OnNavigatedTo(e);
 
             UpdateControlEnabledStates();
-            UpdatePlayTransportButtons();
             UpdatePlayModeButtons();
 
             App.RootFrame.Obscured += RootFrame_Obscured;
@@ -110,7 +109,6 @@ namespace Komodex.Remote.Pages
                 case "PlayState":
                 case "CurrentSongName":
                     UpdateGoBackTimer();
-                    UpdatePlayTransportButtons();
                     break;
 
                 case "ShuffleState":
@@ -213,93 +211,6 @@ namespace Komodex.Remote.Pages
             VolumeSlider.IsEnabled = enableVolumeSlider;
 
             UpdateAirPlayButtons();
-        }
-
-        #endregion
-
-        #region Play Transport Buttons
-
-        protected readonly ImageSource _playIcon = new BitmapImage(new Uri("/Assets/PlayTransport/Play.png", UriKind.Relative));
-        protected readonly ImageSource _pauseIcon = new BitmapImage(new Uri("/Assets/PlayTransport/Pause.png", UriKind.Relative));
-
-        protected void UpdatePlayTransportButtons()
-        {
-            if (CurrentServer == null || !CurrentServer.IsConnected)
-                return;
-
-            bool isStopped = true;
-            bool isPlaying = false;
-
-            if (CurrentServer != null)
-            {
-                isStopped = (CurrentServer.PlayState == PlayStates.Stopped && CurrentServer.CurrentSongName == null);
-                isPlaying = (CurrentServer.PlayState == PlayStates.Playing || CurrentServer.PlayState == PlayStates.FastForward || CurrentServer.PlayState == PlayStates.Rewind);
-            }
-
-            RewButton.IsEnabled = !isStopped;
-            PlayPauseButton.IsEnabled = !isStopped;
-            FFButton.IsEnabled = !isStopped;
-
-            if (isPlaying)
-                PlayPauseButton.ImageSource = _pauseIcon;
-            else
-                PlayPauseButton.ImageSource = _playIcon;
-        }
-
-        private void RewButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (CurrentServer == null || !CurrentServer.IsConnected)
-                return;
-
-            CurrentServer.SendPrevItemCommand();
-        }
-
-        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (CurrentServer == null || !CurrentServer.IsConnected)
-                return;
-
-            CurrentServer.SendPlayPauseCommand();
-        }
-
-        private void FFButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (CurrentServer == null || !CurrentServer.IsConnected)
-                return;
-
-            CurrentServer.SendNextItemCommand();
-        }
-
-        private void RewButton_RepeatBegin(object sender, EventArgs e)
-        {
-            if (CurrentServer == null || !CurrentServer.IsConnected)
-                return;
-
-            CurrentServer.SendBeginRewCommand();
-        }
-
-        private void RewButton_RepeatEnd(object sender, EventArgs e)
-        {
-            if (CurrentServer == null || !CurrentServer.IsConnected)
-                return;
-
-            CurrentServer.SendPlayResumeCommand();
-        }
-
-        private void FFButton_RepeatBegin(object sender, EventArgs e)
-        {
-            if (CurrentServer == null || !CurrentServer.IsConnected)
-                return;
-
-            CurrentServer.SendBeginFFCommand();
-        }
-
-        private void FFButton_RepeatEnd(object sender, EventArgs e)
-        {
-            if (CurrentServer == null || !CurrentServer.IsConnected)
-                return;
-
-            CurrentServer.SendPlayResumeCommand();
         }
 
         #endregion
