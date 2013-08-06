@@ -79,7 +79,6 @@
         <Grid Margin="12,32,0,0">
             <controls:LongListSelectorEx
                 x:Name="PlayQueueList"
-                Background="Transparent"
                 ItemsSource="{Binding PlayQueues}"
                 IsGroupingEnabled="True"
                 GroupHeaderTemplate="{StaticResource PlayQueueHeaderTemplate}"
