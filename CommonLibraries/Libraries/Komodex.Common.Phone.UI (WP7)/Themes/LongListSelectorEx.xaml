@@ -7,7 +7,7 @@
     >
     
     <Style TargetType="commonControls:LongListSelectorEx">
-        <Setter Property="Background" Value="{StaticResource PhoneBackgroundBrush}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="EmptyTextStyle" Value="{StaticResource PhoneTextLargeStyle}" />
         <Setter Property="Template">
             <Setter.Value>
