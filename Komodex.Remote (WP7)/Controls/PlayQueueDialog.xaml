@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:base="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:appControls="clr-namespace:Komodex.Remote.Controls"
     xmlns:delay="clr-namespace:Delay"
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     mc:Ignorable="d"
@@ -29,11 +30,7 @@
             <Setter Property="VerticalAlignment" Value="Bottom" />
         </Style>
         <DataTemplate x:Key="PlayQueueHeaderTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <Grid Margin="0,12,0,0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Title1}" Style="{StaticResource Title1Style}" />
                     <TextBlock Text="{Binding Title2}" Style="{StaticResource Title2Style}" />
@@ -76,15 +73,39 @@
     </UserControl.Resources>
     
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
-        <Grid Margin="12,32,0,0">
-            <controls:LongListSelectorEx
-                x:Name="PlayQueueList"
-                ItemsSource="{Binding PlayQueues}"
-                IsGroupingEnabled="True"
-                GroupHeaderTemplate="{StaticResource PlayQueueHeaderTemplate}"
-                ItemTemplate="{StaticResource PlayQueueItemTemplate}"
-                Tap="PlayQueueList_Tap"
-                />
-        </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="1" Margin="0,24,0,6">
+            <appControls:PlayTransportButtonsControl Server="{Binding}" />
+            <TextBlock Text="{Binding CurrentSongName}"
+                       FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                       FontSize="27"
+                       Margin="24,0,0,-6"
+                       />
+            <TextBlock Text="{Binding CurrentArtist}"
+                       FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                       FontSize="27"
+                       Margin="24,0,0,0"
+                       />
+        </StackPanel>
+        
+        <Rectangle Grid.Row="2"
+                   Fill="{StaticResource PhoneSemitransparentBrush}"
+                   />
+        
+        <controls:LongListSelectorEx
+            x:Name="PlayQueueList"
+            Grid.Row="2"
+            Margin="12,0,0,0"
+            ItemsSource="{Binding PlayQueues}"
+            IsGroupingEnabled="True"
+            GroupHeaderTemplate="{StaticResource PlayQueueHeaderTemplate}"
+            ItemTemplate="{StaticResource PlayQueueItemTemplate}"
+            Tap="PlayQueueList_Tap"
+            />
     </Grid>
 </base:DialogUserControlBase>
