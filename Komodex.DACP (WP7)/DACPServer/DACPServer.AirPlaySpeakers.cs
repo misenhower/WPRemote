@@ -114,7 +114,7 @@ namespace Komodex.DACP
                         {
                             speaker = new AirPlaySpeaker(this, id);
                             speaker.HasVideo = (hasVideo || id == 0);
-                            Speakers.Add(speaker);
+                            Utility.BeginInvokeOnUIThread(() => Speakers.Add(speaker));
                         }
                     }
 
@@ -132,7 +132,7 @@ namespace Komodex.DACP
                 // Need to call ToList() so the source collection doesn't change during enumeration
                 var removedSpeakers = Speakers.Where(s => !foundSpeakerIDs.Contains(s.ID)).ToList();
                 foreach (AirPlaySpeaker removedSpeaker in removedSpeakers)
-                    Speakers.Remove(removedSpeaker);
+                    Utility.BeginInvokeOnUIThread(() => Speakers.Remove(removedSpeaker));
             }
 
             SendAirPlaySpeakerUpdate();

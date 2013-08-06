@@ -11,6 +11,8 @@ using Komodex.Common.Phone;
 using Komodex.Remote.ServerManagement;
 using System.Windows.Media;
 using Clarity.Phone.Extensions;
+using Komodex.DACP;
+using System.ComponentModel;
 
 namespace Komodex.Remote.Controls
 {
@@ -35,9 +37,44 @@ namespace Komodex.Remote.Controls
         protected override void Show(ContentPresenter container)
         {
             DataContext = ServerManager.CurrentServer;
+            AttachServerEvents(ServerManager.CurrentServer);
+            UpdateSingleSelectionMode(false);
 
             base.Show(container);
         }
+
+        public override void Hide(MessageBoxResult result = MessageBoxResult.None)
+        {
+            base.Hide(result);
+
+            DetachServerEvents(ServerManager.CurrentServer);
+        }
+
+        #region Server Events
+
+        protected void AttachServerEvents(DACPServer server)
+        {
+            if (server == null)
+                return;
+
+            server.PropertyChanged += DACPServer_PropertyChanged;
+        }
+
+        protected void DetachServerEvents(DACPServer server)
+        {
+            if (server == null)
+                return;
+
+            server.PropertyChanged -= DACPServer_PropertyChanged;
+        }
+
+        private void DACPServer_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsCurrentlyPlayingVideo")
+                UpdateSingleSelectionMode(true);
+        }
+
+        #endregion
 
         #region Speaker Control Management
 
@@ -64,7 +101,19 @@ namespace Komodex.Remote.Controls
 
         #region Single Selection Mode
 
-        public void SetSingleSelectionMode(bool value, bool useTransitions)
+        public void UpdateSingleSelectionMode(bool useTransitions)
+        {
+            DACPServer server = ServerManager.CurrentServer;
+            if (server == null)
+                return;
+
+            if (server.IsCurrentlyPlayingVideo)
+                SetSingleSelectionMode(true, useTransitions);
+            else
+                SetSingleSelectionMode(false, useTransitions);
+        }
+
+        protected void SetSingleSelectionMode(bool value, bool useTransitions)
         {
             _singleSelectionModeEnabled = value;
 
