@@ -97,6 +97,9 @@
     <Compile Include="Controls\AirPlaySpeakerControl.xaml.cs">
       <DependentUpon>AirPlaySpeakerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AirPlaySpeakersDialog.xaml.cs">
+      <DependentUpon>AirPlaySpeakersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ConnectingStatusControl.xaml.cs">
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
     </Compile>
@@ -167,12 +170,6 @@
     </Compile>
     <Compile Include="Marketplace\ArtistBackgroundImageManager.cs" />
     <Compile Include="Navigation\NavigationManager.cs" />
-    <Compile Include="NowPlaying\AirPlaySpeakersControl.xaml.cs">
-      <DependentUpon>AirPlaySpeakersControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NowPlaying\NowPlayingPage.xaml.cs">
-      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageBases\RemoteBasePage.cs" />
     <Compile Include="Pages\ChooseLibraryPage.xaml.cs">
       <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
@@ -217,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AirPlaySpeakerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AirPlaySpeakersDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,14 +286,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="NowPlaying\AirPlaySpeakersControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="NowPlaying\NowPlayingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

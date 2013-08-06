@@ -115,6 +115,17 @@ namespace Komodex.DACP
                             speaker = new AirPlaySpeaker(this, id);
                             speaker.HasVideo = (hasVideo || id == 0);
                             Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
+                            Speakers.Add(speaker);
                         }
                     }
 

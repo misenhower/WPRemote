@@ -102,6 +102,10 @@
       <Link>Controls\AirPlaySpeakerControl.xaml.cs</Link>
       <DependentUpon>AirPlaySpeakerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\AirPlaySpeakersDialog.xaml.cs">
+      <Link>Controls\AirPlaySpeakersDialog.xaml.cs</Link>
+      <DependentUpon>AirPlaySpeakersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\ConnectingStatusControl.xaml.cs">
       <Link>Controls\ConnectingStatusControl.xaml.cs</Link>
       <DependentUpon>ConnectingStatusControl.xaml</DependentUpon>
@@ -213,14 +217,6 @@
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Navigation\NavigationManager.cs">
       <Link>Navigation\NavigationManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\NowPlaying\AirPlaySpeakersControl.xaml.cs">
-      <Link>NowPlaying\AirPlaySpeakersControl.xaml.cs</Link>
-      <DependentUpon>AirPlaySpeakersControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\NowPlaying\NowPlayingPage.xaml.cs">
-      <Link>NowPlaying\NowPlayingPage.xaml.cs</Link>
-      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\RemoteBasePage.cs">
       <Link>PageBases\RemoteBasePage.cs</Link>
@@ -641,6 +637,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Controls\AirPlaySpeakersDialog.xaml">
+      <Link>Controls\AirPlaySpeakersDialog.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Controls\ConnectingStatusControl.xaml">
       <Link>Controls\ConnectingStatusControl.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -718,16 +719,6 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\MainPage.xaml">
       <Link>MainPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\NowPlaying\AirPlaySpeakersControl.xaml">
-      <Link>NowPlaying\AirPlaySpeakersControl.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\NowPlaying\NowPlayingPage.xaml">
-      <Link>NowPlaying\NowPlayingPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -472,7 +472,11 @@ namespace Komodex.Remote.Pages
 
         protected void ShowAirPlayDialog()
         {
-            throw new NotImplementedException();
+            if (IsDialogOpen)
+                return;
+
+            AirPlaySpeakersDialog dialog = new AirPlaySpeakersDialog();
+            ShowDialog(dialog);
         }
 
         #endregion

@@ -12,52 +12,65 @@ using System.Windows.Shapes;
 using Komodex.DACP;
 using System.ComponentModel;
 using Microsoft.Phone.Controls;
+using Komodex.Common;
 
 namespace Komodex.Remote.Controls
 {
     public partial class AirPlaySpeakerControl : UserControl
     {
-        protected AirPlaySpeakerControl()
+        private bool _singleSelectionModeEnabled;
+
+        public AirPlaySpeakerControl()
         {
             InitializeComponent();
         }
 
-        public AirPlaySpeakerControl(AirPlaySpeaker speaker, bool singleSelect)
-            : this()
+        #region Speaker Property
+
+        // If we're in design mode, set the property type to "object" to allow the SampleDataAirPlaySpeaker class as well
+        public static readonly DependencyProperty SpeakerProperty =
+            DependencyProperty.Register("Speaker", (DesignerProperties.IsInDesignTool) ? typeof(object) : typeof(AirPlaySpeaker), typeof(AirPlaySpeakerControl), new PropertyMetadata(SpeakerPropertyChanged));
+
+        private static void SpeakerPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            AirPlaySpeaker = speaker;
-            UpdateVisualState(false);
-            SetSingleSelectMode(singleSelect, false);
-            AirPlaySpeaker.PropertyChanged += AirPlaySpeaker_PropertyChanged;
+            AirPlaySpeakerControl control = (AirPlaySpeakerControl)d;
+
+            control.DetachSpeakerEvents(e.OldValue as AirPlaySpeaker);
+            control.AttachSpeakerEvents(e.NewValue as AirPlaySpeaker);
+
+            control.UpdateVisualState(false);
         }
 
-        void AirPlaySpeaker_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public AirPlaySpeaker Speaker
         {
-            if (e.PropertyName == "BindableActive")
-                UpdateVisualState();
-        }
-
-        #region Properties
-
-        protected AirPlaySpeaker AirPlaySpeaker
-        {
-            get { return DataContext as AirPlaySpeaker; }
-            set { DataContext = value; }
-        }
-
-        private bool _SingleSelectMode = false;
-        public bool SingleSelectionMode
-        {
-            get { return _SingleSelectMode; }
-            set { SetSingleSelectMode(value, true); }
+            get { return (AirPlaySpeaker)GetValue(SpeakerProperty); }
+            set { SetValue(SpeakerProperty, value); }
         }
 
         #endregion
 
-        #region Checkbox
+        #region Speaker Event Handlers
 
-        private void AirPlaySpeakerCheckBox_Click(object sender, RoutedEventArgs e)
+        protected void AttachSpeakerEvents(AirPlaySpeaker speaker)
         {
+            if (speaker == null)
+                return;
+
+            speaker.PropertyChanged += AirPlaySpeaker_PropertyChanged;
+        }
+
+        protected void DetachSpeakerEvents(AirPlaySpeaker speaker)
+        {
+            if (speaker == null)
+                return;
+
+            speaker.PropertyChanged -= AirPlaySpeaker_PropertyChanged;
+        }
+
+        private void AirPlaySpeaker_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "BindableActive")
+                UpdateVisualState(true);
         }
 
         #endregion
@@ -66,12 +79,12 @@ namespace Komodex.Remote.Controls
 
         private void Slider_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
-            AirPlaySpeaker.Server.AirPlaySpeakerManipulationStarted(AirPlaySpeaker);
+            Speaker.Server.AirPlaySpeakerManipulationStarted(Speaker);
         }
 
         private void Slider_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
-            AirPlaySpeaker.Server.AirPlaySpeakerManipulationStopped(AirPlaySpeaker);
+            Speaker.Server.AirPlaySpeakerManipulationStopped(Speaker);
         }
 
         #endregion
@@ -80,46 +93,48 @@ namespace Komodex.Remote.Controls
 
         private void SpeakerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!SingleSelectionMode)
+            if (!_singleSelectionModeEnabled)
                 return;
 
-            AirPlaySpeaker.SetSingleActiveSpeaker();
-            if (SingleSpeakerClicked != null)
-                SingleSpeakerClicked(this, new EventArgs());
+            Speaker.SetSingleActiveSpeaker();
+            SpeakerClicked.Raise(this, new EventArgs());
         }
 
         #endregion
 
         #region Methods
 
-        protected void UpdateVisualState(bool useTransitions = true)
+        protected void UpdateVisualState(bool useTransitions)
         {
-            if (AirPlaySpeaker.BindableActive == null)
+            if (DesignerProperties.IsInDesignTool)
                 return;
 
-            if (AirPlaySpeaker.BindableActive == true)
+            if (Speaker.BindableActive == null)
+                return;
+
+            if (Speaker.BindableActive == true)
                 VisualStateManager.GoToState(this, "SpeakerActiveState", useTransitions);
             else
                 VisualStateManager.GoToState(this, "SpeakerInactiveState", useTransitions);
         }
 
-        protected void SetSingleSelectMode(bool singleSelect, bool useTransitions = true)
+        public void SetSingleSelectionMode(bool value, bool useTransitions)
         {
-            if (singleSelect)
+            _singleSelectionModeEnabled = value;
+
+            if (_singleSelectionModeEnabled)
                 VisualStateManager.GoToState(this, "SingleSelectMode", useTransitions);
             else
                 VisualStateManager.GoToState(this, "MultiSelectMode", useTransitions);
 
-            TiltEffect.SetSuppressTilt(SpeakerButton, !singleSelect);
-
-            _SingleSelectMode = singleSelect;
+            TiltEffect.SetSuppressTilt(SpeakerButton, !_singleSelectionModeEnabled);
         }
 
         #endregion
 
         #region Events
 
-        public event EventHandler SingleSpeakerClicked;
+        public event EventHandler<EventArgs> SpeakerClicked;
 
         #endregion
 
