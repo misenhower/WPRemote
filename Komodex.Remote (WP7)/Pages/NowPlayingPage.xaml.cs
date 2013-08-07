@@ -180,21 +180,20 @@ namespace Komodex.Remote.Pages
 
             if (ShowAirPlayAppBarMenuItem)
                 AddAirPlayAppBarMenuItem();
+
+            if (ShowPlayQueueAppBarMenuItem)
+                AddPlayQueueAppBarMenuItem();
         }
 
         protected void UpdateControlEnabledStates()
         {
             bool enableArtistButton = false;
-            bool enablePlayQueueButton = false;
             bool enableVolumeSlider = true;
 
             if (CurrentServer != null && CurrentServer.IsConnected)
             {
                 // Artist/Album button
                 enableArtistButton = (CurrentServer.CurrentMediaKind == 1);
-
-                // Play Queue button
-                enablePlayQueueButton = CurrentServer.SupportsPlayQueue;
 
                 // Volume control
                 if (CurrentServer.IsCurrentlyPlayingVideo)
@@ -206,10 +205,10 @@ namespace Komodex.Remote.Pages
             }
 
             ArtistButton.IsEnabled = enableArtistButton;
-            PlayQueueButton.IsEnabled = enablePlayQueueButton;
             VolumeSlider.IsEnabled = enableVolumeSlider;
 
             UpdateAirPlayButtons();
+            UpdatePlayQueueButtons();
         }
 
         #endregion
@@ -237,14 +236,7 @@ namespace Komodex.Remote.Pages
             }
         }
 
-        private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (IsDialogOpen)
-                return;
-
-            PlayQueueDialog dialog = new PlayQueueDialog();
-            ShowDialog(dialog);
-        }
+       
 
         #endregion
 
@@ -394,6 +386,54 @@ namespace Komodex.Remote.Pages
         }
 
         #endregion
-        
+
+        #region Play Queue
+
+        protected void UpdatePlayQueueButtons()
+        {
+            if (CurrentServer == null)
+                return;
+
+            bool enablePlayQueueButtons = CurrentServer.SupportsPlayQueue;
+
+            PlayQueueButton.IsEnabled = enablePlayQueueButtons;
+            ShowPlayQueueAppBarMenuItem = enablePlayQueueButtons;
+        }
+
+        private bool _showPlayQueueAppBarMenuItem;
+        protected bool ShowPlayQueueAppBarMenuItem
+        {
+            get { return _showPlayQueueAppBarMenuItem; }
+            set
+            {
+                if (_showPlayQueueAppBarMenuItem == value)
+                    return;
+
+                _showPlayQueueAppBarMenuItem = value;
+                RebuildApplicationBarMenuItems();
+            }
+        }
+
+        protected void AddPlayQueueAppBarMenuItem()
+        {
+            AddApplicationBarMenuItem("up next", ShowPlayQueueDialog);
+        }
+
+        private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPlayQueueDialog();
+        }
+
+        protected void ShowPlayQueueDialog()
+        {
+            if (IsDialogOpen)
+                return;
+
+            PlayQueueDialog dialog = new PlayQueueDialog();
+            ShowDialog(dialog);
+        }
+
+        #endregion
+
     }
 }
