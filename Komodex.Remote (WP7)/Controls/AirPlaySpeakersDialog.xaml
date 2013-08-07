@@ -30,20 +30,19 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Margin="0,24,0,6">
-            <appControls:PlayTransportButtonsControl Server="{Binding}" />
-            <TextBlock Text="{Binding CurrentSongName}"
-                       FontFamily="{StaticResource PhoneFontFamilyNormal}"
-                       FontSize="27"
-                       Margin="24,0,0,-6"
-                       />
-            <TextBlock Text="{Binding CurrentArtist}"
-                       FontFamily="{StaticResource PhoneFontFamilySemiLight}"
-                       FontSize="27"
-                       Margin="24,0,0,0"
-                       />
-        </StackPanel>
+        <appControls:PlayTransportButtonsControl
+            Grid.Row="1"
+            Margin="0,24,0,12"
+            Server="{Binding}"
+            />
         
+        <ProgressBar x:Name="PlayPositionProgressBar"
+                     Grid.Row="1"
+                     VerticalAlignment="Bottom"
+                     Value="{Binding CurrentTrackTimePercentage}"
+                     Margin="-12,2,-12,0"
+                     Foreground="{StaticResource PhoneForegroundBrush}"
+                     />
         
         <Rectangle Grid.Row="2"
                    Grid.RowSpan="2"

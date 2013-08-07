@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Clarity.Phone.Extensions;
+using Komodex.Common.Phone;
+using Komodex.DACP;
+using Komodex.Remote.ServerManagement;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Komodex.Common.Phone;
-using Komodex.Remote.ServerManagement;
-using Komodex.DACP;
-using Clarity.Phone.Extensions;
 
 namespace Komodex.Remote.Controls
 {
@@ -19,6 +20,10 @@ namespace Komodex.Remote.Controls
         public PlayQueueDialog()
         {
             InitializeComponent();
+
+#if WP7
+            PlayPositionProgressBar.Background = Resources["PhoneForegroundBrush"] as Brush;
+#endif
 
             DataContext = ServerManager.CurrentServer;
         }

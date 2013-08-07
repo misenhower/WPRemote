@@ -27,6 +27,10 @@ namespace Komodex.Remote.Controls
             InitializeComponent();
 
 #if WP7
+            PlayPositionProgressBar.Background = Resources["PhoneForegroundBrush"] as Brush;
+#endif
+
+#if WP7
             SpeakerList.Link += SpeakerList_Link;
             SpeakerList.Unlink += SpeakerList_Unlink;
 #else
