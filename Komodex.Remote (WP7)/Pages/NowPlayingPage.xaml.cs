@@ -178,9 +178,8 @@ namespace Komodex.Remote.Pages
 
             ApplicationBar.MenuItems.Clear();
 
-            _airPlayAppBarMenuItemAdded = false;
-
-            AddAirPlayAppBarMenuItem();
+            if (ShowAirPlayAppBarMenuItem)
+                AddAirPlayAppBarMenuItem();
         }
 
         protected void UpdateControlEnabledStates()
@@ -337,8 +336,7 @@ namespace Komodex.Remote.Pages
             bool showAirPlayButtons = (CurrentServer.Speakers.Count > 1);
 
             // Rebuild the application bar if necessary
-            if (showAirPlayButtons != _airPlayAppBarMenuItemAdded)
-                RebuildApplicationBarMenuItems();
+            ShowAirPlayAppBarMenuItem = showAirPlayButtons;
 
             // Update the AirPlay button
             if (showAirPlayButtons)
@@ -357,18 +355,23 @@ namespace Komodex.Remote.Pages
             }
         }
 
-        private bool _airPlayAppBarMenuItemAdded;
+        private bool _showAirPlayAppBarMenuItem;
+        protected bool ShowAirPlayAppBarMenuItem
+        {
+            get { return _showAirPlayAppBarMenuItem; }
+            set
+            {
+                if (_showAirPlayAppBarMenuItem == value)
+                    return;
+
+                _showAirPlayAppBarMenuItem = value;
+                RebuildApplicationBarMenuItems();
+            }
+        }
 
         protected void AddAirPlayAppBarMenuItem()
         {
-            if (CurrentServer == null || _airPlayAppBarMenuItemAdded)
-                return;
-
-            if (CurrentServer.Speakers.Count > 1)
-            {
-                AddApplicationBarMenuItem(LocalizedStrings.AirPlaySpeakersMenuItem, ShowAirPlayDialog);
-                _airPlayAppBarMenuItemAdded = true;
-            }
+            AddApplicationBarMenuItem(LocalizedStrings.AirPlaySpeakersMenuItem, ShowAirPlayDialog);
         }
 
         private void AirPlayButton_Click(object sender, RoutedEventArgs e)
