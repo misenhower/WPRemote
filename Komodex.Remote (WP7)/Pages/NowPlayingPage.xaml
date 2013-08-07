@@ -22,10 +22,6 @@
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     >
     
-    <phone:PhoneApplicationPage.Resources>
-        <SolidColorBrush x:Key="AirPlayDisabledBrush" Color="{StaticResource PhoneForegroundColor}" Opacity="0.66" />
-    </phone:PhoneApplicationPage.Resources>
-
     <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding CurrentServer}" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
         <Grid.RowDefinitions>
             <!-- Status Bar -->
@@ -174,6 +170,7 @@
             <controls:MultiResolutionImageMask
                 Source="/Assets/AirPlay/Speaker.png"
                 Width="31" Height="26"
+                Opacity="0.8"
                 />
             
             <Slider x:Name="VolumeSlider"

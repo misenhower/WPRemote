@@ -347,9 +347,9 @@ namespace Komodex.Remote.Pages
 
                 bool airPlayEnabled = CurrentServer.Speakers.Any(s => s.ID != 0 && s.Active);
                 if (airPlayEnabled)
-                    AirPlayButton.Foreground = Resources["PhoneForegroundBrush"] as Brush;
+                    AirPlayButton.Opacity = _playModeButtonOpacityOn;
                 else
-                    AirPlayButton.Foreground = Resources["AirPlayDisabledBrush"] as Brush;
+                    AirPlayButton.Opacity = _playModeButtonOpacityOff;
             }
             else
             {
