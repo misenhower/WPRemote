@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
-  <DefaultLanguage xmlns="" code="en-US" />
+  <DefaultLanguage xmlns="" code="en" />
+  <Languages xmlns="">
+    <Language code="en" />
+    <Language code="de-DE" />
+  </Languages>
   <App xmlns="" ProductID="{6c3a2e1c-3cf5-4e3b-be75-c6a5a3b0c19f}" Title="Remote" RuntimeType="Silverlight" Version="1.9.2.0" Genre="apps.normal" Author="Komodex Systems LLC" Description="Remote for Windows Phone" Publisher="Komodex Systems LLC" PublisherID="{a4f8af8c-f593-46b7-aa20-d3a945488592}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
@@ -18,16 +22,11 @@
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\AppTileMedium.png</BackgroundImageURI>
           <Title>Remote</Title>
-          <BackContent>
-          </BackContent>
-          <BackBackgroundImageURI>
-          </BackBackgroundImageURI>
-          <BackTitle>
-          </BackTitle>
-          <DeviceLockImageURI>
-          </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <BackContent></BackContent>
+          <BackBackgroundImageURI></BackBackgroundImageURI>
+          <BackTitle></BackTitle>
+          <DeviceLockImageURI></DeviceLockImageURI>
+          <HasLarge></HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
