@@ -48,7 +48,6 @@
                     <toolkit:ToggleSwitch Header="Show artist background images"
                                           HeaderTemplate="{StaticResource WrappingHeaderTemplate}"
                                           IsChecked="{Binding ShowArtistBackgroundImages, Mode=TwoWay}"
-                                          Content="{Binding IsChecked, RelativeSource={RelativeSource Self}, Converter={StaticResource LocalizedOffOnConverter}}"
                                           CacheMode="BitmapCache"
                                           />
                     
@@ -70,7 +69,6 @@
                                           HeaderTemplate="{StaticResource WrappingHeaderTemplate}"
                                           Margin="0,0,0,-24"
                                           IsChecked="{Binding RunUnderLock, Mode=TwoWay}"
-                                          Content="{Binding IsChecked, RelativeSource={RelativeSource Self}, Converter={StaticResource LocalizedOffOnConverter}}"
                                           CacheMode="BitmapCache"
                                           />
                     <TextBlock Text="{Binding LocalizedStrings.SettingsStayConnectedDescription, Source={StaticResource LocalizedStrings}}"
@@ -90,7 +88,6 @@
                     <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsExtendedErrorReporting, Source={StaticResource LocalizedStrings}}"
                                           Margin="0,36,0,0"
                                           IsChecked="{Binding ExtendedErrorReporting, Mode=TwoWay}"
-                                          Content="{Binding IsChecked, RelativeSource={RelativeSource Self}, Converter={StaticResource LocalizedOffOnConverter}}"
                                           CacheMode="BitmapCache"
                                           />
                 </StackPanel>

@@ -127,7 +127,6 @@
     <Compile Include="Converters\CollectionCountToStringConverter.cs" />
     <Compile Include="Converters\DisableWhenNullConverter.cs" />
     <Compile Include="Converters\CollapseIfLessThanTwoConverter.cs" />
-    <Compile Include="Converters\LocalizedOffOnConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
     <Compile Include="LibraryPages\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
