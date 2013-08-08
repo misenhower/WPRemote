@@ -159,6 +159,9 @@
       <Link>Library\VideoMediaItem.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Localization\LocalizedDACPStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizedDACPStrings.resx</DependentUpon>
       <Link>Localization\LocalizedDACPStrings.Designer.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -174,6 +177,8 @@
       <Link>Localization\LocalizedDACPStrings.de-DE.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Komodex.DACP %28WP7%29\Localization\LocalizedDACPStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizedDACPStrings.Designer.cs</LastGenOutput>
       <Link>Localization\LocalizedDACPStrings.resx</Link>
     </EmbeddedResource>
   </ItemGroup>

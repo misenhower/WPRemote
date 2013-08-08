@@ -203,6 +203,9 @@
       <DependentUpon>VideosPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizedStrings.resx</DependentUpon>
       <Link>Localization\LocalizedStrings.Designer.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStringsWrapper.cs">
@@ -823,6 +826,8 @@
       <Link>Localization\LocalizedStrings.de-DE.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizedStrings.Designer.cs</LastGenOutput>
       <Link>Localization\LocalizedStrings.resx</Link>
     </EmbeddedResource>
   </ItemGroup>
