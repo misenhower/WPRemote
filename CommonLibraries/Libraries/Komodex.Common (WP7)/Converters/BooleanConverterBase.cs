@@ -13,10 +13,33 @@ using System.Windows.Data;
 
 namespace Komodex.Common.Converters
 {
-    public abstract class BooleanConverterBase<T> : IValueConverter
+    public abstract class BooleanConverterBase<T> : DependencyObject, IValueConverter
     {
-        public T TrueValue { get; set; }
-        public T FalseValue { get; set; }
+        #region TrueValue Property
+
+        public static readonly DependencyProperty TrueValueProperty =
+            DependencyProperty.Register("TrueValue", typeof(T), typeof(BooleanConverterBase<T>), new PropertyMetadata(default(T)));
+
+        public T TrueValue
+        {
+            get { return (T)GetValue(TrueValueProperty); }
+            set { SetValue(TrueValueProperty, value); }
+        }
+
+        #endregion
+
+        #region FalseValue Property
+
+        public static readonly DependencyProperty FalseValueProperty =
+            DependencyProperty.Register("FalseValue", typeof(T), typeof(BooleanConverterBase<T>), new PropertyMetadata(default(T)));
+
+        public T FalseValue
+        {
+            get { return (T)GetValue(FalseValueProperty); }
+            set { SetValue(FalseValueProperty, value); }
+        }
+
+        #endregion
 
         #region IValueConverter Members
 
