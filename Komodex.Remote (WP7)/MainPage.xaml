@@ -234,7 +234,7 @@
             </Grid>
 
             <Grid Grid.Row="3">
-                <Button Content="Add a Library" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnAddLibrary_Click" FontSize="28" />
+                <Button Content="{Binding LocalizedStrings.AddALibraryButton, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnAddLibrary_Click" FontSize="28" />
             </Grid>
         </Grid>
     </Grid>

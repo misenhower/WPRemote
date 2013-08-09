@@ -543,4 +543,7 @@
     <value>up next</value>
     <comment>The iTunes "up next" queue of songs.</comment>
   </data>
+  <data name="AddALibraryButton" xml:space="preserve">
+    <value>Add a Library</value>
+  </data>
 </root>

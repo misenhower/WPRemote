@@ -88,6 +88,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a Library.
+        /// </summary>
+        public static string AddALibraryButton {
+            get {
+                return ResourceManager.GetString("AddALibraryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to add.
         /// </summary>
         public static string AddAppBarButton {
