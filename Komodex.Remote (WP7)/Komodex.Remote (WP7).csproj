@@ -182,7 +182,6 @@
     <Compile Include="Pairing\DiscoveredPairingUtility.cs" />
     <Compile Include="Pairing\ManualPairingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="SampleData\SampleDataClasses.cs" />
     <Compile Include="ServerManagement\BonjourManager.cs" />
     <Compile Include="ServerManagement\ConnectionStatusPopupManager.cs" />
