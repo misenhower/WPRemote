@@ -516,6 +516,10 @@
   <data name="ConnectButton" xml:space="preserve">
     <value>connect</value>
   </data>
+  <data name="DeleteMenuItem" xml:space="preserve">
+    <value>delete</value>
+    <comment>Used for deleting a paired library.</comment>
+  </data>
   <data name="LibraryCouldNotBeLocated" xml:space="preserve">
     <value>The selected library could not be located. Make sure iTunes (or another compatible application) is running on your computer and try again.</value>
   </data>

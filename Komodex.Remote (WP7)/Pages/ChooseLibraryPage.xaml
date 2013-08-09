@@ -49,7 +49,7 @@
                 
                 <toolkit:ContextMenuService.ContextMenu>
                     <toolkit:ContextMenu>
-                        <toolkit:MenuItem Header="delete" Tag="{Binding}" Click="DeleteMenuItem_Click" />
+                        <toolkit:MenuItem Header="{Binding LocalizedStrings.DeleteMenuItem, Source={StaticResource LocalizedStrings}}" Tag="{Binding}" Click="DeleteMenuItem_Click" />
                     </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
             </Grid>
