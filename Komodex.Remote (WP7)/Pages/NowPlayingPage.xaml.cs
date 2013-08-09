@@ -416,7 +416,7 @@ namespace Komodex.Remote.Pages
 
         protected void AddPlayQueueAppBarMenuItem()
         {
-            AddApplicationBarMenuItem("up next", ShowPlayQueueDialog);
+            AddApplicationBarMenuItem(LocalizedStrings.UpNextMenuItem, ShowPlayQueueDialog);
         }
 
         private void PlayQueueButton_Click(object sender, RoutedEventArgs e)

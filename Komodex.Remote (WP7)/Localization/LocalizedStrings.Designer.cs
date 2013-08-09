@@ -673,6 +673,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to manual pairing.
+        /// </summary>
+        public static string ManualPairingMenuItem {
+            get {
+                return ResourceManager.GetString("ManualPairingMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MASTER VOLUME.
         /// </summary>
         public static string MasterVolume {
@@ -1101,6 +1110,15 @@ namespace Komodex.Remote.Localization {
         public static string TrialUpgradeToFullMenuItem {
             get {
                 return ResourceManager.GetString("TrialUpgradeToFullMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to up next.
+        /// </summary>
+        public static string UpNextMenuItem {
+            get {
+                return ResourceManager.GetString("UpNextMenuItem", resourceCulture);
             }
         }
         

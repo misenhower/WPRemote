@@ -523,4 +523,12 @@
     <value>Library</value>
     <comment>Label for a box where you can select from available iTunes libraries.</comment>
   </data>
+  <data name="ManualPairingMenuItem" xml:space="preserve">
+    <value>manual pairing</value>
+    <comment>Menu item for manually pairing with iTunes.</comment>
+  </data>
+  <data name="UpNextMenuItem" xml:space="preserve">
+    <value>up next</value>
+    <comment>The iTunes "up next" queue of songs.</comment>
+  </data>
 </root>

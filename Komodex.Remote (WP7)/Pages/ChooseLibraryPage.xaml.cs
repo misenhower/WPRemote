@@ -27,7 +27,7 @@ namespace Komodex.Remote.Pages
             ApplicationBar = new ApplicationBar();
 
             AddApplicationBarIconButton(LocalizedStrings.AddAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Add.png"), ShowPairingDialog);
-            AddApplicationBarMenuItem("manual pairing", ShowManualPairingDialog);
+            AddApplicationBarMenuItem(LocalizedStrings.ManualPairingMenuItem, ShowManualPairingDialog);
         }
 
         private void LibraryList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
