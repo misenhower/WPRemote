@@ -193,7 +193,7 @@
     <comment>First-run text</comment>
   </data>
   <data name="FirstRunIntro3" xml:space="preserve">
-    <value>Um fortzufahren ist es notwendig, dass Ihr Handy mit dem Wi-fi Netzwerk verbunden ist. </value>
+    <value>Um fortzufahren ist es notwendig, dass Ihr Handy mit dem Wi-Fi Netzwerk verbunden ist. </value>
     <comment>First-run text</comment>
   </data>
   <data name="FirstRunTitle" xml:space="preserve">
@@ -242,7 +242,7 @@
     <value>Künstler</value>
   </data>
   <data name="LibraryConnectionErrorBody" xml:space="preserve">
-    <value>Konnte nicht mit der Bibliothek verbunden werden. Bitte versichern Sie, dass Ihr Handy mit dem Wi-fi Netzwerk verbunden ist und überprüfen Sie was in dem Feld für den Nutzernamen eingetragen ist.</value>
+    <value>Konnte nicht mit der Bibliothek verbunden werden. Bitte versichern Sie, dass Ihr Handy mit dem Wi-Fi Netzwerk verbunden ist und überprüfen Sie was in dem Feld für den Hostnamen eingetragen ist.</value>
   </data>
   <data name="LibraryConnectionErrorTitle" xml:space="preserve">
     <value>Verbindungsfehler</value>
@@ -259,7 +259,7 @@
     <value>Genre</value>
   </data>
   <data name="LibraryHostname" xml:space="preserve">
-    <value>Nutzer</value>
+    <value>Host</value>
     <comment>This represents the hostname or IP address of a computer</comment>
   </data>
   <data name="LibraryNoAlbumsFound" xml:space="preserve">
@@ -312,10 +312,10 @@
     <value>Videos</value>
   </data>
   <data name="LibraryWifiErrorBody" xml:space="preserve">
-    <value>Bitte stellen Sie sicher, dass Ihr Handy Verbindung zu einem Wi-fi Netzwerk hat und versuchen Sie es erneut.</value>
+    <value>Bitte stellen Sie sicher, dass Ihr Handy Verbindung zu einem Wi-Fi Netzwerk hat und versuchen Sie es erneut.</value>
   </data>
   <data name="LibraryWifiErrorTitle" xml:space="preserve">
-    <value>Wi-fi Verbindungsfehler</value>
+    <value>Wi-Fi Verbindungsfehler</value>
   </data>
   <data name="MasterVolume" xml:space="preserve">
     <value>MASTER  LAUTSTÄRKE</value>
