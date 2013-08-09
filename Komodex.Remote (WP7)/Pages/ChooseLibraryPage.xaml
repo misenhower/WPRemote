@@ -20,7 +20,11 @@
     shell:SystemTray.IsVisible="True">
     
     <phone:PhoneApplicationPage.Resources>
-        <converters:BooleanToStringConverter x:Key="AvailabilityConverter" TrueValue="Available" FalseValue="Not Available" />
+        <converters:BooleanToStringConverter
+            x:Key="AvailabilityConverter"
+            TrueValue="{Binding LocalizedStrings.LibraryAvailable, Source={StaticResource LocalizedStrings}}"
+            FalseValue="{Binding LocalizedStrings.LibraryNotAvailable, Source={StaticResource LocalizedStrings}}"
+            />
         <converters:BooleanToDoubleConverter x:Key="AvailabilityOpacityConverter" TrueValue="1" FalseValue="0.5" />
         
         <DataTemplate x:Key="ServerConnectionInfoTemplate">

@@ -466,6 +466,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available.
+        /// </summary>
+        public static string LibraryAvailable {
+            get {
+                return ResourceManager.GetString("LibraryAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not connect to the library. Please make sure your phone is connected to the correct Wi-Fi network and check the value entered in the hostname field..
         /// </summary>
         public static string LibraryConnectionErrorBody {
@@ -579,6 +588,15 @@ namespace Komodex.Remote.Localization {
         public static string LibraryNoPodcastsFound {
             get {
                 return ResourceManager.GetString("LibraryNoPodcastsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not available.
+        /// </summary>
+        public static string LibraryNotAvailable {
+            get {
+                return ResourceManager.GetString("LibraryNotAvailable", resourceCulture);
             }
         }
         

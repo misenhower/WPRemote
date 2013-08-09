@@ -546,4 +546,10 @@
   <data name="AddALibraryButton" xml:space="preserve">
     <value>Add a Library</value>
   </data>
+  <data name="LibraryAvailable" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="LibraryNotAvailable" xml:space="preserve">
+    <value>Not available</value>
+  </data>
 </root>
