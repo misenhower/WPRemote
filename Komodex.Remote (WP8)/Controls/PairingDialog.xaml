@@ -34,8 +34,8 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                
-                <TextBlock Text="Add library"
+
+                <TextBlock Text="{Binding LocalizedStrings.AddLibraryDialogTitle, Source={StaticResource LocalizedStrings}}"
                             Name="headerTextBlock"
                             Margin="12"
                             FontFamily="{StaticResource PhoneFontFamilySemiBold}"
@@ -45,7 +45,7 @@
                     <controls:WizardItem x:Name="wizardItemWiFi">
                         <StackPanel VerticalAlignment="Center">
                             <controls:PerformanceProgressBar IsIndeterminate="{Binding IsVisible, ElementName=wizardItemWiFi}" Margin="-12,0" />
-                            <TextBlock Text="Waiting for Wi-Fi Connection..."
+                            <TextBlock Text="{Binding LocalizedStrings.WaitingForWiFiConnection, Source={StaticResource LocalizedStrings}}"
                                        Style="{StaticResource PhoneTextNormalStyle}"
                                        HorizontalAlignment="Center"
                                        />
@@ -53,7 +53,7 @@
                     </controls:WizardItem>
                     <controls:WizardItem x:Name="wizardItemPasscode">
                         <StackPanel>
-                            <TextBlock Text="passcode"
+                            <TextBlock Text="{Binding LocalizedStrings.AddLibraryDialogPasscode, Source={StaticResource LocalizedStrings}}"
                                        Style="{StaticResource PhoneTextLargeStyle}"
                                        />
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,30">
@@ -71,7 +71,7 @@
                                 </Border>
                             </StackPanel>
                             <TextBlock
-                                   Text="To add a library, open iTunes (or another compatible application) on your computer and select &quot;Windows Phone 8 Device&quot; from the Devices list."
+                                   Text="{Binding LocalizedStrings.AddLibraryDialogDescription, Source={StaticResource LocalizedStrings}}"
                                    TextWrapping="Wrap"
                                    Style="{StaticResource PhoneTextNormalStyle}"
                                    />

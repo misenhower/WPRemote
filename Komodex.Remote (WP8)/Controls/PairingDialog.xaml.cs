@@ -1,5 +1,6 @@
 ﻿using Komodex.Common;
 using Komodex.Common.Phone;
+using Komodex.Remote.Localization;
 using Komodex.Remote.Pairing;
 using Komodex.Remote.ServerManagement;
 using Microsoft.Phone.Controls;
@@ -52,12 +53,12 @@ namespace Komodex.Remote.Controls
             if (NetworkManager.IsLocalNetworkAvailable)
             {
                 wizard.SetSelectedItem(wizardItemPasscode, useTransitions);
-                leftButton.Content = "cancel";
+                leftButton.Content = LocalizedStrings.CancelButtonLower;
             }
             else
             {
                 wizard.SetSelectedItem(wizardItemWiFi, useTransitions);
-                leftButton.Content = "wi-fi settings";
+                leftButton.Content = LocalizedStrings.WiFiSettingsButton;
             }
         }
 

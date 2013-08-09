@@ -494,7 +494,14 @@
   <data name="WiFiSettingsButton" xml:space="preserve">
     <value>wi-fi settings</value>
   </data>
-  <data name="AddLibraryTitle" xml:space="preserve">
+  <data name="AddLibraryDialogDescription" xml:space="preserve">
+    <value>To add a library, open iTunes (or another compatible application) on your computer and select &amp;quot;Windows Phone 8 Device&amp;quot; from the Devices list.</value>
+  </data>
+  <data name="AddLibraryDialogPasscode" xml:space="preserve">
+    <value>passcode</value>
+    <comment>Refers to a 4-digit passcode or PIN used to complete pairing</comment>
+  </data>
+  <data name="AddLibraryDialogTitle" xml:space="preserve">
     <value>Add library</value>
   </data>
   <data name="CancelButtonLower" xml:space="preserve">

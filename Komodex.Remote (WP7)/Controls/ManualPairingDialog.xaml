@@ -21,7 +21,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="{Binding LocalizedStrings.AddLibraryTitle, Source={StaticResource LocalizedStrings}}"
+                <TextBlock Text="{Binding LocalizedStrings.AddLibraryDialogTitle, Source={StaticResource LocalizedStrings}}"
                             Name="headerTextBlock"
                             Margin="12"
                             FontFamily="{StaticResource PhoneFontFamilySemiBold}"

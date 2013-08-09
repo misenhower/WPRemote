@@ -106,11 +106,29 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To add a library, open iTunes (or another compatible application) on your computer and select &amp;quot;Windows Phone 8 Device&amp;quot; from the Devices list..
+        /// </summary>
+        public static string AddLibraryDialogDescription {
+            get {
+                return ResourceManager.GetString("AddLibraryDialogDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to passcode.
+        /// </summary>
+        public static string AddLibraryDialogPasscode {
+            get {
+                return ResourceManager.GetString("AddLibraryDialogPasscode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add library.
         /// </summary>
-        public static string AddLibraryTitle {
+        public static string AddLibraryDialogTitle {
             get {
-                return ResourceManager.GetString("AddLibraryTitle", resourceCulture);
+                return ResourceManager.GetString("AddLibraryDialogTitle", resourceCulture);
             }
         }
         
