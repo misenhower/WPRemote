@@ -71,23 +71,23 @@ namespace Komodex.Remote.Controls
                 if (_server != null)
                 {
                     wizard.SetSelectedItem(wizardItemConnecting, useTransitions);
-                    leftButton.Content = "cancel";
+                    leftButton.Content = LocalizedStrings.CancelButtonLower;
                 }
                 else if (ManualPairingManager.DiscoveredPairingUtilities.Count > 0)
                 {
                     wizard.SetSelectedItem(wizardItemEnterPIN, useTransitions);
-                    leftButton.Content = "connect";
+                    leftButton.Content = LocalizedStrings.ConnectButton;
                 }
                 else
                 {
                     wizard.SetSelectedItem(wizardItemWaitingForUtility, useTransitions);
-                    leftButton.Content = "cancel";
+                    leftButton.Content = LocalizedStrings.CancelButtonLower;
                 }
             }
             else
             {
                 wizard.SetSelectedItem(wizardItemWiFi, useTransitions);
-                leftButton.Content = "wi-fi settings";
+                leftButton.Content = LocalizedStrings.WiFiSettingsButton;
             }
 
             UpdateButtonEnabledState();
@@ -184,7 +184,7 @@ namespace Komodex.Remote.Controls
             string serviceID = utility.ServiceID;
             if (!BonjourManager.DiscoveredServers.ContainsKey(serviceID))
             {
-                MessageBox.Show("The selected library could not be located. Make sure iTunes (or another compatible application) is running on your computer and try again.", "Connection error", MessageBoxButton.OK);
+                MessageBox.Show(LocalizedStrings.LibraryCouldNotBeLocated, LocalizedStrings.LibraryConnectionErrorTitle, MessageBoxButton.OK);
                 return;
             }
 

@@ -28,11 +28,11 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Add library"
-                            Name="headerTextBlock"
-                            Margin="12"
-                            FontFamily="{StaticResource PhoneFontFamilySemiBold}"
-                            FontSize="{StaticResource PhoneFontSizeLarge}" />
+                <TextBlock Text="{Binding LocalizedStrings.AddLibraryDialogTitle, Source={StaticResource LocalizedStrings}}"
+                           Margin="12"
+                           FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                           FontSize="{StaticResource PhoneFontSizeLarge}"
+                           />
 
                 <controls:WizardControl x:Name="wizard" Grid.Row="1" Margin="-12,0" Padding="12,0,12,12" SelectedIndex="1" Background="{StaticResource PhoneChromeBrush}">
                     <controls:WizardItem x:Name="wizardItemWiFi">
@@ -52,9 +52,9 @@
                             </Grid.RowDefinitions>
                             
                             <StackPanel>
-                                <TextBlock Text="To pair this device with a new library, download the Pairing Utility from our website:"
+                                <TextBlock Text="{Binding LocalizedStrings.AddNewLibraryPageDescription, Source={StaticResource LocalizedStrings}}"
                                            TextWrapping="Wrap"
-                                           Style="{StaticResource PhoneTextTitle3Style}"
+                                           Style="{StaticResource PhoneTextNormalStyle}"
                                            />
                                 <TextBlock Text="http://wp7remote.com"
                                            Style="{StaticResource PhoneTextLargeStyle}"
@@ -64,7 +64,7 @@
                             
                             <StackPanel Grid.Row="1" VerticalAlignment="Center">
                                 <controls:PerformanceProgressBar IsIndeterminate="{Binding IsVisible, ElementName=wizardItemWaitingForUtility}" Margin="-12,0" />
-                                <TextBlock Text="Waiting for pairing to complete..."
+                                <TextBlock Text="{Binding LocalizedStrings.AddLibraryDialogWaitingForPairing, Source={StaticResource LocalizedStrings}}"
                                            Style="{StaticResource PhoneTextNormalStyle}"
                                            HorizontalAlignment="Center"
                                            />
@@ -75,17 +75,17 @@
                     </controls:WizardItem>
                     <controls:WizardItem x:Name="wizardItemEnterPIN">
                         <StackPanel>
-                            <TextBlock Text="enter pin"
+                            <TextBlock Text="{Binding LocalizedStrings.AddLibraryDialogEnterPIN, Source={StaticResource LocalizedStrings}}"
                                        Style="{StaticResource PhoneTextLargeStyle}"
                                        Margin="12,0,12,12"
                                        />
                             <toolkit:ListPicker x:Name="libraryPicker"
-                                                Header="Library"
+                                                Header="{Binding LocalizedStrings.LibraryLabel, Source={StaticResource LocalizedStrings}}"
                                                 ItemTemplate="{StaticResource ListPickerItemTemplate}"
                                                 SelectionChanged="libraryPicker_SelectionChanged"
                                                 toolkit:TiltEffect.SuppressTilt="True"
                                                 />
-                            <TextBlock Text="PIN"
+                            <TextBlock Text="{Binding LocalizedStrings.LibraryPIN, Source={StaticResource LocalizedStrings}}"
                                        Style="{StaticResource PhoneTextSubtleStyle}"
                                        />
                             <controls:NumericTextBox
@@ -99,7 +99,7 @@
                     <controls:WizardItem x:Name="wizardItemConnecting">
                         <StackPanel VerticalAlignment="Center">
                             <controls:PerformanceProgressBar IsIndeterminate="{Binding IsVisible, ElementName=wizardItemConnecting}" Margin="-12,0" />
-                            <TextBlock Text="Connecting to library..."
+                            <TextBlock Text="{Binding LocalizedStrings.StatusConnectingToLibrary, Source={StaticResource LocalizedStrings}}"
                                        HorizontalAlignment="Center"
                                        />
                         </StackPanel>

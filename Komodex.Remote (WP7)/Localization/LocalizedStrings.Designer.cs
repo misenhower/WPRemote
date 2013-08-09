@@ -115,6 +115,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to enter pin.
+        /// </summary>
+        public static string AddLibraryDialogEnterPIN {
+            get {
+                return ResourceManager.GetString("AddLibraryDialogEnterPIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to passcode.
         /// </summary>
         public static string AddLibraryDialogPasscode {
@@ -129,6 +138,15 @@ namespace Komodex.Remote.Localization {
         public static string AddLibraryDialogTitle {
             get {
                 return ResourceManager.GetString("AddLibraryDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for pairing to complete....
+        /// </summary>
+        public static string AddLibraryDialogWaitingForPairing {
+            get {
+                return ResourceManager.GetString("AddLibraryDialogWaitingForPairing", resourceCulture);
             }
         }
         
@@ -439,6 +457,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected library could not be located. Make sure iTunes (or another compatible application) is running on your computer and try again..
+        /// </summary>
+        public static string LibraryCouldNotBeLocated {
+            get {
+                return ResourceManager.GetString("LibraryCouldNotBeLocated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unknown error occurred. Please check your library and try again..
         /// </summary>
         public static string LibraryErrorBody {
@@ -471,6 +498,15 @@ namespace Komodex.Remote.Localization {
         public static string LibraryHostname {
             get {
                 return ResourceManager.GetString("LibraryHostname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Library.
+        /// </summary>
+        public static string LibraryLabel {
+            get {
+                return ResourceManager.GetString("LibraryLabel", resourceCulture);
             }
         }
         
