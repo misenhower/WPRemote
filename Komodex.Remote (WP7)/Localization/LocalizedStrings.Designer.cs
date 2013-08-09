@@ -169,6 +169,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to add to up next.
+        /// </summary>
+        public static string AddToUpNextMenuItem {
+            get {
+                return ResourceManager.GetString("AddToUpNextMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to airplay speakers.
         /// </summary>
         public static string AirPlaySpeakersMenuItem {
@@ -768,6 +777,15 @@ namespace Komodex.Remote.Localization {
         public static string PlaylistPageTitle {
             get {
                 return ResourceManager.GetString("PlaylistPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to play next.
+        /// </summary>
+        public static string PlayNextMenuItem {
+            get {
+                return ResourceManager.GetString("PlayNextMenuItem", resourceCulture);
             }
         }
         

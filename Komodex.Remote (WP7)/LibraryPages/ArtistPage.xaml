@@ -27,8 +27,8 @@
             <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}">
                 <toolkit:ContextMenuService.ContextMenu>
                     <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
-                        <toolkit:MenuItem x:Name="PlayNextButton" Header="play next" Click="PlayQueueButton_Click" />
-                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="add to up next" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="{Binding LocalizedStrings.PlayNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="{Binding LocalizedStrings.AddToUpNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
                     </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
             </ContentPresenter>
@@ -37,8 +37,8 @@
             <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource PlayButtonItemWithAlbumSubtitleTemplate}">
                 <toolkit:ContextMenuService.ContextMenu>
                     <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
-                        <toolkit:MenuItem x:Name="PlayNextButton" Header="play next" Click="PlayQueueButton_Click" />
-                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="add to up next" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="{Binding LocalizedStrings.PlayNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="{Binding LocalizedStrings.AddToUpNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
                     </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
             </ContentPresenter>

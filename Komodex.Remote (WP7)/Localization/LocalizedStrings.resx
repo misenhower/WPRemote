@@ -510,6 +510,10 @@
   <data name="AddLibraryDialogWaitingForPairing" xml:space="preserve">
     <value>Waiting for pairing to complete...</value>
   </data>
+  <data name="AddToUpNextMenuItem" xml:space="preserve">
+    <value>add to up next</value>
+    <comment>Adds a song to the end of the "up next"queue.</comment>
+  </data>
   <data name="CancelButtonLower" xml:space="preserve">
     <value>cancel</value>
   </data>
@@ -530,6 +534,10 @@
   <data name="ManualPairingMenuItem" xml:space="preserve">
     <value>manual pairing</value>
     <comment>Menu item for manually pairing with iTunes.</comment>
+  </data>
+  <data name="PlayNextMenuItem" xml:space="preserve">
+    <value>play next</value>
+    <comment>Adds a song to the beginning of the "up next" queue.</comment>
   </data>
   <data name="UpNextMenuItem" xml:space="preserve">
     <value>up next</value>
