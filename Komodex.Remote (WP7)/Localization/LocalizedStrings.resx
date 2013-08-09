@@ -193,7 +193,7 @@
     <comment>First-run text</comment>
   </data>
   <data name="FirstRunIntro3" xml:space="preserve">
-    <value>It will be necessary for your phone to be connected to a Wi-fi network to continue.</value>
+    <value>It will be necessary for your phone to be connected to a Wi-Fi network to continue.</value>
     <comment>First-run text</comment>
   </data>
   <data name="FirstRunTitle" xml:space="preserve">
@@ -242,7 +242,7 @@
     <value>artists</value>
   </data>
   <data name="LibraryConnectionErrorBody" xml:space="preserve">
-    <value>Could not connect to the library. Please make sure your phone is connected to the correct Wi-fi network and check the value entered in the hostname field.</value>
+    <value>Could not connect to the library. Please make sure your phone is connected to the correct Wi-Fi network and check the value entered in the hostname field.</value>
   </data>
   <data name="LibraryConnectionErrorTitle" xml:space="preserve">
     <value>Connection Error</value>
@@ -312,10 +312,10 @@
     <value>videos</value>
   </data>
   <data name="LibraryWifiErrorBody" xml:space="preserve">
-    <value>Please make sure your phone is connected to a Wi-fi network and try again.</value>
+    <value>Please make sure your phone is connected to a Wi-Fi network and try again.</value>
   </data>
   <data name="LibraryWifiErrorTitle" xml:space="preserve">
-    <value>Wi-fi Connection Error</value>
+    <value>Wi-Fi Connection Error</value>
   </data>
   <data name="MasterVolume" xml:space="preserve">
     <value>MASTER VOLUME</value>
@@ -490,5 +490,17 @@
   </data>
   <data name="WaitingForWiFiConnection" xml:space="preserve">
     <value>Waiting for Wi-Fi connection...</value>
+  </data>
+  <data name="WiFiSettingsButton" xml:space="preserve">
+    <value>wi-fi settings</value>
+  </data>
+  <data name="AddLibraryTitle" xml:space="preserve">
+    <value>Add library</value>
+  </data>
+  <data name="CancelButtonLower" xml:space="preserve">
+    <value>cancel</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>connect</value>
   </data>
 </root>

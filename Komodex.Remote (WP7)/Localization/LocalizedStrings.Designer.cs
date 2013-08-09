@@ -106,6 +106,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add library.
+        /// </summary>
+        public static string AddLibraryTitle {
+            get {
+                return ResourceManager.GetString("AddLibraryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To pair this device with a new library, download the Pairing Utility from our website:.
         /// </summary>
         public static string AddNewLibraryPageDescription {
@@ -196,6 +205,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cancel.
+        /// </summary>
+        public static string CancelButtonLower {
+            get {
+                return ResourceManager.GetString("CancelButtonLower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Library....
         /// </summary>
         public static string ChooseLibraryButton {
@@ -219,6 +237,15 @@ namespace Komodex.Remote.Localization {
         public static string ChooseLibraryPageTitle {
             get {
                 return ResourceManager.GetString("ChooseLibraryPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to connect.
+        /// </summary>
+        public static string ConnectButton {
+            get {
+                return ResourceManager.GetString("ConnectButton", resourceCulture);
             }
         }
         
@@ -250,7 +277,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It will be necessary for your phone to be connected to a Wi-fi network to continue..
+        ///   Looks up a localized string similar to It will be necessary for your phone to be connected to a Wi-Fi network to continue..
         /// </summary>
         public static string FirstRunIntro3 {
             get {
@@ -376,7 +403,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not connect to the library. Please make sure your phone is connected to the correct Wi-fi network and check the value entered in the hostname field..
+        ///   Looks up a localized string similar to Could not connect to the library. Please make sure your phone is connected to the correct Wi-Fi network and check the value entered in the hostname field..
         /// </summary>
         public static string LibraryConnectionErrorBody {
             get {
@@ -574,7 +601,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please make sure your phone is connected to a Wi-fi network and try again..
+        ///   Looks up a localized string similar to Please make sure your phone is connected to a Wi-Fi network and try again..
         /// </summary>
         public static string LibraryWifiErrorBody {
             get {
@@ -583,7 +610,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wi-fi Connection Error.
+        ///   Looks up a localized string similar to Wi-Fi Connection Error.
         /// </summary>
         public static string LibraryWifiErrorTitle {
             get {
@@ -1074,6 +1101,15 @@ namespace Komodex.Remote.Localization {
         public static string WaitingForWiFiConnection {
             get {
                 return ResourceManager.GetString("WaitingForWiFiConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to wi-fi settings.
+        /// </summary>
+        public static string WiFiSettingsButton {
+            get {
+                return ResourceManager.GetString("WiFiSettingsButton", resourceCulture);
             }
         }
     }

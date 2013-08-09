@@ -824,6 +824,7 @@
   <ItemGroup>
     <EmbeddedResource Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStrings.de-DE.resx">
       <Link>Localization\LocalizedStrings.de-DE.resx</Link>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
