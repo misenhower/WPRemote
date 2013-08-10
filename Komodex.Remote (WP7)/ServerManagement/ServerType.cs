@@ -10,5 +10,6 @@ namespace Komodex.Remote.ServerManagement
         iTunes,
         Foobar,
         MediaMonkey,
+        AlbumPlayer,
     }
 }

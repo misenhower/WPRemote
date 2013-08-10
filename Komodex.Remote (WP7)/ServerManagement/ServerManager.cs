@@ -120,6 +120,25 @@ namespace Komodex.Remote.ServerManagement
                     dirty = true;
                 }
 
+                // Determine the server type
+                ServerType serverType = ServerType.iTunes;
+                string dvTy = e.Service.TXTRecordData.GetValueOrDefault("DvTy");
+                if (!string.IsNullOrEmpty(dvTy))
+                {
+                    dvTy = dvTy.ToLower();
+                    if (dvTy.Contains("touchremote"))
+                        serverType = ServerType.Foobar;
+                    else if (dvTy.Contains("monkeytunes"))
+                        serverType = ServerType.MediaMonkey;
+                    else if (dvTy.Contains("albumplayer"))
+                        serverType = ServerType.AlbumPlayer;
+                }
+                if (info.ServerType != serverType)
+                {
+                    info.ServerType = serverType;
+                    dirty = true;
+                }
+
                 // Save the paired servers list if necessary
                 if (dirty)
                     _pairedServers.Save();

@@ -38,7 +38,10 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <controls:MultiResolutionImageMask Source="/Assets/Icons/App.iTunes.png" Style="{StaticResource IconCircleStyle}" />
+                <controls:MultiResolutionImageMask
+                    Source="{Binding ServerType, Converter={StaticResource ServerTypeToImageSourceConverter}}"
+                    Style="{StaticResource IconCircleStyle}"
+                    />
 
                 <TextBlock Text="{Binding Name}"
                             Grid.Column="1"

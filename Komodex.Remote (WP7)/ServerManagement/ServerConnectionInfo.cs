@@ -21,10 +21,22 @@ namespace Komodex.Remote.ServerManagement
         /// </summary>
         public string PairingCode { get; set; }
 
+        private ServerType _serverType;
         /// <summary>
         /// Gets or sets the server type.
         /// </summary>
-        public ServerType ServerType { get; set; }
+        public ServerType ServerType
+        {
+            get { return _serverType; }
+            set
+            {
+                if (_serverType == value)
+                    return;
+
+                _serverType = value;
+                PropertyChanged.RaiseOnUIThread(this, "ServerType");
+            }
+        }
 
         private string _name;
         /// <summary>

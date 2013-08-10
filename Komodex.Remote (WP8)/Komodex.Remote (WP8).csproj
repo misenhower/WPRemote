@@ -155,6 +155,9 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\NoListItemsVisibilityConverter.cs">
       <Link>Converters\NoListItemsVisibilityConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\ServerTypeToImageSourceConverter.cs">
+      <Link>Converters\ServerTypeToImageSourceConverter.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\AlbumPage.xaml.cs">
       <Link>LibraryPages\AlbumPage.xaml.cs</Link>
       <DependentUpon>AlbumPage.xaml</DependentUpon>
@@ -368,6 +371,24 @@
     <Content Include="..\Assets\Icons\AirPlay.WXGA.png">
       <Link>Assets\Icons\AirPlay.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\App.AlbumPlayer.720p.png">
+      <Link>Assets\Icons\App.AlbumPlayer.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.AlbumPlayer.WVGA.png">
+      <Link>Assets\Icons\App.AlbumPlayer.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.AlbumPlayer.WXGA.png">
+      <Link>Assets\Icons\App.AlbumPlayer.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.Foobar.720p.png">
+      <Link>Assets\Icons\App.Foobar.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.Foobar.WVGA.png">
+      <Link>Assets\Icons\App.Foobar.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.Foobar.WXGA.png">
+      <Link>Assets\Icons\App.Foobar.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\App.iTunes.720p.png">
       <Link>Assets\Icons\App.iTunes.720p.png</Link>
     </Content>
@@ -376,6 +397,15 @@
     </Content>
     <Content Include="..\Assets\Icons\App.iTunes.WXGA.png">
       <Link>Assets\Icons\App.iTunes.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.MediaMonkey.720p.png">
+      <Link>Assets\Icons\App.MediaMonkey.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.MediaMonkey.WVGA.png">
+      <Link>Assets\Icons\App.MediaMonkey.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.MediaMonkey.WXGA.png">
+      <Link>Assets\Icons\App.MediaMonkey.WXGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Browse.720p.png">
       <Link>Assets\Icons\Browse.720p.png</Link>

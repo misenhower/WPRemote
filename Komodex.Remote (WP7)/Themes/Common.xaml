@@ -23,6 +23,7 @@
     <appConverters:CollapseIfLessThanOneConverter x:Key="collapseIfLessThanOneConverter" />
     <appConverters:CollapseIfLessThanTwoConverter x:Key="collapseIfLessThanTwoConverter" />
     <appConverters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
+    <appConverters:ServerTypeToImageSourceConverter x:Key="ServerTypeToImageSourceConverter" />
 
     <!-- App Title Style -->
     <Style x:Key="PhoneTextAppTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextBlockBase}">

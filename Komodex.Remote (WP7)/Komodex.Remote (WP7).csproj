@@ -128,6 +128,7 @@
     <Compile Include="Converters\DisableWhenNullConverter.cs" />
     <Compile Include="Converters\CollapseIfLessThanTwoConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
+    <Compile Include="Converters\ServerTypeToImageSourceConverter.cs" />
     <Compile Include="LibraryPages\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
@@ -367,8 +368,17 @@
     <Content Include="..\Assets\Icons\AirPlay.WVGA.png">
       <Link>Assets\Icons\AirPlay.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\App.AlbumPlayer.WVGA.png">
+      <Link>Assets\Icons\App.AlbumPlayer.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.Foobar.WVGA.png">
+      <Link>Assets\Icons\App.Foobar.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\App.iTunes.WVGA.png">
       <Link>Assets\Icons\App.iTunes.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.MediaMonkey.WVGA.png">
+      <Link>Assets\Icons\App.MediaMonkey.WVGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Browse.WVGA.png">
       <Link>Assets\Icons\Browse.WVGA.png</Link>
