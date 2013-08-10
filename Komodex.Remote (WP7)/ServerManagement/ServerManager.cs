@@ -1,7 +1,9 @@
-﻿using Komodex.Bonjour;
+﻿using Komodex.Analytics;
+using Komodex.Bonjour;
 using Komodex.Common;
 using Komodex.Common.Phone;
 using Komodex.DACP;
+using Komodex.Remote.Settings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -269,7 +271,7 @@ namespace Komodex.Remote.ServerManagement
                     break;
 
                 case ServerUpdateType.Error:
-                    ServerError(e.ErrorType);
+                    ServerError(e.ErrorType, e.ErrorDetails);
                     break;
 
                 case ServerUpdateType.LibraryError:
@@ -289,7 +291,7 @@ namespace Komodex.Remote.ServerManagement
             _pairedServers.Save();
         }
 
-        private static void ServerError(ServerErrorType type)
+        private static void ServerError(ServerErrorType type, string details)
         {
             _log.Info("Server error: " + type);
             if (type == ServerErrorType.InvalidPIN)
@@ -313,6 +315,13 @@ namespace Komodex.Remote.ServerManagement
                 // If we were previously connected, just try reconnecting first
                 if (ConnectionState == ServerConnectionState.Connected)
                 {
+                    // Report the error
+                    if (SettingsManager.Current.ExtendedErrorReporting)
+                    {
+                        if (type == ServerErrorType.General && !string.IsNullOrEmpty(details) && !details.Contains("/server-info"))
+                            CrashReporter.LogMessage(details, "DACP Server Error", true);
+                    }
+
                     // The server was previously connected, just try to reconnect
                     ConnectionState = ServerConnectionState.ConnectingToLibrary;
                     _log.Info("Server disconnected, reconnecting...");
