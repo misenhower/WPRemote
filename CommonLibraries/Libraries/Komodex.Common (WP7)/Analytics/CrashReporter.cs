@@ -98,6 +98,13 @@ namespace Komodex.Analytics
 #endif
                     writer.WriteLine();
 
+#if WP7
+                    writer.WriteLine("-> Target OS: WP7");
+#endif
+#if WP8
+                    writer.WriteLine("-> Target OS: WP8");
+#endif
+
                     writer.WriteLine("-> Install date: " + FirstRunNotifier.FirstRunDate);
 
                     // Date and time
