@@ -439,6 +439,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to hide visualizer.
+        /// </summary>
+        public static string HideVisualizerMenuItem {
+            get {
+                return ResourceManager.GetString("HideVisualizerMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to home.
         /// </summary>
         public static string HomePageTitle {
@@ -993,6 +1002,15 @@ namespace Komodex.Remote.Localization {
         public static string SettingsTakeEffectNextRun {
             get {
                 return ResourceManager.GetString("SettingsTakeEffectNextRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to show visualizer.
+        /// </summary>
+        public static string ShowVisualizerMenuItem {
+            get {
+                return ResourceManager.GetString("ShowVisualizerMenuItem", resourceCulture);
             }
         }
         

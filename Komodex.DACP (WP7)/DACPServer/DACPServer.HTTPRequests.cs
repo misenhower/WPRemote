@@ -464,6 +464,18 @@ namespace Komodex.DACP
                     case "cmmk": // Media kind
                         newMediaKind = kvp.Value.GetInt32Value();
                         break;
+                    case "cavs": // dacp.visualizer
+                        VisualizerActive = !(kvp.Value[0] == 0);
+                        break;
+                    case "cave": // dacp.visualizerenabled
+                        VisualizerAvailable = !(kvp.Value[0] == 0);
+                        break;
+                    case "cafs": // dacp.fullscreen
+                        FullScreenModeActive = !(kvp.Value[0] == 0);
+                        break;
+                    case "cafe": // dacp.fullscreenenabled
+                        FullScreenModeAvailable = !(kvp.Value[0] == 0);
+                        break;
                     default:
                         break;
                 }

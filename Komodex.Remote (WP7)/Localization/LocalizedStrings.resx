@@ -552,4 +552,10 @@
   <data name="LibraryNotAvailable" xml:space="preserve">
     <value>Not available</value>
   </data>
+  <data name="HideVisualizerMenuItem" xml:space="preserve">
+    <value>hide visualizer</value>
+  </data>
+  <data name="ShowVisualizerMenuItem" xml:space="preserve">
+    <value>show visualizer</value>
+  </data>
 </root>

@@ -64,7 +64,7 @@ namespace Komodex.Remote.Pages
                 SetArtistBackgroundImage(false);
             }
         }
-        
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
@@ -122,6 +122,11 @@ namespace Komodex.Remote.Pages
 
                 case "CurrentMediaKind":
                     UpdateControlEnabledStates();
+                    break;
+
+                case "VisualizerAvailable":
+                case "VisualizerActive":
+                    UpdateVisualizerButtons();
                     break;
             }
         }
@@ -183,6 +188,9 @@ namespace Komodex.Remote.Pages
 
             if (ShowPlayQueueAppBarMenuItem)
                 AddPlayQueueAppBarMenuItem();
+
+            if (ShowVisualizerAppBarMenuItem)
+                AddVisualizerAppBarMenuItem();
         }
 
         protected void UpdateControlEnabledStates()
@@ -209,6 +217,7 @@ namespace Komodex.Remote.Pages
 
             UpdateAirPlayButtons();
             UpdatePlayQueueButtons();
+            UpdateVisualizerButtons();
         }
 
         #endregion
@@ -235,8 +244,6 @@ namespace Komodex.Remote.Pages
                     break;
             }
         }
-
-       
 
         #endregion
 
@@ -431,6 +438,57 @@ namespace Komodex.Remote.Pages
 
             PlayQueueDialog dialog = new PlayQueueDialog();
             ShowDialog(dialog);
+        }
+
+        #endregion
+
+        #region Visualizer
+
+        protected void UpdateVisualizerButtons()
+        {
+            if (CurrentServer == null)
+                return;
+
+            ShowVisualizerAppBarMenuItem = CurrentServer.VisualizerAvailable;
+            UpdateVisualizerMenuItem();
+        }
+
+        protected void UpdateVisualizerMenuItem()
+        {
+            if (CurrentServer == null || _visualizerMenuItem == null)
+                return;
+
+            _visualizerMenuItem.Text = (CurrentServer.VisualizerActive) ? LocalizedStrings.HideVisualizerMenuItem : LocalizedStrings.ShowVisualizerMenuItem;
+        }
+
+        private bool _showVisualizerAppBarMenuItem;
+        protected bool ShowVisualizerAppBarMenuItem
+        {
+            get { return _showVisualizerAppBarMenuItem; }
+            set
+            {
+                if (_showVisualizerAppBarMenuItem == value)
+                    return;
+
+                _showVisualizerAppBarMenuItem = value;
+                RebuildApplicationBarMenuItems();
+            }
+        }
+
+        ApplicationBarMenuItem _visualizerMenuItem;
+
+        protected void AddVisualizerAppBarMenuItem()
+        {
+            _visualizerMenuItem = AddApplicationBarMenuItem(LocalizedStrings.ShowVisualizerMenuItem, ToggleVisualizer);
+            UpdateVisualizerMenuItem();
+        }
+
+        protected void ToggleVisualizer()
+        {
+            if (CurrentServer == null)
+                return;
+
+            CurrentServer.SendVisualizerCommand(!CurrentServer.VisualizerActive);
         }
 
         #endregion

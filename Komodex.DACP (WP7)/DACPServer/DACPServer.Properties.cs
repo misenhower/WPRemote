@@ -594,6 +594,77 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Visualizer
+
+        private bool _visualizerAvailable;
+        public bool VisualizerAvailable
+        {
+            get { return _visualizerAvailable; }
+            protected set
+            {
+                if (_visualizerAvailable == value)
+                    return;
+
+                _visualizerAvailable = value;
+                PropertyChanged.RaiseOnUIThread(this, "VisualizerAvailable");
+            }
+        }
+
+        private bool _visualizerActive;
+        public bool VisualizerActive
+        {
+            get { return _visualizerActive; }
+            protected set
+            {
+                if (_visualizerActive == value)
+                    return;
+
+                _visualizerActive = value;
+                PropertyChanged.RaiseOnUIThread(this, "VisualizerActive");
+            }
+        }
+
+        public void SendVisualizerCommand(bool showVisualizer)
+        {
+            int state = (showVisualizer) ? 1 : 0;
+            string url = "/ctrl-int/1/setproperty?dacp.visualizer=" + state + "&session-id=" + SessionID;
+            SubmitHTTPRequest(url);
+        }
+
+        #endregion
+
+        #region Full Screen Mode
+
+        private bool _fullScreenModeAvailable;
+        public bool FullScreenModeAvailable
+        {
+            get { return _fullScreenModeAvailable; }
+            protected set
+            {
+                if (_fullScreenModeAvailable == value)
+                    return;
+
+                _fullScreenModeAvailable = value;
+                PropertyChanged.RaiseOnUIThread(this, "FullScreenModeAvailable");
+            }
+        }
+
+        private bool _fullScreenModeActive;
+        public bool FullScreenModeActive
+        {
+            get { return _fullScreenModeActive; }
+            protected set
+            {
+                if (_fullScreenModeActive == value)
+                    return;
+
+                _fullScreenModeActive = value;
+                PropertyChanged.RaiseOnUIThread(this, "FullScreenModeActive");
+            }
+        }
+
+        #endregion
+
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
