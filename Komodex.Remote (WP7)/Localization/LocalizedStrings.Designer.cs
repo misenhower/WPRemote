@@ -844,6 +844,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No upcoming songs..
+        /// </summary>
+        public static string PlayQueueNoUpcomingSongs {
+            get {
+                return ResourceManager.GetString("PlayQueueNoUpcomingSongs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PODCASTS.
         /// </summary>
         public static string PodcastPageTitle {

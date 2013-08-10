@@ -106,6 +106,16 @@
             GroupHeaderTemplate="{StaticResource PlayQueueHeaderTemplate}"
             ItemTemplate="{StaticResource PlayQueueItemTemplate}"
             Tap="PlayQueueList_Tap"
-            />
+            EmptyText="{Binding LocalizedStrings.PlayQueueNoUpcomingSongs, Source={StaticResource LocalizedStrings}}"
+            >
+            <controls:LongListSelectorEx.EmptyTextStyle>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}" />
+                    <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}" />
+                    <Setter Property="Margin" Value="0,48" />
+                    <Setter Property="TextAlignment" Value="Center" />
+                </Style>
+            </controls:LongListSelectorEx.EmptyTextStyle>
+        </controls:LongListSelectorEx>
     </Grid>
 </base:DialogUserControlBase>
