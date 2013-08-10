@@ -772,6 +772,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No libraries have been paired. Tap the &quot;add&quot; button to pair with a new library..
+        /// </summary>
+        public static string NoPairedLibrariesFound {
+            get {
+                return ResourceManager.GetString("NoPairedLibrariesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not connected.
         /// </summary>
         public static string NotConnected {

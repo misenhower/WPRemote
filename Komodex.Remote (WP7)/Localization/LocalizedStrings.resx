@@ -558,4 +558,7 @@
   <data name="ShowVisualizerMenuItem" xml:space="preserve">
     <value>show visualizer</value>
   </data>
+  <data name="NoPairedLibrariesFound" xml:space="preserve">
+    <value>No libraries have been paired. Tap the "add" button to pair with a new library.</value>
+  </data>
 </root>

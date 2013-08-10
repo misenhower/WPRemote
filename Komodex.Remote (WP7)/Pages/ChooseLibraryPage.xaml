@@ -80,6 +80,7 @@
                 x:Name="LibraryList"
                 ItemsSource="{Binding}"
                 ItemTemplate="{StaticResource ServerConnectionInfoTemplate}"
+                EmptyText="{Binding LocalizedStrings.NoPairedLibrariesFound, Source={StaticResource LocalizedStrings}}"
                 Tap="LibraryList_Tap"
                 Style="{StaticResource LibraryListStyle}"
                 />
