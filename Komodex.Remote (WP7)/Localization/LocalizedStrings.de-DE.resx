@@ -121,15 +121,15 @@
     <value>Bibliothek Information</value>
   </data>
   <data name="AboutMenuItem" xml:space="preserve">
-    <value>über</value>
+    <value>Info</value>
     <comment>Text for application bar menu item</comment>
   </data>
   <data name="AboutPageTitle" xml:space="preserve">
-    <value>über</value>
+    <value>Info</value>
     <comment>Text for page title</comment>
   </data>
   <data name="AddAppBarButton" xml:space="preserve">
-    <value>hinzufügen</value>
+    <value>Hinzufügen</value>
     <comment>Used for adding a new iTunes library to the application. Application bar button (needs to be short)</comment>
   </data>
   <data name="AddLibraryButton" xml:space="preserve">
@@ -153,7 +153,7 @@
     <value>Album</value>
   </data>
   <data name="BrowseLibraryAppBarButton" xml:space="preserve">
-    <value>browsen</value>
+    <value>Browsen</value>
     <comment>Button on the application bar (needs to be short)</comment>
   </data>
   <data name="BrowseLibraryButton" xml:space="preserve">
@@ -213,23 +213,23 @@
     <comment>States that the information displayed is from a previous connection attempt</comment>
   </data>
   <data name="GeniusMixBasedOnMusicBy" xml:space="preserve">
-    <value>Basiert auf Musik von:</value>
+    <value>Nach Musik von:</value>
   </data>
   <data name="GeniusMixesListItem" xml:space="preserve">
-    <value>geniale Mixe</value>
+    <value>Genius-Mixe</value>
     <comment>iTunes Genius Mixes feature</comment>
   </data>
   <data name="GeniusMixesPageTitle" xml:space="preserve">
-    <value>geniale Mixe</value>
+    <value>Genius-Mixe</value>
   </data>
   <data name="GenreNoAlbumsFound" xml:space="preserve">
     <value>Es wurden keine Alben für dieses Genre gefunden</value>
   </data>
   <data name="GenreNoArtistsFound" xml:space="preserve">
-    <value>Es wurden keine Künstler für dieses Genre gefunden.</value>
+    <value>Es wurden keine Interpreten für dieses Genre gefunden.</value>
   </data>
   <data name="GenreNoSongsFound" xml:space="preserve">
-    <value>Es wurden keine Songs für dieses Genre gefunden.</value>
+    <value>Es wurden keine Titel für dieses Genre gefunden.</value>
   </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>Home</value>
@@ -239,7 +239,7 @@
     <value>Alben</value>
   </data>
   <data name="LibraryArtistsPivotItem" xml:space="preserve">
-    <value>Künstler</value>
+    <value>Interpreten</value>
   </data>
   <data name="LibraryConnectionErrorBody" xml:space="preserve">
     <value>Konnte nicht mit der Bibliothek verbunden werden. Bitte versichern Sie, dass Ihr Handy mit dem Wi-Fi Netzwerk verbunden ist und überprüfen Sie was in dem Feld für den Hostnamen eingetragen ist.</value>
@@ -256,7 +256,7 @@
     <comment>Title of a message box</comment>
   </data>
   <data name="LibraryGenresPivotItem" xml:space="preserve">
-    <value>Genre</value>
+    <value>Genres</value>
   </data>
   <data name="LibraryHostname" xml:space="preserve">
     <value>Host</value>
@@ -266,13 +266,13 @@
     <value>Es wurden keine Alben in Ihrer Bibliothek gefunden.</value>
   </data>
   <data name="LibraryNoArtistsFound" xml:space="preserve">
-    <value>Es wurden keine Künstler in Ihrer Bibliothek gefunden.</value>
+    <value>Es wurden keine Interpreten in Ihrer Bibliothek gefunden.</value>
   </data>
   <data name="LibraryNoGenresFound" xml:space="preserve">
     <value>Es wurden keine Genre in Ihrer Bibliothek gefunden.</value>
   </data>
   <data name="LibraryNoPlaylistsFound" xml:space="preserve">
-    <value>Es wurden keine Playlists in Ihrer Bibliothek gefunden.</value>
+    <value>Es wurden keine Listen in Ihrer Bibliothek gefunden.</value>
   </data>
   <data name="LibraryNoPodcastsFound" xml:space="preserve">
     <value>Es wurden keine Podcasts in Ihrer Bibliothek gefunden.</value>
@@ -288,13 +288,13 @@
     <value>PIN Fehler</value>
   </data>
   <data name="LibraryPlaylistsPivotItem" xml:space="preserve">
-    <value>Playlisten</value>
+    <value>Listen</value>
   </data>
   <data name="LibraryPodcastsButton" xml:space="preserve">
     <value>Podcasts</value>
   </data>
   <data name="LibrarySongsPivotItem" xml:space="preserve">
-    <value>Songs</value>
+    <value>Titel</value>
   </data>
   <data name="LibraryUSBErrorBody" xml:space="preserve">
     <value>Es konnte keine Verbindung zu Ihrer Bibliothek hergestellt werden. Bitte entfernen Sie das USB Kabel zwischen Ihrem Handy und Ihrem Computer und versuchen Sie es erneut.</value>
@@ -322,14 +322,14 @@
     <comment>This is the label for a slider that controls the master (primary) volume</comment>
   </data>
   <data name="MoreAppBarButton" xml:space="preserve">
-    <value>mehr</value>
+    <value>Mehr</value>
     <comment>This button displays additional library content types (podcasts, videos, etc.). Application bar button (needs to be short).</comment>
   </data>
   <data name="MultipleItems" xml:space="preserve">
-    <value>{0} Artikels</value>
+    <value>{0} Objekte</value>
   </data>
   <data name="NextAppBarButton" xml:space="preserve">
-    <value>nächster</value>
+    <value>Weiter</value>
     <comment>For "next track" button on the application bar (needs to be short)</comment>
   </data>
   <data name="NotConnected" xml:space="preserve">
@@ -337,7 +337,7 @@
     <comment>Library status</comment>
   </data>
   <data name="NowPlayingAppBarButton" xml:space="preserve">
-    <value>spielt jetzt</value>
+    <value>Spielt jetzt</value>
     <comment>Button on the application bar (needs to be short)</comment>
   </data>
   <data name="NowPlayingButton" xml:space="preserve">
@@ -345,10 +345,10 @@
     <comment>Button that shows the user what song is currently playing</comment>
   </data>
   <data name="OneItem" xml:space="preserve">
-    <value>1 Artikel</value>
+    <value>1 Objekt</value>
   </data>
   <data name="PlaylistPageTitle" xml:space="preserve">
-    <value>PLAYLISTEN</value>
+    <value>WIEDERGABELISTEN</value>
   </data>
   <data name="PlayPauseAppBarButton" xml:space="preserve">
     <value>Play/Pause</value>
@@ -361,25 +361,25 @@
     <value>Podcasts</value>
   </data>
   <data name="PreviousAppBarButton" xml:space="preserve">
-    <value>vorheriger</value>
+    <value>Zurück</value>
     <comment>For "previous track" button on the application bar (needs to be short)</comment>
   </data>
   <data name="Protocol" xml:space="preserve">
     <value>Protokoll:</value>
   </data>
   <data name="SaveAppBarButton" xml:space="preserve">
-    <value>speichern</value>
+    <value>Speichern</value>
     <comment>Applicaion bar button (needs to be short)</comment>
   </data>
   <data name="SearchAppBarButton" xml:space="preserve">
-    <value>suchen</value>
+    <value>Suchen</value>
     <comment>Button on the application bar (needs to be short)</comment>
   </data>
   <data name="SearchButton" xml:space="preserve">
     <value>suchen</value>
   </data>
   <data name="SearchMenuItem" xml:space="preserve">
-    <value>suchen</value>
+    <value>Suchen</value>
   </data>
   <data name="SearchPageTitle" xml:space="preserve">
     <value>BIBLIOTHEK DURCHSUCHEN</value>
@@ -388,13 +388,13 @@
     <value>ART DES MEDIUMS AUSWÄHLEN</value>
   </data>
   <data name="SettingsArtistTapAction" xml:space="preserve">
-    <value>Tippe auf den zur Zeit spielenden Künstler um </value>
+    <value>Tippe auf den zur Zeit spielenden Interpreten um </value>
   </data>
   <data name="SettingsArtistTapOpenAlbumPage" xml:space="preserve">
     <value>die Album Seite zu öffnen</value>
   </data>
   <data name="SettingsArtistTapOpenArtistPage" xml:space="preserve">
-    <value>Künstlerseite öffnen</value>
+    <value>Interpretenseite öffnen</value>
   </data>
   <data name="SettingsExtendedErrorReporting" xml:space="preserve">
     <value>Erweiterte Fehlerberichte</value>
@@ -421,7 +421,7 @@
     <value>Shuffle alle</value>
   </data>
   <data name="ShuffleAllSongsMenuItem" xml:space="preserve">
-    <value>Shuffle alle Songs</value>
+    <value>Shuffle alle Titel</value>
   </data>
   <data name="StatusConnectingToLibrary" xml:space="preserve">
     <value>Mit Bibliothek verbinden</value>

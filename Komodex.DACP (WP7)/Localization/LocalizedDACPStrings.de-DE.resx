@@ -118,14 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeniusMixAndOthers" xml:space="preserve">
-    <value>&amp; andere</value>
+    <value>&amp; anderen</value>
     <comment>"Based on music by: x, y, z, &amp; others"</comment>
   </data>
   <data name="MultipleItems" xml:space="preserve">
-    <value>{0} Artikels</value>
+    <value>{0} Objekte</value>
   </data>
   <data name="OneItem" xml:space="preserve">
-    <value>1 Artikel</value>
+    <value>1 Objekt</value>
   </data>
   <data name="PlayStatusPaused" xml:space="preserve">
     <value>auf Pause</value>
@@ -141,24 +141,24 @@
     <comment>Streaming music/video from a network resource (e.g., internet radio station)</comment>
   </data>
   <data name="PodcastEpisodes" xml:space="preserve">
-    <value>Episoden</value>
+    <value>Folgen</value>
   </data>
   <data name="SearchResultsAlbums" xml:space="preserve">
     <value>Alben</value>
   </data>
   <data name="SearchResultsArtists" xml:space="preserve">
-    <value>Künstler</value>
+    <value>Interpreten</value>
   </data>
   <data name="SearchResultsMovies" xml:space="preserve">
     <value>Filme</value>
   </data>
   <data name="SearchResultsPodcasts" xml:space="preserve">
-    <value>Podcast</value>
+    <value>Podcasts</value>
   </data>
   <data name="SearchResultsSongs" xml:space="preserve">
-    <value>Songs</value>
+    <value>Titel</value>
   </data>
   <data name="TVShowEpisodes" xml:space="preserve">
-    <value>Episoden</value>
+    <value>Folgen</value>
   </data>
 </root>
