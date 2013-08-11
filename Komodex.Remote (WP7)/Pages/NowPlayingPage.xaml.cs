@@ -176,8 +176,6 @@ namespace Komodex.Remote.Pages
 
         protected void RebuildApplicationBarMenuItems()
         {
-            // TODO: Visualizer
-
             if (ApplicationBar == null)
                 return;
 

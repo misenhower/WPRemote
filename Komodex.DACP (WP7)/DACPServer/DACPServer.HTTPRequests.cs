@@ -827,7 +827,6 @@ namespace Komodex.DACP
             }
         }
 
-        // TODO: Make this private/protected and automatic based on play status updater
         protected void SubmitPlayQueueRequest()
         {
             if (!SupportsPlayQueue)
