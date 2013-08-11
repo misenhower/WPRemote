@@ -570,4 +570,7 @@
   <data name="WiFiSettingsButton" xml:space="preserve">
     <value>WLAN-Einstellungen</value>
   </data>
+  <data name="StatusLookingForLibrary" xml:space="preserve">
+    <value>Nach Bibliothek suchen</value>
+  </data>
 </root>

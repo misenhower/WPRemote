@@ -1078,6 +1078,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Looking for Library.
+        /// </summary>
+        public static string StatusLookingForLibrary {
+            get {
+                return ResourceManager.GetString("StatusLookingForLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tap &quot;Choose Library&quot; to select or add a new library..
         /// </summary>
         public static string StatusTapChooseLibrary {
