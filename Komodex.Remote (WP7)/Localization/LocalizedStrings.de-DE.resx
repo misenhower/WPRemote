@@ -491,4 +491,83 @@
   <data name="WaitingForWiFiConnection" xml:space="preserve">
     <value>Warte auf WLAN-Verbindung...</value>
   </data>
+  <data name="WiFiSettingsDialogButton" xml:space="preserve">
+    <value>WLAN-Einstellungen</value>
+  </data>
+  <data name="AddLibraryDialogDescription" xml:space="preserve">
+    <value>Um eine Bibliothek hinzuzufügen, öffnen Sie iTunes auf Ihrem Computer und wählen Sie „Windows Phone 8 Device“ in der Geräteliste aus.</value>
+  </data>
+  <data name="AddLibraryDialogEnterPIN" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="AddLibraryDialogPasscode" xml:space="preserve">
+    <value>Code</value>
+    <comment>Refers to a 4-digit passcode or PIN used to complete pairing</comment>
+  </data>
+  <data name="AddLibraryDialogTitle" xml:space="preserve">
+    <value>Bibliothek hinzufügen</value>
+  </data>
+  <data name="AddLibraryDialogWaitingForPairing" xml:space="preserve">
+    <value>Warten für verknüpfen...</value>
+  </data>
+  <data name="AddToUpNextMenuItem" xml:space="preserve">
+    <value>Zu „Nächstes“ hinzufügen</value>
+    <comment>Adds a song to the end of the "up next"queue.</comment>
+  </data>
+  <data name="CancelDialogButton" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ConnectDialogButton" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="DeleteMenuItem" xml:space="preserve">
+    <value>Löschen</value>
+    <comment>Used for deleting a paired library.</comment>
+  </data>
+  <data name="LibraryCouldNotBeLocated" xml:space="preserve">
+    <value>The selected library could not be located. Make sure iTunes (or another compatible application) is running on your computer and try again.</value>
+  </data>
+  <data name="LibraryLabel" xml:space="preserve">
+    <value>Bibliothek</value>
+    <comment>Label for a box where you can select from available iTunes libraries.</comment>
+  </data>
+  <data name="ManualPairingMenuItem" xml:space="preserve">
+    <value>Manuelle Verknüpfung</value>
+    <comment>Menu item for manually pairing with iTunes.</comment>
+  </data>
+  <data name="PlayNextMenuItem" xml:space="preserve">
+    <value>Nächster Titel</value>
+    <comment>Adds a song to the beginning of the "up next" queue.</comment>
+  </data>
+  <data name="UpNextMenuItem" xml:space="preserve">
+    <value>Nächste Titel</value>
+    <comment>The iTunes "up next" queue of songs.</comment>
+  </data>
+  <data name="AddALibraryButton" xml:space="preserve">
+    <value>Bibliothek hinzufügen</value>
+  </data>
+  <data name="LibraryAvailable" xml:space="preserve">
+    <value>Verfügbar</value>
+  </data>
+  <data name="LibraryNotAvailable" xml:space="preserve">
+    <value>Nicht verfügbar</value>
+  </data>
+  <data name="HideVisualizerMenuItem" xml:space="preserve">
+    <value>Visuelle Effekte ausblenden</value>
+  </data>
+  <data name="ShowVisualizerMenuItem" xml:space="preserve">
+    <value>Visuelle Effekte einblenden</value>
+  </data>
+  <data name="NoPairedLibrariesFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PlayQueueNoUpcomingSongs" xml:space="preserve">
+    <value>Keine abzuspielenden Titel.</value>
+  </data>
+  <data name="ConnectingToLibrary" xml:space="preserve">
+    <value>Mit Bibliothek verbinden...</value>
+  </data>
+  <data name="WiFiSettingsButton" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
 </root>
