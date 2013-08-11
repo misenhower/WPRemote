@@ -54,18 +54,18 @@ namespace Komodex.Remote.Controls
                 if (_server != null)
                 {
                     wizard.SetSelectedItem(wizardItemConnecting, useTransitions);
-                    leftButton.Content = LocalizedStrings.CancelButtonLower;
+                    leftButton.Content = LocalizedStrings.CancelDialogButton;
                 }
                 else
                 {
                     wizard.SetSelectedItem(wizardItemHostnamePIN, useTransitions);
-                    leftButton.Content = LocalizedStrings.ConnectButton;
+                    leftButton.Content = LocalizedStrings.ConnectDialogButton;
                 }
             }
             else
             {
                 wizard.SetSelectedItem(wizardItemWiFi, useTransitions);
-                leftButton.Content = LocalizedStrings.WiFiSettingsButton;
+                leftButton.Content = LocalizedStrings.WiFiSettingsDialogButton;
             }
 
             UpdateButtonEnabledState();

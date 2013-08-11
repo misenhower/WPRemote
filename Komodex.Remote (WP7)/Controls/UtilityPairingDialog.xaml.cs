@@ -71,23 +71,23 @@ namespace Komodex.Remote.Controls
                 if (_server != null)
                 {
                     wizard.SetSelectedItem(wizardItemConnecting, useTransitions);
-                    leftButton.Content = LocalizedStrings.CancelButtonLower;
+                    leftButton.Content = LocalizedStrings.CancelDialogButton;
                 }
                 else if (ManualPairingManager.DiscoveredPairingUtilities.Count > 0)
                 {
                     wizard.SetSelectedItem(wizardItemEnterPIN, useTransitions);
-                    leftButton.Content = LocalizedStrings.ConnectButton;
+                    leftButton.Content = LocalizedStrings.ConnectDialogButton;
                 }
                 else
                 {
                     wizard.SetSelectedItem(wizardItemWaitingForUtility, useTransitions);
-                    leftButton.Content = LocalizedStrings.CancelButtonLower;
+                    leftButton.Content = LocalizedStrings.CancelDialogButton;
                 }
             }
             else
             {
                 wizard.SetSelectedItem(wizardItemWiFi, useTransitions);
-                leftButton.Content = LocalizedStrings.WiFiSettingsButton;
+                leftButton.Content = LocalizedStrings.WiFiSettingsDialogButton;
             }
 
             UpdateButtonEnabledState();

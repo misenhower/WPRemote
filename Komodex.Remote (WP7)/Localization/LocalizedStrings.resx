@@ -491,7 +491,7 @@
   <data name="WaitingForWiFiConnection" xml:space="preserve">
     <value>Waiting for Wi-Fi connection...</value>
   </data>
-  <data name="WiFiSettingsButton" xml:space="preserve">
+  <data name="WiFiSettingsDialogButton" xml:space="preserve">
     <value>wi-fi settings</value>
   </data>
   <data name="AddLibraryDialogDescription" xml:space="preserve">
@@ -514,10 +514,10 @@
     <value>add to up next</value>
     <comment>Adds a song to the end of the "up next"queue.</comment>
   </data>
-  <data name="CancelButtonLower" xml:space="preserve">
+  <data name="CancelDialogButton" xml:space="preserve">
     <value>cancel</value>
   </data>
-  <data name="ConnectButton" xml:space="preserve">
+  <data name="ConnectDialogButton" xml:space="preserve">
     <value>connect</value>
   </data>
   <data name="DeleteMenuItem" xml:space="preserve">
@@ -563,5 +563,8 @@
   </data>
   <data name="PlayQueueNoUpcomingSongs" xml:space="preserve">
     <value>No upcoming songs.</value>
+  </data>
+  <data name="WiFiSettingsButton" xml:space="preserve">
+    <value>Wi-Fi Settings</value>
   </data>
 </root>

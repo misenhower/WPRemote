@@ -53,12 +53,12 @@ namespace Komodex.Remote.Controls
             if (NetworkManager.IsLocalNetworkAvailable)
             {
                 wizard.SetSelectedItem(wizardItemPasscode, useTransitions);
-                leftButton.Content = LocalizedStrings.CancelButtonLower;
+                leftButton.Content = LocalizedStrings.CancelDialogButton;
             }
             else
             {
                 wizard.SetSelectedItem(wizardItemWiFi, useTransitions);
-                leftButton.Content = LocalizedStrings.WiFiSettingsButton;
+                leftButton.Content = LocalizedStrings.WiFiSettingsDialogButton;
             }
         }
 

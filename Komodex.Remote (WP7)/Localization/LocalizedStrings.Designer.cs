@@ -261,9 +261,9 @@ namespace Komodex.Remote.Localization {
         /// <summary>
         ///   Looks up a localized string similar to cancel.
         /// </summary>
-        public static string CancelButtonLower {
+        public static string CancelDialogButton {
             get {
-                return ResourceManager.GetString("CancelButtonLower", resourceCulture);
+                return ResourceManager.GetString("CancelDialogButton", resourceCulture);
             }
         }
         
@@ -297,9 +297,9 @@ namespace Komodex.Remote.Localization {
         /// <summary>
         ///   Looks up a localized string similar to connect.
         /// </summary>
-        public static string ConnectButton {
+        public static string ConnectDialogButton {
             get {
-                return ResourceManager.GetString("ConnectButton", resourceCulture);
+                return ResourceManager.GetString("ConnectDialogButton", resourceCulture);
             }
         }
         
@@ -1267,11 +1267,20 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wi-fi settings.
+        ///   Looks up a localized string similar to Wi-Fi Settings.
         /// </summary>
         public static string WiFiSettingsButton {
             get {
                 return ResourceManager.GetString("WiFiSettingsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to wi-fi settings.
+        /// </summary>
+        public static string WiFiSettingsDialogButton {
+            get {
+                return ResourceManager.GetString("WiFiSettingsDialogButton", resourceCulture);
             }
         }
     }
