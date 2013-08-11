@@ -564,6 +564,9 @@
   <data name="PlayQueueNoUpcomingSongs" xml:space="preserve">
     <value>No upcoming songs.</value>
   </data>
+  <data name="ConnectingToLibrary" xml:space="preserve">
+    <value>Connecting to library...</value>
+  </data>
   <data name="WiFiSettingsButton" xml:space="preserve">
     <value>Wi-Fi Settings</value>
   </data>

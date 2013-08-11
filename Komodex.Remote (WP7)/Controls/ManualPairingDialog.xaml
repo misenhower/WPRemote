@@ -69,7 +69,7 @@
                     <controls:WizardItem x:Name="wizardItemConnecting">
                         <StackPanel VerticalAlignment="Center">
                             <controls:PerformanceProgressBar IsIndeterminate="{Binding IsVisible, ElementName=wizardItemConnecting}" Margin="-12,0" />
-                            <TextBlock Text="{Binding LocalizedStrings.StatusConnectingToLibrary, Source={StaticResource LocalizedStrings}}"
+                            <TextBlock Text="{Binding LocalizedStrings.ConnectingToLibrary, Source={StaticResource LocalizedStrings}}"
                                        HorizontalAlignment="Center"
                                        />
                         </StackPanel>

@@ -304,6 +304,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connecting to library....
+        /// </summary>
+        public static string ConnectingToLibrary {
+            get {
+                return ResourceManager.GetString("ConnectingToLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [Contact us] for support and feedback.
         /// </summary>
         public static string ContactUs {
