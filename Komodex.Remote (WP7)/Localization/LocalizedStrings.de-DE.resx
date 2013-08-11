@@ -492,7 +492,7 @@
     <value>Warte auf WLAN-Verbindung...</value>
   </data>
   <data name="WiFiSettingsDialogButton" xml:space="preserve">
-    <value>WLAN-Einstellungen</value>
+    <value>Einstellungen</value>
   </data>
   <data name="AddLibraryDialogDescription" xml:space="preserve">
     <value>Um eine Bibliothek hinzuzufügen, öffnen Sie iTunes auf Ihrem Computer und wählen Sie „Windows Phone 8 Device“ in der Geräteliste aus.</value>
@@ -568,6 +568,6 @@
     <value>Mit Bibliothek verbinden...</value>
   </data>
   <data name="WiFiSettingsButton" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>WLAN-Einstellungen</value>
   </data>
 </root>
