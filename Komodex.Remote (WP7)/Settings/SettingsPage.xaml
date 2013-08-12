@@ -86,6 +86,7 @@
                     
                     <!-- Extended error reporting -->
                     <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsExtendedErrorReporting, Source={StaticResource LocalizedStrings}}"
+                                          Visibility="Collapsed"
                                           Margin="0,36,0,0"
                                           IsChecked="{Binding ExtendedErrorReporting, Mode=TwoWay}"
                                           CacheMode="BitmapCache"

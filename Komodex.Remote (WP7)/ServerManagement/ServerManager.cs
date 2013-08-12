@@ -335,7 +335,14 @@ namespace Komodex.Remote.ServerManagement
                 if (ConnectionState == ServerConnectionState.Connected)
                 {
                     // Report the error
-                    if (SettingsManager.Current.ExtendedErrorReporting)
+                    bool reportError = SettingsManager.Current.ExtendedErrorReporting;
+                    // Disable error reporting for now
+                    reportError = false;
+#if DEBUG
+                    // Always report errors in debug builds
+                    reportError = true;
+#endif
+                    if (reportError)
                     {
                         if (type == ServerErrorType.General && !string.IsNullOrEmpty(details) && !details.Contains("/server-info"))
                             CrashReporter.LogMessage(details, "DACP Server Error", true);
