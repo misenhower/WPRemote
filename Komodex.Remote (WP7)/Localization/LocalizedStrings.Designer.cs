@@ -115,7 +115,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To add a library, open iTunes (or another compatible application) on your computer and select &amp;quot;Windows Phone 8 Device&amp;quot; from the Devices list..
+        ///   Looks up a localized string similar to To add a library, open iTunes (or another compatible application) on your computer and select &quot;Windows Phone 8 Device&quot; from the Devices list..
         /// </summary>
         public static string AddLibraryDialogDescription {
             get {

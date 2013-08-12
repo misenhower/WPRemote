@@ -495,7 +495,7 @@
     <value>wi-fi settings</value>
   </data>
   <data name="AddLibraryDialogDescription" xml:space="preserve">
-    <value>To add a library, open iTunes (or another compatible application) on your computer and select &amp;quot;Windows Phone 8 Device&amp;quot; from the Devices list.</value>
+    <value>To add a library, open iTunes (or another compatible application) on your computer and select "Windows Phone 8 Device" from the Devices list.</value>
   </data>
   <data name="AddLibraryDialogEnterPIN" xml:space="preserve">
     <value>enter pin</value>
