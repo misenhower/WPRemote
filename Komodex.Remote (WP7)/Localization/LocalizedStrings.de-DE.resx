@@ -573,4 +573,7 @@
   <data name="StatusLookingForLibrary" xml:space="preserve">
     <value>Nach Bibliothek suchen</value>
   </data>
+  <data name="SettingsShowArtistBackgroundImages" xml:space="preserve">
+    <value>Interpreten Hintergrundbildern einblenden</value>
+  </data>
 </root>

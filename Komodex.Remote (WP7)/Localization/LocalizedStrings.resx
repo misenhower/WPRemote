@@ -573,4 +573,7 @@
   <data name="StatusLookingForLibrary" xml:space="preserve">
     <value>Looking for Library</value>
   </data>
+  <data name="SettingsShowArtistBackgroundImages" xml:space="preserve">
+    <value>Show artist background images</value>
+  </data>
 </root>

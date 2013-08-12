@@ -45,7 +45,7 @@
             <ScrollViewer>
                 <StackPanel Margin="0,0,12,0">
                     <!-- Artist background images -->
-                    <toolkit:ToggleSwitch Header="Show artist background images"
+                    <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsShowArtistBackgroundImages, Source={StaticResource LocalizedStrings}}"
                                           HeaderTemplate="{StaticResource WrappingHeaderTemplate}"
                                           IsChecked="{Binding ShowArtistBackgroundImages, Mode=TwoWay}"
                                           CacheMode="BitmapCache"

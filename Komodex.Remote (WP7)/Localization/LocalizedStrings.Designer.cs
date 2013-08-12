@@ -1006,6 +1006,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show artist background images.
+        /// </summary>
+        public static string SettingsShowArtistBackgroundImages {
+            get {
+                return ResourceManager.GetString("SettingsShowArtistBackgroundImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Staying connected to your library while the phone is locked will make resuming from the lock screen faster but may use more battery..
         /// </summary>
         public static string SettingsStayConnectedDescription {
