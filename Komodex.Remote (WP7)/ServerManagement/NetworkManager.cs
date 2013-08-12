@@ -31,24 +31,21 @@ namespace Komodex.Remote.ServerManagement
             PhoneApplicationService.Current.Launching += (sender, e) => UpdateNetworkAvailability();
             PhoneApplicationService.Current.Activated += (sender, e) => UpdateNetworkAvailability();
 #endif
-            PhoneApplicationService.Current.Deactivated += (sender, e) => IsLocalNetworkAvailable = false;
-            PhoneApplicationService.Current.Closing += (sender, e) => IsLocalNetworkAvailable = false;
+            PhoneApplicationService.Current.Deactivated += (sender, e) => SetLocalNetworkAvailability(false, true);
+            PhoneApplicationService.Current.Closing += (sender, e) => SetLocalNetworkAvailability(false, true);
         }
 
-        private static bool _isLocalNetworkAvailable;
-        public static bool IsLocalNetworkAvailable
+        public static bool IsLocalNetworkAvailable { get; private set; }
+
+        private static void SetLocalNetworkAvailability(bool networkAvailable, bool shuttingDown)
         {
-            get { return _isLocalNetworkAvailable; }
-            private set
-            {
-                if (_isLocalNetworkAvailable == value)
-                    return;
+            if (IsLocalNetworkAvailable == networkAvailable)
+                return;
 
-                _log.Info("Local network available: " + value);
+            _log.Info("Local network available: " + networkAvailable + ((shuttingDown) ? " (Shutting down)" : ""));
 
-                _isLocalNetworkAvailable = value;
-                NetworkAvailabilityChanged.Raise(null, new NetworkAvailabilityChangedEventArgs(IsLocalNetworkAvailable));
-            }
+            IsLocalNetworkAvailable = networkAvailable;
+            NetworkAvailabilityChanged.Raise(null, new NetworkAvailabilityChangedEventArgs(IsLocalNetworkAvailable, shuttingDown));
         }
 
         private static void UpdateNetworkAvailability()
@@ -58,7 +55,7 @@ namespace Komodex.Remote.ServerManagement
             if (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator)
             {
                 _log.Info("Running in emulator, so assuming network is available...");
-                IsLocalNetworkAvailable = true;
+                SetLocalNetworkAvailability(true, false);
                 return;
             }
 
@@ -77,23 +74,25 @@ namespace Komodex.Remote.ServerManagement
                 }
 #endif
 
-                IsLocalNetworkAvailable = interfaces.Any(i => i.InterfaceState == ConnectState.Connected && i.InterfaceType == NetworkInterfaceType.Wireless80211);
-
+                bool networkAvailable = interfaces.Any(i => i.InterfaceState == ConnectState.Connected && i.InterfaceType == NetworkInterfaceType.Wireless80211);
+                SetLocalNetworkAvailability(networkAvailable, false);
             }
             else
             {
-                IsLocalNetworkAvailable = false;
+                SetLocalNetworkAvailability(false, false);
             }
         }
     }
 
     public class NetworkAvailabilityChangedEventArgs : EventArgs
     {
-        public NetworkAvailabilityChangedEventArgs(bool isLocalNetworkAvailable)
+        public NetworkAvailabilityChangedEventArgs(bool isLocalNetworkAvailable, bool shuttingDown)
         {
             IsLocalNetworkAvailable = isLocalNetworkAvailable;
+            ShuttingDown = shuttingDown;
         }
 
         public bool IsLocalNetworkAvailable { get; protected set; }
+        public bool ShuttingDown { get; protected set; }
     }
 }

@@ -221,8 +221,21 @@ namespace Komodex.Remote.Pairing
             }
             else
             {
-                _pairingService.Stop();
                 _httpServer.Stop();
+
+                // If the application is shutting down or suspending, wait a few seconds so the "stop publishing" messages can be sent
+                if (e.ShuttingDown)
+                {
+                    ThreadUtility.RunOnBackgroundThread(() => _pairingService.Stop());
+
+                    _log.Info("Delaying shutdown so the pairing service can be unpublished...");
+                    ThreadUtility.Delay(4000);
+                    _log.Info("Delay complete.");
+                }
+                else
+                {
+                    _pairingService.Stop();
+                }
             }
         }
 
