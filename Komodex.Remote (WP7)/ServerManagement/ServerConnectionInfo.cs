@@ -55,22 +55,10 @@ namespace Komodex.Remote.ServerManagement
             }
         }
 
-        private string _lastHostname;
         /// <summary>
         /// Gets or sets the last known hostname, e.g., "mycomputer.local."
         /// </summary>
-        public string LastHostname
-        {
-            get { return _lastHostname; }
-            set
-            {
-                if (_lastHostname == value)
-                    return;
-
-                _lastHostname = value;
-                PropertyChanged.RaiseOnUIThread(this, "LastHostname");
-            }
-        }
+        public string LastHostname { get; set; }
 
         /// <summary>
         /// Gets or sets the last known IP address, e.g., "10.0.0.1"
