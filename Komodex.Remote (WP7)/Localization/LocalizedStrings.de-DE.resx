@@ -450,7 +450,7 @@
     <value>Es wurden keine TV Shows in Ihrer Bibliothek gefunden.</value>
   </data>
   <data name="VideosTVShowsPivotItem" xml:space="preserve">
-    <value>TV Shows</value>
+    <value>TV-Sendungen</value>
   </data>
   <data name="TrialReminderExpiredContent" xml:space="preserve">
     <value>Ihre Demoversion ist abgelaufen.</value>
