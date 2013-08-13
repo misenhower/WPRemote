@@ -104,8 +104,8 @@ namespace Komodex.DACP
             }
         }
 
-        private GroupedItems<VideoMediaItem> _LibraryTVShows = null;
-        public GroupedItems<VideoMediaItem> LibraryTVShows
+        private List<GroupItems<VideoMediaItem>> _LibraryTVShows = null;
+        public List<GroupItems<VideoMediaItem>> LibraryTVShows
         {
             get { return _LibraryTVShows; }
             protected set
@@ -389,7 +389,6 @@ namespace Komodex.DACP
                 + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdisabled,com.apple.itunes.mediakind,daap.songtime,daap.songhasbeenplayed,daap.songdatereleased,daap.songdateadded,com.apple.itunes.series-name,daap.sortartist,daap.songalbum,com.apple.itunes.season-num,com.apple.itunes.episode-sort,com.apple.itunes.is-hd-video"
                 + "&type=music"
                 + "&sort=album"
-                + "&include-sort-headers=1"
                 + "&query='com.apple.itunes.mediakind:64'"
                 + "&session-id=" + SessionID;
             SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessTVShowsResponse), true);
@@ -397,7 +396,38 @@ namespace Komodex.DACP
 
         protected void ProcessTVShowsResponse(HTTPRequestInfo requestInfo)
         {
-            LibraryTVShows = GroupedItems<VideoMediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new VideoMediaItem(this, bytes));
+            List<GroupItems<VideoMediaItem>> result = new List<GroupItems<VideoMediaItem>>();
+
+            Dictionary<string, GroupItems<VideoMediaItem>> groupsByKey = new Dictionary<string, GroupItems<VideoMediaItem>>();
+
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch(kvp.Key)
+                {
+                    case "mlcl":
+                        var itemNodes = DACPUtility.GetResponseNodes(kvp.Value);
+                        foreach (var itemData in itemNodes)
+                        {
+                            // Parse the media item
+                            var mediaItem = new VideoMediaItem(this, itemData.Value);
+
+                            // Get the group for this show or create a new group
+                            var group = groupsByKey.GetValueOrDefault(mediaItem.ShowName);
+                            if (group == null)
+                            {
+                                group = new GroupItems<VideoMediaItem>(mediaItem.ShowName);
+                                result.Add(group);
+                                groupsByKey[mediaItem.ShowName] = group;
+                            }
+
+                            // Add the media item to the group
+                            group.Add(mediaItem);
+                        }
+                        break;
+                }
+            }
+
+            LibraryTVShows = result;
 
             retrievingTVShows = false;
         }
