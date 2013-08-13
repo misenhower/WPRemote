@@ -30,7 +30,8 @@ namespace Komodex.DACP
             {
                 string code = Encoding.UTF8.GetString(data, location, 4);
                 int length = BitConverter.ToInt32(data, location + 4).SwapBits();
-                byte[] nodeBody = data.Skip(location + 8).Take(length).ToArray();
+                byte[] nodeBody = new byte[length];
+                Buffer.BlockCopy(data, location + 8, nodeBody, 0, length);
 
                 result.Add(new KeyValuePair<string, byte[]>(code, nodeBody));
 
