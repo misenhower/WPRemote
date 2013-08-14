@@ -114,6 +114,9 @@ namespace Komodex.Remote.LibraryPages
 
         private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            if (CurrentServer == null)
+                return;
+
             LongListSelector listBox = (LongListSelector)sender;
 
             object selectedItem = listBox.SelectedItem;
@@ -142,16 +145,20 @@ namespace Komodex.Remote.LibraryPages
                 SearchResultSet resultSet = searchResults.FirstOrDefault(rs => rs.Contains(mediaItem));
                 if (resultSet != null)
                 {
-                    if (resultSet.Type == SearchResultsType.Songs)
+                    switch (resultSet.Type)
                     {
-                        if (CurrentServer.SupportsPlayQueue)
-                            mediaItem.SendPlayQueueCommand();
-                        else
-                            resultSet.SendPlayItemCommand(mediaItem);
+                        case SearchResultsType.Songs:
+                            if (CurrentServer.SupportsPlayQueue)
+                                mediaItem.SendPlayQueueCommand();
+                            else
+                                resultSet.SendPlayItemCommand(mediaItem);
+                            break;
+
+                        case SearchResultsType.Movies:
+                            mediaItem.SendPlayMediaItemCommand(CurrentServer.MoviesPlaylist);
+                            break;
                     }
-                    else
-                        mediaItem.SendPlayMediaItemCommand();
-                    
+
                     listBox.SelectedItem = null;
                     NavigationManager.OpenNowPlayingPage();
                 }

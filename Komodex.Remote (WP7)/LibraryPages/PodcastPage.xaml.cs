@@ -77,13 +77,16 @@ namespace Komodex.Remote.LibraryPages
 
         private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            if (CurrentServer == null)
+                return;
+
             LongListSelector listBox = (LongListSelector)sender;
             var selectedItem = listBox.SelectedItem;
 
             if (selectedItem is MediaItem)
             {
                 MediaItem episode = (MediaItem)selectedItem;
-                episode.SendPlayMediaItemCommand();
+                episode.SendPlayMediaItemCommand(CurrentServer.PodcastsPlaylist);
                 NavigationManager.OpenNowPlayingPage();
             }
 

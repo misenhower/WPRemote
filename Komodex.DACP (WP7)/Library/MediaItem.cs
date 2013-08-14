@@ -118,15 +118,18 @@ namespace Komodex.DACP.Library
         /// This method should only be used for playing a single, specific media item (such as a video).
         /// The methods in the Artist and Album classes should be used for songs so the necessary playlist is generated.
         /// </summary>
-        public void SendPlayMediaItemCommand()
+        public void SendPlayMediaItemCommand(Playlist basePlaylist)
         {
             // TODO: In the iPhone Remote app, the specific playlist persistent id is sent for the container spec rather
             // than the base playlist persistent id.  (For example, the Movies special playlist ID would be sent.)
             // Sending the base playlist ID seems to work but this may require further attention in the future.
 
+            if (basePlaylist == null)
+                basePlaylist = Server.BasePlaylist;
+
             string url = "/ctrl-int/1/playspec"
                 + "?database-spec='dmap.persistentid:0x" + Server.DatabasePersistentID.ToString("x16") + "'"
-                + "&container-spec='dmap.persistentid:0x" + Server.BasePlaylist.PersistentID.ToString("x16") + "'"
+                + "&container-spec='dmap.persistentid:0x" + basePlaylist.PersistentID.ToString("x16") + "'"
                 + "&item-spec='dmap.itemid:0x" + ID.ToString("x8") + "'"
                 + "&session-id=" + Server.SessionID;
 

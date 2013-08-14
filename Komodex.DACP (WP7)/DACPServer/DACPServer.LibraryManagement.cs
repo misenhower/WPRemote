@@ -25,6 +25,9 @@ namespace Komodex.DACP
         public UInt64 ServiceID { get; protected set; }
         public Playlist BasePlaylist { get; protected set; }
         public Playlist MusicPlaylist { get; protected set; }
+        public Playlist MoviesPlaylist { get; protected set; }
+        public Playlist TVShowsPlaylist { get; protected set; }
+        public Playlist PodcastsPlaylist { get; protected set; }
 
         private List<Playlist> _LibraryPlaylists = null;
         public List<Playlist> LibraryPlaylists
@@ -218,6 +221,18 @@ namespace Komodex.DACP
                                 {
                                     case 0: // Standard playlist
                                         playlists.Add(pl);
+                                        break;
+
+                                    case 1: // Podcasts
+                                        PodcastsPlaylist = pl;
+                                        break;
+
+                                    case 4: // Movies
+                                        MoviesPlaylist = pl;
+                                        break;
+
+                                    case 5: // TV Shows
+                                        TVShowsPlaylist = pl;
                                         break;
 
                                     case 6: // Music Playlist

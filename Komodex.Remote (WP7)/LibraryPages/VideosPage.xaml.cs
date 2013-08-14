@@ -76,13 +76,22 @@ namespace Komodex.Remote.LibraryPages
 
         private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            if (CurrentServer == null)
+                return;
+
             LongListSelector listBox = (LongListSelector)sender;
             var selectedItem = listBox.SelectedItem;
+
+            Playlist basePlaylist = null;
+            if (listBox == lbMovies)
+                basePlaylist = CurrentServer.MoviesPlaylist;
+            else if (listBox == lbTVShows)
+                basePlaylist = CurrentServer.TVShowsPlaylist;
 
             if (selectedItem is MediaItem)
             {
                 MediaItem movie = (MediaItem)selectedItem;
-                movie.SendPlayMediaItemCommand();
+                movie.SendPlayMediaItemCommand(basePlaylist);
                 NavigationManager.OpenNowPlayingPage();
             }
         }
