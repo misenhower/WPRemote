@@ -52,9 +52,9 @@
                         ItemsSource="{Binding LibraryTVShows}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.VideosNoTVShowsFound, Source={StaticResource LocalizedStrings}}"
-                        Style="{StaticResource LibraryListStyle}"
+                        Style="{StaticResource WideHeaderListStyle}"
                         Tap="LongListSelector_Tap"
-                        ItemTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}"
+                        ItemTemplate="{StaticResource AlbumArtSmallItemTemplate}"
                         />
                 </Grid>
             </controls:PivotItem>

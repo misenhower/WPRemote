@@ -51,7 +51,13 @@
     <DataTemplate x:Key="WideGroupHeaderTemplate">
         <my:FakeButton Margin="0,0,0,6">
             <Border Background="Transparent">
-                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextBlockBase}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource PhoneAccentBrush}" />
+                <TextBlock Text="{Binding Key}"
+                           Style="{StaticResource PhoneTextBlockBase}"
+                           FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                           FontSize="{StaticResource PhoneFontSizeLarge}"
+                           Margin="{StaticResource ListItemTextMargin}"
+                           Foreground="{StaticResource PhoneAccentBrush}"
+                           />
             </Border>
         </my:FakeButton>
     </DataTemplate>
@@ -81,7 +87,7 @@
     </Style>
     
     <!-- Search Results Style -->
-    <Style x:Key="SearchResultsListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
+    <Style x:Key="WideHeaderListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
         <Setter Property="GroupHeaderTemplate" Value="{StaticResource WideGroupHeaderTemplate}" />
         <Setter Property="JumpListStyle" Value="{StaticResource WideJumpListTemplate}" />
     </Style>
