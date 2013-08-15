@@ -28,9 +28,10 @@ namespace Komodex.Remote.Controls
 
 #if WP7
             PlayPositionProgressBar.Background = Resources["PhoneForegroundBrush"] as Brush;
-#endif
 
-#if WP7
+            // Disabling the WP7 listbox focus fix to prevent issues with speaker checkboxes and buttons.
+            SpeakerList.PreventFocus = false;
+
             SpeakerList.Link += SpeakerList_Link;
             SpeakerList.Unlink += SpeakerList_Unlink;
 #else
