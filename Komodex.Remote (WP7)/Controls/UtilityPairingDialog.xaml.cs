@@ -25,6 +25,7 @@ namespace Komodex.Remote.Controls
 
         protected DACPServer _server;
         protected NetService _libraryService;
+        protected DiscoveredPairingUtility _currentUtility;
 
         public UtilityPairingDialog()
         {
@@ -177,11 +178,11 @@ namespace Komodex.Remote.Controls
             if (!IsPINValid())
                 return;
 
-            DiscoveredPairingUtility utility = libraryPicker.SelectedItem as DiscoveredPairingUtility;
-            if (utility == null)
+            _currentUtility = libraryPicker.SelectedItem as DiscoveredPairingUtility;
+            if (_currentUtility == null)
                 return;
 
-            string serviceID = utility.ServiceID;
+            string serviceID = _currentUtility.ServiceID;
             if (!BonjourManager.DiscoveredServers.ContainsKey(serviceID))
             {
                 MessageBox.Show(LocalizedStrings.LibraryCouldNotBeLocated, LocalizedStrings.LibraryConnectionErrorTitle, MessageBoxButton.OK);
@@ -215,6 +216,10 @@ namespace Komodex.Remote.Controls
                     case ServerUpdateType.ServerConnected:
                         _log.Info("Successfully connected to server at {0}:{1}", _server.Hostname, _server.Port);
                         _server.ServerUpdate -= DACPServer_ServerUpdate;
+
+                        // Notify the pairing utility so it can close
+                        if (_currentUtility != null)
+                            _currentUtility.SendPairedNotification(_server.PairingCode);
 
                         // Save the server connection info
                         ServerConnectionInfo info = new ServerConnectionInfo();
