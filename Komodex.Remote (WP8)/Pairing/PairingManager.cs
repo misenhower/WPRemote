@@ -177,7 +177,7 @@ namespace Komodex.Remote.Pairing
                 response.Body.Write(responseBytes, 0, responseBytes.Length);
                 await e.Request.SendResponse(response);
 
-                // Save server conenction info
+                // Save server connection info
                 ServerConnectionInfo info = new ServerConnectionInfo();
                 info.ServiceID = servicename;
                 info.PairingCode = pairingCode.ToString("X16");
