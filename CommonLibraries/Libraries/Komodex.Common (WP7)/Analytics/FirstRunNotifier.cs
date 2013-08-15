@@ -1,6 +1,7 @@
 ﻿using Komodex.Common;
 using System;
 using System.Net;
+using System.Windows;
 
 namespace Komodex.Analytics
 {
@@ -116,6 +117,14 @@ namespace Komodex.Analytics
             // Previous version
             if (version != previousVersion && !string.IsNullOrEmpty(previousVersion))
                 request += "&pv=" + previousVersion;
+
+#if WP7
+            request += "&dt=WP7";
+#endif
+#if WP8
+            request += "&dt=WP8";
+            request += "&sf=" + Application.Current.Host.Content.ScaleFactor;
+#endif
 
 #if WINDOWS_PHONE
             // Emulator
