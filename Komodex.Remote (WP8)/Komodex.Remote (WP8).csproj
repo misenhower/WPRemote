@@ -232,12 +232,6 @@
       <Link>Pages\NowPlayingPage.xaml.cs</Link>
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\Pairing\DiscoveredPairingUtility.cs">
-      <Link>Pairing\DiscoveredPairingUtility.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\Pairing\ManualPairingManager.cs">
-      <Link>Pairing\ManualPairingManager.cs</Link>
-    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\SampleData\SampleDataClasses.cs">
       <Link>SampleData\SampleDataClasses.cs</Link>
     </Compile>
