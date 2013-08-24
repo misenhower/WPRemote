@@ -20,7 +20,7 @@
     shell:SystemTray.IsVisible="True">
     
     <phone:PhoneApplicationPage.Resources>
-        <converters:BooleanToStringConverter
+        <converters:BindableBooleanToStringConverter
             x:Key="AvailabilityConverter"
             TrueValue="{Binding LocalizedStrings.LibraryAvailable, Source={StaticResource LocalizedStrings}}"
             FalseValue="{Binding LocalizedStrings.LibraryNotAvailable, Source={StaticResource LocalizedStrings}}"
