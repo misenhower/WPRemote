@@ -92,6 +92,9 @@
     <Compile Include="..\Komodex.Common %28WP7%29\BitUtility.cs">
       <Link>BitUtility.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\BindableBooleanToStringConverter.cs">
+      <Link>Converters\BindableBooleanToStringConverter.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common %28WP7%29\Converters\BooleanConverterBase.cs">
       <Link>Converters\BooleanConverterBase.cs</Link>
     </Compile>

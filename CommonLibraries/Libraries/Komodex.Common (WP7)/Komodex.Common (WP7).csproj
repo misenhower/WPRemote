@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitUtility.cs" />
+    <Compile Include="Converters\BindableBooleanToStringConverter.cs" />
     <Compile Include="Converters\BooleanConverterBase.cs" />
     <Compile Include="Converters\BooleanToBrushConverter.cs" />
     <Compile Include="Converters\BooleanToDoubleConverter.cs" />
