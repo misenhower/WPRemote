@@ -9,27 +9,26 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Data;
+using System.Globalization;
 
 namespace Komodex.Common.Converters
 {
     public class StringToUpperConverter : IValueConverter
     {
-        #region IValueConverter Members
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null && !(value is string))
-                value = value.ToString();
-            value = ((string)value).ToUpper();
+            if (value == null)
+                return null;
 
-            return value;
+            if (!(value is string))
+                value = value.ToString();
+
+            return ((string)value).ToUpper();
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }
