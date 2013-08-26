@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -66,15 +68,44 @@ namespace Komodex.Common
 
         public static Uri GetUriWithResolutionSuffix(Uri source)
         {
-            if (source == null || source.IsAbsoluteUri)
+            if (source == null)
                 return source;
 
+            // Get the URI parts
             string uriString = source.ToString();
             int separatorIndex = uriString.LastIndexOf('.');
             string filename = uriString.Substring(0, separatorIndex);
             string extension = uriString.Substring(separatorIndex, uriString.Length - separatorIndex);
 
-            return new Uri(filename + GetCurrentFilenameSuffix() + extension, UriKind.Relative);
+            // Assemble the new path
+            string path = filename + GetCurrentFilenameSuffix() + extension;
+
+            // Fix some designer issues
+            if (DesignerProperties.IsInDesignTool)
+            {
+                if (source.IsAbsoluteUri)
+                {
+                    // Get the absolute path of the new URI (without "file:///")
+                    Uri uri = new Uri(path, UriKind.Absolute);
+                    path = uri.AbsolutePath;
+
+                    // If the file doesn't exist, attempt to locate it
+                    if (!File.Exists(path))
+                    {
+                        // Try to find the file in a shared "Assets" directory
+                        int pos = path.LastIndexOf("/Assets");
+                        if (pos >= 0)
+                        {
+                            string newPath = path.Insert(pos, "/..");
+                            if (File.Exists(newPath))
+                                path = newPath;
+                        }
+                    }
+                }
+            }
+
+            UriKind kind = (source.IsAbsoluteUri) ? UriKind.Absolute : UriKind.Relative;
+            return new Uri(path, kind);
         }
 
         public static int GetScaledPixels(int points)
