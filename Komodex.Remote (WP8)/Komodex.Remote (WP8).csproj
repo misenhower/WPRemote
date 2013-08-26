@@ -837,7 +837,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\VolumeSliders.WP8.xaml">
+    <Page Include="Themes\Sliders.WP8.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

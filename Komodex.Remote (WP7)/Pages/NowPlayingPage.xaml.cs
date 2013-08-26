@@ -26,10 +26,6 @@ namespace Komodex.Remote.Pages
         {
             InitializeComponent();
 
-#if WP7
-            PlayPositionProgressBar.Background = Resources["PhoneForegroundBrush"] as Brush;
-#endif
-
             // Set up Application Bar
             InitializeApplicationBar();
             ApplicationBar.Mode = ApplicationBarMode.Minimized;

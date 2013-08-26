@@ -6,7 +6,7 @@
     xmlns:appConverters="clr-namespace:Komodex.Remote.Converters"
     >
 
-    <!-- Volume Sliders -->
+    <!-- Main Volume Slider -->
     <Style x:Key="VolumeSliderStyle" TargetType="Slider">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -77,6 +77,7 @@
         </Setter>
     </Style>
 
+    <!-- AirPlay Speaker Volume Slider -->
     <Style x:Key="AltVolumeSliderStyle" TargetType="Slider" BasedOn="{StaticResource VolumeSliderStyle}">
         <Setter Property="Foreground">
             <Setter.Value>
@@ -86,6 +87,79 @@
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="{StaticResource PhoneBackgroundColor}" Opacity="1.0" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Play Position Slider -->
+    <Style x:Key="PlayPositionSliderStyle" TargetType="Slider">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Maximum" Value="10"/>
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Value" Value="0"/>
+        <Setter Property="Margin" Value="-12,-22,-12,-24" />
+        <!--<Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>-->
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource PhoneForegroundColor}" Opacity="0.5" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}" Opacity="0.15" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="0.1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="HorizontalTrack"/>
+                                        <DoubleAnimation Duration="0" To="0.1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="VerticalTrack"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="HorizontalFill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="VerticalFill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="HorizontalTemplate" Margin="{StaticResource PhoneHorizontalMargin}">
+                            <Rectangle x:Name="HorizontalTrack" Fill="{TemplateBinding Background}" Height="4" IsHitTestVisible="False" Margin="0,24,0,24"/>
+                            <Rectangle x:Name="HorizontalFill" Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Margin="0,24,0,24">
+                                <Rectangle.Clip>
+                                    <RectangleGeometry Rect="0, 0, 6, 12"/>
+                                </Rectangle.Clip>
+                            </Rectangle>
+                            <Rectangle x:Name="HorizontalCenterElement" Visibility="Collapsed" Fill="{StaticResource PhoneForegroundBrush}" HorizontalAlignment="Left" Height="24" Margin="0" Width="12">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform/>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                        </Grid>
+                        <Grid x:Name="VerticalTemplate" Margin="{StaticResource PhoneVerticalMargin}">
+                            <Rectangle x:Name="VerticalTrack" Fill="{TemplateBinding Background}" IsHitTestVisible="False" Margin="18,0,18,0" Width="12"/>
+                            <Rectangle x:Name="VerticalFill" Fill="{TemplateBinding Foreground}" IsHitTestVisible="False" Margin="18,0,18,0" Width="12">
+                                <Rectangle.Clip>
+                                    <RectangleGeometry Rect="0, 0, 12, 6"/>
+                                </Rectangle.Clip>
+                            </Rectangle>
+                            <Rectangle x:Name="VerticalCenterElement" Fill="{StaticResource PhoneForegroundBrush}" Height="12" Margin="12,0,12,0" VerticalAlignment="Top" Width="24">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform/>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
