@@ -13,6 +13,9 @@ namespace Komodex.Remote.SampleData
         public string CurrentAlbum { get; set; }
         public string CurrentSongName { get; set; }
         public int Volume { get; set; }
+        public string CurrentTrackTimePositionString { get; set; }
+        public string CurrentTrackTimeRemainingString { get; set; }
+        public int CurrentTrackTimePercentage { get; set; }
         public List<SampleDataAirPlaySpeaker> Speakers { get; set; }
         public List<SampleDataPlayQueue> PlayQueues { get; set; }
 
