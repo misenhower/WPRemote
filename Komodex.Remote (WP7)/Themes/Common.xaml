@@ -75,7 +75,7 @@
     <!-- Star Ratings -->
     <ControlTemplate x:Key="StarIcon" TargetType="ContentControl">
         <Grid Width="48" Height="48">
-            <Path Data="M19.96875,10.627293 L24.375,23.30698 L37.640625,23.30698 L27.09375,31.627293 L31.195313,44.236668 L19.96875,36.760105 L8.7890625,44.236668 L12.890625,31.627293 L2.34375,23.30698 L15.609375,23.30698 z" Width="45" Height="43" Fill="White" />
+            <Path Data="M17.625,0 L22.0312,12.6797 L35.2969,12.6797 L24.75,21 L28.8516,33.6094 L17.625,26.1328 L6.44531,33.6094 L10.5469,21 L0,12.6797 L13.2656,12.6797 z" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="White" UseLayoutRounding="False" />
         </Grid>
     </ControlTemplate>
 

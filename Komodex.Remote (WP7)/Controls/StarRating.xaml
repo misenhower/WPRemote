@@ -7,10 +7,10 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="48" d:DesignWidth="480">
+    d:DesignHeight="96" d:DesignWidth="480">
     
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid HorizontalAlignment="Center" Name="starContainer" IsHitTestVisible="False">
+        <Grid HorizontalAlignment="Center" Name="starContainer" IsHitTestVisible="False" Margin="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
