@@ -241,8 +241,33 @@ namespace Komodex.Remote.ServerManagement
                 if (CurrentServer.IsConnected)
                     return;
 
-                if (ConnectionState == ServerConnectionState.ConnectingToLibrary)
+                bool forceReconnect = false;
+
+                // Update the IP from Bonjour if we can
+                if (BonjourManager.DiscoveredServers.ContainsKey(SelectedServerInfo.ServiceID))
+                {
+                    var service = BonjourManager.DiscoveredServers[SelectedServerInfo.ServiceID];
+                    var ips = service.IPAddresses.Select(ip => ip.ToString()).ToList();
+                    if (ips.Count > 0 && !ips.Contains(CurrentServer.Hostname))
+                    {
+                        CurrentServer.Hostname = ips[0];
+                        forceReconnect = true;
+                    }
+                    if (CurrentServer.Port != service.Port)
+                    {
+                        CurrentServer.Port = service.Port;
+                        forceReconnect = true;
+                    }
+                }
+
+                if (ConnectionState == ServerConnectionState.ConnectingToLibrary && !forceReconnect)
                     return;
+
+                if (forceReconnect)
+                {
+                    _log.Info("Forcing reconnection with a new address/port from Bonjour...");
+                    CurrentServer.Stop();
+                }
             }
 
             TrialManager.StartTrial();
