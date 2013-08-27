@@ -17,6 +17,7 @@ using Komodex.Remote.Controls;
 using Komodex.Remote.Localization;
 using System.Windows.Threading;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Komodex.Remote.Pages
 {
@@ -37,11 +38,15 @@ namespace Komodex.Remote.Pages
             AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), NavigationManager.OpenSearchPage);
 
             RebuildApplicationBarMenuItems();
+
+            ManipulationStarted += Page_ManipulationStarted;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            HideAlbumArtOverlay(false);
 
             UpdateControlEnabledStates();
             UpdatePlayModeButtons();
@@ -276,6 +281,70 @@ namespace Komodex.Remote.Pages
                 return;
 
             CurrentServer.SendRepeatStateCommand();
+        }
+
+        #endregion
+
+        #region Album Art Overlay
+
+        protected DispatcherTimer _albumArtOverlayTimer;
+
+        protected void ShowAlbumArtOverlay(bool useTransitions)
+        {
+            VisualStateManager.GoToState(this, "AlbumArtOverlayVisibleState", useTransitions);
+        }
+
+        protected void HideAlbumArtOverlay(bool useTransitions)
+        {
+            VisualStateManager.GoToState(this, "AlbumArtOverlayHiddenState", useTransitions);
+        }
+
+        private void AlbumArtOverlayBorder_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+            StopAlbumArtOverlayTimer();
+            ShowAlbumArtOverlay(true);
+            e.Handled = true;
+        }
+
+        private void AlbumArtOverlayBorder_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+            StartAlbumArtOverlayTimer();
+            e.Handled = true;
+        }
+
+        private void Page_ManipulationStarted(object sender, System.Windows.Input.ManipulationStartedEventArgs e)
+        {
+            // Hiding the overlay directly seems to skip its animation.
+            // TODO: Look for a better alternative.
+            if (_albumArtOverlayTimer != null)
+                _albumArtOverlayTimer.Interval = TimeSpan.FromSeconds(0);
+        }
+
+        protected void StartAlbumArtOverlayTimer()
+        {
+            if (_albumArtOverlayTimer == null)
+            {
+                _albumArtOverlayTimer = new DispatcherTimer();
+                _albumArtOverlayTimer.Tick += AlbumArtOverlayTimer_Tick;
+            }
+
+            _albumArtOverlayTimer.Interval = TimeSpan.FromSeconds(4);
+            _albumArtOverlayTimer.Start();
+        }
+        
+        protected void StopAlbumArtOverlayTimer()
+        {
+            if (_albumArtOverlayTimer == null)
+                return;
+
+            _albumArtOverlayTimer.Stop();
+        }
+
+        private void AlbumArtOverlayTimer_Tick(object sender, EventArgs e)
+        {
+            _albumArtOverlayTimer.Stop();
+
+            HideAlbumArtOverlay(true);
         }
 
         #endregion

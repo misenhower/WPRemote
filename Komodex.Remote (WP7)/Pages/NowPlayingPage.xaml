@@ -23,6 +23,27 @@
     >
     
     <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding CurrentServer}" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AlbumArtOverlayVisualStateGroup">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0:0:0.2" />
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="AlbumArtOverlayHiddenState">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StarRatingControl" Storyboard.TargetProperty="IsEnabled">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation To="0" Duration="0" Storyboard.TargetName="AlbumArtOverlayBorder" Storyboard.TargetProperty="Opacity" />
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="AlbumArtOverlayVisibleState">
+                    <Storyboard>
+                        <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="AlbumArtOverlayBorder" Storyboard.TargetProperty="Opacity" />
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
         <Grid.RowDefinitions>
             <!-- Status Bar -->
             <RowDefinition Height="32" />
@@ -94,6 +115,20 @@
                            VerticalAlignment="Center"
                            Stretch="Uniform"
                            />
+                </Border>
+                
+                <Border x:Name="AlbumArtOverlayBorder"
+                        Background="#AA000000"
+                        ManipulationStarted="AlbumArtOverlayBorder_ManipulationStarted"
+                        ManipulationCompleted="AlbumArtOverlayBorder_ManipulationCompleted"
+                        >
+                    <appControls:StarRating
+                        x:Name="StarRatingControl"
+                        VerticalAlignment="Center"
+                        Rating="{Binding CurrentSongUserRating, Mode=TwoWay}"
+                        StarOnOpacity="0.8"
+                        StarOffOpacity="0.4"
+                        />
                 </Border>
 
                 <TextBlock Text="{Binding CurrentTrackTimePositionString}"
