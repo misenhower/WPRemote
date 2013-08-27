@@ -58,7 +58,7 @@ namespace Komodex.Remote.LibraryPages
             base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
-                Utility.BeginInvokeOnUIThread(Podcast.GetEpisodes);
+                Utility.BeginInvokeOnUIThread(() => { Podcast.GetEpisodes(); });
         }
 
         protected override Clarity.Phone.Controls.Animations.AnimatorHelperBase GetAnimation(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)

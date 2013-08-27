@@ -72,7 +72,7 @@ namespace Komodex.Remote.LibraryPages
             base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
-                Utility.BeginInvokeOnUIThread(Album.GetSongs);
+                Utility.BeginInvokeOnUIThread(() => { Album.GetSongs(); });
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)

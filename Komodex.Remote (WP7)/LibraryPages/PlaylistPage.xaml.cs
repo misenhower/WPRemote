@@ -97,7 +97,7 @@ namespace Komodex.Remote.LibraryPages
             base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == DACP.ServerUpdateType.ServerConnected)
-                Utility.BeginInvokeOnUIThread(Playlist.GetSongs);
+                Utility.BeginInvokeOnUIThread(() => { Playlist.GetSongs(); });
         }
 
         #endregion
