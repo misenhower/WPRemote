@@ -40,7 +40,7 @@ namespace Komodex.Remote.ServerManagement
         {
             Utility.BeginInvokeOnUIThread(() =>
             {
-                _log.Info("Saving server info: {0} ({1})", info.ServiceID, info.Name);
+                _log.Info("Saving server info: '{0}' ({1})", info.Name, info.ServiceID);
 
                 var oldServerInfo = PairedServers.FirstOrDefault(si => si.ServiceID == info.ServiceID);
                 if (oldServerInfo != null)
@@ -56,7 +56,7 @@ namespace Komodex.Remote.ServerManagement
         {
             Utility.BeginInvokeOnUIThread(() =>
             {
-                _log.Info("Removing server info: {0} ({1})", info.ServiceID, info.Name);
+                _log.Info("Removing server info: '{0}' ({1})", info.Name, info.ServiceID);
 
                 if (SelectedServerInfo == info)
                     ChooseServer(null);
@@ -96,7 +96,7 @@ namespace Komodex.Remote.ServerManagement
             ServerConnectionInfo info = PairedServers.FirstOrDefault(si => si.ServiceID == e.Service.Name);
             if (info != null)
             {
-                _log.Info("Bonjour found service: {0} ({1})", info.ServiceID, info.Name);
+                _log.Info("Bonjour found service: '{0}' ({1})", info.Name, info.ServiceID);
 
                 info.IsAvailable = true;
 
@@ -154,7 +154,7 @@ namespace Komodex.Remote.ServerManagement
             ServerConnectionInfo info = PairedServers.FirstOrDefault(si => si.ServiceID == e.Service.Name);
             if (info != null)
             {
-                _log.Info("Bonjour removed service: {0} ({1})", info.ServiceID, info.Name);
+                _log.Info("Bonjour removed service: '{0}' ({1})", info.Name, info.ServiceID);
 
                 info.IsAvailable = false;
             }
@@ -215,7 +215,7 @@ namespace Komodex.Remote.ServerManagement
                 return;
             }
 
-            _log.Info("Setting current server to: {0} ({1})", info.ServiceID, info.Name);
+            _log.Info("Setting current server to: '{0}' ({1})", info.Name, info.ServiceID);
             SelectedServerInfo = info;
             ConnectToServer();
         }
@@ -317,8 +317,17 @@ namespace Komodex.Remote.ServerManagement
             {
                 _log.Warning("Invalid PIN error.");
 
-                // Server is no longer paired with this client
-                RemoveServerInfo(SelectedServerInfo);
+                if (SelectedServerInfo.IsAvailable)
+                {
+                    // Server is no longer paired with this client
+                    RemoveServerInfo(SelectedServerInfo);
+                }
+                else
+                {
+                    // We may have connected to the wrong server
+                    if (ConnectionState == ServerConnectionState.ConnectingToLibrary)
+                        ConnectionState = ServerConnectionState.LookingForLibrary;
+                }
 
                 // TODO: Notify the user
             }
@@ -357,7 +366,7 @@ namespace Komodex.Remote.ServerManagement
                 // If the server is still visible in Bonjour, try to connect to any other IPs
                 else if (BonjourManager.DiscoveredServers.ContainsKey(SelectedServerInfo.ServiceID))
                 {
-                    _log.Info("Server reconnection failed, but still available via Bonjour.");
+                    _log.Info("Server reconnection failed, but server is available via Bonjour.");
 
                     // A connection attempt failed, but we have the service in Bonjour.
                     NetService service = BonjourManager.DiscoveredServers[SelectedServerInfo.ServiceID];
@@ -385,7 +394,7 @@ namespace Komodex.Remote.ServerManagement
                 }
                 else
                 {
-                    _log.Info("Server is no longer available via Bonjour.");
+                    _log.Info("Server is not currently available via Bonjour.");
                     ConnectionState = ServerConnectionState.LookingForLibrary;
                 }
             }
@@ -398,7 +407,7 @@ namespace Komodex.Remote.ServerManagement
             if (e.IsLocalNetworkAvailable)
             {
                 if (ConnectionState == ServerConnectionState.WaitingForWiFiConnection)
-                    ConnectionState = ServerConnectionState.LookingForLibrary;
+                    ConnectToServer();
             }
             else
             {
