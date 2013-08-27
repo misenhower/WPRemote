@@ -99,7 +99,6 @@
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Value" Value="0"/>
         <Setter Property="Margin" Value="-12,-22,-12,-24" />
-        <!--<Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>-->
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{StaticResource PhoneForegroundColor}" Opacity="0.5" />
@@ -107,7 +106,7 @@
         </Setter>
         <Setter Property="Background">
             <Setter.Value>
-                <SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}" Opacity="0.15" />
+                <SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}" Opacity="0.1" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
