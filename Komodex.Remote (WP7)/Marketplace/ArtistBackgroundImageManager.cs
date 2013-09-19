@@ -25,6 +25,8 @@ namespace Komodex.Remote.Marketplace
         private const string MarketplaceArtistBackgroundURIFormat = "http://image.catalog.zune.net/v3.2/{0}/music/artist/{1}/primaryimage?height={2}&contenttype=image/jpeg&resize=true";
         private const string ArtistBackgroundImageCacheDirectory = "/ArtistBackgroundImageCache";
 
+        private static readonly List<string> _processingArtistNames = new List<string>();
+        private static readonly List<string> _processingArtistIDs = new List<string>();
         private static readonly Setting<List<CachedArtistID>> _artistIDCache = new Setting<List<CachedArtistID>>("MarketplaceArtistIDCache", new List<CachedArtistID>());
         private static readonly Dictionary<string, string> _artistIDs = new Dictionary<string, string>();
 
@@ -90,8 +92,22 @@ namespace Komodex.Remote.Marketplace
 
             artistName = artistName.Trim();
 
+            // Are we looking for this artist already?
+            lock (_processingArtistNames)
+            {
+                if (_processingArtistNames.Contains(artistName))
+                {
+                    _log.Info("Already searching for artist '{0}', exiting...", artistName);
+                    return;
+                }
+                _processingArtistNames.Add(artistName);
+            }
+
             // Get the artist ID
             string artistID = await GetArtistID(artistName);
+
+            lock (_processingArtistNames)
+                _processingArtistNames.Remove(artistName);
 
             if (artistID == null)
             {
@@ -103,9 +119,24 @@ namespace Komodex.Remote.Marketplace
 
             _log.Info("Artist '{0}' ID: '{1}'", artistName, artistID);
 
+            // Are we downloading this artist's image already?
+            lock (_processingArtistIDs)
+            {
+                if (_processingArtistIDs.Contains(artistID))
+                {
+                    _log.Info("Already downloading image for artist ID '{0}', exiting...", artistID);
+                    return;
+                }
+                _processingArtistIDs.Add(artistID);
+            }
+
             // Get the artist image
             ImageSource artistImageSource = await GetArtistImage(artistID);
 
+            lock (_processingArtistIDs)
+                _processingArtistIDs.Remove(artistID);
+
+            // If this artist is still the current artist, set the image source
             if (artistName == CurrentArtistName)
             {
                 CurrentArtistImageSource = artistImageSource;
@@ -199,6 +230,8 @@ namespace Komodex.Remote.Marketplace
                         Stream stream = await client.GetStreamAsync(uri);
                         using (var fileStream = isolatedStorage.OpenFile(filename, FileMode.OpenOrCreate))
                             await stream.CopyToAsync(fileStream);
+
+                        _log.Info("Finished downloading background image for ID '{0}'", artistID);
                     }
                     catch (HttpRequestException)
                     {
@@ -209,10 +242,20 @@ namespace Komodex.Remote.Marketplace
 
                 using (var fileStream = isolatedStorage.OpenFile(filename, FileMode.Open))
                 {
-                    BitmapImage image = new BitmapImage();
-                    image.SetSource(fileStream);
-                    return image;
+                    try
+                    {
+                        BitmapImage image = new BitmapImage();
+                        image.SetSource(fileStream);
+                        return image;
+                    }
+                    catch { }
                 }
+
+                // If we get here, an error occurred while loading the image, which probably means we didn't receive a valid image as the response.
+                _log.Warning("Invalid file for artist ID '{0}', deleting...", artistID);
+                isolatedStorage.DeleteFile(filename);
+
+                return null;
             }
         }
 
