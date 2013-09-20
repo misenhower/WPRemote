@@ -156,8 +156,11 @@ namespace Komodex.Common
 
 
 #if WINDOWS_PHONE
-            _isolatedSettings[_keyName] = value;
-            _isolatedSettings.Save();
+            lock (_isolatedSettings)
+            {
+                _isolatedSettings[_keyName] = value;
+                _isolatedSettings.Save();
+            }
 #else
             _localSettings.Values[_keyName] = value;
 #endif
