@@ -3,6 +3,7 @@ using Komodex.Common;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Komodex.Bonjour
 {
@@ -271,6 +272,8 @@ namespace Komodex.Bonjour
                 _udpSocket = new Windows.Networking.Sockets.DatagramSocket();
             }
 
+            bool restartAfterDelay = false;
+
             try
             {
                 _udpSocket.MessageReceived += UDPSocket_MessageReceived;
@@ -283,10 +286,23 @@ namespace Komodex.Bonjour
             }
             catch (ObjectDisposedException)
             {
-                SocketError();
+                Restart();
                 return;
             }
-            
+            catch (Exception)
+            {
+                // This is probably an "only one usage of each socket address is normally permitted" exception.
+                _udpSocket = null;
+                restartAfterDelay = true;
+            }
+
+            if (restartAfterDelay)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(5));
+                Restart();
+                return;
+            }
+
             IsJoined = true;
             _log.Info("Joined multicast DNS group.");
             SendJoinedToListeners();
@@ -310,14 +326,18 @@ namespace Komodex.Bonjour
             }
         }
 
-        private static void SocketError()
+        private static void Restart()
         {
             lock (_sync)
             {
-                _udpSocket = null;
+                try
+                {
+                    Stop();
+                }
+                catch (ObjectDisposedException) { }
 
-                if (_shutdown)
-                    return;
+                _udpSocket = null;
+                _shutdown = false;
 
                 lock (_listeners)
                 {
@@ -346,7 +366,7 @@ namespace Komodex.Bonjour
             catch (ObjectDisposedException)
             {
                 _sendingMessage = false;
-                SocketError();
+                Restart();
                 return;
             }
 
