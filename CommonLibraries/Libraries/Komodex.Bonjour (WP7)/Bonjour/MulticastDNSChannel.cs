@@ -271,13 +271,22 @@ namespace Komodex.Bonjour
                 _udpSocket = new Windows.Networking.Sockets.DatagramSocket();
             }
 
-            _udpSocket.MessageReceived += UDPSocket_MessageReceived;
-            await _udpSocket.BindServiceNameAsync(BonjourUtility.MulticastDNSPort.ToString());
+            try
+            {
+                _udpSocket.MessageReceived += UDPSocket_MessageReceived;
+                await _udpSocket.BindServiceNameAsync(BonjourUtility.MulticastDNSPort.ToString());
 
-            if (_shutdown)
+                if (_shutdown)
+                    return;
+
+                _udpSocket.JoinMulticastGroup(_mdnsHostName);
+            }
+            catch (ObjectDisposedException)
+            {
+                SocketError();
                 return;
-
-            _udpSocket.JoinMulticastGroup(_mdnsHostName);
+            }
+            
             IsJoined = true;
             _log.Info("Joined multicast DNS group.");
             SendJoinedToListeners();
@@ -301,17 +310,45 @@ namespace Komodex.Bonjour
             }
         }
 
+        private static void SocketError()
+        {
+            lock (_sync)
+            {
+                _udpSocket = null;
+
+                if (_shutdown)
+                    return;
+
+                lock (_listeners)
+                {
+                    if (_listeners.Count == 0)
+                        return;
+                }
+            }
+
+            Start();
+        }
+
         private static async void SendMessage(byte[] buffer)
         {
             _sendingMessage = true;
 
-            // Get the output stream
-            var outputStream = await _udpSocket.GetOutputStreamAsync(_mdnsHostName, BonjourUtility.MulticastDNSPort.ToString());
+            try
+            {
+                // Get the output stream
+                var outputStream = await _udpSocket.GetOutputStreamAsync(_mdnsHostName, BonjourUtility.MulticastDNSPort.ToString());
 
-            // Write bytes to stream
-            var outputWriter = new Windows.Storage.Streams.DataWriter(outputStream);
-            outputWriter.WriteBytes(buffer);
-            await outputWriter.StoreAsync();
+                // Write bytes to stream
+                var outputWriter = new Windows.Storage.Streams.DataWriter(outputStream);
+                outputWriter.WriteBytes(buffer);
+                await outputWriter.StoreAsync();
+            }
+            catch (ObjectDisposedException)
+            {
+                _sendingMessage = false;
+                SocketError();
+                return;
+            }
 
             _sendingMessage = false;
 
