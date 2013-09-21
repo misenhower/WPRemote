@@ -3,7 +3,6 @@ using Komodex.Common;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace Komodex.Bonjour
 {
@@ -298,7 +297,7 @@ namespace Komodex.Bonjour
 
             if (restartAfterDelay)
             {
-                await Task.Delay(TimeSpan.FromSeconds(5));
+                await System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5));
                 Restart();
                 return;
             }
