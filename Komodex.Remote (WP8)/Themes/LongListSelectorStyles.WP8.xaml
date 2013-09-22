@@ -63,8 +63,15 @@
     </DataTemplate>
     
     <DataTemplate x:Key="WideGroupItemTemplate">
-        <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
-            <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="White" />
+        <Border Background="{Binding Converter={StaticResource JumpListItemBackgroundConverter}}"
+                Margin="{StaticResource PhoneTouchTargetOverhang}"
+                Padding="{StaticResource PhoneTouchTargetOverhang}"
+                >
+            <TextBlock Text="{Binding Key}"
+                       FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                       FontSize="32"
+                       Foreground="{Binding Converter={StaticResource JumpListItemForegroundConverter}}"
+                       />
         </Border>
     </DataTemplate>
     

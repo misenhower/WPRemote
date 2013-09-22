@@ -5,8 +5,13 @@
     xmlns:my="clr-namespace:Komodex.Remote.Controls"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:converters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
     >
 
+    <!-- Converters -->
+    <converters:BooleanToBrushConverter x:Key="JumpListBackgroundBrushConverter" TrueValue="{StaticResource PhoneAccentBrush}" FalseValue="{StaticResource PhoneChromeBrush}" />
+    <converters:BooleanToBrushConverter x:Key="JumpListForegroundBrushConverter" TrueValue="White" FalseValue="{StaticResource PhoneDisabledBrush}" />
+    
     <!-- Grouped List Templates -->
     <DataTemplate x:Name="GroupHeaderTemplate">
         <my:FakeButton>
@@ -22,12 +27,12 @@
     </DataTemplate>
     
     <DataTemplate x:Key="GroupItemTemplate">
-        <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Width="99" Height="99" Margin="6" IsHitTestVisible="{Binding HasItems}">
+        <Border Background="{Binding HasItems, Converter={StaticResource JumpListBackgroundBrushConverter}}" Width="99" Height="99" Margin="6" IsHitTestVisible="{Binding HasItems}">
             <TextBlock Text="{Binding Key}" 
                     FontFamily="{StaticResource PhoneFontFamilySemiBold}"
                     FontSize="36"
                     Margin="{StaticResource PhoneTouchTargetOverhang}"
-                    Foreground="White"
+                    Foreground="{Binding HasItems, Converter={StaticResource JumpListForegroundBrushConverter}}"
                     VerticalAlignment="Bottom"/>
         </Border>
     </DataTemplate>
@@ -48,8 +53,17 @@
     </DataTemplate>
     
     <DataTemplate x:Key="WideGroupItemTemplate">
-        <Border Background="{Binding HasItems, Converter={StaticResource BooleanToAccentBrushConverter}}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
-            <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="White" />
+        <Border Background="{Binding HasItems, Converter={StaticResource JumpListBackgroundBrushConverter}}"
+                Margin="{StaticResource PhoneTouchTargetOverhang}"
+                Padding="{StaticResource PhoneTouchTargetOverhang}"
+                MinWidth="432"
+                IsHitTestVisible="{Binding HasItems}"
+                >
+            <TextBlock Text="{Binding Key}" 
+                       FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                       FontSize="32"
+                       Foreground="{Binding HasItems, Converter={StaticResource JumpListForegroundBrushConverter}}"
+                       />
         </Border>
     </DataTemplate>
 
