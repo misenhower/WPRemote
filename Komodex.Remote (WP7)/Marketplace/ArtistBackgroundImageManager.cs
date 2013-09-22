@@ -32,9 +32,12 @@ namespace Komodex.Remote.Marketplace
 
         static ArtistBackgroundImageManager()
         {
-            // Load the cached artist IDs and remove out-of-date IDs
-            var cachedArtistIDs = _artistIDCache.Value;
+            // Cache cut-off time
             DateTime cacheCutoff = DateTime.Now - CacheExpiryTime;
+
+            // Load the cached artist IDs and remove out-of-date IDs
+            _log.Trace("Loading cached artist IDs...");
+            var cachedArtistIDs = _artistIDCache.Value;
             for (int i = 0; i < cachedArtistIDs.Count; i++)
             {
                 var cachedID = cachedArtistIDs[i];
@@ -52,6 +55,27 @@ namespace Komodex.Remote.Marketplace
 
             // Save any changes
             _artistIDCache.Save();
+
+            // Look for any out-of-date files
+            _log.Trace("Looking for expired artist images...");
+            using (var isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                var fileNames = isolatedStorage.GetFileNames(ArtistBackgroundImageCacheDirectory + "/*.jpg");
+                foreach (var fileName in fileNames)
+                {
+                    string path = ArtistBackgroundImageCacheDirectory + "/" + fileName;
+                    DateTimeOffset fileCreationTime = isolatedStorage.GetCreationTime(path);
+                    if (fileCreationTime <= cacheCutoff)
+                    {
+                        _log.Trace("Removing out-of-date image: {0} (created: {1})", fileName, fileCreationTime);
+                        isolatedStorage.DeleteFile(path);
+                        continue;
+                    }
+
+                    _log.Trace("Found cached image: {0} (created: {1})", fileName, fileCreationTime);
+                }
+            }
+            _log.Trace("Done.");
         }
 
         #region Properties
