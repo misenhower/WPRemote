@@ -49,7 +49,15 @@ namespace Komodex.Remote
             base.OnNavigatedTo(e);
 
             // Application information
-            tbAppVersion.Text = LocalizedStrings.Version + " " + Utility.ApplicationVersion;
+            string version = Utility.ApplicationVersion;
+            // Clean up the version number by removing up two two trailing ".0"s
+            if (version.EndsWith(".0"))
+            {
+                version = version.Substring(0, version.Length - 2);
+                if (version.EndsWith(".0"))
+                    version = version.Substring(0, version.Length - 2);
+            }
+            tbAppVersion.Text = LocalizedStrings.Version + " " + version;
 #if DEBUG
             tbAppVersion.Text += " (Debug)";
 
