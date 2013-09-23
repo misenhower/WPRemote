@@ -1,4 +1,4 @@
 Package: Microsoft.Net.Http
 http://nuget.org/packages/Microsoft.Net.Http
 
-Version: 2.1.10
+Version: 2.2.15
