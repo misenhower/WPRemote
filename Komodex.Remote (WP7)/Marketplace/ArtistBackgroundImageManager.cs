@@ -60,19 +60,22 @@ namespace Komodex.Remote.Marketplace
             _log.Trace("Looking for expired artist images...");
             using (var isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                var fileNames = isolatedStorage.GetFileNames(ArtistBackgroundImageCacheDirectory + "/*.jpg");
-                foreach (var fileName in fileNames)
+                if (isolatedStorage.DirectoryExists(ArtistBackgroundImageCacheDirectory))
                 {
-                    string path = ArtistBackgroundImageCacheDirectory + "/" + fileName;
-                    DateTimeOffset fileCreationTime = isolatedStorage.GetCreationTime(path);
-                    if (fileCreationTime <= cacheCutoff)
+                    var fileNames = isolatedStorage.GetFileNames(ArtistBackgroundImageCacheDirectory + "/*.jpg");
+                    foreach (var fileName in fileNames)
                     {
-                        _log.Trace("Removing out-of-date image: {0} (created: {1})", fileName, fileCreationTime);
-                        isolatedStorage.DeleteFile(path);
-                        continue;
-                    }
+                        string path = ArtistBackgroundImageCacheDirectory + "/" + fileName;
+                        DateTimeOffset fileCreationTime = isolatedStorage.GetCreationTime(path);
+                        if (fileCreationTime <= cacheCutoff)
+                        {
+                            _log.Trace("Removing out-of-date image: {0} (created: {1})", fileName, fileCreationTime);
+                            isolatedStorage.DeleteFile(path);
+                            continue;
+                        }
 
-                    _log.Trace("Found cached image: {0} (created: {1})", fileName, fileCreationTime);
+                        _log.Trace("Found cached image: {0} (created: {1})", fileName, fileCreationTime);
+                    }
                 }
             }
             _log.Trace("Done.");
@@ -167,7 +170,6 @@ namespace Komodex.Remote.Marketplace
                 SendImageSourceUpdated();
             }
         }
-
 
         #region Artist IDs
 
