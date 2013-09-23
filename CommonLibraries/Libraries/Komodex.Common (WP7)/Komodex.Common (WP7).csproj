@@ -42,6 +42,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\Microsoft.Bcl.Async\sl4-windowsphone71\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\Microsoft.Bcl.Async\sl4-windowsphone71\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Phone">
+      <HintPath>..\Microsoft.Bcl.Async\sl4-windowsphone71\Microsoft.Threading.Tasks.Extensions.Phone.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>..\Microsoft.Bcl\sl4-windowsphone71\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\Microsoft.Bcl\sl4-windowsphone71\System.Threading.Tasks.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
