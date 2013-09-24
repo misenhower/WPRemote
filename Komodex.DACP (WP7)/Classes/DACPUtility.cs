@@ -107,6 +107,12 @@ namespace Komodex.DACP
             return Encoding.UTF8.GetString(data, 0, data.Length);
         }
 
+        public static DateTime GetDateTimeValue(this byte[] data)
+        {
+            int timestamp = data.GetInt32Value();
+            return (new DateTime(1970, 1, 1)).AddSeconds(timestamp);
+        }
+
         #endregion
 
         #region Other Extension Methods

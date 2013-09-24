@@ -80,6 +80,11 @@ namespace Komodex.DACP.Library
             }
         }
 
+        public bool IsDisabled { get; protected set; }
+        public bool HasBeenPlayed { get; protected set; }
+        public int PlayCount { get; protected set; }
+        public DateTime? DateReleased { get; protected set; }
+
         #endregion
 
         #region Methods
@@ -103,9 +108,23 @@ namespace Komodex.DACP.Library
                 case "asur": // User rating
                     UserRating = kvp.Value[0];
                     return true;
-                default:
-                    return false;
+                case "asdb": // Disabled
+                    IsDisabled = !(kvp.Value[0] == 0);
+                    return true;
+
+                // The following were added for podcast episodes, may need to move them if episodes become their own class
+                case "ashp": // Has been played
+                    HasBeenPlayed = !(kvp.Value[0] == 0);
+                    return true;
+                case "aspc": // Play count
+                    PlayCount = kvp.Value.GetInt32Value();
+                    return true;
+                case "asdr": // Date released
+                    DateReleased = kvp.Value.GetDateTimeValue();
+                    return true;
             }
+
+            return false;
         }
 
         #endregion
