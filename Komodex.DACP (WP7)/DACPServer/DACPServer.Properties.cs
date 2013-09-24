@@ -99,6 +99,19 @@ namespace Komodex.DACP
             }
         }
 
+        private string[] _macAddresses;
+        public string[] MACAddresses
+        {
+            get { return _macAddresses; }
+            protected set
+            {
+                if (_macAddresses == value)
+                    return;
+                _macAddresses = value;
+                PropertyChanged.RaiseOnUIThread(this, "MACAddresses");
+            }
+        }
+
         private bool _GettingData = false;
         public bool GettingData
         {

@@ -3,6 +3,7 @@ using Komodex.Bonjour;
 using Komodex.Common;
 using Komodex.Common.Phone;
 using Komodex.DACP;
+using Komodex.Networking;
 using Komodex.Remote.Settings;
 using System;
 using System.Collections.Generic;
@@ -217,6 +218,7 @@ namespace Komodex.Remote.ServerManagement
 
             _log.Info("Setting current server to: '{0}' ({1})", info.Name, info.ServiceID);
             SelectedServerInfo = info;
+            WakeServer();
             ConnectToServer();
         }
 
@@ -279,6 +281,28 @@ namespace Komodex.Remote.ServerManagement
             CurrentServer.Start();
         }
 
+        private static void WakeServer()
+        {
+            if (SelectedServerInfo == null)
+                return;
+
+            if (SelectedServerInfo.MACAddresses == null)
+                return;
+
+            foreach (var address in SelectedServerInfo.MACAddresses)
+            {
+                if (address == null || address.Length != 12)
+                    continue;
+
+                try
+                {
+                    byte[] addressBytes = BitUtility.FromHexString(address);
+                    WakeOnLAN.SendWOLPacket(addressBytes);
+                }
+                catch { }
+            }
+        }
+
         private static DACPServer GetDACPServer(ServerConnectionInfo info)
         {
             if (BonjourManager.DiscoveredServers.ContainsKey(info.ServiceID))
@@ -332,6 +356,7 @@ namespace Komodex.Remote.ServerManagement
             SelectedServerInfo.LastIPAddress = CurrentServer.Hostname;
             SelectedServerInfo.LastPort = CurrentServer.Port;
             SelectedServerInfo.Name = CurrentServer.LibraryName;
+            SelectedServerInfo.MACAddresses = CurrentServer.MACAddresses;
             _pairedServers.Save();
         }
 
@@ -432,7 +457,10 @@ namespace Komodex.Remote.ServerManagement
             if (e.IsLocalNetworkAvailable)
             {
                 if (ConnectionState == ServerConnectionState.WaitingForWiFiConnection)
+                {
+                    WakeServer();
                     ConnectToServer();
+                }
             }
             else
             {

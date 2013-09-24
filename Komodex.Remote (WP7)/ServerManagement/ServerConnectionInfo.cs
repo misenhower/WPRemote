@@ -70,6 +70,12 @@ namespace Komodex.Remote.ServerManagement
         /// </summary>
         public int LastPort { get; set; }
 
+        /// <summary>
+        /// Gets or sets the list of MAC addresses.
+        /// </summary>
+        [XmlArrayItem("MACAddress")]
+        public string[] MACAddresses { get; set; }
+
         private bool _isAvailable;
         /// <summary>
         /// Gets or sets whether the server is currently available

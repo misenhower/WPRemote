@@ -210,6 +210,19 @@ namespace Komodex.DACP
                     case "apro": // DAAP Version
                         ServerDAAPVersion = kvp.Value.GetInt32Value();
                         break;
+                    case "msml": // MAC addresses
+                        List<string> macAddresses = new List<string>();
+                        var addressNodes = DACPUtility.GetResponseNodes(kvp.Value);
+                        foreach (var addressNode in addressNodes)
+                        {
+                            if (addressNode.Key != "msma")
+                                continue;
+                            var address = BitConverter.ToInt64(addressNode.Value, 0);
+                            address = address >> 16;
+                            macAddresses.Add(address.ToString("X12"));
+                        }
+                        MACAddresses = macAddresses.ToArray();
+                        break;
                     default:
                         break;
                 }
