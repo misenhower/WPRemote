@@ -84,6 +84,34 @@ namespace Komodex.DACP.Library
         public bool HasBeenPlayed { get; protected set; }
         public int PlayCount { get; protected set; }
         public DateTime? DateReleased { get; protected set; }
+        public TimeSpan Duration { get; protected set; }
+
+        public string PodcastEpisodeSecondLine
+        {
+            get
+            {
+                string dateString = null;
+                if (DateReleased != null)
+                    dateString = DateReleased.Value.ToShortDateString();
+
+                string durationString = null;
+                if (Duration > TimeSpan.Zero)
+                {
+                    if (Duration.TotalHours > 0)
+                        durationString = Duration.ToString(@"h\:mm\:ss");
+                    else
+                        durationString = Duration.ToString(@"m\:ss");
+                }
+
+                if (dateString != null && durationString != null)
+                    return dateString + " – " + durationString;
+                if (dateString != null)
+                    return dateString;
+                if (durationString != null)
+                    return durationString;
+                return string.Empty;
+            }
+        }
 
         #endregion
 
@@ -110,6 +138,10 @@ namespace Komodex.DACP.Library
                     return true;
                 case "asdb": // Disabled
                     IsDisabled = !(kvp.Value[0] == 0);
+                    return true;
+                case "astm": // Track duration (ms)
+                    int ms = kvp.Value.GetInt32Value();
+                    Duration = TimeSpan.FromMilliseconds(ms);
                     return true;
 
                 // The following were added for podcast episodes, may need to move them if episodes become their own class

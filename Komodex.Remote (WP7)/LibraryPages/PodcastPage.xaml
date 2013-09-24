@@ -22,6 +22,21 @@
     shell:SystemTray.Opacity="0">
 
     <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="PodcastEpisodeTemplate">
+            <Grid Margin="{StaticResource ListItemMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Background="{StaticResource PhoneChromeBrush}" Width="75" Height="75" HorizontalAlignment="Left">
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                </Border>
+                <StackPanel VerticalAlignment="Center" Grid.Column="1">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextLargeStyle}" Margin="{StaticResource ListItemTextMargin}" />
+                    <TextBlock Text="{Binding PodcastEpisodeSecondLine}" Style="{StaticResource PhoneTextSubtleStyle}" Margin="{StaticResource ListItemTextMargin}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -44,7 +59,7 @@
                 Style="{StaticResource LibraryListStyle}"
                 Tap="LongListSelector_Tap"
                 ItemsSource="{Binding Episodes}"
-                ItemTemplate="{StaticResource PlayButtonItemTemplate}"
+                ItemTemplate="{StaticResource PodcastEpisodeTemplate}"
                 />
         </Grid>
     </Grid>
