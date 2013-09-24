@@ -6,6 +6,7 @@
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
+    xmlns:appConverters="clr-namespace:Komodex.Remote.Converters"
     >
 
     <!-- List Footer Padding -->
@@ -161,5 +162,16 @@
             </StackPanel>
         </Grid>
     </DataTemplate>
+    
+    <!-- Episode Style Converter -->
+    <Style x:Key="EpisodePartiallyWatchedStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextAccentStyle}">
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
+    </Style>
+    <appConverters:EpisodeWatchedStyleConverter
+        x:Key="EpisodeWatchedStyleConverter"
+        UnwatchedStyle="{StaticResource PhoneTextAccentStyle}"
+        PartiallyWatchedStyle="{StaticResource EpisodePartiallyWatchedStyle}"
+        WatchedStyle="{StaticResource PhoneTextSubtleStyle}"
+        />
 
 </ResourceDictionary>

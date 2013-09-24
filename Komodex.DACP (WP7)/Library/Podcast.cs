@@ -101,8 +101,10 @@ namespace Komodex.DACP.Library
             // Sending the base playlist ID seems to work but this may require further attention in the future.
 
             string url = "/databases/" + Server.DatabaseID + "/containers/" + Server.BasePlaylist.ID + "/items"
-                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdisabled,com.apple.itunes.mediakind,daap.songtime,daap.songhasbeenplayed,daap.songdatereleased,daap.sortartist,daap.songcontentdescription,daap.songalbum"
+                + "?meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,com.apple.itunes.has-video,daap.songdisabled,com.apple.itunes.mediakind,daap.songtime,daap.songhasbeenplayed,daap.songuserplaycount,daap.songdatereleased,daap.sortartist,daap.songcontentdescription,daap.songalbum"
                 + "&type=music"
+                + "&sort=releasedate"
+                + "&invert-sort-order=1"
                 + "&query=(('com.apple.itunes.mediakind:4','com.apple.itunes.mediakind:36','com.apple.itunes.mediakind:6','com.apple.itunes.mediakind:7')+'daap.songalbumid:" + PersistentID + "')"
                 + "&session-id=" + Server.SessionID;
             Server.SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessEpisodesResponse), true);
