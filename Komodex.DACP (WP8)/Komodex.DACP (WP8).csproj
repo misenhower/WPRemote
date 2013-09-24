@@ -175,6 +175,7 @@
   <ItemGroup>
     <EmbeddedResource Include="..\Komodex.DACP %28WP7%29\Localization\LocalizedDACPStrings.de-DE.resx">
       <Link>Localization\LocalizedDACPStrings.de-DE.resx</Link>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Komodex.DACP %28WP7%29\Localization\LocalizedDACPStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
