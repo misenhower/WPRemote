@@ -66,7 +66,7 @@ namespace Komodex.Remote.LibraryPages
             string uri = toOrFrom.OriginalString;
 
             if (uri.Contains("PodcastsPage") || uri.Contains("SearchPage"))
-                return GetContinuumAnimation(PageTitle, animationType, false);
+                return GetContinuumAnimation(ApplicationTitle, animationType, false);
             
             return base.GetAnimation(animationType, toOrFrom);
         }

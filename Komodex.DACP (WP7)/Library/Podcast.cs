@@ -34,6 +34,8 @@ namespace Komodex.DACP.Library
 
         #region Properties
 
+        public string ArtistName { get; protected set; }
+        public string SecondLine { get { return ArtistName; } }
         public UInt64 PersistentID { get; protected set; }
 
         private ObservableCollection<MediaItem> _Episodes = null;
@@ -53,7 +55,7 @@ namespace Komodex.DACP.Library
         {
             get
             {
-                int pixels = ResolutionUtility.GetScaledPixels(175);
+                int pixels = ResolutionUtility.GetScaledPixels(75);
                 return Server.HTTPPrefix + "/databases/" + Server.DatabaseID + "/groups/" + ID
                     + "/extra_data/artwork?mw=" + pixels + "&mh=" + pixels + "&group-type=albums&session-id=" + Server.SessionID;
             }
@@ -70,6 +72,9 @@ namespace Komodex.DACP.Library
 
             switch (kvp.Key)
             {
+                case "asaa": // Artist name
+                    ArtistName = kvp.Value.GetStringValue();
+                    return true;
                 case "mper": // Persistent ID
                     PersistentID = (UInt64)kvp.Value.GetInt64Value();
                     return true;

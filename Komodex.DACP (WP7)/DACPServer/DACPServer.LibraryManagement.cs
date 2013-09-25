@@ -120,8 +120,8 @@ namespace Komodex.DACP
             }
         }
 
-        private GroupedItems<Podcast> _LibraryPodcasts = null;
-        public GroupedItems<Podcast> LibraryPodcasts
+        private List<Podcast> _LibraryPodcasts = null;
+        public List<Podcast> LibraryPodcasts
         {
             get { return _LibraryPodcasts; }
             protected set
@@ -467,7 +467,7 @@ namespace Komodex.DACP
                 + "&type=music"
                 + "&group-type=albums"
                 + "&sort=album"
-                + "&include-sort-headers=1"
+                + "&include-sort-headers=0"
                 + "&query=(('com.apple.itunes.mediakind:4','com.apple.itunes.mediakind:36','com.apple.itunes.mediakind:6','com.apple.itunes.mediakind:7')+'daap.songalbum!:')"
                 + "&session-id=" + SessionID;
             SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPodcastsResponse), true);
@@ -475,7 +475,24 @@ namespace Komodex.DACP
 
         protected void ProcessPodcastsResponse(HTTPRequestInfo requestInfo)
         {
-            LibraryPodcasts = GroupedItems<Podcast>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Podcast(this, bytes));
+            foreach (var kvp in requestInfo.ResponseNodes)
+            {
+                switch (kvp.Key)
+                {
+                    case "mlcl":
+                        List<Podcast> podcasts = new List<Podcast>();
+
+                        var podcastNodes = DACPUtility.GetResponseNodes(kvp.Value);
+                        foreach (var podcastData in podcastNodes)
+                            podcasts.Add(new Podcast(this, podcastData.Value));
+
+                        LibraryPodcasts = podcasts;
+
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             retrievingPodcasts = false;
         }

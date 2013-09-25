@@ -24,7 +24,7 @@ namespace Komodex.Remote.SampleData
         public List<SampleDataNamedItemGroup> LibraryArtists { get; set; }
         public List<SampleDataNamedItemGroup> LibraryAlbums { get; set; }
         public List<SampleDataNamedItemGroup> LibraryGenres { get; set; }
-        public List<SampleDataNamedItemGroup> LibraryPodcasts { get; set; }
+        public List<SampleDataNamedItemBase> LibraryPodcasts { get; set; }
         public List<SampleDataNamedItemGroup> LibraryMovies { get; set; }
         public List<SampleDataNamedItemGroup> LibraryTVShows { get; set; }
     }

@@ -42,11 +42,11 @@
         <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,0,0">
             <controls:LongListSelectorEx x:Name="lbPodcasts"
                 ItemsSource="{Binding LibraryPodcasts}"
-                IsGroupingEnabled="True"
+                IsGroupingEnabled="False"
                 EmptyText="{Binding LocalizedStrings.LibraryNoPodcastsFound, Source={StaticResource LocalizedStrings}}"
                 Style="{StaticResource LibraryListStyle}"
                 Tap="LongListSelector_Tap"
-                ItemTemplate="{StaticResource AlbumArtLargeItemTemplate}"
+                ItemTemplate="{StaticResource AlbumArtSmallItemTemplate}"
                 />
         </Grid>
     </Grid>
