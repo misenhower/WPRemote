@@ -35,7 +35,7 @@ namespace Komodex.DACP.Library
         #region Properties
 
         public string ArtistName { get; protected set; }
-        public string SecondLine { get { return ArtistName; } }
+        public override string SecondLine { get { return ArtistName; } }
         public UInt64 PersistentID { get; protected set; }
 
         private ObservableCollection<MediaItem> _Episodes = null;

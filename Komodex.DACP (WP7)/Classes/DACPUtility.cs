@@ -12,6 +12,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using Komodex.Common;
 
 namespace Komodex.DACP
 {
@@ -29,7 +30,7 @@ namespace Komodex.DACP
             while (location + 8 < dataLength)
             {
                 string code = Encoding.UTF8.GetString(data, location, 4);
-                int length = BitConverter.ToInt32(data, location + 4).SwapBits();
+                int length = BitUtility.NetworkToHostOrder(BitConverter.ToInt32(data, location + 4));
                 byte[] nodeBody = new byte[length];
                 Buffer.BlockCopy(data, location + 8, nodeBody, 0, length);
 
@@ -56,50 +57,19 @@ namespace Komodex.DACP
 
         #region DACP Data Extension Methods
 
-        public static Int16 SwapBits(this Int16 value)
-        {
-            UInt16 uvalue = (UInt16)value;
-            UInt16 swapped = (UInt16)((0x00FF) & (uvalue >> 8) | (0xFF00) & (uvalue << 8));
-            return (Int16)swapped;
-        }
-
-        public static Int32 SwapBits(this Int32 value)
-        {
-            UInt32 uvalue = (UInt32)value;
-            UInt32 swapped = ((0x000000FF) & (uvalue >> 24)
-                             | (0x0000FF00) & (uvalue >> 8)
-                             | (0x00FF0000) & (uvalue << 8)
-                             | (0xFF000000) & (uvalue << 24));
-            return (Int32)swapped;
-        }
-
-        public static Int64 SwapBits(this Int64 value)
-        {
-            UInt64 uvalue = (UInt64)value;
-            UInt64 swapped = ((0x00000000000000FF) & (uvalue >> 56)
-                             | (0x000000000000FF00) & (uvalue >> 40)
-                             | (0x0000000000FF0000) & (uvalue >> 24)
-                             | (0x00000000FF000000) & (uvalue >> 8)
-                             | (0x000000FF00000000) & (uvalue << 8)
-                             | (0x0000FF0000000000) & (uvalue << 24)
-                             | (0x00FF000000000000) & (uvalue << 40)
-                             | (0xFF00000000000000) & (uvalue << 56));
-            return (Int64)swapped;
-        }
-
         public static Int16 GetInt16Value(this byte[] data)
         {
-            return BitConverter.ToInt16(data, 0).SwapBits();
+            return BitUtility.NetworkToHostOrder(BitConverter.ToInt16(data, 0));
         }
 
         public static Int32 GetInt32Value(this byte[] data)
         {
-            return BitConverter.ToInt32(data, 0).SwapBits();
+            return BitUtility.NetworkToHostOrder(BitConverter.ToInt32(data, 0));
         }
 
         public static Int64 GetInt64Value(this byte[] data)
         {
-            return BitConverter.ToInt64(data, 0).SwapBits();
+            return BitUtility.NetworkToHostOrder(BitConverter.ToInt64(data, 0));
         }
 
         public static string GetStringValue(this byte[] data)
