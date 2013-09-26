@@ -117,7 +117,7 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        protected override bool ProcessByteKVP(System.Collections.Generic.KeyValuePair<string, byte[]> kvp)
+        protected override bool ProcessByteKVP(DACPNode kvp)
         {
             if (base.ProcessByteKVP(kvp))
                 return true;

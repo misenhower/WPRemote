@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AirPlaySpeaker.cs" />
+    <Compile Include="Classes\DACPNode.cs" />
     <Compile Include="Classes\GroupedItems.cs" />
     <Compile Include="Classes\GroupItems.cs" />
     <Compile Include="Classes\PlayQueue.cs" />

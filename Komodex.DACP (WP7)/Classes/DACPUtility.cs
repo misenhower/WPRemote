@@ -18,12 +18,10 @@ namespace Komodex.DACP
 {
     internal static class DACPUtility
     {
-        public static List<KeyValuePair<string, byte[]>> GetResponseNodes(byte[] data, bool firstOnly = false)
+        #region Response Parsing
+
+        public static IEnumerable<DACPNode> GetResponseNodes(byte[] data)
         {
-            // TODO: Error checking
-
-            List<KeyValuePair<string, byte[]>> result = new List<KeyValuePair<string, byte[]>>();
-
             int dataLength = data.Length;
             int location = 0;
 
@@ -34,26 +32,13 @@ namespace Komodex.DACP
                 byte[] nodeBody = new byte[length];
                 Buffer.BlockCopy(data, location + 8, nodeBody, 0, length);
 
-                result.Add(new KeyValuePair<string, byte[]>(code, nodeBody));
+                yield return new DACPNode(code, nodeBody);
 
                 location += 8 + length;
-
-                if (firstOnly)
-                    break;
             }
-
-            return result;
         }
 
-        public static string EscapeSingleQuotes(string input)
-        {
-            return input.Replace("'", "\\'");
-        }
-
-        public static string QueryEncodeString(string input)
-        {
-            return Uri.EscapeDataString(DACPUtility.EscapeSingleQuotes(input));
-        }
+        #endregion
 
         #region DACP Data Extension Methods
 
@@ -86,6 +71,16 @@ namespace Komodex.DACP
         #endregion
 
         #region Other Extension Methods
+
+        public static string EscapeSingleQuotes(string input)
+        {
+            return input.Replace("'", "\\'");
+        }
+
+        public static string QueryEncodeString(string input)
+        {
+            return Uri.EscapeDataString(DACPUtility.EscapeSingleQuotes(input));
+        }
 
         public static string GetPathAndQueryString(this Uri uri)
         {

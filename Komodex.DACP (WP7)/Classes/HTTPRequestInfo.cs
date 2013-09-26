@@ -37,13 +37,13 @@ namespace Komodex.DACP
 
         public string ResponseCode { get; set; }
 
-        private byte[] _ResponseBody = null;
+        private byte[] _responseBody = null;
         public byte[] ResponseBody
         {
-            get { return _ResponseBody; }
+            get { return _responseBody; }
             set
             {
-                _ResponseBody = value;
+                _responseBody = value;
 #if DEBUG
                 if (_log.EffectiveLevel <= LogLevel.Trace)
                     PrintDebugBytes();
@@ -51,14 +51,14 @@ namespace Komodex.DACP
             }
         }
 
-        private List<KeyValuePair<string, byte[]>> _ResponseNodes = null;
-        public List<KeyValuePair<string, byte[]>> ResponseNodes
+        private IEnumerable<DACPNode> _responseNodes = null;
+        internal IEnumerable<DACPNode> ResponseNodes
         {
             get
             {
-                if (_ResponseNodes == null)
-                    _ResponseNodes = DACPUtility.GetResponseNodes(ResponseBody);
-                return _ResponseNodes;
+                if (_responseNodes == null)
+                    _responseNodes = DACPUtility.GetResponseNodes(ResponseBody);
+                return _responseNodes;
             }
         }
 

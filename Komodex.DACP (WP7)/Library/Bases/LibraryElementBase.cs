@@ -42,7 +42,7 @@ namespace Komodex.DACP.Library
                 ProcessByteKVP(kvp);
         }
 
-        protected virtual bool ProcessByteKVP(KeyValuePair<string, byte[]> kvp)
+        protected virtual bool ProcessByteKVP(DACPNode kvp)
         {
             switch (kvp.Key)
             {

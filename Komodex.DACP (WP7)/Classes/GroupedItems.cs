@@ -30,10 +30,10 @@ namespace Komodex.DACP
             }
         }
 
-        public static GroupedItems<T> HandleResponseNodes(List<KeyValuePair<string, byte[]>> responseNodes, Func<byte[],T> itemGenerator)
+        public static GroupedItems<T> HandleResponseNodes(IEnumerable<DACPNode> responseNodes, Func<byte[], T> itemGenerator)
         {
             List<T> items = new List<T>();
-            List<KeyValuePair<string, byte[]>> headers = new List<KeyValuePair<string, byte[]>>();
+            IEnumerable<DACPNode> headers = null;
 
             foreach (var kvp in responseNodes)
             {
@@ -57,7 +57,7 @@ namespace Komodex.DACP
             return Parse(items, headers);
         }
 
-        public static GroupedItems<T> Parse(List<T> items, List<KeyValuePair<string, byte[]>> headers)
+        public static GroupedItems<T> Parse(List<T> items, IEnumerable<DACPNode> headers)
         {
             if (items == null || headers == null)
                 return null;

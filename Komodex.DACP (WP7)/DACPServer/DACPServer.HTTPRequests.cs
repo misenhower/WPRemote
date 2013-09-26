@@ -105,13 +105,11 @@ namespace Komodex.DACP
 
                 byte[] byteResult = data.GetBuffer();
 
-                var parsedResponse = DACPUtility.GetResponseNodes(byteResult, true);
-                if (parsedResponse.Count > 0)
+                var parsedResponse = DACPUtility.GetResponseNodes(byteResult).FirstOrDefault();
+                if (parsedResponse != null)
                 {
-                    var parsedResponseNode = parsedResponse[0];
-
-                    requestInfo.ResponseCode = parsedResponseNode.Key;
-                    requestInfo.ResponseBody = parsedResponseNode.Value;
+                    requestInfo.ResponseCode = parsedResponse.Key;
+                    requestInfo.ResponseBody = parsedResponse.Value;
                 }
 
                 if (requestInfo.ResponseHandlerDelegate != null)
@@ -249,7 +247,7 @@ namespace Komodex.DACP
                 {
                     case "mlcl":
                         var mlcl = DACPUtility.GetResponseNodes(kvp.Value);
-                        var capabilityNodes = DACPUtility.GetResponseNodes(mlcl[0].Value);
+                        var capabilityNodes = DACPUtility.GetResponseNodes(mlcl.First().Value);
                         foreach (var capabilityNode in capabilityNodes)
                         {
                             switch(capabilityNode.Key)

@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Komodex.Common;
+using System.Collections.Generic;
 
 namespace Komodex.DACP.Library
 {
@@ -65,7 +66,7 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        protected override bool ProcessByteKVP(System.Collections.Generic.KeyValuePair<string, byte[]> kvp)
+        protected override bool ProcessByteKVP(DACPNode kvp)
         {
             if (base.ProcessByteKVP(kvp))
                 return true;

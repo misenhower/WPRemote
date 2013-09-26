@@ -148,8 +148,8 @@ namespace Komodex.DACP
         protected void ProcessDatabasesResponse(HTTPRequestInfo requestInfo)
         {
             byte[] libraryBytes = requestInfo.ResponseNodes.First(rn => rn.Key == "mlcl").Value;
-            var libraryNodes = DACPUtility.GetResponseNodes(libraryBytes, true);
-            byte[] firstLibraryBytes = libraryNodes[0].Value;
+            var libraryNodes = DACPUtility.GetResponseNodes(libraryBytes).First();
+            byte[] firstLibraryBytes = libraryNodes.Value;
             var firstLibraryNodes = DACPUtility.GetResponseNodes(firstLibraryBytes);
 
             foreach (var kvp in firstLibraryNodes)

@@ -86,6 +86,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\AirPlaySpeaker.cs">
       <Link>Classes\AirPlaySpeaker.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPNode.cs">
+      <Link>Classes\DACPNode.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPUtility.cs">
       <Link>Classes\DACPUtility.cs</Link>
     </Compile>
