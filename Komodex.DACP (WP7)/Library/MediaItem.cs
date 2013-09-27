@@ -117,46 +117,23 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        protected override bool ProcessByteKVP(DACPNode kvp)
+        protected override void ProcessDACPNodes(DACPNodeDictionary nodes)
         {
-            if (base.ProcessByteKVP(kvp))
-                return true;
+            base.ProcessDACPNodes(nodes);
 
-            switch (kvp.Key)
-            {
-                case "mcti": // Container item ID
-                    ContainerItemID = kvp.Value.GetInt32Value();
-                    return true;
-                case "asar": // Artist name
-                    ArtistName = kvp.Value.GetStringValue();
-                    return true;
-                case "asal": // Album name
-                    AlbumName = kvp.Value.GetStringValue();
-                    return true;
-                case "asur": // User rating
-                    UserRating = kvp.Value[0];
-                    return true;
-                case "asdb": // Disabled
-                    IsDisabled = !(kvp.Value[0] == 0);
-                    return true;
-                case "astm": // Track duration (ms)
-                    int ms = kvp.Value.GetInt32Value();
-                    Duration = TimeSpan.FromMilliseconds(ms);
-                    return true;
+            ContainerItemID = nodes.GetInt("mcti");
+            ArtistName = nodes.GetString("asar");
+            AlbumName = nodes.GetString("asal");
+            UserRating = nodes.GetByte("asur");
+            IsDisabled = nodes.GetBool("asdb");
+            Duration = TimeSpan.FromMilliseconds(nodes.GetInt("astm"));
 
-                // The following were added for podcast episodes, may need to move them if episodes become their own class
-                case "ashp": // Has been played
-                    HasBeenPlayed = !(kvp.Value[0] == 0);
-                    return true;
-                case "aspc": // Play count
-                    PlayCount = kvp.Value.GetInt32Value();
-                    return true;
-                case "asdr": // Date released
-                    DateReleased = kvp.Value.GetDateTimeValue();
-                    return true;
-            }
+            // The following were added for podcast episodes, may need to move them if episodes become their own class
+            HasBeenPlayed = nodes.GetBool("ashp");
+            PlayCount = nodes.GetInt("aspc");
+            if (nodes.ContainsKey("asdr"))
+                DateReleased = nodes.GetDateTime("asdr");
 
-            return false;
         }
 
         #endregion

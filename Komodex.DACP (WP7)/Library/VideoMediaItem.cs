@@ -34,19 +34,11 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        protected override bool ProcessByteKVP(DACPNode kvp)
+        protected override void ProcessDACPNodes(DACPNodeDictionary nodes)
         {
-            if (base.ProcessByteKVP(kvp))
-                return true;
+            base.ProcessDACPNodes(nodes);
 
-            switch (kvp.Key)
-            {
-                case "aeSN": // Show name
-                    ShowName = kvp.Value.GetStringValue();
-                    return true;
-                default:
-                    return false;
-            }
+            ShowName = nodes.GetString("aeSN");
         }
 
         #endregion

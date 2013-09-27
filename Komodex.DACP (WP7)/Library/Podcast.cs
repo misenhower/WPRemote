@@ -66,22 +66,12 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        protected override bool ProcessByteKVP(DACPNode kvp)
+        protected override void ProcessDACPNodes(DACPNodeDictionary nodes)
         {
-            if (base.ProcessByteKVP(kvp))
-                return true;
+            base.ProcessDACPNodes(nodes);
 
-            switch (kvp.Key)
-            {
-                case "asaa": // Artist name
-                    ArtistName = kvp.Value.GetStringValue();
-                    return true;
-                case "mper": // Persistent ID
-                    PersistentID = (UInt64)kvp.Value.GetInt64Value();
-                    return true;
-                default:
-                    return false;
-            }
+            ArtistName = nodes.GetString("asaa");
+            PersistentID = (UInt64)nodes.GetLong("mper");
         }
 
         #endregion

@@ -62,9 +62,14 @@ namespace Komodex.DACP
             return Encoding.UTF8.GetString(data, 0, data.Length);
         }
 
+        public static bool GetBoolValue(byte[] data)
+        {
+            return !(data[0] == 0);
+        }
+
         public static DateTime GetDateTimeValue(this byte[] data)
         {
-            int timestamp = data.GetInt32Value();
+            int timestamp = GetInt32Value(data);
             return (new DateTime(1970, 1, 1)).AddSeconds(timestamp);
         }
 

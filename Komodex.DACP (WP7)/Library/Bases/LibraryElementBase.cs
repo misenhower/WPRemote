@@ -23,7 +23,8 @@ namespace Komodex.DACP.Library
             : this()
         {
             Server = server;
-            ParseByteData(data);
+            DACPNodeDictionary nodes = DACPNodeDictionary.Parse(data);
+            ProcessDACPNodes(nodes);
         }
 
         #region Properties
@@ -35,26 +36,10 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        protected void ParseByteData(byte[] data)
+        protected virtual void ProcessDACPNodes(DACPNodeDictionary nodes)
         {
-            var nodes = DACPUtility.GetResponseNodes(data);
-            foreach (var kvp in nodes)
-                ProcessByteKVP(kvp);
-        }
-
-        protected virtual bool ProcessByteKVP(DACPNode kvp)
-        {
-            switch (kvp.Key)
-            {
-                case "miid": // ID
-                    ID = kvp.Value.GetInt32Value();
-                    return true;
-                case "minm": // Name
-                    Name = kvp.Value.GetStringValue();
-                    return true;
-                default:
-                    return false;
-            }
+            ID = nodes.GetInt("miid");
+            Name = nodes.GetString("minm");
         }
 
         #endregion

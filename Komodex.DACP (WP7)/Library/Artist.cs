@@ -85,19 +85,11 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        protected override bool ProcessByteKVP(DACPNode kvp)
+        protected override void ProcessDACPNodes(DACPNodeDictionary nodes)
         {
-            if (base.ProcessByteKVP(kvp))
-                return true;
+            base.ProcessDACPNodes(nodes);
 
-            switch (kvp.Key)
-            {
-                case "asri":
-                    ArtistID = (UInt64)kvp.Value.GetInt64Value();
-                    return true;
-                default:
-                    return false;
-            }
+            ArtistID = (UInt64)nodes.GetLong("asri");
         }
 
         #endregion

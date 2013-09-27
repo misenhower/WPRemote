@@ -23,7 +23,8 @@ namespace Komodex.DACP.Library
         public Playlist(DACPServer server, byte[] data)
         {
             Server = server;
-            ParseByteData(data);
+            DACPNodeDictionary nodes = DACPNodeDictionary.Parse(data);
+            ProcessDACPNodes(nodes);
         }
 
         public Playlist(DACPServer server, int id, string name, UInt64 persistentID)
@@ -84,46 +85,18 @@ namespace Komodex.DACP.Library
 
         #region Methods
 
-        protected void ParseByteData(byte[] data)
+        protected virtual void ProcessDACPNodes(DACPNodeDictionary nodes)
         {
-            var nodes = DACPUtility.GetResponseNodes(data);
-            foreach (var kvp in nodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "miid": // ID
-                        ID = kvp.Value.GetInt32Value();
-                        break;
-                    case "mper": // Persistent ID
-                        PersistentID = (UInt64)kvp.Value.GetInt64Value();
-                        break;
-                    case "minm": // Name
-                        Name = kvp.Value.GetStringValue();
-                        break;
-                    case "abpl": // Base playlist
-                        if (kvp.Value[0] >= 1)
-                            BasePlaylist = true;
-                        break;
-                    case "aePS": // Playlist type ID
-                        SpecialPlaylistType = (int)kvp.Value[0];
-                        break;
-                    case "mimc": // Item count
-                        ItemCount = kvp.Value.GetInt32Value();
-                        break;
-                    case "aeSP": // Smart playlist
-                        if (kvp.Value[0] >= 1)
-                            SmartPlaylist = true;
-                        break;
-                    case "ascn": // Genius Mix description
-                        string description = kvp.Value.GetStringValue();
-                        if (string.IsNullOrEmpty(description))
-                            break;
-                        GeniusMixDescription = description.Replace(",,,", ", ") + " " + LocalizedDACPStrings.GeniusMixAndOthers;
-                        break;
-                    default:
-                        break;
-                }
-            }
+            ID = nodes.GetInt("miid");
+            PersistentID = (UInt64)nodes.GetLong("mper");
+            Name = nodes.GetString("minm");
+            BasePlaylist = nodes.GetBool("abpl");
+            SpecialPlaylistType = (int)nodes.GetByte("aePS");
+            ItemCount = nodes.GetInt("mimc");
+            SmartPlaylist = nodes.GetBool("aeSP");
+            string description = nodes.GetString("ascn");
+            if (!string.IsNullOrEmpty(description))
+                GeniusMixDescription = description.Replace(",,,", ", ") + " " + LocalizedDACPStrings.GeniusMixAndOthers;
         }
 
         #endregion
