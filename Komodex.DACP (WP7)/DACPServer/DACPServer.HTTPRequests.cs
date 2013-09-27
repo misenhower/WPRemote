@@ -192,38 +192,25 @@ namespace Komodex.DACP
                 ServerVersionString = requestInfo.WebResponse.Headers["DAAP-Server"];
             }
 
-            foreach (var kvp in requestInfo.ResponseNodes)
+            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
+
+            LibraryName = nodes.GetString("minm");
+            ServerVersion = nodes.GetInt("aeSV");
+            ServerDMAPVersion = nodes.GetInt("mpro");
+            ServerDAAPVersion = nodes.GetInt("apro");
+
+            // MAC addresses
+            if (nodes.ContainsKey("msml"))
             {
-                switch (kvp.Key)
+                List<string> macAddresses = new List<string>();
+                var addressNodes = DACPUtility.GetResponseNodes(nodes["msml"]).Where(n => n.Key == "msma").Select(n => n.Value);
+                foreach (var addressNode in addressNodes)
                 {
-                    case "minm": // Library name
-                        LibraryName = kvp.Value.GetStringValue();
-                        break;
-                    case "aeSV": // Server Version
-                        ServerVersion = kvp.Value.GetInt32Value();
-                        break;
-                    case "mpro": // DMAP Version
-                        ServerDMAPVersion = kvp.Value.GetInt32Value();
-                        break;
-                    case "apro": // DAAP Version
-                        ServerDAAPVersion = kvp.Value.GetInt32Value();
-                        break;
-                    case "msml": // MAC addresses
-                        List<string> macAddresses = new List<string>();
-                        var addressNodes = DACPUtility.GetResponseNodes(kvp.Value);
-                        foreach (var addressNode in addressNodes)
-                        {
-                            if (addressNode.Key != "msma")
-                                continue;
-                            var address = BitConverter.ToInt64(addressNode.Value, 0);
-                            address = address >> 16;
-                            macAddresses.Add(address.ToString("X12"));
-                        }
-                        MACAddresses = macAddresses.ToArray();
-                        break;
-                    default:
-                        break;
+                    var address = BitConverter.ToInt64(addressNode, 0);
+                    address = address >> 16;
+                    macAddresses.Add(address.ToString("X12"));
                 }
+                MACAddresses = macAddresses.ToArray();
             }
 
             SubmitServerCapabilitiesRequest();
@@ -241,29 +228,16 @@ namespace Komodex.DACP
 
         protected void ProcessServerCapabilityResponse(HTTPRequestInfo requestInfo)
         {
-            foreach (var kvp in requestInfo.ResponseNodes)
+            var mlcl = DACPUtility.GetResponseNodes(requestInfo.ResponseNodes.First(n => n.Key == "mlcl").Value);
+            var nodes = DACPNodeDictionary.Parse(mlcl.First(n => n.Key == "mlit").Value);
+
+            if (nodes.ContainsKey("ceSX"))
             {
-                switch(kvp.Key)
-                {
-                    case "mlcl":
-                        var mlcl = DACPUtility.GetResponseNodes(kvp.Value);
-                        var capabilityNodes = DACPUtility.GetResponseNodes(mlcl.First().Value);
-                        foreach (var capabilityNode in capabilityNodes)
-                        {
-                            switch(capabilityNode.Key)
-                            {
-                                case "ceSX":
-                                    Int64 ceSX = capabilityNode.Value.GetInt64Value();
+                Int64 ceSX = nodes.GetLong("ceSX");
 
-                                    // Supports Play Queue (indicated by bit 0 of ceSX)
-                                    if ((ceSX & (1 << 0)) == (1 << 0))
-                                        SupportsPlayQueue = true;
-
-                                    break;
-                            }
-                        }
-                        break;
-                }
+                // Supports Play Queue (indicated by bit 0 of ceSX)
+                if ((ceSX & (1 << 0)) == (1 << 0))
+                    SupportsPlayQueue = true;
             }
 
             SubmitLoginRequest();
@@ -286,24 +260,14 @@ namespace Komodex.DACP
 
         protected void ProcessLoginResponse(HTTPRequestInfo requestInfo)
         {
-            bool gotSessionID = false;
+            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
 
-            foreach (var kvp in requestInfo.ResponseNodes)
+            if (nodes.ContainsKey("mlid"))
             {
-                if (kvp.Key == "mlid")
-                {
-                    SessionID = kvp.Value.GetInt32Value();
-                    gotSessionID = true;
-                    break;
-                }
-            }
+                SessionID = nodes.GetInt("mlid");
 
-            if (gotSessionID)
-            {
                 if (!Stopped)
-                {
                     SubmitDatabasesRequest();
-                }
 
                 int pixels = ResolutionUtility.GetScaledPixels(284);
                 CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?mw=" + pixels + "&mh=" + pixels + "&session-id=" + SessionID;
@@ -414,99 +378,56 @@ namespace Komodex.DACP
                     _trackTimeRequestTimer.Stop();
             });
 
-            int newSongID = 0;
-            int newContainerID = 0;
-            int newContainerItemID = 0;
-            string newSongName = null;
-            string newArtist = null;
-            string newAlbum = null;
-            UInt64 newAlbumPersistentID = 0;
-            int newTrackTimeTotal = 0;
-            int? newTrackTimeRemaining = null;
-            int newMediaKind = 0;
+            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
 
-            foreach (var kvp in requestInfo.ResponseNodes)
+            int oldSongID = CurrentSongID;
+
+            _playStatusRevisionNumber = nodes.GetInt("cmsr");
+            if (nodes.ContainsKey("canp"))
             {
-                switch (kvp.Key)
-                {
-                    case "cmsr": // Revision number
-                        _playStatusRevisionNumber = kvp.Value.GetInt32Value();
-                        break;
-                    case "canp": // Current song and container IDs
-                        byte[] value = kvp.Value;
+                // Current song and container IDs
+                byte[] value = nodes["canp"];
 
-                        //byte[] dbID = { value[0], value[1], value[2], value[3] }; // We already have the current DB (for now)
-                        byte[] containerID = { value[4], value[5], value[6], value[7] };
-                        byte[] containerItemID = { value[8], value[9], value[10], value[11] };
-                        byte[] songID = { value[12], value[13], value[14], value[15] };
-                        newContainerID = containerID.GetInt32Value();
-                        newContainerItemID = containerItemID.GetInt32Value();
-                        newSongID = songID.GetInt32Value();
-                        break;
-                    case "cann": // Song name
-                        newSongName = kvp.Value.GetStringValue();
-                        if (newSongName == "\u2603\u26035\u26034\u2603")
-                            newSongName += "!";
-                        break;
-                    case "cana": // Artist
-                        newArtist = kvp.Value.GetStringValue();
-                        break;
-                    case "canl": // Album
-                        newAlbum = kvp.Value.GetStringValue();
-                        break;
-                    case "asai":
-                        newAlbumPersistentID = (UInt64)kvp.Value.GetInt64Value();
-                        break;
-                    case "caps": // Play status
-                        PlayState = (PlayStates)kvp.Value[0];
-                        break;
-                    case "cash": // Shuffle status
-                        ShuffleState = !(kvp.Value[0] == 0);
-                        break;
-                    case "carp": // Repeat status
-                        RepeatState = (RepeatStates)kvp.Value[0];
-                        break;
-                    case "cast": // Track length (ms)
-                        newTrackTimeTotal = kvp.Value.GetInt32Value();
-                        break;
-                    case "cant": // Remaining track length (ms)
-                        newTrackTimeRemaining = kvp.Value.GetInt32Value();
-                        break;
-                    case "cmmk": // Media kind
-                        newMediaKind = kvp.Value.GetInt32Value();
-                        break;
-                    case "cavs": // dacp.visualizer
-                        VisualizerActive = !(kvp.Value[0] == 0);
-                        break;
-                    case "cave": // dacp.visualizerenabled
-                        VisualizerAvailable = !(kvp.Value[0] == 0);
-                        break;
-                    case "cafs": // dacp.fullscreen
-                        FullScreenModeActive = !(kvp.Value[0] == 0);
-                        break;
-                    case "cafe": // dacp.fullscreenenabled
-                        FullScreenModeAvailable = !(kvp.Value[0] == 0);
-                        break;
-                    default:
-                        break;
-                }
+                //byte[] dbID = { value[0], value[1], value[2], value[3] }; // We already have the current DB (for now)
+                byte[] containerID = { value[4], value[5], value[6], value[7] };
+                byte[] containerItemID = { value[8], value[9], value[10], value[11] };
+                byte[] songID = { value[12], value[13], value[14], value[15] };
+                CurrentContainerID = containerID.GetInt32Value();
+                CurrentContainerItemID = containerItemID.GetInt32Value();
+                CurrentSongID = songID.GetInt32Value();
             }
+            else
+            {
+                CurrentContainerID = 0;
+                CurrentContainerItemID = 0;
+                CurrentSongID = 0;
+            }
+            CurrentSongName = nodes.GetString("cann");
+            CurrentArtist = nodes.GetString("cana");
+            CurrentAlbum = nodes.GetString("canl");
+            CurrentAlbumPersistentID = (UInt64)nodes.GetLong("asai");
+            PlayState = (PlayStates)nodes.GetByte("caps");
+            ShuffleState = nodes.GetBool("cash");
+            RepeatState = (RepeatStates)nodes.GetByte("carp");
+            CurrentMediaKind = nodes.GetInt("cmmk");
+
+            // Track length (ms)
+            TrackTimeTotal = nodes.GetInt("cast");
+            // Remaining track length (ms)
+            TrackTimeRemaining = nodes.GetNullableInt("cant") ?? TrackTimeTotal;
+
+            // dacp.visualizer
+            VisualizerActive = nodes.GetBool("cavs");
+            // dacp.visualizerenabled
+            VisualizerAvailable = nodes.GetBool("cave");
+            // dacp.fullscreen
+            FullScreenModeActive = nodes.GetBool("cafs");
+            // dacp.fullscreenenabled
+            FullScreenModeAvailable = nodes.GetBool("cafe");
 
             // If the song ID changed, refresh the album art
-            if (newSongID != CurrentSongID)
+            if (oldSongID != CurrentSongID)
                 PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");
-
-            // Set all the properties
-            CurrentSongID = newSongID;
-            CurrentContainerID = newContainerID;
-            CurrentContainerItemID = newContainerItemID;
-            CurrentSongName = newSongName;
-            CurrentArtist = newArtist;
-            CurrentAlbum = newAlbum;
-            CurrentAlbumPersistentID = newAlbumPersistentID;
-            TrackTimeTotal = newTrackTimeTotal;
-            TrackTimeRemaining = newTrackTimeRemaining ?? newTrackTimeTotal;
-            CurrentMediaKind = newMediaKind;
 
             Utility.BeginInvokeOnUIThread(() =>
             {
@@ -553,24 +474,10 @@ namespace Komodex.DACP
 
         protected void ProcessTrackTimeResponse(HTTPRequestInfo requestInfo)
         {
-            int newTrackTimeTotal = 0;
-            int? newTrackTimeRemaining = null;
+            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
 
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "cast": // Track length (ms)
-                        newTrackTimeTotal = kvp.Value.GetInt32Value();
-                        break;
-                    case "cant": // Remaining track length (ms)
-                        newTrackTimeRemaining = kvp.Value.GetInt32Value();
-                        break;
-                }
-            }
-
-            TrackTimeTotal = newTrackTimeTotal;
-            TrackTimeRemaining = newTrackTimeRemaining ?? newTrackTimeTotal;
+            TrackTimeTotal = nodes.GetInt("cast");
+            TrackTimeRemaining = nodes.GetNullableInt("cant") ?? TrackTimeTotal;
         }
 
         #endregion
@@ -585,15 +492,10 @@ namespace Komodex.DACP
 
         protected void ProcessVolumeStatusResponse(HTTPRequestInfo requestInfo)
         {
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                if (kvp.Key == "cmvo")
-                {
-                    _Volume = (byte)kvp.Value.GetInt32Value();
-                    SendVolumePropertyChanged();
-                    break;
-                }
-            }
+            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
+
+            _Volume = (byte)nodes.GetInt("cmvo");
+            SendVolumePropertyChanged();
         }
 
         #endregion
@@ -624,25 +526,19 @@ namespace Komodex.DACP
 
         protected void ProcessUserRatingResponse(HTTPRequestInfo requestInfo)
         {
-            foreach (var kvp in requestInfo.ResponseNodes)
+            var mlcl = requestInfo.ResponseNodes.FirstOrDefault(n => n.Key == "mlcl");
+            if (mlcl == null)
+                return;
+
+            var songNodes = DACPUtility.GetResponseNodes(mlcl.Value);
+            foreach (var songData in songNodes)
             {
-                switch (kvp.Key)
+                MediaItem mediaItem = new MediaItem(this, songData.Value);
+                if (mediaItem.ID == CurrentSongID)
                 {
-                    case "mlcl":
-                        var songNodes = DACPUtility.GetResponseNodes(kvp.Value);
-                        foreach (var songData in songNodes)
-                        {
-                            MediaItem mediaItem = new MediaItem(this, songData.Value);
-                            if (mediaItem.ID == CurrentSongID)
-                            {
-                                _ratingUpdatedForSongID = CurrentSongID;
-                                SetCurrentSongUserRatingFromServer(mediaItem.UserRating);
-                                break;
-                            }
-                        }
-                        break;
-                    default:
-                        break;
+                    _ratingUpdatedForSongID = CurrentSongID;
+                    SetCurrentSongUserRatingFromServer(mediaItem.UserRating);
+                    break;
                 }
             }
         }
@@ -855,35 +751,18 @@ namespace Komodex.DACP
             List<PlayQueue> queues = new List<PlayQueue>();
             List<PlayQueueItem> queueItems = new List<PlayQueueItem>();
 
-            foreach (var kvp in requestInfo.ResponseNodes)
+            var mlcl = requestInfo.ResponseNodes.FirstOrDefault(n => n.Key == "mlcl");
+            if (mlcl != null)
             {
-                switch (kvp.Key)
-                {
-                    case "mlcl":
-                        var nodes = DACPUtility.GetResponseNodes(kvp.Value);
+                var nodes = DACPUtility.GetResponseNodes(mlcl.Value);
 
-                        foreach (var node in nodes)
-                        {
-                            switch (node.Key)
-                            {
-                                case "ceQS":
-                                    var queueNodes = DACPUtility.GetResponseNodes(node.Value);
-                                    foreach (var queueNode in queueNodes)
-                                    {
-                                        if (queueNode.Key != "mlit")
-                                            continue;
+                // Get the queues
+                var ceQS = nodes.FirstOrDefault(n => n.Key == "ceQS");
+                if (ceQS != null)
+                    queues.AddRange(DACPUtility.GetResponseNodes(ceQS.Value).Where(n => n.Key == "mlit").Select(n => new PlayQueue(this, n.Value)));
 
-                                        queues.Add(new PlayQueue(this, queueNode.Value));
-                                    }
-                                    break;
-
-                                case "mlit":
-                                    queueItems.Add(new PlayQueueItem(this, node.Value));
-                                    break;
-                            }
-                        }
-                        break;
-                }
+                // Get the queue items
+                queueItems.AddRange(nodes.Where(n => n.Key == "mlit").Select(n => new PlayQueueItem(this, n.Value)));
             }
 
             // Update the queues and queue items with minimal changes to avoid reloading the list while it's displayed.
