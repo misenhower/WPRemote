@@ -38,6 +38,15 @@ namespace Komodex.DACP
             }
         }
 
+        public static List<T> GetListFromNodes<T>(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator)
+        {
+            var items = nodes.FirstOrDefault(n => n.Key == "mlcl");
+            if (items == null)
+                return null;
+
+            return GetResponseNodes(items.Value).Where(n => n.Key == "mlit").Select(n => itemGenerator(n.Value)).ToList();
+        }
+
         #endregion
 
         #region DACP Data Extension Methods

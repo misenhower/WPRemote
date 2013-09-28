@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Komodex.Common;
+using System.Collections.Generic;
 
 namespace Komodex.DACP.Library
 {
@@ -45,28 +46,28 @@ namespace Komodex.DACP.Library
         /// </summary>
         public UInt64 ArtistID { get; protected set; }
 
-        private ObservableCollection<Album> _Albums = null;
-        public ObservableCollection<Album> Albums
+        private List<Album> _albums = null;
+        public List<Album> Albums
         {
-            get { return _Albums; }
+            get { return _albums; }
             protected set
             {
-                if (_Albums == value)
+                if (_albums == value)
                     return;
-                _Albums = value;
+                _albums = value;
                 SendPropertyChanged("Albums");
             }
         }
 
-        private ObservableCollection<MediaItem> _Songs = null;
-        public ObservableCollection<MediaItem> Songs
+        private List<MediaItem> _songs = null;
+        public List<MediaItem> Songs
         {
-            get { return _Songs; }
+            get { return _songs; }
             set
             {
-                if (_Songs == value)
+                if (_songs == value)
                     return;
-                _Songs = value;
+                _songs = value;
                 SendPropertyChanged("Songs");
             }
         }
@@ -155,25 +156,7 @@ namespace Komodex.DACP.Library
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
         {
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "mlcl":
-                        ObservableCollection<Album> albums = new ObservableCollection<Album>();
-
-                        var albumNodes = DACPUtility.GetResponseNodes(kvp.Value);
-                        foreach (var albumData in albumNodes)
-                        {
-                            albums.Add(new Album(Server, albumData.Value));
-                        }
-
-                        Albums = albums;
-                        break;
-                    default:
-                        break;
-                }
-            }
+            Albums = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new Album(Server, b));
 
             retrievingAlbums = false;
         }
@@ -221,25 +204,8 @@ namespace Komodex.DACP.Library
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
         {
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "mlcl":
-                        ObservableCollection<MediaItem> songs = new ObservableCollection<MediaItem>();
+            Songs = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new MediaItem(Server, b));
 
-                        var songNodes = DACPUtility.GetResponseNodes(kvp.Value);
-                        foreach (var songData in songNodes)
-                        {
-                            songs.Add(new MediaItem(Server, songData.Value));
-                        }
-
-                        Songs = songs;
-                        break;
-                    default:
-                        break;
-                }
-            }
             retrievingSongs = false;
         }
 

@@ -39,15 +39,15 @@ namespace Komodex.DACP.Library
         public override string SecondLine { get { return ArtistName; } }
         public UInt64 PersistentID { get; protected set; }
 
-        private ObservableCollection<MediaItem> _Episodes = null;
-        public ObservableCollection<MediaItem> Episodes
+        private List<MediaItem> _episodes = null;
+        public List<MediaItem> Episodes
         {
-            get { return _Episodes; }
+            get { return _episodes; }
             protected set
             {
-                if (_Episodes == value)
+                if (_episodes == value)
                     return;
-                _Episodes = value;
+                _episodes = value;
                 SendPropertyChanged("Episodes");
             }
         }
@@ -108,23 +108,7 @@ namespace Komodex.DACP.Library
 
         protected void ProcessEpisodesResponse(HTTPRequestInfo requestInfo)
         {
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "mlcl":
-                        ObservableCollection<MediaItem> episodes = new ObservableCollection<MediaItem>();
-
-                        var episodeNodes = DACPUtility.GetResponseNodes(kvp.Value);
-                        foreach (var episodeData in episodeNodes)
-                            episodes.Add(new MediaItem(Server, episodeData.Value));
-
-                        Episodes = episodes;
-                        break;
-                    default:
-                        break;
-                }
-            }
+            Episodes = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new MediaItem(Server, b));
         }
 
         #endregion

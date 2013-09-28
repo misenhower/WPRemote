@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Komodex.Common;
+using System.Collections.Generic;
 
 namespace Komodex.DACP.Library
 {
@@ -57,15 +58,15 @@ namespace Komodex.DACP.Library
 
         public UInt64 PersistentID { get; protected set; }
 
-        private ObservableCollection<MediaItem> _Songs = null;
-        public ObservableCollection<MediaItem> Songs
+        private List<MediaItem> _songs = null;
+        public List<MediaItem> Songs
         {
-            get { return _Songs; }
+            get { return _songs; }
             protected set
             {
-                if (_Songs == value)
+                if (_songs == value)
                     return;
-                _Songs = value;
+                _songs = value;
                 SendPropertyChanged("Songs");
             }
         }
@@ -176,25 +177,7 @@ namespace Komodex.DACP.Library
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
         {
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "mlcl":
-                        ObservableCollection<MediaItem> songs = new ObservableCollection<MediaItem>();
-
-                        var songNodes = DACPUtility.GetResponseNodes(kvp.Value);
-                        foreach (var songData in songNodes)
-                        {
-                            songs.Add(new MediaItem(Server, songData.Value));
-                        }
-
-                        Songs = songs;
-                        break;
-                    default:
-                        break;
-                }
-            }
+            Songs = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new MediaItem(Server, b));
 
             retrievingSongs = false;
         }

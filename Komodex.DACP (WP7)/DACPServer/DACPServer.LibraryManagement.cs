@@ -147,28 +147,14 @@ namespace Komodex.DACP
 
         protected void ProcessDatabasesResponse(HTTPRequestInfo requestInfo)
         {
-            byte[] libraryBytes = requestInfo.ResponseNodes.First(rn => rn.Key == "mlcl").Value;
-            var libraryNodes = DACPUtility.GetResponseNodes(libraryBytes).First();
-            byte[] firstLibraryBytes = libraryNodes.Value;
-            var firstLibraryNodes = DACPUtility.GetResponseNodes(firstLibraryBytes);
+            var mlcl = requestInfo.ResponseNodes.FirstOrDefault(n => n.Key == "mlcl").Value;
+            var mlit = DACPUtility.GetResponseNodes(mlcl).First(n => n.Key == "mlit").Value;
 
-            foreach (var kvp in firstLibraryNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "miid":
-                        DatabaseID = kvp.Value.GetInt32Value();
-                        break;
-                    case "mper":
-                        DatabasePersistentID = (UInt64)kvp.Value.GetInt64Value();
-                        break;
-                    case "aeIM":
-                        ServiceID = (UInt64)kvp.Value.GetInt64Value();
-                        break;
-                    default:
-                        break;
-                }
-            }
+            var nodes = DACPNodeDictionary.Parse(mlit);
+
+            DatabaseID = nodes.GetInt("miid");
+            DatabasePersistentID = (UInt64)nodes.GetLong("mper");
+            ServiceID = (UInt64)nodes.GetLong("aeIM");
 
             SubmitPlaylistsRequest();
 
@@ -475,24 +461,7 @@ namespace Komodex.DACP
 
         protected void ProcessPodcastsResponse(HTTPRequestInfo requestInfo)
         {
-            foreach (var kvp in requestInfo.ResponseNodes)
-            {
-                switch (kvp.Key)
-                {
-                    case "mlcl":
-                        List<Podcast> podcasts = new List<Podcast>();
-
-                        var podcastNodes = DACPUtility.GetResponseNodes(kvp.Value);
-                        foreach (var podcastData in podcastNodes)
-                            podcasts.Add(new Podcast(this, podcastData.Value));
-
-                        LibraryPodcasts = podcasts;
-
-                        break;
-                    default:
-                        break;
-                }
-            }
+            LibraryPodcasts = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new Podcast(this, b));
 
             retrievingPodcasts = false;
         }
