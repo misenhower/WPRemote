@@ -18,6 +18,8 @@ using System.Text;
 using Komodex.Common;
 using System.Threading;
 using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Komodex.DACP
 {
@@ -26,6 +28,30 @@ namespace Komodex.DACP
 
     public partial class DACPServer
     {
+        #region HttpClient
+
+        internal HttpClient HttpClient { get; private set; }
+
+        protected void UpdateHttpClient()
+        {
+            // Build the new HttpClient
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            if (clientHandler.SupportsAutomaticDecompression)
+                clientHandler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+            HttpClient client = new HttpClient(clientHandler);
+            client.BaseAddress = new Uri(HTTPPrefix);
+            client.DefaultRequestHeaders.Add("Viewer-Only-Client", "1");
+
+            if (HttpClient != null)
+            {
+                HttpClient.CancelPendingRequests();
+                HttpClient.Dispose();
+            }
+            HttpClient = client;
+        }
+
+        #endregion
+
         #region HTTP Management
 
         protected List<HTTPRequestInfo> PendingHttpRequests = new List<HTTPRequestInfo>();

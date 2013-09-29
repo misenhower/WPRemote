@@ -92,6 +92,7 @@ namespace Komodex.DACP
         protected void UpdateHTTPPrefix()
         {
             HTTPPrefix = "http://" + Hostname + ":" + Port;
+            UpdateHttpClient();
         }
 
         public string PairingCode { get; protected set; }
@@ -161,6 +162,13 @@ namespace Komodex.DACP
 
             IsConnected = true;
             SendServerUpdate(ServerUpdateType.ServerConnected);
+        }
+
+        internal void HandleHTTPException(string uri, Exception e)
+        {
+            _log.Error("HTTP Exception for URI: " + uri);
+            _log.Debug("Exception details: " + e.ToString());
+            ConnectionError("HTTP Exception:\nURI: " + uri + "\n" + e.ToString());
         }
 
         protected void ConnectionError(string errorDetails)
