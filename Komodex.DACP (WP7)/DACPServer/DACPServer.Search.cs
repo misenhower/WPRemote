@@ -236,8 +236,7 @@ namespace Komodex.DACP
 
             Utility.BeginInvokeOnUIThread(() =>
             {
-                foreach (ILibraryElement item in libraryElements)
-                    searchResults.Add(item);
+                searchResults.AddRange(libraryElements);
             });
         }
 

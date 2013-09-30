@@ -313,7 +313,7 @@ namespace Komodex.DACP
 
         protected void ProcessArtistsResponse(HTTPRequestInfo requestInfo)
         {
-            LibraryArtists = GroupedItems<Artist>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Artist(this, bytes));
+            LibraryArtists = GroupedItems<Artist>.GetAlphaGroupedItems(requestInfo.ResponseNodes, bytes => new Artist(this, bytes));
 
             retrievingArtists = false;
         }
@@ -346,7 +346,7 @@ namespace Komodex.DACP
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
         {
-            LibraryAlbums = GroupedItems<Album>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Album(this, bytes));
+            LibraryAlbums = GroupedItems<Album>.GetAlphaGroupedItems(requestInfo.ResponseNodes, bytes => new Album(this, bytes));
 
             retrievingAlbums = false;
         }
@@ -375,7 +375,7 @@ namespace Komodex.DACP
 
         protected void ProcessGenresResponse(HTTPRequestInfo requestInfo)
         {
-            LibraryGenres = GroupedItems<Genre>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Genre(this, bytes));
+            LibraryGenres = GroupedItems<Genre>.GetAlphaGroupedItems(requestInfo.ResponseNodes, bytes => new Genre(this, bytes));
 
             retrievingGenres = false;
         }
@@ -407,7 +407,7 @@ namespace Komodex.DACP
 
         protected void ProcessMoviesResponse(HTTPRequestInfo requestInfo)
         {
-            LibraryMovies = GroupedItems<VideoMediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new VideoMediaItem(this, bytes));
+            LibraryMovies = GroupedItems<VideoMediaItem>.GetAlphaGroupedItems(requestInfo.ResponseNodes, bytes => new VideoMediaItem(this, bytes));
 
             retrievingMovies = false;
         }

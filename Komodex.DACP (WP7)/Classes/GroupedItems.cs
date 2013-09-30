@@ -16,83 +16,49 @@ namespace Komodex.DACP
 {
     public class GroupedItems<T> : List<GroupItems<T>>
     {
-        private static readonly string Groups = "#abcdefghijklmnopqrstuvwxyz";
+        private const string AlphaGroupChars = "#abcdefghijklmnopqrstuvwxyz";
 
-        private Dictionary<char, GroupItems<T>> itemLookup = new Dictionary<char, GroupItems<T>>();
-
-        protected GroupedItems()
+        public static GroupedItems<T> GetAlphaGroupedItems(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator)
         {
-            foreach (char c in Groups)
-            {
-                GroupItems<T> itemsInGroup = new GroupItems<T>(c.ToString());
-                this.Add(itemsInGroup);
-                itemLookup.Add(c, itemsInGroup);
-            }
+            var nodeList = nodes.ToList();
+            var items = DACPUtility.GetListFromNodes(nodeList, itemGenerator);
+            var headers = nodeList.FirstOrDefault(n => n.Key == "mshl");
+            IEnumerable<DACPNode> headerNodes = null;
+            if (headers != null)
+                headerNodes = DACPUtility.GetResponseNodes(headers.Value);
+
+            return GetAlphaGroupedItems(items, headerNodes);
         }
 
-        public static GroupedItems<T> HandleResponseNodes(IEnumerable<DACPNode> responseNodes, Func<byte[], T> itemGenerator)
+        public static GroupedItems<T> GetAlphaGroupedItems(List<T> items, IEnumerable<DACPNode> headers)
         {
-            List<T> items = new List<T>();
-            IEnumerable<DACPNode> headers = null;
+            GroupedItems<T> result = new GroupedItems<T>();
 
-            foreach (var kvp in responseNodes)
+            // If we don't have any header nodes, just return one group that has all the items
+            if (headers == null)
             {
-                switch (kvp.Key)
-                {
-                    case "mlcl": // Items list
-                    case "abgn": // Genres list
-                        items.Clear();
-                        var itemNodes = DACPUtility.GetResponseNodes(kvp.Value);
-                        foreach (var itemData in itemNodes)
-                            items.Add(itemGenerator(itemData.Value));
-                        break;
-                    case "mshl": // Headers
-                        headers = DACPUtility.GetResponseNodes(kvp.Value);
-                        break;
-                    default:
-                        break;
-                }
+                result.Add(new GroupItems<T>(string.Empty));
+                result[0].AddRange(items);
+                return result;
             }
 
-            return Parse(items, headers);
-        }
-
-        public static GroupedItems<T> Parse(List<T> items, IEnumerable<DACPNode> headers)
-        {
-            if (items == null || headers == null)
-                return null;
-
-            int skip = 0;
-            int take = 0;
-            char headerChar = 'a';
-
-            var result = new GroupedItems<T>();
-
-            foreach (var header in headers)
+            // Create groups for each letter
+            var groupsByChar = new Dictionary<char, GroupItems<T>>(AlphaGroupChars.Length);
+            foreach (char c in AlphaGroupChars)
             {
-                var headerNodes = DACPUtility.GetResponseNodes(header.Value);
-                foreach (var node in headerNodes)
-                {
-                    switch (node.Key)
-                    {
-                        case "mshc": // Header character
-                            headerChar = GetKeyChar(node.Value.GetStringValue());
-                            break;
-                        case "mshi": // First index
-                            skip = node.Value.GetInt32Value();
-                            break;
-                        case "mshn": // Total count
-                            take = node.Value.GetInt32Value();
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                GroupItems<T> group = new GroupItems<T>(c.ToString());
+                result.Add(group);
+                groupsByChar[c] = group;
+            }
 
-                var itemSubset = items.Skip(skip).Take(take);
-                var itemCollection = result.itemLookup[headerChar];
-                foreach (var item in itemSubset)
-                    itemCollection.Add(item);
+            // Add the items to their groups
+            foreach (var header in headers.Select(n => DACPNodeDictionary.Parse(n.Value)))
+            {
+                char headerChar = GetKeyChar(header.GetString("mshc"));
+                int skip = header.GetInt("mshi");
+                int take = header.GetInt("mshn");
+
+                groupsByChar[headerChar].AddRange(items.Skip(skip).Take(take));
             }
 
             return result;
@@ -100,6 +66,9 @@ namespace Komodex.DACP
 
         protected static char GetKeyChar(string input)
         {
+            if (string.IsNullOrEmpty(input))
+                return '#';
+
             string formattedString = input.Trim('\0').ToLower();
             if (string.IsNullOrEmpty(formattedString))
                 return '#';

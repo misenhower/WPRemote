@@ -100,7 +100,7 @@ namespace Komodex.DACP.Library
 
         protected void ProcessArtistsResponse(HTTPRequestInfo requestInfo)
         {
-            Artists = GroupedItems<Artist>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Artist(this.Server, bytes));
+            Artists = GroupedItems<Artist>.GetAlphaGroupedItems(requestInfo.ResponseNodes, bytes => new Artist(this.Server, bytes));
 
             retrievingArtists = false;
         }
@@ -134,7 +134,7 @@ namespace Komodex.DACP.Library
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
         {
-            Albums = GroupedItems<Album>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new Album(this.Server, bytes));
+            Albums = GroupedItems<Album>.GetAlphaGroupedItems(requestInfo.ResponseNodes, bytes => new Album(this.Server, bytes));
 
             retrievingAlbums = false;
         }
@@ -168,7 +168,7 @@ namespace Komodex.DACP.Library
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
         {
             int index = 0;
-            Songs = GroupedItems<MediaItem>.HandleResponseNodes(requestInfo.ResponseNodes, bytes => new MediaItem(this.Server, bytes) { ListIndex = index++ });
+            Songs = GroupedItems<MediaItem>.GetAlphaGroupedItems(requestInfo.ResponseNodes, bytes => new MediaItem(this.Server, bytes) { ListIndex = index++ });
 
             retrievingSongs = false;
         }

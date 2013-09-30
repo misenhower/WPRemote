@@ -40,7 +40,7 @@ namespace Komodex.DACP
 
         public static List<T> GetListFromNodes<T>(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator)
         {
-            var items = nodes.FirstOrDefault(n => n.Key == "mlcl");
+            var items = nodes.FirstOrDefault(n => n.Key == "mlcl" || n.Key == "abgn");
             if (items == null)
                 return null;
 
