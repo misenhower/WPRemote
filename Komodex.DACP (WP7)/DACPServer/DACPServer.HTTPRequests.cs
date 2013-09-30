@@ -50,6 +50,28 @@ namespace Komodex.DACP
             HttpClient = client;
         }
 
+        internal async Task<DACPResponse> SubmitRequest(DACPRequest request)
+        {
+            if (request.IncludeSessionID)
+                request.QueryParameters["session-id"] = SessionID.ToString();
+            return await SubmitRequest(request.GetURI()).ConfigureAwait(false);
+        }
+
+        internal async Task<DACPResponse> SubmitRequest(string uri)
+        {
+            _log.Info("Submitting request for: " + uri);
+
+            HttpResponseMessage response = await HttpClient.PostAsync(uri, null).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+            byte[] data = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+
+            // Get the content of the first node
+            data = DACPUtility.GetResponseNodes(data).First().Value;
+            var nodes = DACPUtility.GetResponseNodes(data);
+
+            return new DACPResponse(response, nodes);
+        }
+
         #endregion
 
         #region HTTP Management

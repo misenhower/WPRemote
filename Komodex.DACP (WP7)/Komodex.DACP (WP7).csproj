@@ -80,6 +80,8 @@
     <Compile Include="Classes\AirPlaySpeaker.cs" />
     <Compile Include="Classes\DACPNode.cs" />
     <Compile Include="Classes\DACPNodeDictionary.cs" />
+    <Compile Include="Classes\DACPRequest.cs" />
+    <Compile Include="Classes\DACPResponse.cs" />
     <Compile Include="Classes\GroupedItems.cs" />
     <Compile Include="Classes\GroupItems.cs" />
     <Compile Include="Classes\PlayQueue.cs" />

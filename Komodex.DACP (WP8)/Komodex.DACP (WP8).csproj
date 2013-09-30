@@ -92,6 +92,12 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPNodeDictionary.cs">
       <Link>Classes\DACPNodeDictionary.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPRequest.cs">
+      <Link>Classes\DACPRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPResponse.cs">
+      <Link>Classes\DACPResponse.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPUtility.cs">
       <Link>Classes\DACPUtility.cs</Link>
     </Compile>
