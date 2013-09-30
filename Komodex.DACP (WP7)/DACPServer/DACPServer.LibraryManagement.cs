@@ -13,11 +13,20 @@ using System.Collections.ObjectModel;
 using Komodex.DACP.Library;
 using System.Collections.Generic;
 using Komodex.Common;
+using Komodex.DACP.Databases;
 
 namespace Komodex.DACP
 {
     public partial class DACPServer
     {
+        #region Databases
+
+        public DACPDatabase MainDatabase { get; protected set; }
+        public DACPDatabase InternetRadioDatabase { get; protected set; }
+        public Dictionary<int, DACPDatabase> SharedDatabases { get; protected set; }
+
+        #endregion
+
         #region Properties
 
         public int DatabaseID { get; protected set; }
@@ -147,6 +156,39 @@ namespace Komodex.DACP
 
         protected void ProcessDatabasesResponse(HTTPRequestInfo requestInfo)
         {
+            var databases = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, data => new DACPDatabase(this, DACPNodeDictionary.Parse(data)));
+            if (databases.Count == 0)
+            {
+                ConnectionError();
+                return;
+            }
+
+            for (int i = 0; i < databases.Count; i++)
+            {
+                var database = databases[i];
+
+                // Main Database
+                if (i == 0)
+                {
+                    if (MainDatabase == null)
+                    {
+                        MainDatabase = database;
+                        MainDatabase.RequestContainersAsync();
+                    }
+                    continue;
+                }
+
+                // Internet Radio Database
+                if (database.DBKind == 100)
+                {
+                    if (InternetRadioDatabase == null)
+                        InternetRadioDatabase = database;
+                    continue;
+                }
+
+                // TODO: Shared databases
+            }
+
             var mlcl = requestInfo.ResponseNodes.FirstOrDefault(n => n.Key == "mlcl").Value;
             var mlit = DACPUtility.GetResponseNodes(mlcl).First(n => n.Key == "mlit").Value;
 

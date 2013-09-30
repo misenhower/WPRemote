@@ -41,6 +41,7 @@ namespace Komodex.DACP
             HttpClient client = new HttpClient(clientHandler);
             client.BaseAddress = new Uri(HTTPPrefix);
             client.DefaultRequestHeaders.Add("Viewer-Only-Client", "1");
+            client.DefaultRequestHeaders.Add("Client-DAAP-Version", "3.11");
 
             if (HttpClient != null)
             {
@@ -50,14 +51,14 @@ namespace Komodex.DACP
             HttpClient = client;
         }
 
-        internal async Task<DACPResponse> SubmitRequest(DACPRequest request)
+        internal async Task<DACPResponse> SubmitRequestAsync(DACPRequest request)
         {
             if (request.IncludeSessionID)
                 request.QueryParameters["session-id"] = SessionID.ToString();
-            return await SubmitRequest(request.GetURI()).ConfigureAwait(false);
+            return await SubmitRequestAsync(request.GetURI()).ConfigureAwait(false);
         }
 
-        internal async Task<DACPResponse> SubmitRequest(string uri)
+        internal async Task<DACPResponse> SubmitRequestAsync(string uri)
         {
             _log.Info("Submitting request for: " + uri);
 

@@ -164,6 +164,11 @@ namespace Komodex.DACP
             SendServerUpdate(ServerUpdateType.ServerConnected);
         }
 
+        internal void HandleHTTPException(DACPRequest request, Exception e)
+        {
+            HandleHTTPException(request.GetURI(), e);
+        }
+
         internal void HandleHTTPException(string uri, Exception e)
         {
             _log.Error("HTTP Exception for URI: " + uri);

@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AirPlaySpeaker.cs" />
+    <Compile Include="Classes\DACPElement.cs" />
     <Compile Include="Classes\DACPNode.cs" />
     <Compile Include="Classes\DACPNodeDictionary.cs" />
     <Compile Include="Classes\DACPRequest.cs" />
@@ -86,7 +87,9 @@
     <Compile Include="Classes\GroupItems.cs" />
     <Compile Include="Classes\PlayQueue.cs" />
     <Compile Include="Classes\PlayQueueItem.cs" />
+    <Compile Include="Containers\DACPContainer.cs" />
     <Compile Include="DACPServer\DACPServer.AirPlaySpeakers.cs" />
+    <Compile Include="Databases\DACPDatabase.cs" />
     <Compile Include="Library\Bases\LibraryElementBase.cs" />
     <Compile Include="Library\Genre.cs" />
     <Compile Include="Library\Podcast.cs" />

@@ -86,6 +86,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\AirPlaySpeaker.cs">
       <Link>Classes\AirPlaySpeaker.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPElement.cs">
+      <Link>Classes\DACPElement.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPNode.cs">
       <Link>Classes\DACPNode.cs</Link>
     </Compile>
@@ -122,6 +125,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\ServerUpdateEventArgs.cs">
       <Link>Classes\ServerUpdateEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Containers\DACPContainer.cs">
+      <Link>Containers\DACPContainer.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.AirPlaySpeakers.cs">
       <Link>DACPServer\DACPServer.AirPlaySpeakers.cs</Link>
     </Compile>
@@ -139,6 +145,9 @@
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.Search.cs">
       <Link>DACPServer\DACPServer.Search.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Databases\DACPDatabase.cs">
+      <Link>Databases\DACPDatabase.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Library\Album.cs">
       <Link>Library\Album.cs</Link>
