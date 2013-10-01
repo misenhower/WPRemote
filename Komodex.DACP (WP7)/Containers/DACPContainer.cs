@@ -61,6 +61,17 @@ namespace Komodex.DACP.Containers
             return request;
         }
 
+        internal DACPRequest GetItemsRequest(string query)
+        {
+            DACPRequest request = new DACPRequest("/databases/{0}/containers/{1}/items", Database.ID, ID);
+            request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,daap.songartist,daap.songalbumartist,daap.songalbum,com.apple.itunes.cloud-id,dmap.containeritemid,com.apple.itunes.has-video,com.apple.itunes.itms-songid,com.apple.itunes.extended-media-kind,dmap.downloadstatus,daap.songdisabled,com.apple.itunes.cloud-id,daap.songartistid,daap.songalbumid,dmap.persistentid,dmap.downloadstatus,daap.songalbum";
+            request.QueryParameters["type"] = "music";
+            request.QueryParameters["sort"] = "album";
+            request.QueryParameters["query"] = query;
+
+            return request;
+        }
+
         #endregion
     }
 }

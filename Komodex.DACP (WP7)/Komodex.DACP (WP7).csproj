@@ -91,8 +91,11 @@
     <Compile Include="Containers\MusicContainer.cs" />
     <Compile Include="DACPServer\DACPServer.AirPlaySpeakers.cs" />
     <Compile Include="Databases\DACPDatabase.cs" />
+    <Compile Include="Groups\Album.cs" />
     <Compile Include="Groups\Artist.cs" />
     <Compile Include="Groups\DACPGroup.cs" />
+    <Compile Include="Items\DACPItem.cs" />
+    <Compile Include="Items\Song.cs" />
     <Compile Include="Library\Bases\LibraryElementBase.cs" />
     <Compile Include="Library\Genre.cs" />
     <Compile Include="Library\Podcast.cs" />

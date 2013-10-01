@@ -55,7 +55,6 @@ namespace Komodex.DACP.Databases
                         if (Music == null)
                         {
                             Music = (MusicContainer)container;
-                           await Music.RequestArtistsAsync();
                         }
                         continue;
                     }

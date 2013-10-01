@@ -152,11 +152,20 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Databases\DACPDatabase.cs">
       <Link>Databases\DACPDatabase.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Groups\Album.cs">
+      <Link>Groups\Album.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Groups\Artist.cs">
       <Link>Groups\Artist.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Groups\DACPGroup.cs">
       <Link>Groups\DACPGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Items\DACPItem.cs">
+      <Link>Items\DACPItem.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Items\Song.cs">
+      <Link>Items\Song.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Library\Album.cs">
       <Link>Library\Album.cs</Link>
