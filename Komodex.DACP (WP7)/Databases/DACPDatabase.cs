@@ -37,7 +37,7 @@ namespace Komodex.DACP.Databases
             try
             {
                 var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
-                var containers = DACPUtility.GetListFromNodes(response.Nodes, data => DACPContainer.GetContainer(this, DACPNodeDictionary.Parse(data)));
+                var containers = DACPUtility.GetItemsFromNodes(response.Nodes, n => DACPContainer.GetContainer(this, n));
 
                 foreach (DACPContainer container in containers)
                 {

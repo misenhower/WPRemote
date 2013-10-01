@@ -38,13 +38,26 @@ namespace Komodex.DACP
             }
         }
 
-        public static List<T> GetListFromNodes<T>(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator)
-        {
-            var items = nodes.FirstOrDefault(n => n.Key == "mlcl" || n.Key == "abgn");
-            if (items == null)
-                return null;
+        internal const string DefaultListKey = "mlcl";
 
-            return GetResponseNodes(items.Value).Where(n => n.Key == "mlit").Select(n => itemGenerator(n.Value)).ToList();
+        public static IEnumerable<T> GetItemsFromNodes<T>(byte[] data, Func<byte[], T> itemGenerator, string listKey = DefaultListKey)
+        {
+            return GetItemsFromNodes(GetResponseNodes(data), itemGenerator, listKey);
+        }
+
+        public static IEnumerable<T> GetItemsFromNodes<T>(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator, string listKey = DefaultListKey)
+        {
+            return GetResponseNodes(nodes.First(n => n.Key == listKey).Value).Where(n => n.Key == "mlit").Select(n => itemGenerator(n.Value));
+        }
+
+        public static IEnumerable<T> GetItemsFromNodes<T>(byte[] data, Func<DACPNodeDictionary, T> itemGenerator, string listKey = DefaultListKey)
+        {
+            return GetItemsFromNodes(GetResponseNodes(data), d => itemGenerator(DACPNodeDictionary.Parse(d)), listKey);
+        }
+
+        public static IEnumerable<T> GetItemsFromNodes<T>(IEnumerable<DACPNode> nodes, Func<DACPNodeDictionary, T> itemGenerator, string listKey = DefaultListKey)
+        {
+            return GetItemsFromNodes(nodes, d => itemGenerator(DACPNodeDictionary.Parse(d)), listKey);
         }
 
         #endregion

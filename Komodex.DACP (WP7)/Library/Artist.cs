@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Komodex.Common;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Komodex.DACP.Library
 {
@@ -156,7 +157,7 @@ namespace Komodex.DACP.Library
 
         protected void ProcessAlbumsResponse(HTTPRequestInfo requestInfo)
         {
-            Albums = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new Album(Server, b));
+            Albums = DACPUtility.GetItemsFromNodes(requestInfo.ResponseNodes, data => new Album(Server, data)).ToList();
 
             retrievingAlbums = false;
         }
@@ -204,7 +205,7 @@ namespace Komodex.DACP.Library
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
         {
-            Songs = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new MediaItem(Server, b));
+            Songs = DACPUtility.GetItemsFromNodes(requestInfo.ResponseNodes, data => new MediaItem(Server, data)).ToList();
 
             retrievingSongs = false;
         }

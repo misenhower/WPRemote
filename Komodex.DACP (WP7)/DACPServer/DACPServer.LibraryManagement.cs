@@ -156,7 +156,7 @@ namespace Komodex.DACP
 
         protected void ProcessDatabasesResponse(HTTPRequestInfo requestInfo)
         {
-            var databases = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, data => new DACPDatabase(this, DACPNodeDictionary.Parse(data)));
+            var databases = DACPUtility.GetItemsFromNodes(requestInfo.ResponseNodes, data => new DACPDatabase(this, data)).ToList();
             if (databases.Count == 0)
             {
                 ConnectionError();
@@ -375,7 +375,7 @@ namespace Komodex.DACP
 
         protected void ProcessGenresResponse(HTTPRequestInfo requestInfo)
         {
-            LibraryGenres = GroupedItems<Genre>.GetAlphaGroupedItems(requestInfo.ResponseNodes, bytes => new Genre(this, bytes));
+            LibraryGenres = GroupedItems<Genre>.GetAlphaGroupedItems(requestInfo.ResponseNodes, bytes => new Genre(this, bytes), "abgn");
 
             retrievingGenres = false;
         }
@@ -503,7 +503,7 @@ namespace Komodex.DACP
 
         protected void ProcessPodcastsResponse(HTTPRequestInfo requestInfo)
         {
-            LibraryPodcasts = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new Podcast(this, b));
+            LibraryPodcasts = DACPUtility.GetItemsFromNodes(requestInfo.ResponseNodes, data => new Podcast(this, data)).ToList();
 
             retrievingPodcasts = false;
         }

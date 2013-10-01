@@ -49,9 +49,8 @@ namespace Komodex.DACP.Containers
             try
             {
                 var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
-                List<Artist> items;
-                GroupedArtists = GroupedItems<Artist>.GetAlphaGroupedItems(response.Nodes, data => new Artist(this, DACPNodeDictionary.Parse(data)), out items);
-                Artists = items.ToDictionary(a => a.ID);
+                GroupedArtists = GroupedItems<Artist>.GetAlphaGroupedItems(response.Nodes, n => new Artist(this, n));
+                Artists = GroupedArtists.SelectMany(l => l).ToDictionary(a => a.ID);
             }
             catch (Exception e)
             {

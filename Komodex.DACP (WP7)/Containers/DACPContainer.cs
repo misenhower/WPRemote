@@ -55,6 +55,7 @@ namespace Komodex.DACP.Containers
             request.QueryParameters["group-type"] = groupType;
             if (includeSortHeaders)
                 request.QueryParameters["include-sort-headers"] = "1";
+            request.QueryParameters["sort"] = "album";
             request.QueryParameters["query"] = query;
 
             return request;

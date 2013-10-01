@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Komodex.Common;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Komodex.DACP.Library
 {
@@ -108,7 +109,7 @@ namespace Komodex.DACP.Library
 
         protected void ProcessEpisodesResponse(HTTPRequestInfo requestInfo)
         {
-            Episodes = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new MediaItem(Server, b));
+            Episodes = DACPUtility.GetItemsFromNodes(requestInfo.ResponseNodes, data => new MediaItem(Server, data)).ToList();
         }
 
         #endregion

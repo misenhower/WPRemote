@@ -128,7 +128,7 @@ namespace Komodex.DACP.Library
 
         protected void ProcessSongsResponse(HTTPRequestInfo requestInfo)
         {
-            Songs = DACPUtility.GetListFromNodes(requestInfo.ResponseNodes, b => new MediaItem(Server, b));
+            Songs = DACPUtility.GetItemsFromNodes(requestInfo.ResponseNodes, data => new MediaItem(Server, data)).ToList();
         }
 
         #endregion

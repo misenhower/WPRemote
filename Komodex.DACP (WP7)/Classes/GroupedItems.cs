@@ -18,22 +18,21 @@ namespace Komodex.DACP
     {
         private const string AlphaGroupChars = "#abcdefghijklmnopqrstuvwxyz";
 
-        public static GroupedItems<T> GetAlphaGroupedItems(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator)
-        {
-            List<T> items;
-            return GetAlphaGroupedItems(nodes, itemGenerator, out items);
-        }
-
-        public static GroupedItems<T> GetAlphaGroupedItems(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator, out List<T> items)
+        public static GroupedItems<T> GetAlphaGroupedItems(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator, string listKey = DACPUtility.DefaultListKey)
         {
             var nodeList = nodes.ToList();
-            items = DACPUtility.GetListFromNodes(nodeList, itemGenerator);
+            var items = DACPUtility.GetItemsFromNodes(nodeList, itemGenerator, listKey).ToList();
             var headers = nodeList.FirstOrDefault(n => n.Key == "mshl");
             IEnumerable<DACPNode> headerNodes = null;
             if (headers != null)
                 headerNodes = DACPUtility.GetResponseNodes(headers.Value);
 
             return GetAlphaGroupedItems(items, headerNodes);
+        }
+
+        public static GroupedItems<T> GetAlphaGroupedItems(IEnumerable<DACPNode> nodes, Func<DACPNodeDictionary, T> itemGenerator, string listKey = DACPUtility.DefaultListKey)
+        {
+            return GetAlphaGroupedItems(nodes, d => itemGenerator(DACPNodeDictionary.Parse(d)), listKey);
         }
 
         public static GroupedItems<T> GetAlphaGroupedItems(List<T> items, IEnumerable<DACPNode> headers)
