@@ -27,6 +27,7 @@ namespace Komodex.DACP.Databases
         #region Containers
 
         public DACPContainer BasePlaylist { get; private set; }
+        public MusicContainer Music { get; private set; }
 
         internal async Task<bool> RequestContainersAsync()
         {
@@ -40,10 +41,22 @@ namespace Komodex.DACP.Databases
 
                 foreach (DACPContainer container in containers)
                 {
+                    // Base Playlist
                     if (container.BasePlaylist)
                     {
                         if (BasePlaylist == null)
                             BasePlaylist = container;
+                        continue;
+                    }
+
+                    // Music
+                    if (container is MusicContainer)
+                    {
+                        if (Music == null)
+                        {
+                            Music = (MusicContainer)container;
+                           await Music.RequestArtistsAsync();
+                        }
                         continue;
                     }
                 }

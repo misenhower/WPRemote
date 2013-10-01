@@ -35,7 +35,31 @@ namespace Komodex.DACP.Containers
             if (nodes.GetBool("abpl"))
                 return new DACPContainer(database, nodes);
 
+            // Special playlist IDs
+            switch (nodes.GetByte("aePS"))
+            {
+                case 6: // Music
+                    return new MusicContainer(database, nodes);
+            }
+
             return new DACPContainer(database, nodes);
         }
+
+        #region Requests
+
+        internal DACPRequest GetGroupsRequest(string groupType, string query, bool includeSortHeaders)
+        {
+            DACPRequest request = new DACPRequest("/databases/{0}/groups", Database.ID);
+            request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid";
+            request.QueryParameters["type"] = "music";
+            request.QueryParameters["group-type"] = groupType;
+            if (includeSortHeaders)
+                request.QueryParameters["include-sort-headers"] = "1";
+            request.QueryParameters["query"] = query;
+
+            return request;
+        }
+
+        #endregion
     }
 }

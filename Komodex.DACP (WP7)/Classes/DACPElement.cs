@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Komodex.DACP
 {
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public abstract class DACPElement : INotifyPropertyChanged
     {
         public DACPElement(DACPServer server, DACPNodeDictionary nodes)
@@ -27,6 +29,11 @@ namespace Komodex.DACP
             ID = nodes.GetInt("miid");
             PersistentID = (UInt64)nodes.GetLong("mper");
             Name = nodes.GetString("minm");
+        }
+
+        protected virtual string DebuggerDisplay
+        {
+            get { return string.Format("{0} ID: {1}, Name: \"{2}\"", this.GetType().Name, ID, Name); }
         }
 
         #region INotifyPropertyChanged

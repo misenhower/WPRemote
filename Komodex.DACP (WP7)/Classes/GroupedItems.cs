@@ -20,8 +20,14 @@ namespace Komodex.DACP
 
         public static GroupedItems<T> GetAlphaGroupedItems(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator)
         {
+            List<T> items;
+            return GetAlphaGroupedItems(nodes, itemGenerator, out items);
+        }
+
+        public static GroupedItems<T> GetAlphaGroupedItems(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator, out List<T> items)
+        {
             var nodeList = nodes.ToList();
-            var items = DACPUtility.GetListFromNodes(nodeList, itemGenerator);
+            items = DACPUtility.GetListFromNodes(nodeList, itemGenerator);
             var headers = nodeList.FirstOrDefault(n => n.Key == "mshl");
             IEnumerable<DACPNode> headerNodes = null;
             if (headers != null)
