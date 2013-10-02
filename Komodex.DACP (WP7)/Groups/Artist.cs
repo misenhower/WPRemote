@@ -21,8 +21,8 @@ namespace Komodex.DACP.Groups
 
         #region Albums
 
-        private Dictionary<int, Album> _albums;
-        public Dictionary<int, Album> Albums
+        private List<Album> _albums;
+        public List<Album> Albums
         {
             get { return _albums; }
             private set
@@ -42,7 +42,7 @@ namespace Komodex.DACP.Groups
             try
             {
                 var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
-                Albums = DACPUtility.GetItemsFromNodes(response.Nodes, n => new Album(Container, n)).ToDictionary(a => a.ID);
+                Albums = DACPUtility.GetItemsFromNodes(response.Nodes, n => new Album(Container, n)).ToList();
             }
             catch (Exception e)
             {
@@ -58,8 +58,8 @@ namespace Komodex.DACP.Groups
 
         #region Songs
 
-        private Dictionary<int, Song> _songs;
-        public Dictionary<int, Song> Songs
+        private List<Song> _songs;
+        public List<Song> Songs
         {
             get { return _songs; }
             private set
@@ -79,7 +79,7 @@ namespace Komodex.DACP.Groups
             try
             {
                 var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
-                Songs = DACPUtility.GetItemsFromNodes(response.Nodes, n => new Song(Container, n)).ToDictionary(s => s.ID);
+                Songs = DACPUtility.GetItemsFromNodes(response.Nodes, n => new Song(Container, n)).ToList();
             }
             catch (Exception e)
             {

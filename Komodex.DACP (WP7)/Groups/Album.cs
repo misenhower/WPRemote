@@ -19,10 +19,19 @@ namespace Komodex.DACP.Groups
             get { return "albums"; }
         }
 
+        public string ArtistName { get; private set; }
+
+        protected override void ProcessNodes(DACPNodeDictionary nodes)
+        {
+            base.ProcessNodes(nodes);
+
+            ArtistName = nodes.GetString("asaa");
+        }
+
         #region Songs
 
-        private Dictionary<int, Song> _songs;
-        public Dictionary<int,Song> Songs
+        private List<Song> _songs;
+        public List<Song> Songs
         {
             get { return _songs; }
             private set
@@ -42,7 +51,7 @@ namespace Komodex.DACP.Groups
             try
             {
                 var response = await Server.SubmitRequestAsync(request);
-                Songs = DACPUtility.GetItemsFromNodes(response.Nodes, n => new Song(Container, n)).ToDictionary(s => s.ID);
+                Songs = DACPUtility.GetItemsFromNodes(response.Nodes, n => new Song(Container, n)).ToList();
             }
             catch (Exception e)
             {
