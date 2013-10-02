@@ -10,13 +10,14 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Komodex.DACP.Library;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
 using Komodex.Remote.ServerManagement;
 using Komodex.Common;
 using Komodex.DACP;
+using Komodex.DACP.Groups;
+using Komodex.DACP.Items;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -34,14 +35,56 @@ namespace Komodex.Remote.LibraryPages
 #endif
         }
 
-        protected FrameworkElement btnArtist = null;
+        protected FrameworkElement _artistButton = null;
 
-        #region Properties
+        #region Album Management
 
-        private Album Album
+        protected bool _initialized;
+        protected int _databaseID;
+        protected int _containerID;
+        protected int _albumID;
+
+        public static readonly DependencyProperty AlbumProperty =
+            DependencyProperty.Register("Album", typeof(Album), typeof(AlbumPage), new PropertyMetadata(null));
+
+        public Album Album
         {
-            get { return LayoutRoot.DataContext as Album; }
-            set { LayoutRoot.DataContext = value; }
+            get { return (Album)GetValue(AlbumProperty); }
+            set { SetValue(AlbumProperty, value); }
+        }
+
+        protected async void UpdateAlbum()
+        {
+            if (!_initialized)
+                return;
+
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            if (Album == null)
+            {
+                // TODO: Alternate databases
+                // Get the music container
+                var musicContainer = CurrentServer.MainDatabase.Music;
+
+                // Get the album
+                SetProgressIndicator(null, true);
+                Album = await musicContainer.GetAlbumByID(_albumID);
+                if (Album == null)
+                {
+                    NavigationService.GoBack();
+                    return;
+                }
+            }
+
+            // Load the album's songs
+            if (Album.Songs == null)
+            {
+                SetProgressIndicator(null, true);
+                await Album.RequestSongsAsync();
+            }
+
+            ClearProgressIndicator();
         }
 
         #endregion
@@ -54,25 +97,26 @@ namespace Komodex.Remote.LibraryPages
 
             var queryString = NavigationContext.QueryString;
 
-            int albumID = int.Parse(queryString["id"]);
-            UInt64 albumPersistentID = UInt64.Parse(queryString["perid"]);
-            string albumName = queryString["name"];
-            string artistName = queryString["artist"];
+            _databaseID = int.Parse(queryString["database"]);
+            _containerID = int.Parse(queryString["container"]);
+            _albumID = int.Parse(queryString["album"]);
+            _initialized = true;
 
-            if (Album == null)
-            {
-                Album = new Album(ServerManager.CurrentServer, albumID, albumName, artistName, albumPersistentID);
-                if (Album.Server != null && Album.Server.IsConnected)
-                    Album.GetSongs();
-            }
+            UpdateAlbum();
         }
 
         protected override void CurrentServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
         {
             base.CurrentServer_ServerUpdate(sender, e);
 
-            if (e.Type == DACP.ServerUpdateType.ServerConnected)
-                Utility.BeginInvokeOnUIThread(() => { Album.GetSongs(); });
+            Utility.BeginInvokeOnUIThread(UpdateAlbum);
+        }
+
+        protected override void OnServerChanged()
+        {
+            base.OnServerChanged();
+
+            Utility.BeginInvokeOnUIThread(UpdateAlbum);
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
@@ -88,8 +132,8 @@ namespace Komodex.Remote.LibraryPages
                 }
                 else if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
                 {
-                    if (uri.Contains("ArtistPage") && btnArtist != null)
-                        return GetContinuumAnimation(btnArtist, animationType);
+                    if (uri.Contains("ArtistPage") && _artistButton != null)
+                        return GetContinuumAnimation(_artistButton, animationType);
                 }
                 
             }
@@ -118,7 +162,7 @@ namespace Komodex.Remote.LibraryPages
 
         #region Actions
 
-        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private async void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             LongListSelector listBox = (LongListSelector)sender;
             var selectedItem = listBox.SelectedItem;
@@ -126,36 +170,53 @@ namespace Komodex.Remote.LibraryPages
             DependencyObject originalSource = e.OriginalSource as DependencyObject;
             if (originalSource != null)
             {
-                var ancestors = originalSource.GetVisualAncestors();
-                bool isPlayButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
+                var ancestors = originalSource.GetVisualAncestors().ToList();
+                bool isPlayButton = ancestors.AnyElementsWithName("PlayButton");
 
                 // Album play button
-                if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "AlbumPlayButton"))
+                if (ancestors.AnyElementsWithName("AlbumPlayButton"))
                 {
-                    Album.SendPlayCommand();
+                    //Album.SendPlayCommand();
                     NavigationManager.OpenNowPlayingPage();
                 }
 
                 // Artist button
-                else if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "ArtistButton"))
+                else if (ancestors.AnyElementsWithName("ArtistButton"))
                 {
-                    btnArtist = originalSource as FrameworkElement;
-                    NavigationManager.OpenArtistPage(Album.ArtistName);
+                    _artistButton = originalSource as FrameworkElement;
+                    
+                    // TODO: Alternate databases
+                    // Get the music container
+                    var musicContainer = CurrentServer.MainDatabase.Music;
+
+                    if (musicContainer.Artists == null)
+                    {
+                        SetProgressIndicator(null, true);
+                        bool success = await musicContainer.RequestArtistsAsync();
+                        ClearProgressIndicator();
+                        if (!success)
+                            return;
+                    }
+
+                    // Find the artist
+                    var artist = CurrentServer.MainDatabase.Music.Artists.Values.FirstOrDefault(a => a.Name == Album.ArtistName);
+                    if (artist != null)
+                        NavigationManager.OpenArtistPage(artist);
                 }
 
                 // Shuffle button
-                else if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "ShuffleButton"))
+                else if (ancestors.AnyElementsWithName("ShuffleButton"))
                 {
-                    Album.SendShuffleSongsCommand();
+                    //Album.SendShuffleSongsCommand();
                     NavigationManager.OpenNowPlayingPage();
                 }
 
                 // Songs
-                else if (selectedItem is MediaItem)
+                else if (selectedItem is Song)
                 {
-                    MediaItem song = (MediaItem)selectedItem;
+                    Song song = (Song)selectedItem;
 
-                    Album.SendPlaySongCommand(song);
+                    //Album.SendPlaySongCommand(song);
                     NavigationManager.OpenNowPlayingPage();
                 }
 
@@ -175,25 +236,21 @@ namespace Komodex.Remote.LibraryPages
             }
 
             // Songs
-            if (menuItem.DataContext is MediaItem)
+            if (menuItem.DataContext is Song)
             {
-                MediaItem song = (MediaItem)menuItem.DataContext;
+                Song song = (Song)menuItem.DataContext;
 
-                Album.SendPlaySongCommand(song, mode);
+                //Album.SendPlaySongCommand(song, mode);
                 NavigationManager.OpenNowPlayingPage();
             }
 
             // Album
             else if (menuItem.DataContext is Album)
             {
-                Album.SendPlayCommand(mode);
+                //Album.SendPlayCommand(mode);
                 NavigationManager.OpenNowPlayingPage();
             }
         }
-
-        #endregion
-
-        #region Methods
 
         #endregion
     }

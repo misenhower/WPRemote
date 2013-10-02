@@ -73,10 +73,10 @@
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding CurrentServer}" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
+    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}">
         <!--Pivot Control-->
         <controls:Pivot Name="pivotControl"
-                        Title="{Binding Path=LibraryName, Converter={StaticResource StringToUpperConverter}}"
+                        Title="{Binding Path=CurrentServer.LibraryName, Converter={StaticResource StringToUpperConverter}}"
                         Margin="0,32,0,0"
                         FontFamily="{StaticResource PhoneFontFamilySemiBold}"
                         FontSize="{StaticResource PhoneFontSizeMedium}"
@@ -84,7 +84,7 @@
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryArtistsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotArtists">
                 <Grid>
                     <controls:LongListSelectorEx x:Name="lbArtists"
-                        ItemsSource="{Binding LibraryArtists}"
+                        ItemsSource="{Binding CurrentServer.MainDatabase.Music.GroupedArtists}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.LibraryNoArtistsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
@@ -97,7 +97,7 @@
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotAlbums">
                 <Grid >
                     <controls:LongListSelectorEx x:Name="lbAlbums"
-                        ItemsSource="{Binding LibraryAlbums}"
+                        ItemsSource="{Binding CurrentServer.MainDatabase.Music.GroupedAlbums}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.LibraryNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
@@ -110,7 +110,7 @@
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryGenresPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotGenres">
                 <Grid>
                     <controls:LongListSelectorEx x:Name="lbGenres"
-                        ItemsSource="{Binding LibraryGenres}"
+                        ItemsSource="{Binding CurrentServer.LibraryGenres}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.LibraryNoGenresFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
@@ -123,11 +123,11 @@
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryPlaylistsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotPlaylists">
                 <Grid>
                     <controls:LongListSelectorEx x:Name="lbPlaylists"
-                        ItemsSource="{Binding LibraryPlaylists}"
+                        ItemsSource="{Binding CurrentServer.LibraryPlaylists}"
                         EmptyText="{Binding LocalizedStrings.LibraryNoPlaylistsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"
-                        ListHeader="{Binding}"
+                        ListHeader="{Binding CurrentServer}"
                         ListHeaderTemplate="{StaticResource PlaylistHeaderTemplate}"
                         ItemTemplate="{StaticResource PlaylistTemplate}"
                         ListFooterTemplate="{StaticResource ListFooterPadding}"

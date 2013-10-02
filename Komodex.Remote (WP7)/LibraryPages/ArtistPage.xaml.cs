@@ -10,13 +10,14 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Komodex.DACP.Library;
 using Clarity.Phone.Controls;
 using Clarity.Phone.Controls.Animations;
 using Clarity.Phone.Extensions;
 using Komodex.Remote.ServerManagement;
 using Komodex.Common;
 using Komodex.DACP;
+using Komodex.DACP.Groups;
+using Komodex.DACP.Items;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -34,12 +35,49 @@ namespace Komodex.Remote.LibraryPages
 #endif
         }
 
-        #region Properties
+        #region Artist Management
 
-        private Artist Artist
+        protected bool _initialized;
+        protected int _databaseID;
+        protected int _containerID;
+        protected int _artistID;
+
+        public static readonly DependencyProperty ArtistProperty =
+            DependencyProperty.Register("Artist", typeof(Artist), typeof(ArtistPage), new PropertyMetadata(null));
+
+        public Artist Artist
         {
-            get { return LayoutRoot.DataContext as Artist; }
-            set { LayoutRoot.DataContext = value; }
+            get { return (Artist)GetValue(ArtistProperty); }
+            set { SetValue(ArtistProperty, value); }
+        }
+
+        protected async void UpdateArtist()
+        {
+            if (!_initialized)
+                return;
+
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            if (Artist == null)
+            {
+                // TODO: Alternate databases
+                // Get the music container
+                var musicContainer = CurrentServer.MainDatabase.Music;
+
+                // Get the artist
+                SetProgressIndicator(null, true);
+                Artist = await musicContainer.GetArtistByID(_artistID);
+                ClearProgressIndicator();
+                if (Artist == null)
+                {
+                    NavigationService.GoBack();
+                    return;
+                }
+            }
+
+            // Load the artist's albums or songs
+            GetDataForPivotItem();
         }
 
         #endregion
@@ -50,7 +88,12 @@ namespace Komodex.Remote.LibraryPages
         {
             base.OnNavigatedTo(e);
 
-            string artistName = NavigationContext.QueryString["name"];
+            var queryString = NavigationContext.QueryString;
+
+            _databaseID = int.Parse(queryString["database"]);
+            _containerID = int.Parse(queryString["container"]);
+            _artistID = int.Parse(queryString["artist"]);
+            _initialized = true;
 
             try
             {
@@ -61,8 +104,7 @@ namespace Komodex.Remote.LibraryPages
             }
             catch (InvalidOperationException) { }
 
-            if (Artist == null)
-                Artist = new Artist(ServerManager.CurrentServer, artistName);
+            UpdateArtist();
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -81,8 +123,14 @@ namespace Komodex.Remote.LibraryPages
         {
             base.CurrentServer_ServerUpdate(sender, e);
 
-            if (e.Type == DACP.ServerUpdateType.ServerConnected)
-                Utility.BeginInvokeOnUIThread(GetDataForPivotItem);
+            Utility.BeginInvokeOnUIThread(UpdateArtist);
+        }
+
+        protected override void OnServerChanged()
+        {
+            base.OnServerChanged();
+
+            Utility.BeginInvokeOnUIThread(UpdateArtist);
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
@@ -139,8 +187,8 @@ namespace Komodex.Remote.LibraryPages
             DependencyObject originalSource = e.OriginalSource as DependencyObject;
             if (originalSource != null)
             {
-                var ancestors = originalSource.GetVisualAncestors();
-                bool isPlayButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
+                var ancestors = originalSource.GetVisualAncestors().ToList();
+                bool isPlayButton = ancestors.AnyElementsWithName("PlayButton");
 
                 // Albums
                 if (selectedItem is Album)
@@ -148,28 +196,28 @@ namespace Komodex.Remote.LibraryPages
                     Album album = (Album)selectedItem;
                     if (isPlayButton)
                     {
-                        album.SendPlayCommand();
+                        //album.SendPlayCommand();
                         listBox.SelectedItem = null;
                         NavigationManager.OpenNowPlayingPage();
                     }
                     else
                     {
-                        NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
+                        NavigationManager.OpenAlbumPage(album);
                     }
                 }
                 
                 // Shuffle button
-                else if (ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "ShuffleButton"))
+                else if (ancestors.AnyElementsWithName("ShuffleButton"))
                 {
-                    Artist.SendShuffleSongsCommand();
+                    //Artist.SendShuffleSongsCommand();
                     NavigationManager.OpenNowPlayingPage();
                 }
 
                 // Songs
-                else if (selectedItem is MediaItem)
+                else if (selectedItem is Song)
                 {
-                    MediaItem song = (MediaItem)selectedItem;
-                    Artist.SendPlaySongCommand(song);
+                    Song song = (Song)selectedItem;
+                    //Artist.SendPlaySongCommand(song);
                     listBox.SelectedItem = null;
                     NavigationManager.OpenNowPlayingPage();
                 }
@@ -193,16 +241,16 @@ namespace Komodex.Remote.LibraryPages
             {
                 Album album = (Album)menuItem.DataContext;
 
-                album.SendPlayCommand(mode);
+                //album.SendPlayCommand(mode);
                 NavigationManager.OpenNowPlayingPage();
             }
 
             // Songs
-            else if (menuItem.DataContext is MediaItem)
+            else if (menuItem.DataContext is Song)
             {
-                MediaItem song = (MediaItem)menuItem.DataContext;
+                Song song = (Song)menuItem.DataContext;
 
-                Artist.SendPlaySongCommand(song, mode);
+                //Artist.SendPlaySongCommand(song, mode);
                 NavigationManager.OpenNowPlayingPage();
             }
         }
@@ -216,20 +264,31 @@ namespace Komodex.Remote.LibraryPages
 
         #region Methods
 
-        private void GetDataForPivotItem()
+        private async void GetDataForPivotItem()
         {
-            if (Artist == null || Artist.Server == null || !Artist.Server.IsConnected)
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            if (Artist == null)
                 return;
 
             if (pivotControl.SelectedItem == pivotAlbums)
             {
-                if (Artist.Albums == null || Artist.Albums.Count == 0)
-                    Artist.GetAlbums();
+                if (Artist.Albums == null)
+                {
+                    SetProgressIndicator(null, true);
+                    await Artist.RequestAlbumsAsync();
+                    ClearProgressIndicator();
+                }
             }
             else if (pivotControl.SelectedItem == pivotSongs)
             {
-                if (Artist.Songs == null || Artist.Songs.Count == 0)
-                    Artist.GetSongs();
+                if (Artist.Songs == null)
+                {
+                    SetProgressIndicator(null, true);
+                    await Artist.RequestSongsAsync();
+                    ClearProgressIndicator();
+                }
             }
         }
 

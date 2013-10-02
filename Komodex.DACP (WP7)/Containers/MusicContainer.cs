@@ -64,6 +64,20 @@ namespace Komodex.DACP.Containers
             return true;
         }
 
+        public async Task<Artist> GetArtistByID(int artistID)
+        {
+            if (Artists == null)
+            {
+                bool success = await RequestArtistsAsync();
+                if (!success)
+                    return null;
+            }
+
+            if (!Artists.ContainsKey(artistID))
+                return null;
+            return Artists[artistID];
+        }
+
         #endregion
 
         #region Albums
@@ -113,6 +127,20 @@ namespace Komodex.DACP.Containers
                 return false;
             }
             return true;
+        }
+
+        public async Task<Album> GetAlbumByID(int albumID)
+        {
+            if (Albums == null)
+            {
+                bool success = await RequestAlbumsAsync();
+                if (!success)
+                    return null;
+            }
+
+            if (!Albums.ContainsKey(albumID))
+                return null;
+            return Albums[albumID];
         }
 
         #endregion

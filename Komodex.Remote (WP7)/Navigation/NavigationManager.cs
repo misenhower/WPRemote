@@ -12,6 +12,7 @@ using Microsoft.Phone.Controls;
 using System.Linq;
 using Komodex.Common;
 using Microsoft.Phone.Tasks;
+using Komodex.DACP.Groups;
 
 namespace Komodex.Remote
 {
@@ -23,6 +24,11 @@ namespace Komodex.Remote
             {
                 App.RootFrame.Navigate(new Uri(uri, UriKind.Relative));
             });
+        }
+
+        private static void Navigate(string uriFormat, params object[] args)
+        {
+            Navigate(string.Format(uriFormat, args));
         }
 
         #region Pages
@@ -68,17 +74,24 @@ namespace Komodex.Remote
             Navigate("/Pages/ChooseLibraryPage.xaml");
         }
 
-        public static void OpenArtistPage(string artistName)
+        public static void OpenArtistPage(Artist artist)
         {
-            artistName = Uri.EscapeDataString(artistName);
-            Navigate("/LibraryPages/ArtistPage.xaml?name=" + artistName);
+            Navigate("/LibraryPages/ArtistPage.xaml?database={0}&container={1}&artist={2}", artist.Database.ID, artist.Container.ID, artist.ID);
         }
 
+        [Obsolete]
+        public static void OpenArtistPage(string artistName)
+        {
+        }
+
+        public static void OpenAlbumPage(Album album)
+        {
+            Navigate("/LibraryPages/AlbumPage.xaml?database={0}&container={1}&album={2}", album.Database.ID, album.Container.ID, album.ID);
+        }
+
+        [Obsolete]
         public static void OpenAlbumPage(int albumID, string albumName, string artistName, UInt64 albumPersistentID)
         {
-            albumName = Uri.EscapeDataString(albumName);
-            artistName = Uri.EscapeDataString(artistName);
-            Navigate("/LibraryPages/AlbumPage.xaml?id=" + albumID + "&name=" + albumName + "&artist=" + artistName + "&perid=" + albumPersistentID);
         }
 
         public static void OpenGenrePage(string genreName)

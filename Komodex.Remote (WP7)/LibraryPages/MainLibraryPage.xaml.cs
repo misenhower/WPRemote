@@ -17,6 +17,7 @@ using Microsoft.Phone.Shell;
 using Clarity.Phone.Extensions;
 using Komodex.Remote.Localization;
 using Komodex.Common;
+using Komodex.DACP.Groups;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -143,33 +144,33 @@ namespace Komodex.Remote.LibraryPages
                 bool isPlayButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "PlayButton");
 
                 // Artists
-                if (selectedItem is Artist)
+                if (selectedItem is Komodex.DACP.Groups.Artist)
                 {
-                    Artist artist = (Artist)selectedItem;
+                    Komodex.DACP.Groups.Artist artist = (Komodex.DACP.Groups.Artist)selectedItem;
                     if (isPlayButton)
                     {
-                        artist.SendPlayCommand();
+                        //artist.SendPlayCommand();
                         listBox.SelectedItem = null;
                         NavigationManager.OpenNowPlayingPage();
                     }
                     else
                     {
-                        NavigationManager.OpenArtistPage(artist.Name);
+                        NavigationManager.OpenArtistPage(artist);
                     }
                 }
                 // Albums
-                else if (selectedItem is Album)
+                else if (selectedItem is Komodex.DACP.Groups.Album)
                 {
-                    Album album = (Album)selectedItem;
+                    Komodex.DACP.Groups.Album album = (Komodex.DACP.Groups.Album)selectedItem;
                     if (isPlayButton)
                     {
-                        album.SendPlayCommand();
+                        //album.SendPlayCommand();
                         listBox.SelectedItem = null;
                         NavigationManager.OpenNowPlayingPage();
                     }
                     else
                     {
-                        NavigationManager.OpenAlbumPage(album.ID, album.Name, album.ArtistName, album.PersistentID);
+                        NavigationManager.OpenAlbumPage(album);
                     }
                 }
                 // Genres
@@ -230,20 +231,20 @@ namespace Komodex.Remote.LibraryPages
             var item = menuItem.DataContext;
 
             // Artists
-            if (item is Artist)
+            if (item is Komodex.DACP.Groups.Artist)
             {
-                Artist artist = (Artist)item;
+                Komodex.DACP.Groups.Artist artist = (Komodex.DACP.Groups.Artist)item;
 
-                artist.SendPlayCommand(mode);
+                //artist.SendPlayCommand(mode);
                 NavigationManager.OpenNowPlayingPage();
             }
 
             // Albums
-            else if (item is Album)
+            else if (item is Komodex.DACP.Groups.Album)
             {
-                Album album = (Album)item;
+                Komodex.DACP.Groups.Album album = (Komodex.DACP.Groups.Album)item;
 
-                album.SendPlayCommand(mode);
+                //album.SendPlayCommand(mode);
                 NavigationManager.OpenNowPlayingPage();
             }
 
@@ -283,20 +284,28 @@ namespace Komodex.Remote.LibraryPages
 
         #region Methods
 
-        private void GetDataForPivotItem()
+        private async void GetDataForPivotItem()
         {
             if (CurrentServer == null || !CurrentServer.IsConnected)
                 return;
 
             if (pivotControl.SelectedItem == pivotArtists)
             {
-                if (CurrentServer.LibraryArtists == null || CurrentServer.LibraryArtists.Count == 0)
-                    CurrentServer.GetArtists();
+                if (CurrentServer.MainDatabase.Music.GroupedArtists == null || CurrentServer.MainDatabase.Music.GroupedArtists.Count == 0)
+                {
+                    SetProgressIndicator(null, true);
+                    await CurrentServer.MainDatabase.Music.RequestArtistsAsync();
+                    ClearProgressIndicator();
+                }
             }
             else if (pivotControl.SelectedItem == pivotAlbums)
             {
-                if (CurrentServer.LibraryAlbums == null || CurrentServer.LibraryAlbums.Count == 0)
-                    CurrentServer.GetAlbums();
+                if (CurrentServer.MainDatabase.Music.GroupedAlbums == null || CurrentServer.MainDatabase.Music.GroupedAlbums.Count == 0)
+                {
+                    SetProgressIndicator(null, true);
+                    await CurrentServer.MainDatabase.Music.RequestAlbumsAsync();
+                    ClearProgressIndicator();
+                }
             }
             else if (pivotControl.SelectedItem == pivotGenres)
             {

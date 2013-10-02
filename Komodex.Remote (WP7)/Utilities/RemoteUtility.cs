@@ -21,6 +21,7 @@ using System.IO;
 using Komodex.DACP;
 using Komodex.Common.Phone.Controls;
 using Komodex.Remote.ServerManagement;
+using System.Collections.Generic;
 
 namespace Komodex.Remote
 {
@@ -102,6 +103,15 @@ namespace Komodex.Remote
             }
 
             return page.GetContinuumAnimation(page.AnimationContext, animationType);
+        }
+
+        #endregion
+
+        #region Visual Tree
+
+        public static bool AnyElementsWithName(this IEnumerable<DependencyObject> source, string name)
+        {
+            return source.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == name);
         }
 
         #endregion

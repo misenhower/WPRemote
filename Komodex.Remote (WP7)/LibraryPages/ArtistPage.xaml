@@ -21,7 +21,9 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0"
-    d:DataContext="{d:DesignData /SampleData/ArtistSampleData.xaml}">
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    >
+    
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="AlbumTemplate">
             <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource AlbumArtLargeWithPlayButtonItemTemplate}">
@@ -46,7 +48,11 @@
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot"
+          Background="Transparent"
+          DataContext="{Binding Artist}"
+          d:DataContext="{d:DesignData /SampleData/ArtistSampleData.xaml}"
+          >
         <!--Pivot Control-->
         <controls:Pivot x:Name="pivotControl"
                         Title="{Binding Name, Converter={StaticResource StringToUpperConverter}}"
