@@ -89,6 +89,7 @@
     <Compile Include="Classes\PlayQueueItem.cs" />
     <Compile Include="Containers\DACPContainer.cs" />
     <Compile Include="Containers\MusicContainer.cs" />
+    <Compile Include="Containers\Playlist.cs" />
     <Compile Include="DACPServer\DACPServer.AirPlaySpeakers.cs" />
     <Compile Include="Databases\DACPDatabase.cs" />
     <Compile Include="Groups\Album.cs" />

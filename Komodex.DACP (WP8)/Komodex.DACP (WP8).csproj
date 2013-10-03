@@ -131,6 +131,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\MusicContainer.cs">
       <Link>Containers\MusicContainer.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Containers\Playlist.cs">
+      <Link>Containers\Playlist.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.AirPlaySpeakers.cs">
       <Link>DACPServer\DACPServer.AirPlaySpeakers.cs</Link>
     </Compile>

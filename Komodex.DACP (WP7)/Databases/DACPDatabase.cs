@@ -29,6 +29,19 @@ namespace Komodex.DACP.Databases
         public DACPContainer BasePlaylist { get; private set; }
         public MusicContainer Music { get; private set; }
 
+        private List<Playlist> _playlists;
+        public List<Playlist> Playlists
+        {
+            get { return _playlists; }
+            private set
+            {
+                if (_playlists == value)
+                    return;
+                _playlists = value;
+                SendPropertyChanged();
+            }
+        }
+
         internal async Task<bool> RequestContainersAsync()
         {
             DACPRequest request = new DACPRequest("/databases/{0}/containers", ID);
@@ -38,6 +51,8 @@ namespace Komodex.DACP.Databases
             {
                 var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
                 var containers = DACPUtility.GetItemsFromNodes(response.Nodes, n => DACPContainer.GetContainer(this, n));
+
+                Playlists = new List<Playlist>();
 
                 foreach (DACPContainer container in containers)
                 {
@@ -49,7 +64,14 @@ namespace Komodex.DACP.Databases
                         continue;
                     }
 
-                    // Music
+                    // Playlist
+                    if (container is Playlist)
+                    {
+                        Playlists.Add((Playlist)container);
+                        continue;
+                    }
+
+                    // Music container
                     if (container is MusicContainer)
                     {
                         if (Music == null)

@@ -19,6 +19,7 @@ namespace Komodex.DACP.Containers
         public bool BasePlaylist { get; private set; }
         public int SpecialPlaylistID { get; private set; }
         public int ItemCount { get; private set; }
+        public int ParentContainerID { get; private set; }
 
         protected override void ProcessNodes(DACPNodeDictionary nodes)
         {
@@ -27,6 +28,7 @@ namespace Komodex.DACP.Containers
             BasePlaylist = nodes.GetBool("abpl");
             SpecialPlaylistID = nodes.GetByte("aePS");
             ItemCount = nodes.GetInt("mimc");
+            ParentContainerID = nodes.GetInt("mpco");
         }
 
         public static DACPContainer GetContainer(DACPDatabase database, DACPNodeDictionary nodes)
@@ -38,6 +40,8 @@ namespace Komodex.DACP.Containers
             // Special playlist IDs
             switch (nodes.GetByte("aePS"))
             {
+                case 0: // Playlist
+                    return new Playlist(database, nodes);
                 case 6: // Music
                     return new MusicContainer(database, nodes);
             }
@@ -57,6 +61,15 @@ namespace Komodex.DACP.Containers
                 request.QueryParameters["include-sort-headers"] = "1";
             request.QueryParameters["sort"] = "album";
             request.QueryParameters["query"] = query;
+
+            return request;
+        }
+
+        internal DACPRequest GetContainerItemsRequest()
+        {
+            DACPRequest request = new DACPRequest("/databases/{0}/containers/{1}/items", Database.ID, ID);
+            request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,daap.songartist,daap.songalbumartist,daap.songalbum,com.apple.itunes.cloud-id,dmap.containeritemid,com.apple.itunes.has-video,com.apple.itunes.itms-songid,com.apple.itunes.extended-media-kind,dmap.downloadstatus,daap.songdisabled,com.apple.itunes.cloud-id,daap.songartistid,daap.songalbumid,dmap.persistentid,dmap.downloadstatus,daap.songalbum";
+            request.QueryParameters["type"] = "music";
 
             return request;
         }
