@@ -70,5 +70,52 @@ namespace Komodex.DACP.Databases
         }
 
         #endregion
+
+        #region Commands
+
+        internal DACPRequest GetPlayQueueEditRequest(string command, string query, PlayQueueMode mode)
+        {
+            DACPRequest request = new DACPRequest("/ctrl-int/1/playqueue-edit");
+            request.QueryParameters["command"] = command;
+            request.QueryParameters["query"] = query;
+            request.QueryParameters["mode"] = ((int)mode).ToString();
+
+            if (this != Server.MainDatabase)
+                request.QueryParameters["srcdatabase"] = "0x" + PersistentID.ToString("x16");
+
+            // TODO: Handle this separately
+            if (mode == PlayQueueMode.Replace)
+                request.QueryParameters["clear-previous"] = "1";
+
+            return request;
+        }
+
+        internal DACPRequest GetCueSongRequest(string query, string sort, int index)
+        {
+            DACPRequest request = GetCueRequest(query, sort);
+            request.QueryParameters["index"] = index.ToString();
+            return request;
+        }
+
+        internal DACPRequest GetCueShuffleRequest(string query, string sort)
+        {
+            DACPRequest request = GetCueRequest(query, sort);
+            request.QueryParameters["dacp.shufflestate"] = "1";
+            return request;
+        }
+
+        private DACPRequest GetCueRequest(string query, string sort)
+        {
+            DACPRequest request = new DACPRequest("/ctrl-int/1/cue");
+            request.QueryParameters["command"] = "play";
+            request.QueryParameters["query"] = query;
+            request.QueryParameters["sort"] = sort;
+            request.QueryParameters["srcdatabase"] = "0x" + PersistentID.ToString("x16");
+            request.QueryParameters["clear-first"] = "1";
+
+            return request;
+        }
+
+        #endregion
     }
 }

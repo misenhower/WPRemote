@@ -19,6 +19,18 @@ namespace Komodex.DACP.Groups
             get { return "artists"; }
         }
 
+        /// <summary>
+        /// iTunes 11 Artist ID (asri, daap.songartistid)
+        /// </summary>
+        public UInt64 ArtistID { get; private set; }
+
+        protected override void ProcessNodes(DACPNodeDictionary nodes)
+        {
+            base.ProcessNodes(nodes);
+
+            ArtistID = (UInt64)nodes.GetLong("asri");
+        }
+
         #region Albums
 
         private List<Album> _albums;
@@ -38,7 +50,7 @@ namespace Komodex.DACP.Groups
         {
             string query;
             if (Server.SupportsPlayQueue)
-                query = string.Format("('daap.songartistid:{0}'+'daap.songalbum!:'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))", PersistentID);
+                query = string.Format("('daap.songartistid:{0}'+'daap.songalbum!:'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))", ArtistID);
             else
                 query = string.Format("(('daap.songartist:{0}','daap.songalbumartist:{0}')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')", DACPUtility.EscapeSingleQuotes(Name));
 
@@ -76,15 +88,19 @@ namespace Komodex.DACP.Groups
             }
         }
 
+        private string SongsQuery
+        {
+            get
+            {
+                if (Server.SupportsPlayQueue)
+                    return string.Format("('daap.songartistid:{0}'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))", ArtistID);
+                return string.Format("(('daap.songartist:{0}','daap.songalbumartist:{0}')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))", DACPUtility.EscapeSingleQuotes(Name));
+            }
+        }
+
         public async Task<bool> RequestSongsAsync()
         {
-            string query;
-            if (Server.SupportsPlayQueue)
-                query = string.Format("('daap.songartistid:{0}'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))", PersistentID);
-            else
-                query = string.Format("(('daap.songartist:{0}','daap.songalbumartist:{0}')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))", DACPUtility.EscapeSingleQuotes(Name));
-
-            DACPRequest request = Container.GetItemsRequest(query);
+            DACPRequest request = Container.GetItemsRequest(SongsQuery);
 
             try
             {
@@ -98,6 +114,49 @@ namespace Komodex.DACP.Groups
                 return false;
             }
 
+            return true;
+        }
+
+        #endregion
+
+        #region Commands
+
+        public async Task<bool> Play(PlayQueueMode mode = PlayQueueMode.Replace)
+        {
+            DACPRequest request;
+            if (Server.SupportsPlayQueue)
+                request = Database.GetPlayQueueEditRequest("add", string.Format("'daap.songartistid:{0}'", ArtistID), mode);
+            else
+                request = Database.GetCueSongRequest(SongsQuery, "album", 0);
+
+            try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> PlaySong(Song song, PlayQueueMode mode = PlayQueueMode.Replace)
+        {
+            DACPRequest request;
+            if (Server.SupportsPlayQueue)
+                request = Database.GetPlayQueueEditRequest("add", string.Format("'dmap.itemid:{0}'&queuefilter=artist:{1}", song.ID, ArtistID), mode);
+            else
+                request = Database.GetCueSongRequest(SongsQuery, "album", Songs.IndexOf(song));
+
+            try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> Shuffle()
+        {
+            DACPRequest request;
+            if (Server.SupportsPlayQueue)
+                request = Database.GetPlayQueueEditRequest("add", string.Format("'daap.songartistid:{0}'", ArtistID), PlayQueueMode.Shuffle);
+            else
+                request = Database.GetCueShuffleRequest(SongsQuery, "album");
+
+            try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
+            catch { return false; }
             return true;
         }
 

@@ -85,7 +85,7 @@ namespace Komodex.Remote
 
         #endregion
 
-        #region LongListSelector helpers
+        #region LongListSelector Helpers
 
         public static AnimatorHelperBase GetListSelectorAnimation(this AnimatedBasePage page, LongListSelectorEx listSelector, AnimationType animationType)
         {
@@ -112,6 +112,15 @@ namespace Komodex.Remote
         public static bool AnyElementsWithName(this IEnumerable<DependencyObject> source, string name)
         {
             return source.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == name);
+        }
+
+        #endregion
+
+        #region Message Boxes
+
+        public static void ShowLibraryError()
+        {
+            MessageBox.Show(LocalizedStrings.LibraryErrorBody, LocalizedStrings.LibraryErrorTitle, MessageBoxButton.OK);
         }
 
         #endregion

@@ -67,8 +67,12 @@ namespace Komodex.DACP
             byte[] data = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
             // Get the content of the first node
-            data = DACPUtility.GetResponseNodes(data).First().Value;
-            var nodes = DACPUtility.GetResponseNodes(data);
+            IEnumerable<DACPNode> nodes = null;
+            if (data.Length > 0)
+            {
+                data = DACPUtility.GetResponseNodes(data).First().Value;
+                nodes = DACPUtility.GetResponseNodes(data);
+            }
 
             return new DACPResponse(response, nodes);
         }

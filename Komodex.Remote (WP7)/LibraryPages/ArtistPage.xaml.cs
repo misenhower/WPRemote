@@ -179,7 +179,7 @@ namespace Komodex.Remote.LibraryPages
 
         #region Actions
 
-        private void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private async void LongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             LongListSelector listBox = (LongListSelector)sender;
             var selectedItem = listBox.SelectedItem;
@@ -196,35 +196,41 @@ namespace Komodex.Remote.LibraryPages
                     Album album = (Album)selectedItem;
                     if (isPlayButton)
                     {
-                        //album.SendPlayCommand();
                         listBox.SelectedItem = null;
-                        NavigationManager.OpenNowPlayingPage();
+                        if (await album.Play())
+                            NavigationManager.OpenNowPlayingPage();
+                        else
+                            RemoteUtility.ShowLibraryError();
                     }
                     else
                     {
                         NavigationManager.OpenAlbumPage(album);
                     }
                 }
-                
+
                 // Shuffle button
                 else if (ancestors.AnyElementsWithName("ShuffleButton"))
                 {
-                    //Artist.SendShuffleSongsCommand();
-                    NavigationManager.OpenNowPlayingPage();
+                    if (await Artist.Shuffle())
+                        NavigationManager.OpenNowPlayingPage();
+                    else
+                        RemoteUtility.ShowLibraryError();
                 }
 
                 // Songs
                 else if (selectedItem is Song)
                 {
                     Song song = (Song)selectedItem;
-                    //Artist.SendPlaySongCommand(song);
                     listBox.SelectedItem = null;
-                    NavigationManager.OpenNowPlayingPage();
+                    if (await Artist.PlaySong(song))
+                        NavigationManager.OpenNowPlayingPage();
+                    else
+                        RemoteUtility.ShowLibraryError();
                 }
             }
         }
 
-        private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
+        private async void PlayQueueButton_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = (MenuItem)sender;
 
@@ -241,8 +247,10 @@ namespace Komodex.Remote.LibraryPages
             {
                 Album album = (Album)menuItem.DataContext;
 
-                //album.SendPlayCommand(mode);
-                NavigationManager.OpenNowPlayingPage();
+                if (await album.Play(mode))
+                    NavigationManager.OpenNowPlayingPage();
+                else
+                    RemoteUtility.ShowLibraryError();
             }
 
             // Songs
@@ -250,8 +258,10 @@ namespace Komodex.Remote.LibraryPages
             {
                 Song song = (Song)menuItem.DataContext;
 
-                //Artist.SendPlaySongCommand(song, mode);
-                NavigationManager.OpenNowPlayingPage();
+                if (await Artist.PlaySong(song, mode))
+                    NavigationManager.OpenNowPlayingPage();
+                else
+                    RemoteUtility.ShowLibraryError();
             }
         }
 

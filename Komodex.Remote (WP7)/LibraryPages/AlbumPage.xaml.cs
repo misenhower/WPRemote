@@ -176,8 +176,10 @@ namespace Komodex.Remote.LibraryPages
                 // Album play button
                 if (ancestors.AnyElementsWithName("AlbumPlayButton"))
                 {
-                    //Album.SendPlayCommand();
-                    NavigationManager.OpenNowPlayingPage();
+                    if (await Album.Play())
+                        NavigationManager.OpenNowPlayingPage();
+                    else
+                        RemoteUtility.ShowLibraryError();
                 }
 
                 // Artist button
@@ -207,8 +209,10 @@ namespace Komodex.Remote.LibraryPages
                 // Shuffle button
                 else if (ancestors.AnyElementsWithName("ShuffleButton"))
                 {
-                    //Album.SendShuffleSongsCommand();
-                    NavigationManager.OpenNowPlayingPage();
+                    if (await Album.Shuffle())
+                        NavigationManager.OpenNowPlayingPage();
+                    else
+                        RemoteUtility.ShowLibraryError();
                 }
 
                 // Songs
@@ -216,14 +220,16 @@ namespace Komodex.Remote.LibraryPages
                 {
                     Song song = (Song)selectedItem;
 
-                    //Album.SendPlaySongCommand(song);
-                    NavigationManager.OpenNowPlayingPage();
+                    if (await Album.PlaySong(song))
+                        NavigationManager.OpenNowPlayingPage();
+                    else
+                        RemoteUtility.ShowLibraryError();
                 }
 
             }
         }
 
-        private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
+        private async void PlayQueueButton_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = (MenuItem)sender;
 
@@ -240,15 +246,19 @@ namespace Komodex.Remote.LibraryPages
             {
                 Song song = (Song)menuItem.DataContext;
 
-                //Album.SendPlaySongCommand(song, mode);
-                NavigationManager.OpenNowPlayingPage();
+                if (await Album.PlaySong(song, mode))
+                    NavigationManager.OpenNowPlayingPage();
+                else
+                    RemoteUtility.ShowLibraryError();
             }
 
             // Album
             else if (menuItem.DataContext is Album)
             {
-                //Album.SendPlayCommand(mode);
-                NavigationManager.OpenNowPlayingPage();
+                if (await Album.Play(mode))
+                    NavigationManager.OpenNowPlayingPage();
+                else
+                    RemoteUtility.ShowLibraryError();
             }
         }
 

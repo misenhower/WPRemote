@@ -50,7 +50,7 @@ namespace Komodex.DACP.Containers
         internal DACPRequest GetGroupsRequest(string groupType, string query, bool includeSortHeaders)
         {
             DACPRequest request = new DACPRequest("/databases/{0}/groups", Database.ID);
-            request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid";
+            request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songartistid";
             request.QueryParameters["type"] = "music";
             request.QueryParameters["group-type"] = groupType;
             if (includeSortHeaders)
@@ -63,7 +63,8 @@ namespace Komodex.DACP.Containers
 
         internal DACPRequest GetItemsRequest(string query)
         {
-            DACPRequest request = new DACPRequest("/databases/{0}/containers/{1}/items", Database.ID, ID);
+            // Apple's Remote uses the Base Playlist ID here rather than the actual container ID.
+            DACPRequest request = new DACPRequest("/databases/{0}/containers/{1}/items", Database.ID, Database.BasePlaylist.ID);
             request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,daap.songartist,daap.songalbumartist,daap.songalbum,com.apple.itunes.cloud-id,dmap.containeritemid,com.apple.itunes.has-video,com.apple.itunes.itms-songid,com.apple.itunes.extended-media-kind,dmap.downloadstatus,daap.songdisabled,com.apple.itunes.cloud-id,daap.songartistid,daap.songalbumid,dmap.persistentid,dmap.downloadstatus,daap.songalbum";
             request.QueryParameters["type"] = "music";
             request.QueryParameters["sort"] = "album";
