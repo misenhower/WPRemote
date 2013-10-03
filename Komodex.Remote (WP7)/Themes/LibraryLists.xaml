@@ -119,7 +119,7 @@
             </Grid.RowDefinitions>
             <my:FakeButton x:Name="PlayButton" Grid.RowSpan="2">
                 <Border Width="175" Height="175" Background="{StaticResource PhoneChromeBrush}">
-                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding Artwork175pxURI}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                 </Border>
             </my:FakeButton>
             <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="{StaticResource ListItemTextMargin}" LineHeight="52" MaxHeight="104" />
@@ -139,7 +139,7 @@
             </Grid.RowDefinitions>
             <my:FakeButton x:Name="PlayButton" Grid.RowSpan="2">
                 <ContentControl Width="175" Height="175" Template="{StaticResource AlbumButton}">
-                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding Artwork175pxURI}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                 </ContentControl>
             </my:FakeButton>
             <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" Margin="{StaticResource ListItemTextMargin}" LineHeight="52" MaxHeight="104" />
@@ -154,7 +154,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Border Background="{StaticResource PhoneChromeBrush}" Width="75" Height="75" HorizontalAlignment="Left">
-                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding Artwork75pxURI}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
             </Border>
             <StackPanel VerticalAlignment="Center" Grid.Column="1">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextLargeStyle}" Margin="{StaticResource ListItemTextMargin}" />

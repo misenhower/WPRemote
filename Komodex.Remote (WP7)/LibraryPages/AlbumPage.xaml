@@ -33,7 +33,7 @@
                 </Grid.ColumnDefinitions>
                 <my:FakeButton x:Name="AlbumPlayButton">
                     <ContentControl Width="175" Height="175" Template="{StaticResource AlbumButton}">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding AlbumArtURL}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding Artwork175pxURI}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
                     </ContentControl>
                     <toolkit:ContextMenuService.ContextMenu>
                         <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">

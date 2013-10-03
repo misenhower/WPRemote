@@ -20,6 +20,15 @@ namespace Komodex.DACP.Items
         public DACPDatabase Database { get; private set; }
         public DACPContainer Container { get; private set; }
 
+        public bool IsDisabled { get; private set; }
+
+        protected override void ProcessNodes(DACPNodeDictionary nodes)
+        {
+            base.ProcessNodes(nodes);
+
+            IsDisabled = nodes.GetBool("asdb");
+        }
+
         #region Artwork
 
         public string Artwork75pxURI { get { return GetAlbumArtURI(75); } }

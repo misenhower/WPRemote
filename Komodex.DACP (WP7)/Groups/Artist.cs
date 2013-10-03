@@ -36,7 +36,12 @@ namespace Komodex.DACP.Groups
 
         public async Task<bool> RequestAlbumsAsync()
         {
-            string query = "('daap.songartistid:" + PersistentID + "'+'daap.songalbum!:'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))";
+            string query;
+            if (Server.SupportsPlayQueue)
+                query = string.Format("('daap.songartistid:{0}'+'daap.songalbum!:'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))", PersistentID);
+            else
+                query = string.Format("(('daap.songartist:{0}','daap.songalbumartist:{0}')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')", DACPUtility.EscapeSingleQuotes(Name));
+
             DACPRequest request = Container.GetGroupsRequest("albums", query, false);
 
             try
@@ -73,7 +78,12 @@ namespace Komodex.DACP.Groups
 
         public async Task<bool> RequestSongsAsync()
         {
-            string query = "('daap.songartistid:" + PersistentID + "'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))";
+            string query;
+            if (Server.SupportsPlayQueue)
+                query = string.Format("('daap.songartistid:{0}'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))", PersistentID);
+            else
+                query = string.Format("(('daap.songartist:{0}','daap.songalbumartist:{0}')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))", DACPUtility.EscapeSingleQuotes(Name));
+
             DACPRequest request = Container.GetItemsRequest(query);
 
             try
