@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Komodex.DACP.Queries
 {
-    internal abstract class QueryElement
+    internal abstract class DACPQueryElement
     {
     }
 }

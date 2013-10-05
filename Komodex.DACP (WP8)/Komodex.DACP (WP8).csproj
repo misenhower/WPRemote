@@ -206,14 +206,14 @@
       <DependentUpon>LocalizedDACPStrings.resx</DependentUpon>
       <Link>Localization\LocalizedDACPStrings.Designer.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Queries\QueryCollection.cs">
-      <Link>Queries\QueryCollection.cs</Link>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Queries\DACPQueryCollection.cs">
+      <Link>Queries\DACPQueryCollection.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Queries\QueryElement.cs">
-      <Link>Queries\QueryElement.cs</Link>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Queries\DACPQueryElement.cs">
+      <Link>Queries\DACPQueryElement.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Queries\QueryPredicate.cs">
-      <Link>Queries\QueryPredicate.cs</Link>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Queries\DACPQueryPredicate.cs">
+      <Link>Queries\DACPQueryPredicate.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
