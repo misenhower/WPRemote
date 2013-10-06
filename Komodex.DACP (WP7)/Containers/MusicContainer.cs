@@ -1,5 +1,6 @@
 ﻿using Komodex.DACP.Databases;
 using Komodex.DACP.Groups;
+using Komodex.DACP.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace Komodex.DACP.Containers
         public MusicContainer(DACPDatabase database, DACPNodeDictionary nodes)
             : base(database, nodes)
         { }
+
+        protected override int[] MediaKinds
+        {
+            get { return new[] { 1, 32 }; }
+        }
 
         #region Artists
 
@@ -44,7 +50,7 @@ namespace Komodex.DACP.Containers
 
         public async Task<bool> RequestArtistsAsync()
         {
-            string query = "(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songartist!:')";
+            var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songartist"), MediaKindQuery);
             DACPRequest request = GetGroupsRequest("artists", query, true);
 
             try
@@ -110,7 +116,7 @@ namespace Komodex.DACP.Containers
 
         public async Task<bool> RequestAlbumsAsync()
         {
-            string query = "(('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')";
+            var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songalbum"), MediaKindQuery);
             DACPRequest request = GetGroupsRequest("albums", query, true);
 
             try

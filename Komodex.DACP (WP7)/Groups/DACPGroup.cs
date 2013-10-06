@@ -1,6 +1,7 @@
 ﻿using Komodex.Common;
 using Komodex.DACP.Containers;
 using Komodex.DACP.Databases;
+using Komodex.DACP.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,16 @@ namespace Komodex.DACP.Groups
         public DACPContainer Container { get; private set; }
 
         public abstract string GroupType { get; }
+
+        internal virtual DACPQueryElement GroupQuery
+        {
+            get { return DACPQueryPredicate.Is("daap.songalbumid", PersistentID); }
+        }
+
+        internal virtual DACPQueryElement ItemQuery
+        {
+            get { return DACPQueryCollection.And(GroupQuery, Container.MediaKindQuery); }
+        }
 
         #region Artwork
 

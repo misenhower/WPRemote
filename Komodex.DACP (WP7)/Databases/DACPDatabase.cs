@@ -1,4 +1,5 @@
 ﻿using Komodex.DACP.Containers;
+using Komodex.DACP.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,11 +96,12 @@ namespace Komodex.DACP.Databases
 
         #region Commands
 
-        internal DACPRequest GetPlayQueueEditRequest(string command, string query, PlayQueueMode mode)
+        internal DACPRequest GetPlayQueueEditRequest(string command, DACPQueryElement query, PlayQueueMode mode)
         {
             DACPRequest request = new DACPRequest("/ctrl-int/1/playqueue-edit");
             request.QueryParameters["command"] = command;
-            request.QueryParameters["query"] = query;
+            if (query != null)
+                request.QueryParameters["query"] = query.ToString();
             request.QueryParameters["mode"] = ((int)mode).ToString();
 
             if (this != Server.MainDatabase)
@@ -112,25 +114,26 @@ namespace Komodex.DACP.Databases
             return request;
         }
 
-        internal DACPRequest GetCueSongRequest(string query, string sort, int index)
+        internal DACPRequest GetCueSongRequest(DACPQueryElement query, string sort, int index)
         {
             DACPRequest request = GetCueRequest(query, sort);
             request.QueryParameters["index"] = index.ToString();
             return request;
         }
 
-        internal DACPRequest GetCueShuffleRequest(string query, string sort)
+        internal DACPRequest GetCueShuffleRequest(DACPQueryElement query, string sort)
         {
             DACPRequest request = GetCueRequest(query, sort);
             request.QueryParameters["dacp.shufflestate"] = "1";
             return request;
         }
 
-        private DACPRequest GetCueRequest(string query, string sort)
+        private DACPRequest GetCueRequest(DACPQueryElement query, string sort)
         {
             DACPRequest request = new DACPRequest("/ctrl-int/1/cue");
             request.QueryParameters["command"] = "play";
-            request.QueryParameters["query"] = query;
+            if (query != null)
+                request.QueryParameters["query"] = query.ToString();
             request.QueryParameters["sort"] = sort;
             request.QueryParameters["srcdatabase"] = "0x" + PersistentID.ToString("x16");
             request.QueryParameters["clear-first"] = "1";

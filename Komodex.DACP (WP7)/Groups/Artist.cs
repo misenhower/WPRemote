@@ -1,5 +1,6 @@
 ﻿using Komodex.DACP.Containers;
 using Komodex.DACP.Items;
+using Komodex.DACP.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,17 @@ namespace Komodex.DACP.Groups
             ArtistID = (UInt64)nodes.GetLong("asri");
         }
 
+        internal override DACPQueryElement GroupQuery
+        {
+            get
+            {
+                if (Server.SupportsPlayQueue)
+                    return DACPQueryPredicate.Is("daap.songartistid", ArtistID);
+                else
+                    return DACPQueryCollection.Or(DACPQueryPredicate.Is("daap.songartist", Name), DACPQueryPredicate.Is("daap.songalbumartist", Name));
+            }
+        }
+
         #region Albums
 
         private List<Album> _albums;
@@ -48,11 +60,7 @@ namespace Komodex.DACP.Groups
 
         public async Task<bool> RequestAlbumsAsync()
         {
-            string query;
-            if (Server.SupportsPlayQueue)
-                query = string.Format("('daap.songartistid:{0}'+'daap.songalbum!:'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))", ArtistID);
-            else
-                query = string.Format("(('daap.songartist:{0}','daap.songalbumartist:{0}')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')+'daap.songalbum!:')", DACPUtility.EscapeSingleQuotes(Name));
+            var query = DACPQueryCollection.And(GroupQuery, DACPQueryPredicate.IsNotEmpty("daap.songalbum"), Container.MediaKindQuery);
 
             DACPRequest request = Container.GetGroupsRequest("albums", query, false);
 
@@ -88,19 +96,9 @@ namespace Komodex.DACP.Groups
             }
         }
 
-        private string SongsQuery
-        {
-            get
-            {
-                if (Server.SupportsPlayQueue)
-                    return string.Format("('daap.songartistid:{0}'+('com.apple.itunes.extended-media-kind:1','com.apple.itunes.extended-media-kind:32'))", ArtistID);
-                return string.Format("(('daap.songartist:{0}','daap.songalbumartist:{0}')+('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32'))", DACPUtility.EscapeSingleQuotes(Name));
-            }
-        }
-
         public async Task<bool> RequestSongsAsync()
         {
-            DACPRequest request = Container.GetItemsRequest(SongsQuery);
+            DACPRequest request = Container.GetItemsRequest(ItemQuery);
 
             try
             {
@@ -125,9 +123,9 @@ namespace Komodex.DACP.Groups
         {
             DACPRequest request;
             if (Server.SupportsPlayQueue)
-                request = Database.GetPlayQueueEditRequest("add", string.Format("'daap.songartistid:{0}'", ArtistID), mode);
+                request = Database.GetPlayQueueEditRequest("add", GroupQuery, mode);
             else
-                request = Database.GetCueSongRequest(SongsQuery, "album", 0);
+                request = Database.GetCueSongRequest(ItemQuery, "album", 0);
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
             catch { return false; }
@@ -138,9 +136,15 @@ namespace Komodex.DACP.Groups
         {
             DACPRequest request;
             if (Server.SupportsPlayQueue)
-                request = Database.GetPlayQueueEditRequest("add", string.Format("'dmap.itemid:{0}'&queuefilter=artist:{1}", song.ID, ArtistID), mode);
+            {
+                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", song.ID), mode);
+                request.QueryParameters["queuefilter"] = string.Format("artist:{0}", ArtistID);
+                request.QueryParameters["sort"] = "album";
+            }
             else
-                request = Database.GetCueSongRequest(SongsQuery, "album", Songs.IndexOf(song));
+            {
+                request = Database.GetCueSongRequest(ItemQuery, "album", Songs.IndexOf(song));
+            }
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
             catch { return false; }
@@ -151,9 +155,9 @@ namespace Komodex.DACP.Groups
         {
             DACPRequest request;
             if (Server.SupportsPlayQueue)
-                request = Database.GetPlayQueueEditRequest("add", string.Format("'daap.songartistid:{0}'", ArtistID), PlayQueueMode.Shuffle);
+                request = Database.GetPlayQueueEditRequest("add", GroupQuery, PlayQueueMode.Shuffle);
             else
-                request = Database.GetCueShuffleRequest(SongsQuery, "album");
+                request = Database.GetCueShuffleRequest(ItemQuery, "album");
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
             catch { return false; }
