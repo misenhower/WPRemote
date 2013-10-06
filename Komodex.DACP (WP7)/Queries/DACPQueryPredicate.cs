@@ -21,29 +21,24 @@ namespace Komodex.DACP.Queries
             _operator = op;
         }
 
-        public static DACPQueryPredicate Is(string key, string value)
+        public static DACPQueryPredicate Is(string key, object value)
         {
-            return new DACPQueryPredicate(key, value, IsOperator);
+            return new DACPQueryPredicate(key, value.ToString(), IsOperator);
         }
 
-        public static DACPQueryPredicate Is(string key, int value)
+        public static DACPQueryPredicate IsNot(string key, object value)
         {
-            return Is(key, value.ToString());
+            return new DACPQueryPredicate(key, value.ToString(), IsNotOperator);
         }
 
-        public static DACPQueryPredicate IsNot(string key, string value)
+        public static DACPQueryPredicate IsNotEmpty(string key)
         {
-            return new DACPQueryPredicate(key, value, IsNotOperator);
-        }
-
-        public static DACPQueryPredicate IsNot(string key, int value)
-        {
-            return IsNot(key, value.ToString());
+            return IsNot(key, string.Empty);
         }
 
         public override string ToString()
         {
-            return "'" + _key + _operator + _value + "'";
+            return "'" + _key + _operator + DACPUtility.EscapeSingleQuotes(_value) + "'";
         }
     }
 }
