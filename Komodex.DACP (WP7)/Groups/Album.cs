@@ -57,20 +57,10 @@ namespace Komodex.DACP.Groups
 
         public async Task<bool> RequestSongsAsync()
         {
-            DACPRequest request = Container.GetItemsRequest(ItemQuery);
+            Songs = await GetItemsAsync(n => new Song(Container, n));
 
-            try
-            {
-                var response = await Server.SubmitRequestAsync(request);
-                Songs = DACPUtility.GetItemsFromNodes(response.Nodes, n => new Song(Container, n)).ToList();
-            }
-            catch (Exception e)
-            {
-                Songs = null;
-                Server.HandleHTTPException(request, e);
+            if (Songs == null)
                 return false;
-            }
-
             return true;
         }
 

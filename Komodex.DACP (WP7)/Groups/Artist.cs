@@ -62,20 +62,10 @@ namespace Komodex.DACP.Groups
         {
             var query = DACPQueryCollection.And(GroupQuery, DACPQueryPredicate.IsNotEmpty("daap.songalbum"), Container.MediaKindQuery);
 
-            DACPRequest request = Container.GetGroupsRequest("albums", query, false);
+            Albums = await Container.GetGroupsAsync("albums", query, n => new Album(Container, n));
 
-            try
-            {
-                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
-                Albums = DACPUtility.GetItemsFromNodes(response.Nodes, n => new Album(Container, n)).ToList();
-            }
-            catch (Exception e)
-            {
-                Albums = null;
-                Server.HandleHTTPException(request, e);
+            if (Albums == null)
                 return false;
-            }
-
             return true;
         }
 
@@ -98,20 +88,10 @@ namespace Komodex.DACP.Groups
 
         public async Task<bool> RequestSongsAsync()
         {
-            DACPRequest request = Container.GetItemsRequest(ItemQuery);
+            Songs = await GetItemsAsync(n => new Song(Container, n));
 
-            try
-            {
-                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
-                Songs = DACPUtility.GetItemsFromNodes(response.Nodes, n => new Song(Container, n)).ToList();
-            }
-            catch (Exception e)
-            {
-                Songs = null;
-                Server.HandleHTTPException(request, e);
+            if (Songs == null)
                 return false;
-            }
-
             return true;
         }
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Komodex.DACP.Containers
 {
@@ -102,6 +103,36 @@ namespace Komodex.DACP.Containers
                 request.QueryParameters["query"] = query.ToString();
 
             return request;
+        }
+
+        #endregion
+
+        #region Items/Groups
+
+        internal Task<List<T>> GetItemsAsync<T>(DACPQueryElement query, Func<DACPNodeDictionary, T> itemGenerator)
+        {
+            DACPRequest request = GetItemsRequest(query);
+            return GetCollectionAsync(request, itemGenerator);
+        }
+
+        internal Task<List<T>> GetGroupsAsync<T>(string groupType, DACPQueryElement query, Func<DACPNodeDictionary, T> itemGenerator)
+        {
+            DACPRequest request = GetGroupsRequest(groupType, query, false);
+            return GetCollectionAsync(request, itemGenerator);
+        }
+
+        private async Task<List<T>> GetCollectionAsync<T>(DACPRequest request, Func<DACPNodeDictionary, T> itemGenerator)
+        {
+            try
+            {
+                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+                return DACPUtility.GetItemsFromNodes(response.Nodes, itemGenerator).ToList();
+            }
+            catch (Exception e)
+            {
+                Server.HandleHTTPException(request, e);
+                return null;
+            }
         }
 
         #endregion
