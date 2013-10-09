@@ -22,7 +22,10 @@ namespace Komodex.DACP.Groups
         public DACPDatabase Database { get; private set; }
         public DACPContainer Container { get; private set; }
 
-        public abstract string GroupType { get; }
+        public virtual string GroupType
+        {
+            get { return "albums"; }
+        }
 
         internal virtual DACPQueryElement GroupQuery
         {

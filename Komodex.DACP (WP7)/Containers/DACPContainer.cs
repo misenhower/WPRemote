@@ -66,9 +66,14 @@ namespace Komodex.DACP.Containers
             }
         }
 
+        internal virtual DACPQueryElement GroupsQuery
+        {
+            get { return DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songalbum"), MediaKindQuery); }
+        }
+
         #region Requests
 
-        internal DACPRequest GetGroupsRequest(string groupType, DACPQueryElement query, bool includeSortHeaders)
+        internal DACPRequest GetGroupsRequest(DACPQueryElement query, bool includeSortHeaders = false, string groupType = "albums")
         {
             DACPRequest request = new DACPRequest("/databases/{0}/groups", Database.ID);
             request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songartistid";
@@ -115,9 +120,9 @@ namespace Komodex.DACP.Containers
             return GetCollectionAsync(request, itemGenerator);
         }
 
-        internal Task<List<T>> GetGroupsAsync<T>(string groupType, DACPQueryElement query, Func<DACPNodeDictionary, T> itemGenerator)
+        internal Task<List<T>> GetGroupsAsync<T>(DACPQueryElement query, Func<DACPNodeDictionary, T> itemGenerator)
         {
-            DACPRequest request = GetGroupsRequest(groupType, query, false);
+            DACPRequest request = GetGroupsRequest(query);
             return GetCollectionAsync(request, itemGenerator);
         }
 

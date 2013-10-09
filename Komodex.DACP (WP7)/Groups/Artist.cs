@@ -60,9 +60,8 @@ namespace Komodex.DACP.Groups
 
         public async Task<bool> RequestAlbumsAsync()
         {
-            var query = DACPQueryCollection.And(GroupQuery, DACPQueryPredicate.IsNotEmpty("daap.songalbum"), Container.MediaKindQuery);
-
-            Albums = await Container.GetGroupsAsync("albums", query, n => new Album(Container, n));
+            var query = DACPQueryCollection.And(GroupQuery, Container.GroupsQuery);
+            Albums = await Container.GetGroupsAsync(query, n => new Album(Container, n));
 
             if (Albums == null)
                 return false;

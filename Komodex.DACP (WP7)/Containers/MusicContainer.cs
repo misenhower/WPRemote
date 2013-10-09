@@ -50,8 +50,7 @@ namespace Komodex.DACP.Containers
 
         public async Task<bool> RequestArtistsAsync()
         {
-            var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songartist"), MediaKindQuery);
-            DACPRequest request = GetGroupsRequest("artists", query, true);
+            DACPRequest request = GetGroupsRequest(GroupsQuery, true, "artists");
 
             try
             {
@@ -116,8 +115,7 @@ namespace Komodex.DACP.Containers
 
         public async Task<bool> RequestAlbumsAsync()
         {
-            var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songalbum"), MediaKindQuery);
-            DACPRequest request = GetGroupsRequest("albums", query, true);
+            DACPRequest request = GetGroupsRequest(GroupsQuery, true);
 
             try
             {

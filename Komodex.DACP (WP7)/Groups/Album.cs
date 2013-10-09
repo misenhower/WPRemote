@@ -15,11 +15,6 @@ namespace Komodex.DACP.Groups
             : base(container, nodes)
         { }
 
-        public override string GroupType
-        {
-            get { return "albums"; }
-        }
-
         public string ArtistName { get; private set; }
 
         protected override void ProcessNodes(DACPNodeDictionary nodes)
