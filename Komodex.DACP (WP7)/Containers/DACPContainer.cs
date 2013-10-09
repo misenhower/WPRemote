@@ -19,7 +19,7 @@ namespace Komodex.DACP.Containers
         public DACPDatabase Database { get; private set; }
 
         public bool BasePlaylist { get; private set; }
-        public int SpecialPlaylistID { get; private set; }
+        public ContainerType Type { get; private set; }
         public int ItemCount { get; private set; }
         public int ParentContainerID { get; private set; }
 
@@ -28,7 +28,7 @@ namespace Komodex.DACP.Containers
             base.ProcessNodes(nodes);
 
             BasePlaylist = nodes.GetBool("abpl");
-            SpecialPlaylistID = nodes.GetByte("aePS");
+            Type = (ContainerType)nodes.GetByte("aePS");
             ItemCount = nodes.GetInt("mimc");
             ParentContainerID = nodes.GetInt("mpco");
         }
@@ -39,18 +39,19 @@ namespace Komodex.DACP.Containers
             if (nodes.GetBool("abpl"))
                 return new DACPContainer(database, nodes);
 
-            // Special playlist IDs
-            switch (nodes.GetByte("aePS"))
+            // Special playlist type
+            ContainerType type = (ContainerType)nodes.GetByte("aePS");
+            switch (type)
             {
-                case 0: // Playlist
+                case ContainerType.Playlist:
                     return new Playlist(database, nodes);
-                case 1: // Podcasts
+                case ContainerType.Podcasts:
                     return new PodcastsContainer(database, nodes);
-                case 4: // Movies
+                case ContainerType.Movies:
                     return new MoviesContainer(database, nodes);
-                case 5: // TV Shows
+                case ContainerType.TVShows:
                     return new TVShowsContainer(database, nodes);
-                case 6: // Music
+                case ContainerType.Music:
                     return new MusicContainer(database, nodes);
             }
 

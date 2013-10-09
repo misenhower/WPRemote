@@ -43,4 +43,19 @@ namespace Komodex.DACP
         PlayNext = 3,
         Shuffle = 2,
     }
+
+    public enum ContainerType
+    {
+        Playlist = 0,
+        Music = 6,
+        Movies = 4,
+        TVShows = 5,
+        Podcasts = 1,
+        iTunesU = 13,
+        Books = 7,
+        Purchased = 8,
+        Rentals = 10,
+        GeniusMixes = 15,
+        GeniusMix = 16,
+    }
 }

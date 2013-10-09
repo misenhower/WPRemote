@@ -66,34 +66,36 @@ namespace Komodex.DACP.Databases
                         continue;
                     }
 
-                    if (container is Playlist)
+                    switch (container.Type)
                     {
-                        Playlists.Add((Playlist)container);
-                        continue;
-                    }
-
-                    if (container is MusicContainer)
-                    {
-                        MusicContainer = (MusicContainer)container;
-                        continue;
-                    }
-
-                    if (container is PodcastsContainer)
-                    {
-                        PodcastsContainer = (PodcastsContainer)container;
-                        continue;
-                    }
-
-                    if (container is MoviesContainer)
-                    {
-                        MoviesContainer = (MoviesContainer)container;
-                        continue;
-                    }
-
-                    if (container is TVShowsContainer)
-                    {
-                        TVShowsContainer = (TVShowsContainer)container;
-                        continue;
+                        case ContainerType.Playlist:
+                            Playlists.Add((Playlist)container);
+                            break;
+                        case ContainerType.Music:
+                            MusicContainer = (MusicContainer)container;
+                            break;
+                        case ContainerType.Movies:
+                            MoviesContainer = (MoviesContainer)container;
+                            break;
+                        case ContainerType.TVShows:
+                            TVShowsContainer = (TVShowsContainer)container;
+                            break;
+                        case ContainerType.Podcasts:
+                            break;
+                        case ContainerType.iTunesU:
+                            break;
+                        case ContainerType.Books:
+                            break;
+                        case ContainerType.Purchased:
+                            break;
+                        case ContainerType.Rentals:
+                            break;
+                        case ContainerType.GeniusMixes:
+                            break;
+                        case ContainerType.GeniusMix:
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
