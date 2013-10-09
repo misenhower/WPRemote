@@ -63,7 +63,7 @@ namespace Komodex.Remote.LibraryPages
             {
                 // TODO: Alternate databases
                 // Get the music container
-                var musicContainer = CurrentServer.MainDatabase.Music;
+                var musicContainer = CurrentServer.MainDatabase.MusicContainer;
 
                 // Get the artist
                 SetProgressIndicator(null, true);

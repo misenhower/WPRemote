@@ -28,7 +28,10 @@ namespace Komodex.DACP.Databases
         #region Containers
 
         public DACPContainer BasePlaylist { get; private set; }
-        public MusicContainer Music { get; private set; }
+        public MusicContainer MusicContainer { get; private set; }
+        public PodcastsContainer PodcastsContainer { get; private set; }
+        public MoviesContainer MoviesContainer { get; private set; }
+        public TVShowsContainer TVShowsContainer { get; private set; }
 
         private List<Playlist> _playlists;
         public List<Playlist> Playlists
@@ -57,28 +60,39 @@ namespace Komodex.DACP.Databases
 
                 foreach (DACPContainer container in containers)
                 {
-                    // Base Playlist
                     if (container.BasePlaylist)
                     {
-                        if (BasePlaylist == null)
-                            BasePlaylist = container;
+                        BasePlaylist = container;
                         continue;
                     }
 
-                    // Playlist
                     if (container is Playlist)
                     {
                         Playlists.Add((Playlist)container);
                         continue;
                     }
 
-                    // Music container
                     if (container is MusicContainer)
                     {
-                        if (Music == null)
-                        {
-                            Music = (MusicContainer)container;
-                        }
+                        MusicContainer = (MusicContainer)container;
+                        continue;
+                    }
+
+                    if (container is PodcastsContainer)
+                    {
+                        PodcastsContainer = (PodcastsContainer)container;
+                        continue;
+                    }
+
+                    if (container is MoviesContainer)
+                    {
+                        MoviesContainer = (MoviesContainer)container;
+                        continue;
+                    }
+
+                    if (container is TVShowsContainer)
+                    {
+                        TVShowsContainer = (TVShowsContainer)container;
                         continue;
                     }
                 }

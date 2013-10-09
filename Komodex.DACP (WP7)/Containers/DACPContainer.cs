@@ -44,6 +44,12 @@ namespace Komodex.DACP.Containers
             {
                 case 0: // Playlist
                     return new Playlist(database, nodes);
+                case 1: // Podcasts
+                    return new PodcastsContainer(database, nodes);
+                case 4: // Movies
+                    return new MoviesContainer(database, nodes);
+                case 5: // TV Shows
+                    return new TVShowsContainer(database, nodes);
                 case 6: // Music
                     return new MusicContainer(database, nodes);
             }
@@ -126,7 +132,7 @@ namespace Komodex.DACP.Containers
             return GetCollectionAsync(request, itemGenerator);
         }
 
-        private async Task<List<T>> GetCollectionAsync<T>(DACPRequest request, Func<DACPNodeDictionary, T> itemGenerator)
+        internal async Task<List<T>> GetCollectionAsync<T>(DACPRequest request, Func<DACPNodeDictionary, T> itemGenerator)
         {
             try
             {

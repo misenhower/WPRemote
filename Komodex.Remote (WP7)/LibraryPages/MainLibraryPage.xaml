@@ -84,7 +84,7 @@
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryArtistsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotArtists">
                 <Grid>
                     <controls:LongListSelectorEx x:Name="lbArtists"
-                        ItemsSource="{Binding CurrentServer.MainDatabase.Music.GroupedArtists}"
+                        ItemsSource="{Binding CurrentServer.MainDatabase.MusicContainer.GroupedArtists}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.LibraryNoArtistsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
@@ -97,7 +97,7 @@
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryAlbumsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotAlbums">
                 <Grid >
                     <controls:LongListSelectorEx x:Name="lbAlbums"
-                        ItemsSource="{Binding CurrentServer.MainDatabase.Music.GroupedAlbums}"
+                        ItemsSource="{Binding CurrentServer.MainDatabase.MusicContainer.GroupedAlbums}"
                         IsGroupingEnabled="True"
                         EmptyText="{Binding LocalizedStrings.LibraryNoAlbumsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"

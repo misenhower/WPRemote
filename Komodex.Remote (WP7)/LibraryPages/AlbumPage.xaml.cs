@@ -65,7 +65,7 @@ namespace Komodex.Remote.LibraryPages
             {
                 // TODO: Alternate databases
                 // Get the music container
-                var musicContainer = CurrentServer.MainDatabase.Music;
+                var musicContainer = CurrentServer.MainDatabase.MusicContainer;
 
                 // Get the album
                 SetProgressIndicator(null, true);
@@ -189,7 +189,7 @@ namespace Komodex.Remote.LibraryPages
                     
                     // TODO: Alternate databases
                     // Get the music container
-                    var musicContainer = CurrentServer.MainDatabase.Music;
+                    var musicContainer = CurrentServer.MainDatabase.MusicContainer;
 
                     if (musicContainer.Artists == null)
                     {
@@ -201,7 +201,7 @@ namespace Komodex.Remote.LibraryPages
                     }
 
                     // Find the artist
-                    var artist = CurrentServer.MainDatabase.Music.Artists.Values.FirstOrDefault(a => a.Name == Album.ArtistName);
+                    var artist = CurrentServer.MainDatabase.MusicContainer.Artists.Values.FirstOrDefault(a => a.Name == Album.ArtistName);
                     if (artist != null)
                         NavigationManager.OpenArtistPage(artist);
                 }

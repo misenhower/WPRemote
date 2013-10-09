@@ -128,11 +128,20 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\DACPContainer.cs">
       <Link>Containers\DACPContainer.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Containers\MoviesContainer.cs">
+      <Link>Containers\MoviesContainer.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\MusicContainer.cs">
       <Link>Containers\MusicContainer.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\Playlist.cs">
       <Link>Containers\Playlist.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Containers\PodcastsContainer.cs">
+      <Link>Containers\PodcastsContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Containers\TVShowsContainer.cs">
+      <Link>Containers\TVShowsContainer.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.AirPlaySpeakers.cs">
       <Link>DACPServer\DACPServer.AirPlaySpeakers.cs</Link>
@@ -164,11 +173,26 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Groups\DACPGroup.cs">
       <Link>Groups\DACPGroup.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Groups\Podcast.cs">
+      <Link>Groups\Podcast.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Groups\TVShow.cs">
+      <Link>Groups\TVShow.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Items\DACPItem.cs">
       <Link>Items\DACPItem.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Items\Movie.cs">
+      <Link>Items\Movie.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Items\PodcastEpisode.cs">
+      <Link>Items\PodcastEpisode.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Items\Song.cs">
       <Link>Items\Song.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Items\TVShowEpisode.cs">
+      <Link>Items\TVShowEpisode.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Library\Album.cs">
       <Link>Library\Album.cs</Link>
