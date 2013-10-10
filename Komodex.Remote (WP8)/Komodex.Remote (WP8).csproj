@@ -170,6 +170,10 @@
       <Link>LibraryPages\ArtistPage.xaml.cs</Link>
       <DependentUpon>ArtistPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\BrowseLibraryPage.xaml.cs">
+      <Link>LibraryPages\BrowseLibraryPage.xaml.cs</Link>
+      <DependentUpon>BrowseLibraryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\GeniusMixesPage.xaml.cs">
       <Link>LibraryPages\GeniusMixesPage.xaml.cs</Link>
       <DependentUpon>GeniusMixesPage.xaml</DependentUpon>
@@ -702,6 +706,11 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\ArtistPage.xaml">
       <Link>LibraryPages\ArtistPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\BrowseLibraryPage.xaml">
+      <Link>LibraryPages\BrowseLibraryPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

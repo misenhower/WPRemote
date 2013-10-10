@@ -13,6 +13,7 @@ using System.Linq;
 using Komodex.Common;
 using Microsoft.Phone.Tasks;
 using Komodex.DACP.Groups;
+using Komodex.DACP;
 
 namespace Komodex.Remote
 {
@@ -92,6 +93,21 @@ namespace Komodex.Remote
         [Obsolete]
         public static void OpenAlbumPage(int albumID, string albumName, string artistName, UInt64 albumPersistentID)
         {
+        }
+
+        public static void OpenBrowseLibraryPage(int databaseID, ContainerType containerType)
+        {
+            Navigate("/LibraryPages/BrowseLibraryPage.xaml?databaseID={0}&containerType={1}", databaseID, containerType);
+        }
+
+        public static void OpenBrowseLibraryPage(int databaseID, ContainerType containerType, int groupID)
+        {
+            Navigate("/LibraryPages/BrowseLibraryPage.xaml?databaseID={0}&containerType={1}&groupID={2}", databaseID, containerType, groupID);
+        }
+
+        public static void OpenBrowseLibraryPage(int databaseID, int playlistID)
+        {
+            Navigate("/LibraryPages/BrowseLibraryPage.xaml?databaseID={0}&containerType={1}&playlistID={2}", databaseID, ContainerType.Playlist, playlistID);
         }
 
         public static void OpenGenrePage(string genreName)

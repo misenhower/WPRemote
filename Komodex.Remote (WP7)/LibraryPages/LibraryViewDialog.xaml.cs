@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Komodex.Common.Phone;
+using Komodex.Remote.Localization;
+using Komodex.DACP;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -18,17 +20,55 @@ namespace Komodex.Remote.LibraryPages
         public LibraryViewDialog()
         {
             InitializeComponent();
+
+            Loaded += LibraryViewDialog_Loaded;
         }
 
-        private void btnVideos_Click(object sender, RoutedEventArgs e)
+        private void LibraryViewDialog_Loaded(object sender, RoutedEventArgs e)
         {
-            NavigationManager.OpenVideosPage();
+            Loaded -= LibraryViewDialog_Loaded;
+
+            // TODO: Create list dynamically from available server containers
+            List<LibraryViewItem> items = new List<LibraryViewItem>();
+
+            items.Add(new LibraryViewItem("movies", "/Assets/Icons/Videos.png", () => NavigationManager.OpenBrowseLibraryPage(0, ContainerType.Movies)));
+            items.Add(new LibraryViewItem("tv shows", "/Assets/Icons/Videos.png", () => NavigationManager.OpenBrowseLibraryPage(0, ContainerType.TVShows)));
+            items.Add(new LibraryViewItem("podcasts", "/Assets/Icons/Podcasts.png", () => NavigationManager.OpenBrowseLibraryPage(0, ContainerType.Podcasts)));
+
+            Items = items;
         }
 
-        private void btnPodcasts_Click(object sender, RoutedEventArgs e)
+        public static readonly DependencyProperty ItemsProperty =
+            DependencyProperty.Register("Items", typeof(List<LibraryViewItem>), typeof(LibraryViewDialog), new PropertyMetadata(null));
+
+        public List<LibraryViewItem> Items
         {
-            NavigationManager.OpenPodcastsPage();
+            get { return (List<LibraryViewItem>)GetValue(ItemsProperty); }
+            set { SetValue(ItemsProperty, value); }
         }
 
+        private void MediaButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            LibraryViewItem item = button.DataContext as LibraryViewItem;
+            if (item == null)
+                return;
+
+            item.ClickAction();
+        }
+
+        public class LibraryViewItem
+        {
+            public LibraryViewItem(string title, string iconURI, Action clickAction)
+            {
+                Title = title;
+                IconURI = iconURI;
+                ClickAction = clickAction;
+            }
+
+            public string Title { get; private set; }
+            public string IconURI { get; private set; }
+            public Action ClickAction { get; private set; }
+        }
     }
 }

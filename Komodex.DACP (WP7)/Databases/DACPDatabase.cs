@@ -81,6 +81,7 @@ namespace Komodex.DACP.Databases
                             TVShowsContainer = (TVShowsContainer)container;
                             break;
                         case ContainerType.Podcasts:
+                            PodcastsContainer = (PodcastsContainer)container;
                             break;
                         case ContainerType.iTunesU:
                             break;
