@@ -84,6 +84,7 @@
     <Compile Include="Networking\WakeOnLAN.cs" />
     <Compile Include="Phone\PhoneUtility.cs" />
     <Compile Include="ResolutionUtility.cs" />
+    <Compile Include="SampleData\SampleDataHelper.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Phone\TrialManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
