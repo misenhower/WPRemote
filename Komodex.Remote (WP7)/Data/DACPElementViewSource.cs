@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Komodex.Remote.Data
 {
-    public class DACPElementViewSource<T> : INotifyPropertyChanged
+    public class DACPElementViewSource<T> : IDACPElementViewSource
         where T : DACPElement
     {
-        protected Func<T, Task<IList>> _action;
+        protected Func<T, Task<IList>> _dataRetrievealAction;
 
-        public DACPElementViewSource(Func<T, Task<IList>> dataSource)
+        public DACPElementViewSource(Func<T, Task<IList>> dataRetrievalAction)
         {
-            _action = dataSource;
+            _dataRetrievealAction = dataRetrievalAction;
         }
 
         public bool NeedsReload { get; protected set; }
@@ -35,9 +35,9 @@ namespace Komodex.Remote.Data
             }
         }
 
-        public async Task ReloadItems()
+        public async Task ReloadItemsAsync()
         {
-            if (Container == null)
+            if (Source == null)
             {
                 Items = null;
                 NeedsReload = false;
@@ -46,7 +46,7 @@ namespace Komodex.Remote.Data
 
             try
             {
-                Items = await _action(Container);
+                Items = await _dataRetrievealAction(Source);
                 NeedsReload = false;
             }
             catch
@@ -56,15 +56,15 @@ namespace Komodex.Remote.Data
             }
         }
 
-        private T _container;
-        public T Container
+        private T _source;
+        public T Source
         {
-            get { return _container; }
+            get { return _source; }
             set
             {
-                if (_container == value)
+                if (_source == value)
                     return;
-                _container = value;
+                _source = value;
                 NeedsReload = true;
             }
         }

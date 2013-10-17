@@ -109,7 +109,7 @@ namespace Komodex.Remote
 
         public static void OpenPodcastEpisodesPage(Podcast podcast)
         {
-            Navigate("/Pages/Browse/Podcasts/PodcastEpisodesPage?databaseID={0}&groupID={1}", podcast.Database.ID, podcast.ID);
+            Navigate("/Pages/Browse/Podcasts/PodcastEpisodesPage.xaml?databaseID={0}&groupID={1}", podcast.Database.ID, podcast.ID);
         }
 
         #endregion

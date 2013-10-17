@@ -165,6 +165,9 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Data\DACPElementViewSource.cs">
       <Link>Data\DACPElementViewSource.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Data\IDACPElementViewSource.cs">
+      <Link>Data\IDACPElementViewSource.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\AlbumPage.xaml.cs">
       <Link>LibraryPages\AlbumPage.xaml.cs</Link>
       <DependentUpon>AlbumPage.xaml</DependentUpon>
@@ -235,8 +238,15 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\BrowseContainerBasePage.cs">
       <Link>PageBases\BrowseContainerBasePage.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\BrowseGroupBasePage.cs">
+      <Link>PageBases\BrowseGroupBasePage.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\RemoteBasePage.cs">
       <Link>PageBases\RemoteBasePage.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Podcasts\PodcastEpisodesPage.xaml.cs">
+      <Link>Pages\Browse\Podcasts\PodcastEpisodesPage.xaml.cs</Link>
+      <DependentUpon>PodcastEpisodesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Podcasts\PodcastsPage.xaml.cs">
       <Link>Pages\Browse\Podcasts\PodcastsPage.xaml.cs</Link>
@@ -804,6 +814,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Podcasts\PodcastEpisodesPage.xaml">
+      <Link>Pages\Browse\Podcasts\PodcastEpisodesPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Podcasts\PodcastsPage.xaml">
       <Link>Pages\Browse\Podcasts\PodcastsPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

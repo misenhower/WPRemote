@@ -20,13 +20,8 @@ namespace Komodex.Remote.Pages.Browse.Podcasts
         {
             InitializeComponent();
 
-            SetPivotItemViewSource(PodcastsPivotItem, async c => await c.GetShowsAsync());
-            SetPivotItemViewSource(UnplayedPodcastsPivotItem, async c => await c.GetUnplayedShowsAsync());
-        }
-
-        protected override PodcastsContainer GetContainer(DACPDatabase database)
-        {
-            return database.PodcastsContainer;
+            PodcastsPivotItem.DataContext = GetContainerViewSource(async c => await c.GetShowsAsync());
+            UnplayedPodcastsPivotItem.DataContext = GetContainerViewSource(async c => await c.GetUnplayedShowsAsync());
         }
 
         protected override void OnListItemTap(DACPElement item, LongListSelector list)

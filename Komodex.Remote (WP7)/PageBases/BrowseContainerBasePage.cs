@@ -17,20 +17,13 @@ using System.Windows.Navigation;
 
 namespace Komodex.Remote
 {
-    public abstract class BrowsePodcastsContainerBasePage : BrowseContainerBasePage<PodcastsContainer> { }
-    public abstract class BrowseMoviesContainerBasePage : BrowseContainerBasePage<MoviesContainer> { }
-    public abstract class BrowseTVShowsContainerBasePage : BrowseContainerBasePage<TVShowsContainer> { }
-
     public abstract class BrowseContainerBasePage<T> : RemoteBasePage
         where T: DACPContainer
     {
         private bool _initialized;
-        private List<DACPElementViewSource<T>> _viewSources = new List<DACPElementViewSource<T>>();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
-
             if (!_initialized)
             {
                 // Get query string parameters
@@ -52,6 +45,8 @@ namespace Komodex.Remote
 
                 _initialized = true;
             }
+
+            base.OnNavigatedTo(e);
         }
 
         protected override void OnServerChanged()
@@ -125,8 +120,8 @@ namespace Komodex.Remote
 
         protected virtual void OnContainerChanged()
         {
-            foreach (var viewSource in _viewSources)
-                viewSource.Container = CurrentContainer;
+            UpdateViewSources();
+            GetDataForCurrentPivotItem();
         }
 
         protected void UpdateCurrentContainer()
@@ -148,14 +143,6 @@ namespace Komodex.Remote
 
         private Pivot _pivotControl;
 
-        protected DACPElementViewSource<T> SetPivotItemViewSource(PivotItem pivotItem, Func<T, Task<IList>> action)
-        {
-            var viewSource = new DACPElementViewSource<T>(action);
-            pivotItem.DataContext = viewSource;
-            _viewSources.Add(viewSource);
-            return viewSource;
-        }
-
         protected virtual void PivotControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender != _pivotControl)
@@ -170,14 +157,14 @@ namespace Komodex.Remote
             if (item == null)
                 return;
 
-            DACPElementViewSource<T> viewSource = item.DataContext as DACPElementViewSource<T>;
+            var viewSource = item.DataContext as IDACPElementViewSource;
             if (viewSource == null)
                 return;
 
             if (viewSource.NeedsReload)
             {
                 SetProgressIndicator(null, true);
-                await viewSource.ReloadItems();
+                await viewSource.ReloadItemsAsync();
                 ClearProgressIndicator();
             }
         }
@@ -202,5 +189,48 @@ namespace Komodex.Remote
         }
 
         #endregion
+
+        #region View Sources
+
+        protected List<IDACPElementViewSource> _viewSources = new List<IDACPElementViewSource>();
+
+        protected DACPElementViewSource<T> GetContainerViewSource(Func<T, Task<IList>> dataRetrievalAction)
+        {
+            var viewSource = new DACPElementViewSource<T>(dataRetrievalAction);
+            _viewSources.Add(viewSource);
+            return viewSource;
+        }
+
+        protected virtual void UpdateViewSources()
+        {
+            foreach (var containerViewSource in _viewSources.OfType<DACPElementViewSource<T>>())
+                containerViewSource.Source = CurrentContainer;
+        }
+
+        #endregion
+    }
+
+    public abstract class BrowsePodcastsContainerBasePage : BrowseContainerBasePage<PodcastsContainer>
+    {
+        protected override PodcastsContainer GetContainer(DACPDatabase database)
+        {
+            return database.PodcastsContainer;
+        }
+    }
+
+    public abstract class BrowseMoviesContainerBasePage : BrowseContainerBasePage<MoviesContainer>
+    {
+        protected override MoviesContainer GetContainer(DACPDatabase database)
+        {
+            return database.MoviesContainer;
+        }
+    }
+
+    public abstract class BrowseTVShowsContainerBasePage : BrowseContainerBasePage<TVShowsContainer>
+    {
+        protected override TVShowsContainer GetContainer(DACPDatabase database)
+        {
+            return database.TVShowsContainer;
+        }
     }
 }

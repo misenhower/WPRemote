@@ -1,0 +1,45 @@
+﻿<app:BrowsePodcastBasePage
+    x:Class="Komodex.Remote.Pages.Browse.Podcasts.PodcastEpisodesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:app="clr-namespace:Komodex.Remote"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    mc:Ignorable="d"
+    Style="{StaticResource RemotePageStyle}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    >
+
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="PodcastEpisodeTemplate">
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource AlbumArtSmallItemTemplate}" />
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+    
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <controls:Pivot x:Name="PivotControl"
+                        Title="{Binding CurrentGroup.Name}"
+                        Style="{StaticResource RemotePivotStyle}"
+                        >
+            <controls:PivotItem x:Name="EpisodesPivotItem" Header="episodes">
+                <controls:LongListSelectorEx
+                    Style="{StaticResource LibraryListStyle}"
+                    ItemTemplate="{StaticResource PodcastEpisodeTemplate}"
+                    ItemsSource="{Binding Items}"
+                    />
+            </controls:PivotItem>
+            <controls:PivotItem x:Name="UnplayedEpisodesPivotItem" Header="unplayed">
+                <controls:LongListSelectorEx
+                    Style="{StaticResource LibraryListStyle}"
+                    ItemTemplate="{StaticResource PodcastEpisodeTemplate}"
+                    ItemsSource="{Binding Items}"
+                    />
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+
+</app:BrowsePodcastBasePage>
