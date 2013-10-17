@@ -100,6 +100,15 @@ namespace Komodex.Remote
 
         #endregion
 
+        #region Movies
+
+        public static void OpenMoviesPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Browse/Movies/MoviesPage.xaml?databaseID={0}", database.ID);
+        }
+
+        #endregion
+
         #region Podcasts
 
         public static void OpenPodcastsPage(DACPDatabase database)

@@ -32,7 +32,7 @@ namespace Komodex.Remote.LibraryPages
             // TODO: Create list dynamically from available server containers
             List<LibraryViewItem> items = new List<LibraryViewItem>();
 
-            items.Add(new LibraryViewItem("movies", "/Assets/Icons/Videos.png", () => NavigationManager.OpenBrowseLibraryPage(0, ContainerType.Movies)));
+            items.Add(new LibraryViewItem("movies", "/Assets/Icons/Videos.png", () => NavigationManager.OpenMoviesPage(ServerManager.CurrentServer.MainDatabase)));
             items.Add(new LibraryViewItem("tv shows", "/Assets/Icons/Videos.png", () => NavigationManager.OpenBrowseLibraryPage(0, ContainerType.TVShows)));
             items.Add(new LibraryViewItem("podcasts", "/Assets/Icons/Podcasts.png", () => NavigationManager.OpenPodcastsPage(ServerManager.CurrentServer.MainDatabase)));
 

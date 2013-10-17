@@ -45,6 +45,10 @@ namespace Komodex.Remote.SampleData
     {
     }
 
+    public class SampleDataMovie:SampleDataDACPItem
+    {
+    }
+
     #endregion
 
     #region View Sources
@@ -83,6 +87,11 @@ namespace Komodex.Remote.SampleData
     {
         public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> EpisodesViewSource { get; set; }
         public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> UnplayedEpisodesViewSource { get; set; }
+    }
+
+    public class SampleDataMoviesPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataDACPElementViewSource<SampleDataMovie> MoviesViewSource { get; set; }
     }
 
     #endregion
