@@ -85,6 +85,7 @@
     <Compile Include="Phone\PhoneUtility.cs" />
     <Compile Include="ResolutionUtility.cs" />
     <Compile Include="SampleData\SampleDataHelper.cs" />
+    <Compile Include="SampleData\SampleDataBase.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Phone\TrialManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

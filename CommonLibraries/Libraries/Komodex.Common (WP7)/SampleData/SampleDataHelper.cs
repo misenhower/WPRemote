@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-#if DEBUG
 namespace Komodex.Common.SampleData
 {
+#if DEBUG
     public static class SampleDataHelper
     {
         private readonly static Random _random = new Random();
@@ -29,24 +29,11 @@ namespace Komodex.Common.SampleData
                 if (property.GetIndexParameters().Length > 0)
                     continue;
 
-                // String
-                if (property.PropertyType == typeof(string))
+                // Try to get a value
+                var sampleValue = GetSampleDataForType(property.PropertyType);
+                if (sampleValue != null)
                 {
-                    property.SetValue(obj, GetRandomString(2, 5), null);
-                    continue;
-                }
-
-                // Int
-                if (property.PropertyType == typeof(int))
-                {
-                    property.SetValue(obj, GetRandomInt(0, 100), null);
-                    continue;
-                }
-
-                // Bool
-                if (property.PropertyType == typeof(bool))
-                {
-                    property.SetValue(obj, GetRandomBool(), null);
+                    property.SetValue(obj, sampleValue, null);
                     continue;
                 }
 
@@ -67,6 +54,13 @@ namespace Komodex.Common.SampleData
                         continue;
                     }
                 }
+
+                // SampleDataBase object
+                if (typeof(SampleDataBase).IsAssignableFrom(property.PropertyType))
+                {
+                    property.SetValue(obj, Activator.CreateInstance(property.PropertyType), null);
+                    continue;
+                }
             }
 
             // If this is a list, add items
@@ -78,7 +72,9 @@ namespace Komodex.Common.SampleData
                 int listItemCount = (level < 2) ? 10 : 5;
                 for (int i = 0; i < listItemCount; i++)
                 {
-                    object item = Activator.CreateInstance(listItemType);
+                    object item = GetSampleDataForType(listItemType);
+                    if (item == null)
+                        break;
                     FillSampleData(item, fillLists, level + 1);
                     addMethod.Invoke(obj, new object[] { item });
                 }
@@ -107,6 +103,27 @@ namespace Komodex.Common.SampleData
             return null;
         }
 
+        private static object GetSampleDataForType(Type type)
+        {
+            // String
+            if (type == typeof(string))
+                return GetRandomString(2, 5);
+
+            // Int
+            if (type == typeof(int))
+                return GetRandomInt(0, 100);
+
+            // Bool
+            if (type == typeof(bool))
+                return GetRandomBool();
+
+            // SampleDataBase
+            if (typeof(SampleDataBase).IsAssignableFrom(type))
+                return Activator.CreateInstance(type);
+
+            return null;
+        }
+
         #region Random Data Generators
 
         private static int GetRandomInt(int min, int max)
@@ -129,5 +146,5 @@ namespace Komodex.Common.SampleData
 
         #endregion
     }
-}
 #endif
+}
