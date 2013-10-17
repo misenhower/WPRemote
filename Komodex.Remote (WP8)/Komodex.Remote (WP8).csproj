@@ -256,6 +256,14 @@
       <Link>Pages\Browse\Podcasts\PodcastsPage.xaml.cs</Link>
       <DependentUpon>PodcastsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\TVShows\TVShowEpisodesPage.xaml.cs">
+      <Link>Pages\Browse\TVShows\TVShowEpisodesPage.xaml.cs</Link>
+      <DependentUpon>TVShowEpisodesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\TVShows\TVShowsPage.xaml.cs">
+      <Link>Pages\Browse\TVShows\TVShowsPage.xaml.cs</Link>
+      <DependentUpon>TVShowsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\ChooseLibraryPage.xaml.cs">
       <Link>Pages\ChooseLibraryPage.xaml.cs</Link>
       <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
@@ -825,6 +833,16 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Podcasts\PodcastsPage.xaml">
       <Link>Pages\Browse\Podcasts\PodcastsPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\TVShows\TVShowEpisodesPage.xaml">
+      <Link>Pages\Browse\TVShows\TVShowEpisodesPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\TVShows\TVShowsPage.xaml">
+      <Link>Pages\Browse\TVShows\TVShowsPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

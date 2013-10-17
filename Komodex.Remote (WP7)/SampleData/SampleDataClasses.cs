@@ -28,6 +28,10 @@ namespace Komodex.Remote.SampleData
     {
     }
 
+    public class SampleDataTVShow : SampleDataDACPGroup
+    {
+    }
+
     public class SampleDataPodcast : SampleDataDACPGroup
     {
     }
@@ -41,11 +45,15 @@ namespace Komodex.Remote.SampleData
         public bool IsDisabled { get; set; }
     }
 
-    public class SampleDataPodcastEpisode : SampleDataDACPItem
+    public class SampleDataMovie : SampleDataDACPItem
     {
     }
 
-    public class SampleDataMovie:SampleDataDACPItem
+    public class SampleDataTVShowEpisode : SampleDataDACPItem
+    {
+    }
+
+    public class SampleDataPodcastEpisode : SampleDataDACPItem
     {
     }
 
@@ -77,6 +85,23 @@ namespace Komodex.Remote.SampleData
         public List<T> Items { get; set; }
     }
 
+    public class SampleDataMoviesPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataDACPElementViewSource<SampleDataMovie> MoviesViewSource { get; set; }
+    }
+
+    public class SampleDataTVShowsPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataDACPElementViewSource<SampleDataTVShow> TVShowsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataTVShow> UnwatchedTVShowsViewSource { get; set; }
+    }
+
+    public class SampleDataTVShowEpisodesPage : SampleDataBrowseGroupBasePage<SampleDataDACPContainer, SampleDataTVShow>
+    {
+        public SampleDataDACPElementViewSource<SampleDataTVShowEpisode> EpisodesViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataTVShowEpisode> UnwatchedEpisodesViewSource { get; set; }
+    }
+
     public class SampleDataPodcastsPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
     {
         public SampleDataDACPElementViewSource<SampleDataPodcast> PodcastsViewSource { get; set; }
@@ -87,11 +112,6 @@ namespace Komodex.Remote.SampleData
     {
         public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> EpisodesViewSource { get; set; }
         public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> UnplayedEpisodesViewSource { get; set; }
-    }
-
-    public class SampleDataMoviesPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
-    {
-        public SampleDataDACPElementViewSource<SampleDataMovie> MoviesViewSource { get; set; }
     }
 
     #endregion

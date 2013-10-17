@@ -109,6 +109,20 @@ namespace Komodex.Remote
 
         #endregion
 
+        #region TV Shows
+
+        public static void OpenTVShowsPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Browse/TVShows/TVShowsPage.xaml?databaseID={0}", database.ID);
+        }
+
+        public static void OpenTVShowEpisodesPage(TVShow tvShow)
+        {
+            Navigate("/Pages/Browse/TVShows/TVShowEpisodesPage.xaml?databaseID={0}&groupID={1}", tvShow.Database.ID, tvShow.ID);
+        }
+
+        #endregion
+
         #region Podcasts
 
         public static void OpenPodcastsPage(DACPDatabase database)

@@ -72,7 +72,7 @@ namespace Komodex.Remote.LibraryPages
                     if (!_groupID.HasValue)
                     {
                         AddPivotItem("tv shows", "TVShowTemplate", async db => await db.TVShowsContainer.GetShowsAsync());
-                        AddPivotItem("unplayed", "TVShowTemplate", async db => await db.TVShowsContainer.GetUnplayedShowsAsync());
+                        AddPivotItem("unplayed", "TVShowTemplate", async db => await db.TVShowsContainer.GetUnwatchedShowsAsync());
                     }
                     else
                     {

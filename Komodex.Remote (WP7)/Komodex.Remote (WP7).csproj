@@ -195,6 +195,12 @@
     <Compile Include="Pages\Browse\Podcasts\PodcastsPage.xaml.cs">
       <DependentUpon>PodcastsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Browse\TVShows\TVShowEpisodesPage.xaml.cs">
+      <DependentUpon>TVShowEpisodesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Browse\TVShows\TVShowsPage.xaml.cs">
+      <DependentUpon>TVShowsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ChooseLibraryPage.xaml.cs">
       <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
     </Compile>
@@ -329,6 +335,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Browse\Podcasts\PodcastsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\TVShows\TVShowEpisodesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\TVShows\TVShowsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -33,7 +33,7 @@ namespace Komodex.Remote.LibraryPages
             List<LibraryViewItem> items = new List<LibraryViewItem>();
 
             items.Add(new LibraryViewItem("movies", "/Assets/Icons/Videos.png", () => NavigationManager.OpenMoviesPage(ServerManager.CurrentServer.MainDatabase)));
-            items.Add(new LibraryViewItem("tv shows", "/Assets/Icons/Videos.png", () => NavigationManager.OpenBrowseLibraryPage(0, ContainerType.TVShows)));
+            items.Add(new LibraryViewItem("tv shows", "/Assets/Icons/Videos.png", () => NavigationManager.OpenTVShowsPage(ServerManager.CurrentServer.MainDatabase)));
             items.Add(new LibraryViewItem("podcasts", "/Assets/Icons/Podcasts.png", () => NavigationManager.OpenPodcastsPage(ServerManager.CurrentServer.MainDatabase)));
 
             Items = items;

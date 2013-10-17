@@ -55,7 +55,7 @@ namespace Komodex.DACP.Containers
 
         #region Unplayed Shows
 
-        public Task<List<TVShow>> GetUnplayedShowsAsync()
+        public Task<List<TVShow>> GetUnwatchedShowsAsync()
         {
             var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songalbum"), DACPQueryPredicate.Is("daap.songuserplaycount", 0), MediaKindQuery);
             return GetGroupsAsync(query, n => new TVShow(this, n));
