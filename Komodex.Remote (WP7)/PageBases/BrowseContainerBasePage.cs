@@ -1,4 +1,5 @@
-﻿using Komodex.Common.Phone.Controls;
+﻿using Clarity.Phone.Controls.Animations;
+using Komodex.Common.Phone.Controls;
 using Komodex.DACP;
 using Komodex.DACP.Containers;
 using Komodex.DACP.Databases;
@@ -62,6 +63,25 @@ namespace Komodex.Remote
 
             if (e.Type == ServerUpdateType.ServerConnected)
                 UpdateCurrentDatabase();
+        }
+
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            string uri = toOrFrom.OriginalString;
+
+            if (uri.StartsWith("/Pages/Browse/"))
+            {
+                if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
+                    return GetContinuumAnimation(_pivotControl, animationType);
+                if (_lastTappedList != null && _lastTappedItem != null)
+                {
+                    var contentPresenter = _lastTappedList.GetContentPresenterForItem(_lastTappedItem);
+                    if (contentPresenter != null)
+                        return GetContinuumAnimation(contentPresenter, animationType);
+                }
+            }
+
+            return base.GetAnimation(animationType, toOrFrom);
         }
 
         #region CurrentDatabase
@@ -142,6 +162,8 @@ namespace Komodex.Remote
         #region Pivot Control and Items
 
         private Pivot _pivotControl;
+        private LongListSelectorEx _lastTappedList;
+        private object _lastTappedItem;
 
         protected virtual void PivotControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -171,10 +193,18 @@ namespace Komodex.Remote
 
         protected virtual void List_Tap(object sender, GestureEventArgs e)
         {
-            LongListSelector list = (LongListSelector)sender;
+            LongListSelectorEx list = (LongListSelectorEx)sender;
             var selectedItem = list.SelectedItem as DACPElement;
+
+            // Clear out the selected item
+            list.SelectedItem = null;
+
+            // Make sure a DACPElement was selected
             if (selectedItem == null)
                 return;
+
+            _lastTappedList = list;
+            _lastTappedItem = selectedItem;
 
             OnListItemTap(selectedItem, list);
         }
