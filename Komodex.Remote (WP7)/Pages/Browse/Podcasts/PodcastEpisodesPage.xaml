@@ -8,9 +8,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:sampledata="clr-namespace:Komodex.Remote.SampleData"
     mc:Ignorable="d"
     Style="{StaticResource RemotePageStyle}"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    d:DataContext="{d:DesignInstance Type=sampledata:SampleDataPodcastEpisodesPage, IsDesignTimeCreatable=True}"
     >
 
     <phone:PhoneApplicationPage.Resources>
@@ -25,14 +27,14 @@
                         Title="{Binding CurrentGroup.Name}"
                         Style="{StaticResource RemotePivotStyle}"
                         >
-            <controls:PivotItem x:Name="EpisodesPivotItem" Header="episodes">
+            <controls:PivotItem DataContext="{Binding EpisodesViewSource}" Header="episodes">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource PodcastEpisodeTemplate}"
                     ItemsSource="{Binding Items}"
                     />
             </controls:PivotItem>
-            <controls:PivotItem x:Name="UnplayedEpisodesPivotItem" Header="unplayed">
+            <controls:PivotItem DataContext="{Binding UnplayedEpisodesViewSource}" Header="unplayed">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource PodcastEpisodeTemplate}"

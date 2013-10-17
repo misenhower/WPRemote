@@ -809,11 +809,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\PodcastSampleData.xaml">
-      <Link>SampleData\PodcastSampleData.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Podcasts\PodcastEpisodesPage.xaml">
       <Link>Pages\Browse\Podcasts\PodcastEpisodesPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

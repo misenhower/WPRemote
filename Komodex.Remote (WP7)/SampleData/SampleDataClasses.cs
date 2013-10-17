@@ -1,12 +1,95 @@
-﻿using System;
+﻿using Komodex.Common.SampleData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-#if DEBUG
 namespace Komodex.Remote.SampleData
+#if DEBUG
 {
-    class SampleDataDACPServer
+    #region DACP Elements
+
+    public class SampleDataDACPElement : SampleDataBase
+    {
+        public string Name { get; set; }
+    }
+
+    #region Containers
+
+    public class SampleDataDACPContainer : SampleDataDACPElement
+    {
+    }
+
+    #endregion
+
+    #region Groups
+
+    public class SampleDataDACPGroup : SampleDataDACPElement
+    {
+    }
+
+    public class SampleDataPodcast : SampleDataDACPGroup
+    {
+    }
+
+    #endregion
+
+    #region Items
+
+    public class SampleDataDACPItem : SampleDataDACPElement
+    {
+        public bool IsDisabled { get; set; }
+    }
+
+    public class SampleDataPodcastEpisode : SampleDataDACPItem
+    {
+    }
+
+    #endregion
+
+    #region View Sources
+
+    public class SampleDataRemoteBasePage : SampleDataBase
+    {
+        public SampleDataDACPServer CurrentServer { get; set; }
+    }
+
+    public class SampleDataBrowseContainerBasePage<T> : SampleDataRemoteBasePage
+        where T : SampleDataDACPContainer
+    {
+        public T CurrentContainer { get; set; }
+    }
+
+    public class SampleDataBrowseGroupBasePage<TContainer, TGroup> : SampleDataBrowseContainerBasePage<TContainer>
+        where TContainer : SampleDataDACPContainer
+        where TGroup : SampleDataDACPGroup
+    {
+        public TGroup CurrentGroup { get; set; }
+    }
+
+    public class SampleDataDACPElementViewSource<T> : SampleDataBase
+        where T : SampleDataDACPElement
+    {
+        public List<T> Items { get; set; }
+    }
+
+    public class SampleDataPodcastsPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataDACPElementViewSource<SampleDataPodcast> PodcastsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataPodcast> UnplayedPodcastsViewSource { get; set; }
+    }
+
+    public class SampleDataPodcastEpisodesPage : SampleDataBrowseGroupBasePage<SampleDataDACPContainer, SampleDataPodcast>
+    {
+        public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> EpisodesViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> UnplayedEpisodesViewSource { get; set; }
+    }
+
+    #endregion
+
+    #endregion
+
+    public class SampleDataDACPServer : SampleDataBase
     {
         public string LibraryName { get; set; }
         public string CurrentArtist { get; set; }
@@ -29,7 +112,7 @@ namespace Komodex.Remote.SampleData
         public List<SampleDataNamedItemGroup> LibraryTVShows { get; set; }
     }
 
-    class SampleDataNamedItemBase
+    public class SampleDataNamedItemBase
     {
         public string Name { get; set; }
         public string SecondLine { get; set; }
@@ -37,12 +120,12 @@ namespace Komodex.Remote.SampleData
 
     #region Server Connection Info
 
-    class SampleDataServerConnectionInfoCollection : List<SampleDataServerConnectionInfo>
+    public class SampleDataServerConnectionInfoCollection : List<SampleDataServerConnectionInfo>
     {
 
     }
 
-    class SampleDataServerConnectionInfo
+    public class SampleDataServerConnectionInfo
     {
         public string Name { get; set; }
         public bool IsAvailable { get; set; }
@@ -52,66 +135,27 @@ namespace Komodex.Remote.SampleData
 
     #region Groups
 
-    class SampleDataGroupItems<T> : List<T>
+    public class SampleDataGroupItems<T> : List<T>
     {
         public string Key { get; set; }
     }
 
-    class SampleDataNamedItemGroup : SampleDataGroupItems<SampleDataNamedItemBase> { }
+    public class SampleDataNamedItemGroup : SampleDataGroupItems<SampleDataNamedItemBase> { }
 
     #endregion
 
     #region Library Items
 
-    class SampleDataPlaylist : SampleDataNamedItemBase
-    {
-        public List<SampleDataPlaylistSong> Songs { get; set; }
-    }
-
-    class SampleDataPlaylistSong : SampleDataNamedItemBase
-    {
-        public string ArtistAndAlbum { get; set; }
-    }
-
-    class SampleDataGeniusPlaylist : SampleDataNamedItemBase
+    public class SampleDataGeniusPlaylist : SampleDataNamedItemBase
     {
         public string GeniusMixDescription { get; set; }
-    }
-
-    class SampleDataArtist : SampleDataNamedItemBase
-    {
-        public List<SampleDataNamedItemBase> Albums { get; set; }
-        public List<SampleDataArtistSong> Songs { get; set; }
-    }
-
-    class SampleDataArtistSong : SampleDataNamedItemBase
-    {
-        public string AlbumName { get; set; }
-    }
-
-    class SampleDataAlbum : SampleDataNamedItemBase
-    {
-        public string ArtistName { get; set; }
-        public List<SampleDataNamedItemBase> Songs { get; set; }
-    }
-
-    class SampleDataGenre : SampleDataNamedItemBase
-    {
-        public List<SampleDataNamedItemGroup> Artists { get; set; }
-        public List<SampleDataNamedItemGroup> Albums { get; set; }
-        public List<SampleDataNamedItemGroup> Songs { get; set; }
-    }
-
-    class SampleDataPodcast : SampleDataNamedItemBase
-    {
-        public List<SampleDataNamedItemBase> Episodes { get; set; }
     }
 
     #endregion
 
     #region AirPlay Speakers
 
-    class SampleDataAirPlaySpeaker
+    public class SampleDataAirPlaySpeaker
     {
         public string Name { get; set; }
         public bool BindableActive { get; set; }
@@ -124,18 +168,18 @@ namespace Komodex.Remote.SampleData
 
     #region Play Queue
 
-    class SampleDataPlayQueue : List<SampleDataPlayQueueItem>
+    public class SampleDataPlayQueue : List<SampleDataPlayQueueItem>
     {
         public string Title1 { get; set; }
         public string Title2 { get; set; }
     }
 
-    class SampleDataPlayQueueItem
+    public class SampleDataPlayQueueItem
     {
         public string SongName { get; set; }
         public string SecondLine { get; set; }
     }
 
     #endregion
-}
 #endif
+}

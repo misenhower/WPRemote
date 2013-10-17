@@ -10,7 +10,8 @@ using Microsoft.Phone.Shell;
 using Komodex.DACP.Databases;
 using Komodex.DACP.Containers;
 using System.Threading.Tasks;
-using Komodex.DACP.Library;
+using Komodex.Remote.Data;
+using Komodex.DACP.Groups;
 
 namespace Komodex.Remote.Pages.Browse.Podcasts
 {
@@ -20,7 +21,10 @@ namespace Komodex.Remote.Pages.Browse.Podcasts
         {
             InitializeComponent();
 
-            EpisodesPivotItem.DataContext = GetGroupViewSource(async g => await g.GetEpisodesAsync());
+            EpisodesViewSource = GetGroupViewSource(async g => await g.GetEpisodesAsync());
         }
+
+        public object EpisodesViewSource { get; set; }
+        public object UnplayedEpisodesViewSource { get; set; }
     }
 }

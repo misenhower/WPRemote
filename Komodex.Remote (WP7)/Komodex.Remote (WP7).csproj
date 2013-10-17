@@ -529,9 +529,6 @@
     <DesignData Include="SampleData\PlaylistSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
-    <DesignData Include="SampleData\PodcastSampleData.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-    </DesignData>
     <DesignData Include="SampleData\ServerConnectionInfoCollection.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>

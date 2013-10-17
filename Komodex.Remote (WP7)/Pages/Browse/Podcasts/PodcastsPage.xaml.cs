@@ -11,6 +11,7 @@ using Komodex.DACP.Databases;
 using Komodex.DACP;
 using Komodex.Common.Phone.Controls;
 using Komodex.DACP.Groups;
+using Komodex.Remote.Data;
 
 namespace Komodex.Remote.Pages.Browse.Podcasts
 {
@@ -20,9 +21,12 @@ namespace Komodex.Remote.Pages.Browse.Podcasts
         {
             InitializeComponent();
 
-            PodcastsPivotItem.DataContext = GetContainerViewSource(async c => await c.GetShowsAsync());
-            UnplayedPodcastsPivotItem.DataContext = GetContainerViewSource(async c => await c.GetUnplayedShowsAsync());
+            PodcastsViewSource = GetContainerViewSource(async c => await c.GetShowsAsync());
+            UnplayedPodcastsViewSource = GetContainerViewSource(async c => await c.GetUnplayedShowsAsync());
         }
+
+        public object PodcastsViewSource { get; private set; }
+        public object UnplayedPodcastsViewSource { get; private set; }
 
         protected override void OnListItemTap(DACPElement item, LongListSelector list)
         {
