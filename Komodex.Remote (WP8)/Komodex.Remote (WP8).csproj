@@ -162,6 +162,9 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\ServerTypeToImageSourceConverter.cs">
       <Link>Converters\ServerTypeToImageSourceConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Data\DACPElementViewSource.cs">
+      <Link>Data\DACPElementViewSource.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\AlbumPage.xaml.cs">
       <Link>LibraryPages\AlbumPage.xaml.cs</Link>
       <DependentUpon>AlbumPage.xaml</DependentUpon>
@@ -229,8 +232,15 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Navigation\NavigationManager.cs">
       <Link>Navigation\NavigationManager.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\BrowseContainerBasePage.cs">
+      <Link>PageBases\BrowseContainerBasePage.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\RemoteBasePage.cs">
       <Link>PageBases\RemoteBasePage.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Podcasts\PodcastsPage.xaml.cs">
+      <Link>Pages\Browse\Podcasts\PodcastsPage.xaml.cs</Link>
+      <DependentUpon>PodcastsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\ChooseLibraryPage.xaml.cs">
       <Link>Pages\ChooseLibraryPage.xaml.cs</Link>
@@ -794,6 +804,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Podcasts\PodcastsPage.xaml">
+      <Link>Pages\Browse\Podcasts\PodcastsPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\ChooseLibraryPage.xaml">
       <Link>Pages\ChooseLibraryPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

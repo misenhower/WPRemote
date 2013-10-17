@@ -14,6 +14,7 @@ using Komodex.Common;
 using Microsoft.Phone.Tasks;
 using Komodex.DACP.Groups;
 using Komodex.DACP;
+using Komodex.DACP.Databases;
 
 namespace Komodex.Remote
 {
@@ -75,6 +76,8 @@ namespace Komodex.Remote
             Navigate("/Pages/ChooseLibraryPage.xaml");
         }
 
+        #region Music
+
         public static void OpenArtistPage(Artist artist)
         {
             Navigate("/LibraryPages/ArtistPage.xaml?database={0}&container={1}&artist={2}", artist.Database.ID, artist.Container.ID, artist.ID);
@@ -94,6 +97,22 @@ namespace Komodex.Remote
         public static void OpenAlbumPage(int albumID, string albumName, string artistName, UInt64 albumPersistentID)
         {
         }
+
+        #endregion
+
+        #region Podcasts
+
+        public static void OpenPodcastsPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Browse/Podcasts/PodcastsPage.xaml?databaseID={0}", database.ID);
+        }
+
+        public static void OpenPodcastEpisodesPage(Podcast podcast)
+        {
+            Navigate("/Pages/Browse/Podcasts/PodcastEpisodesPage?databaseID={0}&groupID={1}", podcast.Database.ID, podcast.ID);
+        }
+
+        #endregion
 
         public static void OpenBrowseLibraryPage(int databaseID, ContainerType containerType)
         {
@@ -153,15 +172,14 @@ namespace Komodex.Remote
             Navigate("/LibraryPages/VideosPage.xaml");
         }
 
+        [Obsolete]
         public static void OpenPodcastsPage()
         {
-            Navigate("/LibraryPages/PodcastsPage.xaml");
         }
 
+        [Obsolete]
         public static void OpenPodcastPage(int podcastID, string podcastName, UInt64 podcastPersistentID)
         {
-            podcastName = Uri.EscapeDataString(podcastName);
-            Navigate("/LibraryPages/PodcastPage.xaml?id=" + podcastID + "&name=" + podcastName + "&perid=" + podcastPersistentID);
         }
 
         public static void OpenSettingsPage()

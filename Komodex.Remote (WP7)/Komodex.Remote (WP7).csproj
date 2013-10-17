@@ -134,6 +134,7 @@
     <Compile Include="Converters\EpisodeWatchedStyleConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
     <Compile Include="Converters\ServerTypeToImageSourceConverter.cs" />
+    <Compile Include="Data\DACPElementViewSource.cs" />
     <Compile Include="LibraryPages\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
@@ -181,7 +182,11 @@
     </Compile>
     <Compile Include="Marketplace\ArtistBackgroundImageManager.cs" />
     <Compile Include="Navigation\NavigationManager.cs" />
+    <Compile Include="PageBases\BrowseContainerBasePage.cs" />
     <Compile Include="PageBases\RemoteBasePage.cs" />
+    <Compile Include="Pages\Browse\Podcasts\PodcastsPage.xaml.cs">
+      <DependentUpon>PodcastsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ChooseLibraryPage.xaml.cs">
       <DependentUpon>ChooseLibraryPage.xaml</DependentUpon>
     </Compile>
@@ -304,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\Podcasts\PodcastsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

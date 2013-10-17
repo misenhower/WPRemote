@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Komodex.Common.Phone;
 using Komodex.Remote.Localization;
 using Komodex.DACP;
+using Komodex.Remote.ServerManagement;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -33,7 +34,7 @@ namespace Komodex.Remote.LibraryPages
 
             items.Add(new LibraryViewItem("movies", "/Assets/Icons/Videos.png", () => NavigationManager.OpenBrowseLibraryPage(0, ContainerType.Movies)));
             items.Add(new LibraryViewItem("tv shows", "/Assets/Icons/Videos.png", () => NavigationManager.OpenBrowseLibraryPage(0, ContainerType.TVShows)));
-            items.Add(new LibraryViewItem("podcasts", "/Assets/Icons/Podcasts.png", () => NavigationManager.OpenBrowseLibraryPage(0, ContainerType.Podcasts)));
+            items.Add(new LibraryViewItem("podcasts", "/Assets/Icons/Podcasts.png", () => NavigationManager.OpenPodcastsPage(ServerManager.CurrentServer.MainDatabase)));
 
             Items = items;
         }

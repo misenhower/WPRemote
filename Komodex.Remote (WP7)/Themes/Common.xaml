@@ -5,6 +5,9 @@
     xmlns:converters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
     xmlns:appConverters="clr-namespace:Komodex.Remote.Converters"
     xmlns:commonPhone="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     >
 
     <!-- Trial Manager -->
@@ -24,10 +27,33 @@
     <appConverters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
     <appConverters:ServerTypeToImageSourceConverter x:Key="ServerTypeToImageSourceConverter" />
 
+    <!-- Page Style -->
+    <Style x:Key="RemotePageStyle" TargetType="phone:PhoneApplicationPage">
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}" />
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}" />
+        <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}" />
+        <Setter Property="SupportedOrientations" Value="Portrait" />
+        <Setter Property="Orientation" Value="Portrait" />
+        <Setter Property="shell:SystemTray.IsVisible" Value="True" />
+        <Setter Property="shell:SystemTray.Opacity" Value="0" />
+        <Setter Property="toolkit:TiltEffect.IsTiltEnabled" Value="True" />
+    </Style>
+
     <!-- App Title Style -->
     <Style x:Key="PhoneTextAppTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextBlockBase}">
         <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}"/>
         <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
+    </Style>
+    
+    <Style x:Key="RemotePivotStyle" TargetType="controls:Pivot">
+        <Setter Property="Margin" Value="0,32,0,0" />
+        <Setter Property="TitleTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource StringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}" Margin="0" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- Button Styles -->
