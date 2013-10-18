@@ -209,12 +209,15 @@ namespace Komodex.Remote
             OnListItemTap(selectedItem, list);
         }
 
-        protected virtual void OnListItemTap(DACPElement item, LongListSelector list)
+        protected virtual async void OnListItemTap(DACPElement item, LongListSelector list)
         {
             if (item is DACPItem)
             {
                 DACPItem dacpItem = (DACPItem)item;
-                // TODO: Send play command
+                if (await dacpItem.Play())
+                    NavigationManager.OpenNowPlayingPage();
+                else
+                    RemoteUtility.ShowLibraryError();
             }
         }
 
