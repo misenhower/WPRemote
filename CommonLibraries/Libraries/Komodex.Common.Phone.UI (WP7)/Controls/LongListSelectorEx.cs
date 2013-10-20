@@ -45,8 +45,8 @@ namespace Komodex.Common.Phone.Controls
             SetBinding(ItemsSourceListenerProperty, _itemsSourceListenerBinding);
 
 #if WP7
-            // Set default IsGroupingEnabled value to false for WP8 compatibility
-            IsGroupingEnabled = false;
+            // Set default IsFlatList value to true for WP8 compatibility
+            IsFlatList = true;
 
             // Bind HideEmptyGroups to DisplayAllGroups property
             _hideEmptyGroupsBinding = new Binding("DisplayAllGroups");
@@ -256,10 +256,19 @@ namespace Komodex.Common.Phone.Controls
         #region Compatibility
 #if WP7
 
+        public static readonly DependencyProperty IsGroupingEnabledProperty =
+            DependencyProperty.Register("IsGroupingEnabled", typeof(bool), typeof(LongListSelectorEx), new PropertyMetadata(false, IsGroupingEnabledPropertyChanged));
+
         public bool IsGroupingEnabled
         {
-            get { return !IsFlatList; }
-            set { IsFlatList = !value; }
+            get { return (bool)GetValue(IsGroupingEnabledProperty); }
+            set { SetValue(IsGroupingEnabledProperty, value); }
+        }
+
+        private static void IsGroupingEnabledPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            LongListSelectorEx list = (LongListSelectorEx)d;
+            list.IsFlatList = !((bool)e.NewValue);
         }
 
         private Binding _hideEmptyGroupsBinding;
