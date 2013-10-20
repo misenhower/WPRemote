@@ -1,4 +1,5 @@
-﻿using Komodex.Common.SampleData;
+﻿using Komodex.Common;
+using Komodex.Common.SampleData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,9 @@ namespace Komodex.Remote.SampleData
     public class SampleDataDACPItem : SampleDataDACPElement
     {
         public bool IsDisabled { get; set; }
+        public string ArtistName { get; set; }
+        public TimeSpan Duration { get; set; }
+        public string FormattedDuration { get { return Duration.ToShortTimeString(); } }
     }
 
     public class SampleDataMovie : SampleDataDACPItem

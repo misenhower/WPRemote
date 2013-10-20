@@ -40,6 +40,34 @@
     <Thickness x:Key="ListItemMargin">12,0,0,12</Thickness>
     <Thickness x:Key="ListItemTextMargin">12,0,0,0</Thickness>
 
+    <Style x:Key="ListItemTextStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextNormalStyle}">
+        <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
+    </Style>
+
+    <Style x:Key="ListItemSubtleStyle" TargetType="TextBlock" BasedOn="{StaticResource ListItemTextStyle}">
+        <Setter Property="Foreground" Value="{StaticResource PhoneSubtleBrush}"/>
+    </Style>
+
+    <Style x:Key="ListItemSubtleSemiBoldStyle" TargetType="TextBlock" BasedOn="{StaticResource ListItemSubtleStyle}">
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}" />
+    </Style>
+
+    <Style x:Key="ListItemTextTwoLineExtraLargeStyle" TargetType="TextBlock" BasedOn="{StaticResource ListItemTextStyle}">
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}"/>
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeExtraLarge}"/>
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="LineStackingStrategy" Value="BlockLineHeight" />
+        <Setter Property="LineHeight" Value="52" />
+        <Setter Property="MaxHeight" Value="104" />
+    </Style>
+
+    <Style x:Key="ListItemImageStyle" TargetType="Image">
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="delay:LowProfileImageLoader.ClearImageOnUriChange" Value="True" />
+    </Style>
+
     <DataTemplate x:Key="PlayButtonItemTemplate">
         <Grid Margin="{StaticResource ListItemMargin}">
             <Grid.ColumnDefinitions>

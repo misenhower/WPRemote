@@ -20,27 +20,33 @@ namespace Komodex.DACP.Items
         }
 
         public DACPDatabase Database { get; private set; }
+        public TimeSpan Duration { get; private set; }
+        public string FormattedDuration { get { return Duration.ToShortTimeString(true); } }
         public DACPContainer Container { get; private set; }
 
         public bool IsDisabled { get; private set; }
+        public string ArtistName { get; private set; }
 
         protected override void ProcessNodes(DACPNodeDictionary nodes)
         {
             base.ProcessNodes(nodes);
 
             IsDisabled = nodes.GetBool("asdb");
+            Duration = TimeSpan.FromMilliseconds(nodes.GetInt("astm"));
+            ArtistName = nodes.GetString("asar");
         }
 
         #region Artwork
 
-        public string Artwork75pxURI { get { return GetAlbumArtURI(75); } }
-        public string Artwork175pxURI { get { return GetAlbumArtURI(175); } }
+        public string Artwork75pxURI { get { return GetAlbumArtURI(75, 75); } }
+        public string Artwork175pxURI { get { return GetAlbumArtURI(175, 175); } }
 
-        private string GetAlbumArtURI(int pixels)
+        protected string GetAlbumArtURI(int width, int height)
         {
-            pixels = ResolutionUtility.GetScaledPixels(pixels);
-            string uri = "{0}/databases/{1}/items/{2}/extra_data/artwork?mw={3}&mh={3}&session-id={4}";
-            return string.Format(uri, Server.HTTPPrefix, Database.ID, ID, pixels, Server.SessionID);
+            width = ResolutionUtility.GetScaledPixels(width);
+            height = ResolutionUtility.GetScaledPixels(height);
+            string uri = "{0}/databases/{1}/items/{2}/extra_data/artwork?mw={3}&mh={4}&session-id={5}";
+            return string.Format(uri, Server.HTTPPrefix, Database.ID, ID, width, height, Server.SessionID);
         }
 
         #endregion

@@ -12,7 +12,6 @@ namespace Komodex.DACP.Items
             : base(container, nodes)
         { }
 
-        public string ArtistName { get; private set; }
         public string AlbumName { get; private set; }
         public string AlbumArtistName { get; private set; }
 
@@ -20,7 +19,6 @@ namespace Komodex.DACP.Items
         {
             base.ProcessNodes(nodes);
 
-            ArtistName = nodes.GetString("asar");
             AlbumName = nodes.GetString("asal");
             AlbumArtistName = nodes.GetString("asaa");
         }
