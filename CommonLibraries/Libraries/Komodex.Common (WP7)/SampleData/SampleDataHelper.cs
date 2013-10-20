@@ -117,6 +117,10 @@ namespace Komodex.Common.SampleData
             if (type == typeof(bool))
                 return GetRandomBool();
 
+            // TimeSpan
+            if (type == typeof(TimeSpan))
+                return TimeSpan.FromSeconds(GetRandomInt(0, 7200));
+
             // SampleDataBase
             if (typeof(SampleDataBase).IsAssignableFrom(type))
                 return Activator.CreateInstance(type);
