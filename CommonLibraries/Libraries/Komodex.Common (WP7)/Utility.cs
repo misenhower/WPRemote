@@ -395,5 +395,32 @@ namespace Komodex.Common
         }
 
         #endregion
+
+        #region TimeSpan Extensions
+
+        private static string _timeSeparator = DateTime.MinValue.ToString("%:");
+
+        public static string ToShortTimeString(this TimeSpan ts, bool nullIfZero = false)
+        {
+            if (nullIfZero && ts == TimeSpan.Zero)
+                return null;
+
+            string negativeSign = string.Empty;
+            if (ts < TimeSpan.Zero)
+            {
+                negativeSign = "-";
+                ts = ts.Duration();
+            }
+
+            int hours = (int)ts.TotalHours;
+            int minutes = ts.Minutes;
+            int seconds = ts.Seconds;
+
+            if (hours > 0)
+                return negativeSign + hours + _timeSeparator + minutes.ToString("00") + _timeSeparator + seconds.ToString("00");
+            return negativeSign + minutes + _timeSeparator + seconds.ToString("00");
+        }
+
+        #endregion
     }
 }
