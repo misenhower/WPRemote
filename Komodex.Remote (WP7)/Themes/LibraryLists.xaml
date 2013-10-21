@@ -44,12 +44,20 @@
         <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
     </Style>
 
-    <Style x:Key="ListItemSubtleStyle" TargetType="TextBlock" BasedOn="{StaticResource ListItemTextStyle}">
-        <Setter Property="Foreground" Value="{StaticResource PhoneSubtleBrush}"/>
+    <Style x:Key="ListItemTextLargeStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextLargeStyle}">
+        <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
     </Style>
 
-    <Style x:Key="ListItemSubtleSemiBoldStyle" TargetType="TextBlock" BasedOn="{StaticResource ListItemSubtleStyle}">
+    <Style x:Key="ListItemTextSubtleStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextSubtleStyle}">
+        <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
+    </Style>
+
+    <Style x:Key="ListItemTextSubtleSemiBoldStyle" TargetType="TextBlock" BasedOn="{StaticResource ListItemTextSubtleStyle}">
         <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}" />
+    </Style>
+
+    <Style x:Key="ListItemTextAccentStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextAccentStyle}">
+        <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
     </Style>
 
     <Style x:Key="ListItemTextTwoLineExtraLargeStyle" TargetType="TextBlock" BasedOn="{StaticResource ListItemTextStyle}">
@@ -192,14 +200,14 @@
     </DataTemplate>
     
     <!-- Episode Style Converter -->
-    <Style x:Key="EpisodePartiallyWatchedStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextAccentStyle}">
+    <Style x:Key="EpisodePartiallyWatchedStyle" TargetType="TextBlock" BasedOn="{StaticResource ListItemTextAccentStyle}">
         <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
     </Style>
     <appConverters:EpisodeWatchedStyleConverter
         x:Key="EpisodeWatchedStyleConverter"
-        UnwatchedStyle="{StaticResource PhoneTextAccentStyle}"
+        UnwatchedStyle="{StaticResource ListItemTextAccentStyle}"
         PartiallyWatchedStyle="{StaticResource EpisodePartiallyWatchedStyle}"
-        WatchedStyle="{StaticResource PhoneTextSubtleStyle}"
+        WatchedStyle="{StaticResource ListItemTextSubtleStyle}"
         />
 
 </ResourceDictionary>

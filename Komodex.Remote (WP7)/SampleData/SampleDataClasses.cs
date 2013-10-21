@@ -47,6 +47,8 @@ namespace Komodex.Remote.SampleData
         public string ArtistName { get; set; }
         public TimeSpan Duration { get; set; }
         public string FormattedDuration { get { return Duration.ToShortTimeString(); } }
+        public bool HasBeenPlayed { get; set; }
+        public int PlayCount { get; set; }
     }
 
     public class SampleDataMovie : SampleDataDACPItem
@@ -59,6 +61,10 @@ namespace Komodex.Remote.SampleData
 
     public class SampleDataPodcastEpisode : SampleDataDACPItem
     {
+        public string SecondLine
+        {
+            get { return string.Join(" – ", DateTime.Now.ToShortDateString(), FormattedDuration); }
+        }
     }
 
     #endregion

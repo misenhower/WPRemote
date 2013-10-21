@@ -20,12 +20,14 @@ namespace Komodex.DACP.Items
         }
 
         public DACPDatabase Database { get; private set; }
-        public TimeSpan Duration { get; private set; }
-        public string FormattedDuration { get { return Duration.ToShortTimeString(true); } }
         public DACPContainer Container { get; private set; }
 
         public bool IsDisabled { get; private set; }
         public string ArtistName { get; private set; }
+        public TimeSpan Duration { get; private set; }
+        public string FormattedDuration { get { return Duration.ToShortTimeString(true); } }
+        public bool HasBeenPlayed { get; private set; }
+        public int PlayCount { get; private set; }
 
         protected override void ProcessNodes(DACPNodeDictionary nodes)
         {
@@ -34,6 +36,8 @@ namespace Komodex.DACP.Items
             IsDisabled = nodes.GetBool("asdb");
             Duration = TimeSpan.FromMilliseconds(nodes.GetInt("astm"));
             ArtistName = nodes.GetString("asar");
+            HasBeenPlayed = nodes.GetBool("ashp");
+            PlayCount = nodes.GetInt("aspc");
         }
 
         #region Artwork

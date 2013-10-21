@@ -20,6 +20,11 @@ namespace Komodex.DACP.Containers
             get { return new[] { 4, 36, 6, 7 }; }
         }
 
+        protected override string ItemsMeta
+        {
+            get { return base.ItemsMeta + ",daap.songdatereleased"; }
+        }
+
         #region Shows
 
         private List<Podcast> _shows;
@@ -33,8 +38,7 @@ namespace Komodex.DACP.Containers
             _shows = null;
             _showsByID = null;
 
-            var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songalbum"), MediaKindQuery);
-            _shows = await GetGroupsAsync(query, n => new Podcast(this, n)).ConfigureAwait(false);
+            _shows = await GetGroupsAsync(GroupsQuery, n => new Podcast(this, n)).ConfigureAwait(false);
             if (_shows != null)
                 _showsByID = _shows.ToDictionary(s => s.ID);
 
@@ -57,7 +61,7 @@ namespace Komodex.DACP.Containers
 
         public Task<List<Podcast>> GetUnplayedShowsAsync()
         {
-            var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songalbum"), DACPQueryPredicate.Is("daap.songuserplaycount", 0), MediaKindQuery);
+            var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songuserplaycount", 0), GroupsQuery);
             return GetGroupsAsync(query, n => new Podcast(this, n));
         }
 

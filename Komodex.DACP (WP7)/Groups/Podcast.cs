@@ -14,6 +14,15 @@ namespace Komodex.DACP.Groups
             : base(container, nodes)
         { }
 
+        public string ArtistName { get; set; }
+
+        protected override void ProcessNodes(DACPNodeDictionary nodes)
+        {
+            base.ProcessNodes(nodes);
+
+            ArtistName = nodes.GetString("asaa");
+        }
+
         #region Episodes
 
         public Task<List<PodcastEpisode>> GetEpisodesAsync()
