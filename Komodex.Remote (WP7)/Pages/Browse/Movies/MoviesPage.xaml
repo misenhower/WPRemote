@@ -33,8 +33,8 @@
                 
                 <StackPanel Grid.Column="1">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextTwoLineExtraLargeStyle}" />
-                    <TextBlock Text="{Binding ArtistName}" Style="{StaticResource ListItemSubtleSemiBoldStyle}" />
-                    <TextBlock Text="{Binding FormattedDuration}" Style="{StaticResource ListItemSubtleStyle}" />
+                    <TextBlock Text="{Binding ArtistName}" Style="{StaticResource ListItemTextSubtleSemiBoldStyle}" />
+                    <TextBlock Text="{Binding FormattedDuration}" Style="{StaticResource ListItemTextSubtleStyle}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
