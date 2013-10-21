@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading;
@@ -419,6 +420,30 @@ namespace Komodex.Common
             if (hours > 0)
                 return negativeSign + hours + _timeSeparator + minutes.ToString("00") + _timeSeparator + seconds.ToString("00");
             return negativeSign + minutes + _timeSeparator + seconds.ToString("00");
+        }
+
+        #endregion
+
+        #region String Utilities
+
+        public static string JoinNonEmptyStrings(string separator, params string[] values)
+        {
+            return JoinNonEmptyStrings(separator, (IEnumerable<string>)values);
+        }
+
+        public static string JoinNonEmptyStrings(string separator, IEnumerable<string> values)
+        {
+            return string.Join(separator, values.Where(s => !string.IsNullOrEmpty(s)));
+        }
+
+        public static string JoinNonEmptyStrings(string separator, params object[] values)
+        {
+            return JoinNonEmptyStrings(separator, (IEnumerable<object>)values);
+        }
+
+        public static string JoinNonEmptyStrings<T>(string separator, IEnumerable<T> values)
+        {
+            return JoinNonEmptyStrings(separator, values.Where(v => v != null).Select(v => v.ToString()));
         }
 
         #endregion
