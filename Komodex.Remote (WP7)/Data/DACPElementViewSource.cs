@@ -31,7 +31,26 @@ namespace Komodex.Remote.Data
                 if (_items == value)
                     return;
                 _items = value;
+
+                if (_items is IDACPList)
+                    IsGroupedList = ((IDACPList)_items).IsGroupedList;
+                else
+                    IsGroupedList = false;
+
                 PropertyChanged.RaiseOnUIThread(this, "Items");
+            }
+        }
+
+        private bool _isGroupedList;
+        public bool IsGroupedList
+        {
+            get { return _isGroupedList; }
+            private set
+            {
+                if (_isGroupedList == value)
+                    return;
+                _isGroupedList = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsGroupedList");
             }
         }
 

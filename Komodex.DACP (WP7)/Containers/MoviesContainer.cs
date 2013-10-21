@@ -22,14 +22,15 @@ namespace Komodex.DACP.Containers
 
         #region Movies
 
-        private List<Movie> _movies;
+        private IDACPList _movies;
 
-        public async Task<List<Movie>> GetMoviesAsync()
+        public async Task<IDACPList> GetMoviesAsync()
         {
             if (_movies != null)
                 return _movies;
 
-            _movies = await GetItemsAsync(MediaKindQuery, n => new Movie(this, n)).ConfigureAwait(false);
+            DACPRequest request = GetItemsRequest(MediaKindQuery, "name", true);
+            _movies = await Server.GetAlphaGroupedListAsync(request, n => new Movie(this, n));
             return _movies;
         }
 
@@ -37,10 +38,11 @@ namespace Komodex.DACP.Containers
 
         #region Unplayed Movies
 
-        public Task<List<Movie>> GetUnplayedMoviesAsync()
+        public Task<IDACPList> GetUnplayedMoviesAsync()
         {
             var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songuserplaycount", 0), MediaKindQuery);
-            return GetItemsAsync(query, n => new Movie(this, n));
+            DACPRequest request = GetItemsRequest(query, "name", true);
+            return Server.GetAlphaGroupedListAsync(request, n => new Movie(this, n));
         }
 
         #endregion

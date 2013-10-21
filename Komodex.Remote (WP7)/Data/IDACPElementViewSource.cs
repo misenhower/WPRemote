@@ -11,6 +11,7 @@ namespace Komodex.Remote.Data
     public interface IDACPElementViewSource : INotifyPropertyChanged
     {
         IList Items { get; }
+        bool IsGroupedList { get; }
         bool NeedsReload { get; }
         Task ReloadItemsAsync();
     }

@@ -89,6 +89,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPElement.cs">
       <Link>Classes\DACPElement.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPList.cs">
+      <Link>Classes\DACPList.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPNode.cs">
       <Link>Classes\DACPNode.cs</Link>
     </Compile>
@@ -115,6 +118,12 @@
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\HTTPRequestInfo.cs">
       <Link>Classes\HTTPRequestInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\IDACPList.cs">
+      <Link>Classes\IDACPList.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\ItemGroup.cs">
+      <Link>Classes\ItemGroup.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\PlayQueue.cs">
       <Link>Classes\PlayQueue.cs</Link>

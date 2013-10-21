@@ -34,6 +34,7 @@
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource TVShowTemplate}"
                     ItemsSource="{Binding Items}"
+                    IsGroupingEnabled="{Binding IsGroupedList}"
                     />
             </controls:PivotItem>
             <controls:PivotItem DataContext="{Binding UnwatchedTVShowsViewSource}" Header="unwatched">
@@ -41,6 +42,7 @@
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource TVShowTemplate}"
                     ItemsSource="{Binding Items}"
+                    IsGroupingEnabled="{Binding IsGroupedList}"
                     />
             </controls:PivotItem>
         </controls:Pivot>

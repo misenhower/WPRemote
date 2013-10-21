@@ -77,6 +77,34 @@ namespace Komodex.DACP
             return new DACPResponse(response, nodes);
         }
 
+        internal async Task<List<T>> GetListAsync<T>(DACPRequest request, Func<DACPNodeDictionary, T> itemGenerator, string listKey = DACPUtility.DefaultListKey)
+        {
+            try
+            {
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
+                return DACPUtility.GetItemsFromNodes(response.Nodes, itemGenerator, listKey).ToList();
+            }
+            catch (Exception e)
+            {
+                HandleHTTPException(request, e);
+                return null;
+            }
+        }
+
+        internal async Task<IDACPList> GetAlphaGroupedListAsync<T>(DACPRequest request, Func<DACPNodeDictionary, T> itemGenerator, string listKey = DACPUtility.DefaultListKey)
+        {
+            try
+            {
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
+                return DACPUtility.GetAlphaGroupedDACPList(response.Nodes, itemGenerator, listKey);
+            }
+            catch (Exception e)
+            {
+                HandleHTTPException(request, e);
+                return null;
+            }
+        }
+
         #endregion
 
         #region HTTP Management

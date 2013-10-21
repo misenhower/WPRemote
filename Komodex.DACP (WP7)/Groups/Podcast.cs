@@ -21,7 +21,7 @@ namespace Komodex.DACP.Groups
             DACPRequest request = Container.GetItemsRequest(ItemQuery);
             request.QueryParameters["sort"] = "releasedate";
             request.QueryParameters["invert-sort-order"] = "1";
-            return Container.GetCollectionAsync(request, n => new PodcastEpisode(Container, n));
+            return Server.GetListAsync(request, n => new PodcastEpisode(Container, n));
         }
 
         #endregion

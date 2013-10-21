@@ -51,6 +51,7 @@
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource MovieTemplate}"
                     ItemsSource="{Binding Items}"
+                    IsGroupingEnabled="{Binding IsGroupedList}"
                     EmptyText="{Binding LocalizedStrings.VideosNoMoviesFound, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>

@@ -104,13 +104,15 @@ namespace Komodex.DACP.Containers
             return request;
         }
 
-        internal DACPRequest GetItemsRequest(DACPQueryElement query)
+        internal DACPRequest GetItemsRequest(DACPQueryElement query, string sort = "album", bool requestSortHeaders = false)
         {
             // Apple's Remote uses the Base Playlist ID here rather than the actual container ID.
             DACPRequest request = new DACPRequest("/databases/{0}/containers/{1}/items", Database.ID, Database.BasePlaylist.ID);
             request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,daap.songartist,daap.songalbumartist,daap.songalbum,com.apple.itunes.cloud-id,dmap.containeritemid,com.apple.itunes.has-video,com.apple.itunes.itms-songid,com.apple.itunes.extended-media-kind,dmap.downloadstatus,daap.songdisabled,com.apple.itunes.cloud-id,daap.songartistid,daap.songalbumid,dmap.persistentid,dmap.downloadstatus,daap.songalbum,daap.songtime";
             request.QueryParameters["type"] = "music";
-            request.QueryParameters["sort"] = "album";
+            request.QueryParameters["sort"] = sort;
+            if (requestSortHeaders)
+                request.QueryParameters["include-sort-headers"] = "1";
             if (query != null)
                 request.QueryParameters["query"] = query.ToString();
 
@@ -124,27 +126,13 @@ namespace Komodex.DACP.Containers
         internal Task<List<T>> GetItemsAsync<T>(DACPQueryElement query, Func<DACPNodeDictionary, T> itemGenerator)
         {
             DACPRequest request = GetItemsRequest(query);
-            return GetCollectionAsync(request, itemGenerator);
+            return Server.GetListAsync(request, itemGenerator);
         }
 
         internal Task<List<T>> GetGroupsAsync<T>(DACPQueryElement query, Func<DACPNodeDictionary, T> itemGenerator)
         {
             DACPRequest request = GetGroupsRequest(query);
-            return GetCollectionAsync(request, itemGenerator);
-        }
-
-        internal async Task<List<T>> GetCollectionAsync<T>(DACPRequest request, Func<DACPNodeDictionary, T> itemGenerator)
-        {
-            try
-            {
-                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
-                return DACPUtility.GetItemsFromNodes(response.Nodes, itemGenerator).ToList();
-            }
-            catch (Exception e)
-            {
-                Server.HandleHTTPException(request, e);
-                return null;
-            }
+            return Server.GetListAsync(request, itemGenerator);
         }
 
         #endregion

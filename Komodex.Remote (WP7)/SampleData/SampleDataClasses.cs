@@ -87,6 +87,7 @@ namespace Komodex.Remote.SampleData
         where T : SampleDataDACPElement
     {
         public List<T> Items { get; set; }
+        public virtual bool IsGroupedList { get { return false; } }
     }
 
     public class SampleDataMoviesPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>

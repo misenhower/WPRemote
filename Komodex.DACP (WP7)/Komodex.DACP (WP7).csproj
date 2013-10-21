@@ -79,12 +79,15 @@
   <ItemGroup>
     <Compile Include="Classes\AirPlaySpeaker.cs" />
     <Compile Include="Classes\DACPElement.cs" />
+    <Compile Include="Classes\ItemGroup.cs" />
+    <Compile Include="Classes\DACPList.cs" />
     <Compile Include="Classes\DACPNode.cs" />
     <Compile Include="Classes\DACPNodeDictionary.cs" />
     <Compile Include="Classes\DACPRequest.cs" />
     <Compile Include="Classes\DACPResponse.cs" />
     <Compile Include="Classes\GroupedItems.cs" />
     <Compile Include="Classes\GroupItems.cs" />
+    <Compile Include="Classes\IDACPList.cs" />
     <Compile Include="Classes\PlayQueue.cs" />
     <Compile Include="Classes\PlayQueueItem.cs" />
     <Compile Include="Containers\DACPContainer.cs" />
