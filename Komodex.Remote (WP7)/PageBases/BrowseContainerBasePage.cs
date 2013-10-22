@@ -1,4 +1,5 @@
 ﻿using Clarity.Phone.Controls.Animations;
+using Komodex.Common;
 using Komodex.Common.Phone.Controls;
 using Komodex.DACP;
 using Komodex.DACP.Containers;
@@ -54,7 +55,7 @@ namespace Komodex.Remote
         {
             base.OnServerChanged();
 
-            UpdateCurrentDatabase();
+            Utility.BeginInvokeOnUIThread(UpdateCurrentDatabase);
         }
 
         protected override void CurrentServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
