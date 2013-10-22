@@ -326,7 +326,7 @@
     <comment>This button displays additional library content types (podcasts, videos, etc.). Application bar button (needs to be short).</comment>
   </data>
   <data name="MultipleItems" xml:space="preserve">
-    <value>{0} Objekte</value>
+    <value>{0:n0} Objekte</value>
   </data>
   <data name="NextAppBarButton" xml:space="preserve">
     <value>Weiter</value>

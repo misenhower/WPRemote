@@ -132,6 +132,7 @@
     <Compile Include="Converters\DisableWhenNullConverter.cs" />
     <Compile Include="Converters\CollapseIfLessThanTwoConverter.cs" />
     <Compile Include="Converters\EpisodeWatchedStyleConverter.cs" />
+    <Compile Include="Converters\ItemCountConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
     <Compile Include="Controls\PlaylistItemDataTemplateSelector.cs" />
     <Compile Include="Converters\ServerTypeToImageSourceConverter.cs" />

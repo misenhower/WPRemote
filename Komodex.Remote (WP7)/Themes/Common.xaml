@@ -19,6 +19,7 @@
     <!-- Converters -->
     <appConverters:AppendFilenameConverter x:Key="AppendFilenameConverter" />
     <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <appConverters:ItemCountConverter x:Key="ItemCountConverter" />
     <appConverters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />
     <appConverters:NoListItemsVisibilityConverter x:Key="noListItemsVisibilityConverter" />
     <converters:StringToUpperConverter x:Key="StringToUpperConverter" />

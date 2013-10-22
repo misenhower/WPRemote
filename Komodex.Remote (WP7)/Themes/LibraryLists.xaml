@@ -98,7 +98,7 @@
                 />
 
             <TextBlock Text="{Binding Name}" Grid.Column="1" Grid.Row="0" Style="{StaticResource ListItemTextExtraLargeStyle}" />
-            <TextBlock Text="{Binding Name}" Grid.Column="1" Grid.Row="1" Style="{StaticResource ListItemTextSubtleStyle}" />
+            <TextBlock Text="{Binding ItemCount, Converter={StaticResource ItemCountConverter}}" Grid.Column="1" Grid.Row="1" Style="{StaticResource ListItemTextSubtleStyle}" />
         </Grid>
     </DataTemplate>
     
