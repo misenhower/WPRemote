@@ -24,7 +24,7 @@
                 HorizontalContentAlignment="Stretch"
                 Content="{Binding}"
                 ItemTemplate="{StaticResource AlbumArtSmallItemTemplate}"
-                PlaylistTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
+                PlaylistTemplate="{StaticResource PlaylistTemplate}"
                 />
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>

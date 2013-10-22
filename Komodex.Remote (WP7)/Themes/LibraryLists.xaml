@@ -48,6 +48,10 @@
         <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
     </Style>
 
+    <Style x:Key="ListItemTextExtraLargeStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextExtraLargeStyle}">
+        <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
+    </Style>
+
     <Style x:Key="ListItemTextSubtleStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextSubtleStyle}">
         <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
     </Style>
@@ -76,6 +80,28 @@
         <Setter Property="delay:LowProfileImageLoader.ClearImageOnUriChange" Value="True" />
     </Style>
 
+    <!-- List Item Templates -->
+    <DataTemplate x:Key="PlaylistTemplate">
+        <Grid Margin="{StaticResource ListItemMargin}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <controls:MultiResolutionImageMask
+                Source="{x:Null}"
+                Style="{StaticResource IconCircleStyle}"
+                />
+
+            <TextBlock Text="{Binding Name}" Grid.Column="1" Grid.Row="0" Style="{StaticResource ListItemTextExtraLargeStyle}" />
+            <TextBlock Text="{Binding Name}" Grid.Column="1" Grid.Row="1" Style="{StaticResource ListItemTextSubtleStyle}" />
+        </Grid>
+    </DataTemplate>
+    
     <DataTemplate x:Key="PlayButtonItemTemplate">
         <Grid Margin="{StaticResource ListItemMargin}">
             <Grid.ColumnDefinitions>

@@ -65,11 +65,14 @@ namespace Komodex.Remote
                 UpdateCurrentDatabase();
         }
 
+        protected virtual bool ShouldShowContinuumTransition(AnimationType animationType, Uri toOrFrom)
+        {
+            return toOrFrom.OriginalString.StartsWith("/Pages/Browse");
+        }
+
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
         {
-            string uri = toOrFrom.OriginalString;
-
-            if (uri.StartsWith("/Pages/Browse/"))
+            if (ShouldShowContinuumTransition(animationType, toOrFrom))
             {
                 if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
                     return GetContinuumAnimation(_pivotControl, animationType);

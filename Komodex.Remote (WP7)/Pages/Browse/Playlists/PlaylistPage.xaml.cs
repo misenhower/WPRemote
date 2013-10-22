@@ -40,6 +40,13 @@ namespace Komodex.Remote.Pages.Browse.Playlists
             return database.Playlists.First(pl => pl.ID == _playlistID);
         }
 
+        protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
+        {
+            if (toOrFrom.OriginalString.StartsWith("/LibraryPages/MainLibraryPage.xaml"))
+                return true;
+            return base.ShouldShowContinuumTransition(animationType, toOrFrom);
+        }
+
         protected override async void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
         {
             if (item is Playlist)
