@@ -22,6 +22,7 @@ namespace Komodex.DACP.Items
         public DACPDatabase Database { get; private set; }
         public DACPContainer Container { get; private set; }
 
+        public int ContainerItemID { get; private set; }
         public bool IsDisabled { get; private set; }
         public string ArtistName { get; private set; }
         public string AlbumName { get; private set; }
@@ -34,6 +35,7 @@ namespace Komodex.DACP.Items
         {
             base.ProcessNodes(nodes);
 
+            ContainerItemID = nodes.GetInt("mcti");
             IsDisabled = nodes.GetBool("asdb");
             Duration = TimeSpan.FromMilliseconds(nodes.GetInt("astm"));
             ArtistName = nodes.GetString("asar");

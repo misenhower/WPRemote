@@ -57,7 +57,10 @@ namespace Komodex.Remote.Pages.Browse.Playlists
 
             if (item is DACPItem)
             {
-
+                if (await CurrentContainer.PlayItem((DACPItem)item))
+                    NavigationManager.OpenNowPlayingPage();
+                else
+                    RemoteUtility.ShowLibraryError();
             }
         }
     }
