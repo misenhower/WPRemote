@@ -126,6 +126,9 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\MemoryCounters.cs">
       <Link>Controls\MemoryCounters.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\PlaylistItemDataTemplateSelector.cs">
+      <Link>Controls\PlaylistItemDataTemplateSelector.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\PlayQueueDialog.xaml.cs">
       <Link>Controls\PlayQueueDialog.xaml.cs</Link>
       <DependentUpon>PlayQueueDialog.xaml</DependentUpon>
@@ -243,6 +246,10 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MoviesPage.xaml.cs">
       <Link>Pages\Browse\Movies\MoviesPage.xaml.cs</Link>
       <DependentUpon>MoviesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Playlists\PlaylistPage.xaml.cs">
+      <Link>Pages\Browse\Playlists\PlaylistPage.xaml.cs</Link>
+      <DependentUpon>PlaylistPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Podcasts\PodcastEpisodesPage.xaml.cs">
       <Link>Pages\Browse\Podcasts\PodcastEpisodesPage.xaml.cs</Link>
@@ -814,6 +821,11 @@
     </DesignData>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MoviesPage.xaml">
       <Link>Pages\Browse\Movies\MoviesPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Playlists\PlaylistPage.xaml">
+      <Link>Pages\Browse\Playlists\PlaylistPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

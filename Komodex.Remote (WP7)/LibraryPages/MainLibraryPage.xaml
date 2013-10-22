@@ -123,7 +123,7 @@
             <controls:PivotItem Header="{Binding LocalizedStrings.LibraryPlaylistsPivotItem, Source={StaticResource LocalizedStrings}}" Name="pivotPlaylists">
                 <Grid>
                     <controls:LongListSelectorEx x:Name="lbPlaylists"
-                        ItemsSource="{Binding CurrentServer.LibraryPlaylists}"
+                        ItemsSource="{Binding CurrentServer.MainDatabase.ParentPlaylists}"
                         EmptyText="{Binding LocalizedStrings.LibraryNoPlaylistsFound, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource LibraryListStyle}"
                         Tap="LongListSelector_Tap"

@@ -194,21 +194,21 @@ namespace Komodex.Remote.LibraryPages
                     NavigationManager.OpenGeniusMixesPage();
                 }
                 // Playlists
-                else if (selectedItem is Playlist)
+                else if (selectedItem is Komodex.DACP.Containers.Playlist)
                 {
-                    Playlist playlist = (Playlist)selectedItem;
-                    if (playlist.ItemCount <= 0)
-                        return;
+                    Komodex.DACP.Containers.Playlist playlist = (Komodex.DACP.Containers.Playlist)selectedItem;
+                    //if (playlist.ItemCount <= 0)
+                    //    return;
 
                     if (isPlayButton)
                     {
-                        playlist.SendPlayCommand();
-                        listBox.SelectedItem = null;
-                        NavigationManager.OpenNowPlayingPage();
+                        //playlist.SendPlayCommand();
+                        //listBox.SelectedItem = null;
+                        //NavigationManager.OpenNowPlayingPage();
                     }
                     else
                     {
-                        NavigationManager.OpenPlaylistPage(playlist.ID, playlist.Name, playlist.PersistentID);
+                        NavigationManager.OpenPlaylistPage(playlist);
                     }
                 }
             }

@@ -23,6 +23,13 @@ namespace Komodex.DACP.Containers
         public int ItemCount { get; private set; }
         public int ParentContainerID { get; private set; }
 
+        private bool _hasChildContainers;
+        public bool HasChildContainers
+        {
+            get { return _hasChildContainers || Database.Playlists.Any(pl => pl.ParentContainerID == this.ID); }
+            private set { _hasChildContainers = value; }
+        }
+
         protected override void ProcessNodes(DACPNodeDictionary nodes)
         {
             base.ProcessNodes(nodes);
@@ -31,6 +38,11 @@ namespace Komodex.DACP.Containers
             Type = (ContainerType)nodes.GetByte("aePS");
             ItemCount = nodes.GetInt("mimc");
             ParentContainerID = nodes.GetInt("mpco");
+            try
+            {
+                HasChildContainers = (nodes.GetInt("f\uFFFDch") > 0);
+            }
+            catch { }
         }
 
         public static DACPContainer GetContainer(DACPDatabase database, DACPNodeDictionary nodes)

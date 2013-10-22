@@ -133,6 +133,7 @@
     <Compile Include="Converters\CollapseIfLessThanTwoConverter.cs" />
     <Compile Include="Converters\EpisodeWatchedStyleConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
+    <Compile Include="Controls\PlaylistItemDataTemplateSelector.cs" />
     <Compile Include="Converters\ServerTypeToImageSourceConverter.cs" />
     <Compile Include="Data\DACPElementViewSource.cs" />
     <Compile Include="Data\IDACPElementViewSource.cs" />
@@ -185,6 +186,9 @@
     <Compile Include="PageBases\RemoteBasePage.cs" />
     <Compile Include="Pages\Browse\Movies\MoviesPage.xaml.cs">
       <DependentUpon>MoviesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Browse\Playlists\PlaylistPage.xaml.cs">
+      <DependentUpon>PlaylistPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Browse\Podcasts\PodcastEpisodesPage.xaml.cs">
       <DependentUpon>PodcastEpisodesPage.xaml</DependentUpon>
@@ -320,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Browse\Movies\MoviesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\Playlists\PlaylistPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

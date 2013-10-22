@@ -15,6 +15,7 @@ using Microsoft.Phone.Tasks;
 using Komodex.DACP.Groups;
 using Komodex.DACP;
 using Komodex.DACP.Databases;
+using Komodex.DACP.Containers;
 
 namespace Komodex.Remote
 {
@@ -100,6 +101,15 @@ namespace Komodex.Remote
 
         #endregion
 
+        #region Playlists
+
+        public static void OpenPlaylistPage(Playlist playlist)
+        {
+            Navigate("/Pages/Browse/Playlists/PlaylistPage.xaml?databaseID={0}&playlistID={1}", playlist.Database.ID, playlist.ID);
+        }
+
+        #endregion
+
         #region Movies
 
         public static void OpenMoviesPage(DACPDatabase database)
@@ -143,10 +153,9 @@ namespace Komodex.Remote
             Navigate("/LibraryPages/GenrePage.xaml?name=" + genreName);
         }
 
+        [Obsolete]
         public static void OpenPlaylistPage(int playlistID, string playlistName, UInt64 playlistPersistentID)
         {
-            playlistName = Uri.EscapeDataString(playlistName);
-            Navigate("/LibraryPages/PlaylistPage.xaml?id=" + playlistID + "&name=" + playlistName + "&perid=" + playlistPersistentID);
         }
 
         public static void OpenNowPlayingPage()

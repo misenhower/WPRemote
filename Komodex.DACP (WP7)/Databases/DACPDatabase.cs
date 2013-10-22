@@ -46,17 +46,31 @@ namespace Komodex.DACP.Databases
             }
         }
 
+        private List<Playlist> _parentPlaylists;
+        public List<Playlist> ParentPlaylists
+        {
+            get { return _parentPlaylists; }
+            private set
+            {
+                if (_parentPlaylists == value)
+                    return;
+                _parentPlaylists = value;
+                SendPropertyChanged();
+            }
+        }
+
         internal async Task<bool> RequestContainersAsync()
         {
             DACPRequest request = new DACPRequest("/databases/{0}/containers", ID);
-            request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,com.apple.itunes.cloud-id,dmap.downloadstatus,dmap.persistentid,daap.baseplaylist,com.apple.itunes.special-playlist,com.apple.itunes.smart-playlist,com.apple.itunes.saved-genius,dmap.parentcontainerid,dmap.editcommandssupported,com.apple.itunes.jukebox-current,daap.songcontentdescription";
+            request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,com.apple.itunes.cloud-id,dmap.downloadstatus,dmap.persistentid,daap.baseplaylist,com.apple.itunes.special-playlist,com.apple.itunes.smart-playlist,com.apple.itunes.saved-genius,dmap.parentcontainerid,dmap.editcommandssupported,com.apple.itunes.jukebox-current,daap.songcontentdescription,dmap.haschildcontainers";
 
             try
             {
                 var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
                 var containers = DACPUtility.GetItemsFromNodes(response.Nodes, n => DACPContainer.GetContainer(this, n));
 
-                Playlists = new List<Playlist>();
+                List<Playlist> newPlaylists = new List<Playlist>();
+                List<Playlist> newParentPlaylists = new List<Playlist>();
 
                 foreach (DACPContainer container in containers)
                 {
@@ -69,7 +83,9 @@ namespace Komodex.DACP.Databases
                     switch (container.Type)
                     {
                         case ContainerType.Playlist:
-                            Playlists.Add((Playlist)container);
+                            newPlaylists.Add((Playlist)container);
+                            if (container.ParentContainerID == 0)
+                                newParentPlaylists.Add((Playlist)container);
                             break;
                         case ContainerType.Music:
                             MusicContainer = (MusicContainer)container;
@@ -99,6 +115,9 @@ namespace Komodex.DACP.Databases
                             break;
                     }
                 }
+
+                Playlists = newPlaylists;
+                ParentPlaylists = newParentPlaylists;
             }
             catch (Exception e)
             {

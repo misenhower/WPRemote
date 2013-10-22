@@ -243,6 +243,10 @@ namespace Komodex.Remote
         #endregion
     }
 
+    public abstract class BrowsePlaylistBasePage : BrowseContainerBasePage<Playlist>
+    {
+    }
+
     public abstract class BrowsePodcastsContainerBasePage : BrowseContainerBasePage<PodcastsContainer>
     {
         protected override PodcastsContainer GetContainer(DACPDatabase database)

@@ -96,6 +96,21 @@ namespace Komodex.Remote.SampleData
         public virtual bool IsGroupedList { get { return false; } }
     }
 
+    public class SampleDataPlaylistPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataPlaylistPage()
+        {
+            PlaylistViewSource = new SampleDataDACPElementViewSource<SampleDataDACPElement>();
+            PlaylistViewSource.Items = new List<SampleDataDACPElement>();
+            PlaylistViewSource.Items.AddRange(SamplePlaylists.Cast<SampleDataDACPElement>().Take(3));
+            PlaylistViewSource.Items.AddRange(SampleItems.Cast<SampleDataDACPElement>());
+        }
+
+        public List<SampleDataDACPContainer> SamplePlaylists { get; set; }
+        public List<SampleDataDACPItem> SampleItems { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataDACPElement> PlaylistViewSource { get; private set; }
+    }
+
     public class SampleDataMoviesPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
     {
         public SampleDataDACPElementViewSource<SampleDataMovie> MoviesViewSource { get; set; }

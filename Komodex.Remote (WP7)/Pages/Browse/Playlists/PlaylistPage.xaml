@@ -1,0 +1,49 @@
+﻿<app:BrowsePlaylistBasePage
+    x:Class="Komodex.Remote.Pages.Browse.Playlists.PlaylistPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:app="clr-namespace:Komodex.Remote"
+    xmlns:appcontrols="clr-namespace:Komodex.Remote.Controls"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:delay="clr-namespace:Delay"
+    xmlns:sampledata="clr-namespace:Komodex.Remote.SampleData"
+    mc:Ignorable="d"
+    Style="{StaticResource RemotePageStyle}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    d:DataContext="{d:DesignInstance Type=sampledata:SampleDataPlaylistPage, IsDesignTimeCreatable=True}"
+    >
+
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ItemTemplateSelector">
+            <appcontrols:PlaylistItemDataTemplateSelector
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                Content="{Binding}"
+                ItemTemplate="{StaticResource AlbumArtSmallItemTemplate}"
+                PlaylistTemplate="{StaticResource PlayButtonItemWithSubtitleTemplate}"
+                />
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <controls:Pivot x:Name="PivotControl"
+                        Title="{Binding CurrentContainer.Name}"
+                        Style="{StaticResource RemotePivotStyle}"
+                        >
+            <controls:PivotItem DataContext="{Binding PlaylistViewSource}" Header="items">
+                <controls:LongListSelectorEx
+                    Style="{StaticResource LibraryListStyle}"
+                    ItemTemplate="{StaticResource ItemTemplateSelector}"
+                    ItemsSource="{Binding Items}"
+                    IsGroupingEnabled="{Binding IsGroupedList}"
+                    />
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+
+</app:BrowsePlaylistBasePage>

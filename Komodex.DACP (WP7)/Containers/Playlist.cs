@@ -1,6 +1,7 @@
 ﻿using Komodex.DACP.Databases;
 using Komodex.DACP.Items;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,35 +29,20 @@ namespace Komodex.DACP.Containers
         #region Items
 
         private List<DACPItem> _items;
-        public List<DACPItem> Items
-        {
-            get { return _items; }
-            private set
-            {
-                if (_items == value)
-                    return;
-                _items = value;
-                SendPropertyChanged();
-            }
-        }
 
-        public async Task<bool> RequestItemsAsync()
+        public async Task<IList> GetItemsOrSubListsAsync()
         {
+            // Check whether there are any playlists under this one
+            if (HasChildContainers)
+                return Database.Playlists.Where(pl => pl.ParentContainerID == this.ID).ToDACPList();
+
+            // Get the playlist's items
+            if (_items != null)
+                return _items;
+
             DACPRequest request = GetContainerItemsRequest();
-
-            try
-            {
-                var response = await Server.SubmitRequestAsync(request);
-                Items = DACPUtility.GetItemsFromNodes(response.Nodes, n => (DACPItem)new Song(this, n)).ToList();
-            }
-            catch (Exception e)
-            {
-                Items = null;
-                Server.HandleHTTPException(request, e);
-                return false;
-            }
-
-            return true;
+            _items = await Server.GetListAsync(request, n => (DACPItem)new Song(this, n)).ConfigureAwait(false);
+            return _items;
         }
 
         #endregion
