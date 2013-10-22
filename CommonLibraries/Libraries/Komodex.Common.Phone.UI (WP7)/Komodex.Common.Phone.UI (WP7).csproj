@@ -51,6 +51,7 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\DataTemplateSelector.cs" />
     <Compile Include="Controls\IconButton.cs" />
     <Compile Include="Controls\LongListSelectorEx.cs" />
     <Compile Include="Controls\MultiResolutionImage.cs" />
