@@ -18,13 +18,31 @@
     >
 
     <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ItemTemplate">
+            <Grid Margin="{StaticResource ListItemMargin}" Height="75">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Background="{StaticResource PhoneChromeBrush}">
+                    <Image delay:LowProfileImageLoader.UriSource="{Binding Artwork75pxURI}" Style="{StaticResource ListItemImageStyle}" />
+                </Border>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextLargeStyle}" />
+                    <TextBlock Text="{Binding ArtistAndAlbumName}" Style="{StaticResource ListItemTextSubtleStyle}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        
         <DataTemplate x:Key="ItemTemplateSelector">
             <appcontrols:PlaylistItemDataTemplateSelector
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 Content="{Binding}"
-                ItemTemplate="{StaticResource AlbumArtSmallItemTemplate}"
                 PlaylistTemplate="{StaticResource PlaylistTemplate}"
+                ItemTemplate="{StaticResource ItemTemplate}"
                 />
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>

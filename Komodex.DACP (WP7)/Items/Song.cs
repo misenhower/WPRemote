@@ -12,14 +12,12 @@ namespace Komodex.DACP.Items
             : base(container, nodes)
         { }
 
-        public string AlbumName { get; private set; }
         public string AlbumArtistName { get; private set; }
 
         protected override void ProcessNodes(DACPNodeDictionary nodes)
         {
             base.ProcessNodes(nodes);
 
-            AlbumName = nodes.GetString("asal");
             AlbumArtistName = nodes.GetString("asaa");
         }
     }

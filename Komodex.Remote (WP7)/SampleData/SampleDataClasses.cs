@@ -45,10 +45,16 @@ namespace Komodex.Remote.SampleData
     {
         public bool IsDisabled { get; set; }
         public string ArtistName { get; set; }
+        public string AlbumName { get; set; }
         public TimeSpan Duration { get; set; }
         public string FormattedDuration { get { return Duration.ToShortTimeString(); } }
         public bool HasBeenPlayed { get; set; }
         public int PlayCount { get; set; }
+
+        public string ArtistAndAlbumName
+        {
+            get { return Utility.JoinNonEmptyStrings(" – ", ArtistName, AlbumName); }
+        }
     }
 
     public class SampleDataMovie : SampleDataDACPItem

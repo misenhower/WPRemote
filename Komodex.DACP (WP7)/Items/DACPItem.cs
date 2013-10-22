@@ -24,6 +24,7 @@ namespace Komodex.DACP.Items
 
         public bool IsDisabled { get; private set; }
         public string ArtistName { get; private set; }
+        public string AlbumName { get; private set; }
         public TimeSpan Duration { get; private set; }
         public string FormattedDuration { get { return Duration.ToShortTimeString(true); } }
         public bool HasBeenPlayed { get; private set; }
@@ -36,8 +37,14 @@ namespace Komodex.DACP.Items
             IsDisabled = nodes.GetBool("asdb");
             Duration = TimeSpan.FromMilliseconds(nodes.GetInt("astm"));
             ArtistName = nodes.GetString("asar");
+            AlbumName = nodes.GetString("asal");
             HasBeenPlayed = nodes.GetBool("ashp");
             PlayCount = nodes.GetInt("aspc");
+        }
+
+        public string ArtistAndAlbumName
+        {
+            get { return Utility.JoinNonEmptyStrings(" – ", ArtistName, AlbumName); }
         }
 
         #region Artwork
