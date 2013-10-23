@@ -1,4 +1,5 @@
 ﻿<app:BrowsePlaylistBasePage
+    x:Name="Page"
     x:Class="Komodex.Remote.Pages.Browse.Playlists.PlaylistPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,6 +10,7 @@
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:appcontrols="clr-namespace:Komodex.Remote.Controls"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
     xmlns:sampledata="clr-namespace:Komodex.Remote.SampleData"
     mc:Ignorable="d"
@@ -20,6 +22,12 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ItemTemplate">
             <Grid Margin="{StaticResource ListItemMargin}" Height="75">
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="{Binding LocalizedStrings.PlayNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="{Binding LocalizedStrings.AddToUpNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="*" />

@@ -63,5 +63,26 @@ namespace Komodex.Remote.Pages.Browse.Playlists
                     RemoteUtility.ShowLibraryError();
             }
         }
+
+        private async void PlayQueueButton_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+
+            PlayQueueMode mode;
+            switch (menuItem.Name)
+            {
+                case "PlayNextButton": mode = PlayQueueMode.PlayNext; break;
+                case "AddToUpNextButton": mode = PlayQueueMode.AddToQueue; break;
+                default: return;
+            }
+
+            if (menuItem.DataContext is DACPItem)
+            {
+                if (await CurrentContainer.PlayItem((DACPItem)menuItem.DataContext, mode))
+                    NavigationManager.OpenNowPlayingPage();
+                else
+                    RemoteUtility.ShowLibraryError();
+            }
+        }
     }
 }

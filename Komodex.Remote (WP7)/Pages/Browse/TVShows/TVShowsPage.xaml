@@ -9,6 +9,7 @@
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:appcontrols="clr-namespace:Komodex.Remote.Controls"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
     xmlns:sampledata="clr-namespace:Komodex.Remote.SampleData"
     mc:Ignorable="d"
