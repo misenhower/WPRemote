@@ -138,6 +138,7 @@
     <Compile Include="Converters\ItemCountConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
     <Compile Include="Controls\PlaylistItemDataTemplateSelector.cs" />
+    <Compile Include="Converters\PlaylistTypeToImageSourceConverter.cs" />
     <Compile Include="Converters\ServerTypeToImageSourceConverter.cs" />
     <Compile Include="Data\DACPElementViewSource.cs" />
     <Compile Include="Data\IDACPElementViewSource.cs" />
@@ -451,6 +452,18 @@
     </Content>
     <Content Include="..\Assets\Icons\GeniusMixes.WVGA.png">
       <Link>Assets\Icons\GeniusMixes.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Playlist.Folder.WVGA.png">
+      <Link>Assets\Icons\Playlist.Folder.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Playlist.Normal.WVGA.png">
+      <Link>Assets\Icons\Playlist.Normal.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Playlist.SavedGenius.WVGA.png">
+      <Link>Assets\Icons\Playlist.SavedGenius.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Playlist.Smart.WVGA.png">
+      <Link>Assets\Icons\Playlist.Smart.WVGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Podcasts.WVGA.png">
       <Link>Assets\Icons\Podcasts.WVGA.png</Link>

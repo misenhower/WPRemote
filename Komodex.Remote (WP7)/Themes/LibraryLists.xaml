@@ -82,6 +82,7 @@
     </Style>
 
     <!-- List Item Templates -->
+    <appConverters:PlaylistTypeToImageSourceConverter x:Key="PlaylistTypeToImageSourceConverter" />
     <DataTemplate x:Key="PlaylistTemplate">
         <Grid Margin="{StaticResource ListItemMargin}">
             <Grid.ColumnDefinitions>
@@ -94,7 +95,7 @@
             </Grid.RowDefinitions>
 
             <controls:MultiResolutionImageMask
-                Source="{x:Null}"
+                Source="{Binding Converter={StaticResource PlaylistTypeToImageSourceConverter}}"
                 Style="{StaticResource IconCircleStyle}"
                 />
 
