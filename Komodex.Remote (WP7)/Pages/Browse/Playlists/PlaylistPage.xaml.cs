@@ -11,6 +11,8 @@ using Komodex.DACP.Containers;
 using Komodex.DACP.Databases;
 using Komodex.DACP;
 using Komodex.DACP.Items;
+using System.ComponentModel;
+using Komodex.Remote.Data;
 
 namespace Komodex.Remote.Pages.Browse.Playlists
 {
@@ -22,7 +24,9 @@ namespace Komodex.Remote.Pages.Browse.Playlists
         {
             InitializeComponent();
 
-            PlaylistViewSource = GetContainerViewSource(c => c.GetItemsOrSubListsAsync());
+            var playlistViewSource = GetContainerViewSource(c => c.GetItemsOrSubListsAsync());
+            playlistViewSource.PropertyChanged += PlaylistViewSource_PropertyChanged;
+            PlaylistViewSource = playlistViewSource;
         }
 
         public object PlaylistViewSource { get; private set; }
@@ -84,5 +88,42 @@ namespace Komodex.Remote.Pages.Browse.Playlists
                     RemoteUtility.ShowLibraryError();
             }
         }
+
+        #region Shuffle Button
+
+        public static readonly DependencyProperty ShuffleButtonVisibilityProperty =
+            DependencyProperty.Register("ShuffleButtonVisibility", typeof(Visibility), typeof(PlaylistPage), new PropertyMetadata(Visibility.Collapsed));
+
+        public Visibility ShuffleButtonVisibility
+        {
+            get { return (Visibility)GetValue(ShuffleButtonVisibilityProperty); }
+            set { SetValue(ShuffleButtonVisibilityProperty, value); }
+        }
+
+        private void PlaylistViewSource_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            IDACPElementViewSource source = (IDACPElementViewSource)sender;
+
+            if (e.PropertyName == "Items")
+            {
+                Visibility newVisibility = Visibility.Collapsed;
+                var list = source.Items as List<DACPItem>;
+                if (list != null && list.Count > 2)
+                    newVisibility = Visibility.Visible;
+                ShuffleButtonVisibility = newVisibility;
+            }
+        }
+
+        private async void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (await CurrentContainer.Shuffle())
+                NavigationManager.OpenNowPlayingPage();
+            else
+                RemoteUtility.ShowLibraryError();
+
+            e.Handled = true;
+        }
+
+        #endregion
     }
 }

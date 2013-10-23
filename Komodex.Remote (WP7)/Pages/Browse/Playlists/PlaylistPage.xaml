@@ -20,6 +20,16 @@
     >
 
     <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ShuffleHeaderTemplate">
+            <Grid Visibility="{Binding ShuffleButtonVisibility, ElementName=Page}"
+                  Margin="{StaticResource ListItemMargin}"
+                  Background="Transparent"
+                  toolkit:TiltEffect.SuppressTilt="True"
+                  >
+                <appcontrols:ShuffleButton HorizontalAlignment="Left" Tap="ShuffleButton_Tap" />
+            </Grid>
+        </DataTemplate>
+        
         <DataTemplate x:Key="ItemTemplate">
             <Grid Margin="{StaticResource ListItemMargin}" Height="75">
                 <toolkit:ContextMenuService.ContextMenu>
@@ -67,6 +77,7 @@
                     ItemTemplate="{StaticResource ItemTemplateSelector}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
+                    ListHeaderTemplate="{StaticResource ShuffleHeaderTemplate}"
                     />
             </controls:PivotItem>
         </controls:Pivot>

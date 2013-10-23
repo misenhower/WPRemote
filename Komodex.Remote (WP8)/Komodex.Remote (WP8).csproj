@@ -137,6 +137,10 @@
       <Link>Controls\PlayTransportButtonsControl.xaml.cs</Link>
       <DependentUpon>PlayTransportButtonsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Controls\ShuffleButton.xaml.cs">
+      <Link>Controls\ShuffleButton.xaml.cs</Link>
+      <DependentUpon>ShuffleButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Controls\StarRating.xaml.cs">
       <Link>Controls\StarRating.xaml.cs</Link>
       <DependentUpon>StarRating.xaml</DependentUpon>
@@ -729,6 +733,11 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Controls\PlayTransportButtonsControl.xaml">
       <Link>Controls\PlayTransportButtonsControl.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Controls\ShuffleButton.xaml">
+      <Link>Controls\ShuffleButton.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

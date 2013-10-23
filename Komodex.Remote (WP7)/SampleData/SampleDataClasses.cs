@@ -19,6 +19,7 @@ namespace Komodex.Remote.SampleData
 
     public class SampleDataDACPContainer : SampleDataDACPElement
     {
+        public int ItemCount { get; set; }
     }
 
     #endregion
