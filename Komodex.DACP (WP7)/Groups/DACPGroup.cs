@@ -37,6 +37,11 @@ namespace Komodex.DACP.Groups
             get { return DACPQueryCollection.And(GroupQuery, Container.MediaKindQuery); }
         }
 
+        internal virtual DACPQueryElement UnplayedItemQuery
+        {
+            get { return DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songuserplaycount", 0), GroupQuery, Container.MediaKindQuery); }
+        }
+
         #region Artwork
 
         public string Artwork75pxURI { get { return GetAlbumArtURI(75); } }

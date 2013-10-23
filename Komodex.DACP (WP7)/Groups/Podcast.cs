@@ -34,5 +34,17 @@ namespace Komodex.DACP.Groups
         }
 
         #endregion
+
+        #region Unplayed Episodes
+
+        public Task<List<PodcastEpisode>> GetUnplayedEpisodesAsync()
+        {
+            DACPRequest request = Container.GetItemsRequest(UnplayedItemQuery);
+            request.QueryParameters["sort"] = "releasedate";
+            request.QueryParameters["invert-sort-order"] = "1";
+            return Server.GetListAsync(request, n => new PodcastEpisode(Container, n));
+        }
+
+        #endregion
     }
 }

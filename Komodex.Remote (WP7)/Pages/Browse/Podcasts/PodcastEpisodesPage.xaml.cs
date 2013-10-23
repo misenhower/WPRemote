@@ -22,6 +22,7 @@ namespace Komodex.Remote.Pages.Browse.Podcasts
             InitializeComponent();
 
             EpisodesViewSource = GetGroupViewSource(async g => await g.GetEpisodesAsync());
+            UnplayedEpisodesViewSource = GetGroupViewSource(async g => await g.GetUnplayedEpisodesAsync());
         }
 
         public object EpisodesViewSource { get; private set; }
