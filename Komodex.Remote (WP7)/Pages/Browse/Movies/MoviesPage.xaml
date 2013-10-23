@@ -56,6 +56,15 @@
                     EmptyText="{Binding LocalizedStrings.VideosNoMoviesFound, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
+            <controls:PivotItem DataContext="{Binding UnwatchedMoviesViewSource}" Header="unwatched">
+                <controls:LongListSelectorEx
+                    Style="{StaticResource LibraryListStyle}"
+                    ItemTemplate="{StaticResource MovieTemplate}"
+                    ItemsSource="{Binding Items}"
+                    IsGroupingEnabled="{Binding IsGroupedList}"
+                    EmptyText="no unwatched"
+                    />
+            </controls:PivotItem>
         </controls:Pivot>
     </Grid>
 

@@ -17,8 +17,10 @@ namespace Komodex.Remote.Pages.Browse.Movies
             InitializeComponent();
 
             MoviesViewSource = GetContainerViewSource(async c => await c.GetMoviesAsync());
+            UnwatchedMoviesViewSource = GetContainerViewSource(async c => await c.GetUnwatchedMoviesAsync());
         }
 
         public object MoviesViewSource { get; private set; }
+        public object UnwatchedMoviesViewSource { get; private set; }
     }
 }

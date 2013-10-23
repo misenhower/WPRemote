@@ -36,9 +36,9 @@ namespace Komodex.DACP.Containers
 
         #endregion
 
-        #region Unplayed Movies
+        #region Unwatched Movies
 
-        public Task<IDACPList> GetUnplayedMoviesAsync()
+        public Task<IDACPList> GetUnwatchedMoviesAsync()
         {
             var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songuserplaycount", 0), MediaKindQuery);
             DACPRequest request = GetItemsRequest(query, "name", true);

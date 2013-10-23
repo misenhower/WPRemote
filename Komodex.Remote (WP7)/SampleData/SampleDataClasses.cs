@@ -121,6 +121,7 @@ namespace Komodex.Remote.SampleData
     public class SampleDataMoviesPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
     {
         public SampleDataDACPElementViewSource<SampleDataMovie> MoviesViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataMovie> UnwatchedMoviesViewSource { get; set; }
     }
 
     public class SampleDataTVShowsPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
