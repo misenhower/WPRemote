@@ -280,8 +280,9 @@ namespace Microsoft.Phone.Controls
             foreach (FrameworkElement ancestor in (e.OriginalSource as FrameworkElement).GetVisualAncestors())
             {
 #if WP7
-                if (ancestor is ContentPresenter)
-                    lastContentPresenter = (ContentPresenter)ancestor;
+                var contentPresenter = ancestor as ContentPresenter;
+                if (contentPresenter != null)
+                    lastContentPresenter = contentPresenter;
 #endif
                 foreach (Type t in TiltableItems)
                 {
