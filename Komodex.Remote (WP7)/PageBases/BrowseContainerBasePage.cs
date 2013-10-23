@@ -63,7 +63,7 @@ namespace Komodex.Remote
             base.CurrentServer_ServerUpdate(sender, e);
 
             if (e.Type == ServerUpdateType.ServerConnected)
-                UpdateCurrentDatabase();
+                Utility.BeginInvokeOnUIThread(UpdateCurrentDatabase);
         }
 
         protected virtual bool ShouldShowContinuumTransition(AnimationType animationType, Uri toOrFrom)
