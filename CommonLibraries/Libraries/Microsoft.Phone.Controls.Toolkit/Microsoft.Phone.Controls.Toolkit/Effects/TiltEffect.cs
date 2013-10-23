@@ -274,8 +274,15 @@ namespace Microsoft.Phone.Controls
         /// <param name="e">The args from the ManipulationStarted event.</param>
         static void TryStartTiltEffect(FrameworkElement source, ManipulationStartedEventArgs e)
         {
+#if WP7
+            ContentPresenter lastContentPresenter = null;
+#endif
             foreach (FrameworkElement ancestor in (e.OriginalSource as FrameworkElement).GetVisualAncestors())
             {
+#if WP7
+                if (ancestor is ContentPresenter)
+                    lastContentPresenter = (ContentPresenter)ancestor;
+#endif
                 foreach (Type t in TiltableItems)
                 {
                     if (t.IsAssignableFrom(ancestor.GetType()))
@@ -298,6 +305,19 @@ namespace Microsoft.Phone.Controls
                         }
                         else
                         {
+#if WP7
+                            // Check whether the first child of a ListBoxItem's ContentPresenter has SuppressTilt set to true
+                            if (t == typeof(ListBoxItem) && lastContentPresenter != null)
+                            {
+                                var childElement = lastContentPresenter.GetVisualChildren().FirstOrDefault() as FrameworkElement;
+                                if (childElement != null)
+                                {
+                                    object suppressTilt = childElement.ReadLocalValue(SuppressTiltProperty);
+                                    if (suppressTilt is bool && (bool)suppressTilt == true)
+                                        return;
+                                }
+                            }
+#endif
 #if WP8
                             if (t == typeof(LongListSelector))
                             {
