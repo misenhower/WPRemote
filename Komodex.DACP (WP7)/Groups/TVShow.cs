@@ -46,7 +46,11 @@ namespace Komodex.DACP.Groups
 
         public Task<List<TVShowEpisode>> GetEpisodesAsync()
         {
+#if WP7
+            return TaskEx.FromResult(Episodes);
+#else
             return Task.FromResult(Episodes);
+#endif
         }
 
         #endregion
