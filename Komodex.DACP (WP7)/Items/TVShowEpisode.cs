@@ -13,6 +13,10 @@ namespace Komodex.DACP.Items
         { }
 
         public DateTime? DateReleased { get; private set; }
+        public int SeasonNumber { get; private set; }
+        public int EpisodeNumber { get; private set; }
+        public string SeriesName { get; private set; }
+        public bool IsHD { get; private set; }
 
         protected override void ProcessNodes(DACPNodeDictionary nodes)
         {
@@ -20,6 +24,10 @@ namespace Komodex.DACP.Items
 
             if (nodes.ContainsKey("asdr"))
                 DateReleased = nodes.GetDateTime("asdr");
+            SeasonNumber = nodes.GetInt("aeSU");
+            EpisodeNumber = nodes.GetInt("aeES");
+            SeriesName = nodes.GetString("aeSN");
+            IsHD = nodes.GetBool("aeHD");
         }
     }
 }

@@ -128,7 +128,7 @@ namespace Komodex.Remote
 
         public static void OpenTVShowEpisodesPage(TVShow tvShow)
         {
-            Navigate("/Pages/Browse/TVShows/TVShowEpisodesPage.xaml?databaseID={0}&groupID={1}", tvShow.Database.ID, tvShow.ID);
+            Navigate("/Pages/Browse/TVShows/TVShowEpisodesPage.xaml?databaseID={0}&groupID={1}", tvShow.Database.ID, tvShow.Index);
         }
 
         #endregion

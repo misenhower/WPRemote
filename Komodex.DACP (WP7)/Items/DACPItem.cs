@@ -49,12 +49,26 @@ namespace Komodex.DACP.Items
             get { return Utility.JoinNonEmptyStrings(" – ", ArtistName, AlbumName); }
         }
 
+        public ItemPlayedState PlayedState
+        {
+            get
+            {
+                if (HasBeenPlayed)
+                {
+                    if (PlayCount > 0)
+                        return ItemPlayedState.HasBeenPlayed;
+                    return ItemPlayedState.PartiallyPlayed;
+                }
+                return ItemPlayedState.Unplayed;
+            }
+        }
+
         #region Artwork
 
         public string Artwork75pxURI { get { return GetAlbumArtURI(75, 75); } }
         public string Artwork175pxURI { get { return GetAlbumArtURI(175, 175); } }
 
-        protected string GetAlbumArtURI(int width, int height)
+        protected internal virtual string GetAlbumArtURI(int width, int height)
         {
             width = ResolutionUtility.GetScaledPixels(width);
             height = ResolutionUtility.GetScaledPixels(height);

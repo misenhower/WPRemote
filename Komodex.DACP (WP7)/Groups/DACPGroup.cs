@@ -44,14 +44,15 @@ namespace Komodex.DACP.Groups
 
         #region Artwork
 
-        public string Artwork75pxURI { get { return GetAlbumArtURI(75); } }
-        public string Artwork175pxURI { get { return GetAlbumArtURI(175); } }
+        public string Artwork75pxURI { get { return GetAlbumArtURI(75, 75); } }
+        public string Artwork175pxURI { get { return GetAlbumArtURI(175, 175); } }
 
-        private string GetAlbumArtURI(int pixels)
+        protected internal virtual string GetAlbumArtURI(int width, int height)
         {
-            pixels = ResolutionUtility.GetScaledPixels(pixels);
-            string uri = "{0}/databases/{1}/groups/{2}/extra_data/artwork?mw={3}&mh={3}&group-type={4}&session-id={5}";
-            return string.Format(uri, Server.HTTPPrefix, Database.ID, ID, pixels, GroupType, Server.SessionID);
+            width = ResolutionUtility.GetScaledPixels(width);
+            height = ResolutionUtility.GetScaledPixels(height);
+            string uri = "{0}/databases/{1}/groups/{2}/extra_data/artwork?mw={3}&mh={4}&group-type={5}&session-id={6}";
+            return string.Format(uri, Server.HTTPPrefix, Database.ID, ID, width, height, GroupType, Server.SessionID);
         }
 
         #endregion

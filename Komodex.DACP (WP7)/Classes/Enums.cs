@@ -58,4 +58,11 @@ namespace Komodex.DACP
         GeniusMixes = 15,
         GeniusMix = 16,
     }
+
+    public enum ItemPlayedState
+    {
+        Unplayed,
+        PartiallyPlayed,
+        HasBeenPlayed,
+    }
 }

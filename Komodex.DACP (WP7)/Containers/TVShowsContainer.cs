@@ -1,5 +1,6 @@
 ﻿using Komodex.DACP.Databases;
 using Komodex.DACP.Groups;
+using Komodex.DACP.Items;
 using Komodex.DACP.Queries;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,10 @@ namespace Komodex.DACP.Containers
 
         protected override string ItemsMeta
         {
-            get { return base.ItemsMeta + ",daap.songdatereleased"; }
+            get { return base.ItemsMeta + ",daap.songdatereleased,com.apple.itunes.series-name,daap.sortartist,daap.sortalbum,daap.songalbum,com.apple.itunes.season-num,com.apple.itunes.episode-sort,com.apple.itunes.is-hd-video,com.apple.itunes.itms-songid,com.apple.itunes.has-chapter-data,com.apple.itunes.content-rating,com.apple.itunes.extended-media-kind"; }
         }
 
-        #region Shows
+        #region Shows and Episodes
 
         private List<TVShow> _shows;
         private Dictionary<int, TVShow> _showsByID;
@@ -35,13 +36,12 @@ namespace Komodex.DACP.Containers
             if (_shows != null)
                 return _shows;
 
-            _shows = null;
-            _showsByID = null;
+            var episodes = await GetItemsAsync(MediaKindQuery, n => new TVShowEpisode(this, n));
 
-            _shows = await GetGroupsAsync(GroupsQuery, n => new TVShow(this, n)).ConfigureAwait(false);
-            if (_shows != null)
-                _showsByID = _shows.ToDictionary(s => s.ID);
-
+            // Process episodes and sort them into TV shows manually
+            int showIndex = 0;
+            _shows = episodes.GroupBy(e => new { e.SeriesName, e.SeasonNumber }, (key, group) => new TVShow(this, showIndex++, key.SeriesName, key.SeasonNumber, group)).ToList();
+            _showsByID = _shows.ToDictionary(s => s.Index);
             return _shows;
         }
 
@@ -57,12 +57,14 @@ namespace Komodex.DACP.Containers
 
         #endregion
 
-        #region Unplayed Shows
+        #region Unwatched Shows
 
-        public Task<List<TVShow>> GetUnwatchedShowsAsync()
+        public async Task<List<TVShow>> GetUnwatchedShowsAsync()
         {
-            var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songuserplaycount", 0), GroupsQuery);
-            return GetGroupsAsync(query, n => new TVShow(this, n));
+            var shows = await GetShowsAsync();
+            if (shows == null)
+                return null;
+            return shows.Where(s => s.Episodes.Any(e => e.PlayedState != ItemPlayedState.HasBeenPlayed)).ToList();
         }
 
         #endregion
