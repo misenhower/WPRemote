@@ -40,7 +40,10 @@ namespace Komodex.DACP.Containers
 
             // Process episodes and sort them into TV shows manually
             int showIndex = 0;
-            _shows = episodes.GroupBy(e => new { e.SeriesName, e.SeasonNumber }, (key, group) => new TVShow(this, showIndex++, key.SeriesName, key.SeasonNumber, group)).ToList();
+            _shows = episodes.GroupBy(e => new { e.SeriesName, e.SeasonNumber }, (key, group) => new TVShow(this, showIndex++, key.SeriesName, key.SeasonNumber, group))
+                .OrderBy(s => s.Name)
+                .ThenBy(s => s.SeasonNumber)
+                .ToList();
             _showsByID = _shows.ToDictionary(s => s.Index);
             return _shows;
         }

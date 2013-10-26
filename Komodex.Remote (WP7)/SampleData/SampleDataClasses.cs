@@ -33,10 +33,12 @@ namespace Komodex.Remote.SampleData
 
     public class SampleDataTVShow : SampleDataDACPGroup
     {
+        public int SeasonNumber { get; set; }
     }
 
     public class SampleDataPodcast : SampleDataDACPGroup
     {
+        public string ArtistName { get; set; }
     }
 
     #endregion
@@ -79,6 +81,10 @@ namespace Komodex.Remote.SampleData
 
     public class SampleDataTVShowEpisode : SampleDataDACPItem
     {
+        public int SeasonNumber { get; set; }
+        public int EpisodeNumber { get; set; }
+        public string SeriesName { get; set; }
+        public bool IsHD { get; set; }
     }
 
     public class SampleDataPodcastEpisode : SampleDataDACPItem

@@ -27,6 +27,7 @@
     <appConverters:CollapseIfLessThanTwoConverter x:Key="collapseIfLessThanTwoConverter" />
     <appConverters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
     <appConverters:ServerTypeToImageSourceConverter x:Key="ServerTypeToImageSourceConverter" />
+    <appConverters:TVShowSeasonEpisodeTextConverter x:Key="TVShowSeasonEpisodeTextConverter" />
 
     <!-- Page Style -->
     <Style x:Key="RemotePageStyle" TargetType="phone:PhoneApplicationPage">

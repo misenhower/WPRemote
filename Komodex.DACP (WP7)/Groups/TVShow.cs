@@ -41,7 +41,7 @@ namespace Komodex.DACP.Groups
 
         protected void ProcessEpisodes(IEnumerable<TVShowEpisode> episodes)
         {
-            Episodes = episodes.ToList();
+            Episodes = episodes.OrderBy(e => e.EpisodeNumber).ToList();
         }
 
         public Task<List<TVShowEpisode>> GetEpisodesAsync()

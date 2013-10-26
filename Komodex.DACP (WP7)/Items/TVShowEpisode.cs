@@ -1,4 +1,5 @@
-﻿using Komodex.DACP.Containers;
+﻿using Komodex.Common;
+using Komodex.DACP.Containers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,5 +30,21 @@ namespace Komodex.DACP.Items
             SeriesName = nodes.GetString("aeSN");
             IsHD = nodes.GetBool("aeHD");
         }
+
+        #region Display
+
+        public string SecondLine
+        {
+            get
+            {
+                string dateString = null;
+                if (DateReleased != null)
+                    dateString = DateReleased.Value.ToShortDateString();
+
+                return Utility.JoinNonEmptyStrings(" – ", dateString, FormattedDuration);
+            }
+        }
+
+        #endregion
     }
 }

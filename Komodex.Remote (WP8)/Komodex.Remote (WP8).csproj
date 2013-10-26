@@ -175,6 +175,9 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\ServerTypeToImageSourceConverter.cs">
       <Link>Converters\ServerTypeToImageSourceConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\TVShowSeasonEpisodeTextConverter.cs">
+      <Link>Converters\TVShowSeasonEpisodeTextConverter.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Data\DACPElementViewSource.cs">
       <Link>Data\DACPElementViewSource.cs</Link>
     </Compile>

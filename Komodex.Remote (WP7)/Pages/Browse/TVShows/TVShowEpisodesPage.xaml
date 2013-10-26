@@ -20,14 +20,31 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="TVShowEpisodeTemplate">
-            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource AlbumArtSmallItemTemplate}" />
+            <Grid Margin="{StaticResource ListItemMargin}" Height="175">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <appcontrols:FakeButton x:Name="PlayButton">
+                    <Border Background="{StaticResource PhoneChromeBrush}">
+                        <Image delay:LowProfileImageLoader.UriSource="{Binding Artwork175pxURI}" Style="{StaticResource ListItemImageStyle}" />
+                    </Border>
+                </appcontrols:FakeButton>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextTwoLineExtraLargeStyle}" />
+                    <TextBlock Text="{Binding Converter={StaticResource TVShowSeasonEpisodeTextConverter}, ConverterParameter=SeasonEpisode}" Style="{Binding PlayedState, Converter={StaticResource EpisodeWatchedStyleConverter}}" />
+                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource ListItemTextSubtleStyle}" />
+                </StackPanel>
+            </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
-                        Title="{Binding CurrentGroup.Name}"
+                        Title="{Binding CurrentGroup, Converter={StaticResource TVShowSeasonEpisodeTextConverter}, ConverterParameter=TitleSeason}"
                         Style="{StaticResource RemotePivotStyle}"
                         >
             <controls:PivotItem DataContext="{Binding EpisodesViewSource}" Header="episodes">
