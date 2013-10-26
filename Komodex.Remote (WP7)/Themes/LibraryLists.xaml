@@ -237,5 +237,11 @@
         PartiallyWatchedStyle="{StaticResource EpisodePartiallyWatchedStyle}"
         WatchedStyle="{StaticResource ListItemTextSubtleStyle}"
         />
+    <appConverters:EpisodeWatchedStyleConverter
+        x:Key="SemiBoldEpisodeWatchedStyleConverter"
+        UnwatchedStyle="{StaticResource ListItemTextAccentStyle}"
+        PartiallyWatchedStyle="{StaticResource ListItemTextAccentStyle}"
+        WatchedStyle="{StaticResource ListItemTextSubtleSemiBoldStyle}"
+        />
 
 </ResourceDictionary>

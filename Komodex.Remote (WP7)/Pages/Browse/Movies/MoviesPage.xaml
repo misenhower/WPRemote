@@ -34,7 +34,7 @@
                 
                 <StackPanel Grid.Column="1">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextTwoLineExtraLargeStyle}" />
-                    <TextBlock Text="{Binding ArtistName}" Style="{StaticResource ListItemTextSubtleSemiBoldStyle}" />
+                    <TextBlock Text="{Binding ArtistName}" Style="{Binding PlayedState, Converter={StaticResource SemiBoldEpisodeWatchedStyleConverter}}" />
                     <TextBlock Text="{Binding FormattedDuration}" Style="{StaticResource ListItemTextSubtleStyle}" />
                 </StackPanel>
             </Grid>
