@@ -1,5 +1,6 @@
 ﻿using Komodex.Common;
 using Komodex.Common.SampleData;
+using Komodex.DACP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,20 @@ namespace Komodex.Remote.SampleData
         public string ArtistAndAlbumName
         {
             get { return Utility.JoinNonEmptyStrings(" – ", ArtistName, AlbumName); }
+        }
+
+        public ItemPlayedState PlayedState
+        {
+            get
+            {
+                if (HasBeenPlayed)
+                {
+                    if (PlayCount > 0)
+                        return ItemPlayedState.HasBeenPlayed;
+                    return ItemPlayedState.PartiallyPlayed;
+                }
+                return ItemPlayedState.Unplayed;
+            }
         }
     }
 

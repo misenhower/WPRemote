@@ -1,4 +1,5 @@
-﻿using Komodex.DACP.Items;
+﻿using Komodex.DACP;
+using Komodex.DACP.Items;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,31 +18,20 @@ namespace Komodex.Remote.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-#if DEBUG
-            if (value is SampleData.SampleDataDACPItem)
+            var state = ItemPlayedState.Unplayed;
+            if (value is ItemPlayedState)
+                state = (ItemPlayedState)value;
+
+            switch (state)
             {
-                var sdItem = (SampleData.SampleDataDACPItem)value;
-                if (sdItem.HasBeenPlayed)
-                {
-                    if (sdItem.PlayCount > 0)
-                        return WatchedStyle;
+                case ItemPlayedState.PartiallyPlayed:
                     return PartiallyWatchedStyle;
-                }
-                return UnwatchedStyle;
-            }
-#endif
-
-            var item = value as DACPItem;
-            if (item == null)
-                return WatchedStyle;
-
-            if (item.HasBeenPlayed)
-            {
-                if (item.PlayCount > 0)
+                case ItemPlayedState.HasBeenPlayed:
                     return WatchedStyle;
-                return PartiallyWatchedStyle;
+                case ItemPlayedState.Unplayed:
+                default:
+                    return UnwatchedStyle;
             }
-            return UnwatchedStyle;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
