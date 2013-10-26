@@ -49,7 +49,7 @@
                         >
             <controls:PivotItem DataContext="{Binding EpisodesViewSource}" Header="episodes">
                 <controls:LongListSelectorEx
-                    Style="{StaticResource LibraryListStyle}"
+                    Style="{StaticResource WideHeaderListStyle}"
                     ItemTemplate="{StaticResource TVShowEpisodeTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
@@ -57,7 +57,7 @@
             </controls:PivotItem>
             <controls:PivotItem DataContext="{Binding UnwatchedEpisodesViewSource}" Header="unwatched">
                 <controls:LongListSelectorEx
-                    Style="{StaticResource LibraryListStyle}"
+                    Style="{StaticResource WideHeaderListStyle}"
                     ItemTemplate="{StaticResource TVShowEpisodeTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"

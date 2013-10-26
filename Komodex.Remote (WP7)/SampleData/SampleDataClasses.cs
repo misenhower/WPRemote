@@ -85,6 +85,11 @@ namespace Komodex.Remote.SampleData
         public int EpisodeNumber { get; set; }
         public string SeriesName { get; set; }
         public bool IsHD { get; set; }
+
+        public string SecondLine
+        {
+            get { return string.Join(" – ", DateTime.Now.ToShortDateString(), FormattedDuration); }
+        }
     }
 
     public class SampleDataPodcastEpisode : SampleDataDACPItem

@@ -38,18 +38,56 @@ namespace Komodex.DACP.Groups
         #region Episodes
 
         public List<TVShowEpisode> Episodes { get; private set; }
+        public IDACPList GroupedEpisodes { get; private set; }
+        public IDACPList GroupedUnwatchedEpisodes { get; private set; }
 
         protected void ProcessEpisodes(IEnumerable<TVShowEpisode> episodes)
         {
             Episodes = episodes.OrderBy(e => e.EpisodeNumber).ToList();
+
+            GroupedEpisodes = GetGroupedEpisodes(Episodes);
+            GroupedUnwatchedEpisodes = GetGroupedEpisodes(Episodes.Where(e => e.PlayedState != ItemPlayedState.HasBeenPlayed));
         }
 
-        public Task<List<TVShowEpisode>> GetEpisodesAsync()
+        private IDACPList GetGroupedEpisodes(IEnumerable<TVShowEpisode> episodes)
+        {
+            ItemGroup<TVShowEpisode> currentGroup = null;
+            DACPList<ItemGroup<TVShowEpisode>> result = new DACPList<ItemGroup<TVShowEpisode>>(true);
+
+            foreach (var episode in episodes)
+            {
+                if (currentGroup == null || currentGroup.Key != episode.AlbumName)
+                {
+                    currentGroup = new ItemGroup<TVShowEpisode>(episode.AlbumName);
+                    result.Add(currentGroup);
+                }
+                currentGroup.Add(episode);
+            }
+
+            if (result.Count == 0)
+                return null;
+
+            if (result.Count == 1 && string.IsNullOrEmpty(result[0].Key))
+                return result[0].ToDACPList();
+
+            return result;
+        }
+
+        public Task<IDACPList> GetEpisodesAsync()
         {
 #if WP7
-            return TaskEx.FromResult(Episodes);
+            return TaskEx.FromResult(GroupedEpisodes);
 #else
-            return Task.FromResult(Episodes);
+            return Task.FromResult(GroupedEpisodes);
+#endif
+        }
+
+        public Task<IDACPList> GetUnwatchedEpisodesAsync()
+        {
+#if WP7
+            return TaskEx.FromResult(GroupedUnwatchedEpisodes);
+#else
+            return Task.FromResult(GroupedUnwatchedEpisodes);
 #endif
         }
 

@@ -17,6 +17,7 @@ namespace Komodex.Remote.Pages.Browse.TVShows
             InitializeComponent();
 
             EpisodesViewSource = GetGroupViewSource(async g => await g.GetEpisodesAsync());
+            UnwatchedEpisodesViewSource = GetGroupViewSource(async g => await g.GetUnwatchedEpisodesAsync());
         }
 
         public object EpisodesViewSource { get; private set; }
