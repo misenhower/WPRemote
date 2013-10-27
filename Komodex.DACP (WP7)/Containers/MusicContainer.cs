@@ -1,10 +1,12 @@
 ﻿using Komodex.DACP.Databases;
 using Komodex.DACP.Groups;
+using Komodex.DACP.Items;
 using Komodex.DACP.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Komodex.DACP.Containers
@@ -83,6 +85,14 @@ namespace Komodex.DACP.Containers
             return Artists[artistID];
         }
 
+        public Task<List<Artist>> SearchArtistsAsync(string searchString, CancellationToken cancellationToken)
+        {
+            DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songartist", searchString), DACPQueryPredicate.IsNotEmpty("daap.songartist"), MediaKindQuery);
+            DACPRequest request = GetGroupsRequest(query, false, "artists");
+            request.CancellationToken = cancellationToken;
+            return Server.GetListAsync(request, n => new Artist(this, n));
+        }
+
         #endregion
 
         #region Albums
@@ -145,6 +155,26 @@ namespace Komodex.DACP.Containers
             if (!Albums.ContainsKey(albumID))
                 return null;
             return Albums[albumID];
+        }
+
+        public Task<List<Album>> SearchAlbumsAsync(string searchString, CancellationToken cancellationToken)
+        {
+            DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songalbum", searchString), DACPQueryPredicate.IsNotEmpty("daap.songalbum"), MediaKindQuery);
+            DACPRequest request = GetGroupsRequest(query, false, "albums");
+            request.CancellationToken = cancellationToken;
+            return Server.GetListAsync(request, n => new Album(this, n));
+        }
+
+        #endregion
+
+        #region Songs
+
+        public Task<List<Song>> SearchSongsAsync(string searchString, CancellationToken cancellationToken)
+        {
+            DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("dmap.itemname", searchString), MediaKindQuery);
+            DACPRequest request = GetItemsRequest(query, "name", false);
+            request.CancellationToken = cancellationToken;
+            return Server.GetListAsync(request, n => new Song(this, n));
         }
 
         #endregion

@@ -292,6 +292,10 @@
       <Link>Pages\NowPlayingPage.xaml.cs</Link>
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Search\SearchPage.xaml.cs">
+      <Link>Pages\Search\SearchPage.xaml.cs</Link>
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\SampleData\SampleDataClasses.cs">
       <Link>SampleData\SampleDataClasses.cs</Link>
     </Compile>
@@ -927,6 +931,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Search\SearchPage.xaml">
+      <Link>Pages\Search\SearchPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Settings\SettingsPage.xaml">
       <Link>Settings\SettingsPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

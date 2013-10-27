@@ -137,6 +137,9 @@
     <Compile Include="Queries\DACPQueryCollection.cs" />
     <Compile Include="Queries\DACPQueryElement.cs" />
     <Compile Include="Queries\DACPQueryPredicate.cs" />
+    <Compile Include="Search\DACPSearchResults.cs" />
+    <Compile Include="Search\ISearchResultSection.cs" />
+    <Compile Include="Search\SearchResultSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\LocalizedDACPStrings.de-DE.resx">

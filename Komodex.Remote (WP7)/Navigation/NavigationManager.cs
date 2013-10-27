@@ -176,7 +176,7 @@ namespace Komodex.Remote
 
         public static void OpenSearchPage()
         {
-            Navigate("/LibraryPages/SearchPage.xaml");
+            Navigate("/Pages/Search/SearchPage.xaml");
         }
 
         public static void OpenAboutPage()

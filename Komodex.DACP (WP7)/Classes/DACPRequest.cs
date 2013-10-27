@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Komodex.DACP
 {
@@ -27,6 +28,8 @@ namespace Komodex.DACP
             get { return _includeSessionID; }
             set { _includeSessionID = value; }
         }
+
+        public CancellationToken CancellationToken { get; set; }
 
         public string GetURI()
         {

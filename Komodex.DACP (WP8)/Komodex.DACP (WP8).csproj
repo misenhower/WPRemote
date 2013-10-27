@@ -251,6 +251,15 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Queries\DACPQueryPredicate.cs">
       <Link>Queries\DACPQueryPredicate.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Search\DACPSearchResults.cs">
+      <Link>Search\DACPSearchResults.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Search\ISearchResultSection.cs">
+      <Link>Search\ISearchResultSection.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Search\SearchResultSection.cs">
+      <Link>Search\SearchResultSection.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -55,14 +55,19 @@ namespace Komodex.DACP
         {
             if (request.IncludeSessionID)
                 request.QueryParameters["session-id"] = SessionID.ToString();
-            return await SubmitRequestAsync(request.GetURI()).ConfigureAwait(false);
+            return await SubmitRequestAsync(request.GetURI(), request.CancellationToken).ConfigureAwait(false);
         }
 
-        internal async Task<DACPResponse> SubmitRequestAsync(string uri)
+        internal Task<DACPResponse> SubmitRequestAsync(string uri)
+        {
+            return SubmitRequestAsync(uri, CancellationToken.None);
+        }
+
+        internal async Task<DACPResponse> SubmitRequestAsync(string uri, CancellationToken cancellationToken)
         {
             _log.Info("Submitting request for: " + uri);
 
-            HttpResponseMessage response = await HttpClient.PostAsync(uri, null).ConfigureAwait(false);
+            HttpResponseMessage response = await HttpClient.PostAsync(uri, null, cancellationToken).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
             byte[] data = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
