@@ -579,4 +579,82 @@
   <data name="PodcastEpisodes" xml:space="preserve">
     <value>Folgen</value>
   </data>
+  <data name="BrowseMovies" xml:space="preserve">
+    <value>Filme</value>
+  </data>
+  <data name="BrowseMoviesAll" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="BrowseMoviesNoMovies" xml:space="preserve">
+    <value>Keine Filme</value>
+  </data>
+  <data name="BrowseMoviesNoUnwatchedMovies" xml:space="preserve">
+    <value>Keine nicht angesehenen Filme</value>
+  </data>
+  <data name="BrowseMoviesUnwatched" xml:space="preserve">
+    <value>Ungesehen</value>
+  </data>
+  <data name="BrowsePodcasts" xml:space="preserve">
+    <value>Podcasts</value>
+  </data>
+  <data name="BrowsePodcastsAll" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="BrowsePodcastsEpisodes" xml:space="preserve">
+    <value>Folgen</value>
+  </data>
+  <data name="BrowsePodcastsNoPodcasts" xml:space="preserve">
+    <value>Keine Podcasts</value>
+  </data>
+  <data name="BrowsePodcastsNoUnplayedPodcasts" xml:space="preserve">
+    <value>Keine nicht gespielten Podcasts</value>
+  </data>
+  <data name="BrowsePodcastsUnplayed" xml:space="preserve">
+    <value>Ungespielt</value>
+  </data>
+  <data name="BrowseTVShows" xml:space="preserve">
+    <value>TV-Sendungen</value>
+  </data>
+  <data name="BrowseTVShowsAll" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="BrowseTVShowsEpisodes" xml:space="preserve">
+    <value>Folgen</value>
+  </data>
+  <data name="BrowseTVShowsHD" xml:space="preserve">
+    <value>HD</value>
+  </data>
+  <data name="BrowseTVShowsNoTVShows" xml:space="preserve">
+    <value>Keine TV-Sendungen</value>
+  </data>
+  <data name="BrowseTVShowsNoUnwatchedTVShows" xml:space="preserve">
+    <value>Keine nicht angesehenen TV-Sendungen</value>
+  </data>
+  <data name="BrowseTVShowsSeason" xml:space="preserve">
+    <value>Staffel {0}</value>
+  </data>
+  <data name="BrowseTVShowsSeasonAndEpisode" xml:space="preserve">
+    <value>Staffel {0}, Folge {1}</value>
+  </data>
+  <data name="BrowseTVShowsTitleAndSeason" xml:space="preserve">
+    <value>{0}, Staffel {1}</value>
+  </data>
+  <data name="BrowseTVShowsUnwatched" xml:space="preserve">
+    <value>Ungesehen</value>
+  </data>
+  <data name="BrowsePodcastsNoEpisodes" xml:space="preserve">
+    <value>Kene Folgen</value>
+  </data>
+  <data name="BrowsePodcastsNoUnplayedEpisodes" xml:space="preserve">
+    <value>Keine nicht gespielten Folgen</value>
+  </data>
+  <data name="BrowseTVShowsNoEpisodes" xml:space="preserve">
+    <value>Keine Folgen</value>
+  </data>
+  <data name="BrowseTVShowsNoUnwatchedEpisodes" xml:space="preserve">
+    <value>Keine nicht angesehenen Folgen</value>
+  </data>
+  <data name="BrowseTVShowsEpisode" xml:space="preserve">
+    <value>Folge {0}</value>
+  </data>
 </root>

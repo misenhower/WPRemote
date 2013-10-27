@@ -44,25 +44,25 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
-                        Title="{Binding CurrentServer.LibraryName}"
+                        Title="{Binding LocalizedStrings.BrowseMovies, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource RemotePivotStyle}"
                         >
-            <controls:PivotItem DataContext="{Binding MoviesViewSource}" Header="{Binding LocalizedStrings.VideosMoviesPivotItem, Source={StaticResource LocalizedStrings}}">
+            <controls:PivotItem DataContext="{Binding MoviesViewSource}" Header="{Binding LocalizedStrings.BrowseMoviesAll, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource MovieTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
-                    EmptyText="{Binding LocalizedStrings.VideosNoMoviesFound, Source={StaticResource LocalizedStrings}}"
+                    EmptyText="{Binding LocalizedStrings.BrowseMoviesNoMovies, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
-            <controls:PivotItem DataContext="{Binding UnwatchedMoviesViewSource}" Header="unwatched">
+            <controls:PivotItem DataContext="{Binding UnwatchedMoviesViewSource}" Header="{Binding LocalizedStrings.BrowseMoviesUnwatched, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource MovieTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
-                    EmptyText="no unwatched"
+                    EmptyText="{Binding LocalizedStrings.BrowseMoviesNoUnwatchedMovies, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
         </controls:Pivot>

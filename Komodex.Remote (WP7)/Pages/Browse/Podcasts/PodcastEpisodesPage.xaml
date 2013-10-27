@@ -44,20 +44,22 @@
                         Title="{Binding CurrentGroup.Name}"
                         Style="{StaticResource RemotePivotStyle}"
                         >
-            <controls:PivotItem DataContext="{Binding EpisodesViewSource}" Header="episodes">
+            <controls:PivotItem DataContext="{Binding EpisodesViewSource}" Header="{Binding LocalizedStrings.BrowsePodcastsEpisodes, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource PodcastEpisodeTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
+                    EmptyText="{Binding LocalizedStrings.BrowsePodcastsNoEpisodes, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
-            <controls:PivotItem DataContext="{Binding UnplayedEpisodesViewSource}" Header="unplayed">
+            <controls:PivotItem DataContext="{Binding UnplayedEpisodesViewSource}" Header="{Binding LocalizedStrings.BrowsePodcastsUnplayed, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource PodcastEpisodeTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
+                    EmptyText="{Binding LocalizedStrings.BrowsePodcastsNoUnplayedEpisodes, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
         </controls:Pivot>

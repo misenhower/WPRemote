@@ -41,23 +41,25 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
-                        Title="{Binding CurrentServer.LibraryName}"
+                        Title="{Binding LocalizedStrings.BrowseTVShows, Source={StaticResource LocalizedStrings}}"
                         Style="{StaticResource RemotePivotStyle}"
                         >
-            <controls:PivotItem DataContext="{Binding TVShowsViewSource}" Header="tv shows">
+            <controls:PivotItem DataContext="{Binding TVShowsViewSource}" Header="{Binding LocalizedStrings.BrowseTVShowsAll, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource TVShowTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
+                    EmptyText="{Binding LocalizedStrings.BrowseTVShowsNoTVShows, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
-            <controls:PivotItem DataContext="{Binding UnwatchedTVShowsViewSource}" Header="unwatched">
+            <controls:PivotItem DataContext="{Binding UnwatchedTVShowsViewSource}" Header="{Binding LocalizedStrings.BrowseTVShowsUnwatched, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource TVShowTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
+                    EmptyText="{Binding LocalizedStrings.BrowseTVShowsNoUnwatchedTVShows, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
         </controls:Pivot>

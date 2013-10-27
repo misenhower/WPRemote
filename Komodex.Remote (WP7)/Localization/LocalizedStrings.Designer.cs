@@ -241,6 +241,240 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to movies.
+        /// </summary>
+        public static string BrowseMovies {
+            get {
+                return ResourceManager.GetString("BrowseMovies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to all.
+        /// </summary>
+        public static string BrowseMoviesAll {
+            get {
+                return ResourceManager.GetString("BrowseMoviesAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Movies.
+        /// </summary>
+        public static string BrowseMoviesNoMovies {
+            get {
+                return ResourceManager.GetString("BrowseMoviesNoMovies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Unwatched Movies.
+        /// </summary>
+        public static string BrowseMoviesNoUnwatchedMovies {
+            get {
+                return ResourceManager.GetString("BrowseMoviesNoUnwatchedMovies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unwatched.
+        /// </summary>
+        public static string BrowseMoviesUnwatched {
+            get {
+                return ResourceManager.GetString("BrowseMoviesUnwatched", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to podcasts.
+        /// </summary>
+        public static string BrowsePodcasts {
+            get {
+                return ResourceManager.GetString("BrowsePodcasts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to all.
+        /// </summary>
+        public static string BrowsePodcastsAll {
+            get {
+                return ResourceManager.GetString("BrowsePodcastsAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to episodes.
+        /// </summary>
+        public static string BrowsePodcastsEpisodes {
+            get {
+                return ResourceManager.GetString("BrowsePodcastsEpisodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Episodes.
+        /// </summary>
+        public static string BrowsePodcastsNoEpisodes {
+            get {
+                return ResourceManager.GetString("BrowsePodcastsNoEpisodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Podcasts.
+        /// </summary>
+        public static string BrowsePodcastsNoPodcasts {
+            get {
+                return ResourceManager.GetString("BrowsePodcastsNoPodcasts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Unplayed Episodes.
+        /// </summary>
+        public static string BrowsePodcastsNoUnplayedEpisodes {
+            get {
+                return ResourceManager.GetString("BrowsePodcastsNoUnplayedEpisodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Unplayed Podcasts.
+        /// </summary>
+        public static string BrowsePodcastsNoUnplayedPodcasts {
+            get {
+                return ResourceManager.GetString("BrowsePodcastsNoUnplayedPodcasts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unplayed.
+        /// </summary>
+        public static string BrowsePodcastsUnplayed {
+            get {
+                return ResourceManager.GetString("BrowsePodcastsUnplayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tv shows.
+        /// </summary>
+        public static string BrowseTVShows {
+            get {
+                return ResourceManager.GetString("BrowseTVShows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to all.
+        /// </summary>
+        public static string BrowseTVShowsAll {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Episode {0}.
+        /// </summary>
+        public static string BrowseTVShowsEpisode {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsEpisode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to episodes.
+        /// </summary>
+        public static string BrowseTVShowsEpisodes {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsEpisodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HD.
+        /// </summary>
+        public static string BrowseTVShowsHD {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsHD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Episodes.
+        /// </summary>
+        public static string BrowseTVShowsNoEpisodes {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsNoEpisodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No TV Shows.
+        /// </summary>
+        public static string BrowseTVShowsNoTVShows {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsNoTVShows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Unwatched Episodes.
+        /// </summary>
+        public static string BrowseTVShowsNoUnwatchedEpisodes {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsNoUnwatchedEpisodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Unwatched TV Shows.
+        /// </summary>
+        public static string BrowseTVShowsNoUnwatchedTVShows {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsNoUnwatchedTVShows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Season {0}.
+        /// </summary>
+        public static string BrowseTVShowsSeason {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsSeason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Season {0}, Episode {1}.
+        /// </summary>
+        public static string BrowseTVShowsSeasonAndEpisode {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsSeasonAndEpisode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}, Season {1}.
+        /// </summary>
+        public static string BrowseTVShowsTitleAndSeason {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsTitleAndSeason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unwatched.
+        /// </summary>
+        public static string BrowseTVShowsUnwatched {
+            get {
+                return ResourceManager.GetString("BrowseTVShowsUnwatched", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to cancel.
         /// </summary>
         public static string CancelAppBarButton {

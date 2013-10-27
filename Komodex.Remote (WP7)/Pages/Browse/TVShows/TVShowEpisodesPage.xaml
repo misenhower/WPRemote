@@ -47,20 +47,22 @@
                         Title="{Binding CurrentGroup, Converter={StaticResource TVShowSeasonEpisodeTextConverter}, ConverterParameter=TitleSeason}"
                         Style="{StaticResource RemotePivotStyle}"
                         >
-            <controls:PivotItem DataContext="{Binding EpisodesViewSource}" Header="episodes">
+            <controls:PivotItem DataContext="{Binding EpisodesViewSource}" Header="{Binding LocalizedStrings.BrowseTVShowsEpisodes, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource WideHeaderListStyle}"
                     ItemTemplate="{StaticResource TVShowEpisodeTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
+                    EmptyText="{Binding LocalizedStrings.BrowseTVShowsNoEpisodes, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
-            <controls:PivotItem DataContext="{Binding UnwatchedEpisodesViewSource}" Header="unwatched">
+            <controls:PivotItem DataContext="{Binding UnwatchedEpisodesViewSource}" Header="{Binding LocalizedStrings.BrowseTVShowsUnwatched, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource WideHeaderListStyle}"
                     ItemTemplate="{StaticResource TVShowEpisodeTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
+                    EmptyText="{Binding LocalizedStrings.BrowseTVShowsNoUnwatchedEpisodes, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
         </controls:Pivot>

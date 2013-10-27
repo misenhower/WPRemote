@@ -1,6 +1,7 @@
 ﻿using Komodex.Common;
 using Komodex.DACP.Groups;
 using Komodex.DACP.Items;
+using Komodex.Remote.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,14 +77,14 @@ namespace Komodex.Remote.Converters
         {
             if (season <= 0)
                 return null;
-            return string.Format("Season {0}", season);
+            return string.Format(LocalizedStrings.BrowseTVShowsSeason, season);
         }
 
         protected string FormattedEpisode(int episode)
         {
             if (episode <= 0)
                 return null;
-            return string.Format("Episode {0}", episode);
+            return string.Format(LocalizedStrings.BrowseTVShowsEpisode, episode);
         }
 
         protected string FormattedSeasonEpisode(int season, int episode)
@@ -92,14 +93,14 @@ namespace Komodex.Remote.Converters
                 return FormattedEpisode(episode);
             if (episode <= 0)
                 return FormattedSeason(season);
-            return string.Format("Season {0}, Episode {1}", season, episode);
+            return string.Format(LocalizedStrings.BrowseTVShowsSeasonAndEpisode, season, episode);
         }
 
         protected string FormattedTitleSeason(string title, int season)
         {
             if (string.IsNullOrEmpty(title) || season <= 0)
                 return title;
-            return string.Format("{0}, Season {1}", title, season);
+            return string.Format(LocalizedStrings.BrowseTVShowsTitleAndSeason, title, season);
         }
     }
 }
