@@ -657,4 +657,10 @@
   <data name="BrowseTVShowsEpisode" xml:space="preserve">
     <value>Folge {0}</value>
   </data>
+  <data name="BrowseGenres" xml:space="preserve">
+    <value>Genres</value>
+  </data>
+  <data name="BrowseGenresNoGenres" xml:space="preserve">
+    <value>Keine Genres</value>
+  </data>
 </root>

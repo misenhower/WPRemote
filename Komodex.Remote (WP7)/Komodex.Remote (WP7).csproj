@@ -190,6 +190,9 @@
     <Compile Include="PageBases\BrowseContainerBasePage.cs" />
     <Compile Include="PageBases\BrowseGroupBasePage.cs" />
     <Compile Include="PageBases\RemoteBasePage.cs" />
+    <Compile Include="Pages\Browse\Movies\MovieGenrePage.xaml.cs">
+      <DependentUpon>MovieGenrePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Browse\Movies\MoviesPage.xaml.cs">
       <DependentUpon>MoviesPage.xaml</DependentUpon>
     </Compile>
@@ -330,6 +333,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\Movies\MovieGenrePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

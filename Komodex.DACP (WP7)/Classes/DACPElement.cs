@@ -22,7 +22,7 @@ namespace Komodex.DACP
 
         public int ID { get; private set; }
         public UInt64 PersistentID { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; protected set; }
 
         protected virtual void ProcessNodes(DACPNodeDictionary nodes)
         {

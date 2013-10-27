@@ -256,6 +256,10 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\RemoteBasePage.cs">
       <Link>PageBases\RemoteBasePage.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MovieGenrePage.xaml.cs">
+      <Link>Pages\Browse\Movies\MovieGenrePage.xaml.cs</Link>
+      <DependentUpon>MovieGenrePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MoviesPage.xaml.cs">
       <Link>Pages\Browse\Movies\MoviesPage.xaml.cs</Link>
       <DependentUpon>MoviesPage.xaml</DependentUpon>
@@ -873,6 +877,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MovieGenrePage.xaml">
+      <Link>Pages\Browse\Movies\MovieGenrePage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MoviesPage.xaml">
       <Link>Pages\Browse\Movies\MoviesPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

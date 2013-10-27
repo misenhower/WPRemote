@@ -98,6 +98,7 @@
     <Compile Include="Containers\TVShowsContainer.cs" />
     <Compile Include="DACPServer\DACPServer.AirPlaySpeakers.cs" />
     <Compile Include="Databases\DACPDatabase.cs" />
+    <Compile Include="Genres\DACPGenre.cs" />
     <Compile Include="Groups\Album.cs" />
     <Compile Include="Groups\Artist.cs" />
     <Compile Include="Groups\DACPGroup.cs" />
@@ -152,6 +153,7 @@
       <Name>Komodex.Common %28WP7%29</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions />

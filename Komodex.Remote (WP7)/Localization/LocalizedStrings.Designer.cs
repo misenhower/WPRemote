@@ -214,6 +214,24 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to genres.
+        /// </summary>
+        public static string BrowseGenres {
+            get {
+                return ResourceManager.GetString("BrowseGenres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Genres.
+        /// </summary>
+        public static string BrowseGenresNoGenres {
+            get {
+                return ResourceManager.GetString("BrowseGenresNoGenres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to browse.
         /// </summary>
         public static string BrowseLibraryAppBarButton {

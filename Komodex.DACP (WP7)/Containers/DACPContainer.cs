@@ -1,4 +1,5 @@
 ﻿using Komodex.DACP.Databases;
+using Komodex.DACP.Genres;
 using Komodex.DACP.Queries;
 using System;
 using System.Collections.Generic;
@@ -141,6 +142,16 @@ namespace Komodex.DACP.Containers
             return request;
         }
 
+        internal DACPRequest GetGenresRequest(bool requestSortHeaders = false)
+        {
+            DACPRequest request = new DACPRequest("/databases/{0}/browse/genres", Database.ID);
+            DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songgenre"), MediaKindQuery);
+            request.QueryParameters["filter"] = query.ToString();
+            if (requestSortHeaders)
+                request.QueryParameters["include-sort-headers"] = "1";
+            return request;
+        }
+
         #endregion
 
         #region Items/Groups
@@ -155,6 +166,22 @@ namespace Komodex.DACP.Containers
         {
             DACPRequest request = GetGroupsRequest(query);
             return Server.GetListAsync(request, itemGenerator);
+        }
+
+        #endregion
+
+        #region Genres
+
+        private IDACPList _groupedGenres;
+
+        public async Task<IDACPList> GetGroupedGenresAsync()
+        {
+            if (_groupedGenres != null)
+                return _groupedGenres;
+
+            DACPRequest request = GetGenresRequest();
+            _groupedGenres = await Server.GetAlphaGroupedListAsync(request, d => new DACPGenre(this, d), "abgn").ConfigureAwait(false);
+            return _groupedGenres;
         }
 
         #endregion

@@ -1,5 +1,5 @@
 ﻿<app:BrowseMoviesContainerBasePage
-    x:Class="Komodex.Remote.Pages.Browse.Movies.MoviesPage"
+    x:Class="Komodex.Remote.Pages.Browse.Movies.MovieGenrePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -15,7 +15,7 @@
     mc:Ignorable="d"
     Style="{StaticResource RemotePageStyle}"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
-    d:DataContext="{d:DesignInstance Type=sampledata:SampleDataMoviesPage, IsDesignTimeCreatable=True}"
+    d:DataContext="{d:DesignInstance Type=sampledata:SampleDataMovieGenrePage, IsDesignTimeCreatable=True}"
     >
 
     <phone:PhoneApplicationPage.Resources>
@@ -25,13 +25,13 @@
                     <ColumnDefinition Width="118" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                
+
                 <appcontrols:FakeButton x:Name="PlayButton">
                     <Border Background="{StaticResource PhoneChromeBrush}">
                         <Image delay:LowProfileImageLoader.UriSource="{Binding ArtworkMovieSizeURI}" Style="{StaticResource ListItemImageStyle}" />
                     </Border>
                 </appcontrols:FakeButton>
-                
+
                 <StackPanel Grid.Column="1">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextTwoLineExtraLargeStyle}" />
                     <TextBlock Text="{Binding ArtistName}" Style="{Binding PlayedState, Converter={StaticResource SemiBoldEpisodeWatchedStyleConverter}}" />
@@ -40,38 +40,20 @@
             </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
-    
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
-                        Title="{Binding LocalizedStrings.BrowseMovies, Source={StaticResource LocalizedStrings}}"
+                        Title="{Binding CurrentGenreName}"
                         Style="{StaticResource RemotePivotStyle}"
                         >
-            <controls:PivotItem DataContext="{Binding MoviesViewSource}" Header="{Binding LocalizedStrings.BrowseMoviesAll, Source={StaticResource LocalizedStrings}}">
+            <controls:PivotItem DataContext="{Binding MoviesViewSource}" Header="{Binding LocalizedStrings.BrowseMovies, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource MovieTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
                     EmptyText="{Binding LocalizedStrings.BrowseMoviesNoMovies, Source={StaticResource LocalizedStrings}}"
-                    />
-            </controls:PivotItem>
-            <controls:PivotItem DataContext="{Binding UnwatchedMoviesViewSource}" Header="{Binding LocalizedStrings.BrowseMoviesUnwatched, Source={StaticResource LocalizedStrings}}">
-                <controls:LongListSelectorEx
-                    Style="{StaticResource LibraryListStyle}"
-                    ItemTemplate="{StaticResource MovieTemplate}"
-                    ItemsSource="{Binding Items}"
-                    IsGroupingEnabled="{Binding IsGroupedList}"
-                    EmptyText="{Binding LocalizedStrings.BrowseMoviesNoUnwatchedMovies, Source={StaticResource LocalizedStrings}}"
-                    />
-            </controls:PivotItem>
-            <controls:PivotItem DataContext="{Binding MovieGenresViewSource}" Header="{Binding LocalizedStrings.BrowseGenres, Source={StaticResource LocalizedStrings}}">
-                <controls:LongListSelectorEx
-                    Style="{StaticResource LibraryListStyle}"
-                    ItemTemplate="{StaticResource GenreTemplate}"
-                    ItemsSource="{Binding Items}"
-                    IsGroupingEnabled="{Binding IsGroupedList}"
-                    EmptyText="{Binding LocalizedStrings.BrowseGenresNoGenres, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
         </controls:Pivot>

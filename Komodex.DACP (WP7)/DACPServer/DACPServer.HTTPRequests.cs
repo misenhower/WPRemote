@@ -91,7 +91,7 @@ namespace Komodex.DACP
             }
         }
 
-        internal async Task<IDACPList> GetAlphaGroupedListAsync<T>(DACPRequest request, Func<DACPNodeDictionary, T> itemGenerator, string listKey = DACPUtility.DefaultListKey)
+        internal async Task<IDACPList> GetAlphaGroupedListAsync<T>(DACPRequest request, Func<byte[], T> itemGenerator, string listKey = DACPUtility.DefaultListKey)
         {
             try
             {
@@ -103,6 +103,11 @@ namespace Komodex.DACP
                 HandleHTTPException(request, e);
                 return null;
             }
+        }
+
+        internal Task<IDACPList> GetAlphaGroupedListAsync<T>(DACPRequest request, Func<DACPNodeDictionary, T> itemGenerator, string listKey = DACPUtility.DefaultListKey)
+        {
+            return GetAlphaGroupedListAsync(request, b => itemGenerator(DACPNodeDictionary.Parse(b)), listKey);
         }
 
         #endregion

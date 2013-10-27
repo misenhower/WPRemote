@@ -16,6 +16,7 @@ using Komodex.DACP.Groups;
 using Komodex.DACP;
 using Komodex.DACP.Databases;
 using Komodex.DACP.Containers;
+using Komodex.DACP.Genres;
 
 namespace Komodex.Remote
 {
@@ -115,6 +116,11 @@ namespace Komodex.Remote
         public static void OpenMoviesPage(DACPDatabase database)
         {
             Navigate("/Pages/Browse/Movies/MoviesPage.xaml?databaseID={0}", database.ID);
+        }
+
+        public static void OpenMovieGenrePage(DACPGenre genre)
+        {
+            Navigate("/Pages/Browse/Movies/MovieGenrePage.xaml?databaseID={0}&genre={1}", genre.Database.ID, Uri.EscapeDataString(genre.Name));
         }
 
         #endregion

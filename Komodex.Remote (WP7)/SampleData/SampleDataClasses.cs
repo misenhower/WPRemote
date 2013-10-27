@@ -43,6 +43,14 @@ namespace Komodex.Remote.SampleData
 
     #endregion
 
+    #region Genres
+
+    public class SampleDataDACPGenre:SampleDataDACPElement
+    {
+    }
+
+    #endregion
+
     #region Items
 
     public class SampleDataDACPItem : SampleDataDACPElement
@@ -148,6 +156,13 @@ namespace Komodex.Remote.SampleData
     {
         public SampleDataDACPElementViewSource<SampleDataMovie> MoviesViewSource { get; set; }
         public SampleDataDACPElementViewSource<SampleDataMovie> UnwatchedMoviesViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataDACPGenre> MovieGenresViewSource { get; set; }
+    }
+
+    public class SampleDataMovieGenrePage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public string CurrentGenreName { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataMovie> MoviesViewSource { get; set; }
     }
 
     public class SampleDataTVShowsPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>

@@ -46,5 +46,16 @@ namespace Komodex.DACP.Containers
         }
 
         #endregion
+
+        #region Movies by Genre
+
+        public Task<IDACPList> GetGenreMoviesAsync(string genreName)
+        {
+            var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songgenre", genreName), MediaKindQuery);
+            DACPRequest request = GetItemsRequest(query, "name", true);
+            return Server.GetAlphaGroupedListAsync(request, n => new Movie(this, n));
+        }
+
+        #endregion
     }
 }
