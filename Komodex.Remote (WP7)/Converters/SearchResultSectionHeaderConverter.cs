@@ -27,6 +27,10 @@ namespace Komodex.Remote.Converters
                 // Songs
                 if (type == typeof(Song))
                     return LocalizedStrings.LibrarySongsPivotItem;
+
+                // Movies
+                if (type == typeof(Movie))
+                    return LocalizedStrings.BrowseMovies;
             }
 
             return null;

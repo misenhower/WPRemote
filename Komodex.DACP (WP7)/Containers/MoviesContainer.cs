@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Komodex.DACP.Containers
@@ -54,6 +55,23 @@ namespace Komodex.DACP.Containers
             var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songgenre", genreName), MediaKindQuery);
             DACPRequest request = GetItemsRequest(query, "name", true);
             return Server.GetAlphaGroupedListAsync(request, n => new Movie(this, n));
+        }
+
+        #endregion
+
+        #region Movie Search
+
+        public async Task<List<Movie>> SearchMoviesAsync(string searchString, CancellationToken cancellationToken)
+        {
+            DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("dmap.itemname", searchString), MediaKindQuery);
+            DACPRequest request = GetItemsRequest(query, "name", false);
+            request.CancellationToken = cancellationToken;
+            try
+            {
+                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+                return DACPUtility.GetItemsFromNodes(response.Nodes, n => new Movie(this, n)).ToList();
+            }
+            catch { return null; }
         }
 
         #endregion

@@ -29,6 +29,10 @@ namespace Komodex.Remote.Converters
             if (type == typeof(Song))
                 return ((Song)value).ArtistAndAlbumName;
 
+            // Movies
+            if (type == typeof(Movie))
+                return ((Movie)value).ArtistName;
+
             return null;
         }
 
