@@ -73,21 +73,21 @@ namespace Komodex.Remote.Converters
             throw new NotImplementedException();
         }
 
-        protected string FormattedSeason(int season)
+        public static string FormattedSeason(int season)
         {
             if (season <= 0)
                 return null;
             return string.Format(LocalizedStrings.BrowseTVShowsSeason, season);
         }
 
-        protected string FormattedEpisode(int episode)
+        public static string FormattedEpisode(int episode)
         {
             if (episode <= 0)
                 return null;
             return string.Format(LocalizedStrings.BrowseTVShowsEpisode, episode);
         }
 
-        protected string FormattedSeasonEpisode(int season, int episode)
+        public static string FormattedSeasonEpisode(int season, int episode)
         {
             if (season <= 0)
                 return FormattedEpisode(episode);
@@ -96,7 +96,7 @@ namespace Komodex.Remote.Converters
             return string.Format(LocalizedStrings.BrowseTVShowsSeasonAndEpisode, season, episode);
         }
 
-        protected string FormattedTitleSeason(string title, int season)
+        public static string FormattedTitleSeason(string title, int season)
         {
             if (string.IsNullOrEmpty(title) || season <= 0)
                 return title;

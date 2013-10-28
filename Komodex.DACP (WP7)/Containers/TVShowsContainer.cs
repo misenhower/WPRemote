@@ -1,4 +1,5 @@
-﻿using Komodex.DACP.Databases;
+﻿using Komodex.Common;
+using Komodex.DACP.Databases;
 using Komodex.DACP.Groups;
 using Komodex.DACP.Items;
 using Komodex.DACP.Queries;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Komodex.DACP.Containers
@@ -68,6 +70,31 @@ namespace Komodex.DACP.Containers
             if (shows == null)
                 return null;
             return shows.Where(s => s.Episodes.Any(e => e.PlayedState != ItemPlayedState.HasBeenPlayed)).ToList();
+        }
+
+        #endregion
+
+        #region Show/Episode Search
+
+        public async Task<IEnumerable<TVShow>> SearchShowsAsync(string searchString, CancellationToken cancellationToken)
+        {
+            var shows = await GetShowsAsync();
+            if (shows == null)
+                return null;
+
+            searchString = searchString.Trim('*');
+            return shows.Where(s => s.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public async Task<IEnumerable<TVShowEpisode>> SearchEpisodesAsync(string searchString, CancellationToken cancellationToken)
+        {
+            var shows = await GetShowsAsync();
+            if (shows == null)
+                return null;
+
+            searchString = searchString.Trim('*');
+            var episodes = shows.SelectMany(s => s.Episodes);
+            return episodes.Where(e => e.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase));
         }
 
         #endregion

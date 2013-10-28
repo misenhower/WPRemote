@@ -31,6 +31,18 @@ namespace Komodex.Remote.Converters
                 // Movies
                 if (type == typeof(Movie))
                     return LocalizedStrings.BrowseMovies;
+
+                // Podcasts
+                if (type == typeof(Podcast))
+                    return LocalizedStrings.BrowsePodcasts;
+
+                // TV Shows
+                if (type == typeof(TVShow))
+                    return LocalizedStrings.BrowseTVShows;
+
+                // TV Show Episodes
+                if (type == typeof(TVShowEpisode))
+                    return LocalizedStrings.BrowseTVShowsEpisodes;
             }
 
             return null;

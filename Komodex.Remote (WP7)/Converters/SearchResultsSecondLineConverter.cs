@@ -33,6 +33,21 @@ namespace Komodex.Remote.Converters
             if (type == typeof(Movie))
                 return ((Movie)value).ArtistName;
 
+            // Podcasts
+            if (type == typeof(Podcast))
+                return ((Podcast)value).ArtistName;
+
+            // TV Shows
+            if (type == typeof(TVShow))
+                return TVShowSeasonEpisodeTextConverter.FormattedSeason(((TVShow)value).SeasonNumber);
+
+            // TV Show Episodes
+            if (type == typeof(TVShowEpisode))
+            {
+                var episode = (TVShowEpisode)value;
+                return TVShowSeasonEpisodeTextConverter.FormattedTitleSeason(episode.SeriesName, episode.SeasonNumber);
+            }
+
             return null;
         }
 
