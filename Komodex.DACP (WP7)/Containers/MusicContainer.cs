@@ -85,12 +85,17 @@ namespace Komodex.DACP.Containers
             return Artists[artistID];
         }
 
-        public Task<List<Artist>> SearchArtistsAsync(string searchString, CancellationToken cancellationToken)
+        public async Task<List<Artist>> SearchArtistsAsync(string searchString, CancellationToken cancellationToken)
         {
             DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songartist", searchString), DACPQueryPredicate.IsNotEmpty("daap.songartist"), MediaKindQuery);
             DACPRequest request = GetGroupsRequest(query, false, "artists");
             request.CancellationToken = cancellationToken;
-            return Server.GetListAsync(request, n => new Artist(this, n));
+            try
+            {
+                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+                return DACPUtility.GetItemsFromNodes(response.Nodes, n => new Artist(this, n)).ToList();
+            }
+            catch { return null; }
         }
 
         #endregion
@@ -157,24 +162,34 @@ namespace Komodex.DACP.Containers
             return Albums[albumID];
         }
 
-        public Task<List<Album>> SearchAlbumsAsync(string searchString, CancellationToken cancellationToken)
+        public async Task<List<Album>> SearchAlbumsAsync(string searchString, CancellationToken cancellationToken)
         {
             DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songalbum", searchString), DACPQueryPredicate.IsNotEmpty("daap.songalbum"), MediaKindQuery);
             DACPRequest request = GetGroupsRequest(query, false, "albums");
             request.CancellationToken = cancellationToken;
-            return Server.GetListAsync(request, n => new Album(this, n));
+            try
+            {
+                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+                return DACPUtility.GetItemsFromNodes(response.Nodes, n => new Album(this, n)).ToList();
+            }
+            catch { return null; }
         }
 
         #endregion
 
         #region Songs
 
-        public Task<List<Song>> SearchSongsAsync(string searchString, CancellationToken cancellationToken)
+        public async Task<List<Song>> SearchSongsAsync(string searchString, CancellationToken cancellationToken)
         {
             DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("dmap.itemname", searchString), MediaKindQuery);
             DACPRequest request = GetItemsRequest(query, "name", false);
             request.CancellationToken = cancellationToken;
-            return Server.GetListAsync(request, n => new Song(this, n));
+            try
+            {
+                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+                return DACPUtility.GetItemsFromNodes(response.Nodes, n => new Song(this, n)).ToList();
+            }
+            catch { return null; }
         }
 
         #endregion

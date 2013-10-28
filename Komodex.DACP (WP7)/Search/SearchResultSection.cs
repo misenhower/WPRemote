@@ -31,6 +31,8 @@ namespace Komodex.DACP.Search
         public async Task SearchAsync(CancellationToken cancellationToken)
         {
             var items = await _action(Database, cancellationToken).ConfigureAwait(false);
+            if (items == null)
+                return;
             Utility.BeginInvokeOnUIThread(() => AddRange(items));
         }
 

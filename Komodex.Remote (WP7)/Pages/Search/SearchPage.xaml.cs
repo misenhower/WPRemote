@@ -10,15 +10,50 @@ using Microsoft.Phone.Shell;
 using Komodex.DACP.Search;
 using System.Windows.Input;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace Komodex.Remote.Pages.Search
 {
     public partial class SearchPage : RemoteBasePage
     {
+#if WP7
+        private readonly TimeSpan SearchDelay = TimeSpan.FromMilliseconds(500);
+#else
+        private readonly TimeSpan SearchDelay = TimeSpan.FromMilliseconds(300);
+#endif
+
         public SearchPage()
         {
             InitializeComponent();
+
+            Loaded += SearchPage_Loaded;
+
+            _beginSearchTimer = new DispatcherTimer();
+            _beginSearchTimer.Interval = SearchDelay;
+            _beginSearchTimer.Tick += BeginSearchTimer_Tick;
         }
+
+        
+        private void SearchPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= SearchPage_Loaded;
+            SearchTextBox.Focus();
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _beginSearchTimer.Stop();
+            _beginSearchTimer.Start();
+            
+        }
+
+        private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                SearchResultsListBox.Focus();
+        }
+
+        #region CurrentSearchResults Property
 
         public static readonly DependencyProperty CurrentSearchResultsProperty =
             DependencyProperty.Register("CurrentSearchResults", typeof(DACPSearchResults), typeof(SearchPage), new PropertyMetadata(null));
@@ -29,18 +64,44 @@ namespace Komodex.Remote.Pages.Search
             set { SetValue(CurrentSearchResultsProperty, value); }
         }
 
-        private async void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        #endregion
+
+        #region Search Results
+
+        private readonly DispatcherTimer _beginSearchTimer;
+        private CancellationTokenSource _cancellationTokenSource;
+
+        private void BeginSearchTimer_Tick(object sender, EventArgs e)
         {
-            CurrentSearchResults = new DACPSearchResults(CurrentServer.MainDatabase, SearchTextBox.Text.Trim());
-            SetProgressIndicator(null, true);
-            await CurrentSearchResults.SearchAsync(CancellationToken.None);
-            ClearProgressIndicator();
+            _beginSearchTimer.Stop();
+            StartNewSearch(SearchTextBox.Text.Trim());
         }
 
-        private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
+        protected async void StartNewSearch(string searchString)
         {
-            if (e.Key == Key.Enter)
-                SearchResultsListBox.Focus();
+            // Stop the previous search requests
+            if (_cancellationTokenSource != null)
+                _cancellationTokenSource.Cancel();
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                CurrentSearchResults = null;
+                ClearProgressIndicator();
+                return;
+            }
+
+            // Begin a new search
+            var results = new DACPSearchResults(CurrentServer.MainDatabase, searchString);
+            SetProgressIndicator(null, true);
+            _cancellationTokenSource = new CancellationTokenSource();
+            CurrentSearchResults = results;
+            try { await CurrentSearchResults.SearchAsync(_cancellationTokenSource.Token); }
+            catch { }
+            if (results == CurrentSearchResults)
+                ClearProgressIndicator();
         }
+
+        #endregion
+
     }
 }

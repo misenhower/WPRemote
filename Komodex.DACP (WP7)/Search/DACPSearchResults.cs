@@ -31,7 +31,15 @@ namespace Komodex.DACP.Search
         public async Task SearchAsync(CancellationToken cancellationToken)
         {
             foreach (var item in this)
-                await item.SearchAsync(cancellationToken).ConfigureAwait(false);
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+                try
+                {
+                    await item.SearchAsync(cancellationToken).ConfigureAwait(false);
+                }
+                catch { }
+            }
 
             // NOTE: All of the returned Tasks could be sent to Task.WhenAll to perform searches simultaneously.
             // TODO: Determine whether search method should be changed.
