@@ -663,4 +663,10 @@
   <data name="BrowseGenresNoGenres" xml:space="preserve">
     <value>Keine Genres</value>
   </data>
+  <data name="SearchPageNoResultsFound" xml:space="preserve">
+    <value>Keine Ergebnisse gefunden</value>
+  </data>
+  <data name="SearchPageSearching" xml:space="preserve">
+    <value>Suchen …</value>
+  </data>
 </root>

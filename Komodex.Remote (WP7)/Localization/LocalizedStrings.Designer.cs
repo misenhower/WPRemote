@@ -1195,6 +1195,24 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No results found.
+        /// </summary>
+        public static string SearchPageNoResultsFound {
+            get {
+                return ResourceManager.GetString("SearchPageNoResultsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searching….
+        /// </summary>
+        public static string SearchPageSearching {
+            get {
+                return ResourceManager.GetString("SearchPageSearching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SEARCH LIBRARY.
         /// </summary>
         public static string SearchPageTitle {

@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Komodex.DACP.Search;
-using System.Windows.Input;
-using System.Threading;
-using System.Windows.Threading;
+﻿using Clarity.Phone.Controls.Animations;
 using Komodex.Common.Phone.Controls;
 using Komodex.DACP;
 using Komodex.DACP.Groups;
 using Komodex.DACP.Items;
-using Clarity.Phone.Controls.Animations;
+using Komodex.DACP.Search;
+using Komodex.Remote.Localization;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace Komodex.Remote.Pages.Search
 {
@@ -24,7 +25,7 @@ namespace Komodex.Remote.Pages.Search
 #if WP7
         private readonly TimeSpan SearchDelay = TimeSpan.FromMilliseconds(500);
 #else
-        private readonly TimeSpan SearchDelay = TimeSpan.FromMilliseconds(300);
+        private readonly TimeSpan SearchDelay = TimeSpan.FromMilliseconds(250);
 #endif
 
         public SearchPage()
@@ -47,9 +48,7 @@ namespace Komodex.Remote.Pages.Search
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _beginSearchTimer.Stop();
-            _beginSearchTimer.Start();
-
+            CreateNewSearch(SearchTextBox.Text.Trim());
         }
 
         private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -97,31 +96,51 @@ namespace Komodex.Remote.Pages.Search
         private void BeginSearchTimer_Tick(object sender, EventArgs e)
         {
             _beginSearchTimer.Stop();
-            StartNewSearch(SearchTextBox.Text.Trim());
+            StartSearch();
         }
 
-        protected async void StartNewSearch(string searchString)
+        protected void CreateNewSearch(string searchString)
         {
+            if (CurrentSearchResults != null && CurrentSearchResults.SearchString == searchString)
+                return;
+
+            _beginSearchTimer.Stop();
+
             // Stop the previous search requests
             if (_cancellationTokenSource != null)
                 _cancellationTokenSource.Cancel();
 
             if (string.IsNullOrEmpty(searchString))
             {
+                SearchResultsListBox.EmptyText = null;
                 CurrentSearchResults = null;
                 ClearProgressIndicator();
                 return;
             }
 
-            // Begin a new search
-            var results = new DACPSearchResults(CurrentServer.MainDatabase, searchString);
+            // Create the new search results object and indicate "searching"
+            SearchResultsListBox.EmptyText = LocalizedStrings.SearchPageSearching;
+            CurrentSearchResults = new DACPSearchResults(CurrentServer.MainDatabase, searchString);
             SetProgressIndicator(null, true);
+            _beginSearchTimer.Start();
+        }
+
+        protected async void StartSearch()
+        {
+            DACPSearchResults results = CurrentSearchResults;
+            if (results == null)
+                return;
+
             _cancellationTokenSource = new CancellationTokenSource();
-            CurrentSearchResults = results;
-            try { await CurrentSearchResults.SearchAsync(_cancellationTokenSource.Token); }
+
+            // Begin searching
+            try { await results.SearchAsync(_cancellationTokenSource.Token); }
             catch { }
             if (results == CurrentSearchResults)
+            {
+                SearchResultsListBox.EmptyText = LocalizedStrings.SearchPageNoResultsFound;
                 ClearProgressIndicator();
+            }
         }
 
         #endregion
