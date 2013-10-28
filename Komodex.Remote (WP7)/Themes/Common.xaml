@@ -28,6 +28,8 @@
     <appConverters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
     <appConverters:ServerTypeToImageSourceConverter x:Key="ServerTypeToImageSourceConverter" />
     <appConverters:TVShowSeasonEpisodeTextConverter x:Key="TVShowSeasonEpisodeTextConverter" />
+    <appConverters:SearchResultsSecondLineConverter x:Key="SearchResultsSecondLineConverter" />
+    <appConverters:SearchResultSectionHeaderConverter x:Key="SearchResultSectionHeaderConverter" />
 
     <!-- Page Style -->
     <Style x:Key="RemotePageStyle" TargetType="phone:PhoneApplicationPage">

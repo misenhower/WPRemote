@@ -139,6 +139,8 @@
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
     <Compile Include="Controls\PlaylistItemDataTemplateSelector.cs" />
     <Compile Include="Converters\PlaylistTypeToImageSourceConverter.cs" />
+    <Compile Include="Converters\SearchResultSectionHeaderConverter.cs" />
+    <Compile Include="Converters\SearchResultsSecondLineConverter.cs" />
     <Compile Include="Converters\ServerTypeToImageSourceConverter.cs" />
     <Compile Include="Converters\TVShowSeasonEpisodeTextConverter.cs" />
     <Compile Include="Data\DACPElementViewSource.cs" />

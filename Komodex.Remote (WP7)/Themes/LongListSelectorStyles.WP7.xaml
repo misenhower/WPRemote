@@ -67,6 +67,36 @@
         </Border>
     </DataTemplate>
 
+    <!-- Search Results Group Templates -->
+    <DataTemplate x:Key="SearchResultsSectionGroupHeaderTemplate">
+        <my:FakeButton>
+            <Border Background="Transparent">
+                <TextBlock Text="{Binding ResultType, Converter={StaticResource SearchResultSectionHeaderConverter}}"
+                           Style="{StaticResource PhoneTextBlockBase}"
+                           FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                           FontSize="{StaticResource PhoneFontSizeLarge}"
+                           Margin="{StaticResource ListItemTextMargin}"
+                           Foreground="{StaticResource PhoneAccentBrush}"
+                           />
+            </Border>
+        </my:FakeButton>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SearchResultsSectionGroupItemTemplate">
+        <Border Background="{Binding HasItems, Converter={StaticResource JumpListBackgroundBrushConverter}}"
+                Margin="{StaticResource PhoneTouchTargetOverhang}"
+                Padding="{StaticResource PhoneTouchTargetOverhang}"
+                MinWidth="432"
+                IsHitTestVisible="{Binding HasItems}"
+                >
+            <TextBlock Text="{Binding ResultType, Converter={StaticResource SearchResultSectionHeaderConverter}}"
+                       FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                       FontSize="32"
+                       Foreground="{Binding HasItems, Converter={StaticResource JumpListForegroundBrushConverter}}"
+                       />
+        </Border>
+    </DataTemplate>
+
     <!-- Library List Style Base -->
     <Style x:Key="LibraryListStyleBase" TargetType="controls:LongListSelectorEx">
         <Setter Property="Background" Value="Transparent" />
@@ -87,10 +117,16 @@
         </Setter>
     </Style>
     
-    <!-- Search Results Style -->
+    <!-- Wide Group Header Style -->
     <Style x:Key="WideHeaderListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
         <Setter Property="GroupItemTemplate" Value="{StaticResource WideGroupItemTemplate}" />
         <Setter Property="GroupHeaderTemplate" Value="{StaticResource WideGroupHeaderTemplate}" />
+    </Style>
+
+    <!-- Search Results Style -->
+    <Style x:Key="SearchResultsListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
+        <Setter Property="GroupItemTemplate" Value="{StaticResource SearchResultsSectionGroupItemTemplate}" />
+        <Setter Property="GroupHeaderTemplate" Value="{StaticResource SearchResultsSectionGroupHeaderTemplate}" />
     </Style>
 
 </ResourceDictionary>

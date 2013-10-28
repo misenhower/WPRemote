@@ -17,6 +17,26 @@
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     >
 
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="SearchResultsItemTemplate">
+            <Grid Margin="{StaticResource ListItemMargin}" Height="75">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Background="{StaticResource PhoneChromeBrush}">
+                    <Image delay:LowProfileImageLoader.UriSource="{Binding Artwork75pxURI}" Style="{StaticResource ListItemImageStyle}" />
+                </Border>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextLargeStyle}" />
+                    <TextBlock Text="{Binding Converter={StaticResource SearchResultsSecondLineConverter}}" Style="{StaticResource ListItemTextSubtleStyle}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -38,9 +58,10 @@
         <Grid Grid.Row="2" Margin="12,0,12,0">
             <controls:LongListSelectorEx
                 x:Name="SearchResultsListBox"
-                Style="{StaticResource WideHeaderListStyle}"
+                Style="{StaticResource SearchResultsListStyle}"
                 ItemsSource="{Binding CurrentSearchResults}"
                 IsGroupingEnabled="True"
+                ItemTemplate="{StaticResource SearchResultsItemTemplate}"
                 />
         </Grid>
     </Grid>

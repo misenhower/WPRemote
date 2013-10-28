@@ -172,6 +172,12 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\PlaylistTypeToImageSourceConverter.cs">
       <Link>Converters\PlaylistTypeToImageSourceConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\SearchResultSectionHeaderConverter.cs">
+      <Link>Converters\SearchResultSectionHeaderConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\SearchResultsSecondLineConverter.cs">
+      <Link>Converters\SearchResultsSecondLineConverter.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\ServerTypeToImageSourceConverter.cs">
       <Link>Converters\ServerTypeToImageSourceConverter.cs</Link>
     </Compile>
