@@ -11,6 +11,11 @@ using Komodex.DACP.Search;
 using System.Windows.Input;
 using System.Threading;
 using System.Windows.Threading;
+using Komodex.Common.Phone.Controls;
+using Komodex.DACP;
+using Komodex.DACP.Groups;
+using Komodex.DACP.Items;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.Remote.Pages.Search
 {
@@ -33,7 +38,7 @@ namespace Komodex.Remote.Pages.Search
             _beginSearchTimer.Tick += BeginSearchTimer_Tick;
         }
 
-        
+
         private void SearchPage_Loaded(object sender, RoutedEventArgs e)
         {
             Loaded -= SearchPage_Loaded;
@@ -44,13 +49,31 @@ namespace Komodex.Remote.Pages.Search
         {
             _beginSearchTimer.Stop();
             _beginSearchTimer.Start();
-            
+
         }
 
         private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
                 SearchResultsListBox.Focus();
+        }
+
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            if (toOrFrom.OriginalString.StartsWith("/Pages/Browse/"))
+            {
+                if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
+                {
+                    if (_lastTappedItem != null)
+                    {
+                        var contentPresenter = SearchResultsListBox.GetContentPresenterForItem(_lastTappedItem);
+                        if (contentPresenter != null)
+                            return GetContinuumAnimation(contentPresenter, animationType);
+                    }
+                }
+            }
+
+            return base.GetAnimation(animationType, toOrFrom);
         }
 
         #region CurrentSearchResults Property
@@ -99,6 +122,42 @@ namespace Komodex.Remote.Pages.Search
             catch { }
             if (results == CurrentSearchResults)
                 ClearProgressIndicator();
+        }
+
+        #endregion
+
+        #region List Actions
+
+        private object _lastTappedItem;
+
+        private void SearchResultsListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            LongListSelectorEx list = (LongListSelectorEx)sender;
+            var selectedItem = list.SelectedItem as DACPElement;
+
+            // Clear out the selected item
+            list.SelectedItem = null;
+
+            // Make sure a DACPElement was selected
+            if (selectedItem == null)
+                return;
+
+            _lastTappedItem = selectedItem;
+
+            if (selectedItem is Album)
+            {
+                NavigationManager.OpenAlbumPage((Album)selectedItem);
+                return;
+            }
+            if (selectedItem is Artist)
+            {
+                NavigationManager.OpenArtistPage((Artist)selectedItem);
+                return;
+            }
+            if (selectedItem is Song)
+            {
+                // TODO
+            }
         }
 
         #endregion

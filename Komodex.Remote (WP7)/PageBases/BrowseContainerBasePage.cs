@@ -68,7 +68,10 @@ namespace Komodex.Remote
 
         protected virtual bool ShouldShowContinuumTransition(AnimationType animationType, Uri toOrFrom)
         {
-            return toOrFrom.OriginalString.StartsWith("/Pages/Browse");
+            var uri = toOrFrom.OriginalString;
+            if (uri.StartsWith("/Pages/Browse/") || uri.StartsWith("/Pages/Search/"))
+                return true;
+            return false;
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)

@@ -61,6 +61,7 @@
                 Style="{StaticResource SearchResultsListStyle}"
                 ItemsSource="{Binding CurrentSearchResults}"
                 IsGroupingEnabled="True"
+                Tap="SearchResultsListBox_Tap"
                 ItemTemplate="{StaticResource SearchResultsItemTemplate}"
                 />
         </Grid>
