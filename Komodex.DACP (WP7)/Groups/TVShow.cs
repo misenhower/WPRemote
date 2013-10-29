@@ -65,7 +65,7 @@ namespace Komodex.DACP.Groups
             }
 
             if (result.Count == 0)
-                return null;
+                return new DACPList<TVShowEpisode>(false);
 
             if (result.Count == 1 && string.IsNullOrEmpty(result[0].Key))
                 return result[0].ToDACPList();
