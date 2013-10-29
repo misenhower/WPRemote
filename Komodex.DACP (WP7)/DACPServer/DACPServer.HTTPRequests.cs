@@ -89,10 +89,9 @@ namespace Komodex.DACP
                 var response = await SubmitRequestAsync(request).ConfigureAwait(false);
                 return DACPUtility.GetItemsFromNodes(response.Nodes, itemGenerator, listKey).ToList();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                HandleHTTPException(request, e);
-                return null;
+                return new List<T>();
             }
         }
 
@@ -103,10 +102,9 @@ namespace Komodex.DACP
                 var response = await SubmitRequestAsync(request).ConfigureAwait(false);
                 return DACPUtility.GetAlphaGroupedDACPList(response.Nodes, itemGenerator, listKey);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                HandleHTTPException(request, e);
-                return null;
+                return new DACPList<T>(false);
             }
         }
 

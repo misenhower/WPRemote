@@ -48,7 +48,11 @@ namespace Komodex.DACP
 
         public static IEnumerable<T> GetItemsFromNodes<T>(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator, string listKey = DefaultListKey)
         {
-            return GetResponseNodes(nodes.First(n => n.Key == listKey).Value).Where(n => n.Key == "mlit").Select(n => itemGenerator(n.Value));
+            var node = nodes.FirstOrDefault(n => n.Key == listKey);
+            if (node == null)
+                return Enumerable.Empty<T>();
+
+            return GetResponseNodes(node.Value).Where(n => n.Key == "mlit").Select(n => itemGenerator(n.Value));
         }
 
         public static IEnumerable<T> GetItemsFromNodes<T>(byte[] data, Func<DACPNodeDictionary, T> itemGenerator, string listKey = DefaultListKey)
