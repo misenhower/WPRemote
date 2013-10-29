@@ -76,6 +76,17 @@ namespace Komodex.Remote
             return viewSource;
         }
 
+        protected DACPElementViewSource<T> GetContainerViewSource(Func<T, IList> dataRetrievalAction)
+        {
+            Func<T, Task<IList>> action;
+#if WP7
+            action = c => TaskEx.FromResult(dataRetrievalAction(c));
+#else
+            action = c => Task.FromResult(dataRetrievalAction(c));
+#endif
+            return GetContainerViewSource(action);
+        }
+
         protected override void UpdateViewSources()
         {
             base.UpdateViewSources();

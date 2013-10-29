@@ -89,6 +89,17 @@ namespace Komodex.Remote
             return viewSource;
         }
 
+        protected DACPElementViewSource<TGroup> GetGroupViewSource(Func<TGroup, IList> dataRetrievalAction)
+        {
+            Func<TGroup, Task<IList>> action;
+#if WP7
+            action = g => TaskEx.FromResult(dataRetrievalAction(g));
+#else
+            action = g => Task.FromResult(dataRetrievalAction(g));
+#endif
+            return GetGroupViewSource(action);
+        }
+
         protected override void UpdateViewSources()
         {
             base.UpdateViewSources();

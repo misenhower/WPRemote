@@ -201,6 +201,17 @@ namespace Komodex.Remote
             return viewSource;
         }
 
+        protected DACPElementViewSource<DACPDatabase> GetDatabaseViewSource(Func<DACPDatabase, IList> dataRetrievalAction)
+        {
+            Func<DACPDatabase, Task<IList>> action;
+#if WP7
+            action = db => TaskEx.FromResult(dataRetrievalAction(db));
+#else
+            action = db => Task.FromResult(dataRetrievalAction(db));
+#endif
+            return GetDatabaseViewSource(action);
+        }
+
         protected virtual void UpdateViewSources()
         {
             foreach (var viewSource in _viewSources.OfType<DACPElementViewSource<DACPDatabase>>())

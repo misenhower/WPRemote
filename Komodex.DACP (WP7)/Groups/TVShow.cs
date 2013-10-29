@@ -73,24 +73,6 @@ namespace Komodex.DACP.Groups
             return result;
         }
 
-        public Task<IDACPList> GetEpisodesAsync()
-        {
-#if WP7
-            return TaskEx.FromResult(GroupedEpisodes);
-#else
-            return Task.FromResult(GroupedEpisodes);
-#endif
-        }
-
-        public Task<IDACPList> GetUnwatchedEpisodesAsync()
-        {
-#if WP7
-            return TaskEx.FromResult(GroupedUnwatchedEpisodes);
-#else
-            return Task.FromResult(GroupedUnwatchedEpisodes);
-#endif
-        }
-
         #endregion
     }
 }
