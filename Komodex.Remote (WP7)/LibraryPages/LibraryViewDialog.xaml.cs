@@ -13,28 +13,34 @@ using Komodex.Common.Phone;
 using Komodex.Remote.Localization;
 using Komodex.DACP;
 using Komodex.Remote.ServerManagement;
+using Komodex.DACP.Databases;
 
 namespace Komodex.Remote.LibraryPages
 {
     public partial class LibraryViewDialog : DialogUserControlBase
     {
-        public LibraryViewDialog()
+        public LibraryViewDialog(DACPDatabase database)
         {
             InitializeComponent();
 
+            CurrentDatabase = database;
             Loaded += LibraryViewDialog_Loaded;
         }
+
+        public DACPDatabase CurrentDatabase { get; private set; }
 
         private void LibraryViewDialog_Loaded(object sender, RoutedEventArgs e)
         {
             Loaded -= LibraryViewDialog_Loaded;
 
-            // TODO: Create list dynamically from available server containers
             List<LibraryViewItem> items = new List<LibraryViewItem>();
 
-            items.Add(new LibraryViewItem(LocalizedStrings.BrowseMovies, "/Assets/Icons/Videos.png", () => NavigationManager.OpenMoviesPage(ServerManager.CurrentServer.MainDatabase)));
-            items.Add(new LibraryViewItem(LocalizedStrings.BrowseTVShows, "/Assets/Icons/Videos.png", () => NavigationManager.OpenTVShowsPage(ServerManager.CurrentServer.MainDatabase)));
-            items.Add(new LibraryViewItem(LocalizedStrings.BrowsePodcasts, "/Assets/Icons/Podcasts.png", () => NavigationManager.OpenPodcastsPage(ServerManager.CurrentServer.MainDatabase)));
+            if (CurrentDatabase.MoviesContainer != null)
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowseMovies, "/Assets/Icons/Movies.png", () => NavigationManager.OpenMoviesPage(CurrentDatabase)));
+            if (CurrentDatabase.TVShowsContainer != null)
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowseTVShows, "/Assets/Icons/TVShows.png", () => NavigationManager.OpenTVShowsPage(CurrentDatabase)));
+            if (CurrentDatabase.PodcastsContainer != null)
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowsePodcasts, "/Assets/Icons/Podcasts.png", () => NavigationManager.OpenPodcastsPage(CurrentDatabase)));
 
             Items = items;
         }

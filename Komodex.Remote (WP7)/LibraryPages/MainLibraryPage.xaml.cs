@@ -127,7 +127,7 @@ namespace Komodex.Remote.LibraryPages
             if (IsDialogOpen)
                 return;
 
-            ShowDialog(new LibraryViewDialog());
+            ShowDialog(new LibraryViewDialog(CurrentServer.MainDatabase));
         }
 
         #region LongListSelector Tap Event
