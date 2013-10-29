@@ -52,7 +52,8 @@ namespace Komodex.DACP.Containers
 
         public async Task<bool> RequestArtistsAsync()
         {
-            DACPRequest request = GetGroupsRequest(GroupsQuery, true, "artists");
+            var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songartist"), MediaKindQuery);
+            DACPRequest request = GetGroupsRequest(query, true, "artists");
 
             try
             {
