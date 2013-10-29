@@ -191,6 +191,7 @@
     <Compile Include="Navigation\NavigationManager.cs" />
     <Compile Include="PageBases\BrowseContainerBasePage.cs" />
     <Compile Include="PageBases\BrowseGroupBasePage.cs" />
+    <Compile Include="PageBases\BrowseDatabaseBasePage.cs" />
     <Compile Include="PageBases\RemoteBasePage.cs" />
     <Compile Include="Pages\Browse\Movies\MovieGenrePage.xaml.cs">
       <DependentUpon>MovieGenrePage.xaml</DependentUpon>
