@@ -223,7 +223,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Genres.
+        ///   Looks up a localized string similar to No genres.
         /// </summary>
         public static string BrowseGenresNoGenres {
             get {
@@ -277,7 +277,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Movies.
+        ///   Looks up a localized string similar to No movies.
         /// </summary>
         public static string BrowseMoviesNoMovies {
             get {
@@ -286,7 +286,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Unwatched Movies.
+        ///   Looks up a localized string similar to No unwatched movies.
         /// </summary>
         public static string BrowseMoviesNoUnwatchedMovies {
             get {
@@ -331,7 +331,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Episodes.
+        ///   Looks up a localized string similar to No episodes.
         /// </summary>
         public static string BrowsePodcastsNoEpisodes {
             get {
@@ -340,7 +340,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Podcasts.
+        ///   Looks up a localized string similar to No podcasts.
         /// </summary>
         public static string BrowsePodcastsNoPodcasts {
             get {
@@ -349,7 +349,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Unplayed Episodes.
+        ///   Looks up a localized string similar to No unplayed episodes.
         /// </summary>
         public static string BrowsePodcastsNoUnplayedEpisodes {
             get {
@@ -358,7 +358,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Unplayed Podcasts.
+        ///   Looks up a localized string similar to No unplayed podcasts.
         /// </summary>
         public static string BrowsePodcastsNoUnplayedPodcasts {
             get {
@@ -421,7 +421,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Episodes.
+        ///   Looks up a localized string similar to No episodes.
         /// </summary>
         public static string BrowseTVShowsNoEpisodes {
             get {
@@ -430,7 +430,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No TV Shows.
+        ///   Looks up a localized string similar to No TV shows.
         /// </summary>
         public static string BrowseTVShowsNoTVShows {
             get {
@@ -439,7 +439,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Unwatched Episodes.
+        ///   Looks up a localized string similar to No unwatched episodes.
         /// </summary>
         public static string BrowseTVShowsNoUnwatchedEpisodes {
             get {
@@ -448,7 +448,7 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Unwatched TV Shows.
+        ///   Looks up a localized string similar to No unwatched TV shows.
         /// </summary>
         public static string BrowseTVShowsNoUnwatchedTVShows {
             get {

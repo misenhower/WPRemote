@@ -586,10 +586,10 @@
     <value>all</value>
   </data>
   <data name="BrowseMoviesNoMovies" xml:space="preserve">
-    <value>No Movies</value>
+    <value>No movies</value>
   </data>
   <data name="BrowseMoviesNoUnwatchedMovies" xml:space="preserve">
-    <value>No Unwatched Movies</value>
+    <value>No unwatched movies</value>
   </data>
   <data name="BrowseMoviesUnwatched" xml:space="preserve">
     <value>unwatched</value>
@@ -604,10 +604,10 @@
     <value>episodes</value>
   </data>
   <data name="BrowsePodcastsNoPodcasts" xml:space="preserve">
-    <value>No Podcasts</value>
+    <value>No podcasts</value>
   </data>
   <data name="BrowsePodcastsNoUnplayedPodcasts" xml:space="preserve">
-    <value>No Unplayed Podcasts</value>
+    <value>No unplayed podcasts</value>
   </data>
   <data name="BrowsePodcastsUnplayed" xml:space="preserve">
     <value>unplayed</value>
@@ -625,10 +625,10 @@
     <value>HD</value>
   </data>
   <data name="BrowseTVShowsNoTVShows" xml:space="preserve">
-    <value>No TV Shows</value>
+    <value>No TV shows</value>
   </data>
   <data name="BrowseTVShowsNoUnwatchedTVShows" xml:space="preserve">
-    <value>No Unwatched TV Shows</value>
+    <value>No unwatched TV shows</value>
   </data>
   <data name="BrowseTVShowsSeason" xml:space="preserve">
     <value>Season {0}</value>
@@ -643,16 +643,16 @@
     <value>unwatched</value>
   </data>
   <data name="BrowsePodcastsNoEpisodes" xml:space="preserve">
-    <value>No Episodes</value>
+    <value>No episodes</value>
   </data>
   <data name="BrowsePodcastsNoUnplayedEpisodes" xml:space="preserve">
-    <value>No Unplayed Episodes</value>
+    <value>No unplayed episodes</value>
   </data>
   <data name="BrowseTVShowsNoEpisodes" xml:space="preserve">
-    <value>No Episodes</value>
+    <value>No episodes</value>
   </data>
   <data name="BrowseTVShowsNoUnwatchedEpisodes" xml:space="preserve">
-    <value>No Unwatched Episodes</value>
+    <value>No unwatched episodes</value>
   </data>
   <data name="BrowseTVShowsEpisode" xml:space="preserve">
     <value>Episode {0}</value>
@@ -661,7 +661,7 @@
     <value>genres</value>
   </data>
   <data name="BrowseGenresNoGenres" xml:space="preserve">
-    <value>No Genres</value>
+    <value>No genres</value>
   </data>
   <data name="SearchPageNoResultsFound" xml:space="preserve">
     <value>No results found</value>
