@@ -518,6 +518,15 @@
     <Content Include="..\Assets\Icons\GeniusMixes.WXGA.png">
       <Link>Assets\Icons\GeniusMixes.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Movies.720p.png">
+      <Link>Assets\Icons\Movies.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Movies.WVGA.png">
+      <Link>Assets\Icons\Movies.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Movies.WXGA.png">
+      <Link>Assets\Icons\Movies.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Playlist.Folder.720p.png">
       <Link>Assets\Icons\Playlist.Folder.720p.png</Link>
     </Content>
@@ -634,6 +643,15 @@
     </Content>
     <Content Include="..\Assets\Icons\Transport.Rew.WXGA.png">
       <Link>Assets\Icons\Transport.Rew.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\TVShows.720p.png">
+      <Link>Assets\Icons\TVShows.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\TVShows.WVGA.png">
+      <Link>Assets\Icons\TVShows.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\TVShows.WXGA.png">
+      <Link>Assets\Icons\TVShows.WXGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Videos.720p.png">
       <Link>Assets\Icons\Videos.720p.png</Link>

@@ -485,6 +485,9 @@
     <Content Include="..\Assets\Icons\GeniusMixes.WVGA.png">
       <Link>Assets\Icons\GeniusMixes.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Movies.WVGA.png">
+      <Link>Assets\Icons\Movies.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Playlist.Folder.WVGA.png">
       <Link>Assets\Icons\Playlist.Folder.WVGA.png</Link>
     </Content>
@@ -523,6 +526,9 @@
     </Content>
     <Content Include="..\Assets\Icons\Transport.Rew.WVGA.png">
       <Link>Assets\Icons\Transport.Rew.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\TVShows.WVGA.png">
+      <Link>Assets\Icons\TVShows.WVGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Videos.WVGA.png">
       <Link>Assets\Icons\Videos.WVGA.png</Link>
