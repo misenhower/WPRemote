@@ -90,6 +90,7 @@
     <Compile Include="Classes\IDACPList.cs" />
     <Compile Include="Classes\PlayQueue.cs" />
     <Compile Include="Classes\PlayQueueItem.cs" />
+    <Compile Include="Containers\BooksContainer.cs" />
     <Compile Include="Containers\DACPContainer.cs" />
     <Compile Include="Containers\MoviesContainer.cs" />
     <Compile Include="Containers\MusicContainer.cs" />
@@ -101,9 +102,11 @@
     <Compile Include="Genres\DACPGenre.cs" />
     <Compile Include="Groups\Album.cs" />
     <Compile Include="Groups\Artist.cs" />
+    <Compile Include="Groups\Audiobook.cs" />
     <Compile Include="Groups\DACPGroup.cs" />
     <Compile Include="Groups\Podcast.cs" />
     <Compile Include="Groups\TVShow.cs" />
+    <Compile Include="Items\AudiobookEpisode.cs" />
     <Compile Include="Items\DACPItem.cs" />
     <Compile Include="Items\Movie.cs" />
     <Compile Include="Items\PodcastEpisode.cs" />

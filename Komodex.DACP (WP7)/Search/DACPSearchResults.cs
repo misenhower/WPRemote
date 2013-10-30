@@ -32,6 +32,8 @@ namespace Komodex.DACP.Search
                 Add(new SearchResultSection<TVShow>(database, async (db, token) => await db.TVShowsContainer.SearchShowsAsync(wildcardSearch, token)));
                 Add(new SearchResultSection<TVShowEpisode>(database, async (db, token) => await db.TVShowsContainer.SearchEpisodesAsync(wildcardSearch, token)));
             }
+            if (database.BooksContainer != null)
+                Add(new SearchResultSection<Audiobook>(database, async (db, token) => await db.BooksContainer.SearchAudiobooksAsync(wildcardSearch, token)));
         }
 
         public string SearchString { get; private set; }

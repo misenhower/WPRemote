@@ -193,6 +193,12 @@
     <Compile Include="PageBases\BrowseGroupBasePage.cs" />
     <Compile Include="PageBases\BrowseDatabaseBasePage.cs" />
     <Compile Include="PageBases\RemoteBasePage.cs" />
+    <Compile Include="Pages\Browse\Audiobooks\AudiobookEpisodesPage.xaml.cs">
+      <DependentUpon>AudiobookEpisodesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Browse\Audiobooks\AudiobooksPage.xaml.cs">
+      <DependentUpon>AudiobooksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Browse\Movies\MovieGenrePage.xaml.cs">
       <DependentUpon>MovieGenrePage.xaml</DependentUpon>
     </Compile>
@@ -339,6 +345,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\Audiobooks\AudiobookEpisodesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\Audiobooks\AudiobooksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

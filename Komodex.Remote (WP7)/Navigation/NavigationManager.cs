@@ -153,6 +153,20 @@ namespace Komodex.Remote
 
         #endregion
 
+        #region Audiobooks
+
+        public static void OpenAudiobooksPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Browse/Audiobooks/AudiobooksPage.xaml?databaseID={0}", database.ID);
+        }
+
+        public static void OpenAudiobookEpisodesPage(Audiobook audiobook)
+        {
+            Navigate("/Pages/Browse/Audiobooks/AudiobookEpisodesPage.xaml?databaseID={0}&groupID={1}", audiobook.Database.ID, audiobook.ID);
+        }
+
+        #endregion
+
         public static void OpenGenrePage(string genreName)
         {
             genreName = Uri.EscapeDataString(genreName);

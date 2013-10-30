@@ -41,6 +41,11 @@ namespace Komodex.Remote.SampleData
         public string ArtistName { get; set; }
     }
 
+    public class SampleDataAudiobook : SampleDataDACPGroup
+    {
+        public string ArtistName { get; set; }
+    }
+
     #endregion
 
     #region Genres
@@ -106,6 +111,10 @@ namespace Komodex.Remote.SampleData
         {
             get { return string.Join(" – ", DateTime.Now.ToShortDateString(), FormattedDuration); }
         }
+    }
+
+    public class SampleDataAudiobookEpisode : SampleDataDACPItem
+    {
     }
 
     #endregion
@@ -187,6 +196,16 @@ namespace Komodex.Remote.SampleData
     {
         public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> EpisodesViewSource { get; set; }
         public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> UnplayedEpisodesViewSource { get; set; }
+    }
+
+    public class SampleDataAudiobooksPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataDACPElementViewSource<SampleDataAudiobook> AudiobooksViewSource { get; set; }
+    }
+
+    public class SampleDataAudiobookEpisodesPage : SampleDataBrowseGroupBasePage<SampleDataDACPContainer, SampleDataAudiobook>
+    {
+        public SampleDataDACPElementViewSource<SampleDataAudiobookEpisode> EpisodesViewSource { get; set; }
     }
 
     #endregion

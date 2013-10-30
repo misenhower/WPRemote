@@ -134,6 +134,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\ServerUpdateEventArgs.cs">
       <Link>Classes\ServerUpdateEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Containers\BooksContainer.cs">
+      <Link>Containers\BooksContainer.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\DACPContainer.cs">
       <Link>Containers\DACPContainer.cs</Link>
     </Compile>
@@ -182,6 +185,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Groups\Artist.cs">
       <Link>Groups\Artist.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Groups\Audiobook.cs">
+      <Link>Groups\Audiobook.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Groups\DACPGroup.cs">
       <Link>Groups\DACPGroup.cs</Link>
     </Compile>
@@ -190,6 +196,9 @@
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Groups\TVShow.cs">
       <Link>Groups\TVShow.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Items\AudiobookEpisode.cs">
+      <Link>Items\AudiobookEpisode.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Items\DACPItem.cs">
       <Link>Items\DACPItem.cs</Link>

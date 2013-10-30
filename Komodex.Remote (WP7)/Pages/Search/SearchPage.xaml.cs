@@ -203,6 +203,11 @@ namespace Komodex.Remote.Pages.Search
                     RemoteUtility.ShowLibraryError();
                 return;
             }
+            if (selectedItem is Audiobook)
+            {
+                NavigationManager.OpenAudiobookEpisodesPage((Audiobook)selectedItem);
+                return;
+            }
         }
 
         #endregion

@@ -20,7 +20,7 @@ using System.Windows.Navigation;
 namespace Komodex.Remote
 {
     public abstract class BrowseContainerBasePage<T> : BrowseDatabaseBasePage
-        where T: DACPContainer
+        where T : DACPContainer
     {
         protected override void OnDatabaseChanged()
         {
@@ -123,6 +123,14 @@ namespace Komodex.Remote
         protected override TVShowsContainer GetContainer(DACPDatabase database)
         {
             return database.TVShowsContainer;
+        }
+    }
+
+    public abstract class BrowseBooksContainerBasePage : BrowseContainerBasePage<BooksContainer>
+    {
+        protected override BooksContainer GetContainer(DACPDatabase database)
+        {
+            return database.BooksContainer;
         }
     }
 }

@@ -214,6 +214,33 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to audiobook.
+        /// </summary>
+        public static string BrowseAudiobook {
+            get {
+                return ResourceManager.GetString("BrowseAudiobook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to audiobooks.
+        /// </summary>
+        public static string BrowseAudiobooks {
+            get {
+                return ResourceManager.GetString("BrowseAudiobooks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No audiobooks.
+        /// </summary>
+        public static string BrowseAudiobooksNoAudiobooks {
+            get {
+                return ResourceManager.GetString("BrowseAudiobooksNoAudiobooks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to genres.
         /// </summary>
         public static string BrowseGenres {

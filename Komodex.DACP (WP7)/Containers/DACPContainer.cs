@@ -66,6 +66,8 @@ namespace Komodex.DACP.Containers
                     return new TVShowsContainer(database, nodes);
                 case ContainerType.Music:
                     return new MusicContainer(database, nodes);
+                case ContainerType.Books:
+                    return new BooksContainer(database, nodes);
             }
 
             return new DACPContainer(database, nodes);

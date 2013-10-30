@@ -43,6 +43,10 @@ namespace Komodex.Remote.Converters
                 // TV Show Episodes
                 if (type == typeof(TVShowEpisode))
                     return LocalizedStrings.BrowseTVShowsEpisodes;
+
+                // Audiobooks
+                if (type == typeof(Audiobook))
+                    return LocalizedStrings.BrowseAudiobooks;
             }
 
             return null;

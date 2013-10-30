@@ -669,4 +669,13 @@
   <data name="SearchPageSearching" xml:space="preserve">
     <value>Searching…</value>
   </data>
+  <data name="BrowseAudiobook" xml:space="preserve">
+    <value>audiobook</value>
+  </data>
+  <data name="BrowseAudiobooks" xml:space="preserve">
+    <value>audiobooks</value>
+  </data>
+  <data name="BrowseAudiobooksNoAudiobooks" xml:space="preserve">
+    <value>No audiobooks</value>
+  </data>
 </root>

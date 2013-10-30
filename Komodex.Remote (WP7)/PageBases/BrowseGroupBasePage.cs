@@ -136,4 +136,17 @@ namespace Komodex.Remote
             return container.GetShowByIDAsync(groupID);
         }
     }
+
+    public abstract class BrowseAudiobookBasePage : BrowseGroupBasePage<BooksContainer, Audiobook>
+    {
+        protected override BooksContainer GetContainer(DACPDatabase database)
+        {
+            return database.BooksContainer;
+        }
+
+        protected override Task<Audiobook> GetGroup(BooksContainer container, int groupID)
+        {
+            return container.GetAudiobookByIDAsync(groupID);
+        }
+    }
 }

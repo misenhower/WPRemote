@@ -265,6 +265,14 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\PageBases\RemoteBasePage.cs">
       <Link>PageBases\RemoteBasePage.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Audiobooks\AudiobookEpisodesPage.xaml.cs">
+      <Link>Pages\Browse\Audiobooks\AudiobookEpisodesPage.xaml.cs</Link>
+      <DependentUpon>AudiobookEpisodesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Audiobooks\AudiobooksPage.xaml.cs">
+      <Link>Pages\Browse\Audiobooks\AudiobooksPage.xaml.cs</Link>
+      <DependentUpon>AudiobooksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MovieGenrePage.xaml.cs">
       <Link>Pages\Browse\Movies\MovieGenrePage.xaml.cs</Link>
       <DependentUpon>MovieGenrePage.xaml</DependentUpon>
@@ -890,6 +898,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Audiobooks\AudiobookEpisodesPage.xaml">
+      <Link>Pages\Browse\Audiobooks\AudiobookEpisodesPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Audiobooks\AudiobooksPage.xaml">
+      <Link>Pages\Browse\Audiobooks\AudiobooksPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MovieGenrePage.xaml">
       <Link>Pages\Browse\Movies\MovieGenrePage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
