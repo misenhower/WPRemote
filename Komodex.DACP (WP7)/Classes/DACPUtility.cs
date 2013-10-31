@@ -73,8 +73,14 @@ namespace Komodex.DACP
 
         public static IDACPList GetAlphaGroupedDACPList<T>(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator, string listKey = DefaultListKey, bool useGroupMinimums = true)
         {
+            List<T> items;
+            return GetAlphaGroupedDACPList(nodes, itemGenerator, out items, listKey, useGroupMinimums);
+        }
+
+        public static IDACPList GetAlphaGroupedDACPList<T>(IEnumerable<DACPNode> nodes, Func<byte[], T> itemGenerator, out List<T> items, string listKey = DefaultListKey, bool useGroupMinimums = true)
+        {
             var nodeList = nodes.ToList();
-            var items = GetItemsFromNodes(nodeList, itemGenerator, listKey).ToList();
+            items = GetItemsFromNodes(nodeList, itemGenerator, listKey).ToList();
             var headers = nodeList.FirstOrDefault(n => n.Key == "mshl");
             IEnumerable<DACPNode> headerNodes = null;
             if (headers != null)
@@ -86,6 +92,11 @@ namespace Komodex.DACP
         public static IDACPList GetAlphaGroupedDACPList<T>(IEnumerable<DACPNode> nodes, Func<DACPNodeDictionary, T> itemGenerator, string listKey = DefaultListKey, bool useGroupMinimums = true)
         {
             return GetAlphaGroupedDACPList(nodes, d => itemGenerator(DACPNodeDictionary.Parse(d)), listKey, useGroupMinimums);
+        }
+
+        public static IDACPList GetAlphaGroupedDACPList<T>(IEnumerable<DACPNode> nodes, Func<DACPNodeDictionary, T> itemGenerator, out List<T> items, string listKey = DefaultListKey, bool useGroupMinimums = true)
+        {
+            return GetAlphaGroupedDACPList(nodes, d => itemGenerator(DACPNodeDictionary.Parse(d)), out items, listKey, useGroupMinimums);
         }
 
         public static IDACPList GetAlphaGroupedDACPList<T>(List<T> items, IEnumerable<DACPNode> headers, bool useGroupMinimums = true)
@@ -114,7 +125,7 @@ namespace Komodex.DACP
                     processHeaders = true;
                 }
             }
-            
+
             // If we're not processing headers, just return the items in a list
             if (!processHeaders)
                 return items.ToDACPList();
