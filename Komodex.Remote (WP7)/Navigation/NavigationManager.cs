@@ -87,7 +87,7 @@ namespace Komodex.Remote
 
         public static void OpenArtistPage(Artist artist)
         {
-            Navigate("/LibraryPages/ArtistPage.xaml?database={0}&container={1}&artist={2}", artist.Database.ID, artist.Container.ID, artist.ID);
+            Navigate("/Pages/Browse/Music/ArtistPage.xaml?databaseID={0}&groupID={1}", artist.Database.ID, artist.ID);
         }
 
         [Obsolete]
@@ -97,7 +97,7 @@ namespace Komodex.Remote
 
         public static void OpenAlbumPage(Album album)
         {
-            Navigate("/LibraryPages/AlbumPage.xaml?database={0}&container={1}&album={2}", album.Database.ID, album.Container.ID, album.ID);
+            Navigate("/Pages/Browse/Music/AlbumPage.xaml?databaseID={0}&groupID={1}", album.Database.ID, album.ID);
         }
 
         [Obsolete]

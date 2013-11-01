@@ -45,27 +45,11 @@ namespace Komodex.DACP.Groups
 
         #region Albums
 
-        private List<Album> _albums;
-        public List<Album> Albums
-        {
-            get { return _albums; }
-            private set
-            {
-                if (_albums == value)
-                    return;
-                _albums = value;
-                SendPropertyChanged();
-            }
-        }
-
-        public async Task<bool> RequestAlbumsAsync()
+        public Task<List<Album>> GetAlbumsAsync()
         {
             var query = DACPQueryCollection.And(GroupQuery, Container.GroupsQuery);
-            Albums = await Container.GetGroupsAsync(query, n => new Album(Container, n));
-
-            if (Albums == null)
-                return false;
-            return true;
+            DACPRequest request = Container.GetGroupsRequest(query);
+            return Server.GetListAsync(request, n => new Album(Container, n));
         }
 
         #endregion
@@ -73,25 +57,43 @@ namespace Komodex.DACP.Groups
         #region Songs
 
         private List<Song> _songs;
-        public List<Song> Songs
+
+        public async Task<List<Song>> GetSongsAsync()
         {
-            get { return _songs; }
-            private set
-            {
-                if (_songs == value)
-                    return;
-                _songs = value;
-                SendPropertyChanged();
-            }
+            if (_songs != null)
+                return _songs;
+
+            DACPRequest request = Container.GetItemsRequest(ItemQuery);
+            _songs = await Server.GetListAsync(request, n => new Song(Container, n)).ConfigureAwait(false);
+            return _songs;
         }
 
-        public async Task<bool> RequestSongsAsync()
+        public async Task<IDACPList> GetGroupedSongsAsync()
         {
-            Songs = await GetItemsAsync(n => new Song(Container, n));
+            var songs = await GetSongsAsync().ConfigureAwait(false);
+            if (songs == null || songs.Count == 0)
+                return new DACPList<Song>(false);
 
-            if (Songs == null)
-                return false;
-            return true;
+            ItemGroup<Song> currentGroup = null;
+            DACPList<ItemGroup<Song>> result = new DACPList<ItemGroup<Song>>(true);
+
+            foreach (var song in songs)
+            {
+                if (currentGroup == null || currentGroup.Key != song.AlbumName)
+                {
+                    currentGroup = new ItemGroup<Song>(song.AlbumName);
+                    result.Add(currentGroup);
+                }
+                currentGroup.Add(song);
+            }
+
+            if (result.Count == 0)
+                return new DACPList<Song>(false);
+
+            if (result.Count == 1 && string.IsNullOrEmpty(result[0].Key))
+                return result[0].ToDACPList();
+
+            return result;
         }
 
         #endregion
@@ -122,7 +124,8 @@ namespace Komodex.DACP.Groups
             }
             else
             {
-                request = Database.GetCueSongRequest(ItemQuery, "album", Songs.IndexOf(song));
+                var songs = await GetSongsAsync().ConfigureAwait(false);
+                request = Database.GetCueSongRequest(ItemQuery, "album", songs.IndexOf(song));
             }
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }

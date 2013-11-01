@@ -284,21 +284,21 @@ namespace Komodex.Remote.LibraryPages
 
             if (pivotControl.SelectedItem == pivotAlbums)
             {
-                if (Artist.Albums == null)
-                {
-                    SetProgressIndicator(null, true);
-                    await Artist.RequestAlbumsAsync();
-                    ClearProgressIndicator();
-                }
+                //if (Artist.Albums == null)
+                //{
+                //    SetProgressIndicator(null, true);
+                //    await Artist.RequestAlbumsAsync();
+                //    ClearProgressIndicator();
+                //}
             }
             else if (pivotControl.SelectedItem == pivotSongs)
             {
-                if (Artist.Songs == null)
-                {
-                    SetProgressIndicator(null, true);
-                    await Artist.RequestSongsAsync();
-                    ClearProgressIndicator();
-                }
+                //if (Artist.Songs == null)
+                //{
+                //    SetProgressIndicator(null, true);
+                //    await Artist.RequestSongsAsync();
+                //    ClearProgressIndicator();
+                //}
             }
         }
 

@@ -111,6 +111,32 @@ namespace Komodex.Remote
         #endregion
     }
 
+    public abstract class BrowseArtistBasePage:BrowseGroupBasePage<MusicContainer,Artist>
+    {
+        protected override MusicContainer GetContainer(DACPDatabase database)
+        {
+            return database.MusicContainer;
+        }
+
+        protected override Task<Artist> GetGroup(MusicContainer container, int groupID)
+        {
+            return container.GetArtistByIDAsync(groupID);
+        }
+    }
+
+    public abstract class BrowseAlbumBasePage : BrowseGroupBasePage<MusicContainer, Album>
+    {
+        protected override MusicContainer GetContainer(DACPDatabase database)
+        {
+            return database.MusicContainer;
+        }
+
+        protected override Task<Album> GetGroup(MusicContainer container, int groupID)
+        {
+            return container.GetAlbumByIDAsync(groupID);
+        }
+    }
+
     public abstract class BrowsePodcastBasePage : BrowseGroupBasePage<PodcastsContainer, Podcast>
     {
         protected override PodcastsContainer GetContainer(DACPDatabase database)
