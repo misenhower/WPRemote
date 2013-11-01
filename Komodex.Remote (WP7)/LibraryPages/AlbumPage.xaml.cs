@@ -69,7 +69,7 @@ namespace Komodex.Remote.LibraryPages
 
                 // Get the album
                 SetProgressIndicator(null, true);
-                Album = await musicContainer.GetAlbumByID(_albumID);
+                Album = await musicContainer.GetAlbumByIDAsync(_albumID);
                 if (Album == null)
                 {
                     NavigationService.GoBack();
@@ -189,6 +189,7 @@ namespace Komodex.Remote.LibraryPages
                     
                     // TODO: Alternate databases
                     // Get the music container
+                    /*
                     var musicContainer = CurrentServer.MainDatabase.MusicContainer;
 
                     if (musicContainer.Artists == null)
@@ -204,6 +205,7 @@ namespace Komodex.Remote.LibraryPages
                     var artist = CurrentServer.MainDatabase.MusicContainer.Artists.Values.FirstOrDefault(a => a.Name == Album.ArtistName);
                     if (artist != null)
                         NavigationManager.OpenArtistPage(artist);
+                     */
                 }
 
                 // Shuffle button

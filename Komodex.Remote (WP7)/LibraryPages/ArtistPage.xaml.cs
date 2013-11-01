@@ -67,7 +67,7 @@ namespace Komodex.Remote.LibraryPages
 
                 // Get the artist
                 SetProgressIndicator(null, true);
-                Artist = await musicContainer.GetArtistByID(_artistID);
+                Artist = await musicContainer.GetArtistByIDAsync(_artistID);
                 ClearProgressIndicator();
                 if (Artist == null)
                 {

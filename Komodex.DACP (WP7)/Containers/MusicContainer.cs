@@ -24,66 +24,49 @@ namespace Komodex.DACP.Containers
 
         #region Artists
 
-        private Dictionary<int, Artist> _artists;
-        public Dictionary<int, Artist> Artists
-        {
-            get { return _artists; }
-            private set
-            {
-                if (_artists == value)
-                    return;
-                _artists = value;
-                SendPropertyChanged();
-            }
-        }
+        private List<Artist> _artists;
+        private Dictionary<int, Artist> _artistsByID;
+        private IDACPList _groupedArtists;
 
-        private GroupedItems<Artist> _groupedArtists;
-        public GroupedItems<Artist> GroupedArtists
+        public async Task<List<Artist>> GetArtistsAsync()
         {
-            get { return _groupedArtists; }
-            private set
-            {
-                if (_groupedArtists == value)
-                    return;
-                _groupedArtists = value;
-                SendPropertyChanged();
-            }
-        }
+            if (_artists != null)
+                return _artists;
 
-        public async Task<bool> RequestArtistsAsync()
-        {
             var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songartist"), MediaKindQuery);
             DACPRequest request = GetGroupsRequest(query, true, "artists");
 
             try
             {
                 var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
-                GroupedArtists = GroupedItems<Artist>.GetAlphaGroupedItems(response.Nodes, n => new Artist(this, n));
-                Artists = GroupedArtists.SelectMany(l => l).ToDictionary(a => a.ID);
+                _groupedArtists = DACPUtility.GetAlphaGroupedDACPList(response.Nodes, n => new Artist(this, n), out _artists);
+                _artistsByID = _artists.ToDictionary(a => a.ID);
             }
-            catch (Exception e)
+            catch
             {
-                Artists = null;
-                GroupedArtists = null;
-                Server.HandleHTTPException(request, e);
-                return false;
+                _artists = new List<Artist>();
+                _artistsByID = new Dictionary<int, Artist>();
+                _groupedArtists = new DACPList<Artist>(false);
             }
 
-            return true;
+            return _artists;
         }
 
-        public async Task<Artist> GetArtistByID(int artistID)
+        public async Task<IDACPList> GetGroupedArtistsAsync()
         {
-            if (Artists == null)
-            {
-                bool success = await RequestArtistsAsync();
-                if (!success)
-                    return null;
-            }
+            if (_groupedArtists == null)
+                await GetArtistsAsync().ConfigureAwait(false);
+            return _groupedArtists;
+        }
 
-            if (!Artists.ContainsKey(artistID))
+        public async Task<Artist> GetArtistByIDAsync(int artistID)
+        {
+            if (_artistsByID == null)
+                await GetArtistsAsync().ConfigureAwait(false);
+            if (_artistsByID == null || !_artistsByID.ContainsKey(artistID))
                 return null;
-            return Artists[artistID];
+
+            return _artistsByID[artistID];
         }
 
         public async Task<List<Artist>> SearchArtistsAsync(string searchString, CancellationToken cancellationToken)
@@ -103,64 +86,48 @@ namespace Komodex.DACP.Containers
 
         #region Albums
 
-        private Dictionary<int, Album> _albums;
-        public Dictionary<int, Album> Albums
-        {
-            get { return _albums; }
-            private set
-            {
-                if (_albums == value)
-                    return;
-                _albums = value;
-                SendPropertyChanged();
-            }
-        }
+        private List<Album> _albums;
+        private Dictionary<int, Album> _albumsByID;
+        private IDACPList _groupedAlbums;
 
-        private GroupedItems<Album> _groupedAlbums;
-        public GroupedItems<Album> GroupedAlbums
+        public async Task<List<Album>> GetAlbumsAsync()
         {
-            get { return _groupedAlbums; }
-            private set
-            {
-                if (_groupedAlbums == value)
-                    return;
-                _groupedAlbums = value;
-                SendPropertyChanged();
-            }
-        }
+            if (_albums != null)
+                return _albums;
 
-        public async Task<bool> RequestAlbumsAsync()
-        {
             DACPRequest request = GetGroupsRequest(GroupsQuery, true);
 
             try
             {
                 var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
-                GroupedAlbums = GroupedItems<Album>.GetAlphaGroupedItems(response.Nodes, n => new Album(this, n));
-                Albums = GroupedAlbums.SelectMany(l => l).ToDictionary(a => a.ID);
+                _groupedAlbums = DACPUtility.GetAlphaGroupedDACPList(response.Nodes, n => new Album(this, n), out _albums);
+                _albumsByID = _albums.ToDictionary(a => a.ID);
             }
-            catch (Exception e)
+            catch
             {
-                Albums = null;
-                GroupedAlbums = null;
-                Server.HandleHTTPException(request, e);
-                return false;
+                _albums = new List<Album>();
+                _albumsByID = new Dictionary<int, Album>();
+                _groupedAlbums = new DACPList<Album>(false);
             }
-            return true;
+
+            return _albums;
         }
 
-        public async Task<Album> GetAlbumByID(int albumID)
+        public async Task<IDACPList> GetGroupedAlbumsAsync()
         {
-            if (Albums == null)
-            {
-                bool success = await RequestAlbumsAsync();
-                if (!success)
-                    return null;
-            }
+            if (_groupedAlbums == null)
+                await GetAlbumsAsync().ConfigureAwait(false);
+            return _groupedAlbums;
+        }
 
-            if (!Albums.ContainsKey(albumID))
+        public async Task<Album> GetAlbumByIDAsync(int albumID)
+        {
+            if (_albumsByID == null)
+                await GetAlbumsAsync().ConfigureAwait(false);
+            if (_albumsByID == null || !_albumsByID.ContainsKey(albumID))
                 return null;
-            return Albums[albumID];
+
+            return _albumsByID[albumID];
         }
 
         public async Task<List<Album>> SearchAlbumsAsync(string searchString, CancellationToken cancellationToken)

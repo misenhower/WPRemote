@@ -231,7 +231,7 @@ namespace Komodex.Remote
 
         private void btnLibrary_Click(object sender, RoutedEventArgs e)
         {
-            NavigationManager.OpenMainLibraryPage();
+            NavigationManager.OpenLibraryPage(CurrentServer.MainDatabase);
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)

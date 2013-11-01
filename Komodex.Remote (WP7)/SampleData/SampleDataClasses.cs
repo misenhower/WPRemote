@@ -31,6 +31,15 @@ namespace Komodex.Remote.SampleData
     {
     }
 
+    public class SampleDataArtist : SampleDataDACPGroup
+    {
+    }
+
+    public class SampleDataAlbum : SampleDataDACPGroup
+    {
+        public string ArtistName { get; set; }
+    }
+
     public class SampleDataTVShow : SampleDataDACPGroup
     {
         public int SeasonNumber { get; set; }
@@ -144,6 +153,14 @@ namespace Komodex.Remote.SampleData
     {
         public List<T> Items { get; set; }
         public virtual bool IsGroupedList { get { return false; } }
+    }
+
+    public class SampleDataLibraryPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataDACPElementViewSource<SampleDataArtist> ArtistsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataArtist> AlbumsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataDACPGenre> GenresViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataDACPContainer> PlaylistsViewSource { get; set; }
     }
 
     public class SampleDataPlaylistPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>

@@ -46,7 +46,7 @@ namespace Komodex.Remote.Pages.Browse.Playlists
 
         protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
         {
-            if (toOrFrom.OriginalString.StartsWith("/LibraryPages/MainLibraryPage.xaml"))
+            if (toOrFrom.OriginalString.StartsWith("/Pages/Library/LibraryPage.xaml"))
                 return true;
             return base.ShouldShowContinuumTransition(animationType, toOrFrom);
         }

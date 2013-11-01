@@ -98,6 +98,14 @@ namespace Komodex.Remote
         #endregion
     }
 
+    public abstract class BrowseMusicContainerBasePage : BrowseContainerBasePage<MusicContainer>
+    {
+        protected override MusicContainer GetContainer(DACPDatabase database)
+        {
+            return database.MusicContainer;
+        }
+    }
+
     public abstract class BrowsePlaylistBasePage : BrowseContainerBasePage<Playlist>
     {
     }

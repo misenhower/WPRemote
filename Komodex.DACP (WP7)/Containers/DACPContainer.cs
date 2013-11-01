@@ -181,7 +181,7 @@ namespace Komodex.DACP.Containers
             if (_groupedGenres != null)
                 return _groupedGenres;
 
-            DACPRequest request = GetGenresRequest();
+            DACPRequest request = GetGenresRequest(true);
             _groupedGenres = await Server.GetAlphaGroupedListAsync(request, d => new DACPGenre(this, d), "abgn").ConfigureAwait(false);
             return _groupedGenres;
         }

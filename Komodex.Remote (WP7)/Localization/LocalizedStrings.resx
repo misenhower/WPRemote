@@ -678,4 +678,28 @@
   <data name="BrowseAudiobooksNoAudiobooks" xml:space="preserve">
     <value>No audiobooks</value>
   </data>
+  <data name="BrowseArtists" xml:space="preserve">
+    <value>artists</value>
+  </data>
+  <data name="BrowseArtistsNoArtists" xml:space="preserve">
+    <value>No artists</value>
+  </data>
+  <data name="BrowseAlbums" xml:space="preserve">
+    <value>albums</value>
+  </data>
+  <data name="BrowseAlbumsNoAlbums" xml:space="preserve">
+    <value>No albums</value>
+  </data>
+  <data name="BrowsePlaylists" xml:space="preserve">
+    <value>playlists</value>
+  </data>
+  <data name="BrowsePlaylistsNoPlaylists" xml:space="preserve">
+    <value>No playlists</value>
+  </data>
+  <data name="BrowseSongs" xml:space="preserve">
+    <value>songs</value>
+  </data>
+  <data name="BrowseSongsNoSongs" xml:space="preserve">
+    <value>No songs</value>
+  </data>
 </root>

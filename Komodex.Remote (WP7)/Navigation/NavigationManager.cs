@@ -80,6 +80,11 @@ namespace Komodex.Remote
 
         #region Music
 
+        public static void OpenLibraryPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Library/LibraryPage.xaml?databaseID={0}", database.ID);
+        }
+
         public static void OpenArtistPage(Artist artist)
         {
             Navigate("/LibraryPages/ArtistPage.xaml?database={0}&container={1}&artist={2}", artist.Database.ID, artist.Container.ID, artist.ID);
@@ -183,9 +188,9 @@ namespace Komodex.Remote
             Navigate("/Pages/NowPlayingPage.xaml");
         }
 
+        [Obsolete]
         public static void OpenMainLibraryPage()
         {
-            Navigate("/LibraryPages/MainLibraryPage.xaml");
         }
 
         public static void OpenSearchPage()

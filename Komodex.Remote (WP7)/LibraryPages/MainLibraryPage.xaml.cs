@@ -291,21 +291,21 @@ namespace Komodex.Remote.LibraryPages
 
             if (pivotControl.SelectedItem == pivotArtists)
             {
-                if (CurrentServer.MainDatabase.MusicContainer.GroupedArtists == null || CurrentServer.MainDatabase.MusicContainer.GroupedArtists.Count == 0)
-                {
-                    SetProgressIndicator(null, true);
-                    await CurrentServer.MainDatabase.MusicContainer.RequestArtistsAsync();
-                    ClearProgressIndicator();
-                }
+                //if (CurrentServer.MainDatabase.MusicContainer.GroupedArtists == null || CurrentServer.MainDatabase.MusicContainer.GroupedArtists.Count == 0)
+                //{
+                //    SetProgressIndicator(null, true);
+                //    await CurrentServer.MainDatabase.MusicContainer.RequestArtistsAsync();
+                //    ClearProgressIndicator();
+                //}
             }
             else if (pivotControl.SelectedItem == pivotAlbums)
             {
-                if (CurrentServer.MainDatabase.MusicContainer.GroupedAlbums == null || CurrentServer.MainDatabase.MusicContainer.GroupedAlbums.Count == 0)
-                {
-                    SetProgressIndicator(null, true);
-                    await CurrentServer.MainDatabase.MusicContainer.RequestAlbumsAsync();
-                    ClearProgressIndicator();
-                }
+                //if (CurrentServer.MainDatabase.MusicContainer.GroupedAlbums == null || CurrentServer.MainDatabase.MusicContainer.GroupedAlbums.Count == 0)
+                //{
+                //    SetProgressIndicator(null, true);
+                //    await CurrentServer.MainDatabase.MusicContainer.RequestAlbumsAsync();
+                //    ClearProgressIndicator();
+                //}
             }
             else if (pivotControl.SelectedItem == pivotGenres)
             {

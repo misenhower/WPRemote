@@ -214,6 +214,42 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to albums.
+        /// </summary>
+        public static string BrowseAlbums {
+            get {
+                return ResourceManager.GetString("BrowseAlbums", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No albums.
+        /// </summary>
+        public static string BrowseAlbumsNoAlbums {
+            get {
+                return ResourceManager.GetString("BrowseAlbumsNoAlbums", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to artists.
+        /// </summary>
+        public static string BrowseArtists {
+            get {
+                return ResourceManager.GetString("BrowseArtists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No artists.
+        /// </summary>
+        public static string BrowseArtistsNoArtists {
+            get {
+                return ResourceManager.GetString("BrowseArtistsNoArtists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to audiobook.
         /// </summary>
         public static string BrowseAudiobook {
@@ -331,6 +367,24 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to playlists.
+        /// </summary>
+        public static string BrowsePlaylists {
+            get {
+                return ResourceManager.GetString("BrowsePlaylists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No playlists.
+        /// </summary>
+        public static string BrowsePlaylistsNoPlaylists {
+            get {
+                return ResourceManager.GetString("BrowsePlaylistsNoPlaylists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to podcasts.
         /// </summary>
         public static string BrowsePodcasts {
@@ -399,6 +453,24 @@ namespace Komodex.Remote.Localization {
         public static string BrowsePodcastsUnplayed {
             get {
                 return ResourceManager.GetString("BrowsePodcastsUnplayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to songs.
+        /// </summary>
+        public static string BrowseSongs {
+            get {
+                return ResourceManager.GetString("BrowseSongs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No songs.
+        /// </summary>
+        public static string BrowseSongsNoSongs {
+            get {
+                return ResourceManager.GetString("BrowseSongsNoSongs", resourceCulture);
             }
         }
         
