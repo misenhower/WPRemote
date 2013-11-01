@@ -708,4 +708,7 @@
   <data name="BrowseItemsNoItems" xml:space="preserve">
     <value>Keine Objekte</value>
   </data>
+  <data name="BrowseAlbum" xml:space="preserve">
+    <value>Album</value>
+  </data>
 </root>

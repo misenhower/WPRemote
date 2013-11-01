@@ -78,11 +78,11 @@ namespace Komodex.Remote.LibraryPages
             }
 
             // Load the album's songs
-            if (Album.Songs == null)
-            {
-                SetProgressIndicator(null, true);
-                await Album.RequestSongsAsync();
-            }
+            //if (Album.Songs == null)
+            //{
+            //    SetProgressIndicator(null, true);
+            //    await Album.RequestSongsAsync();
+            //}
 
             ClearProgressIndicator();
         }

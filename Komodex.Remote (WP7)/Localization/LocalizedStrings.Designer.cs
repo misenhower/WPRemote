@@ -214,6 +214,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to album.
+        /// </summary>
+        public static string BrowseAlbum {
+            get {
+                return ResourceManager.GetString("BrowseAlbum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to albums.
         /// </summary>
         public static string BrowseAlbums {

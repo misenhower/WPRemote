@@ -281,6 +281,10 @@
       <Link>Pages\Browse\Movies\MoviesPage.xaml.cs</Link>
       <DependentUpon>MoviesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Music\AlbumPage.xaml.cs">
+      <Link>Pages\Browse\Music\AlbumPage.xaml.cs</Link>
+      <DependentUpon>AlbumPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Music\ArtistPage.xaml.cs">
       <Link>Pages\Browse\Music\ArtistPage.xaml.cs</Link>
       <DependentUpon>ArtistPage.xaml</DependentUpon>
@@ -945,6 +949,11 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MoviesPage.xaml">
       <Link>Pages\Browse\Movies\MoviesPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Music\AlbumPage.xaml">
+      <Link>Pages\Browse\Music\AlbumPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -38,25 +38,15 @@ namespace Komodex.DACP.Groups
         #region Songs
 
         private List<Song> _songs;
-        public List<Song> Songs
-        {
-            get { return _songs; }
-            private set
-            {
-                if (_songs == value)
-                    return;
-                _songs = value;
-                SendPropertyChanged();
-            }
-        }
 
-        public async Task<bool> RequestSongsAsync()
+        public async Task<List<Song>> GetSongsAsync()
         {
-            Songs = await GetItemsAsync(n => new Song(Container, n));
+            if (_songs != null)
+                return _songs;
 
-            if (Songs == null)
-                return false;
-            return true;
+            DACPRequest request = Container.GetItemsRequest(ItemQuery);
+            _songs = await Server.GetListAsync(request, n => new Song(Container, n)).ConfigureAwait(false);
+            return _songs;
         }
 
         #endregion
@@ -86,7 +76,8 @@ namespace Komodex.DACP.Groups
             }
             else
             {
-                request = Database.GetCueSongRequest(ItemQuery, "album", Songs.IndexOf(song));
+                var songs = await GetSongsAsync();
+                request = Database.GetCueSongRequest(ItemQuery, "album", songs.IndexOf(song));
             }
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
