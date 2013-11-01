@@ -105,6 +105,11 @@ namespace Komodex.Remote
         {
         }
 
+        public static void OpenMusicGenrePage(DACPGenre genre)
+        {
+            Navigate("/Pages/Browse/Music/MusicGenrePage.xaml?databaseID={0}&genre={1}", genre.Database.ID, Uri.EscapeDataString(genre.Name));
+        }
+
         #endregion
 
         #region Playlists

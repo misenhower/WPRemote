@@ -158,9 +158,17 @@ namespace Komodex.Remote.SampleData
     public class SampleDataLibraryPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
     {
         public SampleDataDACPElementViewSource<SampleDataArtist> ArtistsViewSource { get; set; }
-        public SampleDataDACPElementViewSource<SampleDataArtist> AlbumsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataAlbum> AlbumsViewSource { get; set; }
         public SampleDataDACPElementViewSource<SampleDataDACPGenre> GenresViewSource { get; set; }
         public SampleDataDACPElementViewSource<SampleDataDACPContainer> PlaylistsViewSource { get; set; }
+    }
+
+    public class SampleDataMusicGenrePage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public string CurrentGenreName { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataArtist> ArtistsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataAlbum> AlbumsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataDACPItem> SongsViewSource { get; set; }
     }
 
     public class SampleDataPlaylistPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>

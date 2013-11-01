@@ -205,6 +205,9 @@
     <Compile Include="Pages\Browse\Movies\MoviesPage.xaml.cs">
       <DependentUpon>MoviesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Browse\Music\MusicGenrePage.xaml.cs">
+      <DependentUpon>MusicGenrePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Browse\Playlists\PlaylistPage.xaml.cs">
       <DependentUpon>PlaylistPage.xaml</DependentUpon>
     </Compile>
@@ -364,6 +367,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Browse\Movies\MoviesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\Music\MusicGenrePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

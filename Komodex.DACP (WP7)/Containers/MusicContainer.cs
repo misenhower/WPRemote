@@ -69,6 +69,13 @@ namespace Komodex.DACP.Containers
             return _artistsByID[artistID];
         }
 
+        public Task<IDACPList> GetGenreArtistsAsync(string genreName)
+        {
+            var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songgenre", genreName), DACPQueryPredicate.IsNotEmpty("daap.songartist"), MediaKindQuery);
+            DACPRequest request = GetGroupsRequest(query, true, "artists");
+            return Server.GetAlphaGroupedListAsync(request, n => new Artist(this, n));
+        }
+
         public async Task<List<Artist>> SearchArtistsAsync(string searchString, CancellationToken cancellationToken)
         {
             DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songartist", searchString), DACPQueryPredicate.IsNotEmpty("daap.songartist"), MediaKindQuery);
@@ -130,6 +137,13 @@ namespace Komodex.DACP.Containers
             return _albumsByID[albumID];
         }
 
+        public Task<IDACPList> GetGenreAlbumsAsync(string genreName)
+        {
+            var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songgenre", genreName), DACPQueryPredicate.IsNotEmpty("daap.songalbum"), MediaKindQuery);
+            DACPRequest request = GetGroupsRequest(query, true, "albums");
+            return Server.GetAlphaGroupedListAsync(request, n => new Album(this, n));
+        }
+
         public async Task<List<Album>> SearchAlbumsAsync(string searchString, CancellationToken cancellationToken)
         {
             DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songalbum", searchString), DACPQueryPredicate.IsNotEmpty("daap.songalbum"), MediaKindQuery);
@@ -146,6 +160,13 @@ namespace Komodex.DACP.Containers
         #endregion
 
         #region Songs
+
+        public Task<IDACPList> GetGenreSongsAsync(string genreName)
+        {
+            var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songgenre", genreName), MediaKindQuery);
+            DACPRequest request = GetItemsRequest(query, "name", true);
+            return Server.GetAlphaGroupedListAsync(request, n => new Song(this, n));
+        }
 
         public async Task<List<Song>> SearchSongsAsync(string searchString, CancellationToken cancellationToken)
         {

@@ -61,7 +61,7 @@ namespace Komodex.Remote.Pages.Library
 
             if (item is DACPGenre)
             {
-                // TODO
+                NavigationManager.OpenMusicGenrePage((DACPGenre)item);
                 return;
             }
 
