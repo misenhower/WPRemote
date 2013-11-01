@@ -11,6 +11,8 @@ using Komodex.DACP;
 using Komodex.DACP.Groups;
 using Komodex.DACP.Genres;
 using Komodex.DACP.Containers;
+using Komodex.Remote.Localization;
+using Komodex.Common;
 
 namespace Komodex.Remote.Pages.Library
 {
@@ -20,12 +22,24 @@ namespace Komodex.Remote.Pages.Library
         {
             InitializeComponent();
 
+            // Application Bar Icons
+            AddAppBarNowPlayingButton();
+            AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), NavigationManager.OpenSearchPage);
+            AddApplicationBarIconButton(LocalizedStrings.MoreAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Ellipsis.png"), AppBarMoreButton_Click);
+
+            // Shuffle All Songs
+            AddApplicationBarMenuItem(LocalizedStrings.ShuffleAllSongsMenuItem, AppBarShuffleSongsButton_Click);
+
+            // Choose Library
+            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, NavigationManager.OpenChooseLibraryPage);
+
+            // View Sources
             ArtistsViewSource = GetContainerViewSource(async c => await c.GetGroupedArtistsAsync());
             AlbumsViewSource = GetContainerViewSource(async c => await c.GetGroupedAlbumsAsync());
             GenresViewSource = GetContainerViewSource(async c => await c.GetGroupedGenresAsync());
             PlaylistsViewSource = GetDatabaseViewSource(db => db.ParentPlaylists);
         }
-
+        
         public object ArtistsViewSource { get; private set; }
         public object AlbumsViewSource { get; private set; }
         public object GenresViewSource { get; private set; }
@@ -64,5 +78,20 @@ namespace Komodex.Remote.Pages.Library
         {
 
         }
+
+        private void AppBarMoreButton_Click()
+        {
+            if (IsDialogOpen)
+                return;
+
+            ShowDialog(new Komodex.Remote.LibraryPages.LibraryViewDialog(CurrentDatabase));
+        }
+
+        private void AppBarShuffleSongsButton_Click()
+        {
+            // TODO
+            throw new NotImplementedException();
+        }
+
     }
 }
