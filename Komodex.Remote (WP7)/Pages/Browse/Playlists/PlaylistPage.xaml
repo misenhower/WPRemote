@@ -71,13 +71,14 @@
                         Title="{Binding CurrentContainer.Name}"
                         Style="{StaticResource RemotePivotStyle}"
                         >
-            <controls:PivotItem DataContext="{Binding PlaylistViewSource}" Header="items">
+            <controls:PivotItem DataContext="{Binding PlaylistViewSource}" Header="{Binding LocalizedStrings.BrowseItems, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
                     ItemTemplate="{StaticResource ItemTemplateSelector}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
                     ListHeaderTemplate="{StaticResource ShuffleHeaderTemplate}"
+                    EmptyText="{Binding LocalizedStrings.BrowseItemsNoItems, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
         </controls:Pivot>

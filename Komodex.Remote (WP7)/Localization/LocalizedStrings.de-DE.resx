@@ -702,4 +702,10 @@
   <data name="BrowseSongsNoSongs" xml:space="preserve">
     <value>Keine Musiktitel</value>
   </data>
+  <data name="BrowseItems" xml:space="preserve">
+    <value>Objekte</value>
+  </data>
+  <data name="BrowseItemsNoItems" xml:space="preserve">
+    <value>Keine Objekte</value>
+  </data>
 </root>
