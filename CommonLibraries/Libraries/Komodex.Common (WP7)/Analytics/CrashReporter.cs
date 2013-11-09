@@ -155,6 +155,15 @@ namespace Komodex.Analytics
                     // Message Body
                     writer.WriteLine(message);
 
+#if WINDOWS_PHONE
+                    // Check whether the message contains "not enough space"
+                    if (message.Contains("not enough", StringComparison.OrdinalIgnoreCase))
+                    {
+                        writer.WriteLine(SmallDashes);
+                        writer.WriteLine(Komodex.Common.Phone.PhoneUtility.GetFormattedIsolatedStorageContents());
+                    }
+#endif
+
                     writer.WriteLine();
                 }
 

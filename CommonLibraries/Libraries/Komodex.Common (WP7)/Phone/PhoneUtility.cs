@@ -13,6 +13,8 @@ using System.Threading;
 using Microsoft.Phone.Net.NetworkInformation;
 using System.Text;
 using System.Security.Cryptography;
+using System.IO.IsolatedStorage;
+using System.IO;
 
 namespace Komodex.Common.Phone
 {
@@ -78,6 +80,74 @@ namespace Komodex.Common.Phone
                 return Encoding.UTF8.GetString(unprotectedBytes, 0, unprotectedBytes.Length);
             }
             catch { return null; }
+        }
+
+        #endregion
+
+        #region Isolated Storage
+
+        public static string GetFormattedIsolatedStorageContents()
+        {
+            StringBuilder sb = new StringBuilder();
+            using (var isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                sb.AppendLine("Isolated Storage Contents");
+                sb.AppendLine("Quota: " + Utility.ReadableFilesize(isolatedStorage.Quota));
+                sb.AppendLine("Available Free Space: " + Utility.ReadableFilesize(isolatedStorage.AvailableFreeSpace));
+
+                sb.AppendLine(".");
+                sb.Append(GetDirectoryContent(isolatedStorage, string.Empty, string.Empty));
+            }
+
+            return sb.ToString();
+        }
+
+        private static string GetDirectoryContent(IsolatedStorageFile isolatedStorage, string directory, string indent)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            // Get file and directory names
+            var fileNames = isolatedStorage.GetFileNames(directory + "/*");
+            var dirNames = isolatedStorage.GetDirectoryNames(directory + "/*");
+
+            // List all files
+            string fileIndent = indent + ((dirNames.Length > 0) ? "|  " : "   ");
+            foreach (var fileName in fileNames)
+            {
+                // Get file size
+                long fileLength;
+                using (var file = isolatedStorage.OpenFile(directory + "/" + fileName, FileMode.Open))
+                    fileLength = file.Length;
+
+                // Add file info to output
+                sb.Append(fileIndent + fileName);
+                sb.AppendFormat(" ({0})", Utility.ReadableFilesize(fileLength));
+                sb.AppendLine();
+            }
+
+            // Add an extra line
+            if (fileNames.Length > 0)
+                sb.AppendLine(fileIndent);
+
+            // List all directories
+            for (int i = 0; i < dirNames.Length; i++)
+            {
+                string dir = dirNames[i];
+                bool last = (i == dirNames.Length - 1);
+
+                sb.Append(indent);
+
+                if (last)
+                    sb.Append("`--");
+                else
+                    sb.Append("+--");
+                sb.AppendLine(dir);
+
+                string newIndent = indent + ((last) ? "   " : "|  ");
+
+                sb.Append(GetDirectoryContent(isolatedStorage, directory + "/" + dir, newIndent));
+            }
+            return sb.ToString();
         }
 
         #endregion
