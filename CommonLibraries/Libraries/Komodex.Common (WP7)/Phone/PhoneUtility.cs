@@ -118,10 +118,11 @@ namespace Komodex.Common.Phone
                 long fileLength;
                 using (var file = isolatedStorage.OpenFile(directory + "/" + fileName, FileMode.Open))
                     fileLength = file.Length;
+                var creationTime = isolatedStorage.GetCreationTime(directory + "/" + fileName);
 
                 // Add file info to output
                 sb.Append(fileIndent + fileName);
-                sb.AppendFormat(" ({0})", Utility.ReadableFilesize(fileLength));
+                sb.AppendFormat(" ({0}, created {1})", Utility.ReadableFilesize(fileLength), creationTime.DateTime);
                 sb.AppendLine();
             }
 
