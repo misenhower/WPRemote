@@ -143,6 +143,7 @@ namespace Komodex.Remote
         {
             if (assemblyInfoCount-- == 0)
             {
+                Komodex.Analytics.CrashReporter.LogMessage(Komodex.Common.Phone.PhoneUtility.GetFormattedIsolatedStorageContents(), "Isolated Storage Report", true);
                 MessageBox.Show(Assembly.GetExecutingAssembly().FullName);
                 MessageBox.Show(DACPServer.GetAssemblyName());
                 MessageBox.Show(Assembly.GetCallingAssembly().FullName);
