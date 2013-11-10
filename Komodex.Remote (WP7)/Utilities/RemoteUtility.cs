@@ -22,6 +22,7 @@ using Komodex.DACP;
 using Komodex.Common.Phone.Controls;
 using Komodex.Remote.ServerManagement;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Komodex.Remote
 {
@@ -116,7 +117,15 @@ namespace Komodex.Remote
 
         #endregion
 
-        #region Message Boxes
+        #region Library Control
+
+        public static async void HandleLibraryPlayTask(Task<bool> task)
+        {
+            if (await task)
+                NavigationManager.OpenNowPlayingPage();
+            else
+                ShowLibraryError();
+        }
 
         public static void ShowLibraryError()
         {

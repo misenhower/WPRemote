@@ -43,10 +43,7 @@ namespace Komodex.Remote.Pages.Browse.Music
 
             if (item is Song)
             {
-                if (await ((Song)item).Play())
-                    NavigationManager.OpenNowPlayingPage();
-                else
-                    RemoteUtility.ShowLibraryError();
+                RemoteUtility.HandleLibraryPlayTask(((Song)item).Play());
                 return;
             }
 

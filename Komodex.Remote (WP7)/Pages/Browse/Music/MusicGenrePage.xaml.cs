@@ -55,7 +55,7 @@ namespace Komodex.Remote.Pages.Browse.Music
             return base.ShouldShowContinuumTransition(animationType, toOrFrom);
         }
 
-        protected override async void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
         {
             if (item is Artist)
             {
@@ -71,10 +71,7 @@ namespace Komodex.Remote.Pages.Browse.Music
 
             if (item is DACPItem)
             {
-                if (await CurrentGenre.PlayItem((DACPItem)item))
-                    NavigationManager.OpenNowPlayingPage();
-                else
-                    RemoteUtility.ShowLibraryError();
+                RemoteUtility.HandleLibraryPlayTask(CurrentGenre.PlayItem((DACPItem)item));
                 return;
             }
 
@@ -116,13 +113,9 @@ namespace Komodex.Remote.Pages.Browse.Music
             }
         }
 
-        private async void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            if (await CurrentGenre.Shuffle())
-                NavigationManager.OpenNowPlayingPage();
-            else
-                RemoteUtility.ShowLibraryError();
-
+            RemoteUtility.HandleLibraryPlayTask(CurrentGenre.Shuffle());
             e.Handled = true;
         }
 

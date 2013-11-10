@@ -47,14 +47,11 @@ namespace Komodex.Remote.Pages.Browse.Music
             return base.GetAnimation(animationType, toOrFrom);
         }
 
-        protected override async void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
         {
             if (item is Song)
             {
-                if (await ((Song)item).Play())
-                    NavigationManager.OpenNowPlayingPage();
-                else
-                    RemoteUtility.ShowLibraryError();
+                RemoteUtility.HandleLibraryPlayTask(((Song)item).Play());
                 return;
             }
 
@@ -81,24 +78,16 @@ namespace Komodex.Remote.Pages.Browse.Music
             }
         }
 
-        private async void AlbumPlayButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void AlbumPlayButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Play());
             e.Handled = true;
-
-            if (await CurrentGroup.Play())
-                NavigationManager.OpenNowPlayingPage();
-            else
-                RemoteUtility.ShowLibraryError();
         }
 
-        private async void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Shuffle());
             e.Handled = true;
-
-            if (await CurrentGroup.Shuffle())
-                NavigationManager.OpenNowPlayingPage();
-            else
-                RemoteUtility.ShowLibraryError();
         }
     }
 }

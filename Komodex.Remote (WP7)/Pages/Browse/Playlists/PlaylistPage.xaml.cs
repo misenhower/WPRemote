@@ -51,7 +51,7 @@ namespace Komodex.Remote.Pages.Browse.Playlists
             return base.ShouldShowContinuumTransition(animationType, toOrFrom);
         }
 
-        protected override async void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
         {
             if (item is Playlist)
             {
@@ -61,14 +61,11 @@ namespace Komodex.Remote.Pages.Browse.Playlists
 
             if (item is DACPItem)
             {
-                if (await CurrentContainer.PlayItem((DACPItem)item))
-                    NavigationManager.OpenNowPlayingPage();
-                else
-                    RemoteUtility.ShowLibraryError();
+                RemoteUtility.HandleLibraryPlayTask(CurrentContainer.PlayItem((DACPItem)item));
             }
         }
 
-        private async void PlayQueueButton_Click(object sender, RoutedEventArgs e)
+        private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = (MenuItem)sender;
 
@@ -82,10 +79,7 @@ namespace Komodex.Remote.Pages.Browse.Playlists
 
             if (menuItem.DataContext is DACPItem)
             {
-                if (await CurrentContainer.PlayItem((DACPItem)menuItem.DataContext, mode))
-                    NavigationManager.OpenNowPlayingPage();
-                else
-                    RemoteUtility.ShowLibraryError();
+                RemoteUtility.HandleLibraryPlayTask(CurrentContainer.PlayItem((DACPItem)menuItem.DataContext, mode));
             }
         }
 
@@ -114,13 +108,9 @@ namespace Komodex.Remote.Pages.Browse.Playlists
             }
         }
 
-        private async void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            if (await CurrentContainer.Shuffle())
-                NavigationManager.OpenNowPlayingPage();
-            else
-                RemoteUtility.ShowLibraryError();
-
+            RemoteUtility.HandleLibraryPlayTask(CurrentContainer.Shuffle());
             e.Handled = true;
         }
 

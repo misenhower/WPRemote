@@ -149,7 +149,7 @@ namespace Komodex.Remote.Pages.Search
 
         private object _lastTappedItem;
 
-        private async void SearchResultsListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void SearchResultsListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             LongListSelectorEx list = (LongListSelectorEx)sender;
             var selectedItem = list.SelectedItem as DACPElement;
@@ -179,10 +179,7 @@ namespace Komodex.Remote.Pages.Search
             }
             if (selectedItem is Movie)
             {
-                if (await ((Movie)selectedItem).Play())
-                    NavigationManager.OpenNowPlayingPage();
-                else
-                    RemoteUtility.ShowLibraryError();
+                RemoteUtility.HandleLibraryPlayTask(((Movie)selectedItem).Play());
                 return;
             }
             if (selectedItem is Podcast)
@@ -197,10 +194,7 @@ namespace Komodex.Remote.Pages.Search
             }
             if (selectedItem is TVShowEpisode)
             {
-                if (await ((TVShowEpisode)selectedItem).Play())
-                    NavigationManager.OpenNowPlayingPage();
-                else
-                    RemoteUtility.ShowLibraryError();
+                RemoteUtility.HandleLibraryPlayTask(((TVShowEpisode)selectedItem).Play());
                 return;
             }
             if (selectedItem is Audiobook)
