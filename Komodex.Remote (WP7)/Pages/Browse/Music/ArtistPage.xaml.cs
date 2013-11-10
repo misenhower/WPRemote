@@ -33,11 +33,14 @@ namespace Komodex.Remote.Pages.Browse.Music
             return base.ShouldShowContinuumTransition(animationType, toOrFrom);
         }
 
-        protected override async void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list, bool isPlayButton)
         {
             if (item is Album)
             {
-                NavigationManager.OpenAlbumPage((Album)item);
+                if (isPlayButton)
+                    RemoteUtility.HandleLibraryPlayTask(((Album)item).Play());
+                else
+                    NavigationManager.OpenAlbumPage((Album)item);
                 return;
             }
 

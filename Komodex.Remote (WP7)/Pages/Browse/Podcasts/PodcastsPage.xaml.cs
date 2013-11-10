@@ -28,7 +28,7 @@ namespace Komodex.Remote.Pages.Browse.Podcasts
         public object PodcastsViewSource { get; private set; }
         public object UnplayedPodcastsViewSource { get; private set; }
 
-        protected override void OnListItemTap(DACPElement item, LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list, bool isPlayButton)
         {
             if (item is Podcast)
             {
@@ -36,8 +36,6 @@ namespace Komodex.Remote.Pages.Browse.Podcasts
                 NavigationManager.OpenPodcastEpisodesPage(podcast);
                 return;
             }
-
-            base.OnListItemTap(item, list);
         }
     }
 }

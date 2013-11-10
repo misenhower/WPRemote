@@ -25,7 +25,7 @@ namespace Komodex.Remote.Pages.Browse.TVShows
         public object TVShowsViewSource { get; private set; }
         public object UnwatchedTVShowsViewSource { get; private set; }
 
-        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list, bool isPlayButton)
         {
             if (item is TVShow)
             {
@@ -33,8 +33,6 @@ namespace Komodex.Remote.Pages.Browse.TVShows
                 NavigationManager.OpenTVShowEpisodesPage(tvShow);
                 return;
             }
-
-            base.OnListItemTap(item, list);
         }
     }
 }

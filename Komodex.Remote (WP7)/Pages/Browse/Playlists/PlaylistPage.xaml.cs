@@ -51,7 +51,7 @@ namespace Komodex.Remote.Pages.Browse.Playlists
             return base.ShouldShowContinuumTransition(animationType, toOrFrom);
         }
 
-        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list, bool isPlayButton)
         {
             if (item is Playlist)
             {

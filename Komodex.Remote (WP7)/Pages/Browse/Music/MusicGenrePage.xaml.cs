@@ -55,17 +55,23 @@ namespace Komodex.Remote.Pages.Browse.Music
             return base.ShouldShowContinuumTransition(animationType, toOrFrom);
         }
 
-        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list, bool isPlayButton)
         {
             if (item is Artist)
             {
-                NavigationManager.OpenArtistPage((Artist)item);
+                if (isPlayButton)
+                    RemoteUtility.HandleLibraryPlayTask(((Artist)item).Play());
+                else
+                    NavigationManager.OpenArtistPage((Artist)item);
                 return;
             }
 
             if (item is Album)
             {
-                NavigationManager.OpenAlbumPage((Album)item);
+                if (isPlayButton)
+                    RemoteUtility.HandleLibraryPlayTask(((Album)item).Play());
+                else
+                    NavigationManager.OpenAlbumPage((Album)item);
                 return;
             }
 
@@ -74,8 +80,6 @@ namespace Komodex.Remote.Pages.Browse.Music
                 RemoteUtility.HandleLibraryPlayTask(CurrentGenre.PlayItem((DACPItem)item));
                 return;
             }
-
-            base.OnListItemTap(item, list);
         }
 
         private void PlayQueueButton_Click(object sender, RoutedEventArgs e)

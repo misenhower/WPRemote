@@ -23,15 +23,13 @@ namespace Komodex.Remote.Pages.Browse.Audiobooks
 
         public object AudiobooksViewSource { get; private set; }
 
-        protected override void OnListItemTap(DACPElement item, LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list, bool isPlayButton)
         {
             if (item is Audiobook)
             {
                 NavigationManager.OpenAudiobookEpisodesPage((Audiobook)item);
                 return;
             }
-
-            base.OnListItemTap(item, list);
         }
     }
 }

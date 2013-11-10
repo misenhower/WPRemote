@@ -1,4 +1,5 @@
 ﻿using Clarity.Phone.Controls.Animations;
+using Clarity.Phone.Extensions;
 using Komodex.Common;
 using Komodex.Common.Phone.Controls;
 using Komodex.DACP;
@@ -173,10 +174,16 @@ namespace Komodex.Remote
             _lastTappedList = list;
             _lastTappedItem = selectedItem;
 
-            OnListItemTap(selectedItem, list);
+            // Determine whether a play button was tapped
+            bool isPlayButton = false;
+            var originalSource = e.OriginalSource as DependencyObject;
+            if (originalSource != null)
+                isPlayButton = originalSource.GetVisualAncestors().AnyElementsWithName("PlayButton");
+
+            OnListItemTap(selectedItem, list, isPlayButton);
         }
 
-        protected virtual void OnListItemTap(DACPElement item, LongListSelector list)
+        protected virtual void OnListItemTap(DACPElement item, LongListSelector list, bool isPlayButton)
         {
             if (item is DACPItem)
             {

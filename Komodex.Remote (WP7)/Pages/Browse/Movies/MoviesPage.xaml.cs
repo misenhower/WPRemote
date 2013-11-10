@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Komodex.DACP.Genres;
+using Komodex.DACP;
 
 namespace Komodex.Remote.Pages.Browse.Movies
 {
@@ -26,7 +27,7 @@ namespace Komodex.Remote.Pages.Browse.Movies
         public object UnwatchedMoviesViewSource { get; private set; }
         public object MovieGenresViewSource { get; private set; }
 
-        protected override async void OnListItemTap(DACP.DACPElement item, Common.Phone.Controls.LongListSelector list)
+        protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list, bool isPlayButton)
         {
             if (item is DACPGenre)
             {
@@ -34,7 +35,7 @@ namespace Komodex.Remote.Pages.Browse.Movies
                 return;
             }
 
-            base.OnListItemTap(item, list);
+            base.OnListItemTap(item, list, isPlayButton);
         }
     }
 }
