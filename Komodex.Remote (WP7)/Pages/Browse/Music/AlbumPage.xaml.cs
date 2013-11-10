@@ -51,11 +51,9 @@ namespace Komodex.Remote.Pages.Browse.Music
         {
             if (item is Song)
             {
-                RemoteUtility.HandleLibraryPlayTask(((Song)item).Play());
+                RemoteUtility.HandleLibraryPlayTask(CurrentGroup.PlaySong((Song)item));
                 return;
             }
-
-            base.OnListItemTap(item, list);
         }
 
         private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
