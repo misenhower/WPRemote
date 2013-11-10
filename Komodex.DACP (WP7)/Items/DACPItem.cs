@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Komodex.DACP.Items
 {
-    public abstract class DACPItem : DACPElement
+    public class DACPItem : DACPElement
     {
         public DACPItem(DACPContainer container, DACPNodeDictionary nodes)
             : base(container.Server, nodes)

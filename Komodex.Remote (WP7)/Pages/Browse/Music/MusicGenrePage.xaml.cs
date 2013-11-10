@@ -10,6 +10,8 @@ using Microsoft.Phone.Shell;
 using Komodex.DACP;
 using Komodex.DACP.Groups;
 using Komodex.DACP.Items;
+using Komodex.DACP.Genres;
+using Komodex.DACP.Containers;
 
 namespace Komodex.Remote.Pages.Browse.Music
 {
@@ -21,7 +23,7 @@ namespace Komodex.Remote.Pages.Browse.Music
 
             ArtistsViewSource = GetContainerViewSource(async c => await c.GetGenreArtistsAsync(CurrentGenreName));
             AlbumsViewSource = GetContainerViewSource(async c => await c.GetGenreAlbumsAsync(CurrentGenreName));
-            SongsViewSource = GetContainerViewSource(async c => await c.GetGenreSongsAsync(CurrentGenreName));
+            SongsViewSource = GetGenreViewSource(async g => await g.GetGroupedItemsAsync());
         }
 
         public string CurrentGenreName { get; private set; }
@@ -35,6 +37,11 @@ namespace Komodex.Remote.Pages.Browse.Music
             CurrentGenreName = queryString["genre"];
 
             base.OnNavigatedTo(e);
+        }
+
+        protected override DACPGenre GetGenre(MusicContainer container)
+        {
+            return new DACPGenre(CurrentContainer, CurrentGenreName);
         }
 
         protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
@@ -58,9 +65,9 @@ namespace Komodex.Remote.Pages.Browse.Music
                 return;
             }
 
-            if (item is Song)
+            if (item is DACPItem)
             {
-                if (await ((Song)item).Play())
+                if (await CurrentGenre.PlayItem((DACPItem)item))
                     NavigationManager.OpenNowPlayingPage();
                 else
                     RemoteUtility.ShowLibraryError();

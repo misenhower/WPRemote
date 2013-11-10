@@ -4,6 +4,7 @@ using Komodex.Common.Phone.Controls;
 using Komodex.DACP;
 using Komodex.DACP.Containers;
 using Komodex.DACP.Databases;
+using Komodex.DACP.Genres;
 using Komodex.DACP.Items;
 using Komodex.Remote.Data;
 using System;
@@ -48,6 +49,8 @@ namespace Komodex.Remote
 
         protected virtual void OnContainerChanged()
         {
+            UpdateCurrentGenre();
+
             UpdateViewSources();
             GetDataForCurrentPivotItem();
         }
@@ -64,6 +67,47 @@ namespace Komodex.Remote
         }
 
         protected abstract T GetContainer(DACPDatabase database);
+
+        #endregion
+
+        #region CurrentGenre
+
+        public static readonly DependencyProperty CurrentGenreProperty =
+            DependencyProperty.Register("CurrentGenre", typeof(DACPGenre), typeof(BrowseContainerBasePage<T>), new PropertyMetadata(CurrentGenrePropertyChanged));
+
+        public DACPGenre CurrentGenre
+        {
+            get { return (DACPGenre)GetValue(CurrentGenreProperty); }
+            set { SetValue(CurrentGenreProperty, value); }
+        }
+
+        private static void CurrentGenrePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            BrowseContainerBasePage<T> page = (BrowseContainerBasePage<T>)d;
+            page.OnGenreChanged();
+        }
+
+        protected virtual void OnGenreChanged()
+        {
+            UpdateViewSources();
+            GetDataForCurrentPivotItem();
+        }
+
+        protected void UpdateCurrentGenre()
+        {
+            if (CurrentContainer == null)
+            {
+                CurrentGenre = null;
+                return;
+            }
+
+            CurrentGenre = GetGenre(CurrentContainer);
+        }
+
+        protected virtual DACPGenre GetGenre(T container)
+        {
+            return null;
+        }
 
         #endregion
 
@@ -87,12 +131,33 @@ namespace Komodex.Remote
             return GetContainerViewSource(action);
         }
 
+        protected DACPElementViewSource<DACPGenre> GetGenreViewSource(Func<DACPGenre, Task<IList>> dataRetrievalAction)
+        {
+            var viewSource = new DACPElementViewSource<DACPGenre>(dataRetrievalAction);
+            _viewSources.Add(viewSource);
+            return viewSource;
+        }
+
+        protected DACPElementViewSource<DACPGenre> GetGenreViewSource(Func<DACPGenre, IList> dataRetrievalAction)
+        {
+            Func<DACPGenre, Task<IList>> action;
+#if WP7
+            action = g => TaskEx.FromResult(dataRetrievalAction(g));
+#else
+            action = g => Task.FromResult(dataRetrievalAction(g));
+#endif
+            return GetGenreViewSource(action);
+        }
+
         protected override void UpdateViewSources()
         {
             base.UpdateViewSources();
 
             foreach (var viewSource in _viewSources.OfType<DACPElementViewSource<T>>())
                 viewSource.Source = CurrentContainer;
+
+            foreach (var viewSource in _viewSources.OfType<DACPElementViewSource<DACPGenre>>())
+                viewSource.Source = CurrentGenre;
         }
 
         #endregion
