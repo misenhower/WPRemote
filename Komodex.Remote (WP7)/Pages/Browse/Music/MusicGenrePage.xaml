@@ -1,4 +1,5 @@
 ﻿<app:BrowseMusicContainerBasePage
+    x:Name="Page"
     x:Class="Komodex.Remote.Pages.Browse.Music.MusicGenrePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -19,6 +20,16 @@
     >
     
     <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ShuffleHeaderTemplate">
+            <Grid Visibility="{Binding ShuffleButtonVisibility, ElementName=Page}"
+                  Margin="{StaticResource ListItemMargin}"
+                  Background="Transparent"
+                  toolkit:TiltEffect.SuppressTilt="True"
+                  >
+                <appcontrols:ShuffleButton HorizontalAlignment="Left" Tap="ShuffleButton_Tap" />
+            </Grid>
+        </DataTemplate>
+
         <DataTemplate x:Key="ArtistTemplate">
             <Grid Margin="{StaticResource ListItemMargin}">
                 <toolkit:ContextMenuService.ContextMenu>
@@ -122,6 +133,7 @@
                     ItemTemplate="{StaticResource SongTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
+                    ListHeaderTemplate="{StaticResource ShuffleHeaderTemplate}"
                     EmptyText="{Binding LocalizedStrings.BrowseSongsNoSongs, Source={StaticResource LocalizedStrings}}"
                     />
             </controls:PivotItem>
