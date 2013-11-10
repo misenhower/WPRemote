@@ -143,6 +143,7 @@
     <Compile Include="Search\DACPSearchResults.cs" />
     <Compile Include="Search\ISearchResultSection.cs" />
     <Compile Include="Search\SearchResultSection.cs" />
+    <Compile Include="Search\SongsSearchResultSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\LocalizedDACPStrings.de-DE.resx">

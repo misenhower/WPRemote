@@ -22,7 +22,7 @@ namespace Komodex.DACP.Search
             string wildcardSearch = "*" + searchString + "*";
             Add(new SearchResultSection<Album>(database, async (db, token) => await db.MusicContainer.SearchAlbumsAsync(wildcardSearch, token)));
             Add(new SearchResultSection<Artist>(database, async (db, token) => await db.MusicContainer.SearchArtistsAsync(wildcardSearch, token)));
-            Add(new SearchResultSection<Song>(database, async (db, token) => await db.MusicContainer.SearchSongsAsync(wildcardSearch, token)));
+            Add(new SongsSearchResultSection(database, wildcardSearch, async (db, token) => await db.MusicContainer.SearchSongsAsync(wildcardSearch, token)));
             if (database.MoviesContainer != null)
                 Add(new SearchResultSection<Movie>(database, async (db, token) => await db.MoviesContainer.SearchMoviesAsync(wildcardSearch, token)));
             if (database.PodcastsContainer != null)

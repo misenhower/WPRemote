@@ -175,7 +175,17 @@ namespace Komodex.Remote.Pages.Search
             }
             if (selectedItem is Song)
             {
-                // TODO
+                Song song = (Song)selectedItem;
+
+                if (CurrentServer.SupportsPlayQueue)
+                {
+                    RemoteUtility.HandleLibraryPlayTask(song.PlayQueue());
+                    return;
+                }
+
+                // Locate the Songs search result set
+                var songsSection = (SongsSearchResultSection)CurrentSearchResults.First(sr => sr.ResultType == typeof(Song));
+                RemoteUtility.HandleLibraryPlayTask(songsSection.PlaySong(song));
             }
             if (selectedItem is Movie)
             {
