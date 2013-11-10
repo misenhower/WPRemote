@@ -84,7 +84,36 @@ namespace Komodex.Remote.Pages.Browse.Music
 
         private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuItem menuItem = (MenuItem)sender;
+            DACPElement item = menuItem.DataContext as DACPElement;
+            if (item == null)
+                return;
 
+            PlayQueueMode mode;
+            switch (menuItem.Name)
+            {
+                case "PlayNextButton": mode = PlayQueueMode.PlayNext; break;
+                case "AddToUpNextButton": mode = PlayQueueMode.AddToQueue; break;
+                default: return;
+            }
+
+            if (item is Artist)
+            {
+                RemoteUtility.HandleLibraryPlayTask(((Artist)item).Play(mode));
+                return;
+            }
+
+            if (item is Album)
+            {
+                RemoteUtility.HandleLibraryPlayTask(((Album)item).Play(mode));
+                return;
+            }
+
+            if (item is DACPItem)
+            {
+                RemoteUtility.HandleLibraryPlayTask(CurrentGenre.PlayItem((DACPItem)item, mode));
+                return;
+            }
         }
 
         #region Shuffle Button

@@ -80,7 +80,42 @@ namespace Komodex.Remote.Pages.Library
 
         private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuItem menuItem = (MenuItem)sender;
+            DACPElement item = menuItem.DataContext as DACPElement;
+            if (item == null)
+                return;
 
+            PlayQueueMode mode;
+            switch (menuItem.Name)
+            {
+                case "PlayNextButton": mode = PlayQueueMode.PlayNext; break;
+                case "AddToUpNextButton": mode = PlayQueueMode.AddToQueue; break;
+                default: return;
+            }
+
+            if (item is Artist)
+            {
+                RemoteUtility.HandleLibraryPlayTask(((Artist)item).Play(mode));
+                return;
+            }
+
+            if (item is Album)
+            {
+                RemoteUtility.HandleLibraryPlayTask(((Album)item).Play(mode));
+                return;
+            }
+
+            if (item is DACPGenre)
+            {
+                RemoteUtility.HandleLibraryPlayTask(((DACPGenre)item).Play(mode));
+                return;
+            }
+
+            if (item is Playlist)
+            {
+                RemoteUtility.HandleLibraryPlayTask(((Playlist)item).Play(mode));
+                return;
+            }
         }
 
         private void AppBarMoreButton_Click()

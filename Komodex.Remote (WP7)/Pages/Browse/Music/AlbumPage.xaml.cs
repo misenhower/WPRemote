@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using Komodex.DACP;
 using Komodex.DACP.Items;
 using Clarity.Phone.Controls.Animations;
+using Komodex.DACP.Groups;
 
 namespace Komodex.Remote.Pages.Browse.Music
 {
@@ -58,7 +59,30 @@ namespace Komodex.Remote.Pages.Browse.Music
 
         private void PlayQueueButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuItem menuItem = (MenuItem)sender;
+            DACPElement item = menuItem.DataContext as DACPElement;
+            if (item == null)
+                return;
 
+            PlayQueueMode mode;
+            switch (menuItem.Name)
+            {
+                case "PlayNextButton": mode = PlayQueueMode.PlayNext; break;
+                case "AddToUpNextButton": mode = PlayQueueMode.AddToQueue; break;
+                default: return;
+            }
+
+            if (item is Song)
+            {
+                RemoteUtility.HandleLibraryPlayTask(CurrentGroup.PlaySong((Song)item, mode));
+                return;
+            }
+
+            if (item is Album)
+            {
+                RemoteUtility.HandleLibraryPlayTask(((Album)item).Play(mode));
+                return;
+            }
         }
 
         private async void ArtistButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
