@@ -90,19 +90,9 @@ namespace Komodex.Remote
             Navigate("/Pages/Browse/Music/ArtistPage.xaml?databaseID={0}&groupID={1}", artist.Database.ID, artist.ID);
         }
 
-        [Obsolete]
-        public static void OpenArtistPage(string artistName)
-        {
-        }
-
         public static void OpenAlbumPage(Album album)
         {
             Navigate("/Pages/Browse/Music/AlbumPage.xaml?databaseID={0}&groupID={1}", album.Database.ID, album.ID);
-        }
-
-        [Obsolete]
-        public static void OpenAlbumPage(int albumID, string albumName, string artistName, UInt64 albumPersistentID)
-        {
         }
 
         public static void OpenMusicGenrePage(DACPGenre genre)

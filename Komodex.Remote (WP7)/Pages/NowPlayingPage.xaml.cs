@@ -18,6 +18,7 @@ using Komodex.Remote.Localization;
 using System.Windows.Threading;
 using System.ComponentModel;
 using System.Windows.Input;
+using Komodex.DACP.Items;
 
 namespace Komodex.Remote.Pages
 {
@@ -228,18 +229,50 @@ namespace Komodex.Remote.Pages
             NavigationManager.OpenLibraryPage(CurrentServer.MainDatabase);
         }
 
-        private void ArtistButton_Click(object sender, RoutedEventArgs e)
+        private async void ArtistButton_Click(object sender, RoutedEventArgs e)
         {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            // TODO: Get the correct DB and container
+
+            if (CurrentServer.CurrentContainerID != CurrentServer.MainDatabase.MusicContainer.ID)
+                return;
+
             switch (SettingsManager.Current.ArtistClickAction)
             {
                 case ArtistClickAction.OpenArtistPage:
-                    if (CurrentServer != null && CurrentServer.CurrentArtist != null)
-                        NavigationManager.OpenArtistPage(CurrentServer.CurrentArtist);
+                    if (string.IsNullOrEmpty(CurrentServer.CurrentArtist))
+                        return;
+
+                    // Get artists
+                    var artists = await CurrentServer.MainDatabase.MusicContainer.GetArtistsAsync();
+                    if (artists == null)
+                        return;
+
+                    // Find artist by name
+                    var artist = artists.FirstOrDefault(a => a.Name == CurrentServer.CurrentArtist);
+                    if (artist == null)
+                        return;
+
+                    NavigationManager.OpenArtistPage(artist);
                     break;
 
                 case ArtistClickAction.OpenAlbumPage:
-                    if (CurrentServer != null && CurrentServer.CurrentArtist != null && CurrentServer.CurrentAlbum != null && CurrentServer.CurrentAlbumPersistentID != 0)
-                        NavigationManager.OpenAlbumPage(0, CurrentServer.CurrentAlbum, CurrentServer.CurrentArtist, CurrentServer.CurrentAlbumPersistentID);
+                    if (CurrentServer.CurrentAlbumPersistentID == 0)
+                        return;
+
+                    // Get albums
+                    var albums = await CurrentServer.MainDatabase.MusicContainer.GetAlbumsAsync();
+                    if (albums == null)
+                        return;
+
+                    // Find album by persistent ID
+                    var album = albums.FirstOrDefault(a => a.PersistentID == CurrentServer.CurrentAlbumPersistentID);
+                    if (album == null)
+                        return;
+
+                    NavigationManager.OpenAlbumPage(album);
                     break;
             }
         }
