@@ -182,5 +182,29 @@ namespace Komodex.DACP.Containers
         }
 
         #endregion
+
+        #region Commands
+
+        public async Task<bool> ShuffleAllSongsAsync()
+        {
+            DACPRequest request;
+
+            if (Server.SupportsPlayQueue)
+            {
+                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", ID), PlayQueueMode.Shuffle);
+                request.QueryParameters["sort"] = "name";
+                request.QueryParameters["query-modifier"] = "containers";
+            }
+            else
+            {
+                request = Database.GetCueShuffleRequest(MediaKindQuery, "artist");
+            }
+
+            try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
+            catch { return false; }
+            return true;
+        }
+
+        #endregion
     }
 }

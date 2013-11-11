@@ -128,8 +128,7 @@ namespace Komodex.Remote.Pages.Library
 
         private void AppBarShuffleSongsButton_Click()
         {
-            // TODO
-            throw new NotImplementedException();
+            RemoteUtility.HandleLibraryPlayTask(CurrentContainer.ShuffleAllSongsAsync());
         }
 
     }
