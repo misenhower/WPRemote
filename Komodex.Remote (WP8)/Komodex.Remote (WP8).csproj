@@ -190,49 +190,13 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Data\IDACPElementViewSource.cs">
       <Link>Data\IDACPElementViewSource.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\AlbumPage.xaml.cs">
-      <Link>LibraryPages\AlbumPage.xaml.cs</Link>
-      <DependentUpon>AlbumPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\ArtistPage.xaml.cs">
-      <Link>LibraryPages\ArtistPage.xaml.cs</Link>
-      <DependentUpon>ArtistPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\GeniusMixesPage.xaml.cs">
       <Link>LibraryPages\GeniusMixesPage.xaml.cs</Link>
       <DependentUpon>GeniusMixesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\GenrePage.xaml.cs">
-      <Link>LibraryPages\GenrePage.xaml.cs</Link>
-      <DependentUpon>GenrePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\LibraryViewDialog.xaml.cs">
       <Link>LibraryPages\LibraryViewDialog.xaml.cs</Link>
       <DependentUpon>LibraryViewDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\MainLibraryPage.xaml.cs">
-      <Link>LibraryPages\MainLibraryPage.xaml.cs</Link>
-      <DependentUpon>MainLibraryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\PlaylistPage.xaml.cs">
-      <Link>LibraryPages\PlaylistPage.xaml.cs</Link>
-      <DependentUpon>PlaylistPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\PodcastPage.xaml.cs">
-      <Link>LibraryPages\PodcastPage.xaml.cs</Link>
-      <DependentUpon>PodcastPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\PodcastsPage.xaml.cs">
-      <Link>LibraryPages\PodcastsPage.xaml.cs</Link>
-      <DependentUpon>PodcastsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\SearchPage.xaml.cs">
-      <Link>LibraryPages\SearchPage.xaml.cs</Link>
-      <DependentUpon>SearchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\VideosPage.xaml.cs">
-      <Link>LibraryPages\VideosPage.xaml.cs</Link>
-      <DependentUpon>VideosPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Localization\LocalizedStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -847,58 +811,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\AlbumPage.xaml">
-      <Link>LibraryPages\AlbumPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\ArtistPage.xaml">
-      <Link>LibraryPages\ArtistPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\GeniusMixesPage.xaml">
       <Link>LibraryPages\GeniusMixesPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\GenrePage.xaml">
-      <Link>LibraryPages\GenrePage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\LibraryViewDialog.xaml">
       <Link>LibraryPages\LibraryViewDialog.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\MainLibraryPage.xaml">
-      <Link>LibraryPages\MainLibraryPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\PlaylistPage.xaml">
-      <Link>LibraryPages\PlaylistPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\PodcastPage.xaml">
-      <Link>LibraryPages\PodcastPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\PodcastsPage.xaml">
-      <Link>LibraryPages\PodcastsPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\SearchPage.xaml">
-      <Link>LibraryPages\SearchPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\VideosPage.xaml">
-      <Link>LibraryPages\VideosPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

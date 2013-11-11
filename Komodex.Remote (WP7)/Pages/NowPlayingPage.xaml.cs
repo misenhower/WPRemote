@@ -34,7 +34,7 @@ namespace Komodex.Remote.Pages
             ApplicationBar.BackgroundColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
 
             // Icon Buttons
-            AddApplicationBarIconButton(LocalizedStrings.BrowseLibraryAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Browse.png"), NavigationManager.OpenMainLibraryPage);
+            AddApplicationBarIconButton(LocalizedStrings.BrowseLibraryAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Browse.png"), () => NavigationManager.OpenLibraryPage(CurrentServer.MainDatabase));
             AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), NavigationManager.OpenSearchPage);
 
             RebuildApplicationBarMenuItems();
@@ -225,7 +225,7 @@ namespace Komodex.Remote.Pages
 
         private void LibraryButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationManager.OpenMainLibraryPage();
+            NavigationManager.OpenLibraryPage(CurrentServer.MainDatabase);
         }
 
         private void ArtistButton_Click(object sender, RoutedEventArgs e)

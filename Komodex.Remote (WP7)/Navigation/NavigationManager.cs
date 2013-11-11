@@ -183,19 +183,9 @@ namespace Komodex.Remote
             Navigate("/LibraryPages/GenrePage.xaml?name=" + genreName);
         }
 
-        [Obsolete]
-        public static void OpenPlaylistPage(int playlistID, string playlistName, UInt64 playlistPersistentID)
-        {
-        }
-
         public static void OpenNowPlayingPage()
         {
             Navigate("/Pages/NowPlayingPage.xaml");
-        }
-
-        [Obsolete]
-        public static void OpenMainLibraryPage()
-        {
         }
 
         public static void OpenSearchPage()
@@ -217,16 +207,6 @@ namespace Komodex.Remote
         public static void OpenVideosPage()
         {
             Navigate("/LibraryPages/VideosPage.xaml");
-        }
-
-        [Obsolete]
-        public static void OpenPodcastsPage()
-        {
-        }
-
-        [Obsolete]
-        public static void OpenPodcastPage(int podcastID, string podcastName, UInt64 podcastPersistentID)
-        {
         }
 
         public static void OpenSettingsPage()

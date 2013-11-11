@@ -145,38 +145,11 @@
     <Compile Include="Converters\TVShowSeasonEpisodeTextConverter.cs" />
     <Compile Include="Data\DACPElementViewSource.cs" />
     <Compile Include="Data\IDACPElementViewSource.cs" />
-    <Compile Include="LibraryPages\AlbumPage.xaml.cs">
-      <DependentUpon>AlbumPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryPages\ArtistPage.xaml.cs">
-      <DependentUpon>ArtistPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LibraryPages\GeniusMixesPage.xaml.cs">
       <DependentUpon>GeniusMixesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LibraryPages\GenrePage.xaml.cs">
-      <DependentUpon>GenrePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryPages\MainLibraryPage.xaml.cs">
-      <DependentUpon>MainLibraryPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LibraryPages\LibraryViewDialog.xaml.cs">
       <DependentUpon>LibraryViewDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryPages\PlaylistPage.xaml.cs">
-      <DependentUpon>PlaylistPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryPages\PodcastPage.xaml.cs">
-      <DependentUpon>PodcastPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryPages\PodcastsPage.xaml.cs">
-      <DependentUpon>PodcastsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryPages\SearchPage.xaml.cs">
-      <DependentUpon>SearchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryPages\VideosPage.xaml.cs">
-      <DependentUpon>VideosPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Localization\LocalizedStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -312,47 +285,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LibraryPages\AlbumPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LibraryPages\ArtistPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LibraryPages\GeniusMixesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LibraryPages\GenrePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="LibraryPages\MainLibraryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LibraryPages\LibraryViewDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LibraryPages\PlaylistPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LibraryPages\PodcastPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LibraryPages\PodcastsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LibraryPages\SearchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LibraryPages\VideosPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
