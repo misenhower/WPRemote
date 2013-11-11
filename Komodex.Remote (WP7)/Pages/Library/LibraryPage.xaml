@@ -100,6 +100,7 @@
             <controls:PivotItem DataContext="{Binding ArtistsViewSource}" Header="{Binding LocalizedStrings.BrowseArtists, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
+                    ListFooterTemplate="{StaticResource ListFooterPadding}"
                     ItemTemplate="{StaticResource ArtistTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
@@ -109,6 +110,7 @@
             <controls:PivotItem DataContext="{Binding AlbumsViewSource}" Header="{Binding LocalizedStrings.BrowseAlbums, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
+                    ListFooterTemplate="{StaticResource ListFooterPadding}"
                     ItemTemplate="{StaticResource AlbumTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
@@ -118,6 +120,7 @@
             <controls:PivotItem DataContext="{Binding GenresViewSource}" Header="{Binding LocalizedStrings.BrowseGenres, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
+                    ListFooterTemplate="{StaticResource ListFooterPadding}"
                     ItemTemplate="{StaticResource GenreTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
@@ -127,6 +130,7 @@
             <controls:PivotItem DataContext="{Binding PlaylistsViewSource}" Header="{Binding LocalizedStrings.BrowsePlaylists, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
                     Style="{StaticResource LibraryListStyle}"
+                    ListFooterTemplate="{StaticResource ListFooterPadding}"
                     ItemTemplate="{StaticResource PlaylistTemplate}"
                     ItemsSource="{Binding Items}"
                     IsGroupingEnabled="{Binding IsGroupedList}"
