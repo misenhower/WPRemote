@@ -826,28 +826,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\AlbumSampleData.xaml">
-      <Link>SampleData\AlbumSampleData.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
-    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\ArtistSampleData.xaml">
-      <Link>SampleData\ArtistSampleData.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
     <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\DACPServerSampleData.xaml">
       <Link>SampleData\DACPServerSampleData.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
-    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\GenreSampleData.xaml">
-      <Link>SampleData\GenreSampleData.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
-    <DesignData Include="..\Komodex.Remote %28WP7%29\SampleData\PlaylistSampleData.xaml">
-      <Link>SampleData\PlaylistSampleData.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>

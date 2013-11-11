@@ -560,19 +560,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <DesignData Include="SampleData\AlbumSampleData.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-    </DesignData>
-    <DesignData Include="SampleData\ArtistSampleData.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-    </DesignData>
     <DesignData Include="SampleData\DACPServerSampleData.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-    </DesignData>
-    <DesignData Include="SampleData\GenreSampleData.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-    </DesignData>
-    <DesignData Include="SampleData\PlaylistSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
     <DesignData Include="SampleData\ServerConnectionInfoCollection.xaml">
