@@ -94,6 +94,23 @@ namespace Komodex.Common.Phone.Controls
 
         #endregion
 
+        #region Item Removal Fix
+
+#if WP8
+        // The WP8 version of LongListSelector has a bug where removing items can trigger a crash. Catching the exception
+        // from MeasureOverride and calling MeasureOverride again seems to prevent the crash.
+        // Forum thread with more information:
+        // http://social.msdn.microsoft.com/Forums/wpapps/en-US/bec4efbf-269b-4be0-aacc-99c8be59b861/wp8-longlistselector-exception-when-removing-items?forum=wpdevelop
+
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            try { return base.MeasureOverride(availableSize); }
+            catch { return base.MeasureOverride(availableSize); }
+        }
+#endif
+
+        #endregion
+
         #region Item Link/Unlink and ContentPresenter Tracking
 
         protected List<ContentPresenter> _currentContentPresenters = new List<ContentPresenter>();
