@@ -45,6 +45,14 @@ namespace Komodex.Remote.Pages.Library
         public object GenresViewSource { get; private set; }
         public object PlaylistsViewSource { get; private set; }
 
+        protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
+        {
+            var uri = toOrFrom.OriginalString;
+            if (uri.StartsWith("/Pages/Browse/Music/") || uri.StartsWith("/Pages/Browse/Playlists/"))
+                return true;
+            return false;
+        }
+
         protected override void OnListItemTap(DACPElement item, Common.Phone.Controls.LongListSelector list, bool isPlayButton)
         {
             if (item is Artist)
