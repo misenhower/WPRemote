@@ -111,6 +111,15 @@ namespace Komodex.Remote
 
         #endregion
 
+        #region Genius Mixes
+
+        public static void OpenGeniusMixesPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Browse/GeniusMixes/GeniusMixesPage.xaml?databaseID={0}", database.ID);
+        }
+
+        #endregion
+
         #region Movies
 
         public static void OpenMoviesPage(DACPDatabase database)
@@ -202,11 +211,6 @@ namespace Komodex.Remote
         public static void OpenSettingsPage()
         {
             Navigate("/Settings/SettingsPage.xaml");
-        }
-
-        public static void OpenGeniusMixesPage()
-        {
-            Navigate("/LibraryPages/GeniusMixesPage.xaml");
         }
 
         #endregion

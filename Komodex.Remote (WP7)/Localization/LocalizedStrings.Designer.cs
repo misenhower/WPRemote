@@ -286,6 +286,42 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to genius mixes.
+        /// </summary>
+        public static string BrowseGeniusMixes {
+            get {
+                return ResourceManager.GetString("BrowseGeniusMixes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} &amp; others.
+        /// </summary>
+        public static string BrowseGeniusMixesArtistsAndOthers {
+            get {
+                return ResourceManager.GetString("BrowseGeniusMixesArtistsAndOthers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to , .
+        /// </summary>
+        public static string BrowseGeniusMixesArtistSeparator {
+            get {
+                return ResourceManager.GetString("BrowseGeniusMixesArtistSeparator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Based on music by:.
+        /// </summary>
+        public static string BrowseGeniusMixesBasedOn {
+            get {
+                return ResourceManager.GetString("BrowseGeniusMixesBasedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to genres.
         /// </summary>
         public static string BrowseGenres {

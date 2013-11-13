@@ -43,6 +43,8 @@ namespace Komodex.Remote.LibraryPages
                 items.Add(new LibraryViewItem(LocalizedStrings.BrowsePodcasts, "/Assets/Icons/Podcasts.png", () => NavigationManager.OpenPodcastsPage(CurrentDatabase)));
             if (CurrentDatabase.BooksContainer != null)
                 items.Add(new LibraryViewItem(LocalizedStrings.BrowseAudiobooks, "/Assets/Icons/Audiobooks.png", () => NavigationManager.OpenAudiobooksPage(CurrentDatabase)));
+            if (CurrentDatabase.GeniusMixes != null && CurrentDatabase.GeniusMixes.Count > 0)
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowseGeniusMixes, "/Assets/Icons/GeniusMixes.png", () => NavigationManager.OpenGeniusMixesPage(CurrentDatabase)));
 
             Items = items;
         }

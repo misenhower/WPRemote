@@ -60,6 +60,19 @@ namespace Komodex.DACP.Databases
             }
         }
 
+        private List<GeniusMix> _geniusMixes;
+        public List<GeniusMix> GeniusMixes
+        {
+            get { return _geniusMixes; }
+            private set
+            {
+                if (_geniusMixes == value)
+                    return;
+                _geniusMixes = value;
+                SendPropertyChanged();
+            }
+        }
+
         internal async Task<bool> RequestContainersAsync()
         {
             DACPRequest request = new DACPRequest("/databases/{0}/containers", ID);
@@ -72,6 +85,7 @@ namespace Komodex.DACP.Databases
 
                 List<Playlist> newPlaylists = new List<Playlist>();
                 List<Playlist> newParentPlaylists = new List<Playlist>();
+                List<GeniusMix> newGeniusMixes = new List<GeniusMix>();
 
                 foreach (DACPContainer container in containers)
                 {
@@ -112,6 +126,7 @@ namespace Komodex.DACP.Databases
                         case ContainerType.GeniusMixes:
                             break;
                         case ContainerType.GeniusMix:
+                            newGeniusMixes.Add((GeniusMix)container);
                             break;
                         default:
                             break;
@@ -120,6 +135,7 @@ namespace Komodex.DACP.Databases
 
                 Playlists = newPlaylists;
                 ParentPlaylists = newParentPlaylists;
+                GeniusMixes = newGeniusMixes;
             }
             catch (Exception e)
             {

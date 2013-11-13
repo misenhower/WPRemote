@@ -163,6 +163,9 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\EpisodeWatchedStyleConverter.cs">
       <Link>Converters\EpisodeWatchedStyleConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\GeniusMixDescriptionConverter.cs">
+      <Link>Converters\GeniusMixDescriptionConverter.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\ItemCountConverter.cs">
       <Link>Converters\ItemCountConverter.cs</Link>
     </Compile>
@@ -189,10 +192,6 @@
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Data\IDACPElementViewSource.cs">
       <Link>Data\IDACPElementViewSource.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\GeniusMixesPage.xaml.cs">
-      <Link>LibraryPages\GeniusMixesPage.xaml.cs</Link>
-      <DependentUpon>GeniusMixesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\LibraryPages\LibraryViewDialog.xaml.cs">
       <Link>LibraryPages\LibraryViewDialog.xaml.cs</Link>
@@ -236,6 +235,10 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Audiobooks\AudiobooksPage.xaml.cs">
       <Link>Pages\Browse\Audiobooks\AudiobooksPage.xaml.cs</Link>
       <DependentUpon>AudiobooksPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\GeniusMixes\GeniusMixesPage.xaml.cs">
+      <Link>Pages\Browse\GeniusMixes\GeniusMixesPage.xaml.cs</Link>
+      <DependentUpon>GeniusMixesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MovieGenrePage.xaml.cs">
       <Link>Pages\Browse\Movies\MovieGenrePage.xaml.cs</Link>
@@ -811,11 +814,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\GeniusMixesPage.xaml">
-      <Link>LibraryPages\GeniusMixesPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\LibraryPages\LibraryViewDialog.xaml">
       <Link>LibraryPages\LibraryViewDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -838,6 +836,11 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Audiobooks\AudiobooksPage.xaml">
       <Link>Pages\Browse\Audiobooks\AudiobooksPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\GeniusMixes\GeniusMixesPage.xaml">
+      <Link>Pages\Browse\GeniusMixes\GeniusMixesPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

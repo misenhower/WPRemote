@@ -34,15 +34,18 @@ namespace Komodex.Remote
 
                 // Find the pivot control
                 _pivotControl = (Pivot)FindName("PivotControl");
-                _pivotControl.SelectionChanged += PivotControl_SelectionChanged;
-
-                // Hook into the Tap event of each pivot item's list
-                foreach (PivotItem pivotItem in _pivotControl.Items)
+                if (_pivotControl != null)
                 {
-                    LongListSelector list = pivotItem.Content as LongListSelector;
-                    if (list == null)
-                        continue;
-                    list.Tap += List_Tap;
+                    _pivotControl.SelectionChanged += PivotControl_SelectionChanged;
+
+                    // Hook into the Tap event of each pivot item's list
+                    foreach (PivotItem pivotItem in _pivotControl.Items)
+                    {
+                        LongListSelector list = pivotItem.Content as LongListSelector;
+                        if (list == null)
+                            continue;
+                        list.Tap += List_Tap;
+                    }
                 }
 
                 _initialized = true;
@@ -143,6 +146,9 @@ namespace Komodex.Remote
 
         protected async void GetDataForCurrentPivotItem()
         {
+            if (_pivotControl == null)
+                return;
+
             PivotItem item = _pivotControl.SelectedItem as PivotItem;
             if (item == null)
                 return;

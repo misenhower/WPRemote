@@ -140,6 +140,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\DACPContainer.cs">
       <Link>Containers\DACPContainer.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Containers\GeniusMix.cs">
+      <Link>Containers\GeniusMix.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\MoviesContainer.cs">
       <Link>Containers\MoviesContainer.cs</Link>
     </Compile>

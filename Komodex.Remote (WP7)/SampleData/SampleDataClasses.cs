@@ -16,11 +16,25 @@ namespace Komodex.Remote.SampleData
         public string Name { get; set; }
     }
 
+    #region Databases
+
+    public class SampleDataDACPDatabase : SampleDataDACPElement
+    {
+        public List<SampleDataGeniusMix> GeniusMixes { get; set; }
+    }
+
+    #endregion
+
     #region Containers
 
     public class SampleDataDACPContainer : SampleDataDACPElement
     {
         public int ItemCount { get; set; }
+    }
+
+    public class SampleDataGeniusMix : SampleDataDACPContainer
+    {
+        public string Description { get; set; }
     }
 
     #endregion
@@ -135,7 +149,12 @@ namespace Komodex.Remote.SampleData
         public SampleDataDACPServer CurrentServer { get; set; }
     }
 
-    public class SampleDataBrowseContainerBasePage<T> : SampleDataRemoteBasePage
+    public class SampleDataBrowseDatabaseBasePage : SampleDataRemoteBasePage
+    {
+        public SampleDataDACPDatabase CurrentDatabase { get; set; }
+    }
+
+    public class SampleDataBrowseContainerBasePage<T> : SampleDataBrowseDatabaseBasePage
         where T : SampleDataDACPContainer
     {
         public T CurrentContainer { get; set; }

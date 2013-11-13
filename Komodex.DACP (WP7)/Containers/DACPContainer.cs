@@ -1,4 +1,5 @@
-﻿using Komodex.DACP.Databases;
+﻿using Komodex.Common;
+using Komodex.DACP.Databases;
 using Komodex.DACP.Genres;
 using Komodex.DACP.Queries;
 using System;
@@ -68,6 +69,8 @@ namespace Komodex.DACP.Containers
                     return new MusicContainer(database, nodes);
                 case ContainerType.Books:
                     return new BooksContainer(database, nodes);
+                case ContainerType.GeniusMix:
+                    return new GeniusMix(database, nodes);
             }
 
             return new DACPContainer(database, nodes);
@@ -102,6 +105,18 @@ namespace Komodex.DACP.Containers
         {
             get { return "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songartistid"; }
         }
+
+        #region Artwork
+
+        protected internal virtual string GetAlbumArtURI(int width, int height)
+        {
+            width = ResolutionUtility.GetScaledPixels(width);
+            height = ResolutionUtility.GetScaledPixels(height);
+            string uri = "{0}/databases/{1}/containers/{2}/extra_data/artwork?mw={3}&mh={4}&session-id={5}";
+            return string.Format(uri, Server.HTTPPrefix, Database.ID, ID, width, height, Server.SessionID);
+        }
+
+        #endregion
 
         #region Requests
 

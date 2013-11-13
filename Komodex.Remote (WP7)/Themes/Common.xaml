@@ -30,6 +30,7 @@
     <appConverters:TVShowSeasonEpisodeTextConverter x:Key="TVShowSeasonEpisodeTextConverter" />
     <appConverters:SearchResultsSecondLineConverter x:Key="SearchResultsSecondLineConverter" />
     <appConverters:SearchResultSectionHeaderConverter x:Key="SearchResultSectionHeaderConverter" />
+    <appConverters:GeniusMixDescriptionConverter x:Key="GeniusMixDescriptionConverter" />
 
     <!-- Page Style -->
     <Style x:Key="RemotePageStyle" TargetType="phone:PhoneApplicationPage">
