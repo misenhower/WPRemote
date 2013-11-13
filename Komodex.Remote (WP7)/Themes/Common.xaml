@@ -23,8 +23,6 @@
     <appConverters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />
     <appConverters:NoListItemsVisibilityConverter x:Key="noListItemsVisibilityConverter" />
     <converters:StringToUpperConverter x:Key="StringToUpperConverter" />
-    <appConverters:CollapseIfLessThanOneConverter x:Key="collapseIfLessThanOneConverter" />
-    <appConverters:CollapseIfLessThanTwoConverter x:Key="collapseIfLessThanTwoConverter" />
     <appConverters:CollectionCountToStringConverter x:Key="collectionCountToStringConverter" />
     <appConverters:ServerTypeToImageSourceConverter x:Key="ServerTypeToImageSourceConverter" />
     <appConverters:TVShowSeasonEpisodeTextConverter x:Key="TVShowSeasonEpisodeTextConverter" />

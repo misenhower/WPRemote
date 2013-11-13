@@ -130,10 +130,8 @@
       <DependentUpon>UtilityPairingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\AppendFilenameConverter.cs" />
-    <Compile Include="Converters\CollapseIfLessThanOneConverter.cs" />
     <Compile Include="Converters\CollectionCountToStringConverter.cs" />
     <Compile Include="Converters\DisableWhenNullConverter.cs" />
-    <Compile Include="Converters\CollapseIfLessThanTwoConverter.cs" />
     <Compile Include="Converters\EpisodeWatchedStyleConverter.cs" />
     <Compile Include="Converters\GeniusMixDescriptionConverter.cs" />
     <Compile Include="Converters\ItemCountConverter.cs" />

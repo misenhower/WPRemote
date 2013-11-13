@@ -14,29 +14,6 @@
         <Border Height="72" />
     </DataTemplate>
     
-    <!-- "Shuffle All" header item -->
-    <!-- TODO: Remove this -->
-    <DataTemplate x:Key="ShuffleAllHeaderTemplate" toolkit:TiltEffect.SuppressTilt="True">
-        <Grid Margin="12,0,0,12" toolkit:TiltEffect.SuppressTilt="False">
-            <my:FakeButton x:Name="ShuffleButton"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Bottom"
-                               Visibility="{Binding Path=Songs, Converter={StaticResource collapseIfLessThanTwoConverter}}">
-                <Border Background="{StaticResource PhoneChromeBrush}">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:MultiResolutionImageMask
-                                    Source="/Assets/Icons/Shuffle.png"
-                                    Width="48" Height="48"
-                                    />
-                        <TextBlock Text="{Binding LocalizedStrings.ShuffleAllButton, Source={StaticResource LocalizedStrings}}" Margin="0,3,12,0" FontSize="28"
-                                       Style="{StaticResource PhoneTextBlockBase}"
-                                       FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
-                    </StackPanel>
-                </Border>
-            </my:FakeButton>
-        </Grid>
-    </DataTemplate>
-
     <!-- Library List Item Styles -->
     <Thickness x:Key="ListItemMargin">12,0,0,12</Thickness>
     <Thickness x:Key="ListItemTextMargin">12,0,0,0</Thickness>
