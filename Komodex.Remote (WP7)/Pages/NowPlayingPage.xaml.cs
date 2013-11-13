@@ -234,10 +234,11 @@ namespace Komodex.Remote.Pages
             if (CurrentServer == null || !CurrentServer.IsConnected)
                 return;
 
+            // TODO: Verify the DB version and media kind instead
             // TODO: Get the correct DB and container
 
-            if (CurrentServer.CurrentContainerID != CurrentServer.MainDatabase.MusicContainer.ID)
-                return;
+            //if (CurrentServer.CurrentContainerID != CurrentServer.MainDatabase.MusicContainer.ID)
+            //    return;
 
             switch (SettingsManager.Current.ArtistClickAction)
             {
