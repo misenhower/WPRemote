@@ -128,6 +128,9 @@
     <Compile Include="..\Komodex.Common %28WP7%29\Networking\WakeOnLAN.cs">
       <Link>Networking\WakeOnLAN.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\ObservableCollectionEx.cs">
+      <Link>ObservableCollectionEx.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common %28WP7%29\Phone\PhoneUtility.cs">
       <Link>Phone\PhoneUtility.cs</Link>
     </Compile>
