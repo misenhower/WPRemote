@@ -110,12 +110,6 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\Enums.cs">
       <Link>Classes\Enums.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\GroupedItems.cs">
-      <Link>Classes\GroupedItems.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\GroupItems.cs">
-      <Link>Classes\GroupItems.cs</Link>
-    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\HTTPRequestInfo.cs">
       <Link>Classes\HTTPRequestInfo.cs</Link>
     </Compile>
@@ -173,9 +167,6 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.Properties.cs">
       <Link>DACPServer\DACPServer.Properties.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.Search.cs">
-      <Link>DACPServer\DACPServer.Search.cs</Link>
-    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Databases\DACPDatabase.cs">
       <Link>Databases\DACPDatabase.cs</Link>
     </Compile>
@@ -217,36 +208,6 @@
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Items\TVShowEpisode.cs">
       <Link>Items\TVShowEpisode.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Album.cs">
-      <Link>Library\Album.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Artist.cs">
-      <Link>Library\Artist.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Bases\ILibraryElement.cs">
-      <Link>Library\Bases\ILibraryElement.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Bases\LibraryElementBase.cs">
-      <Link>Library\Bases\LibraryElementBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Genre.cs">
-      <Link>Library\Genre.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\MediaItem.cs">
-      <Link>Library\MediaItem.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Playlist.cs">
-      <Link>Library\Playlist.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\Podcast.cs">
-      <Link>Library\Podcast.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\SearchResultSet.cs">
-      <Link>Library\SearchResultSet.cs</Link>
-    </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\Library\VideoMediaItem.cs">
-      <Link>Library\VideoMediaItem.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Localization\LocalizedDACPStrings.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -85,8 +85,6 @@
     <Compile Include="Classes\DACPNodeDictionary.cs" />
     <Compile Include="Classes\DACPRequest.cs" />
     <Compile Include="Classes\DACPResponse.cs" />
-    <Compile Include="Classes\GroupedItems.cs" />
-    <Compile Include="Classes\GroupItems.cs" />
     <Compile Include="Classes\IDACPList.cs" />
     <Compile Include="Classes\PlayQueue.cs" />
     <Compile Include="Classes\PlayQueueItem.cs" />
@@ -113,10 +111,6 @@
     <Compile Include="Items\PodcastEpisode.cs" />
     <Compile Include="Items\Song.cs" />
     <Compile Include="Items\TVShowEpisode.cs" />
-    <Compile Include="Library\Bases\LibraryElementBase.cs" />
-    <Compile Include="Library\Genre.cs" />
-    <Compile Include="Library\Podcast.cs" />
-    <Compile Include="Library\SearchResultSet.cs" />
     <Compile Include="DACPServer\DACPServer.LibraryManagement.cs" />
     <Compile Include="DACPServer\DACPServer.Properties.cs" />
     <Compile Include="Classes\Enums.cs" />
@@ -125,13 +119,6 @@
     <Compile Include="Classes\ServerUpdateEventArgs.cs" />
     <Compile Include="Classes\DACPUtility.cs" />
     <Compile Include="DACPServer\DACPServer.cs" />
-    <Compile Include="DACPServer\DACPServer.Search.cs" />
-    <Compile Include="Library\Album.cs" />
-    <Compile Include="Library\Artist.cs" />
-    <Compile Include="Library\Bases\ILibraryElement.cs" />
-    <Compile Include="Library\Playlist.cs" />
-    <Compile Include="Library\MediaItem.cs" />
-    <Compile Include="Library\VideoMediaItem.cs" />
     <Compile Include="Localization\LocalizedDACPStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

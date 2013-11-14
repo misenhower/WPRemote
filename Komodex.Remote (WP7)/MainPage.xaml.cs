@@ -12,7 +12,6 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Komodex.DACP;
 using Microsoft.Phone.Shell;
-using Komodex.DACP.Library;
 using Komodex.Common.Phone;
 using Komodex.Remote.TrialMode;
 using Komodex.Remote.Localization;

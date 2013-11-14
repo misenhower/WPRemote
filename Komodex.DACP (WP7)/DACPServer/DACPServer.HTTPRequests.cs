@@ -13,13 +13,13 @@ using System.Linq;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Windows.Threading;
-using Komodex.DACP.Library;
 using System.Text;
 using Komodex.Common;
 using System.Threading;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Komodex.DACP.Items;
 
 namespace Komodex.DACP
 {
@@ -622,13 +622,14 @@ namespace Komodex.DACP
             var songNodes = DACPUtility.GetResponseNodes(mlcl.Value);
             foreach (var songData in songNodes)
             {
-                MediaItem mediaItem = new MediaItem(this, songData.Value);
-                if (mediaItem.ID == CurrentSongID)
-                {
-                    _ratingUpdatedForSongID = CurrentSongID;
-                    SetCurrentSongUserRatingFromServer(mediaItem.UserRating);
-                    break;
-                }
+                var nodes = DACPNodeDictionary.Parse(songData.Value);
+                var id = nodes.GetInt("miid");
+                if (id != CurrentSongID)
+                    continue;
+                var rating = nodes.GetByte("asur");
+                _ratingUpdatedForSongID = CurrentSongID;
+                SetCurrentSongUserRatingFromServer(rating);
+                break;
             }
         }
 
@@ -752,29 +753,6 @@ namespace Komodex.DACP
             string url = "/ctrl-int/1/setproperty?dacp.repeatstate=" + intState + "&session-id=" + SessionID;
             SubmitHTTPRequest(url);
             RepeatState = repeatState;
-        }
-
-        public void SendShuffleAllSongsCommand()
-        {
-            string url;
-
-            if (SupportsPlayQueue)
-            {
-                int id;
-
-                if (MusicPlaylist == null)
-                    id = BasePlaylist.ID;
-                else
-                    id = MusicPlaylist.ID;
-
-                url = "/ctrl-int/1/playqueue-edit?command=add&query='dmap.itemid:" + id + "'&query-modifier=containers&sort=name&mode=2&session-id=" + SessionID;
-            }
-            else
-            {
-                url = "/ctrl-int/1/cue?command=play&query=('com.apple.itunes.mediakind:1','com.apple.itunes.mediakind:32')&dacp.shufflestate=1&sort=artist&clear-first=1&session-id=" + SessionID;
-            }
-
-            SubmitHTTPRequest(url);
         }
 
         #endregion
