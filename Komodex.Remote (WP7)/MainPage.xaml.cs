@@ -103,8 +103,12 @@ namespace Komodex.Remote
                 case "IsConnected":
                 case "PlayState":
                 case "CurrentSongName":
-                    UpdateBindings();
-                    UpdateVisualState();
+                    // Don't update the UI unless we've finished connecting
+                    if (ServerManager.ConnectionState == ServerConnectionState.Connected)
+                    {
+                        UpdateBindings();
+                        UpdateVisualState();
+                    }
                     break;
                 default:
                     break;
@@ -118,7 +122,7 @@ namespace Komodex.Remote
             Utility.BeginInvokeOnUIThread(() =>
             {
                 UpdateBindings();
-                UpdateVisualState();
+                UpdateVisualState(false);
             });
         }
 
@@ -128,7 +132,7 @@ namespace Komodex.Remote
             Utility.BeginInvokeOnUIThread(() =>
             {
                 UpdateBindings();
-                UpdateVisualState();
+                UpdateVisualState(false);
             });
         }
 
