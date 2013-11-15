@@ -50,6 +50,7 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Phone">
       <HintPath>..\CommonLibraries\Microsoft.Bcl.Async\sl4-windowsphone71\Microsoft.Threading.Tasks.Extensions.Phone.dll</HintPath>
     </Reference>
+    <Reference Include="mscorlib.Extensions" />
     <Reference Include="System.IO">
       <HintPath>..\CommonLibraries\Microsoft.Bcl\sl4-windowsphone71\System.IO.dll</HintPath>
     </Reference>

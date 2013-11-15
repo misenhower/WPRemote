@@ -290,7 +290,7 @@ namespace Komodex.Remote.ServerManagement
             switch (result)
             {
                 case ConnectionResult.Success:
-                    //await CurrentServer.StartUpdateRequestsAsync();
+                    CurrentServer.StartUpdateRequests();
                     ServerConnected();
                     break;
 

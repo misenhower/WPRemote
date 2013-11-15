@@ -177,7 +177,7 @@ namespace Komodex.DACP
                 WebResponse response = requestInfo.WebRequest.EndGetResponse(result);
                 requestInfo.WebResponse = response as HttpWebResponse;
 
-                if (Stopped)
+                if (!IsConnected)
                     return;
 
                 Stream responseStream = response.GetResponseStream();
@@ -447,8 +447,8 @@ namespace Komodex.DACP
                 }
             }
 
-            if (UseDelayedResponseRequests && !Stopped)
-                SubmitLibraryUpdateRequest();
+            //if (UseDelayedResponseRequests && !Stopped)
+            //    SubmitLibraryUpdateRequest();
         }
 
         #endregion
@@ -457,141 +457,142 @@ namespace Komodex.DACP
 
         protected int _playStatusRevisionNumber = 1;
         protected HTTPRequestInfo _playStatusRequestInfo = null;
-        protected Timer _playStatusCancelTimer;
 
-        protected void SubmitPlayStatusRequest()
+        protected Task<bool> GetPlayStatusUpdateAsync()
         {
-            // Disable the cancellation timer
-            _playStatusCancelTimer.Change(Timeout.Infinite, Timeout.Infinite);
-
-            string url = "/ctrl-int/1/playstatusupdate?revision-number=" + _playStatusRevisionNumber + "&session-id=" + SessionID;
-            _playStatusRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessPlayStatusResponse), false, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandlePlayStatusException));
-
-            // Re-enable the cancellation timer
-            _playStatusCancelTimer.Change(45000, Timeout.Infinite);
+            return GetPlayStatusUpdateAsync(CancellationToken.None);
         }
 
-        // HTTPWebRequests appear to have a timeout of 60 seconds.  I have not found a way to extend
-        // this timeout, so if this is a WebException for the Play Status request, we need to handle
-        // the error differently.  When this timeout occurs, iTunes will also end the current session.
-        // Also, it appears that the web exception's status will NOT be set to WebExceptionStatus.Timeout
-        // To get around the session ending issue, I am re-requesting the play status every 45 seconds.
-
-        private void playStatusCancelTimer_Tick(object state)
+        protected async Task<bool> GetPlayStatusUpdateAsync(CancellationToken cancellationToken)
         {
-            if (UseDelayedResponseRequests && !Stopped)
+            // Do not pass the cancellation token to the HTTP request since cancelling a request will cause iTunes to close the current session.
+            DACPRequest request = new DACPRequest("/ctrl-int/1/playstatusupdate");
+            request.QueryParameters["revision-number"] = _playStatusRevisionNumber.ToString();
+
+            try
             {
-                _log.Info("Canceling play status request...");
-                var requestInfo = _playStatusRequestInfo;
-                _playStatusRequestInfo = null;
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
 
-                // Ignore any response we get for this request in case it isn't cancelled immediately
-                requestInfo.ResponseHandlerDelegate = null;
+                // Do we still need to process this response?
+                if (cancellationToken.IsCancellationRequested)
+                    return false;
 
-                // Remove it from the list of pending HTTP requests
-                lock (PendingHttpRequests)
-                    PendingHttpRequests.Remove(requestInfo);
-
-                // Submitting a new play status request will cause iTunes to abort the previous one without ending the session
-                SubmitPlayStatusRequest();
-            }
-        }
-
-        protected void HandlePlayStatusException(HTTPRequestInfo requestInfo, WebException e)
-        {
-            // If we've canceled this request, ignore any exceptions
-            if (requestInfo.ResponseHandlerDelegate == null)
-            {
-                _log.Info("Caught timed out play status response.");
-                return;
-            }
-
-            // Otherwise, this is a legitimate connection error
-            //ConnectionError();
-        }
-
-        // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well
-        protected void ProcessPlayStatusResponse(HTTPRequestInfo requestInfo)
-        {
-            Utility.BeginInvokeOnUIThread(() =>
-            {
-                timerTrackTimeUpdate.Stop();
-                if (_trackTimeRequestTimer != null)
-                    _trackTimeRequestTimer.Stop();
-            });
-
-            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
-
-            int oldSongID = CurrentSongID;
-
-            _playStatusRevisionNumber = nodes.GetInt("cmsr");
-            if (nodes.ContainsKey("canp"))
-            {
-                // Current song and container IDs
-                byte[] value = nodes["canp"];
-
-                //byte[] dbID = { value[0], value[1], value[2], value[3] }; // We already have the current DB (for now)
-                byte[] containerID = { value[4], value[5], value[6], value[7] };
-                byte[] containerItemID = { value[8], value[9], value[10], value[11] };
-                byte[] songID = { value[12], value[13], value[14], value[15] };
-                CurrentContainerID = containerID.GetInt32Value();
-                CurrentContainerItemID = containerItemID.GetInt32Value();
-                CurrentSongID = songID.GetInt32Value();
-            }
-            else
-            {
-                CurrentContainerID = 0;
-                CurrentContainerItemID = 0;
-                CurrentSongID = 0;
-            }
-            CurrentSongName = nodes.GetString("cann");
-            CurrentArtist = nodes.GetString("cana");
-            CurrentAlbum = nodes.GetString("canl");
-            CurrentAlbumPersistentID = (UInt64)nodes.GetLong("asai");
-            PlayState = (PlayStates)nodes.GetByte("caps");
-            ShuffleState = nodes.GetBool("cash");
-            RepeatState = (RepeatStates)nodes.GetByte("carp");
-            CurrentMediaKind = nodes.GetInt("cmmk");
-
-            // Track length (ms)
-            TrackTimeTotal = nodes.GetInt("cast");
-            // Remaining track length (ms)
-            TrackTimeRemaining = nodes.GetNullableInt("cant") ?? TrackTimeTotal;
-
-            // dacp.visualizer
-            VisualizerActive = nodes.GetBool("cavs");
-            // dacp.visualizerenabled
-            VisualizerAvailable = nodes.GetBool("cave");
-            // dacp.fullscreen
-            FullScreenModeActive = nodes.GetBool("cafs");
-            // dacp.fullscreenenabled
-            FullScreenModeAvailable = nodes.GetBool("cafe");
-
-            // If the song ID changed, refresh the album art
-            if (oldSongID != CurrentSongID)
-                PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");
-
-            Utility.BeginInvokeOnUIThread(() =>
-            {
-                if (PlayState == PlayStates.Playing)
-                    timerTrackTimeUpdate.Start();
-                else if (PlayState == PlayStates.FastForward || PlayState == PlayStates.Rewind)
+                // Process response
+                Utility.BeginInvokeOnUIThread(() =>
                 {
-                    if (_trackTimeRequestTimer == null)
-                    {
-                        _trackTimeRequestTimer = new DispatcherTimer();
-                        _trackTimeRequestTimer.Tick += TrackTimeRequestTimer_Tick;
-                        _trackTimeRequestTimer.Interval = TimeSpan.FromMilliseconds(250);
-                    }
-                    _trackTimeRequestTimer.Start();
+                    timerTrackTimeUpdate.Stop();
+                    if (_trackTimeRequestTimer != null)
+                        _trackTimeRequestTimer.Stop();
+                });
+
+                var nodes = DACPNodeDictionary.Parse(response.Nodes);
+                _playStatusRevisionNumber = nodes.GetInt("cmsr");
+
+                int oldSongID = CurrentSongID;
+
+                if (nodes.ContainsKey("canp"))
+                {
+                    // Current song and container IDs
+                    byte[] value = nodes["canp"];
+
+                    //byte[] dbID = { value[0], value[1], value[2], value[3] }; // We already have the current DB (for now)
+                    byte[] containerID = { value[4], value[5], value[6], value[7] };
+                    byte[] containerItemID = { value[8], value[9], value[10], value[11] };
+                    byte[] songID = { value[12], value[13], value[14], value[15] };
+                    CurrentContainerID = containerID.GetInt32Value();
+                    CurrentContainerItemID = containerItemID.GetInt32Value();
+                    CurrentSongID = songID.GetInt32Value();
                 }
-            });
-            SubmitUserRatingRequest();
-            SubmitVolumeStatusRequest();
-            SubmitGetSpeakersRequest();
-            SubmitPlayQueueRequest();
-            if (UseDelayedResponseRequests && !Stopped)
-                SubmitPlayStatusRequest();
+                else
+                {
+                    CurrentContainerID = 0;
+                    CurrentContainerItemID = 0;
+                    CurrentSongID = 0;
+                }
+                CurrentSongName = nodes.GetString("cann");
+                CurrentArtist = nodes.GetString("cana");
+                CurrentAlbum = nodes.GetString("canl");
+                CurrentAlbumPersistentID = (UInt64)nodes.GetLong("asai");
+                PlayState = (PlayStates)nodes.GetByte("caps");
+                ShuffleState = nodes.GetBool("cash");
+                RepeatState = (RepeatStates)nodes.GetByte("carp");
+                CurrentMediaKind = nodes.GetInt("cmmk");
+
+                // Track length (ms)
+                TrackTimeTotal = nodes.GetInt("cast");
+                // Remaining track length (ms)
+                TrackTimeRemaining = nodes.GetNullableInt("cant") ?? TrackTimeTotal;
+
+                // dacp.visualizer
+                VisualizerActive = nodes.GetBool("cavs");
+                // dacp.visualizerenabled
+                VisualizerAvailable = nodes.GetBool("cave");
+                // dacp.fullscreen
+                FullScreenModeActive = nodes.GetBool("cafs");
+                // dacp.fullscreenenabled
+                FullScreenModeAvailable = nodes.GetBool("cafe");
+
+                // If the song ID changed, refresh the album art
+                if (oldSongID != CurrentSongID)
+                    PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");
+
+                Utility.BeginInvokeOnUIThread(() =>
+                {
+                    if (PlayState == PlayStates.Playing)
+                        timerTrackTimeUpdate.Start();
+                    else if (PlayState == PlayStates.FastForward || PlayState == PlayStates.Rewind)
+                    {
+                        if (_trackTimeRequestTimer == null)
+                        {
+                            _trackTimeRequestTimer = new DispatcherTimer();
+                            _trackTimeRequestTimer.Tick += TrackTimeRequestTimer_Tick;
+                            _trackTimeRequestTimer.Interval = TimeSpan.FromMilliseconds(250);
+                        }
+                        _trackTimeRequestTimer.Start();
+                    }
+                });
+
+                SubmitUserRatingRequest();
+                SubmitVolumeStatusRequest();
+                SubmitGetSpeakersRequest();
+                SubmitPlayQueueRequest();
+            }
+            catch { return false; }
+            return true;
+        }
+
+        protected async void SubscribeToPlayStatusUpdates()
+        {
+            // Windows Phone has a maximum HTTP timeout of 60 seconds. There is no way to increase this limit.
+            // If an HTTP request times out and is canceled by the OS, iTunes will end the current session and
+            // we'll have to log in again. Submitting another request before the first one times out causes
+            // iTunes to close the first request without ending the session.
+
+            TimeSpan autoCancelTimeSpan = TimeSpan.FromSeconds(45);
+            CancellationTokenSource cts;
+
+            while (IsConnected)
+            {
+                cts = new CancellationTokenSource();
+
+#if WP7
+                var updateTask = GetPlayStatusUpdateAsync(cts.Token);
+                var cancelTask = TaskEx.Delay(autoCancelTimeSpan, cts.Token);
+                await TaskEx.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
+#else
+                var updateTask = GetPlayStatusUpdateAsync(cts.Token);
+                var cancelTask = Task.Delay(autoCancelTimeSpan, cts.Token);
+                await Task.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
+#endif
+
+                cts.Cancel();
+
+                if (updateTask.Status == TaskStatus.RanToCompletion && updateTask.Result == false)
+                {
+                    SendConnectionError();
+                    return;
+                }
+            }
         }
 
         #endregion

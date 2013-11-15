@@ -30,8 +30,6 @@ namespace Komodex.DACP
                 timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);
                 timerTrackTimeUpdate.Tick += timerTrackTimeUpdate_Tick;
             });
-
-            _playStatusCancelTimer = new Timer(playStatusCancelTimer_Tick);
         }
 
         public DACPServer(string hostname, int port, string pairingCode)
@@ -54,8 +52,6 @@ namespace Komodex.DACP
 
         #region Fields
 
-        private bool UseDelayedResponseRequests = true;
-        private bool Stopped = false;
         internal string HTTPPrefix;
 
         #endregion
@@ -145,14 +141,19 @@ namespace Komodex.DACP
             if (!success)
                 return ConnectionResult.ConnectionError;
 
+            // Play status
+            success = await GetPlayStatusUpdateAsync().ConfigureAwait(false);
+            if (!success)
+                return ConnectionResult.ConnectionError;
+
             IsConnected = true;
 
             return ConnectionResult.Success;
         }
 
-        public async Task<bool> StartUpdateRequestsAsync()
+        public void StartUpdateRequests()
         {
-            throw new NotImplementedException();
+            SubscribeToPlayStatusUpdates();
         }
 
         public void Disconnect()
@@ -186,7 +187,7 @@ namespace Komodex.DACP
         {
             IsConnected = false;
 
-            if (!Stopped)
+            //if (!Stopped)
             {
                 Disconnect();
                 //SendServerUpdate(ServerUpdateType.Error, errorType, errorDetails);
@@ -198,6 +199,16 @@ namespace Komodex.DACP
         #region Events
 
         public event EventHandler<EventArgs> ConnectionError;
+
+        protected void SendConnectionError()
+        {
+            if (!IsConnected)
+                return;
+
+            Disconnect();
+            if (ConnectionError != null)
+                ConnectionError.Raise(this, new EventArgs());
+        }
 
         #endregion
 

@@ -238,7 +238,6 @@ namespace Komodex.Remote.Controls
                     MessageBox.Show(LocalizedStrings.LibraryPINErrorBody, LocalizedStrings.LibraryPINErrorTitle, MessageBoxButton.OK);
                     _server = null;
                     UpdateWizardItem(true);
-                    return;
                     break;
 
                 case ConnectionResult.ConnectionError:
