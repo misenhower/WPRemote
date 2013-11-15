@@ -111,7 +111,6 @@
     <Compile Include="Items\PodcastEpisode.cs" />
     <Compile Include="Items\Song.cs" />
     <Compile Include="Items\TVShowEpisode.cs" />
-    <Compile Include="DACPServer\DACPServer.LibraryManagement.cs" />
     <Compile Include="DACPServer\DACPServer.Properties.cs" />
     <Compile Include="Classes\Enums.cs" />
     <Compile Include="Classes\HTTPRequestInfo.cs" />

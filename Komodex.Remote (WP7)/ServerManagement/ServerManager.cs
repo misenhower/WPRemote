@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Komodex.Remote.ServerManagement
 {
@@ -191,14 +192,14 @@ namespace Komodex.Remote.ServerManagement
 
                 if (_currentServer != null)
                 {
-                    _currentServer.ServerUpdate -= DACPServer_ServerUpdate;
-                    _currentServer.Stop();
+                    _currentServer.ConnectionError -= DACPServer_ConnectionError;
+                    _currentServer.Disconnect();
                 }
 
                 _currentServer = value;
 
                 if (_currentServer != null)
-                    _currentServer.ServerUpdate += DACPServer_ServerUpdate;
+                    _currentServer.ConnectionError += DACPServer_ConnectionError;
 
                 CurrentServerChanged.RaiseOnUIThread(null, new EventArgs());
             }
@@ -268,7 +269,7 @@ namespace Komodex.Remote.ServerManagement
                 if (forceReconnect)
                 {
                     _log.Info("Forcing reconnection with a new address/port from Bonjour...");
-                    CurrentServer.Stop();
+                    CurrentServer.Disconnect();
                 }
             }
 
@@ -278,7 +279,29 @@ namespace Komodex.Remote.ServerManagement
 
             ConnectionState = ServerConnectionState.ConnectingToLibrary;
             _log.Info("Connecting to server...");
-            CurrentServer.Start();
+
+            HandleServerConnection(CurrentServer.ConnectAsync());
+        }
+
+        private static async void HandleServerConnection(Task<ConnectionResult> task)
+        {
+            var result = await task;
+
+            switch (result)
+            {
+                case ConnectionResult.Success:
+                    //await CurrentServer.StartUpdateRequestsAsync();
+                    ServerConnected();
+                    break;
+
+                case ConnectionResult.InvalidPIN:
+                    PINError();
+                    break;
+
+                case ConnectionResult.ConnectionError:
+                    ServerError(null);
+                    break;
+            }
         }
 
         private static void WakeServer()
@@ -327,24 +350,9 @@ namespace Komodex.Remote.ServerManagement
             return null;
         }
 
-        private static void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        private static void DACPServer_ConnectionError(object sender, EventArgs e)
         {
-            if (sender != CurrentServer)
-                return;
-
-            switch (e.Type)
-            {
-                case ServerUpdateType.ServerConnected:
-                    ServerConnected();
-                    break;
-
-                case ServerUpdateType.Error:
-                    ServerError(e.ErrorType, e.ErrorDetails);
-                    break;
-
-                case ServerUpdateType.LibraryError:
-                    break;
-            }
+            ServerError(null);
         }
 
         private static void ServerConnected()
@@ -360,93 +368,92 @@ namespace Komodex.Remote.ServerManagement
             _pairedServers.Save();
         }
 
-        private static void ServerError(ServerErrorType type, string details)
+        private static void PINError()
         {
-            _log.Info("Server error: " + type);
-            if (type == ServerErrorType.InvalidPIN)
+            _log.Warning("Invalid PIN error.");
+
+            if (SelectedServerInfo.IsAvailable)
             {
-                _log.Warning("Invalid PIN error.");
-
-                if (SelectedServerInfo.IsAvailable)
-                {
-                    // Server is no longer paired with this client
-                    RemoveServerInfo(SelectedServerInfo);
-                }
-                else
-                {
-                    // We may have connected to the wrong server
-                    if (ConnectionState == ServerConnectionState.ConnectingToLibrary)
-                        ConnectionState = ServerConnectionState.LookingForLibrary;
-                }
-
-                // TODO: Notify the user
+                // Server is no longer paired with this client
+                RemoveServerInfo(SelectedServerInfo);
             }
             else
             {
-                // If the network is no longer available, wait for it to become available again
-                if (!NetworkManager.IsLocalNetworkAvailable)
-                {
-                    ConnectionState = ServerConnectionState.WaitingForWiFiConnection;
-                    return;
-                }
-
-                // If we were previously connected, just try reconnecting first
-                if (ConnectionState == ServerConnectionState.Connected)
-                {
-                    // Report the error
-                    bool reportError = SettingsManager.Current.ExtendedErrorReporting;
-                    // Disable error reporting for now
-                    reportError = false;
-#if DEBUG
-                    // Always report errors in debug builds
-                    reportError = true;
-#endif
-                    if (reportError)
-                    {
-                        if (type == ServerErrorType.General && !string.IsNullOrEmpty(details) && !details.Contains("/server-info"))
-                            CrashReporter.LogMessage(details, "DACP Server Error", true);
-                    }
-
-                    // The server was previously connected, just try to reconnect
-                    ConnectionState = ServerConnectionState.ConnectingToLibrary;
-                    _log.Info("Server disconnected, reconnecting...");
-                    CurrentServer.Start();
-                }
-
-                // If the server is still visible in Bonjour, try to connect to any other IPs
-                else if (BonjourManager.DiscoveredServers.ContainsKey(SelectedServerInfo.ServiceID))
-                {
-                    _log.Info("Server reconnection failed, but server is available via Bonjour.");
-
-                    // A connection attempt failed, but we have the service in Bonjour.
-                    NetService service = BonjourManager.DiscoveredServers[SelectedServerInfo.ServiceID];
-
-                    // Select the next IP address and try to connect to it.
-                    var ips = service.IPAddresses.Select(ip => ip.ToString()).ToList();
-                    if (ips.Count > 0)
-                    {
-                        int index = ips.IndexOf(CurrentServer.Hostname);
-                        index++;
-                        if (index >= ips.Count)
-                            index = 0;
-
-                        _log.Info("Trying new IP: {0} (Previous: {1})", ips[index], CurrentServer.Hostname);
-
-                        CurrentServer.Hostname = ips[index];
-                    }
-
-                    // Update the port if necessary
-                    CurrentServer.Port = service.Port;
-
-                    // TODO: Delay reconnection requests (particularly if the IP didn't change)
-
-                    CurrentServer.Start();
-                }
-                else
-                {
-                    _log.Info("Server is not currently available via Bonjour.");
+                // We may have connected to the wrong server
+                if (ConnectionState == ServerConnectionState.ConnectingToLibrary)
                     ConnectionState = ServerConnectionState.LookingForLibrary;
+            }
+
+            // TODO: Notify the user
+        }
+
+        private static void ServerError(string details)
+        {
+            _log.Info("Server error: " + details);
+
+            // If the network is no longer available, wait for it to become available again
+            if (!NetworkManager.IsLocalNetworkAvailable)
+            {
+                ConnectionState = ServerConnectionState.WaitingForWiFiConnection;
+                return;
+            }
+
+            // If we were previously connected, just try reconnecting first
+            if (ConnectionState == ServerConnectionState.Connected)
+            {
+                // Report the error
+                bool reportError = SettingsManager.Current.ExtendedErrorReporting;
+                // Disable error reporting for now
+                reportError = false;
+#if DEBUG
+                // Always report errors in debug builds
+                reportError = true;
+#endif
+                if (reportError)
+                {
+                    if (!string.IsNullOrEmpty(details) && !details.Contains("/server-info"))
+                        CrashReporter.LogMessage(details, "DACP Server Error", true);
                 }
+
+                // The server was previously connected, just try to reconnect
+                ConnectionState = ServerConnectionState.ConnectingToLibrary;
+                _log.Info("Server disconnected, reconnecting...");
+                HandleServerConnection(CurrentServer.ConnectAsync());
+            }
+
+            // If the server is still visible in Bonjour, try to connect to any other IPs
+            else if (BonjourManager.DiscoveredServers.ContainsKey(SelectedServerInfo.ServiceID))
+            {
+                _log.Info("Server reconnection failed, but server is available via Bonjour.");
+
+                // A connection attempt failed, but we have the service in Bonjour.
+                NetService service = BonjourManager.DiscoveredServers[SelectedServerInfo.ServiceID];
+
+                // Select the next IP address and try to connect to it.
+                var ips = service.IPAddresses.Select(ip => ip.ToString()).ToList();
+                if (ips.Count > 0)
+                {
+                    int index = ips.IndexOf(CurrentServer.Hostname);
+                    index++;
+                    if (index >= ips.Count)
+                        index = 0;
+
+                    _log.Info("Trying new IP: {0} (Previous: {1})", ips[index], CurrentServer.Hostname);
+
+                    CurrentServer.Hostname = ips[index];
+                }
+
+                // Update the port if necessary
+                CurrentServer.Port = service.Port;
+
+                // TODO: Delay reconnection requests (particularly if the IP didn't change)
+
+                HandleServerConnection(CurrentServer.ConnectAsync());
+            }
+            else
+            {
+                _log.Info("Server is not currently available via Bonjour.");
+                ConnectionState = ServerConnectionState.LookingForLibrary;
             }
         }
 

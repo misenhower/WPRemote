@@ -7,6 +7,7 @@ using Komodex.DACP.Containers;
 using Komodex.DACP.Databases;
 using Komodex.DACP.Items;
 using Komodex.Remote.Data;
+using Komodex.Remote.ServerManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -61,11 +62,11 @@ namespace Komodex.Remote
             Utility.BeginInvokeOnUIThread(UpdateCurrentDatabase);
         }
 
-        protected override void CurrentServer_ServerUpdate(object sender, DACP.ServerUpdateEventArgs e)
+        protected override void ServerManager_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            base.CurrentServer_ServerUpdate(sender, e);
+            base.ServerManager_ConnectionStateChanged(sender, e);
 
-            if (e.Type == ServerUpdateType.ServerConnected)
+            if (e.State == ServerConnectionState.Connected)
                 Utility.BeginInvokeOnUIThread(UpdateCurrentDatabase);
         }
 

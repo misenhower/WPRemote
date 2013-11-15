@@ -8,13 +8,13 @@ namespace Komodex.DACP
 {
     internal class DACPResponse
     {
-        public DACPResponse(HttpResponseMessage response, IEnumerable<DACPNode> nodes)
+        public DACPResponse(HttpResponseMessage httpResponse, IEnumerable<DACPNode> nodes)
         {
-            Response = response;
+            HTTPResponse = httpResponse;
             Nodes = nodes;
         }
 
-        public HttpResponseMessage Response { get; protected set; }
+        public HttpResponseMessage HTTPResponse { get; protected set; }
         public IEnumerable<DACPNode> Nodes { get; protected set; }
     }
 }

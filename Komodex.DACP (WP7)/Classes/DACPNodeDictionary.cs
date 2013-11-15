@@ -12,9 +12,14 @@ namespace Komodex.DACP
 
         public static DACPNodeDictionary Parse(byte[] data)
         {
+            return Parse(DACPUtility.GetResponseNodes(data));
+        }
+
+        public static DACPNodeDictionary Parse(IEnumerable<DACPNode> nodes)
+        {
             DACPNodeDictionary dictionary = new DACPNodeDictionary();
 
-            foreach (var node in DACPUtility.GetResponseNodes(data))
+            foreach (var node in nodes)
                 dictionary[node.Key] = node.Value;
 
             return dictionary;

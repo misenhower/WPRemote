@@ -20,6 +20,7 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Komodex.DACP.Items;
+using Komodex.DACP.Databases;
 
 namespace Komodex.DACP
 {
@@ -159,7 +160,7 @@ namespace Komodex.DACP
                 StringBuilder errorString = new StringBuilder("Error creating HTTP Request:\r\n");
                 errorString.AppendLine("URL: " + url);
                 errorString.AppendLine(e.ToString());
-                ConnectionError(errorString.ToString());
+                HandleConnectionError(errorString.ToString());
                 return null;
             }
         }
@@ -236,7 +237,7 @@ namespace Komodex.DACP
                 errorString.AppendLine(e.ToString());
                 _log.Error("Unhandled web exception.");
                 _log.Debug(errorString.ToString());
-                ConnectionError(errorString.ToString());
+                HandleConnectionError(errorString.ToString());
             }
             finally
             {
@@ -258,7 +259,7 @@ namespace Komodex.DACP
         protected void HandleLibraryPlayException(HTTPRequestInfo requestInfo, WebException e)
         {
             // TODO: Check error status code, etc.
-            SendServerUpdate(ServerUpdateType.LibraryError);
+            //SendServerUpdate(ServerUpdateType.LibraryError);
         }
 
         #endregion
@@ -267,104 +268,156 @@ namespace Komodex.DACP
 
         #region Server Info
 
-        protected void SubmitServerInfoRequest()
+        protected async Task<bool> GetServerInfoAsync()
         {
-            string url = "/server-info";
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessServerInfoResponse));
-        }
+            DACPRequest request = new DACPRequest("/server-info");
+            request.IncludeSessionID = false;
 
-        protected void ProcessServerInfoResponse(HTTPRequestInfo requestInfo)
-        {
-            if (requestInfo.WebResponse != null && requestInfo.WebResponse.Headers != null)
+            try
             {
-                // This will return null if the header doesn't exist
-                ServerVersionString = requestInfo.WebResponse.Headers["DAAP-Server"];
-            }
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
 
-            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
+                // Process response
+                ServerVersionString = response.HTTPResponse.Headers.GetValues("DAAP-Server").FirstOrDefault();
 
-            LibraryName = nodes.GetString("minm");
-            ServerVersion = nodes.GetInt("aeSV");
-            ServerDMAPVersion = nodes.GetInt("mpro");
-            ServerDAAPVersion = nodes.GetInt("apro");
+                var nodes = DACPNodeDictionary.Parse(response.Nodes);
+                LibraryName = nodes.GetString("minm");
+                ServerVersion = nodes.GetInt("aeSV");
+                ServerDMAPVersion = nodes.GetInt("mpro");
+                ServerDAAPVersion = nodes.GetInt("apro");
 
-            // MAC addresses
-            if (nodes.ContainsKey("msml"))
-            {
-                List<string> macAddresses = new List<string>();
-                var addressNodes = DACPUtility.GetResponseNodes(nodes["msml"]).Where(n => n.Key == "msma").Select(n => n.Value);
-                foreach (var addressNode in addressNodes)
+                // MAC addresses
+                if (nodes.ContainsKey("msml"))
                 {
-                    var address = BitConverter.ToInt64(addressNode, 0);
-                    address = address >> 16;
-                    macAddresses.Add(address.ToString("X12"));
+                    List<string> macAddresses = new List<string>();
+                    var addressNodes = DACPUtility.GetResponseNodes(nodes["msml"]).Where(n => n.Key == "msma").Select(n => n.Value);
+                    foreach (var addressNode in addressNodes)
+                    {
+                        var address = BitConverter.ToInt64(addressNode, 0);
+                        address = address >> 16;
+                        macAddresses.Add(address.ToString("X12"));
+                    }
+                    MACAddresses = macAddresses.ToArray();
                 }
-                MACAddresses = macAddresses.ToArray();
+            }
+            catch (Exception e)
+            {
+                HandleHTTPException(request, e);
+                return false;
             }
 
-            SubmitServerCapabilitiesRequest();
+            return true;
         }
 
         #endregion
 
         #region Server Capabilities (ctrl-int)
 
-        protected void SubmitServerCapabilitiesRequest()
+        protected async Task<bool> GetServerCapabilitiesAsync()
         {
-            string url = "/ctrl-int";
-            SubmitHTTPRequest(url, ProcessServerCapabilityResponse);
-        }
+            DACPRequest request = new DACPRequest("/ctrl-int");
+            request.IncludeSessionID = false;
 
-        protected void ProcessServerCapabilityResponse(HTTPRequestInfo requestInfo)
-        {
-            var mlcl = DACPUtility.GetResponseNodes(requestInfo.ResponseNodes.First(n => n.Key == "mlcl").Value);
-            var nodes = DACPNodeDictionary.Parse(mlcl.First(n => n.Key == "mlit").Value);
-
-            if (nodes.ContainsKey("ceSX"))
+            try
             {
-                Int64 ceSX = nodes.GetLong("ceSX");
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
 
-                // Supports Play Queue (indicated by bit 0 of ceSX)
-                if ((ceSX & (1 << 0)) == (1 << 0))
-                    SupportsPlayQueue = true;
+                // Process response
+                var mlcl = DACPUtility.GetResponseNodes(response.Nodes.First(n => n.Key == "mlcl").Value);
+                var nodes = DACPNodeDictionary.Parse(mlcl.First(n => n.Key == "mlit").Value);
+
+                if (nodes.ContainsKey("ceSX"))
+                {
+                    Int64 ceSX = nodes.GetLong("ceSX");
+
+                    // Supports Play Queue (indicated by bit 0 of ceSX)
+                    if ((ceSX & (1 << 0)) == (1 << 0))
+                        SupportsPlayQueue = true;
+                }
+            }
+            catch (Exception e)
+            {
+                HandleHTTPException(request, e);
+                return false;
             }
 
-            SubmitLoginRequest();
+            return true;
         }
 
         #endregion
 
         #region Login
 
-        protected void SubmitLoginRequest()
+        protected async Task<bool> LoginAsync()
         {
-            string url = "/login?pairing-guid=0x" + PairingCode;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessLoginResponse), false, r => r.ExceptionHandlerDelegate = new HTTPExceptionHandler(HandleLoginException));
-        }
+            DACPRequest request = new DACPRequest("/login");
+            request.QueryParameters["pairing-guid"] = "0x" + PairingCode;
+            request.IncludeSessionID = false;
 
-        protected void HandleLoginException(HTTPRequestInfo requestInfo, WebException e)
-        {
-            ConnectionError(ServerErrorType.InvalidPIN);
-        }
-
-        protected void ProcessLoginResponse(HTTPRequestInfo requestInfo)
-        {
-            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
-
-            if (nodes.ContainsKey("mlid"))
+            try
             {
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
+
+                // Process response
+                var nodes = DACPNodeDictionary.Parse(response.Nodes);
+
+                if (!nodes.ContainsKey("mlid"))
+                    return false;
+
                 SessionID = nodes.GetInt("mlid");
-
-                if (!Stopped)
-                    SubmitDatabasesRequest();
-
-                int pixels = ResolutionUtility.GetScaledPixels(284);
-                CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?mw=" + pixels + "&mh=" + pixels + "&session-id=" + SessionID;
             }
-            else
+            catch (Exception e)
             {
-                ConnectionError();
+                HandleHTTPException(request, e);
+                return false;
             }
+
+            return true;
+        }
+
+        #endregion
+
+        #region Databases
+
+        protected async Task<bool> GetDatabasesAsync()
+        {
+            DACPRequest request = new DACPRequest("/databases");
+
+            try
+            {
+                var databases = await GetListAsync(request, n => new DACPDatabase(this, n)).ConfigureAwait(false);
+
+                if (databases == null || databases.Count == 0)
+                    return false;
+
+                for (int i = 0; i < databases.Count; i++)
+                {
+                    var db = databases[i];
+
+                    // The main database will be first in the list
+                    if (i == 0)
+                    {
+                        MainDatabase = db;
+                        continue;
+                    }
+
+                    // Internet Radio
+                    if (db.DBKind == 100)
+                    {
+                        InternetRadioDatabase = db;
+                        continue;
+                    }
+
+                    // TODO: Shared databases
+                }
+            }
+            catch (Exception e)
+            {
+                HandleHTTPException(request, e);
+                return false;
+            }
+
+            return true;
         }
 
         #endregion
@@ -454,7 +507,7 @@ namespace Komodex.DACP
             }
 
             // Otherwise, this is a legitimate connection error
-            ConnectionError();
+            //ConnectionError();
         }
 
         // NOTE: If this method's name changes, it must be updated in the HTTPByteCallback method as well
@@ -604,7 +657,7 @@ namespace Komodex.DACP
             if (CurrentContainerID == 0 || CurrentSongID == 0 || CurrentAlbumPersistentID == 0)
                 return;
 
-            string url = "/databases/" + DatabaseID + "/containers/" + CurrentContainerID + "/items"
+            string url = "/databases/" + MainDatabase.ID + "/containers/" + CurrentContainerID + "/items"
                 + "?meta=dmap.itemid,dmap.containeritemid,daap.songuserrating"
                 + "&type=music"
                 + "&sort=album"
@@ -656,7 +709,7 @@ namespace Komodex.DACP
         {
             string url = "/ctrl-int/1/setproperty"
                 + "?dacp.userrating=" + rating
-                + "&database-spec='dmap.persistentid:0x" + DatabaseID.ToString("x") + "'&item-spec='dmap.itemid:0x" + songID.ToString("x") + "'"
+                + "&database-spec='dmap.persistentid:0x" + MainDatabase.ID.ToString("x") + "'&item-spec='dmap.itemid:0x" + songID.ToString("x") + "'"
                 + "&session-id=" + SessionID;
             SubmitHTTPRequest(url);
         }

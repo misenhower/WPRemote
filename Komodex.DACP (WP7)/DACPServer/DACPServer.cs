@@ -14,6 +14,7 @@ using System.Linq;
 using Komodex.Common;
 using System.Threading;
 using System.Windows.Threading;
+using System.Threading.Tasks;
 
 namespace Komodex.DACP
 {
@@ -97,72 +98,72 @@ namespace Komodex.DACP
 
         public string PairingCode { get; protected set; }
 
-        public int SessionID { get; protected set; }
-
-        #endregion
-
-        #region Public Methods
-
-        public void Start()
+        private int _sessionID;
+        public int SessionID
         {
-            Start(UseDelayedResponseRequests);
-        }
-
-        public void Start(bool useDelayedResponseRequests)
-        {
-            UseDelayedResponseRequests = useDelayedResponseRequests;
-            _playStatusRevisionNumber = 1;
-            ignoringTrackTimeChanges = false;
-            ignoringVolumeChanges = false;
-            sendTrackTimeChangeWhenFinished = -1;
-
-            // Note: Do not clear AlbumIDs or ArtistIDs here.
-            // Since the LibraryArtists and LibraryAlbums variables are never cleared (and therefore never reloaded),
-            // the Album ID and Artist ID caches may never actually get refreshed.
-
-            Stopped = false;
-
-            SubmitServerInfoRequest();
-        }
-
-        public void Stop()
-        {
-            Stopped = true;
-            IsConnected = false;
-
-            try
+            get { return _sessionID; }
+            protected set
             {
-                List<HTTPRequestInfo> oldRequests;
-                lock (PendingHttpRequests)
-                {
-                    oldRequests = PendingHttpRequests.ToList();
-                    PendingHttpRequests.Clear();
-                }
-
-                foreach (HTTPRequestInfo request in oldRequests)
-                {
-                    try
-                    {
-                        request.WebRequest.Abort();
-                    }
-                    catch { }
-                }
+                if (_sessionID == value)
+                    return;
+                _sessionID = value;
+                int pixels = ResolutionUtility.GetScaledPixels(284);
+                CurrentAlbumArtURL = HTTPPrefix + "/ctrl-int/1/nowplayingartwork?mw=" + pixels + "&mh=" + pixels + "&session-id=" + SessionID;
             }
-            catch { }
         }
 
         #endregion
 
-        #region Connection State
+        #region Connection Management
 
-        protected void ConnectionEstablished()
+        public async Task<ConnectionResult> ConnectAsync()
         {
-            if (IsConnected)
-                return;
+            bool success;
+
+            // Server info
+            success = await GetServerInfoAsync().ConfigureAwait(false);
+            if (!success)
+                return ConnectionResult.ConnectionError;
+
+            // Server capabilities
+            success = await GetServerCapabilitiesAsync().ConfigureAwait(false);
+            if (!success)
+                return ConnectionResult.ConnectionError;
+
+            // Login
+            success = await LoginAsync().ConfigureAwait(false);
+            if (!success)
+                return ConnectionResult.InvalidPIN;
+
+            // Databases
+            success = await GetDatabasesAsync().ConfigureAwait(false);
+            if (!success)
+                return ConnectionResult.ConnectionError;
+
+            // Main database containers
+            success = await MainDatabase.RequestContainersAsync().ConfigureAwait(false);
+            if (!success)
+                return ConnectionResult.ConnectionError;
 
             IsConnected = true;
-            SendServerUpdate(ServerUpdateType.ServerConnected);
+
+            return ConnectionResult.Success;
         }
+
+        public async Task<bool> StartUpdateRequestsAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Disconnect()
+        {
+            IsConnected = false;
+        }
+
+        #endregion
+
+
+        #region Connection State
 
         internal void HandleHTTPException(DACPRequest request, Exception e)
         {
@@ -173,22 +174,22 @@ namespace Komodex.DACP
         {
             _log.Error("HTTP Exception for URI: " + uri);
             _log.Debug("Exception details: " + e.ToString());
-            ConnectionError("HTTP Exception:\nURI: " + uri + "\n" + e.ToString());
+            //ConnectionError("HTTP Exception:\nURI: " + uri + "\n" + e.ToString());
         }
 
-        protected void ConnectionError(string errorDetails)
+        protected void HandleConnectionError(string errorDetails)
         {
-            ConnectionError(ServerErrorType.General, errorDetails);
+            //ConnectionError(ServerErrorType.General, errorDetails);
         }
 
-        protected void ConnectionError(ServerErrorType errorType = ServerErrorType.General, string errorDetails = null)
+        protected void HandleConnectionError(ServerErrorType errorType = ServerErrorType.General, string errorDetails = null)
         {
             IsConnected = false;
 
             if (!Stopped)
             {
-                Stop();
-                SendServerUpdate(ServerUpdateType.Error, errorType, errorDetails);
+                Disconnect();
+                //SendServerUpdate(ServerUpdateType.Error, errorType, errorDetails);
             }
         }
 
@@ -196,25 +197,7 @@ namespace Komodex.DACP
 
         #region Events
 
-        public event EventHandler<ServerUpdateEventArgs> ServerUpdate;
-
-        protected void SendServerUpdate(ServerUpdateType type)
-        {
-            if (ServerUpdate != null)
-                ServerUpdate(this, new ServerUpdateEventArgs(type));
-        }
-
-        protected void SendServerUpdate(ServerUpdateType type, ServerErrorType errorType)
-        {
-            if (ServerUpdate != null)
-                ServerUpdate(this, new ServerUpdateEventArgs(type, errorType));
-        }
-
-        protected void SendServerUpdate(ServerUpdateType type, ServerErrorType errorType, string errorDetails)
-        {
-            if (ServerUpdate != null)
-                ServerUpdate(this, new ServerUpdateEventArgs(type, errorType, errorDetails));
-        }
+        public event EventHandler<EventArgs> ConnectionError;
 
         #endregion
 

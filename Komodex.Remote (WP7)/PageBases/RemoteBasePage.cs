@@ -45,17 +45,20 @@ namespace Komodex.Remote
             base.OnNavigatedTo(e);
 
             ServerManager.CurrentServerChanged += ServerManager_CurrentServerChanged;
+            ServerManager.ConnectionStateChanged += ServerManager_ConnectionStateChanged;
             CurrentServer = ServerManager.CurrentServer;
             AttachServerEvents(CurrentServer);
             UpdateBusyState();
             UpdateAppBar();
         }
 
+
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
 
             ServerManager.CurrentServerChanged -= ServerManager_CurrentServerChanged;
+            ServerManager.ConnectionStateChanged -= ServerManager_ConnectionStateChanged;
             DetachServerEvents(CurrentServer);
         }
 
@@ -101,7 +104,6 @@ namespace Komodex.Remote
             if (server == null)
                 return;
 
-            server.ServerUpdate += CurrentServer_ServerUpdate;
             server.PropertyChanged += CurrentServer_PropertyChanged;
             server.AirPlaySpeakerUpdate += CurrentServer_AirPlaySpeakerUpdate;
 
@@ -113,7 +115,6 @@ namespace Komodex.Remote
             if (server == null)
                 return;
 
-            server.ServerUpdate -= CurrentServer_ServerUpdate;
             server.PropertyChanged -= CurrentServer_PropertyChanged;
             server.AirPlaySpeakerUpdate -= CurrentServer_AirPlaySpeakerUpdate;
 
@@ -125,7 +126,7 @@ namespace Komodex.Remote
         {
         }
 
-        protected virtual void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        protected virtual void ServerManager_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
         }
 

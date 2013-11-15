@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -195,86 +196,72 @@ namespace Komodex.Remote.Controls
             string pairingCode = string.Format("{0:0000}{0:0000}{0:0000}{0:0000}", pinTextBox.IntValue.Value);
 
             _server = new DACPServer(hostname, _libraryService.Port, pairingCode);
-            _server.ServerUpdate += DACPServer_ServerUpdate;
 
             UpdateWizardItem(true);
 
             _log.Info("Connecting to server with ID '{0}' at {1}:{2}...", serviceID, _server.Hostname, _server.Port);
-
-            _server.Start(false);
+            HandleServerConnection(_server.ConnectAsync());
         }
 
-        private void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        private async void HandleServerConnection(Task<ConnectionResult> task)
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            var result = await task;
+            switch (result)
             {
-                if (sender != _server)
+                case ConnectionResult.Success:
+                    _log.Info("Successfully connected to server at {0}:{1}", _server.Hostname, _server.Port);
+
+                    // Notify the pairing utility so it can close
+                    if (_currentUtility != null)
+                        _currentUtility.SendPairedNotification(_server.PairingCode);
+
+                    // Save the server connection info
+                    ServerConnectionInfo info = new ServerConnectionInfo();
+                    info.Name = _server.LibraryName;
+                    info.ServiceID = _libraryService.Name;
+                    info.PairingCode = _server.PairingCode;
+                    info.LastHostname = _libraryService.Hostname;
+                    info.LastIPAddress = _server.Hostname;
+                    info.LastPort = _server.Port;
+
+                    _server = null;
+
+                    ServerManager.AddServerInfo(info);
+                    ServerManager.ChooseServer(info);
+
+                    Hide();
+
+                    NavigationManager.GoToFirstPage();
+                    break;
+
+                case ConnectionResult.InvalidPIN:
+                    MessageBox.Show(LocalizedStrings.LibraryPINErrorBody, LocalizedStrings.LibraryPINErrorTitle, MessageBoxButton.OK);
+                    _server = null;
+                    UpdateWizardItem(true);
                     return;
+                    break;
 
-                switch (e.Type)
-                {
-                    case ServerUpdateType.ServerConnected:
-                        _log.Info("Successfully connected to server at {0}:{1}", _server.Hostname, _server.Port);
-                        _server.ServerUpdate -= DACPServer_ServerUpdate;
+                case ConnectionResult.ConnectionError:
+                    // Check whether there are any other IP addresses we could try
+                    var ipStrings = _libraryService.IPAddresses.Select(ip => ip.ToString()).ToList();
+                    var ipIndex = ipStrings.IndexOf(_server.Hostname);
+                    if (ipIndex >= 0 && ipIndex < (ipStrings.Count - 1))
+                    {
+                        ipIndex++;
+                        string nextIP = ipStrings[ipIndex];
+                        _server.Hostname = nextIP;
+                        _server.Port = _libraryService.Port;
+                        _log.Info("Retrying connection on new IP: {0}:{1}", _server.Hostname, _server.Port);
+                        HandleServerConnection(_server.ConnectAsync());
+                        return;
+                    }
 
-                        // Notify the pairing utility so it can close
-                        if (_currentUtility != null)
-                            _currentUtility.SendPairedNotification(_server.PairingCode);
-
-                        // Save the server connection info
-                        ServerConnectionInfo info = new ServerConnectionInfo();
-                        info.Name = _server.LibraryName;
-                        info.ServiceID = _libraryService.Name;
-                        info.PairingCode = _server.PairingCode;
-                        info.LastHostname = _libraryService.Hostname;
-                        info.LastIPAddress = _server.Hostname;
-                        info.LastPort = _server.Port;
-
-                        _server = null;
-
-                        ServerManager.AddServerInfo(info);
-                        ServerManager.ChooseServer(info);
-
-                        Hide();
-
-                        NavigationManager.GoToFirstPage();
-                        break;
-
-                    case ServerUpdateType.Error:
-                    default:
-                        _log.Warning("Connection error from server at {0}:{1}: {2}", _server.Hostname, _server.Port, e.Type);
-
-                        if (e.ErrorType == ServerErrorType.InvalidPIN)
-                        {
-                            MessageBox.Show(LocalizedStrings.LibraryPINErrorBody, LocalizedStrings.LibraryPINErrorTitle, MessageBoxButton.OK);
-                            _server.ServerUpdate -= DACPServer_ServerUpdate;
-                            _server = null;
-                            UpdateWizardItem(true);
-                            return;
-                        }
-
-                        // Check whether there are any other IP addresses we could try
-                        var ipStrings = _libraryService.IPAddresses.Select(ip => ip.ToString()).ToList();
-                        var ipIndex = ipStrings.IndexOf(_server.Hostname);
-                        if (ipIndex >= 0 && ipIndex < (ipStrings.Count - 1))
-                        {
-                            ipIndex++;
-                            string nextIP = ipStrings[ipIndex];
-                            _server.Hostname = nextIP;
-                            _server.Port = _libraryService.Port;
-                            _log.Info("Retrying connection on new IP: {0}:{1}", _server.Hostname, _server.Port);
-                            _server.Start(false);
-                            return;
-                        }
-
-                        // No other IPs, so we can't do anything else
-                        // TODO: Display error
-                        _server.ServerUpdate -= DACPServer_ServerUpdate;
-                        _server = null;
-                        UpdateWizardItem(true);
-                        break;
-                }
-            });
+                    // No other IPs, so we can't do anything else
+                    // TODO: Display error
+                    _server = null;
+                    UpdateWizardItem(true);
+                    break;
+            }
         }
 
         #endregion

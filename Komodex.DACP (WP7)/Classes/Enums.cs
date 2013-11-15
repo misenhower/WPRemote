@@ -11,6 +11,13 @@ using System.Windows.Shapes;
 
 namespace Komodex.DACP
 {
+    public enum ConnectionResult
+    {
+        Success,
+        InvalidPIN,
+        ConnectionError,
+    }
+
     public enum PlayStates
     {
         Stopped = 2,

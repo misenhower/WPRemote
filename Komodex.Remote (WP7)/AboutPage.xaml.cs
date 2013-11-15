@@ -71,9 +71,9 @@ namespace Komodex.Remote
             UpdateServerInfo();
         }
 
-        protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        protected override void ServerManager_ConnectionStateChanged(object sender, ServerManagement.ConnectionStateChangedEventArgs e)
         {
-            base.CurrentServer_ServerUpdate(sender, e);
+            base.ServerManager_ConnectionStateChanged(sender, e);
 
             Utility.BeginInvokeOnUIThread(UpdateServerInfo);
         }

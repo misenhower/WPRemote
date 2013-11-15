@@ -111,9 +111,10 @@ namespace Komodex.Remote
             }
         }
 
-        protected override void CurrentServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
+        protected override void ServerManager_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            base.CurrentServer_ServerUpdate(sender, e);
+            base.ServerManager_ConnectionStateChanged(sender, e);
+
             Utility.BeginInvokeOnUIThread(() =>
             {
                 UpdateBindings();

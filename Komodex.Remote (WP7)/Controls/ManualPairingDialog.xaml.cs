@@ -162,7 +162,7 @@ namespace Komodex.Remote.Controls
 
         #region Server Connections
 
-        protected void ConnectToServer()
+        protected async void ConnectToServer()
         {
             if (_server != null)
                 return;
@@ -177,67 +177,50 @@ namespace Komodex.Remote.Controls
             string pairingCode = string.Format("{0:0000}{0:0000}{0:0000}{0:0000}", pinTextBox.IntValue.Value);
 
             _server = new DACPServer(host, port, pairingCode);
-            _server.ServerUpdate += DACPServer_ServerUpdate;
 
             UpdateWizardItem(true);
 
-            _server.Start();
-        }
-
-        private void DACPServer_ServerUpdate(object sender, ServerUpdateEventArgs e)
-        {
-            Utility.BeginInvokeOnUIThread(() =>
+            var result = await _server.ConnectAsync();
+            switch (result)
             {
-                if (sender != _server)
-                    return;
+                case ConnectionResult.Success:
+                    // Save the server connection info
+                    ServerConnectionInfo info = new ServerConnectionInfo();
+                    info.Name = _server.LibraryName;
+                    info.PairingCode = _server.PairingCode;
+                    info.LastHostname = _server.Hostname;
+                    info.LastIPAddress = _server.Hostname;
+                    info.LastPort = _server.Port;
 
-                _server.ServerUpdate -= DACPServer_ServerUpdate;
+                    // Get the service ID for Bonjour
+                    // In iTunes 10.1 and later, the service name comes from ServiceID (parameter aeIM).
+                    // In foo_touchremote the service name is the same as the database ID (parameter mper).
+                    // In MonkeyTunes, the service ID is not available from the database query. TODO.
+                    if (_server.MainDatabase.ServiceID > 0)
+                        info.ServiceID = _server.MainDatabase.ServiceID.ToString("x16").ToUpper();
+                    else
+                        info.ServiceID = _server.MainDatabase.PersistentID.ToString("x16").ToUpper();
 
-                switch (e.Type)
-                {
-                    case ServerUpdateType.ServerConnected:
-                        // Save the server connection info
-                        ServerConnectionInfo info = new ServerConnectionInfo();
-                        info.Name = _server.LibraryName;
-                        info.PairingCode = _server.PairingCode;
-                        info.LastHostname = _server.Hostname;
-                        info.LastIPAddress = _server.Hostname;
-                        info.LastPort = _server.Port;
+                    ServerManager.AddServerInfo(info);
+                    ServerManager.ChooseServer(info);
 
-                        // Get the service ID for Bonjour
-                        // In iTunes 10.1 and later, the service name comes from ServiceID (parameter aeIM).
-                        // In foo_touchremote the service name is the same as the database ID (parameter mper).
-                        // In MonkeyTunes, the service ID is not available from the database query. TODO.
-                        if (_server.ServiceID > 0)
-                            info.ServiceID = _server.ServiceID.ToString("x16").ToUpper();
-                        else
-                            info.ServiceID = _server.DatabasePersistentID.ToString("x16").ToUpper();
+                    Hide();
 
-                        ServerManager.AddServerInfo(info);
-                        ServerManager.ChooseServer(info);
+                    NavigationManager.GoToFirstPage();
+                    break;
 
-                        Hide();
+                case ConnectionResult.InvalidPIN:
+                    MessageBox.Show(LocalizedStrings.LibraryPINErrorBody, LocalizedStrings.LibraryPINErrorTitle, MessageBoxButton.OK);
+                    _server = null;
+                    UpdateWizardItem(true);
+                    break;
 
-                        NavigationManager.GoToFirstPage();
-                        break;
-
-                    case ServerUpdateType.Error:
-                    default:
-                        if (e.ErrorType == ServerErrorType.InvalidPIN)
-                        {
-                            MessageBox.Show(LocalizedStrings.LibraryPINErrorBody, LocalizedStrings.LibraryPINErrorTitle, MessageBoxButton.OK);
-                            _server = null;
-                            UpdateWizardItem(true);
-                            return;
-                        }
-
-                        // TODO: Display error
-                        _server = null;
-                        UpdateWizardItem(true);
-
-                        break;
-                }
-            });
+                case ConnectionResult.ConnectionError:
+                    // TODO: Display error
+                    _server = null;
+                    UpdateWizardItem(true);
+                    break;
+            }
         }
 
         #endregion

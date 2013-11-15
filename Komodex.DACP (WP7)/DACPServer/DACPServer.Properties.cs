@@ -14,6 +14,7 @@ using System.Windows.Threading;
 using System.Linq;
 using Komodex.DACP.Localization;
 using Komodex.Common;
+using Komodex.DACP.Databases;
 
 namespace Komodex.DACP
 {
@@ -147,6 +148,42 @@ namespace Komodex.DACP
                 _SupportsPlayQueue = value;
                 PropertyChanged.RaiseOnUIThread(this, "SupportsPlayQueue");
             }
+        }
+
+        #endregion
+
+        #region Databases
+
+        private DACPDatabase _mainDatabase;
+        public DACPDatabase MainDatabase
+        {
+            get { return _mainDatabase; }
+            protected set
+            {
+                if (_mainDatabase == value)
+                    return;
+                _mainDatabase = value;
+                PropertyChanged.RaiseOnUIThread(this, "MainDatabase");
+            }
+        }
+
+        private DACPDatabase _internetRadioDatabase;
+        public DACPDatabase InternetRadioDatabase
+        {
+            get { return _internetRadioDatabase; }
+            protected set
+            {
+                if (_internetRadioDatabase == value)
+                    return;
+                _internetRadioDatabase = value;
+                PropertyChanged.RaiseOnUIThread(this, "InternetRadioDatabase");
+            }
+        }
+
+        private ObservableCollectionEx<DACPDatabase> _sharedDatabases = new ObservableCollectionEx<DACPDatabase>();
+        public ObservableCollectionEx<DACPDatabase> SharedDatabases
+        {
+            get { return _sharedDatabases; }
         }
 
         #endregion

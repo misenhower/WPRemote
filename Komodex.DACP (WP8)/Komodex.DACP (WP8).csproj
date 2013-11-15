@@ -161,9 +161,6 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.HTTPRequests.cs">
       <Link>DACPServer\DACPServer.HTTPRequests.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.LibraryManagement.cs">
-      <Link>DACPServer\DACPServer.LibraryManagement.cs</Link>
-    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\DACPServer\DACPServer.Properties.cs">
       <Link>DACPServer\DACPServer.Properties.cs</Link>
     </Compile>

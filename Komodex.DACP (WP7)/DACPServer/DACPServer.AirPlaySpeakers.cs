@@ -165,7 +165,8 @@ namespace Komodex.DACP
 
         protected void HandleSetActiveSpeakersException(HTTPRequestInfo requestInfo, WebException e)
         {
-            SendServerUpdate(ServerUpdateType.AirPlaySpeakerPassword);
+            // TODO
+            //SendServerUpdate(ServerUpdateType.AirPlaySpeakerPassword);
             SubmitGetSpeakersRequest();
         }
 
