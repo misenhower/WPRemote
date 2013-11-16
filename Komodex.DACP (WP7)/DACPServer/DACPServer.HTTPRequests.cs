@@ -397,6 +397,9 @@ namespace Komodex.DACP
                     // The main database will be first in the list
                     if (i == 0)
                     {
+                        bool success = await db.RequestContainersAsync().ConfigureAwait(false);
+                        if (!success)
+                            return false;
                         MainDatabase = db;
                         continue;
                     }
@@ -424,31 +427,85 @@ namespace Komodex.DACP
 
         #region Update
 
-        protected int libraryUpdateRevisionNumber = 1;
-        protected HTTPRequestInfo libraryUpdateRequestInfo = null;
+        protected int _libraryUpdateRevisionNumber = 1;
 
-        protected void SubmitLibraryUpdateRequest()
+        protected Task<bool> GetLibraryUpdateAsync()
         {
-            if (libraryUpdateRequestInfo != null)
-                return; // Slightly different behavior than the PlayStatus update because I'm not quite sure where this is needed yet
-
-            string url = "/update?revision-number=" + libraryUpdateRevisionNumber + "&daap-no-disconnect=1&session-id=" + SessionID;
-            libraryUpdateRequestInfo = SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessLibraryUpdateResponse));
+            return GetLibraryUpdateAsync(CancellationToken.None);
         }
 
-        protected void ProcessLibraryUpdateResponse(HTTPRequestInfo requestInfo)
+        protected async Task<bool> GetLibraryUpdateAsync(CancellationToken cancellationToken)
         {
-            foreach (var kvp in requestInfo.ResponseNodes)
+            DACPRequest request = new DACPRequest("/update");
+            request.QueryParameters["revision-number"] = _libraryUpdateRevisionNumber.ToString();
+            request.QueryParameters["daap-no-disconnect"] = "1";
+
+            try
             {
-                if (kvp.Key == "musr")
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
+
+                _log.Info("ok so far so good");
+                if (cancellationToken.IsCancellationRequested)
+                    return false;
+
+                var nodes = DACPNodeDictionary.Parse(response.Nodes);
+                _libraryUpdateRevisionNumber = nodes.GetInt("musr");
+                _log.Info("updated number to " + _libraryUpdateRevisionNumber);
+            }
+            catch
+            {
+                _log.Info("didn't work");
+                return false;
+            }
+            return true;
+        }
+
+        protected async void SubscribeToLibraryUpdates()
+        {
+            TimeSpan autoCancelTimeSpan = TimeSpan.FromSeconds(45);
+            TimeSpan resubmitDelay = TimeSpan.FromSeconds(2);
+            CancellationTokenSource cts;
+
+            while (IsConnected)
+            {
+                cts = new CancellationTokenSource();
+
+#if WP7
+                var updateTask = GetLibraryUpdateAsync(cts.Token);
+                var cancelTask = TaskEx.Delay(autoCancelTimeSpan, cts.Token);
+                await TaskEx.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
+#else
+                var updateTask = GetLibraryUpdateAsync(cts.Token);
+                var cancelTask = Task.Delay(autoCancelTimeSpan, cts.Token);
+                await Task.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
+#endif
+
+                cts.Cancel();
+
+                if (updateTask.Status == TaskStatus.RanToCompletion)
                 {
-                    libraryUpdateRevisionNumber = kvp.Value.GetInt32Value();
-                    break;
+                    if (updateTask.Result == false)
+                    {
+                        SendConnectionError();
+                        return;
+                    }
+
+                    //bool success = await GetDatabasesAsync().ConfigureAwait(false);
+                    //if (!success)
+                    //{
+                    //    SendConnectionError();
+                    //    return;
+                    //}
+
+                    SendLibraryUpdate();
+
+#if WP7
+                    await TaskEx.Delay(resubmitDelay).ConfigureAwait(false);
+#else
+                    await Task.Delay(resubmitDelay).ConfigureAwait(false);
+#endif
                 }
             }
-
-            //if (UseDelayedResponseRequests && !Stopped)
-            //    SubmitLibraryUpdateRequest();
         }
 
         #endregion

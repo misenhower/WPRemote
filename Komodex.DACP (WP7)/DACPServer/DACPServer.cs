@@ -136,8 +136,8 @@ namespace Komodex.DACP
             if (!success)
                 return ConnectionResult.ConnectionError;
 
-            // Main database containers
-            success = await MainDatabase.RequestContainersAsync().ConfigureAwait(false);
+            // Library version
+            success = await GetLibraryUpdateAsync().ConfigureAwait(false);
             if (!success)
                 return ConnectionResult.ConnectionError;
 
@@ -153,6 +153,7 @@ namespace Komodex.DACP
 
         public void StartUpdateRequests()
         {
+            SubscribeToLibraryUpdates();
             SubscribeToPlayStatusUpdates();
         }
 
@@ -208,6 +209,17 @@ namespace Komodex.DACP
             Disconnect();
             if (ConnectionError != null)
                 ConnectionError.Raise(this, new EventArgs());
+        }
+
+        public event EventHandler<EventArgs> LibraryUpdate;
+
+        protected void SendLibraryUpdate()
+        {
+            if (!IsConnected)
+                return;
+
+            if (LibraryUpdate != null)
+                LibraryUpdate.Raise(this, new EventArgs());
         }
 
         #endregion

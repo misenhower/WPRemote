@@ -70,6 +70,13 @@ namespace Komodex.Remote
                 Utility.BeginInvokeOnUIThread(UpdateCurrentDatabase);
         }
 
+        protected override void CurrentServer_LibraryUpdate(object sender, EventArgs e)
+        {
+            base.CurrentServer_LibraryUpdate(sender, e);
+
+            //Utility.BeginInvokeOnUIThread(UpdateCurrentDatabase);
+        }
+
         protected virtual bool ShouldShowContinuumTransition(AnimationType animationType, Uri toOrFrom)
         {
             var uri = toOrFrom.OriginalString;

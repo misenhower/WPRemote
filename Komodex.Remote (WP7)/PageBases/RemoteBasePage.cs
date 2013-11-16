@@ -106,6 +106,7 @@ namespace Komodex.Remote
 
             server.PropertyChanged += CurrentServer_PropertyChanged;
             server.AirPlaySpeakerUpdate += CurrentServer_AirPlaySpeakerUpdate;
+            server.LibraryUpdate += CurrentServer_LibraryUpdate;
 
             _attachedServer = server;
         }
@@ -117,6 +118,7 @@ namespace Komodex.Remote
 
             server.PropertyChanged -= CurrentServer_PropertyChanged;
             server.AirPlaySpeakerUpdate -= CurrentServer_AirPlaySpeakerUpdate;
+            server.LibraryUpdate -= CurrentServer_LibraryUpdate;
 
             if (server == _attachedServer)
                 _attachedServer = null;
@@ -146,6 +148,10 @@ namespace Komodex.Remote
         }
 
         protected virtual void CurrentServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
+        {
+        }
+
+        protected virtual void CurrentServer_LibraryUpdate(object sender, EventArgs e)
         {
         }
 
