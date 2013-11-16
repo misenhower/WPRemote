@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Converters\AppendFilenameConverter.cs" />
     <Compile Include="Converters\CollectionCountToStringConverter.cs" />
+    <Compile Include="Converters\CurrentDACPItemVisibilityConverter.cs" />
     <Compile Include="Converters\DisableWhenNullConverter.cs" />
     <Compile Include="Converters\EpisodeWatchedStyleConverter.cs" />
     <Compile Include="Converters\GeniusMixDescriptionConverter.cs" />

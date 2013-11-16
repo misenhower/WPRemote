@@ -1,4 +1,5 @@
 ﻿<app:BrowseArtistBasePage
+    x:Name="Page"
     x:Class="Komodex.Remote.Pages.Browse.Music.ArtistPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:appcontrols="clr-namespace:Komodex.Remote.Controls"
+    xmlns:appconverters="clr-namespace:Komodex.Remote.Converters"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
@@ -57,16 +59,30 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <appconverters:CurrentDACPItemVisibilityConverter
+                        x:Key="CurrentDACPItemVisibilityConverter"
+                        CurrentSongID="{Binding CurrentServer.CurrentSongID, ElementName=Page}"
+                        DACPItem="{Binding}"
+                        />
+                </Grid.Resources>
 
                 <Border Background="{StaticResource PhoneChromeBrush}">
                     <Image delay:LowProfileImageLoader.UriSource="{Binding Artwork75pxURI}" Style="{StaticResource ListItemImageStyle}" />
                 </Border>
 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextLargeStyle}" />
-                    <TextBlock Text="{Binding ArtistAndAlbumName}" Style="{StaticResource ListItemTextSubtleStyle}" />
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextLargeStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
+                    <TextBlock Text="{Binding ArtistAndAlbumName}" Style="{StaticResource ListItemTextSubtleStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
                 </StackPanel>
+
+                <controls:MultiResolutionImageMask
+                    Grid.Column="2"
+                    Visibility="{Binding IndicatorVisibility, Source={StaticResource CurrentDACPItemVisibilityConverter}}"
+                    Style="{StaticResource ListItemSpeakerIconStyle}"
+                    />
             </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>

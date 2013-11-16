@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:appcontrols="clr-namespace:Komodex.Remote.Controls"
+    xmlns:appconverters="clr-namespace:Komodex.Remote.Converters"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
@@ -65,16 +66,35 @@
                         <toolkit:MenuItem x:Name="AddToUpNextButton" Header="{Binding LocalizedStrings.AddToUpNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
                     </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
-
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <appconverters:CurrentDACPItemVisibilityConverter
+                        x:Key="CurrentDACPItemVisibilityConverter"
+                        CurrentSongID="{Binding CurrentServer.CurrentSongID, ElementName=Page}"
+                        DACPItem="{Binding}"
+                        />
+                </Grid.Resources>
 
                 <appcontrols:FakeButton x:Name="PlayButton">
                     <ContentControl Template="{StaticResource PlayButton}" />
                 </appcontrols:FakeButton>
-                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="{StaticResource ListItemTextMargin}" />
+                <TextBlock
+                    Grid.Column="1"
+                    Text="{Binding Name}"
+                    Style="{StaticResource PhoneTextExtraLargeStyle}"
+                    Margin="{StaticResource ListItemTextMargin}"
+                    TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}"
+                    />
+                
+                <controls:MultiResolutionImageMask
+                    Grid.Column="2"
+                    Visibility="{Binding IndicatorVisibility, Source={StaticResource CurrentDACPItemVisibilityConverter}}"
+                    Style="{StaticResource ListItemSpeakerIconStyle}"
+                    />
             </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
