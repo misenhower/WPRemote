@@ -137,12 +137,12 @@ namespace Komodex.DACP
                 return ConnectionResult.ConnectionError;
 
             // Library version
-            success = await GetLibraryUpdateAsync().ConfigureAwait(false);
+            success = await GetFirstLibraryUpdateAsync().ConfigureAwait(false);
             if (!success)
                 return ConnectionResult.ConnectionError;
 
             // Play status
-            success = await GetPlayStatusUpdateAsync().ConfigureAwait(false);
+            success = await GetFirstPlayStatusUpdateAsync().ConfigureAwait(false);
             if (!success)
                 return ConnectionResult.ConnectionError;
 

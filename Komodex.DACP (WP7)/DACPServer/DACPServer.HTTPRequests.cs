@@ -429,8 +429,9 @@ namespace Komodex.DACP
 
         protected int _libraryUpdateRevisionNumber = 1;
 
-        protected Task<bool> GetLibraryUpdateAsync()
+        protected Task<bool> GetFirstLibraryUpdateAsync()
         {
+            _libraryUpdateRevisionNumber = 1;
             return GetLibraryUpdateAsync(CancellationToken.None);
         }
 
@@ -515,8 +516,9 @@ namespace Komodex.DACP
         protected int _playStatusRevisionNumber = 1;
         protected HTTPRequestInfo _playStatusRequestInfo = null;
 
-        protected Task<bool> GetPlayStatusUpdateAsync()
+        protected Task<bool> GetFirstPlayStatusUpdateAsync()
         {
+            _playStatusRevisionNumber = 1;
             return GetPlayStatusUpdateAsync(CancellationToken.None);
         }
 
