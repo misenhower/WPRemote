@@ -59,7 +59,7 @@
         </DataTemplate>
         
         <DataTemplate x:Key="SongTemplate">
-            <Grid Margin="{StaticResource ListItemMargin}">
+            <Grid Margin="{StaticResource ListItemMargin}" Opacity="{Binding IsDisabled, Converter={StaticResource ItemDisabledOpacityConverter}}">
                 <toolkit:ContextMenuService.ContextMenu>
                     <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
                         <toolkit:MenuItem x:Name="PlayNextButton" Header="{Binding LocalizedStrings.PlayNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />

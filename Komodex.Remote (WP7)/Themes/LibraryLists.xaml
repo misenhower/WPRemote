@@ -7,12 +7,16 @@
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
     xmlns:appConverters="clr-namespace:Komodex.Remote.Converters"
+    xmlns:converters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
     >
 
     <!-- List Footer Padding -->
     <DataTemplate x:Key="ListFooterPadding">
         <Border Height="72" />
     </DataTemplate>
+    
+    <!-- Converters -->
+    <converters:BooleanToDoubleConverter x:Key="ItemDisabledOpacityConverter" TrueValue="0.4" FalseValue="1.0" />
     
     <!-- Library List Item Styles -->
     <Thickness x:Key="ListItemMargin">12,0,0,12</Thickness>
