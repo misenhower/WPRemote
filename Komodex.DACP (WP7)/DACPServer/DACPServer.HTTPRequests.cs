@@ -445,17 +445,14 @@ namespace Komodex.DACP
             {
                 var response = await SubmitRequestAsync(request).ConfigureAwait(false);
 
-                _log.Info("ok so far so good");
                 if (cancellationToken.IsCancellationRequested)
                     return false;
 
                 var nodes = DACPNodeDictionary.Parse(response.Nodes);
                 _libraryUpdateRevisionNumber = nodes.GetInt("musr");
-                _log.Info("updated number to " + _libraryUpdateRevisionNumber);
             }
             catch
             {
-                _log.Info("didn't work");
                 return false;
             }
             return true;
