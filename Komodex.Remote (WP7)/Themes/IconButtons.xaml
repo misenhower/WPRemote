@@ -23,7 +23,7 @@
         </Grid>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="GeniusButton" TargetType="Button">
+    <ControlTemplate x:Key="GeniusButton" TargetType="ContentControl">
         <Grid Background="{StaticResource PhoneChromeBrush}">
             <ContentControl x:Name="ContentContainer" Content="{TemplateBinding Content}" />
             <Canvas Width="100" Height="100" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">

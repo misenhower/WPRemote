@@ -18,9 +18,11 @@ namespace Komodex.Remote.Pages.Browse.GeniusMixes
             InitializeComponent();
         }
 
-        private void GeniusMixButton_Click(object sender, RoutedEventArgs e)
+        private void GeniusMixButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            GeniusMix geniusMix = ((Button)sender).Tag as GeniusMix;
+            e.Handled = true;
+
+            GeniusMix geniusMix = ((FrameworkElement)sender).Tag as GeniusMix;
             if (geniusMix == null)
                 return;
 

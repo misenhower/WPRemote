@@ -32,11 +32,13 @@
                                FontSize="34" LineHeight="38" LineStackingStrategy="BlockLineHeight"
                                FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
                 </Border>
-                <Button HorizontalAlignment="Left" Width="350" Height="350" Template="{StaticResource GeniusButton}" Tag="{Binding BindsDirectlyToSource=True}" Margin="0" Click="GeniusMixButton_Click">
-                    <Border BorderBrush="Black" BorderThickness="1" Margin="-1">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding Artwork350pxURI}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
-                    </Border>
-                </Button>
+                <appcontrols:FakeButton HorizontalAlignment="Left" Tag="{Binding BindsDirectlyToSource=True}" Tap="GeniusMixButton_Tap">
+                    <ContentControl Width="350" Height="350" Template="{StaticResource GeniusButton}">
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="-1">
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" delay:LowProfileImageLoader.UriSource="{Binding Artwork350pxURI}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                        </Border>
+                    </ContentControl>
+                </appcontrols:FakeButton>
                 <TextBlock Text="{Binding LocalizedStrings.BrowseGeniusMixesBasedOn, Source={StaticResource LocalizedStrings}}"
                            Foreground="{StaticResource PhoneSubtleBrush}" />
                 <TextBlock Text="{Binding Description, Converter={StaticResource GeniusMixDescriptionConverter}}"
