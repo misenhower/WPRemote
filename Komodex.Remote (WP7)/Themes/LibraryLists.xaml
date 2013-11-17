@@ -30,6 +30,10 @@
         <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
     </Style>
 
+    <Style x:Key="ListItemTextLargerStyle" TargetType="TextBlock" BasedOn="{StaticResource ListItemTextLargeStyle}">
+        <Setter Property="FontSize" Value="37.333" />
+    </Style>
+
     <Style x:Key="ListItemTextExtraLargeStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextExtraLargeStyle}">
         <Setter Property="Margin" Value="{StaticResource ListItemTextMargin}" />
     </Style>

@@ -33,7 +33,7 @@
                     <Image delay:LowProfileImageLoader.UriSource="{Binding Artwork75pxURI}" Style="{StaticResource ListItemImageStyle}" />
                 </Border>
 
-                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <StackPanel Grid.Column="1">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextLargeStyle}" />
                     <TextBlock Text="{Binding Converter={StaticResource SearchResultsSecondLineConverter}}" Style="{StaticResource ListItemTextSubtleStyle}" />
                 </StackPanel>

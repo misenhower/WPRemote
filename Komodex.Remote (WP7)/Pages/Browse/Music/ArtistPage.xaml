@@ -75,7 +75,7 @@
 
                 <StackPanel Grid.Column="1">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextLargeStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
-                    <TextBlock Text="{Binding ArtistAndAlbumName}" Style="{StaticResource ListItemTextSubtleStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
+                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource ListItemTextSubtleStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
                 </StackPanel>
 
                 <controls:MultiResolutionImageMask

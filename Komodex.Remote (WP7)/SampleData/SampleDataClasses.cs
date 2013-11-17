@@ -117,6 +117,21 @@ namespace Komodex.Remote.SampleData
         }
     }
 
+    public class SampleDataSong : SampleDataDACPItem
+    {
+        public string AlbumArtistName { get; set; }
+
+        public string SecondLine
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(AlbumArtistName) || ArtistName == AlbumArtistName)
+                    return FormattedDuration;
+                return Utility.JoinNonEmptyStrings(" – ", ArtistName, FormattedDuration);
+            }
+        }
+    }
+
     public class SampleDataMovie : SampleDataDACPItem
     {
     }
@@ -201,18 +216,18 @@ namespace Komodex.Remote.SampleData
         public string CurrentGenreName { get; set; }
         public SampleDataDACPElementViewSource<SampleDataArtist> ArtistsViewSource { get; set; }
         public SampleDataDACPElementViewSource<SampleDataAlbum> AlbumsViewSource { get; set; }
-        public SampleDataDACPElementViewSource<SampleDataDACPItem> SongsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataSong> SongsViewSource { get; set; }
     }
 
     public class SampleDataArtistPage : SampleDataBrowseGroupBasePage<SampleDataDACPContainer, SampleDataArtist>
     {
         public SampleDataDACPElementViewSource<SampleDataAlbum> AlbumsViewSource { get; set; }
-        public SampleDataDACPElementViewSource<SampleDataDACPItem> SongsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataSong> SongsViewSource { get; set; }
     }
 
     public class SampleDataAlbumPage : SampleDataBrowseGroupBasePage<SampleDataDACPContainer, SampleDataAlbum>
     {
-        public SampleDataDACPElementViewSource<SampleDataDACPItem> SongsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataSong> SongsViewSource { get; set; }
     }
 
     public class SampleDataPlaylistPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>

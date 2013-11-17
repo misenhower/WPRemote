@@ -1,4 +1,5 @@
-﻿using Komodex.DACP.Containers;
+﻿using Komodex.Common;
+using Komodex.DACP.Containers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,19 @@ namespace Komodex.DACP.Items
 
             AlbumArtistName = nodes.GetString("asaa");
         }
+
+        #region Display
+
+        public string SecondLine
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(AlbumArtistName) || ArtistName == AlbumArtistName)
+                    return FormattedDuration;
+                return Utility.JoinNonEmptyStrings(" – ", ArtistName, FormattedDuration);
+            }
+        }
+
+        #endregion
     }
 }
