@@ -137,6 +137,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\GeniusMix.cs">
       <Link>Containers\GeniusMix.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Containers\iTunesUContainer.cs">
+      <Link>Containers\iTunesUContainer.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\MoviesContainer.cs">
       <Link>Containers\MoviesContainer.cs</Link>
     </Compile>
@@ -182,6 +185,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Groups\DACPGroup.cs">
       <Link>Groups\DACPGroup.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Groups\iTunesUCourse.cs">
+      <Link>Groups\iTunesUCourse.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Groups\Podcast.cs">
       <Link>Groups\Podcast.cs</Link>
     </Compile>
@@ -193,6 +199,9 @@
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Items\DACPItem.cs">
       <Link>Items\DACPItem.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Items\iTunesUEpisode.cs">
+      <Link>Items\iTunesUEpisode.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Items\Movie.cs">
       <Link>Items\Movie.cs</Link>

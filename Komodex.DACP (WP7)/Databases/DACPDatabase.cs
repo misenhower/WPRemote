@@ -32,6 +32,7 @@ namespace Komodex.DACP.Databases
         public PodcastsContainer PodcastsContainer { get; private set; }
         public MoviesContainer MoviesContainer { get; private set; }
         public TVShowsContainer TVShowsContainer { get; private set; }
+        public iTunesUContainer iTunesUContainer { get; private set; }
         public BooksContainer BooksContainer { get; private set; }
 
         private List<Playlist> _playlists;
@@ -115,6 +116,7 @@ namespace Komodex.DACP.Databases
                             PodcastsContainer = (PodcastsContainer)container;
                             break;
                         case ContainerType.iTunesU:
+                            iTunesUContainer = (iTunesUContainer)container;
                             break;
                         case ContainerType.Books:
                             BooksContainer = (BooksContainer)container;

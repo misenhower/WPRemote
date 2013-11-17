@@ -403,6 +403,42 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to iTunes U.
+        /// </summary>
+        public static string BrowseiTunesU {
+            get {
+                return ResourceManager.GetString("BrowseiTunesU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to all.
+        /// </summary>
+        public static string BrowseiTunesUAll {
+            get {
+                return ResourceManager.GetString("BrowseiTunesUAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No iTunes U Content.
+        /// </summary>
+        public static string BrowseiTunesUNoiTunesUContent {
+            get {
+                return ResourceManager.GetString("BrowseiTunesUNoiTunesUContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unplayed.
+        /// </summary>
+        public static string BrowseiTunesUUnplayed {
+            get {
+                return ResourceManager.GetString("BrowseiTunesUUnplayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to browse.
         /// </summary>
         public static string BrowseLibraryAppBarButton {

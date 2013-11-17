@@ -162,6 +162,20 @@ namespace Komodex.Remote
 
         #endregion
 
+        #region iTunes U
+
+        public static void OpeniTunesUCoursesPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Browse/iTunesU/iTunesUCoursesPage.xaml?databaseID={0}", database.ID);
+        }
+
+        public static void OpeniTunesUCourseEpisodesPage(iTunesUCourse course)
+        {
+            Navigate("/Pages/Browse/iTunesU/iTunesUCourseEpisodesPage.xaml?databaseID={0}&groupID={1}", course.Database.ID, course.ID);
+        }
+
+        #endregion
+
         #region Audiobooks
 
         public static void OpenAudiobooksPage(DACPDatabase database)

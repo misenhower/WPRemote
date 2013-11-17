@@ -738,4 +738,16 @@
   <data name="BrowseInternetRadioNoStations" xml:space="preserve">
     <value>Keine Sender</value>
   </data>
+  <data name="BrowseiTunesU" xml:space="preserve">
+    <value>iTunes U</value>
+  </data>
+  <data name="BrowseiTunesUAll" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="BrowseiTunesUNoiTunesUContent" xml:space="preserve">
+    <value>Kein iTunes U-Inhalt</value>
+  </data>
+  <data name="BrowseiTunesUUnplayed" xml:space="preserve">
+    <value>Ungespielt</value>
+  </data>
 </root>

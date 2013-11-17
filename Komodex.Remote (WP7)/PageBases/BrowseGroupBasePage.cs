@@ -163,6 +163,19 @@ namespace Komodex.Remote
         }
     }
 
+    public abstract class BrowseiTunesUCourseBasePage : BrowseGroupBasePage<iTunesUContainer, iTunesUCourse>
+    {
+        protected override iTunesUContainer GetContainer(DACPDatabase database)
+        {
+            return database.iTunesUContainer;
+        }
+
+        protected override Task<iTunesUCourse> GetGroup(iTunesUContainer container, int groupID)
+        {
+            return container.GetCourseByIDAsync(groupID);
+        }
+    }
+
     public abstract class BrowseAudiobookBasePage : BrowseGroupBasePage<BooksContainer, Audiobook>
     {
         protected override BooksContainer GetContainer(DACPDatabase database)

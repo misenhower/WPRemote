@@ -199,6 +199,14 @@ namespace Komodex.Remote
         }
     }
 
+    public abstract class BrowseiTunesUContainerBasePage : BrowseContainerBasePage<iTunesUContainer>
+    {
+        protected override iTunesUContainer GetContainer(DACPDatabase database)
+        {
+            return database.iTunesUContainer;
+        }
+    }
+
     public abstract class BrowseBooksContainerBasePage : BrowseContainerBasePage<BooksContainer>
     {
         protected override BooksContainer GetContainer(DACPDatabase database)

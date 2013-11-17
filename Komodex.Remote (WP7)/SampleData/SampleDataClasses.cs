@@ -65,6 +65,11 @@ namespace Komodex.Remote.SampleData
         public string ArtistName { get; set; }
     }
 
+    public class SampleDataiTunesUCourse : SampleDataDACPGroup
+    {
+        public string ArtistName { get; set; }
+    }
+
     public class SampleDataAudiobook : SampleDataDACPGroup
     {
         public string ArtistName { get; set; }
@@ -130,6 +135,14 @@ namespace Komodex.Remote.SampleData
     }
 
     public class SampleDataPodcastEpisode : SampleDataDACPItem
+    {
+        public string SecondLine
+        {
+            get { return string.Join(" – ", DateTime.Now.ToShortDateString(), FormattedDuration); }
+        }
+    }
+
+    public class SampleDataiTunesUEpisode:SampleDataDACPItem
     {
         public string SecondLine
         {
@@ -257,6 +270,18 @@ namespace Komodex.Remote.SampleData
     {
         public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> EpisodesViewSource { get; set; }
         public SampleDataDACPElementViewSource<SampleDataPodcastEpisode> UnplayedEpisodesViewSource { get; set; }
+    }
+
+    public class SampleDataiTunesUCoursesPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataDACPElementViewSource<SampleDataiTunesUCourse> CoursesViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataiTunesUCourse> UnplayedCoursesViewSource { get; set; }
+    }
+
+    public class SampleDataiTunesUCourseEpisodesPage : SampleDataBrowseGroupBasePage<SampleDataDACPContainer, SampleDataiTunesUCourse>
+    {
+        public SampleDataDACPElementViewSource<SampleDataiTunesUEpisode> EpisodesViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataiTunesUEpisode> UnplayedEpisodesViewSource { get; set; }
     }
 
     public class SampleDataAudiobooksPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>

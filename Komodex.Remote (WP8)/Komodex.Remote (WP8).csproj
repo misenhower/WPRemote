@@ -245,6 +245,14 @@
       <Link>Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml.cs</Link>
       <DependentUpon>InternetRadioStationsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\iTunesU\iTunesUCourseEpisodesPage.xaml.cs">
+      <Link>Pages\Browse\iTunesU\iTunesUCourseEpisodesPage.xaml.cs</Link>
+      <DependentUpon>iTunesUCourseEpisodesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\iTunesU\iTunesUCoursesPage.xaml.cs">
+      <Link>Pages\Browse\iTunesU\iTunesUCoursesPage.xaml.cs</Link>
+      <DependentUpon>iTunesUCoursesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MovieGenrePage.xaml.cs">
       <Link>Pages\Browse\Movies\MovieGenrePage.xaml.cs</Link>
       <DependentUpon>MovieGenrePage.xaml</DependentUpon>
@@ -856,6 +864,16 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml">
       <Link>Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\iTunesU\iTunesUCourseEpisodesPage.xaml">
+      <Link>Pages\Browse\iTunesU\iTunesUCourseEpisodesPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\iTunesU\iTunesUCoursesPage.xaml">
+      <Link>Pages\Browse\iTunesU\iTunesUCoursesPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
