@@ -11,7 +11,7 @@ namespace Komodex.Remote.Converters
     {
         private void Update()
         {
-            if (CurrentSongID != 0 && DACPItem != null && DACPItem.ID == CurrentSongID)
+            if (CurrentDatabaseID != 0 && CurrentItemID != 0 && DACPItem != null && DACPItem.Database.ID == CurrentDatabaseID && DACPItem.ID == CurrentItemID)
             {
                 IndicatorVisibility = Visibility.Visible;
                 TextTrimming = TextTrimming.WordEllipsis;
@@ -23,18 +23,37 @@ namespace Komodex.Remote.Converters
             }
         }
 
-        #region CurrentSongID
+        #region CurrentDatabaseID
 
-        public static readonly DependencyProperty CurrentSongIDProperty =
-            DependencyProperty.Register("CurrentSongID", typeof(int), typeof(CurrentDACPItemVisibilityConverter), new PropertyMetadata(0, CurrentSongIDPropertyChanged));
+        public static readonly DependencyProperty CurrentDatabaseIDProperty =
+            DependencyProperty.Register("CurrentDatabaseID", typeof(int), typeof(CurrentDACPItemVisibilityConverter), new PropertyMetadata(0, CurrentDatabaseIDPropertyChanged));
 
-        public int CurrentSongID
+        public int CurrentDatabaseID
         {
-            get { return (int)GetValue(CurrentSongIDProperty); }
-            set { SetValue(CurrentSongIDProperty, value); }
+            get { return (int)GetValue(CurrentDatabaseIDProperty); }
+            set { SetValue(CurrentDatabaseIDProperty, value); }
         }
 
-        private static void CurrentSongIDPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void CurrentDatabaseIDPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CurrentDACPItemVisibilityConverter converter = (CurrentDACPItemVisibilityConverter)d;
+            converter.Update();
+        }
+
+        #endregion
+
+        #region CurrentItemID
+
+        public static readonly DependencyProperty CurrentItemIDProperty =
+            DependencyProperty.Register("CurrentItemID", typeof(int), typeof(CurrentDACPItemVisibilityConverter), new PropertyMetadata(0, CurrentItemIDPropertyChanged));
+
+        public int CurrentItemID
+        {
+            get { return (int)GetValue(CurrentItemIDProperty); }
+            set { SetValue(CurrentItemIDProperty, value); }
+        }
+
+        private static void CurrentItemIDPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             CurrentDACPItemVisibilityConverter converter = (CurrentDACPItemVisibilityConverter)d;
             converter.Update();

@@ -74,7 +74,8 @@
                 <Grid.Resources>
                     <appconverters:CurrentDACPItemVisibilityConverter
                         x:Key="CurrentDACPItemVisibilityConverter"
-                        CurrentSongID="{Binding CurrentServer.CurrentSongID, ElementName=Page}"
+                        CurrentDatabaseID="{Binding CurrentServer.CurrentDatabaseID, ElementName=Page}"
+                        CurrentItemID="{Binding CurrentServer.CurrentItemID, ElementName=Page}"
                         DACPItem="{Binding}"
                         />
                 </Grid.Resources>

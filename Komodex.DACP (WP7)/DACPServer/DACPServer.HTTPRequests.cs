@@ -544,26 +544,28 @@ namespace Komodex.DACP
                 var nodes = DACPNodeDictionary.Parse(response.Nodes);
                 _playStatusRevisionNumber = nodes.GetInt("cmsr");
 
-                int oldSongID = CurrentSongID;
+                int oldSongID = CurrentItemID;
 
                 if (nodes.ContainsKey("canp"))
                 {
                     // Current song and container IDs
                     byte[] value = nodes["canp"];
 
-                    //byte[] dbID = { value[0], value[1], value[2], value[3] }; // We already have the current DB (for now)
+                    byte[] dbID = { value[0], value[1], value[2], value[3] };
                     byte[] containerID = { value[4], value[5], value[6], value[7] };
                     byte[] containerItemID = { value[8], value[9], value[10], value[11] };
-                    byte[] songID = { value[12], value[13], value[14], value[15] };
+                    byte[] itemID = { value[12], value[13], value[14], value[15] };
+                    CurrentDatabaseID = dbID.GetInt32Value();
                     CurrentContainerID = containerID.GetInt32Value();
                     CurrentContainerItemID = containerItemID.GetInt32Value();
-                    CurrentSongID = songID.GetInt32Value();
+                    CurrentItemID = itemID.GetInt32Value();
                 }
                 else
                 {
+                    CurrentDatabaseID = 0;
                     CurrentContainerID = 0;
                     CurrentContainerItemID = 0;
-                    CurrentSongID = 0;
+                    CurrentItemID = 0;
                 }
                 CurrentSongName = nodes.GetString("cann");
                 CurrentArtist = nodes.GetString("cana");
@@ -589,7 +591,7 @@ namespace Komodex.DACP
                 FullScreenModeAvailable = nodes.GetBool("cafe");
 
                 // If the song ID changed, refresh the album art
-                if (oldSongID != CurrentSongID)
+                if (oldSongID != CurrentItemID)
                     PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");
 
                 Utility.BeginInvokeOnUIThread(() =>
@@ -705,20 +707,20 @@ namespace Komodex.DACP
 
         protected void SubmitUserRatingRequest()
         {
-            if (CurrentSongID != _ratingUpdatedForSongID)
+            if (CurrentItemID != _ratingUpdatedForSongID)
             {
                 _ratingUpdatedForSongID = 0;
                 SetCurrentSongUserRatingFromServer(0);
             }
 
-            if (CurrentContainerID == 0 || CurrentSongID == 0 || CurrentAlbumPersistentID == 0)
+            if (CurrentContainerID == 0 || CurrentItemID == 0 || CurrentAlbumPersistentID == 0)
                 return;
 
             string url = "/databases/" + MainDatabase.ID + "/containers/" + CurrentContainerID + "/items"
                 + "?meta=dmap.itemid,dmap.containeritemid,daap.songuserrating"
                 + "&type=music"
                 + "&sort=album"
-                + "&query=('daap.songalbumid:" + CurrentAlbumPersistentID + "'+'dmap.itemid:" + CurrentSongID + "')"
+                + "&query=('daap.songalbumid:" + CurrentAlbumPersistentID + "'+'dmap.itemid:" + CurrentItemID + "')"
                 + "&session-id=" + SessionID;
             SubmitHTTPRequest(url, ProcessUserRatingResponse, false, ri => ri.ExceptionHandlerDelegate = HandleUserRatingException);
         }
@@ -734,10 +736,10 @@ namespace Komodex.DACP
             {
                 var nodes = DACPNodeDictionary.Parse(songData.Value);
                 var id = nodes.GetInt("miid");
-                if (id != CurrentSongID)
+                if (id != CurrentItemID)
                     continue;
                 var rating = nodes.GetByte("asur");
-                _ratingUpdatedForSongID = CurrentSongID;
+                _ratingUpdatedForSongID = CurrentItemID;
                 SetCurrentSongUserRatingFromServer(rating);
                 break;
             }
@@ -758,8 +760,8 @@ namespace Komodex.DACP
 
         protected void SendUserRatingCommand(int rating)
         {
-            if (CurrentSongID != 0)
-                SendUserRatingCommand(rating, CurrentSongID);
+            if (CurrentItemID != 0)
+                SendUserRatingCommand(rating, CurrentItemID);
         }
 
         protected void SendUserRatingCommand(int rating, int songID)

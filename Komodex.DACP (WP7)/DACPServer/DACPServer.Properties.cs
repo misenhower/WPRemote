@@ -190,16 +190,29 @@ namespace Komodex.DACP
 
         #region Current Song
 
-        private int _CurrentSongID = 0;
-        public int CurrentSongID
+        private int _currentDatabaseID;
+        public int CurrentDatabaseID
         {
-            get { return _CurrentSongID; }
+            get { return _currentDatabaseID; }
             protected set
             {
-                if (_CurrentSongID == value)
+                if (_currentDatabaseID == value)
                     return;
-                _CurrentSongID = value;
-                PropertyChanged.RaiseOnUIThread(this, "CurrentSongID");
+                _currentDatabaseID = value;
+                PropertyChanged.RaiseOnUIThread(this, "CurrentDatabaseID");
+            }
+        }
+
+        private int _currentItemID = 0;
+        public int CurrentItemID
+        {
+            get { return _currentItemID; }
+            protected set
+            {
+                if (_currentItemID == value)
+                    return;
+                _currentItemID = value;
+                PropertyChanged.RaiseOnUIThread(this, "CurrentItemID");
             }
         }
 
