@@ -207,6 +207,11 @@ namespace Komodex.Remote.Pages.Search
                 RemoteUtility.HandleLibraryPlayTask(((TVShowEpisode)selectedItem).Play());
                 return;
             }
+            if (selectedItem is iTunesUCourse)
+            {
+                NavigationManager.OpeniTunesUCourseEpisodesPage((iTunesUCourse)selectedItem);
+                return;
+            }
             if (selectedItem is Audiobook)
             {
                 NavigationManager.OpenAudiobookEpisodesPage((Audiobook)selectedItem);

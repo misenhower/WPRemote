@@ -44,6 +44,10 @@ namespace Komodex.Remote.Converters
                 if (type == typeof(TVShowEpisode))
                     return LocalizedStrings.BrowseTVShowsEpisodes;
 
+                // iTunes U Courses
+                if (type == typeof(iTunesUCourse))
+                    return LocalizedStrings.BrowseiTunesU;
+
                 // Audiobooks
                 if (type == typeof(Audiobook))
                     return LocalizedStrings.BrowseAudiobooks;

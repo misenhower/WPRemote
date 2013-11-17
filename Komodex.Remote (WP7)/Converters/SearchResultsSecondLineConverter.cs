@@ -48,6 +48,10 @@ namespace Komodex.Remote.Converters
                 return TVShowSeasonEpisodeTextConverter.FormattedTitleSeason(episode.SeriesName, episode.SeasonNumber);
             }
 
+            // iTunes U Courses
+            if (type == typeof(iTunesUCourse))
+                return ((iTunesUCourse)value).ArtistName;
+
             // Audiobooks
             if (type == typeof(Audiobook))
                 return ((Audiobook)value).ArtistName;

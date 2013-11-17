@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Komodex.DACP.Containers
@@ -63,6 +64,23 @@ namespace Komodex.DACP.Containers
         {
             var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songuserplaycount", 0), GroupsQuery);
             return GetGroupsAsync(query, n => new iTunesUCourse(this, n));
+        }
+
+        #endregion
+
+        #region Course Search
+
+        public async Task<List<iTunesUCourse>> SearchCoursesAsync(string searchString, CancellationToken cancellationToken)
+        {
+            DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songalbum", searchString), DACPQueryPredicate.IsNotEmpty("daap.songalbum"), MediaKindQuery);
+            DACPRequest request = GetGroupsRequest(query, false, "albums");
+            request.CancellationToken = cancellationToken;
+            try
+            {
+                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+                return DACPUtility.GetItemsFromNodes(response.Nodes, n => new iTunesUCourse(this, n)).ToList();
+            }
+            catch { return null; }
         }
 
         #endregion
