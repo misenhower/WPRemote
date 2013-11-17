@@ -18,6 +18,10 @@
     >
 
     <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ListHeader">
+            <Border Height="1" />
+        </DataTemplate>
+        
         <DataTemplate x:Key="SearchResultsItemTemplate">
             <Grid Margin="{StaticResource ListItemMargin}" Height="75">
                 <Grid.ColumnDefinitions>
@@ -63,6 +67,7 @@
                 IsGroupingEnabled="True"
                 Tap="SearchResultsListBox_Tap"
                 ItemTemplate="{StaticResource SearchResultsItemTemplate}"
+                ListHeaderTemplate="{StaticResource ListHeader}"
                 />
         </Grid>
     </Grid>
