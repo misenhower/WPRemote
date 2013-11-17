@@ -30,10 +30,11 @@ namespace Komodex.DACP.Containers
 
         private List<iTunesUCourse> _courses;
         private Dictionary<int, iTunesUCourse> _coursesByID;
+        private int _courseCacheRevision;
 
         public async Task<List<iTunesUCourse>> GetCoursesAsync()
         {
-            if (_courses != null)
+            if (_courses != null && _courseCacheRevision == Server.CurrentLibraryUpdateNumber)
                 return _courses;
 
             _courses = null;
@@ -43,13 +44,14 @@ namespace Komodex.DACP.Containers
             if (_courses != null)
                 _coursesByID = _courses.ToDictionary(c => c.ID);
 
+            _courseCacheRevision = Server.CurrentLibraryUpdateNumber;
+
             return _courses;
         }
 
         public async Task<iTunesUCourse> GetCourseByIDAsync(int courseID)
         {
-            if (_coursesByID == null)
-                await GetCoursesAsync().ConfigureAwait(false);
+            await GetCoursesAsync().ConfigureAwait(false);
             if (_coursesByID == null || !_coursesByID.ContainsKey(courseID))
                 return null;
 

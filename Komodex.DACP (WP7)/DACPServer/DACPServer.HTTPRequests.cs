@@ -427,18 +427,18 @@ namespace Komodex.DACP
 
         #region Update
 
-        protected int _libraryUpdateRevisionNumber = 1;
+        internal int CurrentLibraryUpdateNumber { get; private set; }
 
         protected Task<bool> GetFirstLibraryUpdateAsync()
         {
-            _libraryUpdateRevisionNumber = 1;
+            CurrentLibraryUpdateNumber = 1;
             return GetLibraryUpdateAsync(CancellationToken.None);
         }
 
         protected async Task<bool> GetLibraryUpdateAsync(CancellationToken cancellationToken)
         {
             DACPRequest request = new DACPRequest("/update");
-            request.QueryParameters["revision-number"] = _libraryUpdateRevisionNumber.ToString();
+            request.QueryParameters["revision-number"] = CurrentLibraryUpdateNumber.ToString();
             request.QueryParameters["daap-no-disconnect"] = "1";
 
             try
@@ -449,7 +449,7 @@ namespace Komodex.DACP
                     return false;
 
                 var nodes = DACPNodeDictionary.Parse(response.Nodes);
-                _libraryUpdateRevisionNumber = nodes.GetInt("musr");
+                CurrentLibraryUpdateNumber = nodes.GetInt("musr");
             }
             catch
             {

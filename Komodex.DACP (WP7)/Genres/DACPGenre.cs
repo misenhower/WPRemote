@@ -106,7 +106,10 @@ namespace Komodex.DACP.Genres
             else
             {
                 var items = await GetItemsAsync();
-                request = Database.GetCueSongRequest(DACPQueryCollection.And(GenreQuery, Container.MediaKindQuery), "name", items.IndexOf(item));
+                int index = items.FindIndex(i => i.ID == item.ID);
+                if (index < 0)
+                    return false;
+                request = Database.GetCueSongRequest(DACPQueryCollection.And(GenreQuery, Container.MediaKindQuery), "name", index);
             }
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }

@@ -24,14 +24,18 @@ namespace Komodex.DACP.Containers
         #region Movies
 
         private IDACPList _movies;
+        private int _movieCacheRevision;
 
         public async Task<IDACPList> GetMoviesAsync()
         {
-            if (_movies != null)
+            if (_movies != null && _movieCacheRevision == Server.CurrentLibraryUpdateNumber)
                 return _movies;
 
             DACPRequest request = GetItemsRequest(MediaKindQuery, "name", true);
             _movies = await Server.GetAlphaGroupedListAsync(request, n => new Movie(this, n));
+
+            _movieCacheRevision = Server.CurrentLibraryUpdateNumber;
+
             return _movies;
         }
 

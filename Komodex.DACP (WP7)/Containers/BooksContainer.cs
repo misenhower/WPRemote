@@ -30,10 +30,11 @@ namespace Komodex.DACP.Containers
 
         private List<Audiobook> _audiobooks;
         private Dictionary<int, Audiobook> _audiobooksByID;
+        private int _audiobookCacheRevision;
 
         public async Task<List<Audiobook>> GetAudiobooksAsync()
         {
-            if (_audiobooks != null)
+            if (_audiobooks != null && _audiobookCacheRevision == Server.CurrentLibraryUpdateNumber)
                 return _audiobooks;
 
             _audiobooks = null;
@@ -43,13 +44,14 @@ namespace Komodex.DACP.Containers
             if (_audiobooks != null)
                 _audiobooksByID = _audiobooks.ToDictionary(a => a.ID);
 
+            _audiobookCacheRevision = Server.CurrentLibraryUpdateNumber;
+
             return _audiobooks;
         }
 
         public async Task<Audiobook> GetAudiobookByIDAsync(int audiobookID)
         {
-            if (_audiobooksByID == null)
-                await GetAudiobooksAsync().ConfigureAwait(false);
+            await GetAudiobooksAsync().ConfigureAwait(false);
             if (_audiobooksByID == null || !_audiobooksByID.ContainsKey(audiobookID))
                 return null;
 

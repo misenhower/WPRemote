@@ -77,7 +77,10 @@ namespace Komodex.DACP.Groups
             else
             {
                 var songs = await GetSongsAsync();
-                request = Database.GetCueSongRequest(ItemQuery, "album", songs.IndexOf(song));
+                int index = songs.FindIndex(s => s.ID == song.ID);
+                if (index < 0)
+                    return false;
+                request = Database.GetCueSongRequest(ItemQuery, "album", index);
             }
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }

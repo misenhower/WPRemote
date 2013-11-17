@@ -27,10 +27,11 @@ namespace Komodex.DACP.Containers
         private List<Artist> _artists;
         private Dictionary<int, Artist> _artistsByID;
         private IDACPList _groupedArtists;
+        private int _artistCacheRevision;
 
         public async Task<List<Artist>> GetArtistsAsync()
         {
-            if (_artists != null)
+            if (_artists != null && _artistCacheRevision == Server.CurrentLibraryUpdateNumber)
                 return _artists;
 
             var query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songartist"), MediaKindQuery);
@@ -49,20 +50,20 @@ namespace Komodex.DACP.Containers
                 _groupedArtists = new DACPList<Artist>(false);
             }
 
+            _artistCacheRevision = Server.CurrentLibraryUpdateNumber;
+
             return _artists;
         }
 
         public async Task<IDACPList> GetGroupedArtistsAsync()
         {
-            if (_groupedArtists == null)
-                await GetArtistsAsync().ConfigureAwait(false);
+            await GetArtistsAsync().ConfigureAwait(false);
             return _groupedArtists;
         }
 
         public async Task<Artist> GetArtistByIDAsync(int artistID)
         {
-            if (_artistsByID == null)
-                await GetArtistsAsync().ConfigureAwait(false);
+            await GetArtistsAsync().ConfigureAwait(false);
             if (_artistsByID == null || !_artistsByID.ContainsKey(artistID))
                 return null;
 
@@ -96,10 +97,11 @@ namespace Komodex.DACP.Containers
         private List<Album> _albums;
         private Dictionary<int, Album> _albumsByID;
         private IDACPList _groupedAlbums;
+        private int _albumCacheRevision;
 
         public async Task<List<Album>> GetAlbumsAsync()
         {
-            if (_albums != null)
+            if (_albums != null && _albumCacheRevision == Server.CurrentLibraryUpdateNumber)
                 return _albums;
 
             DACPRequest request = GetGroupsRequest(GroupsQuery, true);
@@ -117,20 +119,20 @@ namespace Komodex.DACP.Containers
                 _groupedAlbums = new DACPList<Album>(false);
             }
 
+            _albumCacheRevision = Server.CurrentLibraryUpdateNumber;
+
             return _albums;
         }
 
         public async Task<IDACPList> GetGroupedAlbumsAsync()
         {
-            if (_groupedAlbums == null)
-                await GetAlbumsAsync().ConfigureAwait(false);
+            await GetAlbumsAsync().ConfigureAwait(false);
             return _groupedAlbums;
         }
 
         public async Task<Album> GetAlbumByIDAsync(int albumID)
         {
-            if (_albumsByID == null)
-                await GetAlbumsAsync().ConfigureAwait(false);
+            await GetAlbumsAsync().ConfigureAwait(false);
             if (_albumsByID == null || !_albumsByID.ContainsKey(albumID))
                 return null;
 

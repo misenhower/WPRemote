@@ -32,10 +32,11 @@ namespace Komodex.DACP.Containers
 
         private List<TVShow> _shows;
         private Dictionary<int, TVShow> _showsByID;
+        private int _showCacheRevision;
 
         public async Task<List<TVShow>> GetShowsAsync()
         {
-            if (_shows != null)
+            if (_shows != null && _showCacheRevision == Server.CurrentLibraryUpdateNumber)
                 return _shows;
 
             var episodes = await GetItemsAsync(MediaKindQuery, n => new TVShowEpisode(this, n));
@@ -47,13 +48,15 @@ namespace Komodex.DACP.Containers
                 .ThenBy(s => s.SeasonNumber)
                 .ToList();
             _showsByID = _shows.ToDictionary(s => s.Index);
+
+            _showCacheRevision = Server.CurrentLibraryUpdateNumber;
+
             return _shows;
         }
 
         public async Task<TVShow> GetShowByIDAsync(int showID)
         {
-            if (_showsByID == null)
-                await GetShowsAsync().ConfigureAwait(false);
+            await GetShowsAsync().ConfigureAwait(false);
             if (_showsByID == null || !_showsByID.ContainsKey(showID))
                 return null;
 

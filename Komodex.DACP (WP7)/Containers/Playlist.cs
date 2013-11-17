@@ -30,14 +30,18 @@ namespace Komodex.DACP.Containers
         #region Items
 
         private List<DACPItem> _items;
+        private int _itemCacheRevision;
 
         public async Task<List<DACPItem>> GetItemsAsync()
         {
-            if (_items != null)
+            if (_items != null && _itemCacheRevision == Server.CurrentLibraryUpdateNumber)
                 return _items;
 
             DACPRequest request = GetContainerItemsRequest();
             _items = await Server.GetListAsync(request, n => (DACPItem)new Song(this, n)).ConfigureAwait(false);
+
+            _itemCacheRevision = Server.CurrentLibraryUpdateNumber;
+
             return _items;
         }
 

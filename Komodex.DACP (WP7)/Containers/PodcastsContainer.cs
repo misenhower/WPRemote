@@ -30,10 +30,11 @@ namespace Komodex.DACP.Containers
 
         private List<Podcast> _shows;
         private Dictionary<int, Podcast> _showsByID;
+        private int _showCacheRevision;
 
         public async Task<List<Podcast>> GetShowsAsync()
         {
-            if (_shows != null)
+            if (_shows != null && _showCacheRevision == Server.CurrentLibraryUpdateNumber)
                 return _shows;
 
             _shows = null;
@@ -43,13 +44,14 @@ namespace Komodex.DACP.Containers
             if (_shows != null)
                 _showsByID = _shows.ToDictionary(s => s.ID);
 
+            _showCacheRevision = Server.CurrentLibraryUpdateNumber;
+
             return _shows;
         }
 
         public async Task<Podcast> GetShowByIDAsync(int showID)
         {
-            if (_showsByID == null)
-                await GetShowsAsync().ConfigureAwait(false);
+            await GetShowsAsync().ConfigureAwait(false);
             if (_showsByID == null || !_showsByID.ContainsKey(showID))
                 return null;
 
