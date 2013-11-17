@@ -452,5 +452,22 @@ namespace Komodex.Common
         }
 
         #endregion
+
+        #region List<T> Utilities
+
+#if WP7
+        public static int FindIndex<T>(this List<T> list, Predicate<T> match)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (match(list[i]))
+                    return i;
+            }
+
+            return -1;
+        }
+#endif
+
+        #endregion
     }
 }
