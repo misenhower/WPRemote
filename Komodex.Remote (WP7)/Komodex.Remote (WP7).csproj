@@ -172,6 +172,12 @@
     <Compile Include="Pages\Browse\GeniusMixes\GeniusMixesPage.xaml.cs">
       <DependentUpon>GeniusMixesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Browse\InternetRadio\InternetRadioCategoriesPage.xaml.cs">
+      <DependentUpon>InternetRadioCategoriesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml.cs">
+      <DependentUpon>InternetRadioStationsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Browse\Movies\MovieGenrePage.xaml.cs">
       <DependentUpon>MovieGenrePage.xaml</DependentUpon>
     </Compile>
@@ -302,6 +308,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Browse\GeniusMixes\GeniusMixesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\InternetRadio\InternetRadioCategoriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

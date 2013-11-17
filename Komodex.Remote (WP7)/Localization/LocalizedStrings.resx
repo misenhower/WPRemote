@@ -723,4 +723,19 @@
   <data name="BrowseGeniusMixesArtistSeparator" xml:space="preserve">
     <value>, </value>
   </data>
+  <data name="BrowseInternetRadio" xml:space="preserve">
+    <value>internet radio</value>
+  </data>
+  <data name="BrowseInternetRadioCategories" xml:space="preserve">
+    <value>categories</value>
+  </data>
+  <data name="BrowseInternetRadioStations" xml:space="preserve">
+    <value>stations</value>
+  </data>
+  <data name="BrowseInternetRadioNoCategories" xml:space="preserve">
+    <value>No categories</value>
+  </data>
+  <data name="BrowseInternetRadioNoStations" xml:space="preserve">
+    <value>No stations</value>
+  </data>
 </root>

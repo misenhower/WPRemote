@@ -176,6 +176,20 @@ namespace Komodex.Remote
 
         #endregion
 
+        #region Internet Radio
+
+        public static void OpenInternetRadioCategoriesPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Browse/InternetRadio/InternetRadioCategoriesPage.xaml?databaseID={0}", database.ID);
+        }
+
+        public static void OpenInternetRadioStationsPage(Playlist playlist)
+        {
+            Navigate("/Pages/Browse/InternetRadio/InternetRadioStationsPage.xaml?databaseID={0}&playlistID={1}", playlist.Database.ID, playlist.ID);
+        }
+
+        #endregion
+
         public static void OpenGenrePage(string genreName)
         {
             genreName = Uri.EscapeDataString(genreName);

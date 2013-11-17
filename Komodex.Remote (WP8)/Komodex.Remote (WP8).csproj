@@ -237,6 +237,14 @@
       <Link>Pages\Browse\GeniusMixes\GeniusMixesPage.xaml.cs</Link>
       <DependentUpon>GeniusMixesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\InternetRadio\InternetRadioCategoriesPage.xaml.cs">
+      <Link>Pages\Browse\InternetRadio\InternetRadioCategoriesPage.xaml.cs</Link>
+      <DependentUpon>InternetRadioCategoriesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml.cs">
+      <Link>Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml.cs</Link>
+      <DependentUpon>InternetRadioStationsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\Movies\MovieGenrePage.xaml.cs">
       <Link>Pages\Browse\Movies\MovieGenrePage.xaml.cs</Link>
       <DependentUpon>MovieGenrePage.xaml</DependentUpon>
@@ -838,6 +846,16 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\GeniusMixes\GeniusMixesPage.xaml">
       <Link>Pages\Browse\GeniusMixes\GeniusMixesPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\InternetRadio\InternetRadioCategoriesPage.xaml">
+      <Link>Pages\Browse\InternetRadio\InternetRadioCategoriesPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml">
+      <Link>Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

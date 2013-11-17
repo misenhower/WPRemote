@@ -98,7 +98,13 @@
             <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextExtraLargeStyle}" Margin="0" />
         </Grid>
     </DataTemplate>
-    
+
+    <DataTemplate x:Key="InternetRadioCategoryTemplate">
+        <Grid Margin="{StaticResource ListItemMargin}">
+            <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextExtraLargeStyle}" Margin="0" />
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate x:Key="PlayButtonItemTemplate">
         <Grid Margin="{StaticResource ListItemMargin}">
             <Grid.ColumnDefinitions>

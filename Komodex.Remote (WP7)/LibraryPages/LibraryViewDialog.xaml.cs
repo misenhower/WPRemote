@@ -45,6 +45,8 @@ namespace Komodex.Remote.LibraryPages
                 items.Add(new LibraryViewItem(LocalizedStrings.BrowseAudiobooks, "/Assets/Icons/Audiobooks.png", () => NavigationManager.OpenAudiobooksPage(CurrentDatabase)));
             if (CurrentDatabase.GeniusMixes != null && CurrentDatabase.GeniusMixes.Count > 0)
                 items.Add(new LibraryViewItem(LocalizedStrings.BrowseGeniusMixes, "/Assets/Icons/GeniusMixes.png", () => NavigationManager.OpenGeniusMixesPage(CurrentDatabase)));
+            if (CurrentDatabase.Server.InternetRadioDatabase != null)
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowseInternetRadio, "/Assets/Icons/InternetRadio.png", () => NavigationManager.OpenInternetRadioCategoriesPage(CurrentDatabase.Server.InternetRadioDatabase)));
 
             Items = items;
         }

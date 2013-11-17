@@ -133,7 +133,18 @@ namespace Komodex.Remote
                 return;
             }
 
-            CurrentDatabase = CurrentServer.MainDatabase;
+            CurrentDatabase = GetDatabase(CurrentServer);
+        }
+
+        protected virtual DACPDatabase GetDatabase(DACPServer server)
+        {
+            if (server.MainDatabase.ID == _databaseID)
+                return server.MainDatabase;
+
+            if (server.InternetRadioDatabase != null && server.InternetRadioDatabase.ID == _databaseID)
+                return server.InternetRadioDatabase;
+
+            return null;
         }
 
         #endregion

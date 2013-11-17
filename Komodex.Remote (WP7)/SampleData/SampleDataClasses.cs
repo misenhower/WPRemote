@@ -20,6 +20,7 @@ namespace Komodex.Remote.SampleData
 
     public class SampleDataDACPDatabase : SampleDataDACPElement
     {
+        public List<SampleDataDACPContainer> Playlists { get; set; }
         public List<SampleDataGeniusMix> GeniusMixes { get; set; }
     }
 
@@ -214,6 +215,11 @@ namespace Komodex.Remote.SampleData
         public List<SampleDataDACPContainer> SamplePlaylists { get; set; }
         public List<SampleDataDACPItem> SampleItems { get; set; }
         public SampleDataDACPElementViewSource<SampleDataDACPElement> PlaylistViewSource { get; private set; }
+    }
+
+    public class SampleDataInternetRadioStationsPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataDACPElementViewSource<SampleDataDACPItem> StationsViewSource { get; set; }
     }
 
     public class SampleDataMoviesPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>

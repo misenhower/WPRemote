@@ -121,6 +121,11 @@ namespace Komodex.Remote
 
         public static async void HandleLibraryPlayTask(Task<bool> task)
         {
+            await HandleLibraryPlayTaskAsync(task);
+        }
+
+        public static async Task HandleLibraryPlayTaskAsync(Task<bool> task)
+        {
             if (await task)
                 NavigationManager.OpenNowPlayingPage();
             else

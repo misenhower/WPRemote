@@ -340,6 +340,51 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to internet radio.
+        /// </summary>
+        public static string BrowseInternetRadio {
+            get {
+                return ResourceManager.GetString("BrowseInternetRadio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to categories.
+        /// </summary>
+        public static string BrowseInternetRadioCategories {
+            get {
+                return ResourceManager.GetString("BrowseInternetRadioCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No categories.
+        /// </summary>
+        public static string BrowseInternetRadioNoCategories {
+            get {
+                return ResourceManager.GetString("BrowseInternetRadioNoCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No stations.
+        /// </summary>
+        public static string BrowseInternetRadioNoStations {
+            get {
+                return ResourceManager.GetString("BrowseInternetRadioNoStations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to stations.
+        /// </summary>
+        public static string BrowseInternetRadioStations {
+            get {
+                return ResourceManager.GetString("BrowseInternetRadioStations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to items.
         /// </summary>
         public static string BrowseItems {

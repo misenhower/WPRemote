@@ -83,8 +83,16 @@ namespace Komodex.DACP.Items
         public async Task<bool> Play()
         {
             DACPRequest request = new DACPRequest("/ctrl-int/1/playspec");
-            request.QueryParameters["database-spec"] = DACPQueryPredicate.Is("dmap.persistentid", "0x" + Database.PersistentID.ToString("x16")).ToString();
-            request.QueryParameters["container-spec"] = DACPQueryPredicate.Is("dmap.persistentid", "0x" + Container.PersistentID.ToString("x16")).ToString();
+            if (Database.PersistentID != 0 && Container.PersistentID != 0)
+            {
+                request.QueryParameters["database-spec"] = DACPQueryPredicate.Is("dmap.persistentid", "0x" + Database.PersistentID.ToString("x16")).ToString();
+                request.QueryParameters["container-spec"] = DACPQueryPredicate.Is("dmap.persistentid", "0x" + Container.PersistentID.ToString("x16")).ToString();
+            }
+            else
+            {
+                request.QueryParameters["database-spec"] = DACPQueryPredicate.Is("dmap.itemid", "0x" + Database.ID.ToString("x")).ToString();
+                request.QueryParameters["container-spec"] = DACPQueryPredicate.Is("dmap.itemid", "0x" + Container.ID.ToString("x")).ToString();
+            }
             request.QueryParameters["item-spec"] = DACPQueryPredicate.Is("dmap.itemid", "0x" + ID.ToString("x8")).ToString();
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }

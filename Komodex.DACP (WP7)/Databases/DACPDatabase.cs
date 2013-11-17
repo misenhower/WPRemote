@@ -73,7 +73,7 @@ namespace Komodex.DACP.Databases
             }
         }
 
-        internal async Task<bool> RequestContainersAsync()
+        public async Task<bool> RequestContainersAsync()
         {
             DACPRequest request = new DACPRequest("/databases/{0}/containers", ID);
             request.QueryParameters["meta"] = "dmap.itemname,dmap.itemid,com.apple.itunes.cloud-id,dmap.downloadstatus,dmap.persistentid,daap.baseplaylist,com.apple.itunes.special-playlist,com.apple.itunes.smart-playlist,com.apple.itunes.saved-genius,dmap.parentcontainerid,dmap.editcommandssupported,com.apple.itunes.jukebox-current,daap.songcontentdescription,dmap.haschildcontainers";
