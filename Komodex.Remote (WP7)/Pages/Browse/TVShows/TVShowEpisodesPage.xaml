@@ -32,7 +32,7 @@
                     </Border>
                 </appcontrols:FakeButton>
 
-                <StackPanel Grid.Column="1">
+                <StackPanel Grid.Column="1" Opacity="{Binding IsDisabled, Converter={StaticResource ItemDisabledOpacityConverter}}">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextTwoLineExtraLargeStyle}" />
                     <TextBlock Text="{Binding Converter={StaticResource TVShowSeasonEpisodeTextConverter}, ConverterParameter=SeasonEpisode}" Style="{Binding PlayedState, Converter={StaticResource SemiBoldEpisodeWatchedStyleConverter}}" />
                     <TextBlock Text="{Binding SecondLine}" Style="{StaticResource ListItemTextSubtleStyle}" />

@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:app="clr-namespace:Komodex.Remote"
     xmlns:appcontrols="clr-namespace:Komodex.Remote.Controls"
+    xmlns:appconverters="clr-namespace:Komodex.Remote.Converters"
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:delay="clr-namespace:Delay"
@@ -25,7 +26,17 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <!-- Internet Radio Stations appear to use the current container ID rather than the current item ID.  -->
+                    <appconverters:CurrentDACPItemVisibilityConverter
+                        x:Key="CurrentDACPItemVisibilityConverter"
+                        CurrentDatabaseID="{Binding CurrentServer.CurrentDatabaseID, ElementName=Page}"
+                        CurrentItemID="{Binding CurrentServer.CurrentContainerItemID, ElementName=Page}"
+                        DACPItem="{Binding}"
+                        />
+                </Grid.Resources>
 
                 <appcontrols:FakeButton x:Name="PlayButton">
                     <ContentControl Template="{StaticResource PlayButton}" />
@@ -34,8 +45,14 @@
                 <TextBlock
                     Grid.Column="1"
                     Text="{Binding Name}"
-                    Style="{StaticResource PhoneTextExtraLargeStyle}"
-                    Margin="{StaticResource ListItemTextMargin}"
+                    Style="{StaticResource ListItemTextExtraLargeStyle}"
+                    TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}"
+                    />
+                
+                <controls:MultiResolutionImageMask
+                    Grid.Column="2"
+                    Visibility="{Binding IndicatorVisibility, Source={StaticResource CurrentDACPItemVisibilityConverter}}"
+                    Style="{StaticResource ListItemSpeakerIconStyle}"
                     />
             </Grid>
         </DataTemplate>
