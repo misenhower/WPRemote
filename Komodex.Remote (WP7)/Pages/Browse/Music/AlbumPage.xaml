@@ -59,7 +59,7 @@
         </DataTemplate>
         
         <DataTemplate x:Key="SongTemplate">
-            <Grid Margin="{StaticResource ListItemMargin}" Opacity="{Binding IsDisabled, Converter={StaticResource ItemDisabledOpacityConverter}}">
+            <Grid Margin="{StaticResource ListItemMargin}">
                 <toolkit:ContextMenuService.ContextMenu>
                     <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
                         <toolkit:MenuItem x:Name="PlayNextButton" Header="{Binding LocalizedStrings.PlayNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
@@ -82,8 +82,8 @@
                 <appcontrols:FakeButton x:Name="PlayButton" VerticalAlignment="Top" Margin="0,3,0,0">
                     <ContentControl Template="{StaticResource PlayButton}" />
                 </appcontrols:FakeButton>
-                
-                <StackPanel Grid.Column="1">
+
+                <StackPanel Grid.Column="1" Opacity="{Binding IsDisabled, Converter={StaticResource ItemDisabledOpacityConverter}}">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextLargerStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
                     <TextBlock Text="{Binding SecondLine}" Style="{StaticResource ListItemTextSubtleStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
                 </StackPanel>
