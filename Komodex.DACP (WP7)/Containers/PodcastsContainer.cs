@@ -49,7 +49,7 @@ namespace Komodex.DACP.Containers
         public async Task<Podcast> GetShowByIDAsync(int showID)
         {
             if (_showsByID == null)
-                await GetShowsAsync();
+                await GetShowsAsync().ConfigureAwait(false);
             if (_showsByID == null || !_showsByID.ContainsKey(showID))
                 return null;
 

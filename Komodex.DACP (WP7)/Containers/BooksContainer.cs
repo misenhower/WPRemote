@@ -49,7 +49,7 @@ namespace Komodex.DACP.Containers
         public async Task<Audiobook> GetAudiobookByIDAsync(int audiobookID)
         {
             if (_audiobooksByID == null)
-                await GetAudiobooksAsync();
+                await GetAudiobooksAsync().ConfigureAwait(false);
             if (_audiobooksByID == null || !_audiobooksByID.ContainsKey(audiobookID))
                 return null;
 
