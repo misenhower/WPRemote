@@ -28,18 +28,9 @@ namespace Komodex.Remote
 
             DisableConnectionStatusPopup = true;
 
-            // Localized contact and twitter links
-            string contactString = LocalizedStrings.ContactUs;
-            string[] contactStringParts = contactString.Split('[', ']');
-            contact1.Text = contactStringParts[0];
-            contact2.Content = contactStringParts[1];
-            contact3.Text = contactStringParts[2];
-
-            string twitterString = LocalizedStrings.FollowOnTwitter;
-            string[] twitterStringParts = twitterString.Split('[', ']');
-            twitter1.Text = twitterStringParts[0];
-            twitter2.Content = twitterStringParts[1];
-            twitter3.Text = twitterStringParts[2];
+            SetUpRichTextBox(ContactUsRichTextBox, LocalizedStrings.ContactUs, OpenSupportEmail);
+            SetUpRichTextBox(RateAndReviewRichTextBox, LocalizedStrings.RateAndReview, OpenRateAndReview);
+            SetUpRichTextBox(TwitterRichTextBox, LocalizedStrings.FollowOnTwitter, OpenTwitterLink);
         }
 
         #region Overrides
@@ -131,7 +122,8 @@ namespace Komodex.Remote
             var twitterVisibility = System.Windows.Visibility.Visible;
             if (tbiTunesNotConnected.Visibility == System.Windows.Visibility.Visible)
                 twitterVisibility = System.Windows.Visibility.Collapsed;
-            twitter1.Visibility = twitter2.Visibility = twitter3.Visibility = twitterVisibility;
+            RateAndReviewRichTextBox.Visibility = twitterVisibility;
+            TwitterRichTextBox.Visibility = twitterVisibility;
         }
 
         #endregion
@@ -166,15 +158,40 @@ namespace Komodex.Remote
 #endif
         }
 
-        private void btnSupport_Click(object sender, RoutedEventArgs e)
+        private void SetUpRichTextBox(RichTextBox richTextBox, string content, Action action)
+        {
+            richTextBox.Blocks.Clear();
+            var parts = content.Split('[', ']');
+
+            Paragraph p = new Paragraph();
+            p.Inlines.Add(new Run() { Text = parts[0] });
+            Hyperlink h = new Hyperlink();
+            h.Inlines.Add(new Run() { Text = parts[1] });
+            h.Command = new HyperlinkCommand(this, action);
+            p.Inlines.Add(h);
+            p.Inlines.Add(new Run() { Text = parts[2] });
+
+            richTextBox.Blocks.Add(p);
+            richTextBox.IsReadOnly = true;
+        }
+
+        private void OpenSupportEmail()
         {
             EmailComposeTask t = new EmailComposeTask();
             t.To = "Komodex Support <info@komodex.com>";
             t.Subject = "[Komodex] Remote v" + Utility.ApplicationVersion + " Feedback";
+            if (CurrentServer != null && CurrentServer.IsConnected)
+                t.Body = "\n\n\nRemote Diagnostic Info:\nConnected Server Version: " + CurrentServer.ServerVersionString;
             t.Show();
         }
 
-        private void btnTwitter_Click(object sender, RoutedEventArgs e)
+        private void OpenRateAndReview()
+        {
+            MarketplaceReviewTask t = new MarketplaceReviewTask();
+            t.Show();
+        }
+
+        private void OpenTwitterLink()
         {
             WebBrowserTask t = new WebBrowserTask();
             t.Uri = new Uri("http://twitter.com/WP7remote");
@@ -190,5 +207,30 @@ namespace Komodex.Remote
 
         #endregion
 
+        // Hyperlinks in RichTextBox under WP8 don't seem to send the Click event reliably. Using a Command instead seems to work.
+        private class HyperlinkCommand : ICommand
+        {
+            private AboutPage _page;
+            private Action _action;
+
+            public HyperlinkCommand(AboutPage page, Action a)
+            {
+                _page = page;
+                _action = a;
+            }
+
+            public bool CanExecute(object parameter)
+            {
+                return true;
+            }
+
+            public event EventHandler CanExecuteChanged;
+
+            public void Execute(object parameter)
+            {
+                _page.Focus();
+                _action();
+            }
+        }
     }
 }

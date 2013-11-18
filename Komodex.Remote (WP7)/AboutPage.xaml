@@ -18,6 +18,15 @@
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0">
+    
+    <phone:PhoneApplicationPage.Resources>
+        <Style TargetType="RichTextBox">
+            <Setter Property="Margin" Value="0,0,0,12" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}" />
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}" />
+            <Setter Property="IsReadOnly" Value="True" />
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -68,14 +77,14 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="{Binding LocalizedStrings.Version, Source={StaticResource LocalizedStrings}}" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="{Binding LocalizedStrings.Protocol, Source={StaticResource LocalizedStrings}}" />
-                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DMAP:" />
-                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DAAP:" />
+                            <TextBlock Visibility="Collapsed" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="{Binding LocalizedStrings.Protocol, Source={StaticResource LocalizedStrings}}" />
+                            <TextBlock Visibility="Collapsed" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DMAP:" />
+                            <TextBlock Visibility="Collapsed" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource PhoneTextSmallStyle}" Text="DAAP:" />
 
                             <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesVersion" />
-                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesProtocolVersion" />
-                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDMAPVersion" />
-                            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDAAPVersion" />
+                            <TextBlock Visibility="Collapsed" Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesProtocolVersion" />
+                            <TextBlock Visibility="Collapsed" Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDMAPVersion" />
+                            <TextBlock Visibility="Collapsed" Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Name="tbiTunesDAAPVersion" />
                         </Grid>
                         <Border Margin="0,0,0,12" />
                     </StackPanel>
@@ -107,19 +116,24 @@
                 </Grid>
             </Button>
 
-            <StackPanel Grid.Row="3" Margin="12,0,0,0">
-                <toolkit:WrapPanel Margin="0,0,0,12">
-                    <TextBlock Name="contact1" Text="" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
-                    <HyperlinkButton Name="contact2" Content="Contact us" Margin="-12,0,-12,0" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnSupport_Click" />
-                    <TextBlock Name="contact3" Text=" for support and feedback" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
-                </toolkit:WrapPanel>
-                <toolkit:WrapPanel>
-                    <TextBlock Name="twitter1" Text="Follow " FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
-                    <HyperlinkButton Name="twitter2" Content="@WP7Remote" Margin="-12,0,-12,0" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Click="btnTwitter_Click" />
-                    <TextBlock Name="twitter3" Text=" on Twitter" FontSize="{StaticResource PhoneFontSizeMediumLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" />
-                </toolkit:WrapPanel>
+            <StackPanel Grid.Row="3">
+                <RichTextBox x:Name="ContactUsRichTextBox">
+                    <Paragraph>
+                        <Run Text="{Binding LocalizedStrings.ContactUs, Source={StaticResource LocalizedStrings}}" />
+                    </Paragraph>
+                </RichTextBox>
+                <RichTextBox x:Name="RateAndReviewRichTextBox">
+                    <Paragraph>
+                        <Run Text="{Binding LocalizedStrings.RateAndReview, Source={StaticResource LocalizedStrings}}" />
+                    </Paragraph>
+                </RichTextBox>
+                <RichTextBox x:Name="TwitterRichTextBox">
+                    <Paragraph>
+                        <Run Text="{Binding LocalizedStrings.FollowOnTwitter, Source={StaticResource LocalizedStrings}}" />
+                    </Paragraph>
+                </RichTextBox>
             </StackPanel>
-
+            
             <StackPanel Grid.Row="4" Margin="0,0,0,12">
                 <Button Style="{StaticResource SimpleButton}" Margin="0,-12,0,0" Click="btnLogo_Click">
                     <Grid Height="65" Background="Transparent">

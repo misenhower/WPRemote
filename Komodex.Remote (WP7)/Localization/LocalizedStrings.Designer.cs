@@ -1402,6 +1402,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [Rate and review] in the Store.
+        /// </summary>
+        public static string RateAndReview {
+            get {
+                return ResourceManager.GetString("RateAndReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to save.
         /// </summary>
         public static string SaveAppBarButton {

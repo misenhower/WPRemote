@@ -750,4 +750,7 @@
   <data name="BrowseiTunesUUnplayed" xml:space="preserve">
     <value>unplayed</value>
   </data>
+  <data name="RateAndReview" xml:space="preserve">
+    <value>[Rate and review] in the Store</value>
+  </data>
 </root>
