@@ -11,6 +11,8 @@ using Komodex.DACP;
 using Komodex.DACP.Groups;
 using Komodex.DACP.Items;
 using Komodex.Remote.Localization;
+using Komodex.Remote.Data;
+using System.ComponentModel;
 
 namespace Komodex.Remote.Pages.Browse.Music
 {
@@ -21,7 +23,9 @@ namespace Komodex.Remote.Pages.Browse.Music
             InitializeComponent();
 
             AlbumsViewSource = GetGroupViewSource(async g => await g.GetAlbumsAsync());
-            SongsViewSource = GetGroupViewSource(async g => await g.GetGroupedSongsAsync());
+            var songsViewSource = GetGroupViewSource(async g => await g.GetGroupedSongsAsync());
+            songsViewSource.PropertyChanged += SongsViewSource_PropertyChanged;
+            SongsViewSource = songsViewSource;
         }
 
         public object AlbumsViewSource { get; private set; }
@@ -86,5 +90,43 @@ namespace Komodex.Remote.Pages.Browse.Music
                 return;
             }
         }
+
+        #region Shuffle Button
+
+        public static readonly DependencyProperty ShuffleButtonVisibilityProperty =
+            DependencyProperty.Register("ShuffleButtonVisibility", typeof(Visibility), typeof(ArtistPage), new PropertyMetadata(Visibility.Collapsed));
+
+        public Visibility ShuffleButtonVisibility
+        {
+            get { return (Visibility)GetValue(ShuffleButtonVisibilityProperty); }
+            set { SetValue(ShuffleButtonVisibilityProperty, value); }
+        }
+
+        private void SongsViewSource_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            IDACPElementViewSource source = (IDACPElementViewSource)sender;
+
+            if (e.PropertyName == "Items")
+            {
+                Visibility newVisibility = Visibility.Collapsed;
+                var list = source.Items as IDACPList;
+                if (list != null)
+                {
+                    if (list.IsGroupedList && list.Count > 0)
+                        newVisibility = Visibility.Visible;
+                    else if (!list.IsGroupedList && list.Count >= 2)
+                        newVisibility = Visibility.Visible;
+                }
+                ShuffleButtonVisibility = newVisibility;
+            }
+        }
+
+        private void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Shuffle());
+            e.Handled = true;
+        }
+
+        #endregion
     }
 }
