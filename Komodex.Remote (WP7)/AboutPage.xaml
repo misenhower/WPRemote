@@ -53,11 +53,19 @@
             </Grid.RowDefinitions>
 
             <Button Style="{StaticResource SimpleButton}" Click="btnAssemblyInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
-                <StackPanel Background="{StaticResource PhoneChromeBrush}">
-                    <TextBlock TextWrapping="Wrap" Text="Remote" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.ForWP, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle3Style}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}" Name="tbAppVersion" Margin="12,0,12,12" />
-                </StackPanel>
+                <Grid Background="{StaticResource PhoneChromeBrush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <controls:MultiResolutionImage Source="/Assets/FirstRunIcon.png" Width="110" Height="110" Margin="12,12,0,12" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock TextWrapping="Wrap" Text="Remote" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding LocalizedStrings.ForWP, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle3Style}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}" Name="tbAppVersion" Margin="12,0,12,12" />
+                    </StackPanel>
+                </Grid>
             </Button>
 
             <Button Grid.Row="1" Style="{StaticResource SimpleButton}" Click="btniTunesInfo_Click" toolkit:TiltEffect.SuppressTilt="True">
