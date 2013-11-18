@@ -87,7 +87,7 @@ namespace Komodex.Remote
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
         {
-            if (ShouldShowContinuumTransition(animationType, toOrFrom))
+            if (toOrFrom != null && ShouldShowContinuumTransition(animationType, toOrFrom))
             {
                 if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
                     return GetContinuumAnimation(_pivotControl, animationType);
