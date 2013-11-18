@@ -753,4 +753,7 @@
   <data name="RateAndReview" xml:space="preserve">
     <value>[Rate and review] in the Store</value>
   </data>
+  <data name="BrowseArtistPlayAllSongs" xml:space="preserve">
+    <value>play all songs</value>
+  </data>
 </root>

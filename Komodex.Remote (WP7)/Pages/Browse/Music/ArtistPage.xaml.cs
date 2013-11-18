@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using Komodex.DACP;
 using Komodex.DACP.Groups;
 using Komodex.DACP.Items;
+using Komodex.Remote.Localization;
 
 namespace Komodex.Remote.Pages.Browse.Music
 {
@@ -25,6 +26,13 @@ namespace Komodex.Remote.Pages.Browse.Music
 
         public object AlbumsViewSource { get; private set; }
         public object SongsViewSource { get; private set; }
+
+        protected override void InitializeApplicationBar()
+        {
+            base.InitializeApplicationBar();
+
+            AddApplicationBarMenuItem(LocalizedStrings.BrowseArtistPlayAllSongs, () => RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Play()));
+        }
 
         protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
         {

@@ -753,4 +753,7 @@
   <data name="RateAndReview" xml:space="preserve">
     <value>[Bewerten und Kritik schreiben] in den Store</value>
   </data>
+  <data name="BrowseArtistPlayAllSongs" xml:space="preserve">
+    <value>Alle Titel wiedergeben</value>
+  </data>
 </root>

@@ -241,6 +241,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to play all songs.
+        /// </summary>
+        public static string BrowseArtistPlayAllSongs {
+            get {
+                return ResourceManager.GetString("BrowseArtistPlayAllSongs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to artists.
         /// </summary>
         public static string BrowseArtists {
