@@ -13,6 +13,7 @@ using Komodex.DACP.Genres;
 using Komodex.DACP.Containers;
 using Komodex.Remote.Localization;
 using Komodex.Common;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.Remote.Pages.Library
 {
@@ -22,6 +23,15 @@ namespace Komodex.Remote.Pages.Library
         {
             InitializeComponent();
 
+            // View Sources
+            ArtistsViewSource = GetContainerViewSource(async c => await c.GetGroupedArtistsAsync());
+            AlbumsViewSource = GetContainerViewSource(async c => await c.GetGroupedAlbumsAsync());
+            GenresViewSource = GetContainerViewSource(async c => await c.GetGroupedGenresAsync());
+            PlaylistsViewSource = GetDatabaseViewSource(db => db.ParentPlaylists);
+        }
+
+        protected override void InitializeApplicationBar()
+        {
             // Application Bar Icons
             AddAppBarNowPlayingButton();
             AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), NavigationManager.OpenSearchPage);
@@ -32,12 +42,6 @@ namespace Komodex.Remote.Pages.Library
 
             // Choose Library
             AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, NavigationManager.OpenChooseLibraryPage);
-
-            // View Sources
-            ArtistsViewSource = GetContainerViewSource(async c => await c.GetGroupedArtistsAsync());
-            AlbumsViewSource = GetContainerViewSource(async c => await c.GetGroupedAlbumsAsync());
-            GenresViewSource = GetContainerViewSource(async c => await c.GetGroupedGenresAsync());
-            PlaylistsViewSource = GetDatabaseViewSource(db => db.ParentPlaylists);
         }
         
         public object ArtistsViewSource { get; private set; }
@@ -48,6 +52,8 @@ namespace Komodex.Remote.Pages.Library
         protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
         {
             var uri = toOrFrom.OriginalString;
+            if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
+                return false;
             if (uri.StartsWith("/Pages/Browse/Music/") || uri.StartsWith("/Pages/Browse/Playlists/"))
                 return true;
             return false;

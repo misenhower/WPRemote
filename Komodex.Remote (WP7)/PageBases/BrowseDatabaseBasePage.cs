@@ -7,7 +7,9 @@ using Komodex.DACP.Containers;
 using Komodex.DACP.Databases;
 using Komodex.DACP.Items;
 using Komodex.Remote.Data;
+using Komodex.Remote.Localization;
 using Komodex.Remote.ServerManagement;
+using Microsoft.Phone.Shell;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +26,23 @@ namespace Komodex.Remote
     public abstract class BrowseDatabaseBasePage : RemoteBasePage
     {
         private bool _initialized;
+
+        public BrowseDatabaseBasePage()
+        {
+            InitializeApplicationBar();
+        }
+
+        protected override void InitializeApplicationBar()
+        {
+            base.InitializeApplicationBar();
+
+            ApplicationBar.Mode = ApplicationBarMode.Minimized;
+
+            // Icon Buttons
+            AddAppBarNowPlayingButton();
+            AddApplicationBarIconButton(LocalizedStrings.BrowseLibraryAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Browse.png"), () => NavigationManager.OpenLibraryPage(CurrentServer.MainDatabase));
+            AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), NavigationManager.OpenSearchPage);
+        }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
