@@ -133,14 +133,14 @@
     <Style x:Key="LibraryListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
         <Setter Property="GroupHeaderTemplate" Value="{StaticResource GroupHeaderTemplate}" />
         <Setter Property="JumpListStyle" Value="{StaticResource LibraryJumpListTemplate}" />
-        <Setter Property="GroupHeaderTemplate" Value="{StaticResource MiniListFooterPadding}" />
+        <Setter Property="ListFooterTemplate" Value="{StaticResource MiniListFooterPadding}" />
     </Style>
 
     <!-- Wide Group Header Style -->
     <Style x:Key="WideHeaderListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
         <Setter Property="GroupHeaderTemplate" Value="{StaticResource WideGroupHeaderTemplate}" />
         <Setter Property="JumpListStyle" Value="{StaticResource WideJumpListTemplate}" />
-        <Setter Property="GroupHeaderTemplate" Value="{StaticResource MiniListFooterPadding}" />
+        <Setter Property="ListFooterTemplate" Value="{StaticResource MiniListFooterPadding}" />
     </Style>
 
     <!-- Search Results Style -->
