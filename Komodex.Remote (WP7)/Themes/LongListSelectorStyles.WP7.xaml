@@ -11,7 +11,16 @@
     <!-- Converters -->
     <converters:BooleanToBrushConverter x:Key="JumpListBackgroundBrushConverter" TrueValue="{StaticResource PhoneAccentBrush}" FalseValue="{StaticResource PhoneChromeBrush}" />
     <converters:BooleanToBrushConverter x:Key="JumpListForegroundBrushConverter" TrueValue="White" FalseValue="{StaticResource PhoneDisabledBrush}" />
-    
+
+    <!-- List Footer Padding -->
+    <DataTemplate x:Key="ListFooterPadding">
+        <Border Height="72" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="MiniListFooterPadding">
+        <Border Height="30" />
+    </DataTemplate>
+
     <!-- Grouped List Templates -->
     <DataTemplate x:Name="GroupHeaderTemplate">
         <my:FakeButton>
@@ -115,12 +124,14 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="ListFooterTemplate" Value="{StaticResource MiniListFooterPadding}" />
     </Style>
     
     <!-- Wide Group Header Style -->
     <Style x:Key="WideHeaderListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
         <Setter Property="GroupItemTemplate" Value="{StaticResource WideGroupItemTemplate}" />
         <Setter Property="GroupHeaderTemplate" Value="{StaticResource WideGroupHeaderTemplate}" />
+        <Setter Property="ListFooterTemplate" Value="{StaticResource MiniListFooterPadding}" />
     </Style>
 
     <!-- Search Results Style -->

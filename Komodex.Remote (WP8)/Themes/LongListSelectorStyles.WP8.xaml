@@ -12,6 +12,15 @@
     <phone:JumpListItemBackgroundConverter x:Key="JumpListItemBackgroundConverter" />
     <phone:JumpListItemForegroundConverter x:Key="JumpListItemForegroundConverter" />
 
+    <!-- List Footer Padding -->
+    <DataTemplate x:Key="ListFooterPadding">
+        <Border Height="72" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="MiniListFooterPadding">
+        <Border Height="30" />
+    </DataTemplate>
+    
     <!-- Grouped List Templates -->
     <DataTemplate x:Name="GroupHeaderTemplate">
         <my:FakeButton>
@@ -124,12 +133,14 @@
     <Style x:Key="LibraryListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
         <Setter Property="GroupHeaderTemplate" Value="{StaticResource GroupHeaderTemplate}" />
         <Setter Property="JumpListStyle" Value="{StaticResource LibraryJumpListTemplate}" />
+        <Setter Property="GroupHeaderTemplate" Value="{StaticResource MiniListFooterPadding}" />
     </Style>
 
     <!-- Wide Group Header Style -->
     <Style x:Key="WideHeaderListStyle" TargetType="controls:LongListSelectorEx" BasedOn="{StaticResource LibraryListStyleBase}">
         <Setter Property="GroupHeaderTemplate" Value="{StaticResource WideGroupHeaderTemplate}" />
         <Setter Property="JumpListStyle" Value="{StaticResource WideJumpListTemplate}" />
+        <Setter Property="GroupHeaderTemplate" Value="{StaticResource MiniListFooterPadding}" />
     </Style>
 
     <!-- Search Results Style -->

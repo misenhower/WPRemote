@@ -10,11 +10,6 @@
     xmlns:converters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
     >
 
-    <!-- List Footer Padding -->
-    <DataTemplate x:Key="ListFooterPadding">
-        <Border Height="72" />
-    </DataTemplate>
-    
     <!-- Converters -->
     <converters:BooleanToDoubleConverter x:Key="ItemDisabledOpacityConverter" TrueValue="0.4" FalseValue="1.0" />
     
