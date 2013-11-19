@@ -466,6 +466,9 @@
     <Content Include="..\Assets\Icons\App.MediaMonkey.WVGA.png">
       <Link>Assets\Icons\App.MediaMonkey.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Audiobooks.WVGA.png">
+      <Link>Assets\Icons\Audiobooks.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Browse.WVGA.png">
       <Link>Assets\Icons\Browse.WVGA.png</Link>
     </Content>
@@ -477,6 +480,12 @@
     </Content>
     <Content Include="..\Assets\Icons\GeniusMixes.WVGA.png">
       <Link>Assets\Icons\GeniusMixes.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\InternetRadio.WVGA.png">
+      <Link>Assets\Icons\InternetRadio.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\iTunesU.WVGA.png">
+      <Link>Assets\Icons\iTunesU.WVGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Movies.WVGA.png">
       <Link>Assets\Icons\Movies.WVGA.png</Link>

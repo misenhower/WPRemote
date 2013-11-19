@@ -478,6 +478,15 @@
     <Content Include="..\Assets\Icons\App.MediaMonkey.WXGA.png">
       <Link>Assets\Icons\App.MediaMonkey.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Audiobooks.720p.png">
+      <Link>Assets\Icons\Audiobooks.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Audiobooks.WVGA.png">
+      <Link>Assets\Icons\Audiobooks.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Audiobooks.WXGA.png">
+      <Link>Assets\Icons\Audiobooks.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Browse.720p.png">
       <Link>Assets\Icons\Browse.720p.png</Link>
     </Content>
@@ -513,6 +522,24 @@
     </Content>
     <Content Include="..\Assets\Icons\GeniusMixes.WXGA.png">
       <Link>Assets\Icons\GeniusMixes.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\InternetRadio.720p.png">
+      <Link>Assets\Icons\InternetRadio.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\InternetRadio.WVGA.png">
+      <Link>Assets\Icons\InternetRadio.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\InternetRadio.WXGA.png">
+      <Link>Assets\Icons\InternetRadio.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\iTunesU.720p.png">
+      <Link>Themes\iTunesU.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\iTunesU.WVGA.png">
+      <Link>Assets\Icons\iTunesU.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\iTunesU.WXGA.png">
+      <Link>Assets\Icons\iTunesU.WXGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Movies.720p.png">
       <Link>Assets\Icons\Movies.720p.png</Link>

@@ -22,7 +22,7 @@
         </Style>
         
         <DataTemplate x:Key="MediaButtonTemplate">
-            <Button Padding="12,6" Click="MediaButton_Click" Style="{StaticResource SimpleButton}">
+            <Button Padding="12,0,0,0" Click="MediaButton_Click" Style="{StaticResource SimpleButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
