@@ -112,38 +112,45 @@ namespace Komodex.DACP
 
         #region Connection Management
 
-        public async Task<ConnectionResult> ConnectAsync()
+        public Task<ConnectionResult> ConnectAsync()
+        {
+            return ConnectAsync(CancellationToken.None);
+        }
+
+        public async Task<ConnectionResult> ConnectAsync(CancellationToken cancellationToken)
         {
             bool success;
 
             // Server info
             success = await GetServerInfoAsync().ConfigureAwait(false);
-            if (!success)
+            if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
             // Server capabilities
             success = await GetServerCapabilitiesAsync().ConfigureAwait(false);
-            if (!success)
+            if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
             // Login
             success = await LoginAsync().ConfigureAwait(false);
+            if (cancellationToken.IsCancellationRequested)
+                return ConnectionResult.ConnectionError;
             if (!success)
                 return ConnectionResult.InvalidPIN;
 
             // Databases
             success = await GetDatabasesAsync().ConfigureAwait(false);
-            if (!success)
+            if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
             // Library version
             success = await GetFirstLibraryUpdateAsync().ConfigureAwait(false);
-            if (!success)
+            if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
             // Play status
             success = await GetFirstPlayStatusUpdateAsync().ConfigureAwait(false);
-            if (!success)
+            if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
             IsConnected = true;
@@ -160,6 +167,10 @@ namespace Komodex.DACP
         public void Disconnect()
         {
             IsConnected = false;
+            if (_currentLibraryUpdateCancellationTokenSource != null)
+                _currentLibraryUpdateCancellationTokenSource.Cancel();
+            if (_currentPlayStatusCancellationTokenSource != null)
+                _currentPlayStatusCancellationTokenSource.Cancel();
         }
 
         #endregion

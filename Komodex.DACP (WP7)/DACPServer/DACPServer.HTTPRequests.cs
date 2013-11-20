@@ -428,6 +428,7 @@ namespace Komodex.DACP
         #region Update
 
         internal int CurrentLibraryUpdateNumber { get; private set; }
+        private CancellationTokenSource _currentLibraryUpdateCancellationTokenSource;
 
         protected Task<bool> GetFirstLibraryUpdateAsync()
         {
@@ -462,23 +463,27 @@ namespace Komodex.DACP
         {
             TimeSpan autoCancelTimeSpan = TimeSpan.FromSeconds(45);
             TimeSpan resubmitDelay = TimeSpan.FromSeconds(2);
-            CancellationTokenSource cts;
+            CancellationToken token;
 
             while (IsConnected)
             {
-                cts = new CancellationTokenSource();
+                _currentLibraryUpdateCancellationTokenSource = new CancellationTokenSource();
+                token = _currentLibraryUpdateCancellationTokenSource.Token;
 
 #if WP7
-                var updateTask = GetLibraryUpdateAsync(cts.Token);
-                var cancelTask = TaskEx.Delay(autoCancelTimeSpan, cts.Token);
+                var updateTask = GetLibraryUpdateAsync(token);
+                var cancelTask = TaskEx.Delay(autoCancelTimeSpan, token);
                 await TaskEx.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
 #else
-                var updateTask = GetLibraryUpdateAsync(cts.Token);
-                var cancelTask = Task.Delay(autoCancelTimeSpan, cts.Token);
+                var updateTask = GetLibraryUpdateAsync(token);
+                var cancelTask = Task.Delay(autoCancelTimeSpan, token);
                 await Task.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
 #endif
 
-                cts.Cancel();
+                if (token.IsCancellationRequested)
+                    return;
+
+                _currentLibraryUpdateCancellationTokenSource.Cancel();
 
                 if (updateTask.Status == TaskStatus.RanToCompletion)
                 {
@@ -511,7 +516,7 @@ namespace Komodex.DACP
         #region Play Status
 
         protected int _playStatusRevisionNumber = 1;
-        protected HTTPRequestInfo _playStatusRequestInfo = null;
+        private CancellationTokenSource _currentPlayStatusCancellationTokenSource;
 
         protected Task<bool> GetFirstPlayStatusUpdateAsync()
         {
@@ -627,23 +632,27 @@ namespace Komodex.DACP
             // iTunes to close the first request without ending the session.
 
             TimeSpan autoCancelTimeSpan = TimeSpan.FromSeconds(45);
-            CancellationTokenSource cts;
+            CancellationToken token;
 
             while (IsConnected)
             {
-                cts = new CancellationTokenSource();
+                _currentPlayStatusCancellationTokenSource = new CancellationTokenSource();
+                token = _currentPlayStatusCancellationTokenSource.Token;
 
 #if WP7
-                var updateTask = GetPlayStatusUpdateAsync(cts.Token);
-                var cancelTask = TaskEx.Delay(autoCancelTimeSpan, cts.Token);
+                var updateTask = GetPlayStatusUpdateAsync(token);
+                var cancelTask = TaskEx.Delay(autoCancelTimeSpan, token);
                 await TaskEx.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
 #else
-                var updateTask = GetPlayStatusUpdateAsync(cts.Token);
-                var cancelTask = Task.Delay(autoCancelTimeSpan, cts.Token);
+                var updateTask = GetPlayStatusUpdateAsync(token);
+                var cancelTask = Task.Delay(autoCancelTimeSpan, token);
                 await Task.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
 #endif
 
-                cts.Cancel();
+                if (token.IsCancellationRequested)
+                    return;
+
+                _currentPlayStatusCancellationTokenSource.Cancel();
 
                 if (updateTask.Status == TaskStatus.RanToCompletion && updateTask.Result == false)
                 {
