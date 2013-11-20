@@ -52,6 +52,7 @@ namespace Komodex.Remote.ServerManagement
                 PairedServers.Add(info);
 
                 info.IsAvailable = BonjourManager.DiscoveredServers.ContainsKey(info.ServiceID);
+                UpdateServerInfoFromBonjour(info);
             });
         }
 
@@ -66,6 +67,56 @@ namespace Komodex.Remote.ServerManagement
 
                 PairedServers.Remove(info);
             });
+        }
+
+        private static void UpdateServerInfoFromBonjour(ServerConnectionInfo info)
+        {
+            var service = BonjourManager.DiscoveredServers.GetValueOrDefault(info.ServiceID);
+            if (service == null)
+                return;
+
+            // Check whether any of the stored data for this server is out of date
+            bool dirty = false;
+
+            string serviceName = service.TXTRecordData.GetValueOrDefault("CtlN", info.Name);
+            if (info.Name != serviceName)
+            {
+                info.Name = serviceName;
+                dirty = true;
+            }
+            if (info.LastHostname != service.Hostname)
+            {
+                info.LastHostname = service.Hostname;
+                dirty = true;
+            }
+            if (info.LastPort != service.Port)
+            {
+                info.LastPort = service.Port;
+                dirty = true;
+            }
+
+            // Determine the server type
+            ServerType serverType = ServerType.iTunes;
+            string dvTy = service.TXTRecordData.GetValueOrDefault("DvTy");
+            if (!string.IsNullOrEmpty(dvTy))
+            {
+                dvTy = dvTy.ToLower();
+                if (dvTy.Contains("touchremote"))
+                    serverType = ServerType.Foobar;
+                else if (dvTy.Contains("monkeytunes"))
+                    serverType = ServerType.MediaMonkey;
+                else if (dvTy.Contains("albumplayer"))
+                    serverType = ServerType.AlbumPlayer;
+            }
+            if (info.ServerType != serverType)
+            {
+                info.ServerType = serverType;
+                dirty = true;
+            }
+
+            // Save the paired servers list if necessary
+            if (dirty)
+                _pairedServers.Save();
         }
 
         #endregion
@@ -103,48 +154,7 @@ namespace Komodex.Remote.ServerManagement
 
                 info.IsAvailable = true;
 
-                // Check whether any of the stored data for this server is out of date
-                bool dirty = false;
-
-                string serviceName = e.Service.TXTRecordData.GetValueOrDefault("CtlN", info.Name);
-                if (info.Name != serviceName)
-                {
-                    info.Name = serviceName;
-                    dirty = true;
-                }
-                if (info.LastHostname != e.Service.Hostname)
-                {
-                    info.LastHostname = e.Service.Hostname;
-                    dirty = true;
-                }
-                if (info.LastPort != e.Service.Port)
-                {
-                    info.LastPort = e.Service.Port;
-                    dirty = true;
-                }
-
-                // Determine the server type
-                ServerType serverType = ServerType.iTunes;
-                string dvTy = e.Service.TXTRecordData.GetValueOrDefault("DvTy");
-                if (!string.IsNullOrEmpty(dvTy))
-                {
-                    dvTy = dvTy.ToLower();
-                    if (dvTy.Contains("touchremote"))
-                        serverType = ServerType.Foobar;
-                    else if (dvTy.Contains("monkeytunes"))
-                        serverType = ServerType.MediaMonkey;
-                    else if (dvTy.Contains("albumplayer"))
-                        serverType = ServerType.AlbumPlayer;
-                }
-                if (info.ServerType != serverType)
-                {
-                    info.ServerType = serverType;
-                    dirty = true;
-                }
-
-                // Save the paired servers list if necessary
-                if (dirty)
-                    _pairedServers.Save();
+                UpdateServerInfoFromBonjour(info);
 
                 // Connect to the server if necessary
                 if (SelectedServerInfo == info)
