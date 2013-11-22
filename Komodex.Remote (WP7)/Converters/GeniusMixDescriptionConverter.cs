@@ -16,7 +16,7 @@ namespace Komodex.Remote.Converters
                 return null;
 
             description = description.Replace(",,,", LocalizedStrings.BrowseGeniusMixesArtistSeparator);
-            return string.Format(LocalizedStrings.BrowseGeniusMixesArtistsAndOthers, description);
+            return string.Format(LocalizedStrings.BrowseGeniusMixesArtistsAndMore, description);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

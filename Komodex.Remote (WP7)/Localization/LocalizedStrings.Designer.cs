@@ -304,11 +304,11 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} &amp; others.
+        ///   Looks up a localized string similar to {0} &amp; more.
         /// </summary>
-        public static string BrowseGeniusMixesArtistsAndOthers {
+        public static string BrowseGeniusMixesArtistsAndMore {
             get {
-                return ResourceManager.GetString("BrowseGeniusMixesArtistsAndOthers", resourceCulture);
+                return ResourceManager.GetString("BrowseGeniusMixesArtistsAndMore", resourceCulture);
             }
         }
         

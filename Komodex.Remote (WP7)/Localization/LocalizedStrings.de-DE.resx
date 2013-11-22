@@ -714,8 +714,8 @@
   <data name="BrowseGeniusMixes" xml:space="preserve">
     <value>Genius-Mixe</value>
   </data>
-  <data name="BrowseGeniusMixesArtistsAndOthers" xml:space="preserve">
-    <value>{0} &amp; anderen</value>
+  <data name="BrowseGeniusMixesArtistsAndMore" xml:space="preserve">
+    <value>{0} &amp; weitere</value>
   </data>
   <data name="BrowseGeniusMixesBasedOn" xml:space="preserve">
     <value>Nach Musik von:</value>
