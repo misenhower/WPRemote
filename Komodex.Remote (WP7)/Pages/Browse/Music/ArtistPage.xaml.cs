@@ -13,6 +13,7 @@ using Komodex.DACP.Items;
 using Komodex.Remote.Localization;
 using Komodex.Remote.Data;
 using System.ComponentModel;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.Remote.Pages.Browse.Music
 {
@@ -38,10 +39,13 @@ namespace Komodex.Remote.Pages.Browse.Music
             AddApplicationBarMenuItem(LocalizedStrings.BrowseArtistPlayAllSongs, () => RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Play()));
         }
 
-        protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
+        protected override bool ShouldShowContinuumTransition(AnimationType animationType, Uri toOrFrom)
         {
-            if (toOrFrom.OriginalString.StartsWith("/Pages/Library/LibraryPage.xaml"))
-                return true;
+            if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
+            {
+                if (toOrFrom.OriginalString.StartsWith("/Pages/Library/LibraryPage.xaml"))
+                    return true;
+            }
             return base.ShouldShowContinuumTransition(animationType, toOrFrom);
         }
 

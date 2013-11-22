@@ -13,6 +13,7 @@ using Komodex.DACP;
 using Komodex.DACP.Items;
 using System.ComponentModel;
 using Komodex.Remote.Data;
+using Clarity.Phone.Controls.Animations;
 
 namespace Komodex.Remote.Pages.Browse.Playlists
 {
@@ -44,10 +45,13 @@ namespace Komodex.Remote.Pages.Browse.Playlists
             return database.Playlists.First(pl => pl.ID == _playlistID);
         }
 
-        protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
+        protected override bool ShouldShowContinuumTransition(AnimationType animationType, Uri toOrFrom)
         {
-            if (toOrFrom.OriginalString.StartsWith("/Pages/Library/LibraryPage.xaml"))
-                return true;
+            if (animationType == AnimationType.NavigateForwardIn || animationType == AnimationType.NavigateBackwardOut)
+            {
+                if (toOrFrom.OriginalString.StartsWith("/Pages/Library/LibraryPage.xaml"))
+                    return true;
+            }
             return base.ShouldShowContinuumTransition(animationType, toOrFrom);
         }
 
