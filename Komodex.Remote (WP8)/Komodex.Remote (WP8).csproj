@@ -533,7 +533,7 @@
       <Link>Assets\Icons\InternetRadio.WXGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\iTunesU.720p.png">
-      <Link>Themes\iTunesU.720p.png</Link>
+      <Link>Assets\Icons\iTunesU.720p.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\iTunesU.WVGA.png">
       <Link>Assets\Icons\iTunesU.WVGA.png</Link>
