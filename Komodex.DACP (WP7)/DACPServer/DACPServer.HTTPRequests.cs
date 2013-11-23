@@ -390,6 +390,8 @@ namespace Komodex.DACP
                 if (databases == null || databases.Count == 0)
                     return false;
 
+                List<DACPDatabase> newSharedDatabases = new List<DACPDatabase>();
+
                 for (int i = 0; i < databases.Count; i++)
                 {
                     var db = databases[i];
@@ -404,15 +406,32 @@ namespace Komodex.DACP
                         continue;
                     }
 
+                    // Shared database
+                    if (db.DBKind == 2)
+                    {
+                        newSharedDatabases.Add(db);
+                        continue;
+                    }
+
                     // Internet Radio
                     if (db.DBKind == 100)
                     {
                         InternetRadioDatabase = db;
                         continue;
                     }
-
-                    // TODO: Shared databases
                 }
+
+                // Update shared databases
+                Dictionary<int, DACPDatabase> removedSharedDBs = SharedDatabases.ToDictionary(db => db.ID);
+                foreach (var sharedDB in newSharedDatabases)
+                {
+                    removedSharedDBs.Remove(sharedDB.ID);
+                    if (SharedDatabases.Any(db => db.ID == sharedDB.ID))
+                        continue;
+                    SharedDatabases.Add(sharedDB);
+                }
+                foreach (DACPDatabase db in removedSharedDBs.Values)
+                    SharedDatabases.Remove(db);
             }
             catch (Exception e)
             {

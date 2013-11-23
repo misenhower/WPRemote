@@ -163,6 +163,10 @@ namespace Komodex.Remote
             if (server.InternetRadioDatabase != null && server.InternetRadioDatabase.ID == _databaseID)
                 return server.InternetRadioDatabase;
 
+            var sharedDB = server.SharedDatabases.FirstOrDefault(db => db.ID == _databaseID);
+            if (sharedDB != null)
+                return sharedDB;
+
             return null;
         }
 

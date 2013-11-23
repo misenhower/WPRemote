@@ -49,6 +49,19 @@ namespace Komodex.Remote.Pages.Library
         public object GenresViewSource { get; private set; }
         public object PlaylistsViewSource { get; private set; }
 
+        protected override async void OnDatabaseChanged()
+        {
+            base.OnDatabaseChanged();
+
+            if (CurrentDatabase != null && CurrentDatabase.MusicContainer == null)
+            {
+                SetProgressIndicator(null, true);
+                await CurrentDatabase.RequestContainersAsync();
+                UpdateCurrentContainer();
+                ClearProgressIndicator();
+            }
+        }
+
         protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
         {
             var uri = toOrFrom.OriginalString;

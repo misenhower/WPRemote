@@ -14,6 +14,7 @@ using Komodex.Remote.Localization;
 using Komodex.DACP;
 using Komodex.Remote.ServerManagement;
 using Komodex.DACP.Databases;
+using Komodex.Common.Phone.Controls;
 
 namespace Komodex.Remote.LibraryPages
 {
@@ -33,6 +34,8 @@ namespace Komodex.Remote.LibraryPages
         {
             Loaded -= LibraryViewDialog_Loaded;
 
+            var server = CurrentDatabase.Server;
+
             List<LibraryViewItem> items = new List<LibraryViewItem>();
 
             if (CurrentDatabase.MoviesContainer != null)
@@ -47,8 +50,15 @@ namespace Komodex.Remote.LibraryPages
                 items.Add(new LibraryViewItem(LocalizedStrings.BrowseAudiobooks, "/Assets/Icons/Audiobooks.png", () => NavigationManager.OpenAudiobooksPage(CurrentDatabase)));
             if (CurrentDatabase.GeniusMixes != null && CurrentDatabase.GeniusMixes.Count > 0)
                 items.Add(new LibraryViewItem(LocalizedStrings.BrowseGeniusMixes, "/Assets/Icons/GeniusMixes.png", () => NavigationManager.OpenGeniusMixesPage(CurrentDatabase)));
-            if (CurrentDatabase.Server.InternetRadioDatabase != null)
-                items.Add(new LibraryViewItem(LocalizedStrings.BrowseInternetRadio, "/Assets/Icons/InternetRadio.png", () => NavigationManager.OpenInternetRadioCategoriesPage(CurrentDatabase.Server.InternetRadioDatabase)));
+
+            if (CurrentDatabase == server.MainDatabase)
+            {
+                if (server.InternetRadioDatabase != null)
+                    items.Add(new LibraryViewItem(LocalizedStrings.BrowseInternetRadio, "/Assets/Icons/InternetRadio.png", () => NavigationManager.OpenInternetRadioCategoriesPage(CurrentDatabase.Server.InternetRadioDatabase)));
+
+                foreach (var db in CurrentDatabase.Server.SharedDatabases)
+                    items.Add(new LibraryViewItem(db.Name, "/Assets/Icons/SharedDatabase.png", () => NavigationManager.OpenLibraryPage(db)));
+            }
 
             Items = items;
         }
@@ -62,10 +72,13 @@ namespace Komodex.Remote.LibraryPages
             set { SetValue(ItemsProperty, value); }
         }
 
-        private void MediaButton_Click(object sender, RoutedEventArgs e)
+        private void List_Tap(object sender, GestureEventArgs e)
         {
-            Button button = (Button)sender;
-            LibraryViewItem item = button.DataContext as LibraryViewItem;
+            e.Handled = true;
+            LongListSelector list = (LongListSelector)sender;
+            LibraryViewItem item = list.SelectedItem as LibraryViewItem;
+            list.SelectedItem = null;
+
             if (item == null)
                 return;
 

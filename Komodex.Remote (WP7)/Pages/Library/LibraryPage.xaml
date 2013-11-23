@@ -94,7 +94,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
-                        Title="{Binding CurrentServer.LibraryName}"
+                        Title="{Binding CurrentDatabase.Name}"
                         Style="{StaticResource RemotePivotStyle}"
                         >
             <controls:PivotItem DataContext="{Binding ArtistsViewSource}" Header="{Binding LocalizedStrings.BrowseArtists, Source={StaticResource LocalizedStrings}}">

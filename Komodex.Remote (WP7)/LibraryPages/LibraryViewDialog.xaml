@@ -15,31 +15,29 @@
     
     <UserControl.Resources>
         <Style x:Key="ItemHeaderStyle" BasedOn="{StaticResource PhoneTextBlockBase}" TargetType="TextBlock">
-            <Setter Property="Margin" Value="12,0,12,6" />
+            <Setter Property="Margin" Value="12,0,0,6" />
             <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}"/>
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeExtraLarge}"/>
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
         
         <DataTemplate x:Key="MediaButtonTemplate">
-            <Button Padding="12,0,0,0" Click="MediaButton_Click" Style="{StaticResource SimpleButton}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+            <Grid Margin="24,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 
-                    <controls:MultiResolutionImageMask
-                        Source="{Binding IconURI}"
-                        Style="{StaticResource IconCircleStyle}"
-                        />
+                <controls:MultiResolutionImageMask
+                    Source="{Binding IconURI}"
+                    Style="{StaticResource IconCircleStyle}"
+                    />
                 
-                    <TextBlock Text="{Binding Title}"
-                               Grid.Column="1"
-                               Style="{StaticResource ItemHeaderStyle}"
-                               />
-                </Grid>
-            </Button>
+                <TextBlock Text="{Binding Title}"
+                            Grid.Column="1"
+                            Style="{StaticResource ItemHeaderStyle}"
+                            />
+            </Grid>
         </DataTemplate>
     </UserControl.Resources>
     
@@ -54,9 +52,13 @@
             <TextBlock x:Name="ApplicationTitle" Text="{Binding LocalizedStrings.SelectMediaPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
         </StackPanel>
         
-        <ItemsControl Grid.Row="2"
-                      ItemsSource="{Binding Items}"
-                      ItemTemplate="{StaticResource MediaButtonTemplate}"
-                      />
+        <controls:LongListSelectorEx
+            Grid.Row="2"
+            ItemsSource="{Binding Items}"
+            ItemTemplate="{StaticResource MediaButtonTemplate}"
+            IsGroupingEnabled="False"
+            Tap="List_Tap"
+            />
+        
     </Grid>
 </commonPhoneUI:DialogUserControlBase>
