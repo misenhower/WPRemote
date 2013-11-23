@@ -17,6 +17,8 @@ using Microsoft.Phone.Tasks;
 using Clarity.Phone.Controls;
 using Komodex.Remote.Localization;
 using Komodex.Common;
+using System.Text;
+using Microsoft.Phone.Info;
 
 namespace Komodex.Remote
 {
@@ -180,8 +182,18 @@ namespace Komodex.Remote
             EmailComposeTask t = new EmailComposeTask();
             t.To = "Komodex Support <info@komodex.com>";
             t.Subject = "[Komodex] Remote v" + Utility.ApplicationVersion + " Feedback";
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("\n\n\nDiagnostic Information:");
+            sb.AppendLine("Remote Version: " + Utility.ApplicationVersion);
+            sb.AppendLine("OS: " + Environment.OSVersion.ToString());
+            sb.AppendLine("Device Manufacturer: " + DeviceStatus.DeviceManufacturer);
+            sb.AppendLine("Device Model: " + DeviceStatus.DeviceName);
             if (CurrentServer != null && CurrentServer.IsConnected)
-                t.Body = "\n\n\nRemote Diagnostic Info:\nConnected Server Version: " + CurrentServer.ServerVersionString;
+                sb.AppendLine("Connected Server Version: " + CurrentServer.ServerVersionString);
+            else
+                sb.AppendLine("No server connected");
+            t.Body = sb.ToString();
+
             t.Show();
         }
 
