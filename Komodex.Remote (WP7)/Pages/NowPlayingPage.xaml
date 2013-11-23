@@ -126,7 +126,7 @@
                         x:Name="StarRatingControl"
                         VerticalAlignment="Center"
                         Rating="{Binding CurrentSongUserRating, Mode=TwoWay}"
-                        StarOnOpacity="0.8"
+                        StarOnOpacity="1.0"
                         StarOffOpacity="0.4"
                         />
                 </Border>
