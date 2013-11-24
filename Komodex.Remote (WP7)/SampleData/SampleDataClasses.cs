@@ -1,5 +1,4 @@
 ﻿using Komodex.Common;
-using Komodex.Common.SampleData;
 using Komodex.DACP;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,8 @@ using System.Windows;
 namespace Komodex.Remote.SampleData
 {
 #if DEBUG
+    using Komodex.Common.SampleData;
+
     #region DACP Elements
 
     public class SampleDataDACPElement : SampleDataBase
