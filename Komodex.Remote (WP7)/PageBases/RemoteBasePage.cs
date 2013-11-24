@@ -155,7 +155,7 @@ namespace Komodex.Remote
         {
         }
 
-        private void UpdateBusyState()
+        protected virtual void UpdateBusyState()
         {
             Utility.BeginInvokeOnUIThread(() =>
             {

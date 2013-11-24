@@ -44,6 +44,12 @@ namespace Komodex.Remote
             AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), () => NavigationManager.OpenSearchPage(CurrentDatabase));
         }
 
+        protected override void UpdateBusyState()
+        {
+            // Do nothing
+            // TODO: Remove the server-wide busy state indicator
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (!_initialized)
