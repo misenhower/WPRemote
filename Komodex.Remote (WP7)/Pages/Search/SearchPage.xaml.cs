@@ -20,7 +20,7 @@ using System.Windows.Threading;
 
 namespace Komodex.Remote.Pages.Search
 {
-    public partial class SearchPage : RemoteBasePage
+    public partial class SearchPage : BrowseDatabaseBasePage
     {
 #if WP7
         private readonly TimeSpan SearchDelay = TimeSpan.FromMilliseconds(500);
@@ -39,6 +39,9 @@ namespace Komodex.Remote.Pages.Search
             _beginSearchTimer.Tick += BeginSearchTimer_Tick;
         }
 
+        protected override void InitializeApplicationBar()
+        {
+        }
 
         private void SearchPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -55,6 +58,11 @@ namespace Komodex.Remote.Pages.Search
         {
             if (e.Key == Key.Enter)
                 SearchResultsListBox.Focus();
+        }
+
+        protected override bool ShouldShowContinuumTransition(AnimationType animationType, Uri toOrFrom)
+        {
+            return false;
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
@@ -120,7 +128,7 @@ namespace Komodex.Remote.Pages.Search
 
             // Create the new search results object and indicate "searching"
             SearchResultsListBox.EmptyText = LocalizedStrings.SearchPageSearching;
-            CurrentSearchResults = new DACPSearchResults(CurrentServer.MainDatabase, searchString);
+            CurrentSearchResults = new DACPSearchResults(CurrentDatabase, searchString);
             SetProgressIndicator(null, true);
             _beginSearchTimer.Start();
         }

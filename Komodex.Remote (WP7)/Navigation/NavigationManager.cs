@@ -215,9 +215,9 @@ namespace Komodex.Remote
             Navigate("/Pages/NowPlayingPage.xaml");
         }
 
-        public static void OpenSearchPage()
+        public static void OpenSearchPage(DACPDatabase database)
         {
-            Navigate("/Pages/Search/SearchPage.xaml");
+            Navigate("/Pages/Search/SearchPage.xaml?databaseID={0}", database.ID);
         }
 
         public static void OpenAboutPage()

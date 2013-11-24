@@ -1,4 +1,5 @@
-﻿<app:RemoteBasePage
+﻿<app:BrowseDatabaseBasePage
+    x:Name="Page"
     x:Class="Komodex.Remote.Pages.Search.SearchPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -50,7 +51,12 @@
         </Grid.RowDefinitions>
         
         <StackPanel Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock Text="{Binding LocalizedStrings.SearchPageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextAppTitleStyle}" />
+            <ContentControl
+                Content="{Binding LocalizedStrings.SearchPageTitle, Source={StaticResource LocalizedStrings}}"
+                ContentTemplate="{StaticResource BrowsePageTitleTemplate}"
+                HorizontalAlignment="Left"
+                Margin="12,6,0,0"
+                />
             <TextBox
                 x:Name="SearchTextBox"
                 InputScope="Search"
@@ -72,4 +78,4 @@
         </Grid>
     </Grid>
 
-</app:RemoteBasePage>
+</app:BrowseDatabaseBasePage>
