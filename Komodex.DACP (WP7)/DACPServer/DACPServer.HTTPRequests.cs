@@ -399,6 +399,9 @@ namespace Komodex.DACP
                     // The main database will be first in the list
                     if (i == 0)
                     {
+                        if (MainDatabase != null && MainDatabase.ID == db.ID)
+                            continue;
+
                         bool success = await db.RequestContainersAsync().ConfigureAwait(false);
                         if (!success)
                             return false;
@@ -416,6 +419,9 @@ namespace Komodex.DACP
                     // Internet Radio
                     if (db.DBKind == 100)
                     {
+                        if (InternetRadioDatabase != null && InternetRadioDatabase.ID == db.ID)
+                            continue;
+
                         InternetRadioDatabase = db;
                         continue;
                     }
@@ -512,12 +518,12 @@ namespace Komodex.DACP
                         return;
                     }
 
-                    //bool success = await GetDatabasesAsync().ConfigureAwait(false);
-                    //if (!success)
-                    //{
-                    //    SendConnectionError();
-                    //    return;
-                    //}
+                    bool success = await GetDatabasesAsync().ConfigureAwait(false);
+                    if (!success)
+                    {
+                        SendConnectionError();
+                        return;
+                    }
 
                     SendLibraryUpdate();
 
