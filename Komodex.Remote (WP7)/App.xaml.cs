@@ -20,33 +20,9 @@ using System.Threading;
 using System.Globalization;
 using Komodex.Analytics;
 using Komodex.Remote.ServerManagement;
-using Komodex.DACP.Databases;
 
 namespace Komodex.Remote
 {
-
-    public static class PivotHelper
-    {
-
-
-        public static DACPDatabase GetDatabase(DependencyObject obj)
-        {
-            return (DACPDatabase)obj.GetValue(DatabaseProperty);
-        }
-
-        public static void SetDatabase(DependencyObject obj, DACPDatabase value)
-        {
-            obj.SetValue(DatabaseProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for Database.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DatabaseProperty =
-            DependencyProperty.RegisterAttached("Database", typeof(DACPDatabase), typeof(PivotHelper), new PropertyMetadata(null));
-
-
-    }
-
-
     public partial class App : Application
     {
         protected const int TrialDays = 7;
