@@ -622,6 +622,15 @@
     <Content Include="..\Assets\Icons\Search.WXGA.png">
       <Link>Assets\Icons\Search.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\SharedLibrary.720p.png">
+      <Link>Assets\Icons\SharedLibrary.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\SharedLibrary.WVGA.png">
+      <Link>Assets\Icons\SharedLibrary.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\SharedLibrary.WXGA.png">
+      <Link>Assets\Icons\SharedLibrary.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Shuffle.720p.png">
       <Link>Assets\Icons\Shuffle.720p.png</Link>
     </Content>

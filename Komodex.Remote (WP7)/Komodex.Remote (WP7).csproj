@@ -514,6 +514,9 @@
     <Content Include="..\Assets\Icons\Search.WVGA.png">
       <Link>Assets\Icons\Search.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\SharedLibrary.WVGA.png">
+      <Link>Assets\Icons\SharedLibrary.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Shuffle.WVGA.png">
       <Link>Assets\Icons\Shuffle.WVGA.png</Link>
     </Content>

@@ -57,7 +57,7 @@ namespace Komodex.Remote.LibraryPages
                     items.Add(new LibraryViewItem(LocalizedStrings.BrowseInternetRadio, "/Assets/Icons/InternetRadio.png", () => NavigationManager.OpenInternetRadioCategoriesPage(CurrentDatabase.Server.InternetRadioDatabase)));
 
                 foreach (var db in CurrentDatabase.Server.SharedDatabases)
-                    items.Add(new LibraryViewItem(db.Name, "/Assets/Icons/SharedDatabase.png", () => NavigationManager.OpenLibraryPage(db)));
+                    items.Add(new LibraryViewItem(db.Name, "/Assets/Icons/SharedLibrary.png", () => NavigationManager.OpenLibraryPage(db)));
             }
 
             Items = items;
