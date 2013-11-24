@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace Komodex.Remote.SampleData
-#if DEBUG
 {
+#if DEBUG
     #region DACP Elements
 
     public class SampleDataDACPElement : SampleDataBase
@@ -181,6 +182,11 @@ namespace Komodex.Remote.SampleData
     public class SampleDataBrowseDatabaseBasePage : SampleDataRemoteBasePage
     {
         public SampleDataDACPDatabase CurrentDatabase { get; set; }
+
+        public string PageTitleText { get; set; }
+        public Visibility MainDatabaseVisibility { get { return Visibility.Visible; } }
+        public Visibility SharedDatabaseVisibility { get { return Visibility.Collapsed; } }
+        public Visibility PageTitleTextVisibility { get { return Visibility.Visible; } }
     }
 
     public class SampleDataBrowseContainerBasePage<T> : SampleDataBrowseDatabaseBasePage

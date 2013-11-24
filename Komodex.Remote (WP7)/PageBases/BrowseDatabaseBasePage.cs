@@ -147,12 +147,11 @@ namespace Komodex.Remote
         protected void UpdateCurrentDatabase()
         {
             if (CurrentServer == null || !CurrentServer.IsConnected)
-            {
                 CurrentDatabase = null;
-                return;
-            }
+            else
+                CurrentDatabase = GetDatabase(CurrentServer);
 
-            CurrentDatabase = GetDatabase(CurrentServer);
+            UpdateDBAndTitleVisibilities();
         }
 
         protected virtual DACPDatabase GetDatabase(DACPServer server)
@@ -168,6 +167,71 @@ namespace Komodex.Remote
                 return sharedDB;
 
             return null;
+        }
+
+        #endregion
+
+        #region Page Title Text
+
+        public static readonly DependencyProperty HidePageTitleWhenViewingSharedDatabasesProperty =
+            DependencyProperty.Register("HidePageTitleWhenViewingSharedDatabases", typeof(bool), typeof(BrowseDatabaseBasePage), new PropertyMetadata(false, HidePageTitleWhenViewingSharedDatabasesPropertyChanged));
+
+        public bool HidePageTitleWhenViewingSharedDatabases
+        {
+            get { return (bool)GetValue(HidePageTitleWhenViewingSharedDatabasesProperty); }
+            set { SetValue(HidePageTitleWhenViewingSharedDatabasesProperty, value); }
+        }
+
+        private static void HidePageTitleWhenViewingSharedDatabasesPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((BrowseDatabaseBasePage)d).UpdateDBAndTitleVisibilities();
+        }
+
+        #endregion
+
+        #region Main/Shared Database and Title Text Visibility
+
+        public static readonly DependencyProperty MainDatabaseVisibilityProperty =
+            DependencyProperty.Register("MainDatabaseVisibility", typeof(Visibility), typeof(BrowseDatabaseBasePage), new PropertyMetadata(Visibility.Visible));
+
+        public Visibility MainDatabaseVisibility
+        {
+            get { return (Visibility)GetValue(MainDatabaseVisibilityProperty); }
+            set { SetValue(MainDatabaseVisibilityProperty, value); }
+        }
+
+        public static readonly DependencyProperty SharedDatabaseVisibilityProperty =
+            DependencyProperty.Register("SharedDatabaseVisibility", typeof(Visibility), typeof(BrowseDatabaseBasePage), new PropertyMetadata(Visibility.Collapsed));
+
+        public Visibility SharedDatabaseVisibility
+        {
+            get { return (Visibility)GetValue(SharedDatabaseVisibilityProperty); }
+            set { SetValue(SharedDatabaseVisibilityProperty, value); }
+        }
+
+        public static readonly DependencyProperty PageTitleTextVisibilityProperty =
+            DependencyProperty.Register("PageTitleTextVisibility", typeof(Visibility), typeof(BrowseDatabaseBasePage), new PropertyMetadata(Visibility.Visible));
+
+        public Visibility PageTitleTextVisibility
+        {
+            get { return (Visibility)GetValue(PageTitleTextVisibilityProperty); }
+            set { SetValue(PageTitleTextVisibilityProperty, value); }
+        }
+
+        private void UpdateDBAndTitleVisibilities()
+        {
+            if (CurrentServer == null || CurrentDatabase == null || (CurrentDatabase == CurrentServer.MainDatabase))
+            {
+                MainDatabaseVisibility = Visibility.Visible;
+                SharedDatabaseVisibility = Visibility.Collapsed;
+                PageTitleTextVisibility = Visibility.Visible;
+            }
+            else
+            {
+                MainDatabaseVisibility = Visibility.Collapsed;
+                SharedDatabaseVisibility = Visibility.Visible;
+                PageTitleTextVisibility = (HidePageTitleWhenViewingSharedDatabases) ? Visibility.Collapsed : Visibility.Visible;
+            }
         }
 
         #endregion

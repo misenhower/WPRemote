@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:converters="clr-namespace:Komodex.Common.Converters;assembly=Komodex.Common"
     xmlns:appConverters="clr-namespace:Komodex.Remote.Converters"
@@ -8,6 +10,8 @@
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:sampledata="clr-namespace:Komodex.Remote.SampleData"
+    mc:Ignorable="d"
     >
 
     <!-- Trial Manager -->
@@ -58,7 +62,35 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <DataTemplate x:Key="BrowsePageTitleTemplate">
+        <StackPanel Margin="-24,-6,0,0" >
+            <Border Background="{StaticResource PhoneContrastBackgroundBrush}"
+                    HorizontalAlignment="Left"
+                    DataContext="{Binding ElementName=Page}"
+                    d:DataContext="{d:DesignInstance Type=sampledata:SampleDataBrowseDatabaseBasePage, IsDesignTimeCreatable=True}"
+                    Visibility="{Binding SharedDatabaseVisibility}"
+                    Margin="0,6,0,0"
+                    >
+                <TextBlock Text="{Binding CurrentDatabase.Name, Converter={StaticResource StringToUpperConverter}}"
+                           Style="{StaticResource PhoneTextAppTitleStyle}"
+                           Foreground="{StaticResource PhoneContrastForegroundBrush}"
+                           Margin="24,0,12,0"
+                           />
+            </Border>
 
+            <TextBlock Text="{Binding Converter={StaticResource StringToUpperConverter}}"
+                       Style="{StaticResource PhoneTextAppTitleStyle}"
+                       Margin="24,6,0,0"
+                       Visibility="{Binding PageTitleTextVisibility, ElementName=Page}"
+                       />
+        </StackPanel>
+    </DataTemplate>
+
+    <Style x:Key="BrowsePagePivotStyle" TargetType="controls:Pivot" BasedOn="{StaticResource RemotePivotStyle}">
+        <Setter Property="TitleTemplate" Value="{StaticResource BrowsePageTitleTemplate}" />
+    </Style>
+    
     <!-- Button Styles -->
     <Style x:Key="SimpleButton" TargetType="Button">
         <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}" />

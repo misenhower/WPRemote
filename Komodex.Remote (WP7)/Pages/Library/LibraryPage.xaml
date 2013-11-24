@@ -17,6 +17,7 @@
     Style="{StaticResource RemotePageStyle}"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     d:DataContext="{d:DesignInstance Type=sampledata:SampleDataLibraryPage, IsDesignTimeCreatable=True}"
+    HidePageTitleWhenViewingSharedDatabases="True"
     >
     
     <phone:PhoneApplicationPage.Resources>
@@ -95,7 +96,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
                         Title="{Binding CurrentDatabase.Name}"
-                        Style="{StaticResource RemotePivotStyle}"
+                        Style="{StaticResource BrowsePagePivotStyle}"
                         >
             <controls:PivotItem DataContext="{Binding ArtistsViewSource}" Header="{Binding LocalizedStrings.BrowseArtists, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx

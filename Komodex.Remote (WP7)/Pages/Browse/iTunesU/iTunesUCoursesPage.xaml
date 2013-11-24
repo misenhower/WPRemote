@@ -43,7 +43,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
                         Title="{Binding LocalizedStrings.BrowseiTunesU, Source={StaticResource LocalizedStrings}}"
-                        Style="{StaticResource RemotePivotStyle}"
+                        Style="{StaticResource BrowsePagePivotStyle}"
                         >
             <controls:PivotItem DataContext="{Binding CoursesViewSource}" Header="{Binding LocalizedStrings.BrowseiTunesUAll, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx

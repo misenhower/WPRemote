@@ -104,7 +104,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
                         Title="{Binding CurrentGroup.Name}"
-                        Style="{StaticResource RemotePivotStyle}"
+                        Style="{StaticResource BrowsePagePivotStyle}"
                         >
             <controls:PivotItem DataContext="{Binding SongsViewSource}" Header="{Binding LocalizedStrings.BrowseAlbum, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx

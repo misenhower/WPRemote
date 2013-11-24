@@ -1,4 +1,5 @@
 ﻿<app:BrowseMoviesContainerBasePage
+    x:Name="Page"
     x:Class="Komodex.Remote.Pages.Browse.Movies.MoviesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -45,7 +46,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
                         Title="{Binding LocalizedStrings.BrowseMovies, Source={StaticResource LocalizedStrings}}"
-                        Style="{StaticResource RemotePivotStyle}"
+                        Style="{StaticResource BrowsePagePivotStyle}"
                         >
             <controls:PivotItem DataContext="{Binding MoviesViewSource}" Header="{Binding LocalizedStrings.BrowseMoviesAll, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx

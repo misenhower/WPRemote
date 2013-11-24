@@ -1,4 +1,5 @@
 ﻿<app:BrowseBooksContainerBasePage
+    x:Name="Page"
     x:Class="Komodex.Remote.Pages.Browse.Audiobooks.AudiobooksPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,6 +17,7 @@
     Style="{StaticResource RemotePageStyle}"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     d:DataContext="{d:DesignInstance Type=sampledata:SampleDataAudiobooksPage, IsDesignTimeCreatable=True}"
+    HidePageTitleWhenViewingSharedDatabases="True"
     >
 
     <phone:PhoneApplicationPage.Resources>
@@ -42,7 +44,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
                         Title="{Binding CurrentDatabase.Name}"
-                        Style="{StaticResource RemotePivotStyle}"
+                        Style="{StaticResource BrowsePagePivotStyle}"
                         >
             <controls:PivotItem DataContext="{Binding AudiobooksViewSource}" Header="{Binding LocalizedStrings.BrowseAudiobooks, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx

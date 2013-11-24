@@ -1,4 +1,5 @@
 ﻿<app:BrowseTVShowBasePage
+    x:Name="Page"
     x:Class="Komodex.Remote.Pages.Browse.TVShows.TVShowEpisodesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -45,7 +46,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot x:Name="PivotControl"
                         Title="{Binding CurrentGroup, Converter={StaticResource TVShowSeasonEpisodeTextConverter}, ConverterParameter=TitleSeason}"
-                        Style="{StaticResource RemotePivotStyle}"
+                        Style="{StaticResource BrowsePagePivotStyle}"
                         >
             <controls:PivotItem DataContext="{Binding EpisodesViewSource}" Header="{Binding LocalizedStrings.BrowseTVShowsEpisodes, Source={StaticResource LocalizedStrings}}">
                 <controls:LongListSelectorEx
