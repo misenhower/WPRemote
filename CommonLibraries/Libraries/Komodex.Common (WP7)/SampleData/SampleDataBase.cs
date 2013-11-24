@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Komodex.Common.SampleData
 {
+#if DEBUG
     public abstract class SampleDataBase
     {
         public SampleDataBase()
@@ -12,4 +13,5 @@ namespace Komodex.Common.SampleData
             SampleDataHelper.FillSampleData(this);
         }
     }
+#endif
 }
