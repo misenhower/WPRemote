@@ -36,7 +36,13 @@ namespace Komodex.Remote.Pages.Browse.Music
         {
             base.InitializeApplicationBar();
 
-            AddApplicationBarMenuItem(LocalizedStrings.BrowseArtistPlayAllSongs, () => RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Play()));
+            AddApplicationBarMenuItem(LocalizedStrings.BrowseArtistPlayAllSongs, () =>
+            {
+                if (CurrentGroup == null)
+                    return;
+
+                RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Play());
+            });
         }
 
         protected override bool ShouldShowContinuumTransition(AnimationType animationType, Uri toOrFrom)
@@ -127,6 +133,9 @@ namespace Komodex.Remote.Pages.Browse.Music
 
         private void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            if (CurrentGroup == null)
+                return;
+
             RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Shuffle());
             e.Handled = true;
         }

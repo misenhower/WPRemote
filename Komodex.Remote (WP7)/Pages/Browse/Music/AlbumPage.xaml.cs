@@ -92,6 +92,10 @@ namespace Komodex.Remote.Pages.Browse.Music
         {
             e.Handled = true;
 
+            if (CurrentGroup == null)
+                return;
+
+            // Set the artist button reference for the continuum transition
             _artistButton = sender as FrameworkElement;
 
             var artists = await CurrentContainer.GetArtistsAsync();
@@ -105,12 +109,18 @@ namespace Komodex.Remote.Pages.Browse.Music
 
         private void AlbumPlayButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            if (CurrentGroup == null)
+                return;
+
             RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Play());
             e.Handled = true;
         }
 
         private void ShuffleButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            if (CurrentGroup == null)
+                return;
+
             RemoteUtility.HandleLibraryPlayTask(CurrentGroup.Shuffle());
             e.Handled = true;
         }
