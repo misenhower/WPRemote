@@ -76,7 +76,7 @@ namespace Komodex.DACP
             IEnumerable<DACPNode> nodes = null;
             if (data.Length > 0)
             {
-                data = DACPUtility.GetResponseNodes(data).First().Value;
+                data = DACPUtility.GetResponseNodes(data, true).First().Value;
                 nodes = DACPUtility.GetResponseNodes(data);
             }
 

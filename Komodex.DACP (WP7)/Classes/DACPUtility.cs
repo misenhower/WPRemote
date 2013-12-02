@@ -21,7 +21,7 @@ namespace Komodex.DACP
     {
         #region Response Parsing
 
-        public static IEnumerable<DACPNode> GetResponseNodes(byte[] data)
+        public static IEnumerable<DACPNode> GetResponseNodes(byte[] data, bool rootNode = false)
         {
             int dataLength = data.Length;
             int location = 0;
@@ -29,7 +29,15 @@ namespace Komodex.DACP
             while (location + 8 < dataLength)
             {
                 string code = Encoding.UTF8.GetString(data, location, 4);
-                int length = BitUtility.NetworkToHostOrder(BitConverter.ToInt32(data, location + 4));
+
+                // If this is the root node, just assume we need the rest of the data.
+                // This fixes issues with malformed responses (such as those from forked-daapd).
+                int length;
+                if (rootNode)
+                    length = dataLength - 8;
+                else
+                    length = BitUtility.NetworkToHostOrder(BitConverter.ToInt32(data, location + 4));
+
                 byte[] nodeBody = new byte[length];
                 Buffer.BlockCopy(data, location + 8, nodeBody, 0, length);
 
