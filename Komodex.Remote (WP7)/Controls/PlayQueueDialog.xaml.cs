@@ -31,13 +31,18 @@ namespace Komodex.Remote.Controls
         private void PlayQueueList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             LongListSelector list = (LongListSelector)sender;
-            PlayQueueItem item = list.SelectedItem as PlayQueueItem;
-            if (item == null)
-                return;
 
-            DependencyObject originalSource = e.OriginalSource as DependencyObject;
+            FrameworkElement originalSource = e.OriginalSource as FrameworkElement;
             if (originalSource == null)
                 return;
+
+            PlayQueueItem item = list.SelectedItem as PlayQueueItem;
+            if (item == null)
+            {
+                item = originalSource.DataContext as PlayQueueItem;
+                if (item == null)
+                    return;
+            }
 
             var ancestors = originalSource.GetVisualAncestors();
             bool isDeleteButton = ancestors.Any(a => (a is FrameworkElement) && ((FrameworkElement)a).Name == "DeleteButton");
