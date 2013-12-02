@@ -1618,6 +1618,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to standard pairing.
+        /// </summary>
+        public static string StandardPairingMenuItem {
+            get {
+                return ResourceManager.GetString("StandardPairingMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connecting to Library.
         /// </summary>
         public static string StatusConnectingToLibrary {

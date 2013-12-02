@@ -756,4 +756,7 @@
   <data name="BrowseArtistPlayAllSongs" xml:space="preserve">
     <value>play all songs</value>
   </data>
+  <data name="StandardPairingMenuItem" xml:space="preserve">
+    <value>standard pairing</value>
+  </data>
 </root>

@@ -206,6 +206,7 @@ namespace Komodex.Remote
             _firstRunAppBar.Mode = ApplicationBarMode.Minimized;
             _firstRunAppBar.BackgroundColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
             ApplicationBar = _firstRunAppBar;
+            AddApplicationBarMenuItem(LocalizedStrings.StandardPairingMenuItem, OpenStandardPairingDialog);
             AddApplicationBarMenuItem(LocalizedStrings.ManualPairingMenuItem, OpenManualPairingDialog);
             AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, NavigationManager.OpenAboutPage);
         }
@@ -248,6 +249,11 @@ namespace Komodex.Remote
             if (IsDialogOpen)
                 return;
 
+            OpenStandardPairingDialog();
+        }
+
+        private void OpenStandardPairingDialog()
+        {
 #if WP7
             UtilityPairingDialog pairingDialog = new UtilityPairingDialog();
             ShowDialog(pairingDialog);
