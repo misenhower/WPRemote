@@ -152,13 +152,15 @@ namespace Komodex.DACP.Databases
 
         #region Commands
 
-        internal DACPRequest GetPlayQueueEditRequest(string command, DACPQueryElement query, PlayQueueMode mode)
+        internal DACPRequest GetPlayQueueEditRequest(string command, DACPQueryElement query, PlayQueueMode mode, string sort = null)
         {
             DACPRequest request = new DACPRequest("/ctrl-int/1/playqueue-edit");
             request.QueryParameters["command"] = command;
             if (query != null)
                 request.QueryParameters["query"] = query.ToString();
             request.QueryParameters["mode"] = ((int)mode).ToString();
+            if (sort != null)
+                request.QueryParameters["sort"] = sort;
 
             if (this != Server.MainDatabase)
                 request.QueryParameters["srcdatabase"] = "0x" + PersistentID.ToString("x16");

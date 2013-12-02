@@ -58,7 +58,7 @@ namespace Komodex.DACP.Groups
         {
             DACPRequest request;
             if (Server.SupportsPlayQueue)
-                request = Database.GetPlayQueueEditRequest("add", GroupQuery, mode);
+                request = Database.GetPlayQueueEditRequest("add", GroupQuery, mode, "album");
             else
                 request = Database.GetCueSongRequest(ItemQuery, "album", 0);
 
@@ -72,7 +72,7 @@ namespace Komodex.DACP.Groups
             DACPRequest request;
             if (Server.SupportsPlayQueue)
             {
-                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", song.ID), mode);
+                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", song.ID), mode, "album");
                 request.QueryParameters["queuefilter"] = string.Format("album:{0}", PersistentID);
             }
             else
@@ -93,7 +93,7 @@ namespace Komodex.DACP.Groups
         {
             DACPRequest request;
             if (Server.SupportsPlayQueue)
-                request = Database.GetPlayQueueEditRequest("add", GroupQuery, PlayQueueMode.Shuffle);
+                request = Database.GetPlayQueueEditRequest("add", GroupQuery, PlayQueueMode.Shuffle, "album");
             else
                 request = Database.GetCueShuffleRequest(ItemQuery, "album");
 

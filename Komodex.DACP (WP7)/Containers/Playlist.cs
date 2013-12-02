@@ -85,9 +85,8 @@ namespace Komodex.DACP.Containers
             if (Server.SupportsPlayQueue)
             {
                 var query = DACPQueryPredicate.Is("dmap.containeritemid", item.ContainerItemID);
-                request = Database.GetPlayQueueEditRequest("add", query, mode);
+                request = Database.GetPlayQueueEditRequest("add", query, mode, "physical");
                 request.QueryParameters["queuefilter"] = string.Format("playlist:{0}", ID);
-                request.QueryParameters["sort"] = "physical";
             }
             else
             {

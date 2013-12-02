@@ -81,14 +81,9 @@ namespace Komodex.DACP.Genres
         {
             DACPRequest request;
             if (Server.SupportsPlayQueue)
-            {
-                request = Database.GetPlayQueueEditRequest("add", GenreQuery, mode);
-                request.QueryParameters["sort"] = "name";
-            }
+                request = Database.GetPlayQueueEditRequest("add", GenreQuery, mode, "name");
             else
-            {
                 request = Database.GetCueSongRequest(DACPQueryCollection.And(GenreQuery, Container.MediaKindQuery), "name", 0);
-            }
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
             catch { return false; }
@@ -100,9 +95,8 @@ namespace Komodex.DACP.Genres
             DACPRequest request;
             if (Server.SupportsPlayQueue)
             {
-                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", item.ID), mode);
+                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", item.ID), mode, "name");
                 request.QueryParameters["queuefilter"] = string.Format("genre:{0}", DACPUtility.EscapeSingleQuotes(Name));
-                request.QueryParameters["sort"] = "name";
             }
             else
             {
@@ -122,14 +116,9 @@ namespace Komodex.DACP.Genres
         {
             DACPRequest request;
             if (Server.SupportsPlayQueue)
-            {
-                request = Database.GetPlayQueueEditRequest("add", GenreQuery, PlayQueueMode.Shuffle);
-                request.QueryParameters["sort"] = "name";
-            }
+                request = Database.GetPlayQueueEditRequest("add", GenreQuery, PlayQueueMode.Shuffle, "name");
             else
-            {
                 request = Database.GetCueShuffleRequest(DACPQueryCollection.And(GenreQuery, Container.MediaKindQuery), "name");
-            }
 
             try { await Server.SubmitRequestAsync(request).ConfigureAwait(false); }
             catch { return false; }

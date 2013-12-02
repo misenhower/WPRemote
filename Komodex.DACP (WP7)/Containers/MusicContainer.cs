@@ -193,8 +193,7 @@ namespace Komodex.DACP.Containers
 
             if (Server.SupportsPlayQueue)
             {
-                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", ID), PlayQueueMode.Shuffle);
-                request.QueryParameters["sort"] = "name";
+                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", ID), PlayQueueMode.Shuffle, "name");
                 request.QueryParameters["query-modifier"] = "containers";
             }
             else
