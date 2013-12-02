@@ -176,7 +176,17 @@ namespace Komodex.Remote.Controls
 
             string pairingCode = string.Format("{0:0000}{0:0000}{0:0000}{0:0000}", pinTextBox.IntValue.Value);
 
-            _server = new DACPServer(host, port, pairingCode);
+            try
+            {
+                _server = new DACPServer(host, port, pairingCode);
+            }
+            catch
+            {
+                MessageBox.Show(LocalizedStrings.LibraryConnectionErrorBody, LocalizedStrings.LibraryConnectionErrorTitle, MessageBoxButton.OK);
+                _server = null;
+                UpdateWizardItem(true);
+                return;
+            }
 
             UpdateWizardItem(true);
 
@@ -216,7 +226,7 @@ namespace Komodex.Remote.Controls
                     break;
 
                 case ConnectionResult.ConnectionError:
-                    // TODO: Display error
+                    MessageBox.Show(LocalizedStrings.LibraryConnectionErrorBody, LocalizedStrings.LibraryConnectionErrorTitle, MessageBoxButton.OK);
                     _server = null;
                     UpdateWizardItem(true);
                     break;
