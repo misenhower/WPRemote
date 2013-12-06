@@ -43,6 +43,13 @@ namespace Komodex.Remote.Pages.Search
         {
         }
 
+        protected override void OnDatabaseChanged()
+        {
+            base.OnDatabaseChanged();
+
+            UpdateSearchResults();
+        }
+
         private void SearchPage_Loaded(object sender, RoutedEventArgs e)
         {
             Loaded -= SearchPage_Loaded;
@@ -51,7 +58,7 @@ namespace Komodex.Remote.Pages.Search
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            CreateNewSearch(SearchTextBox.Text.Trim());
+            UpdateSearchResults();
         }
 
         private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -67,7 +74,7 @@ namespace Komodex.Remote.Pages.Search
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
         {
-            if (toOrFrom.OriginalString.StartsWith("/Pages/Browse/"))
+            if (toOrFrom != null && toOrFrom.OriginalString.StartsWith("/Pages/Browse/"))
             {
                 if (animationType == AnimationType.NavigateForwardOut || animationType == AnimationType.NavigateBackwardIn)
                 {
@@ -107,6 +114,11 @@ namespace Komodex.Remote.Pages.Search
             StartSearch();
         }
 
+        protected void UpdateSearchResults()
+        {
+            CreateNewSearch(SearchTextBox.Text.Trim());
+        }
+
         protected void CreateNewSearch(string searchString)
         {
             if (CurrentSearchResults != null && CurrentSearchResults.SearchString == searchString)
@@ -118,7 +130,7 @@ namespace Komodex.Remote.Pages.Search
             if (_cancellationTokenSource != null)
                 _cancellationTokenSource.Cancel();
 
-            if (string.IsNullOrEmpty(searchString))
+            if (string.IsNullOrEmpty(searchString) || CurrentDatabase == null)
             {
                 SearchResultsListBox.EmptyText = null;
                 CurrentSearchResults = null;
