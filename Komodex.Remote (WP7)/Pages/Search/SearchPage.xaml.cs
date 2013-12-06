@@ -43,6 +43,32 @@ namespace Komodex.Remote.Pages.Search
         {
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            try
+            {
+                if (State.ContainsKey(StateUtils.SavedStateKey))
+                {
+                    this.RestoreState(SearchTextBox, string.Empty);
+                }
+            }
+            catch (InvalidOperationException) { }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            try
+            {
+                this.PreserveState(SearchTextBox);
+                State[StateUtils.SavedStateKey] = true;
+            }
+            catch (InvalidOperationException) { }
+        }
+
         protected override void OnDatabaseChanged()
         {
             base.OnDatabaseChanged();
