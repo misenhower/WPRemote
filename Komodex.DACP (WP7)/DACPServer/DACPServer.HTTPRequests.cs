@@ -250,21 +250,6 @@ namespace Komodex.DACP
 
         #endregion
 
-        #region Library Play Requests
-
-        internal HTTPRequestInfo SubmitHTTPPlayRequest(string url)
-        {
-            return SubmitHTTPRequest(url, null, false, r => r.ExceptionHandlerDelegate = HandleLibraryPlayException);
-        }
-
-        protected void HandleLibraryPlayException(HTTPRequestInfo requestInfo, WebException e)
-        {
-            // TODO: Check error status code, etc.
-            //SendServerUpdate(ServerUpdateType.LibraryError);
-        }
-
-        #endregion
-
         #region Requests and Responses
 
         #region Server Info
