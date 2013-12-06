@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Komodex.DACP
 {
@@ -78,22 +79,32 @@ namespace Komodex.DACP
             }
         }
 
-        public void SendPlayCommand()
+        public async Task<bool> Play()
         {
-            string url = "/ctrl-int/1/playqueue-edit"
-                + "?command=playnow"
-                + "&index=" + QueueIndex
-                + "&session-id=" + Server.SessionID;
-            Server.SubmitHTTPPlayRequest(url);
+            DACPRequest request = new DACPRequest("/ctrl-int/1/playqueue-edit");
+            request.QueryParameters["command"] = "playnow";
+            request.QueryParameters["index"] = QueueIndex.ToString();
+
+            try
+            {
+                await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
         }
 
-        public void SendDeleteCommand()
+        public async Task<bool> Delete()
         {
-            string url = "/ctrl-int/1/playqueue-edit"
-                + "?command=remove"
-                + "&items=" + QueueIndex
-                + "&session-id=" + Server.SessionID;
-            Server.SubmitHTTPPlayRequest(url);
+            DACPRequest request = new DACPRequest("/ctrl-int/1/playqueue-edit");
+            request.QueryParameters["command"] = "remove";
+            request.QueryParameters["items"] = QueueIndex.ToString();
+
+            try
+            {
+                await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
         }
     }
 }

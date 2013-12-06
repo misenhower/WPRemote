@@ -633,8 +633,9 @@ namespace Komodex.DACP
 
                 var volumeTask = UpdateCurrentVolumeLevelAsync();
                 var userRatingTask = UpdateCurrentSongUserRatingAsync();
+                var playQueueTask = UpdatePlayQueueContentsAsync();
 
-                Task[] tasks = new[] { volumeTask, userRatingTask };
+                Task[] tasks = new[] { volumeTask, userRatingTask, playQueueTask };
 
 #if WP7
                 await TaskEx.WhenAll(tasks).ConfigureAwait(false);
@@ -643,7 +644,6 @@ namespace Komodex.DACP
 #endif
 
                 SubmitGetSpeakersRequest();
-                SubmitPlayQueueRequest();
             }
             catch { return false; }
             return true;
@@ -983,16 +983,24 @@ namespace Komodex.DACP
             }
         }
 
-        protected void SubmitPlayQueueRequest()
+        protected async Task<bool> UpdatePlayQueueContentsAsync()
         {
             if (!SupportsPlayQueue)
-                return;
+                return false;
 
-            string url = "/ctrl-int/1/playqueue-contents?span=50&session-id=" + SessionID;
-            SubmitHTTPRequest(url, HandlePlayQueueResponse);
+            DACPRequest request = new DACPRequest("/ctrl-int/1/playqueue-contents");
+            request.QueryParameters["span"] = "50";
+
+            try
+            {
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
+                HandlePlayQueueResponse(response.Nodes);
+            }
+            catch { return false; }
+            return true;
         }
 
-        private void HandlePlayQueueResponse(HTTPRequestInfo requestInfo)
+        private void HandlePlayQueueResponse(IEnumerable<DACPNode> responseNodes)
         {
             if (PlayQueues == null)
                 PlayQueues = new ObservableCollection<PlayQueue>();
@@ -1000,7 +1008,7 @@ namespace Komodex.DACP
             List<PlayQueue> queues = new List<PlayQueue>();
             List<PlayQueueItem> queueItems = new List<PlayQueueItem>();
 
-            var mlcl = requestInfo.ResponseNodes.FirstOrDefault(n => n.Key == "mlcl");
+            var mlcl = responseNodes.FirstOrDefault(n => n.Key == "mlcl");
             if (mlcl != null)
             {
                 var nodes = DACPUtility.GetResponseNodes(mlcl.Value);
