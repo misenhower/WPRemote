@@ -330,7 +330,7 @@ namespace Komodex.DACP
                 PropertyChanged.RaiseOnUIThread(this, "CurrentSongUserRating");
 
                 int actualRating = value * 20; // 1 star is 20, 2 is 40, 3 is 60, 4 is 80, 5 is 100
-                SendUserRatingCommand(actualRating);
+                var task = SetCurrentItemUserRatingAsync(actualRating);
             }
         }
 

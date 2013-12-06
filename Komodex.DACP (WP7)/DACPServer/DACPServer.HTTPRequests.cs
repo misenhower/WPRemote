@@ -21,6 +21,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Komodex.DACP.Items;
 using Komodex.DACP.Databases;
+using Komodex.DACP.Queries;
 
 namespace Komodex.DACP
 {
@@ -630,8 +631,13 @@ namespace Komodex.DACP
                         BeginRepeatedTrackTimeRequest();
                 });
 
-                SubmitUserRatingRequest();
-                SubmitVolumeStatusRequest();
+                var volumeTask = UpdateCurrentVolumeLevelAsync();
+                var userRatingTask = UpdateCurrentSongUserRatingAsync();
+
+                Task[] tasks = new[] { volumeTask, userRatingTask };
+
+                await Task.WhenAll(tasks).ConfigureAwait(false);
+
                 SubmitGetSpeakersRequest();
                 SubmitPlayQueueRequest();
             }
@@ -728,18 +734,21 @@ namespace Komodex.DACP
 
         #region Volume Status
 
-        protected void SubmitVolumeStatusRequest()
+        protected async Task<bool> UpdateCurrentVolumeLevelAsync()
         {
-            string url = "/ctrl-int/1/getproperty?properties=dmcp.volume&session-id=" + SessionID;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessVolumeStatusResponse));
-        }
+            DACPRequest request = new DACPRequest("/ctrl-int/1/getproperty");
+            request.QueryParameters["properties"] = "dmcp.volume";
 
-        protected void ProcessVolumeStatusResponse(HTTPRequestInfo requestInfo)
-        {
-            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
+            try
+            {
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
+                var nodes = DACPNodeDictionary.Parse(response.Nodes);
 
-            _Volume = (byte)nodes.GetInt("cmvo");
-            SendVolumePropertyChanged();
+                _Volume = (byte)nodes.GetInt("cmvo");
+                SendVolumePropertyChanged();
+            }
+            catch { return false; }
+            return true;
         }
 
         #endregion
@@ -748,72 +757,86 @@ namespace Komodex.DACP
 
         private int _ratingUpdatedForSongID = 0;
 
-        protected void SubmitUserRatingRequest()
+        protected async Task<bool> UpdateCurrentSongUserRatingAsync()
         {
+            // Make sure we have all the values we need
+            if (CurrentDatabaseID == 0 || CurrentContainerID == 0 || CurrentItemID == 0 || CurrentAlbumPersistentID == 0)
+            {
+                ClearCurrentSongUserRating();
+                return true;
+            }
+
+            // If we're requesting the rating for a new song, clear out the old value
             if (CurrentItemID != _ratingUpdatedForSongID)
+                ClearCurrentSongUserRating();
+
+            DACPRequest request = new DACPRequest("/databases/{0}/containers/{1}/items", CurrentDatabaseID, CurrentContainerID);
+            request.QueryParameters["meta"] = "dmap.itemid,dmap.containeritemid,daap.songuserrating";
+            request.QueryParameters["type"] = "music";
+            request.QueryParameters["sort"] = "album";
+            var query = DACPQueryCollection.And(DACPQueryPredicate.Is("daap.songalbumid", CurrentAlbumPersistentID), DACPQueryPredicate.Is("dmap.itemid", CurrentItemID));
+            request.QueryParameters["query"] = query.ToString();
+
+            try
             {
-                _ratingUpdatedForSongID = 0;
-                SetCurrentSongUserRatingFromServer(0);
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
+                var mlcl = response.Nodes.First(n => n.Key == "mlcl");
+
+                var songNodes = DACPUtility.GetResponseNodes(mlcl.Value);
+                foreach (var songData in songNodes)
+                {
+                    var nodes = DACPNodeDictionary.Parse(songData.Value);
+                    var id = nodes.GetInt("miid");
+                    if (id != CurrentItemID)
+                        continue;
+                    var rating = nodes.GetByte("asur");
+                    SetCurrentSongUserRatingFromServer(rating);
+                    break;
+                }
             }
-
-            if (CurrentContainerID == 0 || CurrentItemID == 0 || CurrentAlbumPersistentID == 0)
-                return;
-
-            string url = "/databases/" + MainDatabase.ID + "/containers/" + CurrentContainerID + "/items"
-                + "?meta=dmap.itemid,dmap.containeritemid,daap.songuserrating"
-                + "&type=music"
-                + "&sort=album"
-                + "&query=('daap.songalbumid:" + CurrentAlbumPersistentID + "'+'dmap.itemid:" + CurrentItemID + "')"
-                + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, ProcessUserRatingResponse, false, ri => ri.ExceptionHandlerDelegate = HandleUserRatingException);
+            catch
+            {
+                ClearCurrentSongUserRating();
+                return false;
+            }
+            return true;
         }
 
-        protected void ProcessUserRatingResponse(HTTPRequestInfo requestInfo)
+        private void ClearCurrentSongUserRating()
         {
-            var mlcl = requestInfo.ResponseNodes.FirstOrDefault(n => n.Key == "mlcl");
-            if (mlcl == null)
-                return;
-
-            var songNodes = DACPUtility.GetResponseNodes(mlcl.Value);
-            foreach (var songData in songNodes)
-            {
-                var nodes = DACPNodeDictionary.Parse(songData.Value);
-                var id = nodes.GetInt("miid");
-                if (id != CurrentItemID)
-                    continue;
-                var rating = nodes.GetByte("asur");
-                _ratingUpdatedForSongID = CurrentItemID;
-                SetCurrentSongUserRatingFromServer(rating);
-                break;
-            }
-        }
-
-        protected void HandleUserRatingException(HTTPRequestInfo requestInfo, WebException e)
-        {
+            _CurrentSongUserRating = 0;
             _ratingUpdatedForSongID = 0;
-            SetCurrentSongUserRatingFromServer(0);
+            PropertyChanged.RaiseOnUIThread(this, "CurrentSongUserRating");
         }
 
         private void SetCurrentSongUserRatingFromServer(int serverValue)
         {
             int rating = serverValue / 20;
             _CurrentSongUserRating = rating;
+            _ratingUpdatedForSongID = CurrentItemID;
             PropertyChanged.RaiseOnUIThread(this, "CurrentSongUserRating");
         }
 
-        protected void SendUserRatingCommand(int rating)
+        protected async Task<bool> SetCurrentItemUserRatingAsync(int rating)
         {
             if (CurrentItemID != 0)
-                SendUserRatingCommand(rating, CurrentItemID);
+                return await SetUserRatingAsync(rating, CurrentItemID).ConfigureAwait(false);
+            return false;
         }
 
-        protected void SendUserRatingCommand(int rating, int songID)
+        protected async Task<bool> SetUserRatingAsync(int rating, int songID)
         {
-            string url = "/ctrl-int/1/setproperty"
-                + "?dacp.userrating=" + rating
-                + "&database-spec='dmap.persistentid:0x" + MainDatabase.ID.ToString("x") + "'&item-spec='dmap.itemid:0x" + songID.ToString("x") + "'"
-                + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url);
+            DACPRequest request = new DACPRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters["dacp.userrating"] = rating.ToString();
+            request.QueryParameters["database-spec"] = DACPQueryPredicate.Is("dmap.persistentid", "0x" + CurrentDatabaseID.ToString("x16")).ToString();
+            request.QueryParameters["item-spec"] = DACPQueryPredicate.Is("dmap.itemid", "0x" + songID.ToString("x")).ToString();
+
+            try
+            {
+                await SubmitRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
         }
 
         #endregion
@@ -1088,5 +1111,7 @@ namespace Komodex.DACP
 
         #endregion
 
+
+        public string DACPQuery { get; set; }
     }
 }
