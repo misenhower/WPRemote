@@ -567,8 +567,6 @@ namespace Komodex.DACP
                 Utility.BeginInvokeOnUIThread(() =>
                 {
                     timerTrackTimeUpdate.Stop();
-                    if (_trackTimeRequestTimer != null)
-                        _trackTimeRequestTimer.Stop();
                 });
 
                 var nodes = DACPNodeDictionary.Parse(response.Nodes);
@@ -629,15 +627,7 @@ namespace Komodex.DACP
                     if (PlayState == PlayStates.Playing)
                         timerTrackTimeUpdate.Start();
                     else if (PlayState == PlayStates.FastForward || PlayState == PlayStates.Rewind)
-                    {
-                        if (_trackTimeRequestTimer == null)
-                        {
-                            _trackTimeRequestTimer = new DispatcherTimer();
-                            _trackTimeRequestTimer.Tick += TrackTimeRequestTimer_Tick;
-                            _trackTimeRequestTimer.Interval = TimeSpan.FromMilliseconds(250);
-                        }
-                        _trackTimeRequestTimer.Start();
-                    }
+                        BeginRepeatedTrackTimeRequest();
                 });
 
                 SubmitUserRatingRequest();
@@ -691,28 +681,47 @@ namespace Komodex.DACP
 
         #region Track Time
 
-        protected DispatcherTimer _trackTimeRequestTimer;
-
-        private void TrackTimeRequestTimer_Tick(object sender, EventArgs e)
+        protected async Task<bool> UpdateTrackTimeAsync()
         {
-            SubmitTrackTimeRequest();
+            DACPRequest request = new DACPRequest("/ctrl-int/1/getproperty");
+            request.QueryParameters["properties"] = "dacp.playingtime";
+
+            try
+            {
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
+                var nodes = DACPNodeDictionary.Parse(response.Nodes);
+
+                TrackTimeTotal = nodes.GetInt("cast");
+                TrackTimeRemaining = nodes.GetNullableInt("cant") ?? TrackTimeTotal;
+            }
+            catch { return false; }
+            return true;
         }
 
-        protected void SubmitTrackTimeRequest()
+        protected CancellationTokenSource _currentRepeatedTrackTimeRequestCancellationTokenSource;
+
+        protected async void BeginRepeatedTrackTimeRequest()
         {
-            string url = "/ctrl-int/1/getproperty"
-                + "?properties=dacp.playingtime"
-                + "&session-id=" + SessionID;
+            TimeSpan delayTimeSpan = TimeSpan.FromMilliseconds(250);
+            CancellationToken token;
 
-            SubmitHTTPRequest(url, ProcessTrackTimeResponse);
-        }
+            // Cancel any previous requests
+            if (_currentRepeatedTrackTimeRequestCancellationTokenSource != null)
+                _currentRepeatedTrackTimeRequestCancellationTokenSource.Cancel();
 
-        protected void ProcessTrackTimeResponse(HTTPRequestInfo requestInfo)
-        {
-            var nodes = DACPNodeDictionary.Parse(requestInfo.ResponseBody);
+            _currentRepeatedTrackTimeRequestCancellationTokenSource = new CancellationTokenSource();
+            token = _currentRepeatedTrackTimeRequestCancellationTokenSource.Token;
 
-            TrackTimeTotal = nodes.GetInt("cast");
-            TrackTimeRemaining = nodes.GetNullableInt("cant") ?? TrackTimeTotal;
+            while (IsConnected && !token.IsCancellationRequested && (PlayState == PlayStates.FastForward || PlayState == PlayStates.Rewind))
+            {
+                await UpdateTrackTimeAsync().ConfigureAwait(false);
+
+#if WP7
+                await TaskEx.Delay(delayTimeSpan);
+#else
+                await Task.Delay(delayTimeSpan);
+#endif
+            }
         }
 
         #endregion

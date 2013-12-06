@@ -171,6 +171,8 @@ namespace Komodex.DACP
                 _currentLibraryUpdateCancellationTokenSource.Cancel();
             if (_currentPlayStatusCancellationTokenSource != null)
                 _currentPlayStatusCancellationTokenSource.Cancel();
+            if (_currentRepeatedTrackTimeRequestCancellationTokenSource != null)
+                _currentRepeatedTrackTimeRequestCancellationTokenSource.Cancel();
         }
 
         #endregion
