@@ -636,7 +636,11 @@ namespace Komodex.DACP
 
                 Task[] tasks = new[] { volumeTask, userRatingTask };
 
+#if WP7
+                await TaskEx.WhenAll(tasks).ConfigureAwait(false);
+#else
                 await Task.WhenAll(tasks).ConfigureAwait(false);
+#endif
 
                 SubmitGetSpeakersRequest();
                 SubmitPlayQueueRequest();
