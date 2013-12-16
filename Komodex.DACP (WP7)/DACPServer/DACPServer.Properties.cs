@@ -597,62 +597,69 @@ namespace Komodex.DACP
             }
         }
 
-        private bool ignoringVolumeChanges = false;
-        private int sendVolumeChangeWhenFinished = -1;
-
-        private int _Volume = 0;
-        public int Volume
+        private int _currentVolume;
+        public int CurrentVolume
         {
-            get { return _Volume; }
+            get { return _currentVolume; }
+            protected set
+            {
+                if (_currentVolume == value)
+                    return;
+                UpdateCurrentVolumeValue(value);
+            }
+        }
+
+        private int _bindableVolume;
+        public int BindableVolume
+        {
+            get { return _bindableVolume; }
             set
             {
-                if (_Volume == value)
+                if (_bindableVolume == value)
                     return;
 
-                if (value > 100)
-                    _Volume = 100;
-                else if (value < 0)
-                    _Volume = 0;
-                else
-                    _Volume = value;
-
-                SendVolumePropertyChanged();
-
-                if (ignoringVolumeChanges)
-                    sendVolumeChangeWhenFinished = _Volume;
-                else
-                    SendVolumeUpdate(_Volume);
+                _bindableVolume = value;
+                HandleBoundVolumeChange();
             }
+        }
+
+        protected void UpdateCurrentVolumeValue(int value)
+        {
+            _currentVolume = value;
+            _bindableVolume = value;
+
+            SendVolumePropertyChanged();
+        }
+
+        private bool _updatingVolume;
+
+        protected async void HandleBoundVolumeChange()
+        {
+            if (_updatingVolume)
+                return;
+            _updatingVolume = true;
+
+            bool success;
+            int value;
+
+            do
+            {
+                value = _bindableVolume;
+                success = await SetVolumeLevelAsync(value);
+            } while (success && value != _bindableVolume);
+
+            _updatingVolume = false;
         }
 
         protected void SendVolumePropertyChanged()
         {
-            PropertyChanged.RaiseOnUIThread(this, "Volume");
+            PropertyChanged.RaiseOnUIThread("CurrentVolume", "BindableVolume");
 
             lock (Speakers)
             {
                 foreach (AirPlaySpeaker speaker in Speakers)
                     speaker.UpdateBindableVolume();
             }
-        }
-
-        protected void SendVolumeUpdate(int newVolume)
-        {
-            ignoringVolumeChanges = true;
-            string url = "/ctrl-int/1/setproperty?dmcp.volume=" + newVolume + "&session-id=" + SessionID;
-            SubmitHTTPRequest(url, new HTTPResponseHandler(ProcessSendVolumeUpdateResponse));
-        }
-
-        protected void ProcessSendVolumeUpdateResponse(HTTPRequestInfo requestInfo)
-        {
-            if (sendVolumeChangeWhenFinished >= 0)
-            {
-                int newVolume = sendVolumeChangeWhenFinished;
-                sendVolumeChangeWhenFinished = -1;
-                SendVolumeUpdate(newVolume);
-            }
-            else
-                ignoringVolumeChanges = false;
         }
 
         #endregion

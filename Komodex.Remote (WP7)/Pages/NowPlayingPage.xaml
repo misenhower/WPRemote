@@ -209,7 +209,7 @@
             
             <Slider x:Name="VolumeSlider"
                     Grid.Column="1"
-                    Value="{Binding Volume, Mode=TwoWay}"
+                    Value="{Binding BindableVolume, Mode=TwoWay}"
                     CacheMode="BitmapCache"
                     Maximum="100"
                     LargeChange="5"

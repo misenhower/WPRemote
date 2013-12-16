@@ -216,8 +216,8 @@ namespace Komodex.DACP
 
         internal void AirPlayMasterVolumeManipulation(int newVolume)
         {
-            _Volume = newVolume;
-            PropertyChanged.RaiseOnUIThread(this, "Volume");
+            _currentVolume = newVolume;
+            PropertyChanged.RaiseOnUIThread(this, "CurrentVolume", "BindableVolume");
         }
 
         #endregion

@@ -72,7 +72,7 @@
                     Grid.Row="2"
                     Height="48"
                     Margin="0,0,12,24"
-                    Value="{Binding Path=Volume, Mode=TwoWay}"
+                    Value="{Binding Path=BindableVolume, Mode=TwoWay}"
                     Maximum="100" LargeChange="5"
                     Style="{StaticResource VolumeSliderStyle}"
                     VerticalAlignment="Center"

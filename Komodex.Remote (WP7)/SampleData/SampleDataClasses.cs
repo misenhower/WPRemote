@@ -326,7 +326,7 @@ namespace Komodex.Remote.SampleData
         public string CurrentArtist { get; set; }
         public string CurrentAlbum { get; set; }
         public string CurrentSongName { get; set; }
-        public int Volume { get; set; }
+        public int BindableVolume { get; set; }
         public string CurrentTrackTimePositionString { get; set; }
         public string CurrentTrackTimeRemainingString { get; set; }
         public int CurrentTrackTimePercentage { get; set; }

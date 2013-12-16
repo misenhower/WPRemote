@@ -151,7 +151,7 @@ namespace Komodex.DACP
 
                 if (value <= Server.AirPlayVolumeSwitchPoint)
                 {
-                    double volumePercentage = (double)value / (double)Server.Volume;
+                    double volumePercentage = (double)value / (double)Server.CurrentVolume;
                     Volume = (int)(volumePercentage * 100);
 
                     if (ignoringVolumeChanges)
@@ -169,11 +169,11 @@ namespace Komodex.DACP
 
                     if (ignoringVolumeChanges)
                     {
-                        sendVolumeChangeWhenFinished = Server.Volume;
+                        sendVolumeChangeWhenFinished = Server.CurrentVolume;
                         sendExtendedVolumeChangeWhenFinished = true;
                     }
                     else
-                        SendExtendedVolumeUpdate(Server.Volume);
+                        SendExtendedVolumeUpdate(Server.CurrentVolume);
                 }
 
             }
@@ -237,15 +237,15 @@ namespace Komodex.DACP
             {
                 // If there are no other AirPlay speakers enabled, just return the server volume
                 if (!Server.Speakers.Any(s => s != this && s.Active))
-                    _BindableVolume = Server.Volume;
+                    _BindableVolume = Server.CurrentVolume;
 
-                else if (Server.Volume == 100)
+                else if (Server.CurrentVolume == 100)
                     _BindableVolume = Volume;
 
                 else
                 {
                     double volumePercentage = (double)Volume / 100;
-                    _BindableVolume = (int)((double)Server.Volume * volumePercentage);
+                    _BindableVolume = (int)((double)Server.CurrentVolume * volumePercentage);
                 }
             }
 

@@ -733,8 +733,20 @@ namespace Komodex.DACP
                 var response = await SubmitRequestAsync(request).ConfigureAwait(false);
                 var nodes = DACPNodeDictionary.Parse(response.Nodes);
 
-                _Volume = (byte)nodes.GetInt("cmvo");
-                SendVolumePropertyChanged();
+                CurrentVolume = (byte)nodes.GetInt("cmvo");
+            }
+            catch { return false; }
+            return true;
+        }
+
+        protected async Task<bool> SetVolumeLevelAsync(int value)
+        {
+            DACPRequest request = new DACPRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters["dmcp.volume"] = value.ToString();
+
+            try
+            {
+                await SubmitRequestAsync(request).ConfigureAwait(false);
             }
             catch { return false; }
             return true;

@@ -1,4 +1,4 @@
-<SampleData:SampleDataDACPServer xmlns:SampleData="clr-namespace:Komodex.Remote.SampleData" CurrentAlbum="Curabitur maecenas" CurrentSongName="Nunc amet consequat aenean praesent" CurrentArtist="Phasellus cras duis" LibraryName="Donec eros pulvinar nibh sagittis" Volume="28" CurrentTrackTimePositionString="3:47" CurrentTrackTimeRemainingString="-1:42" CurrentTrackTimePercentage="70">
+<SampleData:SampleDataDACPServer xmlns:SampleData="clr-namespace:Komodex.Remote.SampleData" CurrentAlbum="Curabitur maecenas" CurrentSongName="Nunc amet consequat aenean praesent" CurrentArtist="Phasellus cras duis" LibraryName="Donec eros pulvinar nibh sagittis" BindableVolume="28" CurrentTrackTimePositionString="3:47" CurrentTrackTimeRemainingString="-1:42" CurrentTrackTimePercentage="70">
 	<SampleData:SampleDataDACPServer.LibraryAlbums>
 		<SampleData:SampleDataNamedItemGroup Capacity="14" Key="Aliquam ante class convallis dignissim">
 			<SampleData:SampleDataNamedItemBase Name="Arcu elementum mauris nullam accumsan" SecondLine="Bibendum nam facilisis vestibulum aptent"/>
