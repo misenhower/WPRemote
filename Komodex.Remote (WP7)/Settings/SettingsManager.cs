@@ -143,6 +143,25 @@ namespace Komodex.Remote.Settings
 
         #endregion
 
+        #region ShowCodecAndBitrate
+
+        private readonly Setting<bool> _showCodecAndBitrate = new Setting<bool>("SettingsShowCodecAndBitrate", false);
+
+        public bool ShowCodecAndBitrate
+        {
+            get { return _showCodecAndBitrate.Value; }
+            set
+            {
+                if (_showCodecAndBitrate.Value == value)
+                    return;
+
+                _showCodecAndBitrate.Value = value;
+                PropertyChanged.RaiseOnUIThread(this, "ShowCodecAndBitrate");
+            }
+        }
+
+        #endregion
+
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;

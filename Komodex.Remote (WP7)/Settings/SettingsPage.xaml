@@ -24,6 +24,12 @@
                 <TextBlock TextWrapping="Wrap" Text="{Binding}" />
             </Grid>
         </DataTemplate>
+        
+        <Style TargetType="TextBlock" x:Key="SectionHeaderStyle" BasedOn="{StaticResource PhoneTextBlockBase}">
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeLarge}" />
+            <Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}" />
+        </Style>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -44,6 +50,9 @@
         <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,0,0">
             <ScrollViewer>
                 <StackPanel Margin="0,0,12,0">
+                    <!-- Section: Now Playing -->
+                    <TextBlock Text="{Binding LocalizedStrings.SettingsSectionNowPlaying, Source={StaticResource LocalizedStrings}}" Style="{StaticResource SectionHeaderStyle}" />
+                    
                     <!-- Artist background images -->
                     <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsShowArtistBackgroundImages, Source={StaticResource LocalizedStrings}}"
                                           HeaderTemplate="{StaticResource WrappingHeaderTemplate}"
@@ -53,7 +62,7 @@
                     
                     <!-- Artist tap action -->
                     <toolkit:ListPicker Header="{Binding LocalizedStrings.SettingsArtistTapAction, Source={StaticResource LocalizedStrings}}"
-                                        Margin="12,12,12,48"
+                                        Margin="12,0,12,36"
                                         ItemsSource="{Binding ArtistClickActions}"
                                         SelectedItem="{Binding BindableArtistClickAction, Mode=TwoWay}"
                                         >
@@ -63,6 +72,9 @@
                             </DataTemplate>
                         </toolkit:ListPicker.ItemTemplate>
                     </toolkit:ListPicker>
+
+                    <!-- Section: General -->
+                    <TextBlock Text="{Binding LocalizedStrings.SettingsSectionGeneral, Source={StaticResource LocalizedStrings}}" Style="{StaticResource SectionHeaderStyle}" />
                     
                     <!-- Stay connected under lock screen -->
                     <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsStayConnectedUnderLock, Source={StaticResource LocalizedStrings}}"
@@ -84,6 +96,19 @@
                                CacheMode="BitmapCache"
                                />
                     
+                    <Rectangle Height="36" />
+
+                    <!-- Section: Music -->
+                    <TextBlock Text="{Binding LocalizedStrings.SettingsSectionMusic, Source={StaticResource LocalizedStrings}}" Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <!-- Show codec and bitrate -->
+                    <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsShowCodecAndBitrate, Source={StaticResource LocalizedStrings}}"
+                                          HeaderTemplate="{StaticResource WrappingHeaderTemplate}"
+                                          Margin="0,0,0,-24"
+                                          IsChecked="{Binding ShowCodecAndBitrate, Mode=TwoWay}"
+                                          CacheMode="BitmapCache"
+                                          />
+                    
                     <!-- Extended error reporting -->
                     <toolkit:ToggleSwitch Header="{Binding LocalizedStrings.SettingsExtendedErrorReporting, Source={StaticResource LocalizedStrings}}"
                                           Visibility="Collapsed"
@@ -91,6 +116,9 @@
                                           IsChecked="{Binding ExtendedErrorReporting, Mode=TwoWay}"
                                           CacheMode="BitmapCache"
                                           />
+                    
+                    <Rectangle Height="36" />
+                    
                 </StackPanel>
             </ScrollViewer>
         </Grid>

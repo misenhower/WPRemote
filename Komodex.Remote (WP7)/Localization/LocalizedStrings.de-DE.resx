@@ -759,4 +759,16 @@
   <data name="StandardPairingMenuItem" xml:space="preserve">
     <value>Standard Verknüpfung</value>
   </data>
+  <data name="SettingsShowCodecAndBitrate" xml:space="preserve">
+    <value>Codec und Bitrate info einblenden</value>
+  </data>
+  <data name="SettingsSectionGeneral" xml:space="preserve">
+    <value>Allgemein</value>
+  </data>
+  <data name="SettingsSectionMusic" xml:space="preserve">
+    <value>Musik</value>
+  </data>
+  <data name="SettingsSectionNowPlaying" xml:space="preserve">
+    <value>Spielt Jetzt</value>
+  </data>
 </root>

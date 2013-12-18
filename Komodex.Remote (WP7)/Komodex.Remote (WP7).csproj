@@ -142,6 +142,7 @@
     <Compile Include="Converters\SearchResultSectionHeaderConverter.cs" />
     <Compile Include="Converters\SearchResultsSecondLineConverter.cs" />
     <Compile Include="Converters\ServerTypeToImageSourceConverter.cs" />
+    <Compile Include="Converters\SongDetailsConverter.cs" />
     <Compile Include="Converters\TVShowSeasonEpisodeTextConverter.cs" />
     <Compile Include="Data\DACPElementViewSource.cs" />
     <Compile Include="Data\IDACPElementViewSource.cs" />

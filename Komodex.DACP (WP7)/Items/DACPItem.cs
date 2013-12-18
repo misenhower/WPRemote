@@ -30,6 +30,8 @@ namespace Komodex.DACP.Items
         public string FormattedDuration { get { return Duration.ToShortTimeString(true); } }
         public bool HasBeenPlayed { get; private set; }
         public int PlayCount { get; private set; }
+        public string CodecType { get; private set; }
+        public int Bitrate { get; private set; }
 
         protected override void ProcessNodes(DACPNodeDictionary nodes)
         {
@@ -42,6 +44,8 @@ namespace Komodex.DACP.Items
             AlbumName = nodes.GetString("asal");
             HasBeenPlayed = nodes.GetBool("ashp");
             PlayCount = nodes.GetInt("aspc");
+            CodecType = nodes.GetString("ascd");
+            Bitrate = nodes.GetShort("asbr");
         }
 
         public string ArtistAndAlbumName

@@ -22,6 +22,11 @@ namespace Komodex.DACP.Containers
             get { return new[] { 1, 32 }; }
         }
 
+        protected override string ItemsMeta
+        {
+            get { return base.ItemsMeta + ",daap.songcodectype,daap.songbitrate"; }
+        }
+
         #region Artists
 
         private List<Artist> _artists;

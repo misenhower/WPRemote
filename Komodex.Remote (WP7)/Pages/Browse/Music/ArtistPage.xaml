@@ -86,7 +86,7 @@
 
                 <StackPanel Grid.Column="1" Opacity="{Binding IsDisabled, Converter={StaticResource ItemDisabledOpacityConverter}}">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextLargeStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
-                    <TextBlock Text="{Binding SecondLine}" Style="{StaticResource ListItemTextSubtleStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
+                    <TextBlock Text="{Binding Converter={StaticResource SongDetailsConverter}}" Style="{StaticResource ListItemTextSubtleStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
                 </StackPanel>
 
                 <controls:MultiResolutionImageMask

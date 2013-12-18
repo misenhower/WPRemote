@@ -33,6 +33,7 @@
     <appConverters:SearchResultsSecondLineConverter x:Key="SearchResultsSecondLineConverter" />
     <appConverters:SearchResultSectionHeaderConverter x:Key="SearchResultSectionHeaderConverter" />
     <appConverters:GeniusMixDescriptionConverter x:Key="GeniusMixDescriptionConverter" />
+    <appConverters:SongDetailsConverter x:Key="SongDetailsConverter" />
 
     <!-- Page Style -->
     <Style x:Key="RemotePageStyle" TargetType="phone:PhoneApplicationPage">
