@@ -138,15 +138,42 @@ namespace Komodex.Remote.Pairing
 
             var hostnames = NetworkInformation.GetHostNames();
 
-            _pairingService.IPAddresses.Clear();
+            List<IPAddress> newIPs = new List<IPAddress>();
+
+            _log.Debug("Listing local IPs...");
+
+            // Attempt to list only valid IPs and present them in the correct order. Avahi only returns
+            // the first discovered IP, and other clients usually attempt to connect to IPs in the order
+            // they are presented.
 
             foreach (var host in hostnames)
             {
                 if (host.Type != HostNameType.Ipv4)
+                {
+                    _log.Debug("Host {0} is not IPv4, skipping...", host.DisplayName);
                     continue;
-                _pairingService.IPAddresses.Add(IPAddress.Parse(host.CanonicalName));
-                _log.Debug("Listening on IP: " + host.DisplayName);
+                }
+
+                // Only use Wi-Fi and Ethernet IPs, and ignore any other types (e.g., cellular)
+                uint ianaType = host.IPInformation.NetworkAdapter.IanaInterfaceType;
+                // 71: Wi-Fi
+                // 6: Ethernet
+                if (ianaType != 71 && ianaType != 6)
+                {
+                    _log.Debug("Host {0} (IANA interface type: {1}) is not on a Wi-Fi or Ethernet interface, skipping...", host.DisplayName, ianaType);
+                    continue;
+                }
+
+                _log.Debug("Found local IP: {0} (IANA interface type: {1})", host.DisplayName, ianaType);
+                newIPs.Add(IPAddress.Parse(host.CanonicalName));
             }
+
+            // Usually the IP address we want is at the end of the list
+            newIPs.Reverse();
+
+            // Update the NetService
+            _pairingService.IPAddresses.Clear();
+            _pairingService.IPAddresses.AddRange(newIPs);
         }
 
         private static async void HttpServer_RequestReceived(object sender, HttpRequestEventArgs e)
