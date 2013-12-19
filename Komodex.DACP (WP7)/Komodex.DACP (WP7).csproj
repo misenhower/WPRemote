@@ -92,6 +92,7 @@
     <Compile Include="Containers\BooksContainer.cs" />
     <Compile Include="Containers\DACPContainer.cs" />
     <Compile Include="Containers\GeniusMix.cs" />
+    <Compile Include="Containers\iTunesRadioStation.cs" />
     <Compile Include="Containers\iTunesUContainer.cs" />
     <Compile Include="Containers\MoviesContainer.cs" />
     <Compile Include="Containers\MusicContainer.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Containers\TVShowsContainer.cs" />
     <Compile Include="DACPServer\DACPServer.AirPlaySpeakers.cs" />
     <Compile Include="Databases\DACPDatabase.cs" />
+    <Compile Include="Databases\iTunesRadioDatabase.cs" />
     <Compile Include="Genres\DACPGenre.cs" />
     <Compile Include="Groups\Album.cs" />
     <Compile Include="Groups\Artist.cs" />

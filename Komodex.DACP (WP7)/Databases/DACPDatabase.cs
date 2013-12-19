@@ -14,15 +14,32 @@ namespace Komodex.DACP.Databases
             : base(server, nodes)
         { }
 
-        public int DBKind { get; private set; }
+        public DatabaseType Type { get; private set; }
         public UInt64 ServiceID { get; private set; }
 
         protected override void ProcessNodes(DACPNodeDictionary nodes)
         {
             base.ProcessNodes(nodes);
 
-            DBKind = nodes.GetInt("mdbk");
+            Type = (DatabaseType)nodes.GetInt("mdbk");
             ServiceID = (UInt64)nodes.GetLong("aeIM");
+        }
+
+        public static DACPDatabase GetDatabase(DACPServer server, DACPNodeDictionary nodes)
+        {
+            DatabaseType type = (DatabaseType)nodes.GetInt("mdbk");
+
+            switch (type)
+            {
+                case DatabaseType.Main:
+                case DatabaseType.Shared:
+                case DatabaseType.InternetRadio:
+                default:
+                    return new DACPDatabase(server, nodes);
+
+                case DatabaseType.iTunesRadio:
+                    return new iTunesRadioDatabase(server, nodes);
+            }
         }
 
         #region Containers

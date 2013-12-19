@@ -73,6 +73,8 @@ namespace Komodex.DACP.Containers
                     return new BooksContainer(database, nodes);
                 case ContainerType.GeniusMix:
                     return new GeniusMix(database, nodes);
+                case ContainerType.iTunesRadio:
+                    return new iTunesRadioStation(database, nodes);
             }
 
             return new DACPContainer(database, nodes);

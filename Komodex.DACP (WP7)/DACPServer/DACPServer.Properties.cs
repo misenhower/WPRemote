@@ -180,6 +180,19 @@ namespace Komodex.DACP
             }
         }
 
+        private iTunesRadioDatabase _iTunesRadioDatabase;
+        public iTunesRadioDatabase iTunesRadioDatabase
+        {
+            get { return _iTunesRadioDatabase; }
+            protected set
+            {
+                if (_iTunesRadioDatabase == value)
+                    return;
+                _iTunesRadioDatabase = value;
+                PropertyChanged.RaiseOnUIThread(this, "iTunesRadioDatabase");
+            }
+        }
+
         private ObservableCollectionEx<DACPDatabase> _sharedDatabases = new ObservableCollectionEx<DACPDatabase>();
         public ObservableCollectionEx<DACPDatabase> SharedDatabases
         {

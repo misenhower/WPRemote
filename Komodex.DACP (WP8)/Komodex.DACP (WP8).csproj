@@ -137,6 +137,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\GeniusMix.cs">
       <Link>Containers\GeniusMix.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Containers\iTunesRadioStation.cs">
+      <Link>Containers\iTunesRadioStation.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\iTunesUContainer.cs">
       <Link>Containers\iTunesUContainer.cs</Link>
     </Compile>
@@ -169,6 +172,9 @@
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Databases\DACPDatabase.cs">
       <Link>Databases\DACPDatabase.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Databases\iTunesRadioDatabase.cs">
+      <Link>Databases\iTunesRadioDatabase.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Genres\DACPGenre.cs">
       <Link>Genres\DACPGenre.cs</Link>

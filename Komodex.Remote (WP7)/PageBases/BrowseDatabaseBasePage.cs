@@ -168,6 +168,9 @@ namespace Komodex.Remote
             if (server.InternetRadioDatabase != null && server.InternetRadioDatabase.ID == _databaseID)
                 return server.InternetRadioDatabase;
 
+            if (server.iTunesRadioDatabase != null && server.iTunesRadioDatabase.ID == _databaseID)
+                return server.iTunesRadioDatabase;
+
             var sharedDB = server.SharedDatabases.FirstOrDefault(db => db.ID == _databaseID);
             if (sharedDB != null)
                 return sharedDB;

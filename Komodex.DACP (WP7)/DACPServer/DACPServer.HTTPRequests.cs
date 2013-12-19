@@ -371,7 +371,7 @@ namespace Komodex.DACP
 
             try
             {
-                var databases = await GetListAsync(request, n => new DACPDatabase(this, n)).ConfigureAwait(false);
+                var databases = await GetListAsync(request, n => DACPDatabase.GetDatabase(this, n)).ConfigureAwait(false);
 
                 if (databases == null || databases.Count == 0)
                     return false;
@@ -396,19 +396,29 @@ namespace Komodex.DACP
                     }
 
                     // Shared database
-                    if (db.DBKind == 2)
+                    if (db.Type == DatabaseType.Shared)
                     {
                         newSharedDatabases.Add(db);
                         continue;
                     }
 
                     // Internet Radio
-                    if (db.DBKind == 100)
+                    if (db.Type == DatabaseType.InternetRadio)
                     {
                         if (InternetRadioDatabase != null && InternetRadioDatabase.ID == db.ID)
                             continue;
 
                         InternetRadioDatabase = db;
+                        continue;
+                    }
+
+                    // iTunes Radio
+                    if (db.Type == DatabaseType.iTunesRadio)
+                    {
+                        if (iTunesRadioDatabase != null && iTunesRadioDatabase.ID == db.ID)
+                            continue;
+
+                        iTunesRadioDatabase = (iTunesRadioDatabase)db;
                         continue;
                     }
                 }

@@ -51,6 +51,14 @@ namespace Komodex.DACP
         Shuffle = 2,
     }
 
+    public enum DatabaseType
+    {
+        Main = 1,
+        Shared = 2,
+        InternetRadio = 100,
+        iTunesRadio = 101,
+    }
+
     public enum ContainerType
     {
         Playlist = 0,
@@ -64,6 +72,7 @@ namespace Komodex.DACP
         Rentals = 10,
         GeniusMixes = 15,
         GeniusMix = 16,
+        iTunesRadio = 230,
     }
 
     public enum ItemPlayedState
