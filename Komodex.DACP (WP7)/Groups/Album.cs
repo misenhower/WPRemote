@@ -32,6 +32,8 @@ namespace Komodex.DACP.Groups
                 var query = base.GroupQuery;
                 if (Server.SupportsPlayQueue)
                     return query;
+                if (string.IsNullOrEmpty(ArtistName))
+                    return query;
                 return DACPQueryCollection.And(query, DACPQueryCollection.Or(DACPQueryPredicate.Is("daap.songartist", ArtistName), DACPQueryPredicate.Is("daap.songalbumartist", ArtistName)));
             }
         }
