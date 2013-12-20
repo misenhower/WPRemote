@@ -1,0 +1,108 @@
+﻿<app:BrowseDatabaseBasePage
+    x:Name="Page"
+    x:Class="Komodex.Remote.Pages.Browse.iTunesRadio.iTunesRadioStationsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:app="clr-namespace:Komodex.Remote"
+    xmlns:appcontrols="clr-namespace:Komodex.Remote.Controls"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:delay="clr-namespace:Delay"
+    xmlns:sampledata="clr-namespace:Komodex.Remote.SampleData"
+    mc:Ignorable="d"
+    Style="{StaticResource RemotePageStyle}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    d:DataContext="{d:DesignInstance Type=sampledata:SampleDataBrowseDatabaseBasePage, IsDesignTimeCreatable=True}"
+    >
+    
+    <phone:PhoneApplicationPage.Resources>
+        <Style TargetType="TextBlock" x:Key="HeaderTextStyle" BasedOn="{StaticResource PhoneTextTitle2Style}">
+            <Setter Property="Margin" Value="12,0,0,12" />
+        </Style>
+        
+        <Style TargetType="toolkit:WrapPanel" x:Key="WrapPanelStyle">
+            <Setter Property="ItemWidth" Value="185" />
+            <Setter Property="ItemHeight" Value="243" />
+            <Setter Property="Margin" Value="12,0,0,0" />
+        </Style>
+        
+        <DataTemplate x:Key="StationTemplate">
+            <appcontrols:FakeButton>
+                <Grid Margin="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="173" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Background="{StaticResource PhoneChromeBrush}" />
+                    <Image delay:LowProfileImageLoader.UriSource="{Binding Artwork173pxURI}" delay:LowProfileImageLoader.ClearImageOnUriChange="True" />
+                    
+                    <TextBlock Text="{Binding Name}"
+                               Grid.Row="1"
+                               TextWrapping="Wrap"
+                               FontSize="{StaticResource PhoneFontSizeSmall}"
+                               FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                               MaxHeight="50"
+                               />
+                </Grid>
+            </appcontrols:FakeButton>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="1" Margin="12,17,0,28">
+            <TextBlock Text="{Binding CurrentDatabase.Name, Converter={StaticResource StringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
+            <TextBlock Text="{Binding LocalizedStrings.BrowseInternetRadioStations, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <controls:Panorama Grid.Row="2">
+            <controls:PanoramaItem>
+                <ScrollViewer Margin="0,-38,0,0">
+                    <StackPanel>
+                        <TextBlock Text="featured" Style="{StaticResource HeaderTextStyle}" />
+                        
+                        <ItemsControl ItemsSource="{Binding CurrentDatabase.FeaturedStations}" ItemTemplate="{StaticResource StationTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <toolkit:WrapPanel Style="{StaticResource WrapPanelStyle}" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        
+                        <Rectangle Height="30" />
+                    </StackPanel>
+                </ScrollViewer>
+            </controls:PanoramaItem>
+            <controls:PanoramaItem>
+                <ScrollViewer Margin="0,-38,0,0">
+                    <StackPanel>
+                        <TextBlock Text="my stations" Style="{StaticResource HeaderTextStyle}" />
+                        
+                        <ItemsControl ItemsSource="{Binding CurrentDatabase.Stations}" ItemTemplate="{StaticResource StationTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <toolkit:WrapPanel Style="{StaticResource WrapPanelStyle}" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        
+                        <Rectangle Height="30" />
+                    </StackPanel>
+                </ScrollViewer>
+            </controls:PanoramaItem>
+        </controls:Panorama>
+    </Grid>
+
+</app:BrowseDatabaseBasePage>

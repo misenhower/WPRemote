@@ -204,6 +204,15 @@ namespace Komodex.Remote
 
         #endregion
 
+        #region iTunes Radio
+
+        public static void OpeniTunesRadioStationsPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Browse/iTunesRadio/iTunesRadioStationsPage.xaml?databaseID={0}", database.ID);
+        }
+
+        #endregion
+
         public static void OpenGenrePage(string genreName)
         {
             genreName = Uri.EscapeDataString(genreName);

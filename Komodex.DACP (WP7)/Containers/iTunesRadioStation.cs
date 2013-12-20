@@ -20,5 +20,11 @@ namespace Komodex.DACP.Containers
 
             IsFeaturedStation = nodes.GetBool("aeRf");
         }
+
+        #region Artwork
+
+        public string Artwork173pxURI { get { return GetAlbumArtURI(173, 173); } }
+
+        #endregion
     }
 }

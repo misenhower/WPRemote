@@ -179,6 +179,9 @@
     <Compile Include="Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml.cs">
       <DependentUpon>InternetRadioStationsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Browse\iTunesRadio\iTunesRadioStationsPage.xaml.cs">
+      <DependentUpon>iTunesRadioStationsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Browse\iTunesU\iTunesUCourseEpisodesPage.xaml.cs">
       <DependentUpon>iTunesUCourseEpisodesPage.xaml</DependentUpon>
     </Compile>
@@ -323,6 +326,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\iTunesRadio\iTunesRadioStationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

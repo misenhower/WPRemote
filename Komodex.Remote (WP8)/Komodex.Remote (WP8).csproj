@@ -248,6 +248,10 @@
       <Link>Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml.cs</Link>
       <DependentUpon>InternetRadioStationsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\iTunesRadio\iTunesRadioStationsPage.xaml.cs">
+      <Link>Pages\Browse\iTunesRadio\iTunesRadioStationsPage.xaml.cs</Link>
+      <DependentUpon>iTunesRadioStationsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Pages\Browse\iTunesU\iTunesUCourseEpisodesPage.xaml.cs">
       <Link>Pages\Browse\iTunesU\iTunesUCourseEpisodesPage.xaml.cs</Link>
       <DependentUpon>iTunesUCourseEpisodesPage.xaml</DependentUpon>
@@ -903,6 +907,11 @@
     </Page>
     <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml">
       <Link>Pages\Browse\InternetRadio\InternetRadioStationsPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Remote %28WP7%29\Pages\Browse\iTunesRadio\iTunesRadioStationsPage.xaml">
+      <Link>Pages\Browse\iTunesRadio\iTunesRadioStationsPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

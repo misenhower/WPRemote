@@ -24,6 +24,8 @@ namespace Komodex.Remote.SampleData
     {
         public List<SampleDataDACPContainer> Playlists { get; set; }
         public List<SampleDataGeniusMix> GeniusMixes { get; set; }
+        public List<SampleDataDACPContainer> Stations { get; set; }
+        public List<SampleDataDACPContainer> FeaturedStations { get; set; }
     }
 
     #endregion
