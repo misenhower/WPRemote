@@ -31,7 +31,7 @@
         </Style>
         
         <DataTemplate x:Key="StationTemplate">
-            <appcontrols:FakeButton>
+            <appcontrols:FakeButton Tap="Station_Tap">
                 <Grid Margin="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="173" />
