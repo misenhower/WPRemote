@@ -492,6 +492,9 @@
     <Content Include="..\Assets\Icons\InternetRadio.WVGA.png">
       <Link>Assets\Icons\InternetRadio.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\iTunesRadio.WVGA.png">
+      <Link>Assets\Icons\iTunesRadio.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\iTunesU.WVGA.png">
       <Link>Assets\Icons\iTunesU.WVGA.png</Link>
     </Content>

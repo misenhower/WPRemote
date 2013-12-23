@@ -53,8 +53,8 @@ namespace Komodex.Remote.LibraryPages
 
             if (CurrentDatabase == server.MainDatabase)
             {
-                //if (server.iTunesRadioDatabase != null)
-                //    items.Add(new LibraryViewItem(server.iTunesRadioDatabase.Name, "/Assets/Icons/iTunesRadio.png", () => NavigationManager.OpeniTunesRadioStationsPage(CurrentDatabase.Server.iTunesRadioDatabase)));
+                if (server.iTunesRadioDatabase != null)
+                    items.Add(new LibraryViewItem(server.iTunesRadioDatabase.Name, "/Assets/Icons/iTunesRadio.png", () => NavigationManager.OpeniTunesRadioStationsPage(CurrentDatabase.Server.iTunesRadioDatabase)));
 
                 if (server.InternetRadioDatabase != null)
                     items.Add(new LibraryViewItem(LocalizedStrings.BrowseInternetRadio, "/Assets/Icons/InternetRadio.png", () => NavigationManager.OpenInternetRadioCategoriesPage(CurrentDatabase.Server.InternetRadioDatabase)));

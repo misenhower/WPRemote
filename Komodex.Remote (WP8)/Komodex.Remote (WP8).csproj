@@ -539,6 +539,15 @@
     <Content Include="..\Assets\Icons\InternetRadio.WXGA.png">
       <Link>Assets\Icons\InternetRadio.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\iTunesRadio.720p.png">
+      <Link>Assets\Icons\iTunesRadio.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\iTunesRadio.WVGA.png">
+      <Link>Assets\Icons\iTunesRadio.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\iTunesRadio.WXGA.png">
+      <Link>Assets\Icons\iTunesRadio.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\iTunesU.720p.png">
       <Link>Assets\Icons\iTunesU.720p.png</Link>
     </Content>
