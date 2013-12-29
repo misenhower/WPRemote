@@ -771,4 +771,13 @@
   <data name="SettingsSectionNowPlaying" xml:space="preserve">
     <value>Spielt Jetzt</value>
   </data>
+  <data name="BrowseiTunesRadioFeaturedStations" xml:space="preserve">
+    <value>Empfohlene Sender</value>
+  </data>
+  <data name="BrowseiTunesRadioMyStations" xml:space="preserve">
+    <value>Meine Sender</value>
+  </data>
+  <data name="BrowseiTunesRadioStations" xml:space="preserve">
+    <value>Sender</value>
+  </data>
 </root>

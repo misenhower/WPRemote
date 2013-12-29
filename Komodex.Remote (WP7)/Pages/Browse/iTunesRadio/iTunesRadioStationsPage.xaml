@@ -32,7 +32,7 @@
         
         <DataTemplate x:Key="StationTemplate">
             <appcontrols:FakeButton Tap="Station_Tap">
-                <Grid Margin="6">
+                <Grid Margin="0,6,12,6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="173" />
                         <RowDefinition Height="*" />
@@ -64,14 +64,14 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="1" Margin="12,17,0,28">
             <TextBlock Text="{Binding CurrentDatabase.Name, Converter={StaticResource StringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}"/>
-            <TextBlock Text="{Binding LocalizedStrings.BrowseInternetRadioStations, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="{Binding LocalizedStrings.BrowseiTunesRadioStations, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <controls:Panorama Grid.Row="2">
             <controls:PanoramaItem>
                 <ScrollViewer Margin="0,-38,0,0">
                     <StackPanel>
-                        <TextBlock Text="featured" Style="{StaticResource HeaderTextStyle}" />
+                        <TextBlock Text="{Binding LocalizedStrings.BrowseiTunesRadioFeaturedStations, Source={StaticResource LocalizedStrings}}" Style="{StaticResource HeaderTextStyle}" />
                         
                         <ItemsControl ItemsSource="{Binding CurrentDatabase.FeaturedStations}" ItemTemplate="{StaticResource StationTemplate}">
                             <ItemsControl.ItemsPanel>
@@ -88,7 +88,7 @@
             <controls:PanoramaItem>
                 <ScrollViewer Margin="0,-38,0,0">
                     <StackPanel>
-                        <TextBlock Text="my stations" Style="{StaticResource HeaderTextStyle}" />
+                        <TextBlock Text="{Binding LocalizedStrings.BrowseiTunesRadioMyStations, Source={StaticResource LocalizedStrings}}" Style="{StaticResource HeaderTextStyle}" />
                         
                         <ItemsControl ItemsSource="{Binding CurrentDatabase.Stations}" ItemTemplate="{StaticResource StationTemplate}">
                             <ItemsControl.ItemsPanel>

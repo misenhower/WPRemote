@@ -412,6 +412,33 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to featured stations.
+        /// </summary>
+        public static string BrowseiTunesRadioFeaturedStations {
+            get {
+                return ResourceManager.GetString("BrowseiTunesRadioFeaturedStations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to my stations.
+        /// </summary>
+        public static string BrowseiTunesRadioMyStations {
+            get {
+                return ResourceManager.GetString("BrowseiTunesRadioMyStations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to stations.
+        /// </summary>
+        public static string BrowseiTunesRadioStations {
+            get {
+                return ResourceManager.GetString("BrowseiTunesRadioStations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to iTunes U.
         /// </summary>
         public static string BrowseiTunesU {
