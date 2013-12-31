@@ -599,6 +599,7 @@ namespace Komodex.DACP
                 ShuffleState = nodes.GetBool("cash");
                 RepeatState = (RepeatStates)nodes.GetByte("carp");
                 CurrentMediaKind = nodes.GetInt("cmmk");
+                ShowUserRating = nodes.GetBool("casu");
 
                 // Track length (ms)
                 TrackTimeTotal = nodes.GetInt("cast");

@@ -325,6 +325,19 @@ namespace Komodex.DACP
 
         #region User/Star Rating
 
+        private bool _showUserRating;
+        public bool ShowUserRating
+        {
+            get { return _showUserRating; }
+            protected set
+            {
+                if (_showUserRating == value)
+                    return;
+                _showUserRating = value;
+                PropertyChanged.RaiseOnUIThread(this, "ShowUserRating");
+            }
+        }
+
         private int _CurrentSongUserRating = 0;
         public int CurrentSongUserRating
         {

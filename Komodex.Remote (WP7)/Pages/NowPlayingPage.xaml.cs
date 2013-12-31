@@ -325,6 +325,9 @@ namespace Komodex.Remote.Pages
 
         protected void ShowAlbumArtOverlay(bool useTransitions)
         {
+            if (!CurrentServer.ShowUserRating)
+                return;
+
             VisualStateManager.GoToState(this, "AlbumArtOverlayVisibleState", useTransitions);
         }
 
