@@ -737,6 +737,24 @@
     <Content Include="..\Assets\PlayTransport\FF.WXGA.png">
       <Link>Assets\PlayTransport\FF.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\PlayTransport\iTunesRadio.720p.png">
+      <Link>Assets\PlayTransport\iTunesRadio.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\iTunesRadio.Pressed.720p.png">
+      <Link>Assets\PlayTransport\iTunesRadio.Pressed.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\iTunesRadio.Pressed.WVGA.png">
+      <Link>Assets\PlayTransport\iTunesRadio.Pressed.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\iTunesRadio.Pressed.WXGA.png">
+      <Link>Assets\PlayTransport\iTunesRadio.Pressed.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\iTunesRadio.WVGA.png">
+      <Link>Assets\PlayTransport\iTunesRadio.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\iTunesRadio.WXGA.png">
+      <Link>Assets\PlayTransport\iTunesRadio.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\PlayTransport\Pause.720p.png">
       <Link>Assets\PlayTransport\Pause.720p.png</Link>
     </Content>

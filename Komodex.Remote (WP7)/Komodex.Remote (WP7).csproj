@@ -558,6 +558,12 @@
     <Content Include="..\Assets\PlayTransport\FF.WVGA.png">
       <Link>Assets\PlayTransport\FF.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\PlayTransport\iTunesRadio.Pressed.WVGA.png">
+      <Link>Assets\PlayTransport\iTunesRadio.Pressed.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\iTunesRadio.WVGA.png">
+      <Link>Assets\PlayTransport\iTunesRadio.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\PlayTransport\Pause.Pressed.WVGA.png">
       <Link>Assets\PlayTransport\Pause.Pressed.WVGA.png</Link>
     </Content>
