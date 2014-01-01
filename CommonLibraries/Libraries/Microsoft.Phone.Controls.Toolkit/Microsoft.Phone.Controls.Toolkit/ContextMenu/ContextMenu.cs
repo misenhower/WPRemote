@@ -233,6 +233,16 @@ namespace Microsoft.Phone.Controls
             typeof(ContextMenu),
             new PropertyMetadata(true));
 
+        // Disable opening on hold
+        public static readonly DependencyProperty OpenOnHoldProperty =
+            DependencyProperty.Register("OpenOnHold", typeof(bool), typeof(ContextMenu), new PropertyMetadata(true));
+
+        public bool OpenOnHold
+        {
+            get { return (bool)GetValue(OpenOnHoldProperty); }
+            set { SetValue(OpenOnHoldProperty, value); }
+        }
+
         /// <summary>
         /// Gets or sets the vertical distance between the target origin and the popup alignment point.
         /// </summary>
@@ -710,7 +720,7 @@ namespace Microsoft.Phone.Controls
         {
             // Adding this to prevent opening the dialog if the ContextMenu control is disabled.
             // Without this, the dialog will open and all menu items would be grayed out.
-            if (!IsEnabled)
+            if (!IsEnabled || !OpenOnHold)
                 return;
 
             if (!IsOpen)
