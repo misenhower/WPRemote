@@ -625,6 +625,42 @@ namespace Komodex.DACP
                 // dacp.fullscreenenabled
                 FullScreenModeAvailable = nodes.GetBool("cafe");
 
+                // iTunes Radio
+                var caks = nodes.GetByte("caks");
+                if (caks == 1)
+                {
+                    IsCurrentlyPlayingiTunesRadio = true;
+                    IsiTunesRadioNextButtonEnabled = false;
+                }
+                else if (caks == 2)
+                {
+                    IsCurrentlyPlayingiTunesRadio = true;
+                    IsiTunesRadioNextButtonEnabled = true;
+                }
+                else
+                {
+                    IsCurrentlyPlayingiTunesRadio = false;
+                }
+
+                if (IsCurrentlyPlayingiTunesRadio)
+                {
+                    CurrentiTunesRadioStationName = nodes.GetString("ceNR");
+
+                    // "aelb" indicates whether the star button (iTunes Radio menu) should be enabled, but this only seems to be set to true
+                    // when connected via Home Sharing. This parameter is missing when an ad is playing, so use this to determine whether
+                    // the menu should be enabled.
+                    if (nodes.ContainsKey("aelb"))
+                        IsiTunesRadioMenuEnabled = true;
+                    else
+                        IsiTunesRadioMenuEnabled = false;
+                }
+
+                if (!nodes.ContainsKey("casc") || nodes.GetBool("casc") == true)
+                    IsPlayTransportBarEnabled = true;
+                else
+                    IsPlayTransportBarEnabled = false;
+
+
                 // If the song ID changed, refresh the album art
                 if (oldSongID != CurrentItemID)
                     PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");

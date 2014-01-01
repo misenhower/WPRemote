@@ -89,6 +89,9 @@ namespace Komodex.Remote.Controls
             {
                 case "PlayState":
                 case "CurrentSongName":
+                case "IsCurrentlyPlayingiTunesRadio":
+                case "IsiTunesRadioNextButtonEnabled":
+                case "IsiTunesRadioMenuEnabled":
                     UpdatePlayTransportButtons();
                     break;
             }
@@ -123,6 +126,20 @@ namespace Komodex.Remote.Controls
                 PlayPauseButton.ImageSource = _pauseIcon;
             else
                 PlayPauseButton.ImageSource = _playIcon;
+
+            // iTunes Radio
+            if (Server.IsCurrentlyPlayingiTunesRadio)
+            {
+                RewButton.Visibility = Visibility.Collapsed;
+                iTunesRadioButton.Visibility = Visibility.Visible;
+                FFButton.IsEnabled = !isStopped && Server.IsiTunesRadioNextButtonEnabled;
+                iTunesRadioButton.IsEnabled = Server.IsiTunesRadioMenuEnabled;
+            }
+            else
+            {
+                RewButton.Visibility = Visibility.Visible;
+                iTunesRadioButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void RewButton_Click(object sender, RoutedEventArgs e)
@@ -179,6 +196,15 @@ namespace Komodex.Remote.Controls
                 return;
 
             Server.SendPlayResumeCommand();
+        }
+
+        #endregion
+
+        #region iTunes Radio
+
+        private void iTunesRadioButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         #endregion

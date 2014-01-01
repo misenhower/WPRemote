@@ -87,32 +87,40 @@
     
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <StackPanel Orientation="Horizontal">
-            <appControls:IconRepeatButton
-                    x:Name="RewButton"
-                    Style="{StaticResource PlayTransportButton}"
-                    ImageSource="/Assets/PlayTransport/Rew.png"
-                    CacheMode="BitmapCache"
-                    Interval="-1"
-                    Click="RewButton_Click"
-                    RepeatBegin="RewButton_RepeatBegin"
-                    RepeatEnd="RewButton_RepeatEnd"
-                    />
             <controls:IconButton
-                    x:Name="PlayPauseButton"
-                    Style="{StaticResource PlayTransportButton}"
-                    CacheMode="BitmapCache"
-                    Click="PlayPauseButton_Click"
-                    />
+                x:Name="iTunesRadioButton"
+                Style="{StaticResource PlayTransportButton}"
+                ImageSource="/Assets/PlayTransport/iTunesRadio.png"
+                Visibility="Collapsed"
+                CacheMode="BitmapCache"
+                Click="iTunesRadioButton_Click"
+                />
             <appControls:IconRepeatButton
-                    x:Name="FFButton"
-                    Style="{StaticResource PlayTransportButton}"
-                    ImageSource="/Assets/PlayTransport/FF.png"
-                    CacheMode="BitmapCache"
-                    Interval="-1"
-                    Click="FFButton_Click"
-                    RepeatBegin="FFButton_RepeatBegin"
-                    RepeatEnd="FFButton_RepeatEnd"
-                    />
+                x:Name="RewButton"
+                Style="{StaticResource PlayTransportButton}"
+                ImageSource="/Assets/PlayTransport/Rew.png"
+                CacheMode="BitmapCache"
+                Interval="-1"
+                Click="RewButton_Click"
+                RepeatBegin="RewButton_RepeatBegin"
+                RepeatEnd="RewButton_RepeatEnd"
+                />
+            <controls:IconButton
+                x:Name="PlayPauseButton"
+                Style="{StaticResource PlayTransportButton}"
+                CacheMode="BitmapCache"
+                Click="PlayPauseButton_Click"
+                />
+            <appControls:IconRepeatButton
+                x:Name="FFButton"
+                Style="{StaticResource PlayTransportButton}"
+                ImageSource="/Assets/PlayTransport/FF.png"
+                CacheMode="BitmapCache"
+                Interval="-1"
+                Click="FFButton_Click"
+                RepeatBegin="FFButton_RepeatBegin"
+                RepeatEnd="FFButton_RepeatEnd"
+                />
         </StackPanel>
     </Grid>
 </UserControl>

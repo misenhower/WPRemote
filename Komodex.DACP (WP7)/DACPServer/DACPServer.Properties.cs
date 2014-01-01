@@ -547,6 +547,19 @@ namespace Komodex.DACP
             SendTrackTimePropertyChanged();
         }
 
+        private bool _isPlayTransportBarEnabled;
+        public bool IsPlayTransportBarEnabled
+        {
+            get { return _isPlayTransportBarEnabled; }
+            private set
+            {
+                if (_isPlayTransportBarEnabled == value)
+                    return;
+                _isPlayTransportBarEnabled = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsPlayTransportBarEnabled");
+            }
+        }
+
         #endregion
 
         #region Media Kind
@@ -769,6 +782,62 @@ namespace Komodex.DACP
 
                 _fullScreenModeActive = value;
                 PropertyChanged.RaiseOnUIThread(this, "FullScreenModeActive");
+            }
+        }
+
+        #endregion
+
+        #region iTunes Radio
+
+        private bool _isCurrentlyPlayingiTunesRadio;
+        public bool IsCurrentlyPlayingiTunesRadio
+        {
+            get { return _isCurrentlyPlayingiTunesRadio; }
+            private set
+            {
+                if (_isCurrentlyPlayingiTunesRadio == value)
+                    return;
+                _isCurrentlyPlayingiTunesRadio = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsCurrentlyPlayingiTunesRadio");
+            }
+        }
+
+        private bool _isiTunesRadioNextButtonEnabled;
+        public bool IsiTunesRadioNextButtonEnabled
+        {
+            get { return _isiTunesRadioNextButtonEnabled; }
+            private set
+            {
+                if (_isiTunesRadioNextButtonEnabled == value)
+                    return;
+                _isiTunesRadioNextButtonEnabled = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsiTunesRadioNextButtonEnabled");
+            }
+        }
+
+        private bool _isiTunesRadioMenuEnabled;
+        public bool IsiTunesRadioMenuEnabled
+        {
+            get { return _isiTunesRadioMenuEnabled; }
+            private set
+            {
+                if (_isiTunesRadioMenuEnabled == value)
+                    return;
+                _isiTunesRadioMenuEnabled = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsiTunesRadioMenuEnabled");
+            }
+        }
+
+        private string _currentiTunesRadioStationName;
+        public string CurrentiTunesRadioStationName
+        {
+            get { return _currentiTunesRadioStationName; }
+            private set
+            {
+                if (_currentiTunesRadioStationName == value)
+                    return;
+                _currentiTunesRadioStationName = value;
+                PropertyChanged.RaiseOnUIThread(this, "CurrentiTunesRadioStationName");
             }
         }
 
