@@ -41,6 +41,18 @@ namespace Komodex.DACP.Databases
             }
         }
 
+        public bool HasStations
+        {
+            get
+            {
+                if (Stations != null && Stations.Count > 0)
+                    return true;
+                if (FeaturedStations != null && FeaturedStations.Count > 0)
+                    return true;
+                return false;
+            }
+        }
+
         public async Task<bool> RequestStationsAsync()
         {
             DACPRequest request = new DACPRequest("/databases/{0}/containers", ID);

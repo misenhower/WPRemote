@@ -427,6 +427,8 @@ namespace Komodex.DACP
                             continue;
 
                         iTunesRadioDatabase = (iTunesRadioDatabase)db;
+                        // Attempt to load the stations asynchronously to determine whether iTunes Radio is enabled.
+                        var task = iTunesRadioDatabase.RequestStationsAsync();
                         continue;
                     }
                 }
