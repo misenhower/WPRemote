@@ -316,9 +316,17 @@ namespace Komodex.DACP
                 {
                     Int64 ceSX = nodes.GetLong("ceSX");
 
-                    // Supports Play Queue (indicated by bit 0 of ceSX)
-                    if ((ceSX & (1 << 0)) == (1 << 0))
+                    // Bit 0: Supports Play Queue
+                    if ((ceSX & (1 << 0)) != 0)
                         SupportsPlayQueue = true;
+
+                    // Bit 1: iTunes Radio? Appeared in iTunes 11.1.2 with the iTunes Radio DB.
+                    // Apple's Remote for iOS doesn't seem to use this bit to determine whether iTunes Radio is available.
+                    // Instead, it looks for an iTunes Radio database and checks whether it has any containers.
+
+                    // Bit 2: Genius Shuffle Enabled/Available
+                    if ((ceSX & (1 << 2)) != 0)
+                        SupportsGeniusShuffle = true;
                 }
             }
             catch (Exception e)

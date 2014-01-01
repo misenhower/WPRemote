@@ -150,6 +150,19 @@ namespace Komodex.DACP
             }
         }
 
+        private bool _supportsGeniusShuffle;
+        public bool SupportsGeniusShuffle
+        {
+            get { return _supportsGeniusShuffle; }
+            private set
+            {
+                if (_supportsGeniusShuffle == value)
+                    return;
+                _supportsGeniusShuffle = value;
+                PropertyChanged.RaiseOnUIThread(this, "SupportsGeniusShuffle");
+            }
+        }
+
         #endregion
 
         #region Databases
