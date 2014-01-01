@@ -1177,7 +1177,5 @@ namespace Komodex.DACP
 
         #endregion
 
-
-        public string DACPQuery { get; set; }
     }
 }
