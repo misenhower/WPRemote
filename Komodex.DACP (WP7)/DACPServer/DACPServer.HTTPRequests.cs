@@ -661,9 +661,9 @@ namespace Komodex.DACP
                 }
 
                 if (!nodes.ContainsKey("casc") || nodes.GetBool("casc") == true)
-                    IsPlayTransportBarEnabled = true;
+                    IsPlayPositionBarEnabled = true;
                 else
-                    IsPlayTransportBarEnabled = false;
+                    IsPlayPositionBarEnabled = false;
 
 
                 // If the song ID changed, refresh the album art

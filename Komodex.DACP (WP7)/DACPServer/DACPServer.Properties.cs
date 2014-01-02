@@ -547,16 +547,16 @@ namespace Komodex.DACP
             SendTrackTimePropertyChanged();
         }
 
-        private bool _isPlayTransportBarEnabled;
-        public bool IsPlayTransportBarEnabled
+        private bool _isPlayPositionBarEnabled;
+        public bool IsPlayPositionBarEnabled
         {
-            get { return _isPlayTransportBarEnabled; }
+            get { return _isPlayPositionBarEnabled; }
             private set
             {
-                if (_isPlayTransportBarEnabled == value)
+                if (_isPlayPositionBarEnabled == value)
                     return;
-                _isPlayTransportBarEnabled = value;
-                PropertyChanged.RaiseOnUIThread(this, "IsPlayTransportBarEnabled");
+                _isPlayPositionBarEnabled = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsPlayPositionBarEnabled");
             }
         }
 
