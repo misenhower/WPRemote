@@ -1177,5 +1177,39 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region iTunes Radio
+
+        public async Task<bool> SendiTunesRadioPlayMoreLikeThisAsync()
+        {
+            if (!IsCurrentlyPlayingiTunesRadio)
+                return false;
+
+            DACPRequest request = new DACPRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters["com.apple.itunes.liked-state"] = "2";
+            request.QueryParameters["database-spec"] = DACPQueryPredicate.Is("dmap.itemid", "0x" + CurrentDatabaseID.ToString("x")).ToString();
+            request.QueryParameters["item-spec"] = DACPQueryPredicate.Is("dmap.itemid", "0x" + CurrentItemID.ToString("x")).ToString();
+
+            try { await SubmitRequestAsync(request); }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> SendiTunesRadioNeverPlayThisSongAsync()
+        {
+            if (!IsCurrentlyPlayingiTunesRadio)
+                return false;
+
+            DACPRequest request = new DACPRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters["com.apple.itunes.liked-state"] = "3";
+            request.QueryParameters["database-spec"] = DACPQueryPredicate.Is("dmap.itemid", "0x" + CurrentDatabaseID.ToString("x")).ToString();
+            request.QueryParameters["item-spec"] = DACPQueryPredicate.Is("dmap.itemid", "0x" + CurrentItemID.ToString("x")).ToString();
+
+            try { await SubmitRequestAsync(request); }
+            catch { return false; }
+            return true;
+        }
+
+        #endregion
+
     }
 }

@@ -780,4 +780,10 @@
   <data name="BrowseiTunesRadioStations" xml:space="preserve">
     <value>stations</value>
   </data>
+  <data name="iTunesRadioNeverPlayThisSong" xml:space="preserve">
+    <value>never play this song</value>
+  </data>
+  <data name="iTunesRadioPlayMoreLikeThis" xml:space="preserve">
+    <value>play more like this</value>
+  </data>
 </root>

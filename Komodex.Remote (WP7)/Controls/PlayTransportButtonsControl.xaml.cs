@@ -204,7 +204,24 @@ namespace Komodex.Remote.Controls
 
         private void iTunesRadioButton_Click(object sender, RoutedEventArgs e)
         {
+            iTunesRadioContextMenu.IsOpen = true;
+        }
 
+
+        private async void iTunesRadioPlayMoreLikeThisMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (Server == null || !Server.IsConnected)
+                return;
+
+            await Server.SendiTunesRadioPlayMoreLikeThisAsync();
+        }
+
+        private async void iTunesRadioNeverPlayThisSongMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (Server == null || !Server.IsConnected)
+                return;
+
+            await Server.SendiTunesRadioNeverPlayThisSongAsync();
         }
 
         #endregion

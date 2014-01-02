@@ -997,6 +997,24 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to never play this song.
+        /// </summary>
+        public static string iTunesRadioNeverPlayThisSong {
+            get {
+                return ResourceManager.GetString("iTunesRadioNeverPlayThisSong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to play more like this.
+        /// </summary>
+        public static string iTunesRadioPlayMoreLikeThis {
+            get {
+                return ResourceManager.GetString("iTunesRadioPlayMoreLikeThis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to albums.
         /// </summary>
         public static string LibraryAlbumsPivotItem {
