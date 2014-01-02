@@ -786,4 +786,7 @@
   <data name="iTunesRadioPlayMoreLikeThis" xml:space="preserve">
     <value>Ähnliche Titel spielen</value>
   </data>
+  <data name="GeniusShuffleMenuItem" xml:space="preserve">
+    <value>Zufällige Genius-Wiedergabe</value>
+  </data>
 </root>

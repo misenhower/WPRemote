@@ -952,6 +952,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to genius shuffle.
+        /// </summary>
+        public static string GeniusShuffleMenuItem {
+            get {
+                return ResourceManager.GetString("GeniusShuffleMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No albums were found for this genre..
         /// </summary>
         public static string GenreNoAlbumsFound {

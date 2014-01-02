@@ -1221,5 +1221,23 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Genius Shuffle
+
+        public async Task<bool> SendGeniusShuffleCommandAsync()
+        {
+            if (!SupportsGeniusShuffle)
+                return false;
+
+            DACPRequest request = new DACPRequest("/ctrl-int/1/genius-shuffle");
+            // Apple's Remote seems to always set "span" to "$Q"
+            request.QueryParameters["span"] = "$Q";
+
+            try { await SubmitRequestAsync(request); }
+            catch { return false; }
+            return true;
+        }
+
+        #endregion
+
     }
 }

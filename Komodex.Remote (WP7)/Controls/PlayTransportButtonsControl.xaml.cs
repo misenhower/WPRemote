@@ -238,9 +238,12 @@ namespace Komodex.Remote.Controls
 
         #region Genius Shuffle
 
-        private void GeniusShuffleButton_Click(object sender, RoutedEventArgs e)
+        private async void GeniusShuffleButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Server == null || !Server.IsConnected)
+                return;
 
+            await Server.SendGeniusShuffleCommandAsync();
         }
 
         #endregion

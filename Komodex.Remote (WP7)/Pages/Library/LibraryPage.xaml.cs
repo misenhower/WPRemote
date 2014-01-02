@@ -36,13 +36,8 @@ namespace Komodex.Remote.Pages.Library
             AddAppBarNowPlayingButton();
             AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), () => NavigationManager.OpenSearchPage(CurrentDatabase));
             AddApplicationBarIconButton(LocalizedStrings.MoreAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Ellipsis.png"), AppBarMoreButton_Click);
-
-            // Shuffle All Songs
-            AddApplicationBarMenuItem(LocalizedStrings.ShuffleAllSongsMenuItem, AppBarShuffleSongsButton_Click);
-
-            // Choose Library
-            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, NavigationManager.OpenChooseLibraryPage);
         }
+
         
         public object ArtistsViewSource { get; private set; }
         public object AlbumsViewSource { get; private set; }
@@ -60,6 +55,8 @@ namespace Komodex.Remote.Pages.Library
                 UpdateCurrentContainer();
                 ClearProgressIndicator();
             }
+
+            RebuildApplicationBarMenuItems();
         }
 
         protected override bool ShouldShowContinuumTransition(Clarity.Phone.Controls.Animations.AnimationType animationType, Uri toOrFrom)
@@ -153,9 +150,35 @@ namespace Komodex.Remote.Pages.Library
             ShowDialog(new Komodex.Remote.LibraryPages.LibraryViewDialog(CurrentDatabase));
         }
 
+        protected void RebuildApplicationBarMenuItems()
+        {
+            if (ApplicationBar == null)
+                return;
+
+            ApplicationBar.MenuItems.Clear();
+
+            // Shuffle All Songs
+            AddApplicationBarMenuItem(LocalizedStrings.ShuffleAllSongsMenuItem, AppBarShuffleSongsButton_Click);
+
+            // Genius Shuffle
+            if (CurrentServer != null && CurrentDatabase != null && CurrentDatabase == CurrentServer.MainDatabase && CurrentServer.SupportsGeniusShuffle)
+                AddApplicationBarMenuItem(LocalizedStrings.GeniusShuffleMenuItem, AppBarGeniusShuffleButton_Click);
+
+            // Choose Library
+            AddApplicationBarMenuItem(LocalizedStrings.ChooseLibraryMenuItem, NavigationManager.OpenChooseLibraryPage);
+        }
+
         private void AppBarShuffleSongsButton_Click()
         {
             RemoteUtility.HandleLibraryPlayTask(CurrentContainer.ShuffleAllSongsAsync());
+        }
+
+        private void AppBarGeniusShuffleButton_Click()
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            RemoteUtility.HandleLibraryPlayTask(CurrentServer.SendGeniusShuffleCommandAsync());
         }
 
     }
