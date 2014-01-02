@@ -653,6 +653,11 @@ namespace Komodex.DACP
                         IsiTunesRadioMenuEnabled = true;
                     else
                         IsiTunesRadioMenuEnabled = false;
+
+                    if (nodes.GetByte("aels") == 2)
+                        IsiTunesRadioSongFavorited = true;
+                    else
+                        IsiTunesRadioSongFavorited = false;
                 }
 
                 if (!nodes.ContainsKey("casc") || nodes.GetBool("casc") == true)
@@ -1183,6 +1188,8 @@ namespace Komodex.DACP
         {
             if (!IsCurrentlyPlayingiTunesRadio)
                 return false;
+
+            IsiTunesRadioSongFavorited = true;
 
             DACPRequest request = new DACPRequest("/ctrl-int/1/setproperty");
             request.QueryParameters["com.apple.itunes.liked-state"] = "2";

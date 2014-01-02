@@ -841,6 +841,19 @@ namespace Komodex.DACP
             }
         }
 
+        private bool _isiTunesRadioSongFavorited;
+        public bool IsiTunesRadioSongFavorited
+        {
+            get { return _isiTunesRadioSongFavorited; }
+            private set
+            {
+                if (_isiTunesRadioSongFavorited == value)
+                    return;
+                _isiTunesRadioSongFavorited = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsiTunesRadioSongFavorited");
+            }
+        }
+
         #endregion
 
         #region INotifyPropertyChanged Members
