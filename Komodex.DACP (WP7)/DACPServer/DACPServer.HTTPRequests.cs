@@ -665,6 +665,9 @@ namespace Komodex.DACP
                 else
                     IsPlayPositionBarEnabled = false;
 
+                // Genius Shuffle
+                IsCurrentlyPlayingGeniusShuffle = nodes.GetBool("ceGs");
+                // There are two other nodes related to Genius Shuffle, "ceGS" and "aeGs" (currently unknown)
 
                 // If the song ID changed, refresh the album art
                 if (oldSongID != CurrentItemID)

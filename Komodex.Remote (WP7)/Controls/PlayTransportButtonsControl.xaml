@@ -109,6 +109,14 @@
                 CacheMode="BitmapCache"
                 Click="iTunesRadioButton_Click"
                 />
+            <controls:IconButton
+                x:Name="GeniusShuffleButton"
+                Style="{StaticResource PlayTransportButton}"
+                ImageSource="/Assets/PlayTransport/GeniusShuffle.png"
+                Visibility="Collapsed"
+                CacheMode="BitmapCache"
+                Click="GeniusShuffleButton_Click"
+                />
             <appControls:IconRepeatButton
                 x:Name="RewButton"
                 Style="{StaticResource PlayTransportButton}"

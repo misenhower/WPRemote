@@ -856,6 +856,23 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Genius Shuffle
+
+        private bool _isCurrentlyPlayingGeniusShuffle;
+        public bool IsCurrentlyPlayingGeniusShuffle
+        {
+            get { return _isCurrentlyPlayingGeniusShuffle; }
+            private set
+            {
+                if (_isCurrentlyPlayingGeniusShuffle == value)
+                    return;
+                _isCurrentlyPlayingGeniusShuffle = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsCurrentlyPlayingGeniusShuffle");
+            }
+        }
+
+        #endregion
+
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -92,6 +92,8 @@ namespace Komodex.Remote.Controls
                 case "IsCurrentlyPlayingiTunesRadio":
                 case "IsiTunesRadioNextButtonEnabled":
                 case "IsiTunesRadioMenuEnabled":
+                case "IsiTunesRadioSongFavorited":
+                case "IsCurrentlyPlayingGeniusShuffle":
                     UpdatePlayTransportButtons();
                     break;
             }
@@ -132,13 +134,21 @@ namespace Komodex.Remote.Controls
             {
                 RewButton.Visibility = Visibility.Collapsed;
                 iTunesRadioButton.Visibility = Visibility.Visible;
+                GeniusShuffleButton.Visibility = Visibility.Collapsed;
                 FFButton.IsEnabled = !isStopped && Server.IsiTunesRadioNextButtonEnabled;
                 iTunesRadioButton.IsEnabled = Server.IsiTunesRadioMenuEnabled;
+            }
+            else if (Server.IsCurrentlyPlayingGeniusShuffle)
+            {
+                RewButton.Visibility = Visibility.Collapsed;
+                iTunesRadioButton.Visibility = Visibility.Collapsed;
+                GeniusShuffleButton.Visibility = Visibility.Visible;
             }
             else
             {
                 RewButton.Visibility = Visibility.Visible;
                 iTunesRadioButton.Visibility = Visibility.Collapsed;
+                GeniusShuffleButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -226,6 +236,14 @@ namespace Komodex.Remote.Controls
 
         #endregion
 
+        #region Genius Shuffle
+
+        private void GeniusShuffleButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
     }
 
 }
