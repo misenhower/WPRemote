@@ -558,6 +558,12 @@
     <Content Include="..\Assets\PlayTransport\FF.WVGA.png">
       <Link>Assets\PlayTransport\FF.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\PlayTransport\GeniusShuffle.Pressed.WVGA.png">
+      <Link>Assets\PlayTransport\GeniusShuffle.Pressed.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\GeniusShuffle.WVGA.png">
+      <Link>Assets\PlayTransport\GeniusShuffle.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\PlayTransport\iTunesRadio.Pressed.WVGA.png">
       <Link>Assets\PlayTransport\iTunesRadio.Pressed.WVGA.png</Link>
     </Content>

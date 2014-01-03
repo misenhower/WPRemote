@@ -737,6 +737,24 @@
     <Content Include="..\Assets\PlayTransport\FF.WXGA.png">
       <Link>Assets\PlayTransport\FF.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\PlayTransport\GeniusShuffle.720p.png">
+      <Link>Assets\PlayTransport\GeniusShuffle.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\GeniusShuffle.Pressed.720p.png">
+      <Link>Assets\PlayTransport\GeniusShuffle.Pressed.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\GeniusShuffle.Pressed.WVGA.png">
+      <Link>Assets\PlayTransport\GeniusShuffle.Pressed.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\GeniusShuffle.Pressed.WXGA.png">
+      <Link>Assets\PlayTransport\GeniusShuffle.Pressed.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\GeniusShuffle.WVGA.png">
+      <Link>Assets\PlayTransport\GeniusShuffle.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\PlayTransport\GeniusShuffle.WXGA.png">
+      <Link>Assets\PlayTransport\GeniusShuffle.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\PlayTransport\iTunesRadio.720p.png">
       <Link>Assets\PlayTransport\iTunesRadio.720p.png</Link>
     </Content>
