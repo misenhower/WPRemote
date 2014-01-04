@@ -149,7 +149,7 @@
                         />
                 
                 <StackPanel Grid.Column="1" Margin="-12,0,0,-12" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                    <Button Style="{StaticResource SimpleButton}" Click="ShuffleButton_Click">
+                    <Button Style="{StaticResource SimpleButton}" Click="ShuffleButton_Click" Visibility="{Binding IsShuffleAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <controls:MultiResolutionImageMask
                             x:Name="ShuffleImage"
                             Source="/Assets/Icons/Shuffle.png"
@@ -157,7 +157,7 @@
                             Width="48" Height="48"
                             />
                     </Button>
-                    <Button Style="{StaticResource SimpleButton}" Click="RepeatButton_Click">
+                    <Button Style="{StaticResource SimpleButton}" Click="RepeatButton_Click" Visibility="{Binding IsRepeatAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <controls:MultiResolutionImageMask
                             x:Name="RepeatImage"
                             Source="/Assets/Icons/Repeat.png"

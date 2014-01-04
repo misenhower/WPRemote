@@ -623,6 +623,19 @@ namespace Komodex.DACP
             get { return (PlayState == PlayStates.Playing); }
         }
 
+        private bool _isShuffleAvailable;
+        public bool IsShuffleAvailable
+        {
+            get { return _isShuffleAvailable; }
+            private set
+            {
+                if (_isShuffleAvailable == value)
+                    return;
+                _isShuffleAvailable = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsShuffleAvailable");
+            }
+        }
+
         private bool _ShuffleState = false;
         public bool ShuffleState
         {
@@ -634,6 +647,37 @@ namespace Komodex.DACP
                 _ShuffleState = value;
                 PropertyChanged.RaiseOnUIThread(this, "ShuffleState");
             }
+        }
+
+        private bool _isRepeatOneAvailable;
+        public bool IsRepeatOneAvailable
+        {
+            get { return _isRepeatOneAvailable; }
+            private set
+            {
+                if (_isRepeatOneAvailable == value)
+                    return;
+                _isRepeatOneAvailable = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsRepeatOneAvailable", "IsRepeatAvailable");
+            }
+        }
+
+        private bool _isRepeatAllAvailable;
+        public bool IsRepeatAllAvailable
+        {
+            get { return _isRepeatAllAvailable; }
+            private set
+            {
+                if (_isRepeatAllAvailable == value)
+                    return;
+                _isRepeatAllAvailable = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsRepeatAllAvailable", "IsRepeatAvailable");
+            }
+        }
+
+        public bool IsRepeatAvailable
+        {
+            get { return IsRepeatOneAvailable || IsRepeatAllAvailable; }
         }
 
         private RepeatStates _RepeatState = RepeatStates.None;

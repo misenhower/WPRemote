@@ -606,8 +606,18 @@ namespace Komodex.DACP
                 CurrentAlbum = nodes.GetString("canl");
                 CurrentAlbumPersistentID = (UInt64)nodes.GetLong("asai");
                 PlayState = (PlayStates)nodes.GetByte("caps");
+
+                // Shuffle
+                int caas = nodes.GetInt("caas");
+                IsShuffleAvailable = (caas & (1 << 1)) != 0;
                 ShuffleState = nodes.GetBool("cash");
+
+                // Repeat
+                int caar = nodes.GetInt("caar");
+                IsRepeatOneAvailable = (caar & (1 << 1)) != 0;
+                IsRepeatAllAvailable = (caar & (1 << 2)) != 0;
                 RepeatState = (RepeatStates)nodes.GetByte("carp");
+
                 CurrentMediaKind = nodes.GetInt("cmmk");
                 ShowUserRating = nodes.GetBool("casu");
 
