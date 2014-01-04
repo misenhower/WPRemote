@@ -49,6 +49,7 @@ namespace Komodex.Remote.Pages
 
             HideAlbumArtOverlay(false);
 
+            UpdateLibraryTitleText();
             UpdateControlEnabledStates();
             UpdatePlayModeButtons();
 
@@ -129,6 +130,12 @@ namespace Komodex.Remote.Pages
                 case "VisualizerAvailable":
                 case "VisualizerActive":
                     UpdateVisualizerButtons();
+                    break;
+
+                case "CurrentDatabaseID":
+                case "IsCurrentlyPlayingiTunesRadio":
+                case "CurrentiTunesRadioStationName":
+                    UpdateLibraryTitleText();
                     break;
             }
         }
@@ -223,11 +230,6 @@ namespace Komodex.Remote.Pages
         #endregion
 
         #region Navigation Buttons
-
-        private void LibraryButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationManager.OpenLibraryPage(CurrentServer.MainDatabase);
-        }
 
         private async void ArtistButton_Click(object sender, RoutedEventArgs e)
         {
@@ -421,6 +423,96 @@ namespace Komodex.Remote.Pages
                 _currentArtistBackgroundImageArtistName = null;
 
             ArtistBackgroundImage.SetImageSource(ArtistBackgroundImageManager.CurrentArtistImageSource, useTransitions);
+        }
+
+        #endregion
+
+        #region Library Title Text
+
+        public static readonly DependencyProperty LibraryTitleTextProperty =
+            DependencyProperty.Register("LibraryTitleText", typeof(string), typeof(NowPlayingPage), new PropertyMetadata(null));
+
+        public string LibraryTitleText
+        {
+            get { return (string)GetValue(LibraryTitleTextProperty); }
+            set { SetValue(LibraryTitleTextProperty, value); }
+        }
+
+        public static readonly DependencyProperty SharedDatabaseVisibilityProperty =
+            DependencyProperty.Register("SharedDatabaseVisibility", typeof(Visibility), typeof(NowPlayingPage), new PropertyMetadata(Visibility.Collapsed));
+
+        public Visibility SharedDatabaseVisibility
+        {
+            get { return (Visibility)GetValue(SharedDatabaseVisibilityProperty); }
+            set { SetValue(SharedDatabaseVisibilityProperty, value); }
+        }
+
+        public static readonly DependencyProperty PageTitleTextVisibilityProperty =
+            DependencyProperty.Register("PageTitleTextVisibility", typeof(Visibility), typeof(NowPlayingPage), new PropertyMetadata(Visibility.Visible));
+
+        public Visibility PageTitleTextVisibility
+        {
+            get { return (Visibility)GetValue(PageTitleTextVisibilityProperty); }
+            set { SetValue(PageTitleTextVisibilityProperty, value); }
+        }
+
+        private void UpdateLibraryTitleText()
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+            {
+                LibraryTitleText = null;
+                PageTitleTextVisibility = Visibility.Visible;
+                SharedDatabaseVisibility = Visibility.Collapsed;
+                return;
+            }
+
+            if (CurrentServer.IsCurrentlyPlayingiTunesRadio)
+            {
+                LibraryTitleText = CurrentServer.CurrentiTunesRadioStationName;
+                PageTitleTextVisibility = Visibility.Visible;
+                SharedDatabaseVisibility = Visibility.Collapsed;
+                return;
+            }
+
+            if (CurrentServer.CurrentDatabaseID != CurrentServer.MainDatabase.ID)
+            {
+                var sharedDB = CurrentServer.SharedDatabases.FirstOrDefault(db => db.ID == CurrentServer.CurrentDatabaseID);
+                if (sharedDB != null)
+                {
+                    LibraryTitleText = sharedDB.Name;
+                    PageTitleTextVisibility = Visibility.Collapsed;
+                    SharedDatabaseVisibility = Visibility.Visible;
+                    return;
+                }
+            }
+
+            LibraryTitleText = CurrentServer.MainDatabase.Name;
+            PageTitleTextVisibility = Visibility.Visible;
+            SharedDatabaseVisibility = Visibility.Collapsed;
+        }
+
+        private void LibraryButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            if (CurrentServer.IsCurrentlyPlayingiTunesRadio)
+            {
+                NavigationManager.OpeniTunesRadioStationsPage(CurrentServer.iTunesRadioDatabase);
+                return;
+            }
+
+            if (CurrentServer.CurrentDatabaseID != CurrentServer.MainDatabase.ID)
+            {
+                var sharedDB = CurrentServer.SharedDatabases.FirstOrDefault(db => db.ID == CurrentServer.CurrentDatabaseID);
+                if (sharedDB != null)
+                {
+                    NavigationManager.OpenLibraryPage(sharedDB);
+                    return;
+                }
+            }
+
+            NavigationManager.OpenLibraryPage(CurrentServer.MainDatabase);
         }
 
         #endregion
