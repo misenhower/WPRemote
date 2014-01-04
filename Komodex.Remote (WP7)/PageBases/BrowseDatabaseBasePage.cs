@@ -162,20 +162,7 @@ namespace Komodex.Remote
 
         protected virtual DACPDatabase GetDatabase(DACPServer server)
         {
-            if (server.MainDatabase.ID == _databaseID)
-                return server.MainDatabase;
-
-            if (server.InternetRadioDatabase != null && server.InternetRadioDatabase.ID == _databaseID)
-                return server.InternetRadioDatabase;
-
-            if (server.iTunesRadioDatabase != null && server.iTunesRadioDatabase.ID == _databaseID)
-                return server.iTunesRadioDatabase;
-
-            var sharedDB = server.SharedDatabases.FirstOrDefault(db => db.ID == _databaseID);
-            if (sharedDB != null)
-                return sharedDB;
-
-            return null;
+            return server.GetDatabaseByID(_databaseID);
         }
 
         #endregion

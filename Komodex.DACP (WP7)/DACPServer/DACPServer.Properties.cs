@@ -212,6 +212,25 @@ namespace Komodex.DACP
             get { return _sharedDatabases; }
         }
 
+        public DACPDatabase GetDatabaseByID(int id)
+        {
+            if (MainDatabase.ID == id)
+                return MainDatabase;
+
+            if (InternetRadioDatabase != null && InternetRadioDatabase.ID == id)
+                return InternetRadioDatabase;
+
+            if (iTunesRadioDatabase != null && iTunesRadioDatabase.ID == id)
+                return iTunesRadioDatabase;
+
+            return SharedDatabases.FirstOrDefault(db => db.ID == id);
+        }
+
+        public DACPDatabase CurrentDatabase
+        {
+            get { return GetDatabaseByID(CurrentDatabaseID); }
+        }
+
         #endregion
 
         #region Current Song
