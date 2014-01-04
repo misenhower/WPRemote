@@ -73,6 +73,8 @@ namespace Komodex.DACP
             response.EnsureSuccessStatusCode();
             byte[] data = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
+            _log.Info("Received response for: " + uri);
+
             // Get the content of the first node
             IEnumerable<DACPNode> nodes = null;
             if (data.Length > 0)
@@ -837,6 +839,13 @@ namespace Komodex.DACP
         {
             // Make sure we have all the values we need
             if (CurrentDatabaseID == 0 || CurrentContainerID == 0 || CurrentItemID == 0 || CurrentAlbumPersistentID == 0)
+            {
+                ClearCurrentSongUserRating();
+                return true;
+            }
+
+            // Make sure this is for the main DB
+            if (!ShowUserRating || MainDatabase == null || CurrentDatabaseID != MainDatabase.ID)
             {
                 ClearCurrentSongUserRating();
                 return true;

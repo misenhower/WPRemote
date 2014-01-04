@@ -121,17 +121,22 @@ namespace Komodex.DACP
         {
             bool success;
 
+            _log.Info("Connecting to server...");
+
             // Server info
+            _log.Info("Connecting: Server info");
             success = await GetServerInfoAsync().ConfigureAwait(false);
             if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
             // Server capabilities
+            _log.Info("Connecting: Server capabilities");
             success = await GetServerCapabilitiesAsync().ConfigureAwait(false);
             if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
             // Login
+            _log.Info("Connecting: Login");
             success = await LoginAsync().ConfigureAwait(false);
             if (cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
@@ -139,19 +144,24 @@ namespace Komodex.DACP
                 return ConnectionResult.InvalidPIN;
 
             // Databases
+            _log.Info("Connecting: Databases");
             success = await GetDatabasesAsync().ConfigureAwait(false);
             if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
-            // Library version
+            // Library update version
+            _log.Info("Connecting: Library update version");
             success = await GetFirstLibraryUpdateAsync().ConfigureAwait(false);
             if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
             // Play status
+            _log.Info("Connecting: Initial play status");
             success = await GetFirstPlayStatusUpdateAsync().ConfigureAwait(false);
             if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
+
+            _log.Info("Connecting: Complete!");
 
             IsConnected = true;
 
