@@ -259,7 +259,7 @@ namespace Komodex.Remote.Marketplace
 
                         _log.Info("Finished downloading background image for ID '{0}'", artistID);
                     }
-                    catch (HttpRequestException)
+                    catch
                     {
                         _log.Error("Error downloading artist background image for ID '{0}'", artistID);
                         return null;
