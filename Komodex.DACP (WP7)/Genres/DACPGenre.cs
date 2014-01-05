@@ -96,7 +96,7 @@ namespace Komodex.DACP.Genres
             if (Server.SupportsPlayQueue)
             {
                 request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", item.ID), mode, "name");
-                request.QueryParameters["queuefilter"] = string.Format("genre:{0}", DACPUtility.EscapeSingleQuotes(Name));
+                request.QueryParameters["queuefilter"] = string.Format("genre:{0}", Uri.EscapeDataString(DACPUtility.EscapeSingleQuotes(Name)));
             }
             else
             {

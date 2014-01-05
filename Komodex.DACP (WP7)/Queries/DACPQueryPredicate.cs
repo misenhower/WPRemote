@@ -38,7 +38,7 @@ namespace Komodex.DACP.Queries
 
         public override string ToString()
         {
-            return "'" + _key + _operator + DACPUtility.EscapeSingleQuotes(_value) + "'";
+            return "'" + _key + _operator + Uri.EscapeDataString(DACPUtility.EscapeSingleQuotes(_value)) + "'";
         }
     }
 }

@@ -35,7 +35,10 @@ namespace Komodex.DACP
         {
             if (QueryParameters.Count == 0)
                 return URIBase;
-            return URIBase + "?" + string.Join("&", QueryParameters.Select(kvp => Uri.EscapeDataString(kvp.Key) + "=" + Uri.EscapeUriString(kvp.Value)));
+
+            // Don't escape values here to avoid issues with DACP queries
+            // Values need to be escaped before being placed in the QueryParameters dictionary.
+            return URIBase + "?" + string.Join("&", QueryParameters.Select(kvp => kvp.Key + "=" + kvp.Value));
         }
     }
 }
