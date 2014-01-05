@@ -77,13 +77,13 @@ namespace Komodex.Remote.Pages.Browse.Music
 
             if (item is Song)
             {
-                RemoteUtility.HandleLibraryPlayTask(CurrentGroup.PlaySong((Song)item, mode));
+                RemoteUtility.HandleLibraryQueueTask(CurrentGroup.PlaySong((Song)item, mode));
                 return;
             }
 
             if (item is Album)
             {
-                RemoteUtility.HandleLibraryPlayTask(((Album)item).Play(mode));
+                RemoteUtility.HandleLibraryQueueTask(((Album)item).Play(mode));
                 return;
             }
         }

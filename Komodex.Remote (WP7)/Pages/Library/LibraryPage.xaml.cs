@@ -119,25 +119,25 @@ namespace Komodex.Remote.Pages.Library
 
             if (item is Artist)
             {
-                RemoteUtility.HandleLibraryPlayTask(((Artist)item).Play(mode));
+                RemoteUtility.HandleLibraryQueueTask(((Artist)item).Play(mode));
                 return;
             }
 
             if (item is Album)
             {
-                RemoteUtility.HandleLibraryPlayTask(((Album)item).Play(mode));
+                RemoteUtility.HandleLibraryQueueTask(((Album)item).Play(mode));
                 return;
             }
 
             if (item is DACPGenre)
             {
-                RemoteUtility.HandleLibraryPlayTask(((DACPGenre)item).Play(mode));
+                RemoteUtility.HandleLibraryQueueTask(((DACPGenre)item).Play(mode));
                 return;
             }
 
             if (item is Playlist)
             {
-                RemoteUtility.HandleLibraryPlayTask(((Playlist)item).Play(mode));
+                RemoteUtility.HandleLibraryQueueTask(((Playlist)item).Play(mode));
                 return;
             }
         }

@@ -83,7 +83,7 @@ namespace Komodex.Remote.Pages.Browse.Playlists
 
             if (menuItem.DataContext is DACPItem)
             {
-                RemoteUtility.HandleLibraryPlayTask(CurrentContainer.PlayItem((DACPItem)menuItem.DataContext, mode));
+                RemoteUtility.HandleLibraryQueueTask(CurrentContainer.PlayItem((DACPItem)menuItem.DataContext, mode));
             }
         }
 

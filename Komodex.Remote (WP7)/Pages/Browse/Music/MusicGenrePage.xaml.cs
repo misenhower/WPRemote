@@ -103,19 +103,19 @@ namespace Komodex.Remote.Pages.Browse.Music
 
             if (item is Artist)
             {
-                RemoteUtility.HandleLibraryPlayTask(((Artist)item).Play(mode));
+                RemoteUtility.HandleLibraryQueueTask(((Artist)item).Play(mode));
                 return;
             }
 
             if (item is Album)
             {
-                RemoteUtility.HandleLibraryPlayTask(((Album)item).Play(mode));
+                RemoteUtility.HandleLibraryQueueTask(((Album)item).Play(mode));
                 return;
             }
 
             if (item is DACPItem)
             {
-                RemoteUtility.HandleLibraryPlayTask(CurrentGenre.PlayItem((DACPItem)item, mode));
+                RemoteUtility.HandleLibraryQueueTask(CurrentGenre.PlayItem((DACPItem)item, mode));
                 return;
             }
         }

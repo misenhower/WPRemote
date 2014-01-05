@@ -132,6 +132,17 @@ namespace Komodex.Remote
                 ShowLibraryError();
         }
 
+        public static async void HandleLibraryQueueTask(Task<bool> task)
+        {
+            await HandleLibraryQueueTaskAsync(task);
+        }
+
+        public static async Task HandleLibraryQueueTaskAsync(Task<bool> task)
+        {
+            if (!await task)
+                ShowLibraryError();
+        }
+
         public static void ShowLibraryError()
         {
             MessageBox.Show(LocalizedStrings.LibraryErrorBody, LocalizedStrings.LibraryErrorTitle, MessageBoxButton.OK);
