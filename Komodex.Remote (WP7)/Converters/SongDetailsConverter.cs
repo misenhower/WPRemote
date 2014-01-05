@@ -46,7 +46,13 @@ namespace Komodex.Remote.Converters
             // Get the codec and bitrate info (if necessary)
             string codecBitrate = null;
             if (SettingsManager.Current.ShowCodecAndBitrate)
-                codecBitrate = string.Format("{0}, {1} kbps", song.CodecType, song.Bitrate);
+            {
+                string bitrate = null;
+                if (song.Bitrate > 0)
+                    bitrate = string.Format("{0} kbps", song.Bitrate);
+
+                codecBitrate = Utility.JoinNonEmptyStrings(", ", song.CodecType, bitrate);
+            }
 
             // Format the output
             return Utility.JoinNonEmptyStrings(" – ", artistName, song.FormattedDuration, codecBitrate);
