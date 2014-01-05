@@ -21,9 +21,19 @@
     
     <phone:PhoneApplicationPage.Resources>
         <Style TargetType="TextBlock" x:Key="HeaderTextStyle" BasedOn="{StaticResource PhoneTextTitle2Style}">
-            <Setter Property="Margin" Value="12,0,0,12" />
+            <Setter Property="Margin" Value="0,0,0,-12" />
         </Style>
         
+        <Style TargetType="controls:PanoramaItem">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Style="{StaticResource HeaderTextStyle}" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style TargetType="toolkit:WrapPanel" x:Key="WrapPanelStyle">
             <Setter Property="ItemWidth" Value="185" />
             <Setter Property="ItemHeight" Value="243" />
@@ -32,7 +42,7 @@
         
         <DataTemplate x:Key="StationTemplate">
             <appcontrols:FakeButton Tap="Station_Tap">
-                <Grid Margin="0,6,12,6">
+                <Grid Margin="0,0,12,12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="173" />
                         <RowDefinition Height="*" />
@@ -68,11 +78,9 @@
         </StackPanel>
 
         <controls:Panorama Grid.Row="2">
-            <controls:PanoramaItem>
-                <ScrollViewer Margin="0,-38,0,0">
+            <controls:PanoramaItem Header="{Binding LocalizedStrings.BrowseiTunesRadioFeaturedStations, Source={StaticResource LocalizedStrings}}">
+                <ScrollViewer>
                     <StackPanel>
-                        <TextBlock Text="{Binding LocalizedStrings.BrowseiTunesRadioFeaturedStations, Source={StaticResource LocalizedStrings}}" Style="{StaticResource HeaderTextStyle}" />
-                        
                         <ItemsControl ItemsSource="{Binding CurrentDatabase.FeaturedStations}" ItemTemplate="{StaticResource StationTemplate}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -85,11 +93,9 @@
                     </StackPanel>
                 </ScrollViewer>
             </controls:PanoramaItem>
-            <controls:PanoramaItem>
-                <ScrollViewer Margin="0,-38,0,0">
+            <controls:PanoramaItem Header="{Binding LocalizedStrings.BrowseiTunesRadioMyStations, Source={StaticResource LocalizedStrings}}">
+                <ScrollViewer>
                     <StackPanel>
-                        <TextBlock Text="{Binding LocalizedStrings.BrowseiTunesRadioMyStations, Source={StaticResource LocalizedStrings}}" Style="{StaticResource HeaderTextStyle}" />
-                        
                         <ItemsControl ItemsSource="{Binding CurrentDatabase.Stations}" ItemTemplate="{StaticResource StationTemplate}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
