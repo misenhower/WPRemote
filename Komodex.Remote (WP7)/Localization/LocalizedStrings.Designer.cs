@@ -1672,6 +1672,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to current playlist.
+        /// </summary>
+        public static string ShowCurrentPlaylistMenuItem {
+            get {
+                return ResourceManager.GetString("ShowCurrentPlaylistMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to show visualizer.
         /// </summary>
         public static string ShowVisualizerMenuItem {

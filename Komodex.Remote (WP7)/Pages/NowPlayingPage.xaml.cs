@@ -19,6 +19,7 @@ using System.Windows.Threading;
 using System.ComponentModel;
 using System.Windows.Input;
 using Komodex.DACP.Items;
+using Komodex.DACP.Containers;
 
 namespace Komodex.Remote.Pages
 {
@@ -123,6 +124,7 @@ namespace Komodex.Remote.Pages
                     UpdateArtistBackgroundImageName();
                     break;
 
+                case "CurrentContainerID":
                 case "CurrentMediaKind":
                     UpdateControlEnabledStates();
                     break;
@@ -193,6 +195,9 @@ namespace Komodex.Remote.Pages
             if (ShowAirPlayAppBarMenuItem)
                 AddAirPlayAppBarMenuItem();
 
+            if (ShowCurrentPlaylistMenuItem)
+                AddCurrentPlaylistMenuItem();
+
             if (ShowPlayQueueAppBarMenuItem)
                 AddPlayQueueAppBarMenuItem();
 
@@ -222,6 +227,7 @@ namespace Komodex.Remote.Pages
             ArtistButton.IsEnabled = enableArtistButton;
             VolumeSlider.IsEnabled = enableVolumeSlider;
 
+            UpdateCurrentPlaylistMenuItem();
             UpdateAirPlayButtons();
             UpdatePlayQueueButtons();
             UpdateVisualizerButtons();
@@ -513,6 +519,58 @@ namespace Komodex.Remote.Pages
             }
 
             NavigationManager.OpenLibraryPage(CurrentServer.MainDatabase);
+        }
+
+        #endregion
+
+        #region Current Playlist
+
+        protected void UpdateCurrentPlaylistMenuItem()
+        {
+            ShowCurrentPlaylistMenuItem = !(GetCurrentPlaylist() == null);
+        }
+
+        protected Playlist GetCurrentPlaylist()
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected || CurrentServer.CurrentContainerID == 0)
+                return null;
+
+            var db = CurrentServer.CurrentDatabase;
+            if (db == null || (db != CurrentServer.MainDatabase && !CurrentServer.SharedDatabases.Contains(db)))
+                return null;
+
+            if (db.Playlists == null)
+                return null;
+
+            return db.Playlists.FirstOrDefault(pl => pl.ID == CurrentServer.CurrentContainerID);
+        }
+
+        private bool _showCurrentPlaylistMenuItem;
+        protected bool ShowCurrentPlaylistMenuItem
+        {
+            get { return _showCurrentPlaylistMenuItem; }
+            set
+            {
+                if (_showCurrentPlaylistMenuItem == value)
+                    return;
+
+                _showCurrentPlaylistMenuItem = value;
+                RebuildApplicationBarMenuItems();
+            }
+        }
+
+        protected void AddCurrentPlaylistMenuItem()
+        {
+            AddApplicationBarMenuItem(LocalizedStrings.ShowCurrentPlaylistMenuItem, OpenCurrentPlaylist);
+        }
+
+        private void OpenCurrentPlaylist()
+        {
+            var playlist = GetCurrentPlaylist();
+            if (playlist == null)
+                return;
+
+            NavigationManager.OpenPlaylistPage(playlist);
         }
 
         #endregion

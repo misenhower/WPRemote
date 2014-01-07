@@ -789,4 +789,7 @@
   <data name="GeniusShuffleMenuItem" xml:space="preserve">
     <value>genius shuffle</value>
   </data>
+  <data name="ShowCurrentPlaylistMenuItem" xml:space="preserve">
+    <value>current playlist</value>
+  </data>
 </root>
