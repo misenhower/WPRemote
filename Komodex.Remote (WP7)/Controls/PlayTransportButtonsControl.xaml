@@ -32,11 +32,11 @@
                                     <VisualState x:Name="MouseOver" />
                                     <VisualState x:Name="Pressed">
                                         <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IconContainer" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IconContainer" Storyboard.TargetProperty="Opacity">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
                                             </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IconPressedContainer" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IconPressedContainer" Storyboard.TargetProperty="Opacity">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
@@ -77,7 +77,7 @@
     								Foreground="{TemplateBinding Foreground}"
     								Source="{Binding ImageSource, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AppendFilenameConverter}, ConverterParameter='.Pressed'}"
     								UseResolutionSuffix="{TemplateBinding UseMultiResolutionImages}"
-                                    Visibility="Collapsed"
+                                    Opacity="0"
                                 />
                             </Grid>
                         </Border>
