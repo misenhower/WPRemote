@@ -792,4 +792,10 @@
   <data name="ShowCurrentPlaylistMenuItem" xml:space="preserve">
     <value>current playlist</value>
   </data>
+  <data name="GeniusShuffleAppBarButton" xml:space="preserve">
+    <value>genius</value>
+  </data>
+  <data name="iTunesRadioAppBarButton" xml:space="preserve">
+    <value>radio</value>
+  </data>
 </root>

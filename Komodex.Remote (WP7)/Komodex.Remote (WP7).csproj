@@ -534,6 +534,12 @@
     <Content Include="..\Assets\Icons\Transport.FF.WVGA.png">
       <Link>Assets\Icons\Transport.FF.WVGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Transport.GeniusShuffle.WVGA.png">
+      <Link>Assets\Icons\Transport.GeniusShuffle.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.iTunesRadio.WVGA.png">
+      <Link>Assets\Icons\Transport.iTunesRadio.WVGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Transport.Pause.WVGA.png">
       <Link>Assets\Icons\Transport.Pause.WVGA.png</Link>
     </Content>

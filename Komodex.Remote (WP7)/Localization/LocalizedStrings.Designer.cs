@@ -952,6 +952,15 @@ namespace Komodex.Remote.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to genius.
+        /// </summary>
+        public static string GeniusShuffleAppBarButton {
+            get {
+                return ResourceManager.GetString("GeniusShuffleAppBarButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to genius shuffle.
         /// </summary>
         public static string GeniusShuffleMenuItem {
@@ -1002,6 +1011,15 @@ namespace Komodex.Remote.Localization {
         public static string HomePageTitle {
             get {
                 return ResourceManager.GetString("HomePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to radio.
+        /// </summary>
+        public static string iTunesRadioAppBarButton {
+            get {
+                return ResourceManager.GetString("iTunesRadioAppBarButton", resourceCulture);
             }
         }
         

@@ -325,5 +325,25 @@ namespace Komodex.Remote
         }
 
         #endregion
+
+        #region iTunes Radio
+
+        private async void iTunesRadioPlayMoreLikeThisMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            await CurrentServer.SendiTunesRadioPlayMoreLikeThisAsync();
+        }
+
+        private async void iTunesRadioNeverPlayThisSongMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentServer == null || !CurrentServer.IsConnected)
+                return;
+
+            await CurrentServer.SendiTunesRadioNeverPlayThisSongAsync();
+        }
+
+        #endregion
     }
 }

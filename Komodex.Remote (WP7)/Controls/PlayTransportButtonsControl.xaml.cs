@@ -108,9 +108,6 @@ namespace Komodex.Remote.Controls
 
         protected void UpdatePlayTransportButtons()
         {
-            if (Server == null || !Server.IsConnected)
-                return;
-
             bool isStopped = true;
             bool isPlaying = false;
 
@@ -129,8 +126,8 @@ namespace Komodex.Remote.Controls
             else
                 PlayPauseButton.ImageSource = _playIcon;
 
-            // iTunes Radio
-            if (Server.IsCurrentlyPlayingiTunesRadio)
+            // iTunes Radio/Genius Shuffle
+            if (Server != null && Server.IsCurrentlyPlayingiTunesRadio)
             {
                 RewButton.Visibility = Visibility.Collapsed;
                 iTunesRadioButton.Visibility = Visibility.Visible;
@@ -138,7 +135,7 @@ namespace Komodex.Remote.Controls
                 FFButton.IsEnabled = !isStopped && Server.IsiTunesRadioNextButtonEnabled;
                 iTunesRadioButton.IsEnabled = Server.IsiTunesRadioMenuEnabled;
             }
-            else if (Server.IsCurrentlyPlayingGeniusShuffle)
+            else if (Server != null && Server.IsCurrentlyPlayingGeniusShuffle)
             {
                 RewButton.Visibility = Visibility.Collapsed;
                 iTunesRadioButton.Visibility = Visibility.Collapsed;
@@ -216,7 +213,6 @@ namespace Komodex.Remote.Controls
         {
             iTunesRadioContextMenu.IsOpen = true;
         }
-
 
         private async void iTunesRadioPlayMoreLikeThisMenuItem_Click(object sender, RoutedEventArgs e)
         {

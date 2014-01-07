@@ -665,6 +665,24 @@
     <Content Include="..\Assets\Icons\Transport.FF.WXGA.png">
       <Link>Assets\Icons\Transport.FF.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Transport.GeniusShuffle.720p.png">
+      <Link>Assets\Icons\Transport.GeniusShuffle.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.GeniusShuffle.WVGA.png">
+      <Link>Assets\Icons\Transport.GeniusShuffle.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.GeniusShuffle.WXGA.png">
+      <Link>Assets\Icons\Transport.GeniusShuffle.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.iTunesRadio.720p.png">
+      <Link>Assets\Icons\Transport.iTunesRadio.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.iTunesRadio.WVGA.png">
+      <Link>Assets\Icons\Transport.iTunesRadio.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.iTunesRadio.WXGA.png">
+      <Link>Assets\Icons\Transport.iTunesRadio.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Transport.Pause.720p.png">
       <Link>Assets\Icons\Transport.Pause.720p.png</Link>
     </Content>

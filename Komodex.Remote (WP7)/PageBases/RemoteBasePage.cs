@@ -3,6 +3,7 @@ using Komodex.Common.Phone;
 using Komodex.DACP;
 using Komodex.Remote.Localization;
 using Komodex.Remote.ServerManagement;
+using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System;
 using System.Collections.Generic;
@@ -138,6 +139,11 @@ namespace Komodex.Remote
             {
                 case "PlayState":
                 case "CurrentSongName":
+                case "IsCurrentlyPlayingiTunesRadio":
+                case "IsiTunesRadioNextButtonEnabled":
+                case "IsiTunesRadioMenuEnabled":
+                case "IsiTunesRadioSongFavorited":
+                case "IsCurrentlyPlayingGeniusShuffle":
                     UpdateAppBar();
                     break;
 
@@ -194,16 +200,32 @@ namespace Komodex.Remote
         private static readonly Uri _playTransportPlayIcon = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Transport.Play.png");
         private static readonly Uri _playTransportPauseIcon = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Transport.Pause.png");
         private static readonly Uri _playTransportNextTrackIcon = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Transport.FF.png");
+        private static readonly Uri _playTransportiTunesRadioIcon = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Transport.iTunesRadio.png");
+        private static readonly Uri _playTransportGeniusShuffleIcon = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Transport.GeniusShuffle.png");
 
         protected void AddAppBarPlayTransportButtons()
         {
             if (_playTransportButtonsAdded)
                 return;
 
-            _playTransportPreviousTrackButton = AddApplicationBarIconButton(LocalizedStrings.PreviousAppBarButton, _playTransportPreviousTrackIcon, () => CurrentServer.SendPrevItemCommand());
+            _playTransportPreviousTrackButton = AddApplicationBarIconButton(LocalizedStrings.PreviousAppBarButton, _playTransportPreviousTrackIcon, PlayTransportPreviousTrackButton_Click);
             _playTransportPlayPauseButton = AddApplicationBarIconButton(LocalizedStrings.PlayPauseAppBarButton, _playTransportPlayIcon, () => CurrentServer.SendPlayPauseCommand());
             _playTransportNextTrackButton = AddApplicationBarIconButton(LocalizedStrings.NextAppBarButton, _playTransportNextTrackIcon, () => CurrentServer.SendNextItemCommand());
             _playTransportButtonsAdded = true;
+        }
+
+        private async void PlayTransportPreviousTrackButton_Click()
+        {
+            if (CurrentServer != null && CurrentServer.IsCurrentlyPlayingiTunesRadio)
+            {
+                var menu = this.FindName("iTunesRadioContextMenu") as ContextMenu;
+                if (menu != null)
+                    menu.IsOpen = true;
+            }
+            else if (CurrentServer != null && CurrentServer.IsCurrentlyPlayingGeniusShuffle)
+                await CurrentServer.SendGeniusShuffleCommandAsync();
+            else
+                CurrentServer.SendPrevItemCommand();
         }
 
         protected void RemoveAppBarPlayTransportButtons()
@@ -244,6 +266,25 @@ namespace Komodex.Remote
                 _playTransportPlayPauseButton.IconUri = _playTransportPauseIcon;
             else
                 _playTransportPlayPauseButton.IconUri = _playTransportPlayIcon;
+
+            // iTunes Radio/Genius Shuffle
+            if (CurrentServer != null && CurrentServer.IsCurrentlyPlayingiTunesRadio)
+            {
+                _playTransportPreviousTrackButton.Text = LocalizedStrings.iTunesRadioAppBarButton;
+                _playTransportPreviousTrackButton.IconUri = _playTransportiTunesRadioIcon;
+                _playTransportNextTrackButton.IsEnabled = !isStopped && CurrentServer.IsiTunesRadioNextButtonEnabled;
+                _playTransportPreviousTrackButton.IsEnabled = CurrentServer.IsiTunesRadioMenuEnabled;
+            }
+            else if (CurrentServer != null && CurrentServer.IsCurrentlyPlayingGeniusShuffle)
+            {
+                _playTransportPreviousTrackButton.Text = LocalizedStrings.GeniusShuffleAppBarButton;
+                _playTransportPreviousTrackButton.IconUri = _playTransportGeniusShuffleIcon;
+            }
+            else
+            {
+                _playTransportPreviousTrackButton.Text = LocalizedStrings.PreviousAppBarButton;
+                _playTransportPreviousTrackButton.IconUri = _playTransportPreviousTrackIcon;
+            }
         }
 
         #endregion
