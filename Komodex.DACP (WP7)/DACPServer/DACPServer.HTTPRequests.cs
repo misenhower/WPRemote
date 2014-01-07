@@ -638,38 +638,31 @@ namespace Komodex.DACP
                 FullScreenModeAvailable = nodes.GetBool("cafe");
 
                 // iTunes Radio
-                var caks = nodes.GetByte("caks");
-                if (caks == 1)
+                if (iTunesRadioDatabase != null && iTunesRadioDatabase.ID == CurrentDatabaseID)
                 {
                     IsCurrentlyPlayingiTunesRadio = true;
-                    IsiTunesRadioNextButtonEnabled = false;
-                }
-                else if (caks == 2)
-                {
-                    IsCurrentlyPlayingiTunesRadio = true;
-                    IsiTunesRadioNextButtonEnabled = true;
+                    CurrentiTunesRadioStationName = nodes.GetString("ceNR");
+
+                    // caks = 1 when the next button is disabled, and 2 when it's enabled
+                    IsiTunesRadioNextButtonEnabled = (nodes.GetByte("caks") == 2);
+
+                    // "aelb" indicates whether the star button (iTunes Radio menu) should be enabled, but this only seems to be set to true
+                    // when connected via Home Sharing. This parameter is missing when an ad is playing, so use this to determine whether
+                    // the menu should be enabled.
+                    IsiTunesRadioMenuEnabled = nodes.ContainsKey("aelb");
+
+                    IsiTunesRadioSongFavorited = (nodes.GetByte("aels") == 2);
                 }
                 else
                 {
                     IsCurrentlyPlayingiTunesRadio = false;
                 }
 
+
                 if (IsCurrentlyPlayingiTunesRadio)
                 {
-                    CurrentiTunesRadioStationName = nodes.GetString("ceNR");
-
-                    // "aelb" indicates whether the star button (iTunes Radio menu) should be enabled, but this only seems to be set to true
-                    // when connected via Home Sharing. This parameter is missing when an ad is playing, so use this to determine whether
-                    // the menu should be enabled.
-                    if (nodes.ContainsKey("aelb"))
-                        IsiTunesRadioMenuEnabled = true;
-                    else
-                        IsiTunesRadioMenuEnabled = false;
-
-                    if (nodes.GetByte("aels") == 2)
-                        IsiTunesRadioSongFavorited = true;
-                    else
-                        IsiTunesRadioSongFavorited = false;
+                    var caks = nodes.GetByte("caks");
+                    IsiTunesRadioNextButtonEnabled = !(caks == 1);
                 }
 
                 if (!nodes.ContainsKey("casc") || nodes.GetBool("casc") == true)
