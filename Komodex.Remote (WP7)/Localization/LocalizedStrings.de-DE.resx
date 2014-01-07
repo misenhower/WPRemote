@@ -790,7 +790,7 @@
     <value>Zufällige Genius-Wiedergabe</value>
   </data>
   <data name="ShowCurrentPlaylistMenuItem" xml:space="preserve">
-    <value>Aktuelle Wiedergabeliste</value>
+    <value>aktuelle Wiedergabeliste</value>
   </data>
   <data name="GeniusShuffleAppBarButton" xml:space="preserve">
     <value>Genius</value>
