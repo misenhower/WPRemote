@@ -41,7 +41,25 @@ namespace Komodex.Remote
             // Icon Buttons
             AddAppBarNowPlayingButton();
             AddApplicationBarIconButton(LocalizedStrings.BrowseLibraryAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Browse.png"), () => NavigationManager.OpenLibraryPage(CurrentServer.MainDatabase));
-            AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), () => NavigationManager.OpenSearchPage(CurrentDatabase));
+            AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), SearchAppBarButton_Click);
+        }
+
+        private void SearchAppBarButton_Click()
+        {
+            if (CurrentServer == null || CurrentDatabase == null)
+                return;
+
+            if (CurrentDatabase != CurrentServer.MainDatabase)
+            {
+                // If this isn't the main database, make sure it's a shared DB (and not the iTunes Radio or Internet Radio DB).
+                if (CurrentServer.SharedDatabases.Contains(CurrentDatabase))
+                {
+                    NavigationManager.OpenSearchPage(CurrentDatabase);
+                    return;
+                }
+            }
+
+            NavigationManager.OpenSearchPage(CurrentServer.MainDatabase);
         }
 
         protected override void UpdateBusyState()
