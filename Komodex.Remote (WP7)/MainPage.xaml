@@ -238,8 +238,7 @@
             </Grid>
         </Grid>
         
-        <!--<Grid Grid.Row="1" VerticalAlignment="Bottom">-->
-            <Rectangle Grid.Row="1" Height="1" Margin="0,0,0,72" VerticalAlignment="Bottom">
+        <Rectangle Grid.Row="1" Height="1" Margin="0,0,0,72" VerticalAlignment="Bottom">
             <toolkit:ContextMenuService.ContextMenu>
                 <toolkit:ContextMenu x:Name="iTunesRadioContextMenu" OpenOnHold="False">
                     <toolkit:MenuItem
@@ -252,8 +251,7 @@
                         />
                 </toolkit:ContextMenu>
             </toolkit:ContextMenuService.ContextMenu>
-            </Rectangle>
-        <!--</Grid>-->
+        </Rectangle>
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
