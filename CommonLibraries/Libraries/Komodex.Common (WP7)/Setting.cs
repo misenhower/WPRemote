@@ -36,11 +36,14 @@ namespace Komodex.Common
 
         static Setting()
         {
+#if WINDOWS_PHONE
             if (DesignerProperties.IsInDesignTool)
                 return;
 
-#if WINDOWS_PHONE
             _isolatedSettings = System.IO.IsolatedStorage.IsolatedStorageSettings.ApplicationSettings;
+#else
+            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                return;
 #endif
         }
 
@@ -144,8 +147,13 @@ namespace Komodex.Common
         /// </summary>
         public void Save()
         {
+#if WINDOWS_PHONE
             if (DesignerProperties.IsInDesignTool)
                 return;
+#else
+            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                return;
+#endif
 
             // Update isolated storage
             object value;
