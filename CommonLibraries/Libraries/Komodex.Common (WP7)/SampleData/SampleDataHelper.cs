@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Komodex.Common.SampleData
@@ -19,12 +20,28 @@ namespace Komodex.Common.SampleData
         private static void FillSampleData(object obj, bool fillLists, int level)
         {
             // Assign values to the object's properties
+#if NETFX_CORE
+            List<PropertyInfo> properties = new List<PropertyInfo>();
+            var type = obj.GetType();
+            while (type != null)
+            {
+                var typeInfo = type.GetTypeInfo();
+                properties.AddRange(typeInfo.DeclaredProperties);
+                type = typeInfo.BaseType;
+            }
+#else
             var properties = obj.GetType().GetProperties();
+#endif
             foreach (var property in properties)
             {
                 // Make sure we can set this property
+#if NETFX_CORE
+                if (property.SetMethod == null)
+                    continue;
+#else
                 if (property.GetSetMethod() == null)
                     continue;
+#endif
                 // Make sure this isn't an indexer
                 if (property.GetIndexParameters().Length > 0)
                     continue;
@@ -44,7 +61,11 @@ namespace Komodex.Common.SampleData
                     if (subListItemType != null)
                     {
                         Type subListType = property.PropertyType;
+#if NETFX_CORE
+                        if (subListType.GetTypeInfo().IsInterface)
+#else
                         if (subListType.IsInterface)
+#endif
                             subListType = typeof(List<>).MakeGenericType(subListItemType);
 
                         object subList = Activator.CreateInstance(subListType);
@@ -56,7 +77,11 @@ namespace Komodex.Common.SampleData
                 }
 
                 // SampleDataBase object
+#if NETFX_CORE
+                if (typeof(SampleDataBase).GetTypeInfo().IsAssignableFrom(property.PropertyType.GetTypeInfo()))
+#else
                 if (typeof(SampleDataBase).IsAssignableFrom(property.PropertyType))
+#endif
                 {
                     property.SetValue(obj, Activator.CreateInstance(property.PropertyType), null);
                     continue;
@@ -67,7 +92,11 @@ namespace Komodex.Common.SampleData
             Type listItemType = GetGenericListType(obj.GetType());
             if (listItemType != null)
             {
+#if NETFX_CORE
+                var addMethod = obj.GetType().GetTypeInfo().GetDeclaredMethod("Add");
+#else
                 var addMethod = obj.GetType().GetMethod("Add");
+#endif
 
                 int listItemCount = (level < 2) ? 10 : 5;
                 for (int i = 0; i < listItemCount; i++)
@@ -83,16 +112,29 @@ namespace Komodex.Common.SampleData
 
         private static Type GetGenericListType(Type type)
         {
+#if NETFX_CORE
+            var typeInfo = type.GetTypeInfo();
+#else
+            var typeInfo = type;
+#endif
             // If this is an interface, only return true if it's an IList<T>
-            if (type.IsInterface)
+            if (typeInfo.IsInterface)
             {
-                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IList<>))
-                    return type.GetGenericArguments()[0];
+                if (typeInfo.IsGenericType && type.GetGenericTypeDefinition() == typeof(IList<>))
+#if NETFX_CORE
+                    return typeInfo.GenericTypeArguments[0];
+#else
+                    return typeInfo.GetGenericArguments()[0];
+#endif
                 return null;
             }
 
             // Return true if the type inherits from List<T>
+#if NETFX_CORE
+            var interfaces = type.GetTypeInfo().ImplementedInterfaces;
+#else
             var interfaces = type.GetInterfaces();
+#endif
             foreach (var interfaceType in interfaces)
             {
                 Type genericType = GetGenericListType(interfaceType);
@@ -122,7 +164,11 @@ namespace Komodex.Common.SampleData
                 return TimeSpan.FromSeconds(GetRandomInt(0, 7200));
 
             // SampleDataBase
+#if NETFX_CORE
+            if (typeof(SampleDataBase).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
+#else
             if (typeof(SampleDataBase).IsAssignableFrom(type))
+#endif
                 return Activator.CreateInstance(type);
 
             return null;

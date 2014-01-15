@@ -126,6 +126,12 @@
     <Compile Include="..\Komodex.Common %28WP7%29\ObservableCollectionEx.cs">
       <Link>ObservableCollectionEx.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\SampleData\SampleDataBase.cs">
+      <Link>SampleData\SampleDataBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\SampleData\SampleDataHelper.cs">
+      <Link>SampleData\SampleDataHelper.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common %28WP7%29\Setting.cs">
       <Link>Setting.cs</Link>
     </Compile>
