@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-#if !WP7
+#if WP7
+using System.Net.Sockets;
+#else
 using Windows.Networking;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
@@ -15,7 +16,7 @@ namespace Komodex.Networking
 {
     public static class WakeOnLAN
     {
-        private static readonly IPAddress BroadcastAddress = IPAddress.Broadcast;
+        private static readonly string BroadcastAddress = "255.255.255.255";
         private const int BroadcastPort = 9;
 
         public static Task<bool> SendWOLPacket(byte[] macAddress)
@@ -42,7 +43,7 @@ namespace Komodex.Networking
 
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             SocketAsyncEventArgs socketArgs = new SocketAsyncEventArgs();
-            socketArgs.RemoteEndPoint = new IPEndPoint(BroadcastAddress, BroadcastPort);
+            socketArgs.RemoteEndPoint = new IPEndPoint(IPAddress.Parse(BroadcastAddress), BroadcastPort);
             socketArgs.SetBuffer(message, 0, message.Length);
             socketArgs.Completed += (sender, e) =>
             {
@@ -72,7 +73,7 @@ namespace Komodex.Networking
             {
                 using (DatagramSocket socket = new DatagramSocket())
                 {
-                    var stream = await socket.GetOutputStreamAsync(new HostName(BroadcastAddress.ToString()), BroadcastPort.ToString());
+                    var stream = await socket.GetOutputStreamAsync(new HostName(BroadcastAddress), BroadcastPort.ToString());
                     var writer = new DataWriter(stream);
                     writer.WriteBytes(message);
                     await writer.StoreAsync();
