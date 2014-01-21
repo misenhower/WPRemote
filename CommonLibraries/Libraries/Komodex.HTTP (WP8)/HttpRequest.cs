@@ -125,8 +125,13 @@ namespace Komodex.HTTP
                         if (index < 1 || queryPart.Length - 1 <= index)
                             continue;
 
+#if NETFX_CORE
+                        string name = WebUtility.UrlDecode(queryPart.Substring(0, index));
+                        string value = WebUtility.UrlDecode(queryPart.Substring(index + 1));
+#else
                         string name = HttpUtility.UrlDecode(queryPart.Substring(0, index));
                         string value = HttpUtility.UrlDecode(queryPart.Substring(index + 1));
+#endif
 
                         QueryString[name] = value;
 
