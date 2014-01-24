@@ -416,6 +416,8 @@ namespace Komodex.DACP
                     CurrentContainerItemID = 0;
                     CurrentItemID = 0;
                 }
+                CurrentItemSignature = string.Format("{0}|{1}|{2}|{3}", CurrentDatabaseID, CurrentContainerID, CurrentContainerItemID, CurrentItemID);
+
                 CurrentArtistName = nodes.GetString("cana");
                 CurrentAlbumName = nodes.GetString("canl");
                 CurrentSongName = nodes.GetString("cann");

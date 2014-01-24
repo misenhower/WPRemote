@@ -198,6 +198,23 @@ namespace Komodex.DACP
             }
         }
 
+        private string _currentItemSignature;
+        /// <summary>
+        /// String that represents the values of the current item ID, database ID, etc.
+        /// CurrentItemSignature can be used as a trigger for updating data binding whenever the current item changes.
+        /// </summary>
+        public string CurrentItemSignature
+        {
+            get { return _currentItemSignature; }
+            private set
+            {
+                if (_currentItemSignature == value)
+                    return;
+                _currentItemSignature = value;
+                SendPropertyChanged();
+            }
+        }
+
         private PlayState _currentPlayState;
         public PlayState CurrentPlayState
         {
