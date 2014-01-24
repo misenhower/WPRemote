@@ -213,6 +213,28 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Now Playing Artwork
+
+        private string _nowPlayingAlbumArtUriFormat;
+        public string NowPlayingAlbumArtUriFormat
+        {
+            get { return _nowPlayingAlbumArtUriFormat; }
+            private set
+            {
+                if (_nowPlayingAlbumArtUriFormat == value)
+                    return;
+                _nowPlayingAlbumArtUriFormat = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private void UpdateNowPlayingAlbumArtUri()
+        {
+            NowPlayingAlbumArtUriFormat = HttpPrefix + "/ctrl-int/1/nowplayingartwork?mw={w}&mh={h}&session-id=" + SessionID;
+        }
+
+        #endregion
+
         #region Databases
 
         private readonly List<DacpDatabase> _databases = new List<DacpDatabase>();

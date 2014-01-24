@@ -22,6 +22,7 @@ namespace Komodex.DACP
         private void UpdateHttpClient()
         {
             HttpPrefix = "http://" + Hostname + ":" + Port;
+            UpdateNowPlayingAlbumArtUri();
 
             HttpBaseProtocolFilter filter = new HttpBaseProtocolFilter();
 
@@ -204,6 +205,7 @@ namespace Komodex.DACP
                     return false;
 
                 SessionID = nodes.GetInt("mlid");
+                UpdateNowPlayingAlbumArtUri();
             }
             catch { return false; }
             return true;
