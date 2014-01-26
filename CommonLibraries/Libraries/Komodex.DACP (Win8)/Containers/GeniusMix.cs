@@ -20,11 +20,5 @@ namespace Komodex.DACP.Containers
 
             Description = nodes.GetString("ascn");
         }
-
-        #region Artwork
-
-        public string Artwork350pxURI { get { return GetAlbumArtURI(350, 350); } }
-
-        #endregion
     }
 }

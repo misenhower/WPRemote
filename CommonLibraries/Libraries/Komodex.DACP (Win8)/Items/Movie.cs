@@ -11,11 +11,5 @@ namespace Komodex.DACP.Items
         public Movie(DacpContainer container, DacpNodeDictionary nodes)
             : base(container, nodes)
         { }
-
-        #region Artwork
-
-        public string ArtworkMovieSizeURI { get { return GetAlbumArtURI(118, 175); } }
-
-        #endregion
     }
 }

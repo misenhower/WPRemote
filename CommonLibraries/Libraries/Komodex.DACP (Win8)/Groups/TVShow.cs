@@ -28,11 +28,14 @@ namespace Komodex.DACP.Groups
         public new string Name { get; private set; }
         public int SeasonNumber { get; private set; }
 
-        protected internal override string GetAlbumArtURI(int width, int height)
+        public override string ArtworkUriFormat
         {
-            if (Episodes == null || Episodes.Count == 0)
-                return null;
-            return Episodes[0].GetAlbumArtURI(width, height);
+            get
+            {
+                if (Episodes == null || Episodes.Count == 0)
+                    return null;
+                return Episodes[0].ArtworkUriFormat;
+            }
         }
 
         #region Episodes

@@ -69,15 +69,13 @@ namespace Komodex.DACP.Items
 
         #region Artwork
 
-        public string Artwork75pxURI { get { return GetAlbumArtURI(75, 75); } }
-        public string Artwork175pxURI { get { return GetAlbumArtURI(175, 175); } }
-
-        protected internal virtual string GetAlbumArtURI(int width, int height)
+        public virtual string ArtworkUriFormat
         {
-            //width = ResolutionUtility.GetScaledPixels(width);
-            //height = ResolutionUtility.GetScaledPixels(height);
-            string uri = "{0}/databases/{1}/items/{2}/extra_data/artwork?mw={3}&mh={4}&session-id={5}";
-            return string.Format(uri, Client.HttpPrefix, Database.ID, ID, width, height, Client.SessionID);
+            get
+            {
+                string uri = "{0}/databases/{1}/items/{2}/extra_data/artwork?mw={{w}}&mh={{h}}&session-id={3}";
+                return string.Format(uri, Client.HttpPrefix, Database.ID, ID, Client.SessionID);
+            }
         }
 
         #endregion

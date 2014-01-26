@@ -112,12 +112,13 @@ namespace Komodex.DACP.Containers
 
         #region Artwork
 
-        protected internal virtual string GetAlbumArtURI(int width, int height)
+        public virtual string ArtworkUriFormat
         {
-            //width = ResolutionUtility.GetScaledPixels(width);
-            //height = ResolutionUtility.GetScaledPixels(height);
-            string uri = "{0}/databases/{1}/containers/{2}/extra_data/artwork?mw={3}&mh={4}&session-id={5}";
-            return string.Format(uri, Client.HttpPrefix, Database.ID, ID, width, height, Client.SessionID);
+            get
+            {
+                string uri = "{0}/databases/{1}/containers/{2}/extra_data/artwork?mw={{w}}&mh={{h}}&session-id={3}";
+                return string.Format(uri, Client.HttpPrefix, Database.ID, ID, Client.SessionID);
+            }
         }
 
         #endregion
