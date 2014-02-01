@@ -230,6 +230,75 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Track Time/Position
+
+        private async void UpdateTrackTime(int playStatusRevisionNumber, int durationMilliseconds, int? timeRemainingMilliseconds)
+        {
+            CurrentTrackDuration = TimeSpan.FromMilliseconds(durationMilliseconds);
+
+            int remaining = timeRemainingMilliseconds ?? durationMilliseconds;
+            if (remaining > durationMilliseconds)
+                remaining = durationMilliseconds;
+
+            do
+            {
+                CurrentTrackTimeRemaining = TimeSpan.FromMilliseconds(remaining);
+                CurrentTrackTimePosition = TimeSpan.FromMilliseconds(durationMilliseconds - remaining);
+
+                if (CurrentPlayState != PlayState.Playing)
+                    break;
+
+                DateTime dt = DateTime.Now;
+                await Task.Delay(1000).ConfigureAwait(false);
+
+                // Adjust remaining time
+                remaining -= (int)(DateTime.Now - dt).TotalMilliseconds;
+                if (remaining < 0)
+                    remaining = 0;
+            } while (_playStatusRevisionNumber == playStatusRevisionNumber && IsConnected);
+        }
+
+        private TimeSpan _currentTrackDuration;
+        public TimeSpan CurrentTrackDuration
+        {
+            get { return _currentTrackDuration; }
+            private set
+            {
+                if (_currentTrackDuration == value)
+                    return;
+                _currentTrackDuration = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private TimeSpan _currentTrackTimeRemaining;
+        public TimeSpan CurrentTrackTimeRemaining
+        {
+            get { return _currentTrackTimeRemaining; }
+            private set
+            {
+                if (_currentTrackTimeRemaining == value)
+                    return;
+                _currentTrackTimeRemaining = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private TimeSpan _currentTrackTimePosition;
+        public TimeSpan CurrentTrackTimePosition
+        {
+            get { return _currentTrackTimePosition; }
+            private set
+            {
+                if (_currentTrackTimePosition == value)
+                    return;
+                _currentTrackTimePosition = value;
+                SendPropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region Now Playing Artwork
 
         private string _nowPlayingAlbumArtUriFormat;

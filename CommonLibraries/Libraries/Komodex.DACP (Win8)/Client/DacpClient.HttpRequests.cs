@@ -393,11 +393,9 @@ namespace Komodex.DACP
                 var nodes = DacpNodeDictionary.Parse(response.Nodes);
                 _playStatusRevisionNumber = nodes.GetInt("cmsr");
 
-                int oldSongID = CurrentItemID;
-
+                // Current item and container IDs
                 if (nodes.ContainsKey("canp"))
                 {
-                    // Current song and container IDs
                     byte[] value = nodes["canp"];
 
                     byte[] dbID = { value[0], value[1], value[2], value[3] };
@@ -418,11 +416,17 @@ namespace Komodex.DACP
                 }
                 CurrentItemSignature = string.Format("{0}|{1}|{2}|{3}", CurrentDatabaseID, CurrentContainerID, CurrentContainerItemID, CurrentItemID);
 
+                // Current item info
                 CurrentArtistName = nodes.GetString("cana");
                 CurrentAlbumName = nodes.GetString("canl");
                 CurrentSongName = nodes.GetString("cann");
                 CurrentAlbumPersistentID = (UInt64)nodes.GetLong("asai");
+
+                // Play state
                 CurrentPlayState = (PlayState)nodes.GetByte("caps");
+
+                // Track time
+                UpdateTrackTime(_playStatusRevisionNumber, nodes.GetInt("cast"), nodes.GetNullableInt("cant"));
 
                 // Shuffle
                 int caas = nodes.GetInt("caas");
@@ -437,11 +441,6 @@ namespace Komodex.DACP
 
                 //CurrentMediaKind = nodes.GetInt("cmmk");
                 //ShowUserRating = nodes.GetBool("casu");
-
-                // Track length (ms)
-                //TrackTimeTotal = nodes.GetInt("cast");
-                // Remaining track length (ms)
-                //TrackTimeRemaining = nodes.GetNullableInt("cant") ?? TrackTimeTotal;
 
                 // dacp.visualizer
                 //VisualizerActive = nodes.GetBool("cavs");
