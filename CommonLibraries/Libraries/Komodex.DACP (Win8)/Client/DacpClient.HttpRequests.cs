@@ -500,6 +500,8 @@ namespace Komodex.DACP
                     //    BeginRepeatedTrackTimeRequest();
                 });
 
+                await GetVolumeLevelAsync().ConfigureAwait(false);
+
                 //var volumeTask = UpdateCurrentVolumeLevelAsync();
                 //var userRatingTask = UpdateCurrentSongUserRatingAsync();
                 //var playQueueTask = UpdatePlayQueueContentsAsync();
@@ -538,6 +540,39 @@ namespace Komodex.DACP
                     return;
                 }
             }
+        }
+
+        #endregion
+
+        #region Volume Level
+
+        private async Task<bool> GetVolumeLevelAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/getproperty");
+            request.QueryParameters["properties"] = "dmcp.volume";
+
+            try
+            {
+                var response = await SendRequestAsync(request).ConfigureAwait(false);
+                var nodes = DacpNodeDictionary.Parse(response.Nodes);
+
+                CurrentVolumeLevel = nodes.GetInt("cmvo");
+            }
+            catch { return false; }
+            return true;
+        }
+
+        private async Task<bool> SetVolumeLevelAsync(int volumeLevel)
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters["dmcp.volume"] = volumeLevel.ToString();
+
+            try
+            {
+                await SendRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
         }
 
         #endregion

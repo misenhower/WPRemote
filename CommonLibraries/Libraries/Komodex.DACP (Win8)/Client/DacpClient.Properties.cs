@@ -299,6 +299,58 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Volume Level
+
+        private int _currentVolumeLevel;
+        public int CurrentVolumeLevel
+        {
+            get { return _currentVolumeLevel; }
+            private set
+            {
+                if (_currentVolumeLevel == value)
+                    return;
+                _currentVolumeLevel = value;
+                SendPropertyChanged();
+                SendPropertyChanged("BindableVolumeLevel");
+            }
+        }
+
+        public int BindableVolumeLevel
+        {
+            get { return _currentVolumeLevel; }
+            set
+            {
+                if (_currentVolumeLevel == value)
+                    return;
+                UpdateBoundVolumeLevel(value);
+            }
+        }
+
+        private int _newBoundVolumeLevel;
+        private bool _updatingBoundVolumeLevel;
+
+        private async void UpdateBoundVolumeLevel(int volumeLevel)
+        {
+            _newBoundVolumeLevel = volumeLevel;
+            if (_updatingBoundVolumeLevel)
+                return;
+
+            _updatingBoundVolumeLevel = true;
+
+            bool success;
+            int value;
+
+            do
+            {
+                value = _newBoundVolumeLevel;
+                success = await SetVolumeLevelAsync(value).ConfigureAwait(false);
+            } while (success && value != _newBoundVolumeLevel);
+
+            _updatingBoundVolumeLevel = false;
+        }
+
+        #endregion
+
         #region Now Playing Artwork
 
         private string _nowPlayingAlbumArtUriFormat;
