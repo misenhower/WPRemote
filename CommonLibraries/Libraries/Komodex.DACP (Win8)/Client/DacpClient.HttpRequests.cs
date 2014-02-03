@@ -426,7 +426,7 @@ namespace Komodex.DACP
                 CurrentPlayState = (PlayState)nodes.GetByte("caps");
 
                 // Track time
-                UpdateTrackTime(_playStatusRevisionNumber, nodes.GetInt("cast"), nodes.GetNullableInt("cant"));
+                UpdateTrackTime(nodes.GetInt("cast"), nodes.GetNullableInt("cant"));
 
                 // Shuffle
                 int caas = nodes.GetInt("caas");
@@ -572,6 +572,29 @@ namespace Komodex.DACP
                 await SendRequestAsync(request).ConfigureAwait(false);
             }
             catch { return false; }
+            return true;
+        }
+
+        #endregion
+
+        #region Track Time Position
+
+        private async Task<bool> SetTrackTimePositionAsync(TimeSpan position)
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters["dacp.playingtime"] = position.TotalMilliseconds.ToString();
+
+            try
+            {
+                await SendRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+
+            int totalMS = (int)CurrentTrackDuration.TotalMilliseconds;
+            int positionMS = (int)position.TotalMilliseconds;
+            int remainingMS = totalMS - positionMS;
+
+            UpdateTrackTime(totalMS, remainingMS);
             return true;
         }
 

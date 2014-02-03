@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Komodex.DACP
@@ -232,21 +233,36 @@ namespace Komodex.DACP
 
         #region Track Time/Position
 
-        private async void UpdateTrackTime(int playStatusRevisionNumber, int durationMilliseconds, int? timeRemainingMilliseconds)
+        private CancellationTokenSource _trackTimePositionUpdateCancellationTokenSource;
+
+        private async void UpdateTrackTime(int durationMilliseconds, int? timeRemainingMilliseconds)
         {
+            if (_trackTimePositionUpdateCancellationTokenSource != null)
+            {
+                _trackTimePositionUpdateCancellationTokenSource.Cancel();
+                _trackTimePositionUpdateCancellationTokenSource = null;
+            }
+
             CurrentTrackDuration = TimeSpan.FromMilliseconds(durationMilliseconds);
+            CurrentTrackDurationSeconds = CurrentTrackDuration.TotalSeconds;
 
             int remaining = timeRemainingMilliseconds ?? durationMilliseconds;
             if (remaining > durationMilliseconds)
                 remaining = durationMilliseconds;
 
+            CancellationToken token;
+
             do
             {
                 CurrentTrackTimeRemaining = TimeSpan.FromMilliseconds(remaining);
                 CurrentTrackTimePosition = TimeSpan.FromMilliseconds(durationMilliseconds - remaining);
+                CurrentTrackTimePositionSeconds = CurrentTrackTimePosition.TotalSeconds;
 
                 if (CurrentPlayState != PlayState.Playing)
                     break;
+
+                _trackTimePositionUpdateCancellationTokenSource = new CancellationTokenSource();
+                token = _trackTimePositionUpdateCancellationTokenSource.Token;
 
                 DateTime dt = DateTime.Now;
                 await Task.Delay(1000).ConfigureAwait(false);
@@ -255,7 +271,7 @@ namespace Komodex.DACP
                 remaining -= (int)(DateTime.Now - dt).TotalMilliseconds;
                 if (remaining < 0)
                     remaining = 0;
-            } while (_playStatusRevisionNumber == playStatusRevisionNumber && IsConnected);
+            } while (IsConnected && !token.IsCancellationRequested);
         }
 
         private TimeSpan _currentTrackDuration;
@@ -297,6 +313,67 @@ namespace Komodex.DACP
             }
         }
 
+        private double _currentTrackDurationSeconds;
+        public double CurrentTrackDurationSeconds
+        {
+            get { return _currentTrackDurationSeconds; }
+            private set
+            {
+                if (_currentTrackDurationSeconds == value)
+                    return;
+                _currentTrackDurationSeconds = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private double _currentTrackTimePositionSeconds;
+        public double CurrentTrackTimePositionSeconds
+        {
+            get { return _currentTrackTimePositionSeconds; }
+            private set
+            {
+                if (_currentTrackTimePositionSeconds == value)
+                    return;
+                _currentTrackTimePositionSeconds = value;
+                SendPropertyChanged();
+                if (!_updatingBoundTrackTimePosition)
+                    SendPropertyChanged("BindableTrackTimePositionSeconds");
+            }
+        }
+
+        public double BindableTrackTimePositionSeconds
+        {
+            get { return _currentTrackTimePositionSeconds; }
+            set
+            {
+                UpdateBoundTrackTimePosition(value);
+            }
+        }
+
+        private double _newBoundTrackTimePosition;
+        private bool _updatingBoundTrackTimePosition;
+
+        private async void UpdateBoundTrackTimePosition(double position)
+        {
+            _newBoundTrackTimePosition = position;
+            if (_updatingBoundTrackTimePosition)
+                return;
+
+            _updatingBoundTrackTimePosition = true;
+
+            bool success;
+            double value;
+
+            do
+            {
+                value = _newBoundTrackTimePosition;
+                success = await SetTrackTimePositionAsync(TimeSpan.FromSeconds(value)).ConfigureAwait(false);
+            } while (success && value != _newBoundTrackTimePosition);
+
+            _newBoundTrackTimePosition = -1;
+            _updatingBoundTrackTimePosition = false;
+        }
+
         #endregion
 
         #region Volume Level
@@ -311,7 +388,8 @@ namespace Komodex.DACP
                     return;
                 _currentVolumeLevel = value;
                 SendPropertyChanged();
-                SendPropertyChanged("BindableVolumeLevel");
+                if (!_updatingBoundVolumeLevel)
+                    SendPropertyChanged("BindableVolumeLevel");
             }
         }
 
@@ -320,8 +398,6 @@ namespace Komodex.DACP
             get { return _currentVolumeLevel; }
             set
             {
-                if (_currentVolumeLevel == value)
-                    return;
                 UpdateBoundVolumeLevel(value);
             }
         }
@@ -346,6 +422,7 @@ namespace Komodex.DACP
                 success = await SetVolumeLevelAsync(value).ConfigureAwait(false);
             } while (success && value != _newBoundVolumeLevel);
 
+            _newBoundVolumeLevel = -1;
             _updatingBoundVolumeLevel = false;
         }
 
