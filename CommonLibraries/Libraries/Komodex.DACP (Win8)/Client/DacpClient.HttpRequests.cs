@@ -600,6 +600,50 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Play Transport Commands
+
+        public async Task<bool> SendPlayPauseCommandAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/playpause");
+
+            try
+            {
+                await SendRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> SendPreviousTrackCommandAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/previtem");
+
+            // If the track doesn't change, we won't receive a play status update
+            int totalMS = (int)CurrentTrackDuration.TotalMilliseconds;
+            UpdateTrackTime(totalMS, totalMS);
+
+            try
+            {
+                await SendRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> SendNextTrackCommandAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/nextitem");
+
+            try
+            {
+                await SendRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        #endregion
+
         #endregion
     }
 }
