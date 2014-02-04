@@ -492,13 +492,8 @@ namespace Komodex.DACP
                 //if (oldSongID != CurrentItemID)
                 //    PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");
 
-                Utility.BeginInvokeOnUIThread(() =>
-                {
-                    //if (PlayState == PlayStates.Playing)
-                    //    timerTrackTimeUpdate.Start();
-                    //else if (PlayState == PlayStates.FastForward || PlayState == PlayStates.Rewind)
-                    //    BeginRepeatedTrackTimeRequest();
-                });
+                if (CurrentPlayState == PlayState.FastForward || CurrentPlayState == PlayState.Rewind)
+                    BeginRepeatedTrackTimeRequests();
 
                 await GetVolumeLevelAsync().ConfigureAwait(false);
 
@@ -579,6 +574,35 @@ namespace Komodex.DACP
 
         #region Track Time Position
 
+        private async Task<bool> GetTrackTimePositionAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/getproperty");
+            request.QueryParameters["properties"] = "dacp.playingtime";
+
+            try
+            {
+                var response = await SendRequestAsync(request).ConfigureAwait(false);
+                var nodes = DacpNodeDictionary.Parse(response.Nodes);
+
+                int totalMS = nodes.GetInt("cast");
+                int? remainingMS = nodes.GetNullableInt("cant");
+                UpdateTrackTime(totalMS, remainingMS);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        private async void BeginRepeatedTrackTimeRequests()
+        {
+            int playStatusRevision = _playStatusRevisionNumber;
+
+            do
+            {
+                await GetTrackTimePositionAsync().ConfigureAwait(false);
+                await Task.Delay(250);
+            } while (IsConnected && playStatusRevision == _playStatusRevisionNumber);
+        }
+
         private async Task<bool> SetTrackTimePositionAsync(TimeSpan position)
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/setproperty");
@@ -633,6 +657,42 @@ namespace Komodex.DACP
         public async Task<bool> SendNextTrackCommandAsync()
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/nextitem");
+
+            try
+            {
+                await SendRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> SendBeginRewindCommandAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/beginrew");
+
+            try
+            {
+                await SendRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> SendBeginFastForwardCommandAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/beginff");
+
+            try
+            {
+                await SendRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> SendPlayResumeCommandAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/playresume");
 
             try
             {
