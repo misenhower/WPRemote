@@ -385,11 +385,6 @@ namespace Komodex.DACP
                     return false;
 
                 // Process response
-                Utility.BeginInvokeOnUIThread(() =>
-                {
-                    //timerTrackTimeUpdate.Stop();
-                });
-
                 var nodes = DacpNodeDictionary.Parse(response.Nodes);
                 _playStatusRevisionNumber = nodes.GetInt("cmsr");
 
@@ -430,14 +425,15 @@ namespace Komodex.DACP
 
                 // Shuffle
                 int caas = nodes.GetInt("caas");
-                //IsShuffleAvailable = (caas & (1 << 1)) != 0;
-                //ShuffleState = nodes.GetBool("cash");
+                IsShuffleAvailable = (caas & (1 << 1)) != 0;
+                CurrentShuffleState = nodes.GetBool("cash");
 
                 // Repeat
                 int caar = nodes.GetInt("caar");
-                //IsRepeatOneAvailable = (caar & (1 << 1)) != 0;
-                //IsRepeatAllAvailable = (caar & (1 << 2)) != 0;
-                //RepeatState = (RepeatStates)nodes.GetByte("carp");
+                IsRepeatOneAvailable = (caar & (1 << 1)) != 0;
+                IsRepeatAllAvailable = (caar & (1 << 2)) != 0;
+                IsRepeatAvailable = (IsRepeatOneAvailable || IsRepeatAllAvailable);
+                CurrentRepeatMode = (RepeatMode)nodes.GetByte("carp");
 
                 //CurrentMediaKind = nodes.GetInt("cmmk");
                 //ShowUserRating = nodes.GetBool("casu");

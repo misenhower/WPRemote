@@ -231,6 +231,88 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Shuffle/Repeat
+
+        private bool _isShuffleAvailable;
+        public bool IsShuffleAvailable
+        {
+            get { return _isShuffleAvailable; }
+            private set
+            {
+                if (_isShuffleAvailable == value)
+                    return;
+                _isShuffleAvailable = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private bool _currentShuffleState;
+        public bool CurrentShuffleState
+        {
+            get { return _currentShuffleState; }
+            private set
+            {
+                if (_currentShuffleState == value)
+                    return;
+                _currentShuffleState = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private bool _isRepeatOneAvailable;
+        public bool IsRepeatOneAvailable
+        {
+            get { return _isRepeatOneAvailable; }
+            private set
+            {
+                if (_isRepeatOneAvailable == value)
+                    return;
+                _isRepeatOneAvailable = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private bool _isRepeatAllAvailable;
+        public bool IsRepeatAllAvailable
+        {
+            get { return _isRepeatAllAvailable; }
+            private set
+            {
+                if (_isRepeatAllAvailable == value)
+                    return;
+                _isRepeatAllAvailable = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private bool _isRepeatAvailable;
+        public bool IsRepeatAvailable
+        {
+            get { return _isRepeatAvailable; }
+            private set
+            {
+                if (_isRepeatAvailable == value)
+                    return;
+                _isRepeatAvailable = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private RepeatMode _currentRepeatMode;
+        public RepeatMode CurrentRepeatMode
+        {
+            get { return _currentRepeatMode; }
+            private set
+            {
+                if (_currentRepeatMode == value)
+                    return;
+                _currentRepeatMode = value;
+                SendPropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region Track Time/Position
 
         private CancellationTokenSource _trackTimePositionUpdateCancellationTokenSource;

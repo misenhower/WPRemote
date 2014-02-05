@@ -22,7 +22,7 @@ namespace Komodex.DACP
         Rewind = 6,
     }
 
-    public enum RepeatState
+    public enum RepeatMode
     {
         None = 0,
         RepeatOne = 1,
