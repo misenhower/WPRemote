@@ -246,15 +246,15 @@ namespace Komodex.DACP
             }
         }
 
-        private bool _currentShuffleState;
-        public bool CurrentShuffleState
+        private bool _currentShuffleMode;
+        public bool CurrentShuffleMode
         {
-            get { return _currentShuffleState; }
+            get { return _currentShuffleMode; }
             private set
             {
-                if (_currentShuffleState == value)
+                if (_currentShuffleMode == value)
                     return;
-                _currentShuffleState = value;
+                _currentShuffleMode = value;
                 SendPropertyChanged();
             }
         }

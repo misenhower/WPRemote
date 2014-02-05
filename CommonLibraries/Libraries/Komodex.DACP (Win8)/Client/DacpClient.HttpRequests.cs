@@ -442,7 +442,7 @@ namespace Komodex.DACP
                 // Shuffle
                 int caas = nodes.GetInt("caas");
                 IsShuffleAvailable = (caas & (1 << 1)) != 0;
-                CurrentShuffleState = nodes.GetBool("cash");
+                CurrentShuffleMode = nodes.GetBool("cash");
 
                 // Repeat
                 int caar = nodes.GetInt("caar");
@@ -664,6 +664,49 @@ namespace Komodex.DACP
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/playresume");
             return SendCommandAsync(request);
+        }
+
+        #endregion
+
+        #region Shuffle/Repeat Commands
+
+        public Task<bool> ToggleShuffleModeAsync()
+        {
+            if (!IsShuffleAvailable)
+                return Task.FromResult(true);
+
+            string newMode = (CurrentShuffleMode) ? "0" : "1";
+            return SetPropertyAsync("dacp.shufflestate", newMode);
+        }
+
+        public Task<bool> ToggleRepeatModeAsync()
+        {
+            if (!IsRepeatAvailable)
+                return Task.FromResult(true);
+
+            RepeatMode newRepeatMode = RepeatMode.None;
+
+            switch (CurrentRepeatMode)
+            {
+                case RepeatMode.None:
+                    if (IsRepeatAllAvailable)
+                        newRepeatMode = RepeatMode.RepeatAll;
+                    else if (IsRepeatOneAvailable)
+                        newRepeatMode = RepeatMode.RepeatOne;
+                    break;
+
+                case RepeatMode.RepeatAll:
+                    if (IsRepeatOneAvailable)
+                        newRepeatMode = RepeatMode.RepeatOne;
+                    break;
+
+                case RepeatMode.RepeatOne:
+                    // Just go to "repeat none" mode
+                    break;
+            }
+
+            string newRepeatModeString = ((int)newRepeatMode).ToString();
+            return SetPropertyAsync("dacp.repeatstate", newRepeatModeString);
         }
 
         #endregion
