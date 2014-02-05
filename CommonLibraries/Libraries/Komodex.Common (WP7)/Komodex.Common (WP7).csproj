@@ -81,6 +81,7 @@
     <Compile Include="Log.cs" />
     <Compile Include="Analytics\CrashReporter.cs" />
     <Compile Include="Analytics\FirstRunNotifier.cs" />
+    <Compile Include="Networking\NetUtility.cs" />
     <Compile Include="Networking\WakeOnLAN.cs" />
     <Compile Include="ObservableCollectionEx.cs" />
     <Compile Include="Phone\PhoneUtility.cs" />

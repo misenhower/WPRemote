@@ -120,6 +120,9 @@
     <Compile Include="..\Komodex.Common %28WP7%29\Log.cs">
       <Link>Log.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Networking\NetUtility.cs">
+      <Link>Networking\NetUtility.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Common %28WP7%29\Networking\WakeOnLAN.cs">
       <Link>Networking\WakeOnLAN.cs</Link>
     </Compile>
