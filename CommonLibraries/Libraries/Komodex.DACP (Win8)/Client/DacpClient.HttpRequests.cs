@@ -72,6 +72,23 @@ namespace Komodex.DACP
             return new DacpResponse(response, nodes);
         }
 
+        internal async Task<bool> SendCommandAsync(DacpRequest request)
+        {
+            try
+            {
+                await SendRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        internal Task<bool> SetPropertyAsync(string propertyName, string value)
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters[propertyName] = value;
+            return SendCommandAsync(request);
+        }
+
         internal async Task<List<T>> GetListAsync<T>(DacpRequest request, Func<DacpNodeDictionary, T> itemGenerator, string listKey = DacpUtility.DefaultListKey)
         {
             try
@@ -120,7 +137,6 @@ namespace Komodex.DACP
 
                 // Process response
                 ServerVersion = response.HTTPResponse.Headers.GetValueOrDefault("DAAP-Server");
-                
 
                 var nodes = DacpNodeDictionary.Parse(response.Nodes);
                 ServerName = nodes.GetString("minm");
@@ -553,17 +569,9 @@ namespace Komodex.DACP
             return true;
         }
 
-        private async Task<bool> SetVolumeLevelAsync(int volumeLevel)
+        private Task<bool> SetVolumeLevelAsync(int volumeLevel)
         {
-            DacpRequest request = new DacpRequest("/ctrl-int/1/setproperty");
-            request.QueryParameters["dmcp.volume"] = volumeLevel.ToString();
-
-            try
-            {
-                await SendRequestAsync(request).ConfigureAwait(false);
-            }
-            catch { return false; }
-            return true;
+            return SetPropertyAsync("dmcp.volume", volumeLevel.ToString());
         }
 
         #endregion
@@ -601,14 +609,10 @@ namespace Komodex.DACP
 
         private async Task<bool> SetTrackTimePositionAsync(TimeSpan position)
         {
-            DacpRequest request = new DacpRequest("/ctrl-int/1/setproperty");
-            request.QueryParameters["dacp.playingtime"] = position.TotalMilliseconds.ToString();
+            bool success = await SetPropertyAsync("dacp.playingtime", position.TotalMilliseconds.ToString()).ConfigureAwait(false);
 
-            try
-            {
-                await SendRequestAsync(request).ConfigureAwait(false);
-            }
-            catch { return false; }
+            if (!success)
+                return false;
 
             int totalMS = (int)CurrentTrackDuration.TotalMilliseconds;
             int positionMS = (int)position.TotalMilliseconds;
@@ -622,80 +626,44 @@ namespace Komodex.DACP
 
         #region Play Transport Commands
 
-        public async Task<bool> SendPlayPauseCommandAsync()
+        public Task<bool> SendPlayPauseCommandAsync()
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/playpause");
-
-            try
-            {
-                await SendRequestAsync(request).ConfigureAwait(false);
-            }
-            catch { return false; }
-            return true;
+            return SendCommandAsync(request);
         }
 
-        public async Task<bool> SendPreviousTrackCommandAsync()
+        public Task<bool> SendPreviousTrackCommandAsync()
         {
-            DacpRequest request = new DacpRequest("/ctrl-int/1/previtem");
-
             // If the track doesn't change, we won't receive a play status update
             int totalMS = (int)CurrentTrackDuration.TotalMilliseconds;
             UpdateTrackTime(totalMS, totalMS);
 
-            try
-            {
-                await SendRequestAsync(request).ConfigureAwait(false);
-            }
-            catch { return false; }
-            return true;
+            DacpRequest request = new DacpRequest("/ctrl-int/1/previtem");
+            return SendCommandAsync(request);
         }
 
-        public async Task<bool> SendNextTrackCommandAsync()
+        public Task<bool> SendNextTrackCommandAsync()
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/nextitem");
-
-            try
-            {
-                await SendRequestAsync(request).ConfigureAwait(false);
-            }
-            catch { return false; }
-            return true;
+            return SendCommandAsync(request);
         }
 
-        public async Task<bool> SendBeginRewindCommandAsync()
+        public Task<bool> SendBeginRewindCommandAsync()
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/beginrew");
-
-            try
-            {
-                await SendRequestAsync(request).ConfigureAwait(false);
-            }
-            catch { return false; }
-            return true;
+            return SendCommandAsync(request);
         }
 
-        public async Task<bool> SendBeginFastForwardCommandAsync()
+        public Task<bool> SendBeginFastForwardCommandAsync()
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/beginff");
-
-            try
-            {
-                await SendRequestAsync(request).ConfigureAwait(false);
-            }
-            catch { return false; }
-            return true;
+            return SendCommandAsync(request);
         }
 
-        public async Task<bool> SendPlayResumeCommandAsync()
+        public Task<bool> SendPlayResumeCommandAsync()
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/playresume");
-
-            try
-            {
-                await SendRequestAsync(request).ConfigureAwait(false);
-            }
-            catch { return false; }
-            return true;
+            return SendCommandAsync(request);
         }
 
         #endregion
