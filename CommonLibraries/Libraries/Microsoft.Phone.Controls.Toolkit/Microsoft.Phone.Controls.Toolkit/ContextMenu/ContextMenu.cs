@@ -233,10 +233,15 @@ namespace Microsoft.Phone.Controls
             typeof(ContextMenu),
             new PropertyMetadata(true));
 
-        // Disable opening on hold
+        /// <summary>
+        /// Identifies the OpenOnHold dependency property.
+        /// </summary>
         public static readonly DependencyProperty OpenOnHoldProperty =
             DependencyProperty.Register("OpenOnHold", typeof(bool), typeof(ContextMenu), new PropertyMetadata(true));
 
+        /// <summary>
+        /// Disables opening the context menu when tapped and held.
+        /// </summary>
         public bool OpenOnHold
         {
             get { return (bool)GetValue(OpenOnHoldProperty); }
