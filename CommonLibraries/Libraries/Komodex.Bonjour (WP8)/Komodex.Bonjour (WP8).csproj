@@ -116,6 +116,7 @@
     <Compile Include="..\Komodex.Bonjour %28WP7%29\Utility\BonjourUtility.cs">
       <Link>Utility\BonjourUtility.cs</Link>
     </Compile>
+    <Compile Include="Bonjour\MulticastDNSChannel.WinRT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -142,6 +142,9 @@
     <Compile Include="..\Komodex.Bonjour %28WP7%29\Utility\BonjourUtility.cs">
       <Link>Utility\BonjourUtility.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP8%29\Bonjour\MulticastDNSChannel.WinRT.cs">
+      <Link>Bonjour\MulticastDNSChannel.WinRT.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
