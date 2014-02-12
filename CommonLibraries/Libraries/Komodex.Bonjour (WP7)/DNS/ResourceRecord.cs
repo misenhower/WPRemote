@@ -99,11 +99,7 @@ namespace Komodex.Bonjour.DNS
             switch (Type)
             {
                 case ResourceRecordType.A:
-#if WINDOWS_PHONE
-                    dataBytes = ((IPAddress)Data).GetAddressBytes();
-#else
-                    dataBytes = BonjourUtility.BytesFromIPAddress((Windows.Networking.HostName)Data);
-#endif
+                    dataBytes = BonjourUtility.BytesFromIPAddress((string)Data);
                     break;
                 case ResourceRecordType.PTR:
                     dataBytes = BonjourUtility.HostnameToBytes(BonjourUtility.FormatLocalHostname((string)Data));

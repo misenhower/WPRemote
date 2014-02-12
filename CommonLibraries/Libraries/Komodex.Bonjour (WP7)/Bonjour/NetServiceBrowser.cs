@@ -32,11 +32,7 @@ namespace Komodex.Bonjour
 
         // Known IP addresses
         // TODO: Make this static
-#if WINDOWS_PHONE
-        Dictionary<string, List<IPAddress>> _discoveredIPs = new Dictionary<string, List<IPAddress>>();
-#else
-        Dictionary<string, List<Windows.Networking.HostName>> _discoveredIPs = new Dictionary<string, List<Windows.Networking.HostName>>();
-#endif
+        Dictionary<string, List<string>> _discoveredIPs = new Dictionary<string, List<string>>();
 
         // Logger instance
         private static readonly Log _log = new Log("Bonjour NSBrowser");
@@ -207,18 +203,10 @@ namespace Komodex.Bonjour
         private void ProcessARecord(ResourceRecord record)
         {
             string hostname = record.Name;
-#if WINDOWS_PHONE
-            IPAddress ip = (IPAddress)record.Data;
-#else
-            Windows.Networking.HostName ip = (Windows.Networking.HostName)record.Data;
-#endif
+            string ip = (string)record.Data;
 
             if (!_discoveredIPs.ContainsKey(hostname))
-#if WINDOWS_PHONE
-                _discoveredIPs.Add(hostname, new List<IPAddress>());
-#else
-                _discoveredIPs.Add(hostname, new List<Windows.Networking.HostName>());
-#endif
+                _discoveredIPs.Add(hostname, new List<string>());
             if (!_discoveredIPs[hostname].Contains(ip))
                 _discoveredIPs[hostname].Insert(0, ip);
 

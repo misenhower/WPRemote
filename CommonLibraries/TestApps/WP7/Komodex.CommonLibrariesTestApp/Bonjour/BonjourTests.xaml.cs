@@ -33,7 +33,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
             _netService.FullServiceInstanceName = "test-01._touch-remote._tcp.local.";
             _netService.Port = 1234;
             _netService.Hostname = "this-is-a-test.local.";
-            _netService.IPAddresses.Add(IPAddress.Parse("127.0.0.1"));
+            _netService.IPAddresses.Add("127.0.0.1");
             Dictionary<string, string> txt = new Dictionary<string, string>();
             txt.Add("DvNm", "Windows Phone 7 Device");
             txt.Add("RemV", "10000");

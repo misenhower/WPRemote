@@ -173,7 +173,7 @@ namespace Komodex.DACP.Pairing
             if (!_running)
                 return;
 
-            var hostnames = NetUtility.GetLocalHostNames();
+            var hostnames = NetUtility.GetLocalHostNames().Select(h => h.CanonicalName.ToString());
             _pairingService.IPAddresses.Clear();
             _pairingService.IPAddresses.AddRange(hostnames);
             _pairingService.Publish();
