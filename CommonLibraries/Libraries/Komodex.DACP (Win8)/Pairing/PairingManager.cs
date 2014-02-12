@@ -95,7 +95,8 @@ namespace Komodex.DACP.Pairing
             _validPairingHash = GetMD5Hash(validPairingString).ToLower();
 
             // Set up NetService
-            _pairingService = new NetService();
+            if (_pairingService == null)
+                _pairingService = new NetService();
 
             _pairingService.FullServiceInstanceName = DeviceHostname + "._touch-remote._tcp.local.";
             _pairingService.Port = _port;
@@ -126,11 +127,12 @@ namespace Komodex.DACP.Pairing
         }
 
         
-        // TODO: Stop should be async, and should return once Bonjour finishes unpublishing the service.
-        public static void Stop()
+        public static async Task StopAsync()
         {
             if (!_running)
                 return;
+
+            _running = false;
 
             NetworkInformation.NetworkStatusChanged -= NetworkInformation_NetworkStatusChanged;
 
@@ -138,10 +140,12 @@ namespace Komodex.DACP.Pairing
             _httpServer.Stop();
             _httpServer = null;
 
-            _pairingService.Stop();
-            _pairingService = null;
+            await _pairingService.StopPublishingAsync().ConfigureAwait(false);
+        }
 
-            _running = false;
+        public static async void Stop()
+        {
+            await StopAsync().ConfigureAwait(false);
         }
 
         private static bool IsValidPairingRequest(HttpRequest request)
