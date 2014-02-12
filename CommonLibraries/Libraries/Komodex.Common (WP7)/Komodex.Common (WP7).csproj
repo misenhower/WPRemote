@@ -82,6 +82,7 @@
     <Compile Include="Analytics\CrashReporter.cs" />
     <Compile Include="Analytics\FirstRunNotifier.cs" />
     <Compile Include="Networking\NetUtility.cs" />
+    <Compile Include="Networking\UdpAnySourceMulticastClientExtensions.cs" />
     <Compile Include="Networking\WakeOnLAN.cs" />
     <Compile Include="ObservableCollectionEx.cs" />
     <Compile Include="Phone\PhoneUtility.cs" />
@@ -91,10 +92,13 @@
     <Compile Include="Setting.cs" />
     <Compile Include="Phone\TrialManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskUtility.cs" />
     <Compile Include="ThreadUtility.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="AsyncSemaphore.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions />

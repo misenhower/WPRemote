@@ -65,11 +65,11 @@ namespace Komodex.Bonjour
             await MulticastDNSChannel.AddListenerAsync(this).ConfigureAwait(false);
 
             await SendServiceSearchMessageAsync().ConfigureAwait(false);
-            await Task.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
+            await TaskUtility.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
             if (!IsRunning)
                 return;
             await SendServiceSearchMessageAsync().ConfigureAwait(false);
-            await Task.Delay(SecondRebroadcastInterval).ConfigureAwait(false);
+            await TaskUtility.Delay(SecondRebroadcastInterval).ConfigureAwait(false);
             if (!IsRunning)
                 return;
             await SendServiceSearchMessageAsync().ConfigureAwait(false);
@@ -311,14 +311,14 @@ namespace Komodex.Bonjour
             var token = cts.Token;
 
             // Initial delay
-            await Task.Delay(RunLoopInterval).ConfigureAwait(false);
+            await TaskUtility.Delay(RunLoopInterval).ConfigureAwait(false);
 
             while (IsRunning && !token.IsCancellationRequested)
             {
                 if (_lastServiceBroadcast.AddMilliseconds(RepeatedRebroadcastInterval) < DateTime.Now)
                     await SendServiceSearchMessageAsync().ConfigureAwait(false);
 
-                await Task.Delay(RunLoopInterval).ConfigureAwait(false);
+                await TaskUtility.Delay(RunLoopInterval).ConfigureAwait(false);
             }
         }
 

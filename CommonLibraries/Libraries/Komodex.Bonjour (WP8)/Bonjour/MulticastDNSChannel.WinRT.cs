@@ -11,7 +11,7 @@ using Windows.Storage.Streams;
 
 namespace Komodex.Bonjour
 {
-    internal partial class MulticastDNSChannel
+    internal static partial class MulticastDNSChannel
     {
         private static DatagramSocket _udpSocket;
         private static readonly HostName _mdnsHostName = new HostName(BonjourUtility.MulticastDNSAddress);
@@ -55,9 +55,10 @@ namespace Komodex.Bonjour
 
                 if (!IsJoined)
                     await Task.Delay(1000).ConfigureAwait(false);
+                else
+                    _log.Info("Successfully opened shared MDNS channel.");
             }
 
-            _log.Info("Successfully opened shared MDNS channel.");
 
             _mutex.Release();
         }
@@ -78,7 +79,6 @@ namespace Komodex.Bonjour
         }
 
         #region Message Send/Receive
-
 
         public static async Task<bool> SendMessageAsync(byte[] buffer)
         {

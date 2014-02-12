@@ -167,13 +167,13 @@ namespace Komodex.Bonjour
                 return;
 
             await SendServicePublishMessageAsync().ConfigureAwait(false);
-            await Task.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
+            await TaskUtility.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
 
             if (!_publishing || !MulticastDNSChannel.IsJoined)
                 return;
 
             await SendServicePublishMessageAsync().ConfigureAwait(false);
-            await Task.Delay(SecondRebroadcastInterval).ConfigureAwait(false);
+            await TaskUtility.Delay(SecondRebroadcastInterval).ConfigureAwait(false);
 
             if (!_publishing || !MulticastDNSChannel.IsJoined)
                 return;
@@ -199,13 +199,13 @@ namespace Komodex.Bonjour
                 return;
 
             await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
-            await Task.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
+            await TaskUtility.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
 
             if (_publishing || !MulticastDNSChannel.IsJoined)
                 return;
 
             await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
-            await Task.Delay(SecondRebroadcastInterval).ConfigureAwait(false);
+            await TaskUtility.Delay(SecondRebroadcastInterval).ConfigureAwait(false);
 
             if (_publishing || !MulticastDNSChannel.IsJoined)
                 return;
@@ -318,14 +318,14 @@ namespace Komodex.Bonjour
             var token = cts.Token;
 
             // Initial delay
-            await Task.Delay(RunLoopInterval).ConfigureAwait(false);
+            await TaskUtility.Delay(RunLoopInterval).ConfigureAwait(false);
 
             while (_publishing && !token.IsCancellationRequested)
             {
                 if (_lastServicePublishBroadcast.AddMilliseconds(RepeatedRebroadcastInterval) < DateTime.Now)
                     await SendServicePublishMessageAsync();
 
-                await Task.Delay(RunLoopInterval).ConfigureAwait(false);
+                await TaskUtility.Delay(RunLoopInterval).ConfigureAwait(false);
             }
         }
 
@@ -356,8 +356,8 @@ namespace Komodex.Bonjour
             // First resolution attempt
             await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
 
-            Task delayTask = Task.Delay(FirstRebroadcastInterval);
-            await Task.WhenAny(delayTask, tcs.Task).ConfigureAwait(false);
+            Task delayTask = TaskUtility.Delay(FirstRebroadcastInterval);
+            await TaskUtility.WhenAny(delayTask, tcs.Task).ConfigureAwait(false);
 
             if (tcs.Task.IsCompleted)
                 return true;
@@ -365,8 +365,8 @@ namespace Komodex.Bonjour
             // Second resolution attempt
             await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
 
-            delayTask = Task.Delay(SecondRebroadcastInterval);
-            await Task.WhenAny(delayTask, tcs.Task).ConfigureAwait(false);
+            delayTask = TaskUtility.Delay(SecondRebroadcastInterval);
+            await TaskUtility.WhenAny(delayTask, tcs.Task).ConfigureAwait(false);
 
             if (tcs.Task.IsCompleted)
                 return true;
@@ -374,8 +374,8 @@ namespace Komodex.Bonjour
             // Third resolution attempt
             await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
 
-            delayTask = Task.Delay(ServiceResolveTimeout);
-            await Task.WhenAny(delayTask, tcs.Task).ConfigureAwait(false);
+            delayTask = TaskUtility.Delay(ServiceResolveTimeout);
+            await TaskUtility.WhenAny(delayTask, tcs.Task).ConfigureAwait(false);
 
             if (tcs.Task.IsCompleted)
                 return true;

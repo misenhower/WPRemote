@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Komodex.Bonjour
 {
-    internal partial class MulticastDNSChannel
+    internal static partial class MulticastDNSChannel
     {
         private static readonly Log _log = new Log("Bonjour MDNS") { Level = LogLevel.Debug };
 

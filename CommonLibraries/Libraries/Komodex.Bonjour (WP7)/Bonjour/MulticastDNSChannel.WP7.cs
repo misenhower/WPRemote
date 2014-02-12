@@ -1,165 +1,134 @@
 ﻿using Komodex.Bonjour.DNS;
 using Komodex.Common;
+using Komodex.Common.Networking;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace Komodex.Bonjour
 {
     internal static partial class MulticastDNSChannel
     {
-        #region UDP Channel Management
-
         // UDP Client
         private static UdpAnySourceMulticastClient _client;
 
         // The receive buffer size sets the maximum message size
         private static readonly byte[] _receiveBuffer = new byte[2048];
 
-        private static void Start()
-        {
-            lock (_sync)
-            {
-                // If the client already exists, don't attempt to replace it
-                if (_client != null)
-                    return;
+        private static readonly AsyncSemaphore _mutex = new AsyncSemaphore(1);
 
-                // Create the client and attempt to join
-                _log.Info("Joining multicast DNS channel...");
-                _client = new UdpAnySourceMulticastClient(IPAddress.Parse(BonjourUtility.MulticastDNSAddress), BonjourUtility.MulticastDNSPort);
-                _client.BeginJoinGroup(UDPClientJoinGroupCallback, _client);
+        private static async Task OpenSharedChannelAsync()
+        {
+            await _mutex.WaitAsync().ConfigureAwait(false);
+
+            if (IsJoined || !_shouldJoinChannel)
+                return;
+
+            CloseSharedChannel();
+
+            _log.Info("Opening shared MDNS channel...");
+
+            while (!IsJoined && _shouldJoinChannel)
+            {
+                try
+                {
+                    _client = new UdpAnySourceMulticastClient(IPAddress.Parse(BonjourUtility.MulticastDNSAddress), BonjourUtility.MulticastDNSPort);
+                    _log.Debug("Joining multicast group...");
+                    await _client.JoinGroupAsync().ConfigureAwait(false);
+                    IsJoined = true;
+
+                    BeginReceiveMessageLoop();
+                }
+                catch (Exception e)
+                {
+                    _log.Warning("Caught exception while opening UDP socket");
+                    _log.Debug("Exception details: " + e.ToString());
+                    CloseSharedChannel();
+                }
+
+                if (!IsJoined)
+                    await TaskEx.Delay(1000).ConfigureAwait(false);
+                else
+                    _log.Info("Successfully opened shared MDNS channel.");
             }
+
+            _mutex.Release();
         }
 
-        private static void Stop()
+        private static void CloseSharedChannel()
         {
-            lock (_sync)
+            IsJoined = false;
+
+            var client = _client;
+            if (client != null)
             {
-                if (_client == null)
-                    return;
-
-                _shutdown = true;
-                if (_sendingMessage)
-                    return;
-
-                _log.Info("Closing multicast DNS channel");
-                IsJoined = false;
-                _client.Dispose();
+                try { client.Dispose(); }
+                catch { }
                 _client = null;
+                _log.Info("Closed shared MDNS channel.");
             }
         }
 
-        private static void SendMessage(byte[] buffer)
+        #region Message Send/Receive
+
+        public static async Task<bool> SendMessageAsync(byte[] buffer)
         {
-            _sendingMessage = true;
+            await _mutex.WaitAsync().ConfigureAwait(false);
+
             try
             {
-                _client.BeginSendToGroup(buffer, 0, buffer.Length, UDPClientSendToGroupCallback, _client);
-            }
-            catch
-            {
-                _sendingMessage = false;
-                bool restart = !_shutdown;
-                Stop();
-                if (restart)
+                if (!IsJoined)
+                    return false;
+
+                try
                 {
-                    _log.Info("Restarting multicast DNS channel from SendMessage method...");
-                    Start();
+                    await _client.SendToGroupAsync(buffer, 0, buffer.Length);
+                    return true;
+                }
+                catch
+                {
+                    return false;
                 }
             }
+            finally
+            {
+                _mutex.Release();
+            }
         }
 
-        private static void BeginReceiveFromGroup()
+        private static async void BeginReceiveMessageLoop()
         {
-            try
+            while (IsJoined)
             {
-                _client.BeginReceiveFromGroup(_receiveBuffer, 0, _receiveBuffer.Length, UDPClientReceiveFromGroupCallback, _client);
-            }
-            catch
-            {
-                bool restart = !_shutdown;
-                Stop();
-                if (restart)
+                UdpAnySourceMulticastClientReceieveFromGroupResult result;
+                try
                 {
-                    _log.Info("Restarting multicast DNS channel from BeginReceiveFromGroup method...");
-                    Start();
+                    result = await _client.ReceiveFromGroupAsync(_receiveBuffer, 0, _receiveBuffer.Length);
                 }
+                catch
+                {
+                    return;
+                }
+
+                // Parse the incoming message
+                Message message;
+                try
+                {
+                    message = Message.FromBytes(_receiveBuffer, 0, result.Length);
+                }
+                catch
+                {
+                    _log.Info("Dropped malformed packet from " + result.Source);
+                    return;
+                }
+
+                _log.Debug("Received " + message.Summary);
+                _log.Trace("Message details (received from {0}):\n{1}", result.Source, message.ToString());
+
+                SendMessageToListeners(message);
             }
-        }
-
-        #endregion
-
-        #region UDP Channel Callbacks
-
-        private static void UDPClientJoinGroupCallback(IAsyncResult result)
-        {
-            if (result.AsyncState != _client)
-                return;
-
-            // TODO: try/catch/error handling/etc.
-
-            _client.EndJoinGroup(result);
-            IsJoined = true;
-            _log.Info("Joined multicast DNS channel.");
-            SendJoinedToListeners();
-
-            BeginReceiveFromGroup();
-        }
-
-        private static void UDPClientSendToGroupCallback(IAsyncResult result)
-        {
-            if (result.AsyncState != _client)
-                return;
-
-            try
-            {
-                _client.EndSendToGroup(result);
-            }
-            catch { }
-
-            _sendingMessage = false;
-            if (!_shutdown)
-                BeginReceiveFromGroup();
-            else
-                Stop();
-        }
-
-        private static void UDPClientReceiveFromGroupCallback(IAsyncResult result)
-        {
-            if (result.AsyncState != _client)
-                return;
-
-            IPEndPoint sourceIPEndpoint;
-            int count;
-            try
-            {
-                count = _client.EndReceiveFromGroup(result, out sourceIPEndpoint);
-            }
-            catch
-            {
-                return;
-            }
-
-            // Parse the incoming message
-            Message message;
-            try
-            {
-                message = Message.FromBytes(_receiveBuffer, 0, count);
-            }
-            catch
-            {
-                _log.Info("Dropped malformed packet from " + sourceIPEndpoint);
-                return;
-            }
-
-            _log.Debug("Received " + message.Summary);
-            _log.Trace("Message details (received from {0}):\n{1}", sourceIPEndpoint, message.ToString());
-
-            SendMessageToListeners(message);
-
-            if (IsJoined)
-                BeginReceiveFromGroup();
         }
 
         #endregion
