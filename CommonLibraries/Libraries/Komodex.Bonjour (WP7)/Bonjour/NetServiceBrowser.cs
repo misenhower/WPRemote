@@ -132,20 +132,20 @@ namespace Komodex.Bonjour
                 switch (record.Type)
                 {
                     case ResourceRecordType.PTR:
-                        service = ProcessPTRRecord(record);
+                        service = ProcessPTRRecord((PTRRecord)record);
                         if (service != null)
                             updatedServices.AddOnce(service);
                         break;
                     case ResourceRecordType.A:
-                        ProcessARecord(record);
+                        ProcessARecord((ARecord)record);
                         break;
                     case ResourceRecordType.SRV:
-                        service = ProcessSRVRecord(record);
+                        service = ProcessSRVRecord((SRVRecord)record);
                         if (service != null)
                             updatedServices.AddOnce(service);
                         break;
                     case ResourceRecordType.TXT:
-                        service = ProcessTXTRecord(record);
+                        service = ProcessTXTRecord((TXTRecord)record);
                         if (service != null)
                             updatedServices.AddOnce(service);
                         break;
@@ -169,13 +169,13 @@ namespace Komodex.Bonjour
 
         }
 
-        private NetService ProcessPTRRecord(ResourceRecord record)
+        private NetService ProcessPTRRecord(PTRRecord record)
         {
             if (record.Name != _currentServiceType)
                 return null;
 
             NetService service = null;
-            string serviceInstanceName = (string)record.Data;
+            string serviceInstanceName = record.DomainName;
 
             // TTL of zero means we need to remove the service from the list
             if (record.TimeToLive == TimeSpan.Zero)
@@ -200,10 +200,10 @@ namespace Komodex.Bonjour
             return service;
         }
 
-        private void ProcessARecord(ResourceRecord record)
+        private void ProcessARecord(ARecord record)
         {
             string hostname = record.Name;
-            string ip = (string)record.Data;
+            string ip = record.Address;
 
             if (!_discoveredIPs.ContainsKey(hostname))
                 _discoveredIPs.Add(hostname, new List<string>());
@@ -219,16 +219,15 @@ namespace Komodex.Bonjour
             }
         }
 
-        private NetService ProcessSRVRecord(ResourceRecord record)
+        private NetService ProcessSRVRecord(SRVRecord record)
         {
             string serviceInstanceName = record.Name;
-            SRVRecordData srv = (SRVRecordData)record.Data;
 
             if (_discoveredServices.ContainsKey(serviceInstanceName))
             {
                 NetService service = _discoveredServices[serviceInstanceName];
-                service.Hostname = srv.Target;
-                service.Port = srv.Port;
+                service.Hostname = record.Target;
+                service.Port = record.Port;
                 service.IPAddresses.Clear();
                 if (_discoveredIPs.ContainsKey(service.Hostname))
                     service.IPAddresses.AddRange(_discoveredIPs[service.Hostname]);
@@ -238,14 +237,14 @@ namespace Komodex.Bonjour
             return null;
         }
 
-        private NetService ProcessTXTRecord(ResourceRecord record)
+        private NetService ProcessTXTRecord(TXTRecord record)
         {
             string serviceInstanceName = record.Name;
 
             if (_discoveredServices.ContainsKey(serviceInstanceName))
             {
                 NetService service = _discoveredServices[serviceInstanceName];
-                service.TXTRecordData = (Dictionary<string, string>)record.Data;
+                service.TXTRecordData = record.Data;
                 return service;
             }
 

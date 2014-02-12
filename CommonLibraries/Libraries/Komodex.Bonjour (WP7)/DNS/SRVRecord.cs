@@ -3,8 +3,13 @@ using System.IO;
 
 namespace Komodex.Bonjour.DNS
 {
-    internal class SRVRecordData
+    internal class SRVRecord : ResourceRecord
     {
+        public SRVRecord()
+        {
+            Type = ResourceRecordType.SRV;
+        }
+
         #region Properties
 
         public int Priority { get; set; }
@@ -19,19 +24,15 @@ namespace Komodex.Bonjour.DNS
 
         #region Methods
 
-        public static SRVRecordData FromBinaryReader(BinaryReader reader)
+        protected override void SetDataFromReader(BinaryReader reader, int length)
         {
-            SRVRecordData srv = new SRVRecordData();
-
-            srv.Priority = reader.ReadNetworkOrderUInt16();
-            srv.Weight = reader.ReadNetworkOrderUInt16();
-            srv.Port = reader.ReadNetworkOrderUInt16();
-            srv.Target = BonjourUtility.ReadHostnameFromBytes(reader);
-
-            return srv;
+            Priority = reader.ReadNetworkOrderUInt16();
+            Weight = reader.ReadNetworkOrderUInt16();
+            Port = reader.ReadNetworkOrderUInt16();
+            Target = BonjourUtility.ReadHostnameFromBytes(reader);
         }
 
-        public byte[] GetBytes()
+        protected override byte[] GetDataBytes()
         {
             List<byte> result = new List<byte>();
 
@@ -50,9 +51,15 @@ namespace Komodex.Bonjour.DNS
             return result.ToArray();
         }
 
+        public override string Summary
+        {
+            get { return string.Format("{0}: Target: {1} Port: {2}", Type, Target, Port); }
+        }
+
         public override string ToString()
         {
-            return string.Format("Target: {0} Port: {1}", Target, Port);
+            string cacheFlush = (CacheFlush) ? ", cache flush" : string.Empty;
+            return string.Format("{0}: {1} => Target: {2} Port: {3} (TTL: {4}{5})", Type, Name, Target, Port, TimeToLive, cacheFlush);
         }
 
         #endregion

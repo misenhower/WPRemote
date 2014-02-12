@@ -26,21 +26,40 @@ namespace Komodex.Bonjour.DNS
 
         public TimeSpan TimeToLive { get; set; }
 
-        public object Data { get; set; }
-
         #endregion
 
         #region Methods
 
         public static ResourceRecord FromBinaryReader(BinaryReader reader)
         {
-            ResourceRecord record = new ResourceRecord();
-
             // Hostname
-            record.Name = BonjourUtility.ReadHostnameFromBytes(reader);
+            string hostname = BonjourUtility.ReadHostnameFromBytes(reader);
 
             // Record Type
-            record.Type = (ResourceRecordType)reader.ReadNetworkOrderUInt16();
+            ResourceRecordType type = (ResourceRecordType)reader.ReadNetworkOrderUInt16();
+
+            ResourceRecord record;
+            switch (type)
+            {
+                case ResourceRecordType.A:
+                    record = new ARecord();
+                    break;
+                case ResourceRecordType.PTR:
+                    record = new PTRRecord();
+                    break;
+                case ResourceRecordType.SRV:
+                    record = new SRVRecord();
+                    break;
+                case ResourceRecordType.TXT:
+                    record = new TXTRecord();
+                    break;
+                default:
+                    record = new ResourceRecord();
+                    record.Type = type;
+                    break;
+            }
+
+            record.Name = hostname;
 
             // Class and Cache Flush bit
             ushort rrclass = reader.ReadNetworkOrderUInt16();
@@ -50,26 +69,9 @@ namespace Komodex.Bonjour.DNS
             // TTL
             record.TimeToLive = TimeSpan.FromSeconds(reader.ReadNetworkOrderInt32());
 
+            // Data
             ushort dataLength = reader.ReadNetworkOrderUInt16();
-
-            switch (record.Type)
-            {
-                case ResourceRecordType.A:
-                    record.Data = BonjourUtility.IPAddressFromBytes(reader.ReadBytes(dataLength));
-                    break;
-                case ResourceRecordType.PTR:
-                    record.Data = BonjourUtility.ReadHostnameFromBytes(reader);
-                    break;
-                case ResourceRecordType.SRV:
-                    record.Data = SRVRecordData.FromBinaryReader(reader);
-                    break;
-                case ResourceRecordType.TXT:
-                    record.Data = BonjourUtility.GetDictionaryFromTXTRecordBytes(reader, dataLength);
-                    break;
-                default:
-                    record.Data = reader.ReadBytes(dataLength);
-                    break;
-            }
+            record.SetDataFromReader(reader, dataLength);
 
             return record;
         }
@@ -94,31 +96,23 @@ namespace Komodex.Bonjour.DNS
             result.AddNetworkOrderBytes((int)TimeToLive.TotalSeconds);
 
             // Data
-            byte[] dataBytes;
-
-            switch (Type)
-            {
-                case ResourceRecordType.A:
-                    dataBytes = BonjourUtility.BytesFromIPAddress((string)Data);
-                    break;
-                case ResourceRecordType.PTR:
-                    dataBytes = BonjourUtility.HostnameToBytes(BonjourUtility.FormatLocalHostname((string)Data));
-                    break;
-                case ResourceRecordType.SRV:
-                    dataBytes = ((SRVRecordData)Data).GetBytes();
-                    break;
-                case ResourceRecordType.TXT:
-                    dataBytes = BonjourUtility.GetTXTRecordBytesFromDictionary((Dictionary<string, string>)Data);
-                    break;
-                default:
-                    dataBytes = (byte[])Data;
-                    break;
-            }
+            byte[] dataBytes = GetDataBytes();
 
             result.AddNetworkOrderBytes((ushort)dataBytes.Length);
             result.AddRange(dataBytes);
 
             return result.ToArray();
+        }
+
+        private byte[] _dataBytes;
+        protected virtual void SetDataFromReader(BinaryReader reader, int length)
+        {
+            _dataBytes = reader.ReadBytes(length);
+        }
+
+        protected virtual byte[] GetDataBytes()
+        {
+            return _dataBytes;
         }
 
         #endregion
@@ -128,24 +122,9 @@ namespace Komodex.Bonjour.DNS
         /// <summary>
         /// Returns a short summary of this record, e.g., "A: 10.0.0.1".
         /// </summary>
-        public string Summary
+        public virtual string Summary
         {
-            get
-            {
-                switch (Type)
-                {
-                    case ResourceRecordType.A:
-                    case ResourceRecordType.PTR:
-                    case ResourceRecordType.SRV:
-                        return string.Format("{0}: {1}", Type, (Data != null) ? Data.ToString() : "(No data)");
-
-                    case ResourceRecordType.TXT:
-                        return "TXT";
-
-                    default:
-                        return string.Format("(Unknown RR type {0})", Type);
-                }
-            }
+            get { return string.Format("(Unknown RR type {0})", Type); }
         }
 
         /// <summary>
@@ -154,26 +133,7 @@ namespace Komodex.Bonjour.DNS
         public override string ToString()
         {
             string cacheFlush = (CacheFlush) ? ", cache flush" : string.Empty;
-
-            switch (Type)
-            {
-                case ResourceRecordType.A:
-                case ResourceRecordType.PTR:
-                case ResourceRecordType.SRV:
-                    return string.Format("{0}: {1} => {2} (TTL: {3}{4})", Type, Name, (Data != null) ? Data.ToString() : "(No data)", TimeToLive, cacheFlush);
-
-                case ResourceRecordType.TXT:
-                    string data;
-                    if (Data is Dictionary<string, string>)
-                        data = string.Join(", ", ((Dictionary<string, string>)Data).Select(kvp => kvp.Key + "=" + kvp.Value));
-                    else
-                        data = "(No data)";
-
-                    return string.Format("TXT: {0} => {1} (TTL: {2}{3})", Name, data, TimeToLive, cacheFlush);
-
-                default:
-                    return string.Format("[{0}] {1} (TTL: {2}{3})", Type, Name, TimeToLive, cacheFlush);
-            }
+            return string.Format("[{0}] {1} (TTL: {2}{3})", Type, Name, TimeToLive, cacheFlush);
         }
 
         #endregion

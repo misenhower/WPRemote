@@ -218,54 +218,57 @@ namespace Komodex.Bonjour
             message.AuthoritativeAnswer = true;
 
             // PTR Record for DNS-SD Service Type Enumeration
-            record = new ResourceRecord();
-            record.Type = ResourceRecordType.PTR;
-            record.TimeToLive = BroadcastTTL;
-            record.Name = BonjourUtility.DNSSDServiceTypeEnumerationName;
-            record.Data = Type;
+            record = new PTRRecord()
+            {
+                TimeToLive = BroadcastTTL,
+                Name = BonjourUtility.DNSSDServiceTypeEnumerationName,
+                DomainName = Type,
+            };
             message.AnswerRecords.Add(record);
 
             // PTR Record
-            record = new ResourceRecord();
-            record.Type = ResourceRecordType.PTR;
-            record.TimeToLive = BroadcastTTL;
-            record.Name = Type;
-            record.Data = FullServiceInstanceName;
+            record = new PTRRecord()
+            {
+                TimeToLive = BroadcastTTL,
+                Name = Type,
+                DomainName = FullServiceInstanceName,
+            };
             message.AnswerRecords.Add(record);
 
             // SRV Record
-            record = new ResourceRecord();
-            record.Type = ResourceRecordType.SRV;
-            record.TimeToLive = BroadcastTTL;
-            record.CacheFlush = true;
-            record.Name = FullServiceInstanceName;
-            SRVRecordData srv = new SRVRecordData();
-            srv.Target = Hostname;
-            srv.Port = Port;
-            record.Data = srv;
+            record = new SRVRecord()
+            {
+                TimeToLive = BroadcastTTL,
+                CacheFlush = true,
+                Name = FullServiceInstanceName,
+                Target = Hostname,
+                Port = Port,
+            };
             message.AnswerRecords.Add(record);
 
             // A Records
             foreach (var ip in IPAddresses)
             {
-                record = new ResourceRecord();
-                record.Type = ResourceRecordType.A;
-                record.TimeToLive = BroadcastTTL;
-                record.CacheFlush = true;
-                record.Name = Hostname;
-                record.Data = ip;
+                record = new ARecord()
+                {
+                    TimeToLive = BroadcastTTL,
+                    CacheFlush = true,
+                    Name = Hostname,
+                    Address = ip,
+                };
                 message.AnswerRecords.Add(record);
             }
 
             // TXT Record
             if (TXTRecordData != null && TXTRecordData.Count > 0)
             {
-                record = new ResourceRecord();
-                record.Type = ResourceRecordType.TXT;
-                record.TimeToLive = BroadcastTTL;
-                record.CacheFlush = true;
-                record.Name = FullServiceInstanceName;
-                record.Data = TXTRecordData;
+                record = new TXTRecord()
+                {
+                    TimeToLive = BroadcastTTL,
+                    CacheFlush = true,
+                    Name = FullServiceInstanceName,
+                    Data = TXTRecordData,
+                };
                 message.AnswerRecords.Add(record);
             }
 
@@ -283,11 +286,12 @@ namespace Komodex.Bonjour
             message.AuthoritativeAnswer = true;
 
             // PTR Record
-            record = new ResourceRecord();
-            record.Type = ResourceRecordType.PTR;
-            record.TimeToLive = TimeSpan.Zero;
-            record.Name = Type;
-            record.Data = FullServiceInstanceName;
+            record = new PTRRecord()
+            {
+                TimeToLive = TimeSpan.Zero,
+                Name = Type,
+                DomainName = FullServiceInstanceName,
+            };
             message.AnswerRecords.Add(record);
 
             return message;

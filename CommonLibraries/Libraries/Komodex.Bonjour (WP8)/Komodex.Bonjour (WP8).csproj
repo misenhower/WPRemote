@@ -98,8 +98,14 @@
     <Compile Include="..\Komodex.Bonjour %28WP7%29\Bonjour\NetServiceEventArgs.cs">
       <Link>Bonjour\NetServiceEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\ARecord.cs">
+      <Link>DNS\ARecord.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\Message.cs">
       <Link>DNS\Message.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\PTRRecord.cs">
+      <Link>DNS\PTRRecord.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\Question.cs">
       <Link>DNS\Question.cs</Link>
@@ -110,8 +116,11 @@
     <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\ResourceRecordType.cs">
       <Link>DNS\ResourceRecordType.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\SRVRecordData.cs">
-      <Link>DNS\SRVRecordData.cs</Link>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\SRVRecord.cs">
+      <Link>DNS\SRVRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Bonjour %28WP7%29\DNS\TXTRecord.cs">
+      <Link>DNS\TXTRecord.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.Bonjour %28WP7%29\Utility\BonjourUtility.cs">
       <Link>Utility\BonjourUtility.cs</Link>
