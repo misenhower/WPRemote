@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Komodex.Bonjour
 {
@@ -128,100 +129,88 @@ namespace Komodex.Bonjour
 
         private static readonly TimeSpan BroadcastTTL = TimeSpan.FromMinutes(2);
 
-        public void Publish()
+        public async void Publish()
         {
             if (_browser != null)
                 throw new InvalidOperationException("Cannot publish services that were discovered by NetServiceBrowser.");
 
-            _log.Info("Publishing service \"{0}\"...", FullServiceInstanceName);
+            _log.Info("Publishing service '{0}'...", FullServiceInstanceName);
 
             _publishing = true;
             _currentServicePublishMessage = GetPublishMessage();
-            MulticastDNSChannel.AddListener(this);
+            await MulticastDNSChannel.AddListenerAsync(this).ConfigureAwait(false);
+            await AnnounceServicePublishAsync().ConfigureAwait(false);
+            StartRunLoop();
         }
 
-        public void Stop()
+        public async Task StopPublishingAsync()
         {
             if (!_publishing)
                 return;
 
             _publishing = false;
-
-            StopRunLoop();
-
             _currentServicePublishMessage = null;
-            AnnounceServiceStopPublishing();
 
-            _log.Info("Stopped publishing service \"{0}\".", FullServiceInstanceName);
+            await AnnounceServiceStopPublishingAsync().ConfigureAwait(false);
+            MulticastDNSChannel.RemoveListener(this);
+            _log.Info("Stopped publishing service '{0}'.", FullServiceInstanceName);
         }
 
-        private void AnnounceServicePublish()
+        public async void StopPublishing()
         {
-            if (!_publishing)
-                return;
-
-            if (!MulticastDNSChannel.IsJoined)
-                return;
-
-            SendServicePublishMessage();
-
-            ThreadUtility.RunOnBackgroundThread(() =>
-            {
-                ThreadUtility.Delay(FirstRebroadcastInterval);
-                if (!MulticastDNSChannel.IsJoined || !_publishing)
-                {
-                    Stop();
-                    return;
-                }
-
-                SendServicePublishMessage();
-
-                ThreadUtility.Delay(SecondRebroadcastInterval);
-                if (!MulticastDNSChannel.IsJoined || !_publishing)
-                {
-                    Stop();
-                    return;
-                }
-
-                SendServicePublishMessage();
-            });
+            await StopPublishingAsync().ConfigureAwait(false);
         }
 
-        private void SendServicePublishMessage()
+        private async Task AnnounceServicePublishAsync()
+        {
+            if (!_publishing || !MulticastDNSChannel.IsJoined)
+                return;
+
+            await SendServicePublishMessageAsync().ConfigureAwait(false);
+            await Task.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
+
+            if (!_publishing || !MulticastDNSChannel.IsJoined)
+                return;
+
+            await SendServicePublishMessageAsync().ConfigureAwait(false);
+            await Task.Delay(SecondRebroadcastInterval).ConfigureAwait(false);
+
+            if (!_publishing || !MulticastDNSChannel.IsJoined)
+                return;
+
+            await SendServicePublishMessageAsync().ConfigureAwait(false);
+        }
+
+        private async Task SendServicePublishMessageAsync()
         {
             if (!_publishing || _currentServicePublishMessage == null)
                 return;
 
             _log.Debug("Sending publish message for service \"{0}\"...", FullServiceInstanceName);
-            MulticastDNSChannel.SendMessage(_currentServicePublishMessage);
+            await MulticastDNSChannel.SendMessageAsync(_currentServicePublishMessage).ConfigureAwait(false);
             _lastServicePublishBroadcast = DateTime.Now;
         }
 
-        private void AnnounceServiceStopPublishing()
+        private async Task AnnounceServiceStopPublishingAsync()
         {
             Message message = GetStopPublishMessage();
 
-            if (!MulticastDNSChannel.IsJoined)
+            if (_publishing || !MulticastDNSChannel.IsJoined)
                 return;
 
-            MulticastDNSChannel.SendMessage(message);
+            await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
+            await Task.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
 
-            ThreadUtility.RunOnBackgroundThread(() =>
-            {
-                ThreadUtility.Delay(FirstRebroadcastInterval);
-                if (!MulticastDNSChannel.IsJoined || _publishing)
-                    return;
+            if (_publishing || !MulticastDNSChannel.IsJoined)
+                return;
 
-                MulticastDNSChannel.SendMessage(message);
+            await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
+            await Task.Delay(SecondRebroadcastInterval).ConfigureAwait(false);
 
-                ThreadUtility.Delay(SecondRebroadcastInterval);
-                if (!MulticastDNSChannel.IsJoined || _publishing)
-                    return;
+            if (_publishing || !MulticastDNSChannel.IsJoined)
+                return;
 
-                MulticastDNSChannel.SendMessage(message);
-
-                MulticastDNSChannel.RemoveListener(this);
-            });
+            await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
         }
 
         #region Start/Stop DNS Messages
@@ -316,45 +305,28 @@ namespace Komodex.Bonjour
 
         #region Run Loop
 
-#if WINDOWS_PHONE
-        private Timer _runLoopTimer;
-#else
-        private Windows.System.Threading.ThreadPoolTimer _runLoopTimer;
-#endif
+        private CancellationTokenSource _runLoopCancellationTokenSource;
 
-        private void StartRunLoop()
+        private async void StartRunLoop()
         {
-            if (_runLoopTimer != null)
-                return;
+            var cts = _runLoopCancellationTokenSource;
+            if (cts != null)
+                cts.Cancel();
 
-#if WINDOWS_PHONE
-            _runLoopTimer = new Timer((state) => RunLoop(), null, RunLoopInterval, RunLoopInterval);
-#else
-            _runLoopTimer = Windows.System.Threading.ThreadPoolTimer.CreatePeriodicTimer((timer) => RunLoop(), TimeSpan.FromMilliseconds(RunLoopInterval));
-#endif
-        }
+            cts = new CancellationTokenSource();
+            _runLoopCancellationTokenSource = cts;
+            var token = cts.Token;
 
-        private void StopRunLoop()
-        {
-            if (_runLoopTimer == null)
-                return;
+            // Initial delay
+            await Task.Delay(RunLoopInterval).ConfigureAwait(false);
 
-#if WINDOWS_PHONE
-            _runLoopTimer.Dispose();
-#else
-            _runLoopTimer.Cancel();
-#endif
-            _runLoopTimer = null;
-        }
+            while (_publishing && !token.IsCancellationRequested)
+            {
+                if (_lastServicePublishBroadcast.AddMilliseconds(RepeatedRebroadcastInterval) < DateTime.Now)
+                    await SendServicePublishMessageAsync();
 
-        private void RunLoop()
-        {
-            if (!_publishing)
-                return;
-
-            // Check if we need to rebroadcast the search message
-            if (_lastServicePublishBroadcast.AddMilliseconds(RepeatedRebroadcastInterval) < DateTime.Now)
-                SendServicePublishMessage();
+                await Task.Delay(RunLoopInterval).ConfigureAwait(false);
+            }
         }
 
         #endregion
@@ -363,14 +335,9 @@ namespace Komodex.Bonjour
 
         #region Resolve
 
-        private bool _resolving;
+        private TaskCompletionSource<object> _resolveTaskCompletionSource;
 
-        /// <summary>
-        /// Raised when the service has been resolved. This event may be raised multiple times as new information becomes available.
-        /// </summary>
-        public event EventHandler<NetServiceEventArgs> ServiceResolved;
-
-        public void Resolve()
+        public async Task<bool> ResolveAsync()
         {
             if (_browser == null)
                 throw new InvalidOperationException("This operation is only valid on services that were generated by a NetServiceBrowser.");
@@ -380,26 +347,40 @@ namespace Komodex.Bonjour
                 throw new InvalidOperationException("The associated NetServiceBrowser has been stopped.");
 
             // Resolve the service
-            _resolving = true;
+            _log.Info("Resolving service '{0}'...", FullServiceInstanceName);
             Message message = GetResolveMessage();
-            _log.Info("Resolving service \"{0}\"...", FullServiceInstanceName);
-            MulticastDNSChannel.SendMessage(message);
 
-            ThreadUtility.RunOnBackgroundThread(()=>
-            {
-                ThreadUtility.Delay(FirstRebroadcastInterval);
-                if (!MulticastDNSChannel.IsJoined || !_resolving)
-                    return;
+            var tcs = new TaskCompletionSource<object>();
+            _resolveTaskCompletionSource = tcs;
 
-                MulticastDNSChannel.SendMessage(message);
+            // First resolution attempt
+            await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
 
-                ThreadUtility.Delay(SecondRebroadcastInterval);
-                if (!MulticastDNSChannel.IsJoined || !_resolving)
-                    return;
+            Task delayTask = Task.Delay(FirstRebroadcastInterval);
+            await Task.WhenAny(delayTask, tcs.Task).ConfigureAwait(false);
 
-                MulticastDNSChannel.SendMessage(message);
+            if (tcs.Task.IsCompleted)
+                return true;
 
-            });
+            // Second resolution attempt
+            await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
+
+            delayTask = Task.Delay(SecondRebroadcastInterval);
+            await Task.WhenAny(delayTask, tcs.Task).ConfigureAwait(false);
+
+            if (tcs.Task.IsCompleted)
+                return true;
+
+            // Third resolution attempt
+            await MulticastDNSChannel.SendMessageAsync(message).ConfigureAwait(false);
+
+            delayTask = Task.Delay(ServiceResolveTimeout);
+            await Task.WhenAny(delayTask, tcs.Task).ConfigureAwait(false);
+
+            if (tcs.Task.IsCompleted)
+                return true;
+
+            return false;
         }
 
         internal void Resolved()
@@ -407,10 +388,13 @@ namespace Komodex.Bonjour
             if (_browser == null || !_browser.IsRunning)
                 return;
 
-            _resolving = false;
-
-            _log.Info("Resolved service \"{0}\".", FullServiceInstanceName);
-            ServiceResolved.Raise(this, new NetServiceEventArgs(this));
+            var tcs = _resolveTaskCompletionSource;
+            if (tcs != null)
+            {
+                _log.Info("Resolved service '{0}'.", FullServiceInstanceName);
+                tcs.TrySetResult(null);
+                _resolveTaskCompletionSource = null;
+            }
         }
 
         private Message GetResolveMessage()
@@ -430,14 +414,7 @@ namespace Komodex.Bonjour
 
         #region IMulticastDNSListener Members
 
-        void IMulticastDNSListener.MulticastDNSChannelJoined()
-        {
-            AnnounceServicePublish();
-
-            StartRunLoop();
-        }
-
-        void IMulticastDNSListener.MulticastDNSMessageReceived(Message message)
+        async void IMulticastDNSListener.MulticastDNSMessageReceived(Message message)
         {
             if (!_publishing)
                 return;
@@ -471,7 +448,7 @@ namespace Komodex.Bonjour
             if (shouldRespond && _lastServicePublishBroadcast.AddMilliseconds(MinimumRebroadcastTime) < DateTime.Now)
             {
                 _log.Debug("Received query for service \"{0}\".", FullServiceInstanceName);
-                SendServicePublishMessage();
+                await SendServicePublishMessageAsync().ConfigureAwait(false);
             }
         }
 

@@ -3,17 +3,15 @@ using Komodex.Common;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Komodex.Bonjour
 {
-    internal static partial class MulticastDNSChannel
+    internal partial class MulticastDNSChannel
     {
-        private static readonly Log _log = new Log("Bonjour MDNS");
+        private static readonly Log _log = new Log("Bonjour MDNS") { Level = LogLevel.Debug };
 
-        private static readonly object _sync = new object();
-
-        private static bool _sendingMessage;
-        private static bool _shutdown;
+        private static bool _shouldJoinChannel;
 
         #region Properties
 
@@ -25,20 +23,19 @@ namespace Komodex.Bonjour
 
         private static readonly List<IMulticastDNSListener> _listeners = new List<IMulticastDNSListener>();
 
-        public static void AddListener(IMulticastDNSListener listener)
+        public static async Task AddListenerAsync(IMulticastDNSListener listener)
         {
             if (listener == null)
                 throw new ArgumentNullException("listener");
 
-            _shutdown = false;
-
             lock (_listeners)
+            {
                 _listeners.AddOnce(listener);
+                _shouldJoinChannel = true;
+            }
 
-            if (IsJoined)
-                listener.MulticastDNSChannelJoined();
-            else
-                Start();
+            if (!IsJoined)
+                await OpenSharedChannelAsync().ConfigureAwait(false);
         }
 
         public static void RemoveListener(IMulticastDNSListener listener)
@@ -56,21 +53,14 @@ namespace Komodex.Bonjour
                 _listeners.Remove(listener);
 
                 if (_listeners.Count == 0)
+                {
                     stop = true;
+                    _shouldJoinChannel = false;
+                }
             }
 
             if (stop)
-                Stop();
-        }
-
-        private static void SendJoinedToListeners()
-        {
-            IMulticastDNSListener[] listeners;
-            lock (_listeners)
-                listeners = _listeners.ToArray();
-
-            for (int i = 0; i < listeners.Length; i++)
-                listeners[i].MulticastDNSChannelJoined();
+                CloseSharedChannel();
         }
 
         private static void SendMessageToListeners(Message message)
@@ -87,14 +77,9 @@ namespace Komodex.Bonjour
 
         #region Public Methods
 
-        public static void SendMessage(Message message)
+        public static Task<bool> SendMessageAsync(Message message)
         {
-            if (!IsJoined)
-                Start();
-
-            // Get the message bytes and send
-            byte[] messageBytes = message.GetBytes();
-            SendMessage(messageBytes);
+            return SendMessageAsync(message.GetBytes());
         }
 
         #endregion

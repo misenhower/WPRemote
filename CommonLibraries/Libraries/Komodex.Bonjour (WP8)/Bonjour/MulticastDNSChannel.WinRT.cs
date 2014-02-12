@@ -3,133 +3,113 @@ using Komodex.Common;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.Networking;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 
 namespace Komodex.Bonjour
 {
-    internal static partial class MulticastDNSChannel
+    internal partial class MulticastDNSChannel
     {
-        #region UDP Socket Management
-
         private static DatagramSocket _udpSocket;
         private static readonly HostName _mdnsHostName = new HostName(BonjourUtility.MulticastDNSAddress);
 
-        private static async void Start()
+        private static readonly SemaphoreSlim _mutex = new SemaphoreSlim(1, 1);
+
+        private static async Task OpenSharedChannelAsync()
         {
-            lock (_sync)
-            {
-                if (_udpSocket != null)
-                    return;
+            await _mutex.WaitAsync().ConfigureAwait(false);
 
-                _log.Info("Creating UDP socket...");
-                _udpSocket = new DatagramSocket();
-            }
-
-            bool restartAfterDelay = false;
-
-            try
-            {
-                _udpSocket.MessageReceived += UDPSocket_MessageReceived;
-                await _udpSocket.BindServiceNameAsync(BonjourUtility.MulticastDNSPort.ToString());
-
-                if (_shutdown)
-                    return;
-
-                _udpSocket.JoinMulticastGroup(_mdnsHostName);
-            }
-            catch (ObjectDisposedException)
-            {
-                Restart();
+            if (IsJoined || !_shouldJoinChannel)
                 return;
-            }
-            catch (Exception)
-            {
-                // This is probably an "only one usage of each socket address is normally permitted" exception.
-                _udpSocket = null;
-                restartAfterDelay = true;
-            }
 
-            if (restartAfterDelay)
-            {
-                await System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5));
-                Restart();
-                return;
-            }
+            CloseSharedChannel();
 
-            IsJoined = true;
-            _log.Info("Joined multicast DNS group.");
-            SendJoinedToListeners();
-        }
+            _log.Info("Opening shared MDNS channel...");
 
-        private static void Stop()
-        {
-            lock (_sync)
-            {
-                if (_udpSocket == null)
-                    return;
-
-                _shutdown = true;
-                if (_sendingMessage)
-                    return;
-
-                _log.Info("Closing UDP socket...");
-                IsJoined = false;
-                _udpSocket.Dispose();
-                _udpSocket = null;
-            }
-        }
-
-        private static void Restart()
-        {
-            lock (_sync)
+            while (!IsJoined && _shouldJoinChannel)
             {
                 try
                 {
-                    Stop();
+                    // Create new socket
+                    _udpSocket = new DatagramSocket();
+                    _udpSocket.MessageReceived += UDPSocket_MessageReceived;
+
+                    // Bind the service name and join the multicast group
+                    _log.Debug("Opening UDP socket...");
+                    await _udpSocket.BindServiceNameAsync(BonjourUtility.MulticastDNSPort.ToString()).AsTask().ConfigureAwait(false);
+                    _log.Debug("Joining multicast group...");
+                    _udpSocket.JoinMulticastGroup(_mdnsHostName);
+
+                    // All done
+                    IsJoined = true;
                 }
-                catch (ObjectDisposedException) { }
-
-                _udpSocket = null;
-                _shutdown = false;
-
-                lock (_listeners)
+                catch (Exception e)
                 {
-                    if (_listeners.Count == 0)
-                        return;
+                    _log.Warning("Caught exception while opening UDP socket");
+                    _log.Debug("Exception details: " + e.ToString());
+                    CloseSharedChannel();
                 }
+
+                if (!IsJoined)
+                    await Task.Delay(1000).ConfigureAwait(false);
             }
 
-            Start();
+            _log.Info("Successfully opened shared MDNS channel.");
+
+            _mutex.Release();
         }
 
-        private static async void SendMessage(byte[] buffer)
+        private static void CloseSharedChannel()
         {
-            _sendingMessage = true;
+            IsJoined = false;
+
+            var socket = _udpSocket;
+            if (socket != null)
+            {
+                // Don't remove the MessageReceived event handler here since that will throw an exception.
+                try { socket.Dispose(); }
+                catch { }
+                _udpSocket = null;
+                _log.Info("Closed shared MDNS channel.");
+            }
+        }
+
+        #region Message Send/Receive
+
+
+        public static async Task<bool> SendMessageAsync(byte[] buffer)
+        {
+            await _mutex.WaitAsync().ConfigureAwait(false);
 
             try
             {
-                // Get the output stream
-                var outputStream = await _udpSocket.GetOutputStreamAsync(_mdnsHostName, BonjourUtility.MulticastDNSPort.ToString());
+                if (!IsJoined)
+                    return false;
 
-                // Write bytes to stream
-                var outputWriter = new DataWriter(outputStream);
-                outputWriter.WriteBytes(buffer);
-                await outputWriter.StoreAsync();
+                try
+                {
+                    // Get the output stream
+                    var outputStream = await _udpSocket.GetOutputStreamAsync(_mdnsHostName, BonjourUtility.MulticastDNSPort.ToString()).AsTask().ConfigureAwait(false);
+
+                    // Write bytes to stream
+                    var outputWriter = new DataWriter(outputStream);
+                    outputWriter.WriteBytes(buffer);
+                    await outputWriter.StoreAsync().AsTask().ConfigureAwait(false);
+
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
-            catch (ObjectDisposedException)
+            finally
             {
-                _sendingMessage = false;
-                Restart();
-                return;
+                _mutex.Release();
             }
-
-            _sendingMessage = false;
-
-            // Shutdown if necessary
-            if (_shutdown)
-                Stop();
         }
 
         private static void UDPSocket_MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)

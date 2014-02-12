@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Komodex.Bonjour
 {
@@ -46,13 +47,13 @@ namespace Komodex.Bonjour
         /// Searches for services on the local network.
         /// </summary>
         /// <param name="type">The type of the service to search for, e.g., "_touch-able._tcp.local."</param>
-        public void SearchForServices(string type)
+        public async void SearchForServices(string type)
         {
             _discoveredServices.Clear();
 
             _currentServiceType = BonjourUtility.FormatLocalHostname(type);
 
-            _log.Info("Searching for service type \"{0}\"...", _currentServiceType);
+            _log.Info("Searching for service type '{0}'...", _currentServiceType);
 
             // Create the DNS message to send
             _currentServiceSearchMessage = new Message();
@@ -61,54 +62,37 @@ namespace Komodex.Bonjour
             IsRunning = true;
 
             // Listen for MDNS messages and notifications
-            MulticastDNSChannel.AddListener(this);
+            await MulticastDNSChannel.AddListenerAsync(this).ConfigureAwait(false);
 
-            // The message will be sent when we receive a joined notification from the MDNS channel (which could be immediately)
+            await SendServiceSearchMessageAsync().ConfigureAwait(false);
+            await Task.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
+            if (!IsRunning)
+                return;
+            await SendServiceSearchMessageAsync().ConfigureAwait(false);
+            await Task.Delay(SecondRebroadcastInterval).ConfigureAwait(false);
+            if (!IsRunning)
+                return;
+            await SendServiceSearchMessageAsync().ConfigureAwait(false);
+
+            StartRunLoop();
         }
 
         public void Stop()
         {
             IsRunning = false;
 
-            StopRunLoop();
-
             MulticastDNSChannel.RemoveListener(this);
             _discoveredServices.Clear();
             _discoveredIPs.Clear();
             _currentServiceSearchMessage = null;
 
-            _log.Info("Stopped search for service type \"{0}\".", _currentServiceType);
+            _log.Info("Stopped search for service type '{0}'.", _currentServiceType);
             _currentServiceType = null;
         }
 
         #endregion
 
         #region IMulticastDNSListener Members
-
-        void IMulticastDNSListener.MulticastDNSChannelJoined()
-        {
-            if (_currentServiceSearchMessage == null)
-                return;
-            SendServiceSearchMessage();
-
-            // Rebroadcasts
-            ThreadUtility.RunOnBackgroundThread(() =>
-            {
-                ThreadUtility.Delay(FirstRebroadcastInterval);
-                if (!IsRunning)
-                    return;
-
-                SendServiceSearchMessage();
-
-                ThreadUtility.Delay(SecondRebroadcastInterval);
-                if (!IsRunning)
-                    return;
-
-                SendServiceSearchMessage();
-            });
-
-            StartRunLoop();
-        }
 
         void IMulticastDNSListener.MulticastDNSMessageReceived(Message message)
         {
@@ -123,14 +107,14 @@ namespace Komodex.Bonjour
 
         #region Message Processing
 
-        private void SendServiceSearchMessage()
+        private async Task SendServiceSearchMessageAsync()
         {
-            if (MulticastDNSChannel.IsJoined && _currentServiceSearchMessage != null)
-            {
-                _log.Debug("Sending search message for \"{0}\"...", _currentServiceType);
-                MulticastDNSChannel.SendMessage(_currentServiceSearchMessage);
-                _lastServiceBroadcast = DateTime.Now;
-            }
+            if (!MulticastDNSChannel.IsJoined || _currentServiceSearchMessage == null)
+                return;
+
+            _log.Debug("Sending search message for '{0}'...", _currentServiceType);
+            await MulticastDNSChannel.SendMessageAsync(_currentServiceSearchMessage).ConfigureAwait(false);
+            _lastServiceBroadcast = DateTime.Now;
         }
 
         private void ProcessMessage(Message message)
@@ -314,47 +298,28 @@ namespace Komodex.Bonjour
 
         #region Run Loop
 
-#if WINDOWS_PHONE
-        private Timer _runLoopTimer;
-#else
-        private Windows.System.Threading.ThreadPoolTimer _runLoopTimer;
-#endif
+        private CancellationTokenSource _runLoopCancellationTokenSource;
 
-        private void StartRunLoop()
+        private async void StartRunLoop()
         {
-            if (_runLoopTimer != null)
-                return;
+            var cts = _runLoopCancellationTokenSource;
+            if (cts != null)
+                cts.Cancel();
 
-#if WINDOWS_PHONE
-            _runLoopTimer = new Timer((state) => RunLoop(), null, RunLoopInterval, RunLoopInterval);
-#else
-            _runLoopTimer = Windows.System.Threading.ThreadPoolTimer.CreatePeriodicTimer((timer) => RunLoop(), TimeSpan.FromMilliseconds(RunLoopInterval));
-#endif
-        }
+            cts = new CancellationTokenSource();
+            _runLoopCancellationTokenSource = cts;
+            var token = cts.Token;
 
-        private void StopRunLoop()
-        {
-            if (_runLoopTimer == null)
-                return;
+            // Initial delay
+            await Task.Delay(RunLoopInterval).ConfigureAwait(false);
 
-#if WINDOWS_PHONE
-            _runLoopTimer.Dispose();
-#else
-            _runLoopTimer.Cancel();
-#endif
-            _runLoopTimer = null;
-        }
+            while (IsRunning && !token.IsCancellationRequested)
+            {
+                if (_lastServiceBroadcast.AddMilliseconds(RepeatedRebroadcastInterval) < DateTime.Now)
+                    await SendServiceSearchMessageAsync().ConfigureAwait(false);
 
-        private void RunLoop()
-        {
-            if (!IsRunning)
-                return;
-
-            // TODO: Check TTLs, etc.
-
-            // Check if we need to rebroadcast the search message
-            if (_lastServiceBroadcast.AddMilliseconds(RepeatedRebroadcastInterval) < DateTime.Now)
-                SendServiceSearchMessage();
+                await Task.Delay(RunLoopInterval).ConfigureAwait(false);
+            }
         }
 
         #endregion

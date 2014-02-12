@@ -21,14 +21,6 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
         {
             Service = service;
             Refresh();
-            Resolved = "Resolved: No";
-            Service.ServiceResolved += new EventHandler<NetServiceEventArgs>(Service_ServiceResolved);
-        }
-
-        void Service_ServiceResolved(object sender, NetServiceEventArgs e)
-        {
-            Resolved = "Resolved: Yes";
-            Refresh();
         }
 
         #region Properties
@@ -92,7 +84,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
         public string Resolved
         {
             get { return _resolved; }
-            protected set
+            set
             {
                 if (_resolved == value)
                     return;

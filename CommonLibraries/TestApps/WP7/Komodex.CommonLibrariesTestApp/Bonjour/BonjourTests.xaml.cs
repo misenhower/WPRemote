@@ -77,7 +77,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
 
         private void StopServicePublisher()
         {
-            _netService.Stop();
+            _netService.StopPublishing();
 
             publishStartButton.IsEnabled = true;
             publishStopButton.IsEnabled = false;
@@ -127,14 +127,17 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
 
         void _browser_ServiceFound(object sender, NetServiceEventArgs e)
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            Utility.BeginInvokeOnUIThread(async () =>
             {
                 if (sender != _browser || !_browser.IsRunning)
                     return; // Don't attempt to resolve the service if we're no longer looking for services (or if this is the wrong browser)
 
                 var nsvm = new NetServiceViewModel(e.Service);
                 _services.Add(nsvm);
-                e.Service.Resolve();
+                nsvm.Resolved = "Resolving...";
+                bool resolved = await e.Service.ResolveAsync();
+                nsvm.Resolved = "Resolved: " + resolved;
+                nsvm.Refresh();
             });
         }
 
