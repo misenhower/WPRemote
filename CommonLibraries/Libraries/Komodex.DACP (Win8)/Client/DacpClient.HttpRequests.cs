@@ -522,6 +522,8 @@ namespace Komodex.DACP
 #endif
 
                 //SubmitGetSpeakersRequest();
+
+                PlayStatusUpdated.RaiseOnUIThread(this, new EventArgs());
             }
             catch { return false; }
             return true;

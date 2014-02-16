@@ -189,6 +189,12 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Play Status Updated
+
+        public event EventHandler<EventArgs> PlayStatusUpdated;
+
+        #endregion
+
         #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
