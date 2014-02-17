@@ -44,6 +44,19 @@ namespace Komodex.DACP.Databases
 
         #region Containers
 
+        private List<DacpContainer> _containers = new List<DacpContainer>();
+        public List<DacpContainer> Containers
+        {
+            get { return _containers; }
+            private set
+            {
+                if (_containers == value)
+                    return;
+                _containers = value;
+                SendPropertyChanged();
+            }
+        }
+
         public DacpContainer BasePlaylist { get; private set; }
         public MusicContainer MusicContainer { get; private set; }
         public PodcastsContainer PodcastsContainer { get; private set; }
@@ -99,13 +112,13 @@ namespace Komodex.DACP.Databases
             try
             {
                 var response = await Client.SendRequestAsync(request).ConfigureAwait(false);
-                var containers = DacpUtility.GetItemsFromNodes(response.Nodes, n => DacpContainer.GetContainer(this, n));
+                var newContainers = DacpUtility.GetItemsFromNodes(response.Nodes, n => DacpContainer.GetContainer(this, n)).ToList();
 
                 List<Playlist> newPlaylists = new List<Playlist>();
                 List<Playlist> newParentPlaylists = new List<Playlist>();
                 List<GeniusMix> newGeniusMixes = new List<GeniusMix>();
 
-                foreach (DacpContainer container in containers)
+                foreach (DacpContainer container in newContainers)
                 {
                     if (container.BasePlaylist)
                     {
@@ -152,6 +165,7 @@ namespace Komodex.DACP.Databases
                     }
                 }
 
+                Containers = newContainers;
                 Playlists = newPlaylists;
                 ParentPlaylists = newParentPlaylists;
                 GeniusMixes = newGeniusMixes;
