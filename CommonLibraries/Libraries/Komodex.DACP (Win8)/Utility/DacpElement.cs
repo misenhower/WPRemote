@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Komodex.DACP
 {
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    public abstract class DacpElement : INotifyPropertyChanged
+    public abstract class DacpElement : BindableBase
     {
         public DacpElement(DacpClient client, DacpNodeDictionary nodes)
         {
@@ -36,19 +36,5 @@ namespace Komodex.DACP
         {
             get { return string.Format("{0} ID: {1}, Name: \"{2}\"", this.GetType().Name, ID, Name); }
         }
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void SendPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName");
-
-            PropertyChanged.RaiseOnUIThread(this, propertyName);
-        }
-
-        #endregion
     }
 }

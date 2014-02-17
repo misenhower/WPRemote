@@ -67,6 +67,7 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindableBase.cs" />
     <Compile Include="BitUtility.cs" />
     <Compile Include="Converters\BindableBooleanToStringConverter.cs" />
     <Compile Include="Converters\BooleanConverterBase.cs" />

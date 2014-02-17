@@ -195,7 +195,7 @@ namespace Komodex.DACP
                 if (_currentAlbumPersistentID == value)
                     return;
                 _currentAlbumPersistentID = value;
-                PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumPersistentID");
+                SendPropertyChanged();
             }
         }
 

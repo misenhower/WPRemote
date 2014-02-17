@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Komodex.DACP
 {
-    public sealed partial class DacpClient : INotifyPropertyChanged
+    public sealed partial class DacpClient : BindableBase
     {
         private readonly Log _log = new Log("DACP Client");
 
@@ -192,20 +192,6 @@ namespace Komodex.DACP
         #region Play Status Updated
 
         public event EventHandler<EventArgs> PlayStatusUpdated;
-
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void SendPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName");
-
-            PropertyChanged.RaiseOnUIThread(this, propertyName);
-        }
 
         #endregion
     }

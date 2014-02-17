@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace Komodex.CommonLibrariesTestApp.Bonjour
 {
-    public class NetServiceViewModel:INotifyPropertyChanged
+    public class NetServiceViewModel : BindableBase
     {
         public NetServiceViewModel(NetService service)
         {
@@ -37,7 +37,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
                 if (_name == value)
                     return;
                 _name = value;
-                PropertyChanged.RaiseOnUIThread(this, "Name");
+                SendPropertyChanged();
             }
         }
 
@@ -50,7 +50,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
                 if (_address == value)
                     return;
                 _address = value;
-                PropertyChanged.RaiseOnUIThread(this, "Address");
+                SendPropertyChanged();
             }
         }
 
@@ -63,7 +63,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
                 if (_ipAddresses == value)
                     return;
                 _ipAddresses = value;
-                PropertyChanged.RaiseOnUIThread(this, "IPAddresses");
+                SendPropertyChanged();
             }
         }
 
@@ -76,7 +76,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
                 if (_txtData == value)
                     return;
                 _txtData = value;
-                PropertyChanged.RaiseOnUIThread(this, "TXTData");
+                SendPropertyChanged();
             }
         }
 
@@ -89,7 +89,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
                 if (_resolved == value)
                     return;
                 _resolved = value;
-                PropertyChanged.RaiseOnUIThread(this, "Resolved");
+                SendPropertyChanged();
             }
         }
 
