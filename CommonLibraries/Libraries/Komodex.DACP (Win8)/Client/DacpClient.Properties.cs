@@ -510,6 +510,23 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region AirPlay Speakers
+
+        private List<AirPlaySpeaker> _speakers;
+        public List<AirPlaySpeaker> Speakers
+        {
+            get { return _speakers; }
+            private set
+            {
+                if (_speakers == value)
+                    return;
+                _speakers = value;
+                SendPropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region Now Playing Artwork
 
         private string _nowPlayingAlbumArtUriFormat;

@@ -116,6 +116,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\AirPlaySpeaker.cs" />
     <Compile Include="Client\DacpClient.cs" />
     <Compile Include="Client\DacpClient.HttpRequests.cs" />
     <Compile Include="Client\DacpClient.Properties.cs" />

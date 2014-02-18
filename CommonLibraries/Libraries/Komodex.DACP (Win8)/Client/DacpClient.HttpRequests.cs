@@ -508,6 +508,7 @@ namespace Komodex.DACP
                     BeginRepeatedTrackTimeRequests();
 
                 await GetVolumeLevelAsync().ConfigureAwait(false);
+                await GetSpeakersAsync().ConfigureAwait(false);
 
                 //var volumeTask = UpdateCurrentVolumeLevelAsync();
                 //var userRatingTask = UpdateCurrentSongUserRatingAsync();
@@ -574,6 +575,51 @@ namespace Komodex.DACP
         private Task<bool> SetVolumeLevelAsync(int volumeLevel)
         {
             return SetPropertyAsync("dmcp.volume", volumeLevel.ToString());
+        }
+
+        #endregion
+
+        #region AirPlay Speakers
+
+        private async Task<bool> GetSpeakersAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/getspeakers");
+
+            try
+            {
+                var response = await SendRequestAsync(request).ConfigureAwait(false);
+                var speakerNodes = response.Nodes.Where(n => n.Key == "mdcl").Select(n => DacpNodeDictionary.Parse(n.Value)).ToList();
+
+                var speakers = Speakers;
+
+                // Determine whether we need to replace the list of speakers
+                bool replaceSpeakers = false;
+                if (speakers == null || speakers.Count != speakerNodes.Count)
+                    replaceSpeakers = true;
+                else
+                {
+                    // Determine whether we still have the same speaker IDs
+                    for (int i = 0; i < speakers.Count; i++)
+                    {
+                        if (speakers[i].ID != (UInt64)speakerNodes[i].GetLong("msma"))
+                        {
+                            replaceSpeakers = true;
+                            break;
+                        }
+                    }
+                }
+
+                // Create the new list of speakers or update the existing speakers
+                if (replaceSpeakers)
+                    Speakers = speakerNodes.Select(n => new AirPlaySpeaker(this, n)).ToList();
+                else
+                {
+                    for (int i = 0; i < speakers.Count; i++)
+                        speakers[i].ProcessNodes(speakerNodes[i]);
+                }
+            }
+            catch { return false; }
+            return true;
         }
 
         #endregion
