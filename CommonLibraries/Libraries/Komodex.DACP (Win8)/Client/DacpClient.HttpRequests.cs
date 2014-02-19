@@ -51,7 +51,10 @@ namespace Komodex.DACP
         {
             _log.Info("Sending request for: " + uri);
 
-            HttpResponseMessage response = await _httpClient.GetAsync(new Uri(HttpPrefix + uri)).AsTask(cancellationToken).ConfigureAwait(false);
+            Task<HttpResponseMessage> task;
+            lock (_httpClient)
+                task = _httpClient.GetAsync(new Uri(HttpPrefix + uri)).AsTask(cancellationToken);
+            HttpResponseMessage response = await task.ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
             var buffer = await response.Content.ReadAsBufferAsync().AsTask(cancellationToken).ConfigureAwait(false);
