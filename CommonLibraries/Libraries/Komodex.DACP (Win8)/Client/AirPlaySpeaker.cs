@@ -74,17 +74,84 @@ namespace Komodex.DACP
             }
         }
 
-        private int _volume;
-        public int Volume
+        private int _volumeLevel;
+        public int VolumeLevel
         {
-            get { return _volume; }
+            get { return _volumeLevel; }
             private set
             {
-                if (_volume == value)
+                if (_volumeLevel == value)
                     return;
-                _volume = value;
+                _volumeLevel = value;
                 SendPropertyChanged();
             }
+        }
+
+        private double _bindableVolumeLevel;
+        public double BindableVolumeLevel
+        {
+            get { return _bindableVolumeLevel; }
+            set { UpdateBoundVolumeLevel(value); }
+        }
+
+        private void SendBindableVolumeLevelChanged()
+        {
+            if (!_updatingBoundVolumeLevel)
+                SendPropertyChanged("BindableVolumeLevel");
+        }
+
+        private int _newBoundVolumeLevel;
+        private bool _newBoundVolumeReplacesMasterVolume;
+        private bool _updatingBoundVolumeLevel;
+
+        private async void UpdateBoundVolumeLevel(double volumeLevel)
+        {
+            // Determine the adjusted volume level
+            var masterVolumeLevel = Client.CurrentVolumeLevel;
+            // This adjustment should replace the master volume level if it is higher than the current volume level or higher than all other active speakers
+            if (volumeLevel > masterVolumeLevel || !Client.Speakers.Any(s => s != this && s.IsActive && s.BindableVolumeLevel > volumeLevel))
+            {
+                _newBoundVolumeLevel = (int)volumeLevel;
+                _newBoundVolumeReplacesMasterVolume = true;
+            }
+            else
+            {
+                _newBoundVolumeLevel = (int)(100 * volumeLevel / masterVolumeLevel);
+                _newBoundVolumeReplacesMasterVolume = false;
+            }
+
+            if (_updatingBoundVolumeLevel)
+                return;
+
+            _updatingBoundVolumeLevel = true;
+
+            bool success;
+            int value;
+            bool replaceMaster;
+
+            do
+            {
+                value = _newBoundVolumeLevel;
+                replaceMaster = _newBoundVolumeReplacesMasterVolume;
+                success = await SetVolumeLevelAsync(value, replaceMaster).ConfigureAwait(false);
+            } while (success && (value != _newBoundVolumeLevel || replaceMaster != _newBoundVolumeReplacesMasterVolume));
+
+            _newBoundVolumeLevel = -1;
+            _updatingBoundVolumeLevel = false;
+        }
+
+        private async Task<bool> SetVolumeLevelAsync(int value, bool replaceMasterVolume)
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters["dmcp.volume"] = value.ToString();
+            if (replaceMasterVolume)
+                request.QueryParameters["include-speaker-id"] = ID.ToString();
+            else
+                request.QueryParameters["speaker-id"] = ID.ToString();
+
+            try { await Client.SendRequestAsync(request).ConfigureAwait(false); }
+            catch { return false; }
+            return true;
         }
 
         public void ProcessNodes(DacpNodeDictionary nodes)
@@ -94,12 +161,17 @@ namespace Komodex.DACP
             IsActive = nodes.GetBool("caia");
             HasVideo = nodes.GetBool("caiv");
             HasPassword = nodes.GetBool("cahp");
-            Volume = nodes.GetInt("cmvo");
+            int volumeLevel = nodes.GetInt("cmvo");
+            VolumeLevel = volumeLevel;
+
+            // Set the adjusted volume level
+            _bindableVolumeLevel = ((double)Client.CurrentVolumeLevel / 100) * volumeLevel;
+            SendBindableVolumeLevelChanged();
         }
 
         protected virtual string DebuggerDisplay
         {
-            get { return string.Format("Speaker Name: \"{0}\", Active: {1}, Volume: {2}", Name, IsActive, Volume); }
+            get { return string.Format("Speaker Name: \"{0}\", Active: {1}, Volume: {2}", Name, IsActive, VolumeLevel); }
         }
     }
 }

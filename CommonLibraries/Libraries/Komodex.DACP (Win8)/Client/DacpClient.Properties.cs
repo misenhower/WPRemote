@@ -478,10 +478,7 @@ namespace Komodex.DACP
         public int BindableVolumeLevel
         {
             get { return _currentVolumeLevel; }
-            set
-            {
-                UpdateBoundVolumeLevel(value);
-            }
+            set { UpdateBoundVolumeLevel(value); }
         }
 
         private int _newBoundVolumeLevel;
