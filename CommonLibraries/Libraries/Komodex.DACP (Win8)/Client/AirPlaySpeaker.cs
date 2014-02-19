@@ -173,5 +173,35 @@ namespace Komodex.DACP
         {
             get { return string.Format("Speaker Name: \"{0}\", Active: {1}, Volume: {2}", Name, IsActive, VolumeLevel); }
         }
+
+        public async Task<bool> EnableAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/setspeakers");
+            request.QueryParameters["speaker-id"] = string.Join(",", Client.Speakers.Where(s => s.IsActive || s == this).Select(s => "0x" + s.ID.ToString("x")));
+
+            try { await Client.SendRequestAsync(request).ConfigureAwait(false); }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> DisableAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/setspeakers");
+            request.QueryParameters["speaker-id"] = string.Join(",", Client.Speakers.Where(s => s.IsActive && s != this).Select(s => "0x" + s.ID.ToString("x")));
+
+            try { await Client.SendRequestAsync(request).ConfigureAwait(false); }
+            catch { return false; }
+            return true;
+        }
+
+        public async Task<bool> EnableSingleAsync()
+        {
+            DacpRequest request = new DacpRequest("/ctrl-int/1/setspeakers");
+            request.QueryParameters["speaker-id"] = "0x" + ID.ToString("x");
+
+            try { await Client.SendRequestAsync(request).ConfigureAwait(false); }
+            catch { return false; }
+            return true;
+        }
     }
 }
