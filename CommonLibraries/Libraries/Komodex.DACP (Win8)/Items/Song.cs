@@ -14,12 +14,14 @@ namespace Komodex.DACP.Items
         { }
 
         public string AlbumArtistName { get; private set; }
+        public int? TrackNumber { get; private set; }
 
         protected override void ProcessNodes(DacpNodeDictionary nodes)
         {
             base.ProcessNodes(nodes);
 
             AlbumArtistName = nodes.GetString("asaa");
+            TrackNumber = nodes.GetNullableShort("astn");
         }
 
         #region Display

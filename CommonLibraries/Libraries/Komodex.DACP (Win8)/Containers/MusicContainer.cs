@@ -24,7 +24,7 @@ namespace Komodex.DACP.Containers
 
         protected override string ItemsMeta
         {
-            get { return base.ItemsMeta + ",daap.songcodectype,daap.songbitrate"; }
+            get { return base.ItemsMeta + ",daap.songcodectype,daap.songbitrate,daap.songtracknumber"; }
         }
 
         #region Artists

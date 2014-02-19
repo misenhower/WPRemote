@@ -47,6 +47,13 @@ namespace Komodex.DACP
             return DacpUtility.GetInt16Value(this[key]);
         }
 
+        public short? GetNullableShort(string key, short? defaultValue = default(short?))
+        {
+            if (!this.ContainsKey(key))
+                return defaultValue;
+            return DacpUtility.GetInt16Value(this[key]);
+        }
+
         public int GetInt(string key, int defaultValue = default(int))
         {
             if (!this.ContainsKey(key))
