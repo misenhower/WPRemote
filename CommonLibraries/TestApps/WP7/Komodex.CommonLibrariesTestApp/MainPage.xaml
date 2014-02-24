@@ -55,6 +55,10 @@
                                  Margin="0,0,0,12"
                                  NavigateUri="/WizardControl/WizardControlTestPage.xaml"
                                  Style="{StaticResource HyperlinkStyle}" />
+                <HyperlinkButton Content="Sample Data Tests"
+                                 Margin="0,0,0,12"
+                                 NavigateUri="/SampleData/SampleDataTests.xaml"
+                                 Style="{StaticResource HyperlinkStyle}" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -115,6 +115,13 @@
       <Link>MainPage.xaml.cs</Link>
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\..\WP7\Komodex.CommonLibrariesTestApp\SampleData\SampleDataClasses.cs">
+      <Link>SampleData\SampleDataClasses.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\Komodex.CommonLibrariesTestApp\SampleData\SampleDataTests.xaml.cs">
+      <Link>SampleData\SampleDataTests.xaml.cs</Link>
+      <DependentUpon>SampleDataTests.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\..\WP7\Komodex.CommonLibrariesTestApp\WizardControl\WizardControlTestPage.xaml.cs">
       <Link>WizardControl\WizardControlTestPage.xaml.cs</Link>
       <DependentUpon>WizardControlTestPage.xaml</DependentUpon>
@@ -142,6 +149,11 @@
     </Page>
     <Page Include="..\..\WP7\Komodex.CommonLibrariesTestApp\MainPage.xaml">
       <Link>MainPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\WP7\Komodex.CommonLibrariesTestApp\SampleData\SampleDataTests.xaml">
+      <Link>SampleData\SampleDataTests.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

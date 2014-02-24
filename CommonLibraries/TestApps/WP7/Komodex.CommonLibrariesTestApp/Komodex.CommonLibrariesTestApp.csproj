@@ -90,6 +90,10 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleData\SampleDataClasses.cs" />
+    <Compile Include="SampleData\SampleDataTests.xaml.cs">
+      <DependentUpon>SampleDataTests.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WizardControl\WizardControlTestPage.xaml.cs">
       <DependentUpon>WizardControlTestPage.xaml</DependentUpon>
     </Compile>
@@ -108,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SampleData\SampleDataTests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
