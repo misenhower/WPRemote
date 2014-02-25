@@ -21,7 +21,9 @@ namespace Komodex.DACP.Items
             base.ProcessNodes(nodes);
 
             AlbumArtistName = nodes.GetString("asaa");
-            TrackNumber = nodes.GetNullableShort("astn");
+            int? trackNumber = nodes.GetNullableShort("astn");
+            if (trackNumber != 0)
+                TrackNumber = trackNumber;
         }
 
         #region Display
