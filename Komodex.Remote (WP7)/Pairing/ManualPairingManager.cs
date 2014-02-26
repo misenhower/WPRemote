@@ -75,14 +75,10 @@ namespace Komodex.Remote.Pairing
             }
         }
 
-        private static void Browser_ServiceFound(object sender, NetServiceEventArgs e)
+        private static async void Browser_ServiceFound(object sender, NetServiceEventArgs e)
         {
-            e.Service.ServiceResolved += Service_ServiceResolved;
-            e.Service.Resolve();
-        }
+            await e.Service.ResolveAsync().ConfigureAwait(false);
 
-        private static void Service_ServiceResolved(object sender, NetServiceEventArgs e)
-        {
             Utility.BeginInvokeOnUIThread(() =>
             {
                 if (DiscoveredPairingUtilities.Any(u => u.Service == e.Service))

@@ -58,17 +58,11 @@ namespace Komodex.Remote.ServerManagement
                 DiscoveredServers.Clear();
         }
 
-        private static void ServerBrowser_ServiceFound(object sender, NetServiceEventArgs e)
+        private static async void ServerBrowser_ServiceFound(object sender, NetServiceEventArgs e)
         {
-            e.Service.ServiceResolved += Service_ServiceResolved;
-            e.Service.Resolve();
-        }
+            await e.Service.ResolveAsync().ConfigureAwait(false);
 
-        private static void Service_ServiceResolved(object sender, NetServiceEventArgs e)
-        {
             _log.Info("Added service '{0}'.", e.Service.FullServiceInstanceName);
-            
-            e.Service.ServiceResolved -= Service_ServiceResolved;
 
             lock (DiscoveredServers)
                 DiscoveredServers[e.Service.Name] = e.Service;

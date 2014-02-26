@@ -1,5 +1,6 @@
 ﻿using Komodex.Bonjour;
 using Komodex.Common;
+using Komodex.Common.Networking;
 using Komodex.HTTP;
 using Komodex.Remote.ServerManagement;
 using System;
@@ -126,7 +127,7 @@ namespace Komodex.Remote.Pairing
 
             if (_pairingService != null)
             {
-                _pairingService.Stop();
+                _pairingService.StopPublishing();
                 _pairingService = null;
             }
         }
@@ -136,44 +137,10 @@ namespace Komodex.Remote.Pairing
             if (_pairingService == null)
                 return;
 
-            var hostnames = NetworkInformation.GetHostNames();
-
-            List<IPAddress> newIPs = new List<IPAddress>();
-
-            _log.Debug("Listing local IPs...");
-
-            // Attempt to list only valid IPs and present them in the correct order. Avahi only returns
-            // the first discovered IP, and other clients usually attempt to connect to IPs in the order
-            // they are presented.
-
-            foreach (var host in hostnames)
-            {
-                if (host.Type != HostNameType.Ipv4)
-                {
-                    _log.Debug("Host {0} is not IPv4, skipping...", host.DisplayName);
-                    continue;
-                }
-
-                // Only use Wi-Fi and Ethernet IPs, and ignore any other types (e.g., cellular)
-                uint ianaType = host.IPInformation.NetworkAdapter.IanaInterfaceType;
-                // 71: Wi-Fi
-                // 6: Ethernet
-                if (ianaType != 71 && ianaType != 6)
-                {
-                    _log.Debug("Host {0} (IANA interface type: {1}) is not on a Wi-Fi or Ethernet interface, skipping...", host.DisplayName, ianaType);
-                    continue;
-                }
-
-                _log.Debug("Found local IP: {0} (IANA interface type: {1})", host.DisplayName, ianaType);
-                newIPs.Add(IPAddress.Parse(host.CanonicalName));
-            }
-
-            // Usually the IP address we want is at the end of the list
-            newIPs.Reverse();
-
-            // Update the NetService
+            var hostnames = NetUtility.GetLocalHostNames().Select(h => h.CanonicalName.ToString());
             _pairingService.IPAddresses.Clear();
-            _pairingService.IPAddresses.AddRange(newIPs);
+            _pairingService.IPAddresses.AddRange(hostnames);
+            _pairingService.Publish();
         }
 
         private static async void HttpServer_RequestReceived(object sender, HttpRequestEventArgs e)
@@ -250,18 +217,14 @@ namespace Komodex.Remote.Pairing
             {
                 _httpServer.Stop();
 
+                var task = _pairingService.StopPublishingAsync();
+
                 // If the application is shutting down or suspending, wait a few seconds so the "stop publishing" messages can be sent
                 if (e.ShuttingDown)
                 {
-                    ThreadUtility.RunOnBackgroundThread(() => _pairingService.Stop());
-
                     _log.Info("Delaying shutdown so the pairing service can be unpublished...");
-                    ThreadUtility.Delay(4000);
+                    task.Wait();
                     _log.Info("Delay complete.");
-                }
-                else
-                {
-                    _pairingService.Stop();
                 }
             }
         }
