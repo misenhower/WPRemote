@@ -70,7 +70,10 @@ namespace Komodex.DACP
             _log.Info("Submitting request for: " + uri);
 
             HttpResponseMessage response = await HttpClient.PostAsync(uri, null, cancellationToken).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+                throw new DACPRequestException(response);
+
             byte[] data = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
             _log.Info("Received response for: " + uri);
@@ -344,7 +347,7 @@ namespace Komodex.DACP
 
         #region Login
 
-        protected async Task<bool> LoginAsync()
+        protected async Task<ConnectionResult> LoginAsync()
         {
             DACPRequest request = new DACPRequest("/login");
             request.QueryParameters["pairing-guid"] = "0x" + PairingCode;
@@ -358,17 +361,24 @@ namespace Komodex.DACP
                 var nodes = DACPNodeDictionary.Parse(response.Nodes);
 
                 if (!nodes.ContainsKey("mlid"))
-                    return false;
+                    return ConnectionResult.InvalidPIN;
 
                 SessionID = nodes.GetInt("mlid");
+            }
+            catch (DACPRequestException e)
+            {
+                int statusCode = (int)e.Response.StatusCode;
+                if (statusCode >= 500 && statusCode <= 599)
+                    return ConnectionResult.InvalidPIN;
+                return ConnectionResult.ConnectionError;
             }
             catch (Exception e)
             {
                 HandleHTTPException(request, e);
-                return false;
+                return ConnectionResult.ConnectionError;
             }
 
-            return true;
+            return ConnectionResult.Success;
         }
 
         #endregion

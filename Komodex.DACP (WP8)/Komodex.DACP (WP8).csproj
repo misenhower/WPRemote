@@ -101,6 +101,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPRequest.cs">
       <Link>Classes\DACPRequest.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPRequestException.cs">
+      <Link>Classes\DACPRequestException.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\DACPResponse.cs">
       <Link>Classes\DACPResponse.cs</Link>
     </Compile>

@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Classes\AirPlaySpeaker.cs" />
     <Compile Include="Classes\DACPElement.cs" />
+    <Compile Include="Classes\DACPRequestException.cs" />
     <Compile Include="Classes\ItemGroup.cs" />
     <Compile Include="Classes\DACPList.cs" />
     <Compile Include="Classes\DACPNode.cs" />
