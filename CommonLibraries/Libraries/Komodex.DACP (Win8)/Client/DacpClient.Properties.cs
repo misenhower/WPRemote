@@ -319,20 +319,29 @@ namespace Komodex.DACP
 
         private async void UpdateTrackTime(int durationMilliseconds, int? timeRemainingMilliseconds)
         {
+            // In order to prevent issues with Slider controls, we need to raise PropertyChanged notifications synchronously from the UI thread.
+            if (!ThreadUtility.IsOnUIThread)
+            {
+                ThreadUtility.RunOnUIThread(() => UpdateTrackTime(durationMilliseconds, timeRemainingMilliseconds));
+                return;
+            }
+
             if (_trackTimePositionUpdateCancellationTokenSource != null)
             {
                 _trackTimePositionUpdateCancellationTokenSource.Cancel();
                 _trackTimePositionUpdateCancellationTokenSource = null;
             }
 
+            _ignoreBoundTrackTimePositionChanges = true;
             CurrentTrackDuration = TimeSpan.FromMilliseconds(durationMilliseconds);
             CurrentTrackDurationSeconds = CurrentTrackDuration.TotalSeconds;
+            _ignoreBoundTrackTimePositionChanges = false;
 
             int remaining = timeRemainingMilliseconds ?? durationMilliseconds;
             if (remaining > durationMilliseconds)
                 remaining = durationMilliseconds;
 
-            CancellationToken token;
+            CancellationToken token = CancellationToken.None;
 
             do
             {
@@ -343,11 +352,14 @@ namespace Komodex.DACP
                 if (CurrentPlayState != PlayState.Playing)
                     break;
 
-                _trackTimePositionUpdateCancellationTokenSource = new CancellationTokenSource();
-                token = _trackTimePositionUpdateCancellationTokenSource.Token;
+                if (token == CancellationToken.None)
+                {
+                    _trackTimePositionUpdateCancellationTokenSource = new CancellationTokenSource();
+                    token = _trackTimePositionUpdateCancellationTokenSource.Token;
+                }
 
                 DateTime dt = DateTime.Now;
-                await Task.Delay(1000).ConfigureAwait(false);
+                await Task.Delay(1000);
 
                 // Adjust remaining time
                 remaining -= (int)(DateTime.Now - dt).TotalMilliseconds;
@@ -426,17 +438,18 @@ namespace Komodex.DACP
         public double BindableTrackTimePositionSeconds
         {
             get { return _currentTrackTimePositionSeconds; }
-            set
-            {
-                UpdateBoundTrackTimePosition(value);
-            }
+            set { UpdateBoundTrackTimePosition(value); }
         }
 
         private double _newBoundTrackTimePosition;
         private bool _updatingBoundTrackTimePosition;
+        private bool _ignoreBoundTrackTimePositionChanges;
 
         private async void UpdateBoundTrackTimePosition(double position)
         {
+            if (_ignoreBoundTrackTimePositionChanges)
+                return;
+
             _newBoundTrackTimePosition = position;
             if (_updatingBoundTrackTimePosition)
                 return;
