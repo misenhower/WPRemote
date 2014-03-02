@@ -27,7 +27,7 @@ namespace Komodex.CommonLibrariesTestApp.HTTP
 
         protected void LogMessage(string text)
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = text;

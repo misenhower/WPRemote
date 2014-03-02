@@ -79,9 +79,6 @@ namespace Komodex.Common
             ApplicationIdentifier = applicationIdentifier;
             ApplicationName = applicationName;
             ApplicationVersion = applicationVersion;
-
-            // Get the current synchronization context (which should be on the UI thread)
-            _uiSynchronizationContext = SynchronizationContext.Current;
         }
 
 
@@ -154,86 +151,6 @@ namespace Komodex.Common
             request.Headers["Device-Model"] = Microsoft.Phone.Info.DeviceStatus.DeviceName;
 #endif
         }
-
-        #endregion
-
-        #endregion
-
-        #region BeginInvoke on UI Thread
-
-        private static SynchronizationContext _uiSynchronizationContext;
-
-        public static void BeginInvokeOnUIThread(Action a)
-        {
-            if (_uiSynchronizationContext == null)
-                throw new Exception("Initialize Utility class from the UI thread before calling BeginInvokeOnUIThread.");
-
-            // If we're already on the UI thread, just invoke the action
-            if (_uiSynchronizationContext == SynchronizationContext.Current)
-                a();
-            // Otherwise, send it to the dispatcher
-            else
-                _uiSynchronizationContext.Post((state) => a(), null);
-        }
-
-        #endregion
-
-        #region Event Raise/RaiseOnUIThread Extension Methods
-
-        #region EventHandler<T>
-
-        public static void Raise<T>(this EventHandler<T> eventHandler, object sender, T e)
-            where T : EventArgs
-        {
-            if (eventHandler == null)
-                return;
-
-            eventHandler(sender, e);
-        }
-
-        public static void RaiseOnUIThread<T>(this EventHandler<T> eventHandler, object sender, T e)
-            where T : EventArgs
-        {
-            BeginInvokeOnUIThread(() =>
-            {
-                eventHandler.Raise(sender, e);
-            });
-        }
-
-        #endregion
-
-        #region PropertyChangedEventHandler
-
-        public static void RaiseOnUIThread(this PropertyChangedEventHandler eventHandler, object sender, string firstPropertyName, params string[] additionalPropertyNames)
-        {
-            BeginInvokeOnUIThread(() =>
-            {
-                if (eventHandler == null)
-                    return;
-
-                eventHandler(sender, new PropertyChangedEventArgs(firstPropertyName));
-
-                foreach (string propertyName in additionalPropertyNames)
-                    eventHandler(sender, new PropertyChangedEventArgs(propertyName));
-            });
-        }
-
-        #endregion
-
-        #region PropertyChangingEventHandler
-
-#if WINDOWS_PHONE
-        public static void Raise(this PropertyChangingEventHandler eventHandler, object sender, string firstPropertyName, params string[] additionalPropertyNames)
-        {
-            if (eventHandler == null)
-                return;
-
-            eventHandler(sender, new PropertyChangingEventArgs(firstPropertyName));
-
-            foreach (string propertyName in additionalPropertyNames)
-                eventHandler(sender, new PropertyChangingEventArgs(propertyName));
-        }
-#endif
 
         #endregion
 

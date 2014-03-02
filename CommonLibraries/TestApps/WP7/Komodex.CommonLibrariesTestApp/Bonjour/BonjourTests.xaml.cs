@@ -127,7 +127,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
 
         void _browser_ServiceFound(object sender, NetServiceEventArgs e)
         {
-            Utility.BeginInvokeOnUIThread(async () =>
+            ThreadUtility.RunOnUIThread(async () =>
             {
                 if (sender != _browser || !_browser.IsRunning)
                     return; // Don't attempt to resolve the service if we're no longer looking for services (or if this is the wrong browser)
@@ -143,7 +143,7 @@ namespace Komodex.CommonLibrariesTestApp.Bonjour
 
         void _browser_ServiceRemoved(object sender, NetServiceEventArgs e)
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 var nsvm = _services.FirstOrDefault(s => s.Service == e.Service);
                 if (nsvm != null)

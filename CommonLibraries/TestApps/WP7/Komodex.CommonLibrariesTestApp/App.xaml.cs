@@ -40,6 +40,7 @@ namespace Komodex.CommonLibrariesTestApp
 
             // Initialize Utility class
             Utility.InitializeApplicationID("commontest", "Komodex Common Libraries Test App");
+            ThreadUtility.Initialize();
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
