@@ -39,7 +39,11 @@ namespace Komodex.HTTP
                 return request;
 
             _log.Debug("Could not handle request from " + socket.Information.RemoteAddress.DisplayName);
-            await request.SendResponse(HttpStatusCode.BadRequest, "Bad request");
+            try
+            {
+                await request.SendResponse(HttpStatusCode.BadRequest, "Bad request");
+            }
+            catch { }
             return null;
         }
 
