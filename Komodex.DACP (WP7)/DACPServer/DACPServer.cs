@@ -24,7 +24,7 @@ namespace Komodex.DACP
 
         private DACPServer()
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 timerTrackTimeUpdate = new DispatcherTimer();
                 timerTrackTimeUpdate.Interval = TimeSpan.FromSeconds(1);

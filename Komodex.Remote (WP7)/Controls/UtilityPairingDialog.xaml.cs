@@ -63,7 +63,7 @@ namespace Komodex.Remote.Controls
         {
             // TODO: NetworkManager may need to indicate whether an update is occurring because of launch/resume.
             // In this case, update without animation transitions.
-            Utility.BeginInvokeOnUIThread(() => UpdateWizardItem(true));
+            ThreadUtility.RunOnUIThread(() => UpdateWizardItem(true));
         }
 
         protected void UpdateWizardItem(bool useTransitions)
@@ -164,7 +164,7 @@ namespace Komodex.Remote.Controls
 
         private void DiscoveredPairingUtilities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            Utility.BeginInvokeOnUIThread(() => UpdateWizardItem(true));
+            ThreadUtility.RunOnUIThread(() => UpdateWizardItem(true));
         }
 
         #endregion

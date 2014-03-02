@@ -47,7 +47,7 @@ namespace Komodex.Remote.Pairing
             UnhookEvents();
             _pairingUtilityBrowser.Stop();
 
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 DiscoveredPairingUtilities.Clear();
             });
@@ -68,7 +68,7 @@ namespace Komodex.Remote.Pairing
             else
             {
                 _pairingUtilityBrowser.Stop();
-                Utility.BeginInvokeOnUIThread(() =>
+                ThreadUtility.RunOnUIThread(() =>
                 {
                     DiscoveredPairingUtilities.Clear();
                 });
@@ -79,7 +79,7 @@ namespace Komodex.Remote.Pairing
         {
             await e.Service.ResolveAsync().ConfigureAwait(false);
 
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 if (DiscoveredPairingUtilities.Any(u => u.Service == e.Service))
                     return;
@@ -92,7 +92,7 @@ namespace Komodex.Remote.Pairing
 
         private static void Browser_ServiceRemoved(object sender, NetServiceEventArgs e)
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 var utility = DiscoveredPairingUtilities.FirstOrDefault(u => u.Service == e.Service);
                 if (utility != null)

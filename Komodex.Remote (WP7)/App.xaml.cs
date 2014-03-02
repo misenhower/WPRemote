@@ -20,6 +20,7 @@ using System.Threading;
 using System.Globalization;
 using Komodex.Analytics;
 using Komodex.Remote.ServerManagement;
+using Komodex.Common;
 
 namespace Komodex.Remote
 {
@@ -46,6 +47,7 @@ namespace Komodex.Remote
             UnhandledException += Application_UnhandledException;
 
             RemoteUtility.Initialize();
+            ThreadUtility.Initialize();
 
             // Update settings if necessary
             SettingsUpdater.CheckForUpdate();

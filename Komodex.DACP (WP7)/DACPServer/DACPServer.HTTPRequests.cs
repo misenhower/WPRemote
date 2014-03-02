@@ -582,7 +582,7 @@ namespace Komodex.DACP
                     return false;
 
                 // Process response
-                Utility.BeginInvokeOnUIThread(() =>
+                ThreadUtility.RunOnUIThread(() =>
                 {
                     timerTrackTimeUpdate.Stop();
                 });
@@ -688,7 +688,7 @@ namespace Komodex.DACP
                 if (oldSongID != CurrentItemID)
                     PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");
 
-                Utility.BeginInvokeOnUIThread(() =>
+                ThreadUtility.RunOnUIThread(() =>
                 {
                     if (PlayState == PlayStates.Playing)
                         timerTrackTimeUpdate.Start();
@@ -1109,7 +1109,7 @@ namespace Komodex.DACP
             // Update the queues and queue items with minimal changes to avoid reloading the list while it's displayed.
             // This is optimized for simple inserts and deletions. Reordering items will still cause most of the list to reload.
             // Updating on the UI thread because of the observable collections being tied to UI elements.
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 // Remove queues
                 var removedQueues = PlayQueues.Where(q1 => !queues.Any(q2 => q1.ID == q2.ID)).ToArray();

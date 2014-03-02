@@ -60,7 +60,7 @@ namespace Komodex.Remote.ServerManagement
             if (_statusControl == null)
                 return;
 
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 switch (ServerManager.ConnectionState)
                 {
@@ -110,7 +110,7 @@ namespace Komodex.Remote.ServerManagement
             if (_statusControl == null)
                 return;
 
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 bool visible = _canDisplay;
                 RemoteBasePage page = App.RootFrame.Content as RemoteBasePage;

@@ -102,7 +102,7 @@ namespace Komodex.Remote
         {
             base.OnServerChanged();
 
-            Utility.BeginInvokeOnUIThread(UpdateCurrentDatabase);
+            ThreadUtility.RunOnUIThread(UpdateCurrentDatabase);
         }
 
         protected override void ServerManager_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
@@ -110,14 +110,14 @@ namespace Komodex.Remote
             base.ServerManager_ConnectionStateChanged(sender, e);
 
             if (e.State == ServerConnectionState.Connected)
-                Utility.BeginInvokeOnUIThread(UpdateCurrentDatabase);
+                ThreadUtility.RunOnUIThread(UpdateCurrentDatabase);
         }
 
         protected override void CurrentServer_LibraryUpdate(object sender, EventArgs e)
         {
             base.CurrentServer_LibraryUpdate(sender, e);
 
-            //Utility.BeginInvokeOnUIThread(UpdateCurrentDatabase);
+            //ThreadUtility.RunOnUIThread(UpdateCurrentDatabase);
         }
 
         protected virtual bool ShouldShowContinuumTransition(AnimationType animationType, Uri toOrFrom)

@@ -41,7 +41,7 @@ namespace Komodex.Remote.ServerManagement
 
         public static void AddServerInfo(ServerConnectionInfo info)
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 _log.Info("Saving server info: '{0}' ({1})", info.Name, info.ServiceID);
 
@@ -58,7 +58,7 @@ namespace Komodex.Remote.ServerManagement
 
         public static void RemoveServerInfo(ServerConnectionInfo info)
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 _log.Info("Removing server info: '{0}' ({1})", info.Name, info.ServiceID);
 

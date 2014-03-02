@@ -119,7 +119,7 @@ namespace Komodex.Remote
         {
             base.ServerManager_ConnectionStateChanged(sender, e);
 
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 UpdateBindings();
                 UpdateVisualState(false);
@@ -129,7 +129,7 @@ namespace Komodex.Remote
         protected override void OnServerChanged()
         {
             base.OnServerChanged();
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 UpdateBindings();
                 UpdateVisualState(false);

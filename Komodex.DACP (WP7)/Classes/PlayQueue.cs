@@ -57,7 +57,7 @@ namespace Komodex.DACP
                     return;
 
                 _title1 = value;
-                Utility.BeginInvokeOnUIThread(() => OnPropertyChanged(new PropertyChangedEventArgs("Title1")));
+                ThreadUtility.RunOnUIThread(() => OnPropertyChanged(new PropertyChangedEventArgs("Title1")));
             }
         }
 
@@ -71,7 +71,7 @@ namespace Komodex.DACP
                     return;
 
                 _title2 = value;
-                Utility.BeginInvokeOnUIThread(() => OnPropertyChanged(new PropertyChangedEventArgs("Title2")));
+                ThreadUtility.RunOnUIThread(() => OnPropertyChanged(new PropertyChangedEventArgs("Title2")));
             }
         }
 

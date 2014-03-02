@@ -163,7 +163,7 @@ namespace Komodex.Remote
 
         protected virtual void UpdateBusyState()
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 if (CurrentServer != null && CurrentServer.IsConnected && CurrentServer.GettingData)
                     SetProgressIndicator(null, true);
@@ -306,7 +306,7 @@ namespace Komodex.Remote
 
         private void UpdateAppBarNowPlayingButtons()
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 bool isEnabled = (CurrentServer != null && CurrentServer.IsConnected && !(CurrentServer.PlayState == PlayStates.Stopped && CurrentServer.CurrentSongName == null));
 

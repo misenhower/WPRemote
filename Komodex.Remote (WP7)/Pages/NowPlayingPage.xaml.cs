@@ -101,7 +101,7 @@ namespace Komodex.Remote.Pages
         {
             base.ServerManager_ConnectionStateChanged(sender, e);
 
-            Utility.BeginInvokeOnUIThread(UpdateGoBackTimer);
+            ThreadUtility.RunOnUIThread(UpdateGoBackTimer);
         }
 
         protected override void CurrentServer_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -630,7 +630,7 @@ namespace Komodex.Remote.Pages
 
         protected override void CurrentServer_AirPlaySpeakerUpdate(object sender, EventArgs e)
         {
-            Utility.BeginInvokeOnUIThread(UpdateAirPlayButtons);
+            ThreadUtility.RunOnUIThread(UpdateAirPlayButtons);
         }
 
         protected void ShowAirPlayDialog()

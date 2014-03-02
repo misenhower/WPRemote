@@ -35,7 +35,7 @@ namespace Komodex.DACP.Search
             var items = await _action(Database, cancellationToken).ConfigureAwait(false);
             if (items == null)
                 return;
-            Utility.BeginInvokeOnUIThread(() => AddRange(items));
+            ThreadUtility.RunOnUIThread(() => AddRange(items));
         }
 
         public void AddRange(IEnumerable<T> collection)

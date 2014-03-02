@@ -44,7 +44,7 @@ namespace Komodex.Remote.Controls
 
         private void NetworkManager_NetworkAvailabilityChanged(object sender, NetworkAvailabilityChangedEventArgs e)
         {
-            Utility.BeginInvokeOnUIThread(() => UpdateWizardItem(true));
+            ThreadUtility.RunOnUIThread(() => UpdateWizardItem(true));
         }
 
         protected void UpdateWizardItem(bool useTransitions)

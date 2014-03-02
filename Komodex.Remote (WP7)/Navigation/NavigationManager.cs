@@ -24,7 +24,7 @@ namespace Komodex.Remote
     {
         private static void Navigate(string uri)
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 App.RootFrame.Navigate(new Uri(uri, UriKind.Relative));
             });
@@ -39,7 +39,7 @@ namespace Komodex.Remote
 
         public static void ClearPageHistory()
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 // Accessing RootVisual.BackStack can throw a NullReferenceException (rather than simply returning null)
                 try
@@ -60,7 +60,7 @@ namespace Komodex.Remote
 
         public static void GoToFirstPage()
         {
-            Utility.BeginInvokeOnUIThread(() =>
+            ThreadUtility.RunOnUIThread(() =>
             {
                 ClearPageHistory();
                 if (App.RootFrame.CanGoBack)
