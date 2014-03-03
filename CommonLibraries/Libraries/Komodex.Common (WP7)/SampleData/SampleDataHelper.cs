@@ -159,7 +159,7 @@ namespace Komodex.Common.SampleData
             return (GetRandomInt(0, 1) == 1);
         }
 
-        private static string GetRandomString(int minWords, int maxWords)
+        public static string GetRandomString(int minWords, int maxWords)
         {
             int words = GetRandomInt(minWords, maxWords);
             string result = string.Join(" ", _words.OrderBy(s => _random.Next()).Take(words));
