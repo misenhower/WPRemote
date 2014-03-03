@@ -24,7 +24,7 @@ namespace Komodex.DACP.Containers
 
         protected override string ItemsMeta
         {
-            get { return base.ItemsMeta + ",daap.songcodectype,daap.songbitrate,daap.songtracknumber"; }
+            get { return base.ItemsMeta + ",daap.songcodectype,daap.songbitrate,daap.songtracknumber,daap.songyear"; }
         }
 
         #region Artists
@@ -101,6 +101,7 @@ namespace Komodex.DACP.Containers
 
         private List<Album> _albums;
         private Dictionary<int, Album> _albumsByID;
+        private Dictionary<UInt64, Album> _albumsByPersistentID;
         private IDacpList _groupedAlbums;
         private int _albumCacheRevision;
 
@@ -116,11 +117,13 @@ namespace Komodex.DACP.Containers
                 var response = await Client.SendRequestAsync(request).ConfigureAwait(false);
                 _groupedAlbums = DacpUtility.GetAlphaGroupedDacpList(response.Nodes, n => new Album(this, n), out _albums);
                 _albumsByID = _albums.ToDictionary(a => a.ID);
+                _albumsByPersistentID = _albums.ToDictionary(a => a.PersistentID);
             }
             catch
             {
                 _albums = new List<Album>();
                 _albumsByID = new Dictionary<int, Album>();
+                _albumsByPersistentID = new Dictionary<ulong, Album>();
                 _groupedAlbums = new DacpList<Album>(false);
             }
 
@@ -142,6 +145,15 @@ namespace Komodex.DACP.Containers
                 return null;
 
             return _albumsByID[albumID];
+        }
+
+        public async Task<Album> GetAlbumByPersistentIDAsync(UInt64 albumPersistentID)
+        {
+            await GetAlbumsAsync().ConfigureAwait(false);
+            if (_albumsByPersistentID == null || !_albumsByPersistentID.ContainsKey(albumPersistentID))
+                return null;
+
+            return _albumsByPersistentID[albumPersistentID];
         }
 
         public Task<IDacpList> GetGenreAlbumsAsync(string genreName)

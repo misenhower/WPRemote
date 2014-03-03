@@ -78,11 +78,15 @@ namespace Komodex.DACP.Groups
             ItemGroup<Song> currentGroup = null;
             DacpList<ItemGroup<Song>> result = new DacpList<ItemGroup<Song>>(true);
 
+            MusicContainer musicContainer = Container as MusicContainer;
+
             foreach (var song in songs)
             {
                 if (currentGroup == null || currentGroup.Key != song.AlbumName)
                 {
                     currentGroup = new ItemGroup<Song>(song.AlbumName);
+                    if (musicContainer != null && song.AlbumPersistentID != 0)
+                        currentGroup.KeyObject = await musicContainer.GetAlbumByPersistentIDAsync(song.AlbumPersistentID).ConfigureAwait(false);
                     result.Add(currentGroup);
                 }
                 currentGroup.Add(song);

@@ -20,6 +20,7 @@ namespace Komodex.DACP
         }
 
         public string Key { get; private set; }
+        public object KeyObject { get; internal set; }
         public bool HasItems { get { return Count > 0; } }
     }
 }
