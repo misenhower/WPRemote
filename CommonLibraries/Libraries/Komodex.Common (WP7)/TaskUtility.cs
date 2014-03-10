@@ -116,5 +116,14 @@ namespace Komodex.Common
             return Task.WhenAny(tasks);
 #endif
         }
+
+        public static Task<TResult> FromResult<TResult>(TResult result)
+        {
+#if WP7
+            return TaskEx.FromResult(result);
+#else
+            return Task.FromResult(result);
+#endif
+        }
     }
 }
