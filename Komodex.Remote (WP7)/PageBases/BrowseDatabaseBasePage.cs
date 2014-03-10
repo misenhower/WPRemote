@@ -46,20 +46,23 @@ namespace Komodex.Remote
 
         private void SearchAppBarButton_Click()
         {
-            if (CurrentServer == null || CurrentDatabase == null)
+            var server = CurrentServer;
+            var db = CurrentDatabase;
+
+            if (server == null || db == null)
                 return;
 
-            if (CurrentDatabase != CurrentServer.MainDatabase)
+            if (db != server.MainDatabase)
             {
                 // If this isn't the main database, make sure it's a shared DB (and not the iTunes Radio or Internet Radio DB).
-                if (CurrentServer.SharedDatabases.Contains(CurrentDatabase))
+                if (server.SharedDatabases.Contains(db))
                 {
-                    NavigationManager.OpenSearchPage(CurrentDatabase);
+                    NavigationManager.OpenSearchPage(db);
                     return;
                 }
             }
 
-            NavigationManager.OpenSearchPage(CurrentServer.MainDatabase);
+            NavigationManager.OpenSearchPage(server.MainDatabase);
         }
 
         protected override void UpdateBusyState()
@@ -170,10 +173,11 @@ namespace Komodex.Remote
 
         protected void UpdateCurrentDatabase()
         {
-            if (CurrentServer == null || !CurrentServer.IsConnected)
+            var server = CurrentServer;
+            if (server == null || !server.IsConnected)
                 CurrentDatabase = null;
             else
-                CurrentDatabase = GetDatabase(CurrentServer);
+                CurrentDatabase = GetDatabase(server);
 
             UpdateDBAndTitleVisibilities();
         }
@@ -333,11 +337,7 @@ namespace Komodex.Remote
         protected DACPElementViewSource<DACPDatabase> GetDatabaseViewSource(Func<DACPDatabase, IList> dataRetrievalAction)
         {
             Func<DACPDatabase, Task<IList>> action;
-#if WP7
-            action = db => TaskEx.FromResult(dataRetrievalAction(db));
-#else
-            action = db => Task.FromResult(dataRetrievalAction(db));
-#endif
+            action = db => TaskUtility.FromResult(dataRetrievalAction(db));
             return GetDatabaseViewSource(action);
         }
 

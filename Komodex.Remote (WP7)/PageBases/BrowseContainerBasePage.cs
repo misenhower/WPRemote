@@ -57,13 +57,14 @@ namespace Komodex.Remote
 
         protected void UpdateCurrentContainer()
         {
-            if (CurrentDatabase == null)
+            var db = CurrentDatabase;
+            if (db == null)
             {
                 CurrentContainer = null;
                 return;
             }
 
-            CurrentContainer = GetContainer(CurrentDatabase);
+            CurrentContainer = GetContainer(db);
         }
 
         protected abstract T GetContainer(DACPDatabase database);
@@ -95,13 +96,14 @@ namespace Komodex.Remote
 
         protected void UpdateCurrentGenre()
         {
-            if (CurrentContainer == null)
+            var container = CurrentContainer;
+            if (container == null)
             {
                 CurrentGenre = null;
                 return;
             }
 
-            CurrentGenre = GetGenre(CurrentContainer);
+            CurrentGenre = GetGenre(container);
         }
 
         protected virtual DACPGenre GetGenre(T container)
@@ -123,11 +125,7 @@ namespace Komodex.Remote
         protected DACPElementViewSource<T> GetContainerViewSource(Func<T, IList> dataRetrievalAction)
         {
             Func<T, Task<IList>> action;
-#if WP7
-            action = c => TaskEx.FromResult(dataRetrievalAction(c));
-#else
-            action = c => Task.FromResult(dataRetrievalAction(c));
-#endif
+            action = c => TaskUtility.FromResult(dataRetrievalAction(c));
             return GetContainerViewSource(action);
         }
 
@@ -141,11 +139,7 @@ namespace Komodex.Remote
         protected DACPElementViewSource<DACPGenre> GetGenreViewSource(Func<DACPGenre, IList> dataRetrievalAction)
         {
             Func<DACPGenre, Task<IList>> action;
-#if WP7
-            action = g => TaskEx.FromResult(dataRetrievalAction(g));
-#else
-            action = g => Task.FromResult(dataRetrievalAction(g));
-#endif
+            action = g => TaskUtility.FromResult(dataRetrievalAction(g));
             return GetGenreViewSource(action);
         }
 

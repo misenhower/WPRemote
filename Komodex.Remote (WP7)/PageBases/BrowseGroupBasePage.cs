@@ -1,4 +1,5 @@
-﻿using Komodex.DACP.Containers;
+﻿using Komodex.Common;
+using Komodex.DACP.Containers;
 using Komodex.DACP.Databases;
 using Komodex.DACP.Groups;
 using Komodex.Remote.Data;
@@ -67,13 +68,14 @@ namespace Komodex.Remote
 
         protected async void UpdateCurrentGroup()
         {
-            if (CurrentContainer == null)
+            var container = CurrentContainer;
+            if (container == null)
             {
                 CurrentGroup = null;
                 return;
             }
 
-            CurrentGroup = await GetGroup(CurrentContainer, _groupID);
+            CurrentGroup = await GetGroup(container, _groupID);
         }
 
         protected abstract Task<TGroup> GetGroup(TContainer container, int groupID);
@@ -92,11 +94,7 @@ namespace Komodex.Remote
         protected DACPElementViewSource<TGroup> GetGroupViewSource(Func<TGroup, IList> dataRetrievalAction)
         {
             Func<TGroup, Task<IList>> action;
-#if WP7
-            action = g => TaskEx.FromResult(dataRetrievalAction(g));
-#else
-            action = g => Task.FromResult(dataRetrievalAction(g));
-#endif
+            action = g => TaskUtility.FromResult(dataRetrievalAction(g));
             return GetGroupViewSource(action);
         }
 
@@ -104,8 +102,9 @@ namespace Komodex.Remote
         {
             base.UpdateViewSources();
 
+            var group = CurrentGroup;
             foreach (var groupViewSource in _viewSources.OfType<DACPElementViewSource<TGroup>>())
-                groupViewSource.Source = CurrentGroup;
+                groupViewSource.Source = group;
         }
 
         #endregion
