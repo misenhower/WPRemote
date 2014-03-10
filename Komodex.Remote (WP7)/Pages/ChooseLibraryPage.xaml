@@ -86,6 +86,7 @@
                 EmptyText="{Binding LocalizedStrings.NoPairedLibrariesFound, Source={StaticResource LocalizedStrings}}"
                 Tap="LibraryList_Tap"
                 Style="{StaticResource LibraryListStyle}"
+                ListFooterTemplate="{StaticResource ListFooterPadding}"
                 />
         </Grid>
     </Grid>
