@@ -540,7 +540,7 @@
     <comment>Adds a song to the beginning of the "up next" queue.</comment>
   </data>
   <data name="UpNextMenuItem" xml:space="preserve">
-    <value>Nächste Titel</value>
+    <value>Nächstes</value>
     <comment>The iTunes "up next" queue of songs.</comment>
   </data>
   <data name="AddALibraryButton" xml:space="preserve">
@@ -790,7 +790,7 @@
     <value>Zufällige Genius-Wiedergabe</value>
   </data>
   <data name="ShowCurrentPlaylistMenuItem" xml:space="preserve">
-    <value>aktuelle Wiedergabeliste</value>
+    <value>Aktuelle Wiedergabeliste</value>
   </data>
   <data name="GeniusShuffleAppBarButton" xml:space="preserve">
     <value>Genius</value>
