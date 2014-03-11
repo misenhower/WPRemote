@@ -59,7 +59,7 @@ namespace Komodex.DACP.Containers
 
         #region Commands
 
-        public async Task<bool> Play(PlayQueueMode mode = PlayQueueMode.Replace)
+        public async Task<bool> SendPlayCommandAsync(PlayQueueMode mode = PlayQueueMode.Replace)
         {
             if (!Client.ServerSupportsPlayQueue)
             {
@@ -67,7 +67,7 @@ namespace Komodex.DACP.Containers
                 var items = await GetItemsAsync();
                 if (items == null || items.Count == 0)
                     return false;
-                return await PlayItem(items[0], mode).ConfigureAwait(false);
+                return await SendPlayItemCommandAsync(items[0], mode).ConfigureAwait(false);
             }
 
             var query = DacpQueryPredicate.Is("dmap.itemid", ID);
@@ -79,7 +79,7 @@ namespace Komodex.DACP.Containers
             return true;
         }
 
-        public async Task<bool> PlayItem(DacpItem item, PlayQueueMode mode = PlayQueueMode.Replace)
+        public async Task<bool> SendPlayItemCommandAsync(DacpItem item, PlayQueueMode mode = PlayQueueMode.Replace)
         {
             DacpRequest request;
             if (Client.ServerSupportsPlayQueue)
@@ -99,10 +99,10 @@ namespace Komodex.DACP.Containers
             return true;
         }
 
-        public async Task<bool> Shuffle()
+        public async Task<bool> SendShuffleCommandAsync()
         {
             if (Client.ServerSupportsPlayQueue)
-                return await Play(PlayQueueMode.Shuffle).ConfigureAwait(false);
+                return await SendPlayCommandAsync(PlayQueueMode.Shuffle).ConfigureAwait(false);
 
             DacpRequest request = GetPlaySpecRequest();
             request.QueryParameters["dacp.shufflestate"] = "1";

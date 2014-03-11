@@ -77,7 +77,7 @@ namespace Komodex.DACP.Genres
 
         #region Commands
 
-        public async Task<bool> Play(PlayQueueMode mode = PlayQueueMode.Replace)
+        public async Task<bool> SendPlayCommandAsync(PlayQueueMode mode = PlayQueueMode.Replace)
         {
             DacpRequest request;
             if (Client.ServerSupportsPlayQueue)
@@ -90,7 +90,7 @@ namespace Komodex.DACP.Genres
             return true;
         }
 
-        public async Task<bool> PlayItem(DacpItem item, PlayQueueMode mode = PlayQueueMode.Replace)
+        public async Task<bool> SendPlayItemCommandAsync(DacpItem item, PlayQueueMode mode = PlayQueueMode.Replace)
         {
             DacpRequest request;
             if (Client.ServerSupportsPlayQueue)
@@ -112,7 +112,7 @@ namespace Komodex.DACP.Genres
             return true;
         }
 
-        public async Task<bool> Shuffle()
+        public async Task<bool> SendShuffleCommandAsync()
         {
             DacpRequest request;
             if (Client.ServerSupportsPlayQueue)

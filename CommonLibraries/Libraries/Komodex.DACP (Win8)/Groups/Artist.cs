@@ -105,7 +105,7 @@ namespace Komodex.DACP.Groups
 
         #region Commands
 
-        public async Task<bool> Play(PlayQueueMode mode = PlayQueueMode.Replace)
+        public async Task<bool> SendPlayCommandAsync(PlayQueueMode mode = PlayQueueMode.Replace)
         {
             DacpRequest request;
             if (Client.ServerSupportsPlayQueue)
@@ -118,7 +118,7 @@ namespace Komodex.DACP.Groups
             return true;
         }
 
-        public async Task<bool> PlaySong(Song song, PlayQueueMode mode = PlayQueueMode.Replace)
+        public async Task<bool> SendPlaySongCommandAsync(Song song, PlayQueueMode mode = PlayQueueMode.Replace)
         {
             DacpRequest request;
             if (Client.ServerSupportsPlayQueue)
@@ -140,7 +140,7 @@ namespace Komodex.DACP.Groups
             return true;
         }
 
-        public async Task<bool> Shuffle()
+        public async Task<bool> SendShuffleCommandAsync()
         {
             DacpRequest request;
             if (Client.ServerSupportsPlayQueue)

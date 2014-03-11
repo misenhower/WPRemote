@@ -22,7 +22,7 @@ namespace Komodex.DACP.Search
 
         #region Commands
 
-        public async Task<bool> PlaySong(Song song)
+        public async Task<bool> SendPlaySongCommandAsync(Song song)
         {
             try
             {

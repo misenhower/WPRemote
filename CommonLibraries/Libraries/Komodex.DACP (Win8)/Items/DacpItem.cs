@@ -82,7 +82,7 @@ namespace Komodex.DACP.Items
 
         #region Play Commands
 
-        public async Task<bool> Play()
+        public async Task<bool> SendPlayCommandAsync()
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/playspec");
             if (Database.PersistentID != 0 && Container.PersistentID != 0)
@@ -102,7 +102,7 @@ namespace Komodex.DACP.Items
             return true;
         }
 
-        public async Task<bool> PlayQueue(PlayQueueMode mode = PlayQueueMode.Replace)
+        public async Task<bool> SendPlayQueueCommandAsync(PlayQueueMode mode = PlayQueueMode.Replace)
         {
             var query = DacpQueryPredicate.Is("dmap.itemid", ID);
             DacpRequest request = Database.GetPlayQueueEditRequest("add", query, mode);

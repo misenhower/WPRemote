@@ -19,7 +19,7 @@ namespace Komodex.Networking
         private static readonly string BroadcastAddress = "255.255.255.255";
         private const int BroadcastPort = 9;
 
-        public static Task<bool> SendWOLPacket(byte[] macAddress)
+        public static Task<bool> SendWOLPacketAsync(byte[] macAddress)
         {
             if (macAddress.Length != 6)
                 throw new ArgumentException("macAddress");
@@ -33,11 +33,11 @@ namespace Komodex.Networking
                 message[i] = macAddress[i % 6];
 
             // Send the message
-            return SendMessage(message);
+            return SendMessageAsync(message);
         }
 
 #if WP7
-        private static Task<bool> SendMessage(byte[] message)
+        private static Task<bool> SendMessageAsync(byte[] message)
         {
             TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
 
@@ -67,7 +67,7 @@ namespace Komodex.Networking
             return tcs.Task;
         }
 #else
-        private static async Task<bool> SendMessage(byte[] message)
+        private static async Task<bool> SendMessageAsync(byte[] message)
         {
             try
             {

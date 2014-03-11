@@ -31,7 +31,7 @@ namespace Komodex.HTTP
 
             try
             {
-                parsed = await request.HandleRequest();
+                parsed = await request.HandleRequestAsync();
             }
             catch { }
 
@@ -65,7 +65,7 @@ namespace Komodex.HTTP
 
         #region Request Parsing
 
-        private async Task<bool> HandleRequest()
+        private async Task<bool> HandleRequestAsync()
         {
             using (DataReader reader = new DataReader(_socket.InputStream))
             {

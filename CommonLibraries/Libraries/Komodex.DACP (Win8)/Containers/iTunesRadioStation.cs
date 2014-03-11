@@ -25,7 +25,7 @@ namespace Komodex.DACP.Containers
 
         #region Commands
 
-        public async Task<bool> Play()
+        public async Task<bool> SendPlayCommandAsync()
         {
             DacpRequest request = new DacpRequest("/ctrl-int/1/playspec");
             request.QueryParameters["database-spec"] = DacpQueryPredicate.Is("dmap.itemid", "0x" + Database.ID.ToString("x")).ToString();
