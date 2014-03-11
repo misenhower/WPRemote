@@ -130,11 +130,11 @@ namespace Komodex.DACP
 
             // Login
             _log.Info("Connecting: Login");
-            success = await LoginAsync().ConfigureAwait(false);
+            var loginSuccess = await LoginAsync().ConfigureAwait(false);
             if (cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
-            if (!success)
-                return ConnectionResult.InvalidPIN;
+            if (loginSuccess != ConnectionResult.Success)
+                return loginSuccess;
 
             // Databases
             _log.Info("Connecting: Databases");

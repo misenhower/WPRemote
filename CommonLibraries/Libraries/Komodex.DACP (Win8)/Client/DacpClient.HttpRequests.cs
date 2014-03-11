@@ -55,7 +55,9 @@ namespace Komodex.DACP
             lock (_httpClient)
                 task = _httpClient.GetAsync(new Uri(HttpPrefix + uri)).AsTask(cancellationToken);
             HttpResponseMessage response = await task.ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+                throw new DacpRequestException(response);
 
             var buffer = await response.Content.ReadAsBufferAsync().AsTask(cancellationToken).ConfigureAwait(false);
             var reader = DataReader.FromBuffer(buffer);
@@ -207,7 +209,7 @@ namespace Komodex.DACP
 
         #region Login
 
-        private async Task<bool> LoginAsync()
+        private async Task<ConnectionResult> LoginAsync()
         {
             DacpRequest request = new DacpRequest("/login");
             request.QueryParameters["pairing-guid"] = "0x" + PairingCode;
@@ -221,13 +223,21 @@ namespace Komodex.DACP
                 var nodes = DacpNodeDictionary.Parse(response.Nodes);
 
                 if (!nodes.ContainsKey("mlid"))
-                    return false;
+                    return ConnectionResult.InvalidPIN;
 
                 SessionID = nodes.GetInt("mlid");
                 UpdateNowPlayingAlbumArtUri();
             }
-            catch { return false; }
-            return true;
+            catch (DacpRequestException e)
+            {
+                int statusCode = (int)e.Response.StatusCode;
+                if (statusCode >= 500 && statusCode <= 599)
+                    return ConnectionResult.InvalidPIN;
+                return ConnectionResult.ConnectionError;
+            }
+            catch { return ConnectionResult.ConnectionError; }
+
+            return ConnectionResult.Success;
         }
 
         #endregion

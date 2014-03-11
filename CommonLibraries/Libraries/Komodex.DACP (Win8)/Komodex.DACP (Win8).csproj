@@ -165,6 +165,7 @@
     <Compile Include="Utility\DacpResponse.cs" />
     <Compile Include="Utility\DacpUtility.cs" />
     <Compile Include="Utility\Enums.cs" />
+    <Compile Include="Utility\DacpRequestException.cs" />
     <Compile Include="Utility\IDacpList.cs" />
     <Compile Include="Utility\ItemGroup.cs" />
   </ItemGroup>
