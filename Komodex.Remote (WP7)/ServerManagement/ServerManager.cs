@@ -434,7 +434,7 @@ namespace Komodex.Remote.ServerManagement
                 try
                 {
                     byte[] addressBytes = BitUtility.FromHexString(address);
-                    WakeOnLAN.SendWOLPacket(addressBytes);
+                    WakeOnLAN.SendWOLPacketAsync(addressBytes);
                 }
                 catch { }
             }
