@@ -468,13 +468,13 @@ namespace Komodex.DACP
                 //ShowUserRating = nodes.GetBool("casu");
 
                 // dacp.visualizer
-                //VisualizerActive = nodes.GetBool("cavs");
+                IsVisualizerEnabled = nodes.GetBool("cavs");
                 // dacp.visualizerenabled
-                //VisualizerAvailable = nodes.GetBool("cave");
+                IsVisualizerAvailable = nodes.GetBool("cave");
                 // dacp.fullscreen
-                //FullScreenModeActive = nodes.GetBool("cafs");
+                IsFullScreenModeEnabled = nodes.GetBool("cafs");
                 // dacp.fullscreenenabled
-                //FullScreenModeAvailable = nodes.GetBool("cafe");
+                IsFullScreenModeAvailable = nodes.GetBool("cafe");
 
                 // iTunes Radio
                 if (iTunesRadioDatabase != null && iTunesRadioDatabase.ID == CurrentDatabaseID)
@@ -563,6 +563,24 @@ namespace Komodex.DACP
                     return;
                 }
             }
+        }
+
+        #endregion
+
+        #region Visualizer
+
+        public Task<bool> SetVisualizerEnabledAsync(bool enabled)
+        {
+            return SetPropertyAsync("dacp.visualizer", enabled ? "1" : "0");
+        }
+
+        #endregion
+
+        #region Full Screen Mode
+
+        public Task<bool> SetFullScreenModeEnabledAsync(bool enabled)
+        {
+            return SetPropertyAsync("dacp.fullscreen", enabled ? "1" : "0");
         }
 
         #endregion

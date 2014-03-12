@@ -471,6 +471,66 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Visualizer
+
+        private bool _isVisualizerAvailable;
+        public bool IsVisualizerAvailable
+        {
+            get { return _isVisualizerAvailable; }
+            private set
+            {
+                if (_isVisualizerAvailable == value)
+                    return;
+                _isVisualizerAvailable = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private bool _isVisualizerEnabled;
+        public bool IsVisualizerEnabled
+        {
+            get { return _isVisualizerEnabled; }
+            private set
+            {
+                if (_isVisualizerEnabled == value)
+                    return;
+                _isVisualizerEnabled = value;
+                SendPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Full Screen
+
+        private bool _isFullScreenModeAvailable;
+        public bool IsFullScreenModeAvailable
+        {
+            get { return _isFullScreenModeAvailable; }
+            private set
+            {
+                if (_isFullScreenModeAvailable == value)
+                    return;
+                _isFullScreenModeAvailable = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private bool _isFullScreenModeEnabled;
+        public bool IsFullScreenModeEnabled
+        {
+            get { return _isFullScreenModeEnabled; }
+            private set
+            {
+                if (_isFullScreenModeEnabled == value)
+                    return;
+                _isFullScreenModeEnabled = value;
+                SendPropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region Volume Level
 
         private int _currentVolumeLevel;
