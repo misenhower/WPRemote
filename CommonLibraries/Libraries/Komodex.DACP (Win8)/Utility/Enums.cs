@@ -67,4 +67,12 @@ namespace Komodex.DACP
         PartiallyPlayed,
         HasBeenPlayed,
     }
+
+    [Flags]
+    public enum iTunesRadioControlState
+    {
+        MenuEnabled = 1,
+        NextButtonEnabled = 2,
+        CurrentSongFavorited = 4,
+    }
 }

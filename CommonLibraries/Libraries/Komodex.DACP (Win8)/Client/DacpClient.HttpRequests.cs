@@ -1,5 +1,6 @@
 ﻿using Komodex.Common;
 using Komodex.DACP.Databases;
+using Komodex.DACP.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -477,45 +478,37 @@ namespace Komodex.DACP
                 IsFullScreenModeAvailable = nodes.GetBool("cafe");
 
                 // iTunes Radio
+                iTunesRadioControlState newiTunesRadioControlState = 0;
                 if (iTunesRadioDatabase != null && iTunesRadioDatabase.ID == CurrentDatabaseID)
                 {
-                    //IsCurrentlyPlayingiTunesRadio = true;
-                    //CurrentiTunesRadioStationName = nodes.GetString("ceNR");
+                    IsPlayingiTunesRadio = true;
+                    CurrentiTunesRadioStationName = nodes.GetString("ceNR");
 
                     // caks = 1 when the next button is disabled, and 2 when it's enabled
-                    //IsiTunesRadioNextButtonEnabled = (nodes.GetByte("caks") == 2);
+                    if (nodes.GetByte("caks") != 1)
+                        newiTunesRadioControlState |= iTunesRadioControlState.NextButtonEnabled;
 
                     // "aelb" indicates whether the star button (iTunes Radio menu) should be enabled, but this only seems to be set to true
                     // when connected via Home Sharing. This parameter is missing when an ad is playing, so use this to determine whether
                     // the menu should be enabled.
-                    //IsiTunesRadioMenuEnabled = nodes.ContainsKey("aelb");
+                    if (nodes.ContainsKey("aelb"))
+                        newiTunesRadioControlState |= iTunesRadioControlState.MenuEnabled;
 
-                    //IsiTunesRadioSongFavorited = (nodes.GetByte("aels") == 2);
+                    if (nodes.GetByte("aels") == 2)
+                        newiTunesRadioControlState |= iTunesRadioControlState.CurrentSongFavorited;
                 }
                 else
                 {
-                    //IsCurrentlyPlayingiTunesRadio = false;
+                    IsPlayingiTunesRadio = false;
                 }
 
+                CurrentiTunesRadioControlState = newiTunesRadioControlState;
 
-                //if (IsCurrentlyPlayingiTunesRadio)
-                //{
-                //    var caks = nodes.GetByte("caks");
-                //    IsiTunesRadioNextButtonEnabled = !(caks == 1);
-                //}
-
-                //if (!nodes.ContainsKey("casc") || nodes.GetBool("casc") == true)
-                //    IsPlayPositionBarEnabled = true;
-                //else
-                //    IsPlayPositionBarEnabled = false;
+                IsTrackTimePositionBarEnabled = nodes.GetBool("casc", true);
 
                 // Genius Shuffle
-                //IsCurrentlyPlayingGeniusShuffle = nodes.GetBool("ceGs");
+                IsPlayingGeniusShuffle = nodes.GetBool("ceGs");
                 // There are two other nodes related to Genius Shuffle, "ceGS" and "aeGs" (currently unknown)
-
-                // If the song ID changed, refresh the album art
-                //if (oldSongID != CurrentItemID)
-                //    PropertyChanged.RaiseOnUIThread(this, "CurrentAlbumArtURL");
 
                 if (CurrentPlayState == PlayState.FastForward || CurrentPlayState == PlayState.Rewind)
                     BeginRepeatedTrackTimeRequests();
@@ -786,6 +779,54 @@ namespace Komodex.DACP
 
             string newRepeatModeString = ((int)newRepeatMode).ToString();
             return SetPropertyAsync("dacp.repeatstate", newRepeatModeString);
+        }
+
+        #endregion
+
+        #region iTunes Radio
+
+        public Task<bool> SendiTunesRadioPlayMoreLikeThisCommandAsync()
+        {
+            if (!IsPlayingiTunesRadio)
+                return Task.FromResult(false);
+
+            CurrentiTunesRadioControlState |= iTunesRadioControlState.CurrentSongFavorited;
+
+            DacpRequest request = new DacpRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters["com.apple.itunes.liked-state"] = "2";
+            request.QueryParameters["database-spec"] = DacpQueryPredicate.Is("dmap.itemid", "0x" + CurrentDatabaseID.ToString("x")).ToString();
+            request.QueryParameters["item-spec"] = DacpQueryPredicate.Is("dmap.itemid", "0x" + CurrentItemID.ToString("x")).ToString();
+
+            return SendCommandAsync(request);
+        }
+
+        public Task<bool> SendiTunesRadioNeverPlayThisSongCommandAsync()
+        {
+            if (!IsPlayingiTunesRadio)
+                return Task.FromResult(false);
+
+            DacpRequest request = new DacpRequest("/ctrl-int/1/setproperty");
+            request.QueryParameters["com.apple.itunes.liked-state"] = "3";
+            request.QueryParameters["database-spec"] = DacpQueryPredicate.Is("dmap.itemid", "0x" + CurrentDatabaseID.ToString("x")).ToString();
+            request.QueryParameters["item-spec"] = DacpQueryPredicate.Is("dmap.itemid", "0x" + CurrentItemID.ToString("x")).ToString();
+
+            return SendCommandAsync(request);
+        }
+
+        #endregion
+
+        #region Genius Shuffle
+
+        public Task<bool> SendGeniusShuffleCommandAsync()
+        {
+            if (!ServerSupportsGeniusShuffle)
+                return Task.FromResult(false);
+
+            DacpRequest request = new DacpRequest("/ctrl-int/1/genius-shuffle");
+            // Apple's Remote seems to always set "span" to "$Q"
+            request.QueryParameters["span"] = "$Q";
+
+            return SendCommandAsync(request);
         }
 
         #endregion

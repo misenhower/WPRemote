@@ -469,6 +469,19 @@ namespace Komodex.DACP
             _updatingBoundTrackTimePosition = false;
         }
 
+        private bool _isTrackTimePositionBarEnabled;
+        public bool IsTrackTimePositionBarEnabled
+        {
+            get { return _isTrackTimePositionBarEnabled; }
+            private set
+            {
+                if (_isTrackTimePositionBarEnabled == value)
+                    return;
+                _isTrackTimePositionBarEnabled = value;
+                SendPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Visualizer
@@ -615,6 +628,66 @@ namespace Komodex.DACP
         private void UpdateNowPlayingAlbumArtUri()
         {
             NowPlayingAlbumArtUriFormat = HttpPrefix + "/ctrl-int/1/nowplayingartwork?mw={w}&mh={h}&session-id=" + SessionID;
+        }
+
+        #endregion
+
+        #region iTunes Radio
+
+        private bool _isPlayingiTunesRadio;
+        public bool IsPlayingiTunesRadio
+        {
+            get { return _isPlayingiTunesRadio; }
+            private set
+            {
+                if (_isPlayingiTunesRadio == value)
+                    return;
+                _isPlayingiTunesRadio = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private iTunesRadioControlState _currentiTunesRadioControlState;
+        public iTunesRadioControlState CurrentiTunesRadioControlState
+        {
+            get { return _currentiTunesRadioControlState; }
+            private set
+            {
+                if (_currentiTunesRadioControlState == value)
+                    return;
+                _currentiTunesRadioControlState = value;
+                SendPropertyChanged();
+            }
+        }
+
+        private string _currentiTunesRadioStationName;
+        public string CurrentiTunesRadioStationName
+        {
+            get { return _currentiTunesRadioStationName; }
+            private set
+            {
+                if (_currentiTunesRadioStationName == value)
+                    return;
+                _currentiTunesRadioStationName = value;
+                SendPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Genius Shuffle
+
+        private bool _isPlayingGeniusShuffle;
+        public bool IsPlayingGeniusShuffle
+        {
+            get { return _isPlayingGeniusShuffle; }
+            private set
+            {
+                if (_isPlayingGeniusShuffle == value)
+                    return;
+                _isPlayingGeniusShuffle = value;
+                SendPropertyChanged();
+            }
         }
 
         #endregion
