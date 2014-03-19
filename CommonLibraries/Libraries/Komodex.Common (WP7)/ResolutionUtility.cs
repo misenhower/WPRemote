@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Phone.Info;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -15,24 +16,53 @@ namespace Komodex.Common
             FilenameSuffixWVGA = ".WVGA";
             FilenameSuffixWXGA = ".WXGA";
             FilenameSuffix720p = ".720p";
+            FilenameSuffix1080p = ".1080p";
 
 #if WP7
             ScreenResolution = ScreenResolution.WVGA;
 #else
-            switch (Application.Current.Host.Content.ScaleFactor)
+            // Look for the PhysicalScreenResolution value introduced in WP8 GDR3
+            object value;
+            if (DeviceExtendedProperties.TryGetValue("PhysicalScreenResolution", out value) && value is Size)
             {
-                case 100:
-                default:
-                    ScreenResolution = ScreenResolution.WVGA;
-                    break;
+                Size size = (Size)value;
+                switch ((int)size.Width)
+                {
+                    case 480:
+                    default:
+                        ScreenResolution = ScreenResolution.WVGA;
+                        break;
 
-                case 150:
-                    ScreenResolution = ScreenResolution.HD720p;
-                    break;
+                    case 768:
+                        ScreenResolution = ScreenResolution.WXGA;
+                        break;
 
-                case 160:
-                    ScreenResolution = ScreenResolution.WXGA;
-                    break;
+                    case 720:
+                        ScreenResolution = ScreenResolution.HD720p;
+                        break;
+
+                    case 1080:
+                        ScreenResolution = ScreenResolution.HD1080p;
+                        break;
+                }
+            }
+            else
+            {
+                switch (Application.Current.Host.Content.ScaleFactor)
+                {
+                    case 100:
+                    default:
+                        ScreenResolution = ScreenResolution.WVGA;
+                        break;
+
+                    case 150:
+                        ScreenResolution = ScreenResolution.HD720p;
+                        break;
+
+                    case 160:
+                        ScreenResolution = ScreenResolution.WXGA;
+                        break;
+                }
             }
 #endif
 
@@ -42,6 +72,7 @@ namespace Komodex.Common
         public static string FilenameSuffixWVGA { get; set; }
         public static string FilenameSuffixWXGA { get; set; }
         public static string FilenameSuffix720p { get; set; }
+        public static string FilenameSuffix1080p { get; set; }
 
         public static ScreenResolution ScreenResolution { get; private set; }
 
@@ -58,6 +89,9 @@ namespace Komodex.Common
 
                 case ScreenResolution.HD720p:
                     return FilenameSuffix720p;
+
+                case ScreenResolution.HD1080p:
+                    return FilenameSuffix1080p;
             }
         }
 
@@ -124,6 +158,9 @@ namespace Komodex.Common
 
                 case ScreenResolution.WXGA:
                     return (int)Math.Ceiling(points * 1.6);
+
+                case ScreenResolution.HD1080p:
+                    return (int)Math.Ceiling(points * 2.25);
             }
 #endif
         }
@@ -148,5 +185,11 @@ namespace Komodex.Common
         /// <para>Scale factor: 150%</para>
         /// </summary>
         HD720p,
+
+        /// <summary>
+        /// <para>Resolution: 1080x1920px</para>
+        /// <para>Scale factor: 225%</para>
+        /// </summary>
+        HD1080p,
     }
 }
