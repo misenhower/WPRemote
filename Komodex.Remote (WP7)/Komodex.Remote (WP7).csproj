@@ -138,7 +138,7 @@
     <Compile Include="Converters\ItemCountConverter.cs" />
     <Compile Include="Converters\NoListItemsVisibilityConverter.cs" />
     <Compile Include="Controls\PlaylistItemDataTemplateSelector.cs" />
-    <Compile Include="Converters\PlaylistTypeToImageSourceConverter.cs" />
+    <Compile Include="Converters\PlaylistTypeToControlTemplateConverter.cs" />
     <Compile Include="Converters\SearchResultSectionHeaderConverter.cs" />
     <Compile Include="Converters\SearchResultsSecondLineConverter.cs" />
     <Compile Include="Converters\ServerTypeToImageSourceConverter.cs" />
@@ -500,18 +500,6 @@
     </Content>
     <Content Include="..\Assets\Icons\Movies.WVGA.png">
       <Link>Assets\Icons\Movies.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Folder.WVGA.png">
-      <Link>Assets\Icons\Playlist.Folder.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Normal.WVGA.png">
-      <Link>Assets\Icons\Playlist.Normal.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.SavedGenius.WVGA.png">
-      <Link>Assets\Icons\Playlist.SavedGenius.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Smart.WVGA.png">
-      <Link>Assets\Icons\Playlist.Smart.WVGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Podcasts.WVGA.png">
       <Link>Assets\Icons\Podcasts.WVGA.png</Link>

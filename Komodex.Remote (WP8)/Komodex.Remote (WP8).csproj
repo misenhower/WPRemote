@@ -169,8 +169,8 @@
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\NoListItemsVisibilityConverter.cs">
       <Link>Converters\NoListItemsVisibilityConverter.cs</Link>
     </Compile>
-    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\PlaylistTypeToImageSourceConverter.cs">
-      <Link>Converters\PlaylistTypeToImageSourceConverter.cs</Link>
+    <Compile Include="..\Komodex.Remote %28WP7%29\Converters\PlaylistTypeToControlTemplateConverter.cs">
+      <Link>Converters\PlaylistTypeToControlTemplateConverter.cs</Link>
     </Compile>
     <Compile Include="..\Komodex.Remote %28WP7%29\Converters\SearchResultSectionHeaderConverter.cs">
       <Link>Converters\SearchResultSectionHeaderConverter.cs</Link>
@@ -565,42 +565,6 @@
     </Content>
     <Content Include="..\Assets\Icons\Movies.WXGA.png">
       <Link>Assets\Icons\Movies.WXGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Folder.720p.png">
-      <Link>Assets\Icons\Playlist.Folder.720p.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Folder.WVGA.png">
-      <Link>Assets\Icons\Playlist.Folder.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Folder.WXGA.png">
-      <Link>Assets\Icons\Playlist.Folder.WXGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Normal.720p.png">
-      <Link>Assets\Icons\Playlist.Normal.720p.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Normal.WVGA.png">
-      <Link>Assets\Icons\Playlist.Normal.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Normal.WXGA.png">
-      <Link>Assets\Icons\Playlist.Normal.WXGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.SavedGenius.720p.png">
-      <Link>Assets\Icons\Playlist.SavedGenius.720p.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.SavedGenius.WVGA.png">
-      <Link>Assets\Icons\Playlist.SavedGenius.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.SavedGenius.WXGA.png">
-      <Link>Assets\Icons\Playlist.SavedGenius.WXGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Smart.720p.png">
-      <Link>Assets\Icons\Playlist.Smart.720p.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Smart.WVGA.png">
-      <Link>Assets\Icons\Playlist.Smart.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Playlist.Smart.WXGA.png">
-      <Link>Assets\Icons\Playlist.Smart.WXGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Podcasts.720p.png">
       <Link>Assets\Icons\Podcasts.720p.png</Link>

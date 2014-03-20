@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace Komodex.Remote.Converters
 {
-    public class PlaylistTypeToImageSourceConverter : IValueConverter
+    public class PlaylistTypeToControlTemplateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -15,19 +16,24 @@ namespace Komodex.Remote.Converters
             if (playlist != null)
             {
                 if (playlist.IsSmartPlaylist)
-                    return new Uri("/Assets/Icons/Playlist.Smart.png", UriKind.Relative);
+                    return SmartPlaylistTemplate;
                 if (playlist.IsSavedGenius)
-                    return new Uri("/Assets/Icons/Playlist.SavedGenius.png", UriKind.Relative);
+                    return SavedGeniusPlaylistTemplate;
                 if (playlist.HasChildContainers)
-                    return new Uri("/Assets/Icons/Playlist.Folder.png", UriKind.Relative);
+                    return PlaylistFolderTemplate;
             }
 
-            return new Uri("/Assets/Icons/Playlist.Normal.png", UriKind.Relative);
+            return NormalPlaylistTemplate;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
         }
+
+        public ControlTemplate NormalPlaylistTemplate { get; set; }
+        public ControlTemplate SmartPlaylistTemplate { get; set; }
+        public ControlTemplate SavedGeniusPlaylistTemplate { get; set; }
+        public ControlTemplate PlaylistFolderTemplate { get; set; }
     }
 }
