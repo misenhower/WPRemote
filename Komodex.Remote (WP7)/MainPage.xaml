@@ -120,11 +120,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <controls:MultiResolutionImageMask
-                            Source="/Assets/Icons/App.iTunes.png"
-                            Style="{StaticResource IconCircleStyle}"
-                            CacheMode="BitmapCache"
-                            />
+                        <ContentControl Template="{StaticResource iTunesAppIcon}" VerticalAlignment="Top" Margin="0,8,0,0" CacheMode="BitmapCache" />
                         <TextBlock Text="{Binding LocalizedStrings.NowPlayingButton, Source={StaticResource LocalizedStrings}}"
                                    Grid.Row="0" Grid.Column="1"
                                    Style="{StaticResource ItemHeaderStyle}"
@@ -166,7 +162,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <controls:MultiResolutionImageMask Source="/Assets/Icons/Browse.png" Style="{StaticResource IconCircleStyle}" VerticalAlignment="Top" Margin="0,8,0,0" />
+                        <ContentControl Template="{StaticResource BrowseIcon}" VerticalAlignment="Top" Margin="0,8,0,0" />
                         <TextBlock Text="{Binding LocalizedStrings.BrowseLibraryButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
@@ -176,7 +172,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <controls:MultiResolutionImageMask Source="/Assets/Icons/Search.png" Style="{StaticResource IconCircleStyle}" />
+                        <ContentControl Template="{StaticResource SearchIcon}" VerticalAlignment="Top" Margin="0,8,0,0" />
                         <TextBlock Text="{Binding LocalizedStrings.SearchButton, Source={StaticResource LocalizedStrings}}" Grid.Row="0" Grid.Column="1" Style="{StaticResource ItemHeaderStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Button>

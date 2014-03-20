@@ -57,5 +57,35 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- Vector Icons -->
+    <ControlTemplate x:Name="iTunesAppIcon">
+        <Canvas Height="48" UseLayoutRounding="False" Width="48">
+            <Ellipse Style="{StaticResource BaseCircleStyle}" />
+            <Canvas Height="26.001" Canvas.Left="11.209" Canvas.Top="10.239" Width="22.682">
+                <Path Data="F1M22.682,19.409C22.682,20.788 22.197,22.22 21.261,23.27 20.474,24.167 19.271,24.624 18.092,24.625 16.926,24.653 15.677,24.379 14.808,23.557 13.905,22.701 13.566,21.33 13.9,20.14 14.25,18.797 15.449,17.756 16.797,17.487 18.205,17.222 19.643,17.467 20.982,17.93L20.982,6.068 8.909,7.629 8.909,20.782C8.909,22.165 8.423,23.593 7.487,24.643 6.7,25.54 5.497,25.997 4.319,25.999 3.153,26.025 1.903,25.753 1.034,24.93 0.131,24.074 -0.208,22.704 0.126,21.513 0.476,20.169 1.675,19.129 3.023,18.86 4.432,18.595 5.868,18.84 7.208,19.305L7.208,2.002 22.682,0z" Fill="{TemplateBinding Foreground}" Height="26.001" Canvas.Left="0" Canvas.Top="0" Width="22.682"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Name="BrowseIcon">
+        <Canvas Height="48" UseLayoutRounding="False" Width="48">
+            <Ellipse Style="{StaticResource BaseCircleStyle}" />
+            <Canvas Height="17" Canvas.Left="12" Canvas.Top="15" Width="24">
+                <Path Data="F1M22.5,3L1.5,3C0.671,3 0,2.329 0,1.5 0,0.671 0.671,0 1.5,0L22.5,0C23.328,0 24,0.671 24,1.5 24,2.329 23.328,3 22.5,3" Fill="{TemplateBinding Foreground}" Height="3" Canvas.Left="0" Canvas.Top="0" Width="24"/>
+                <Path Data="F1M22.5,3L1.5,3C0.671,3 0,2.329 0,1.5 0,0.671 0.671,0 1.5,0L22.5,0C23.328,0 24,0.671 24,1.5 24,2.329 23.328,3 22.5,3" Fill="{TemplateBinding Foreground}" Height="3" Canvas.Left="0" Canvas.Top="7" Width="24"/>
+                <Path Data="F1M22.5,3L1.5,3C0.671,3 0,2.328 0,1.5 0,0.672 0.671,0 1.5,0L22.5,0C23.328,0 24,0.672 24,1.5 24,2.328 23.328,3 22.5,3" Fill="{TemplateBinding Foreground}" Height="3" Canvas.Left="0" Canvas.Top="14" Width="24"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Name="SearchIcon">
+        <Canvas Height="48" UseLayoutRounding="False" Width="48">
+            <Ellipse Style="{StaticResource BaseCircleStyle}" />
+            <Canvas Height="21.312" Canvas.Left="13.339" Canvas.Top="13.378" Width="21.284">
+                <Path Data="F1M18.694,9.237C18.089,11.7 15.895,13.419 13.361,13.419 12.921,13.419 12.477,13.365 12.046,13.259 11.382,13.095 10.779,12.81 10.247,12.442 9.685,12.053 9.208,11.568 8.83,11.013 7.981,9.767 7.638,8.184 8.024,6.611 8.634,4.147 10.827,2.425 13.357,2.425 13.798,2.425 14.242,2.48 14.676,2.587 16.1,2.937 17.302,3.822 18.062,5.078 18.822,6.335 19.048,7.812 18.694,9.237 M20.137,3.823C19.043,2.012 17.309,0.737 15.256,0.231 14.632,0.078 13.994,0 13.357,0 9.71,0 6.549,2.479 5.669,6.03 5.163,8.096 5.526,10.173 6.516,11.883L0.585,17.87C-0.201,18.662 -0.195,19.941 0.598,20.727 0.993,21.118 1.507,21.312 2.02,21.312 2.541,21.312 3.061,21.113 3.456,20.714L9.36,14.754C10.003,15.131 10.707,15.426 11.465,15.614 12.089,15.767 12.725,15.844 13.361,15.844 17.014,15.844 20.176,13.366 21.049,9.818 21.557,7.764 21.233,5.635 20.137,3.823" Fill="{TemplateBinding Foreground}" Height="21.312" Canvas.Left="0" Canvas.Top="0" Width="21.284"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
 
 </ResourceDictionary>
