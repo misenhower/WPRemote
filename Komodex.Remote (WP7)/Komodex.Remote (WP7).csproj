@@ -474,9 +474,6 @@
     <Content Include="..\Assets\Icons\App.MediaMonkey.WVGA.png">
       <Link>Assets\Icons\App.MediaMonkey.WVGA.png</Link>
     </Content>
-    <Content Include="..\Assets\Icons\Audiobooks.WVGA.png">
-      <Link>Assets\Icons\Audiobooks.WVGA.png</Link>
-    </Content>
     <Content Include="..\Assets\Icons\Browse.WVGA.png">
       <Link>Assets\Icons\Browse.WVGA.png</Link>
     </Content>
@@ -486,24 +483,6 @@
     <Content Include="..\Assets\Icons\Ellipsis.WVGA.png">
       <Link>Assets\Icons\Ellipsis.WVGA.png</Link>
     </Content>
-    <Content Include="..\Assets\Icons\GeniusMixes.WVGA.png">
-      <Link>Assets\Icons\GeniusMixes.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\InternetRadio.WVGA.png">
-      <Link>Assets\Icons\InternetRadio.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\iTunesRadio.WVGA.png">
-      <Link>Assets\Icons\iTunesRadio.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\iTunesU.WVGA.png">
-      <Link>Assets\Icons\iTunesU.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Movies.WVGA.png">
-      <Link>Assets\Icons\Movies.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Podcasts.WVGA.png">
-      <Link>Assets\Icons\Podcasts.WVGA.png</Link>
-    </Content>
     <Content Include="..\Assets\Icons\Repeat.WVGA.png">
       <Link>Assets\Icons\Repeat.WVGA.png</Link>
     </Content>
@@ -512,9 +491,6 @@
     </Content>
     <Content Include="..\Assets\Icons\Search.WVGA.png">
       <Link>Assets\Icons\Search.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\SharedLibrary.WVGA.png">
-      <Link>Assets\Icons\SharedLibrary.WVGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Shuffle.WVGA.png">
       <Link>Assets\Icons\Shuffle.WVGA.png</Link>
@@ -536,12 +512,6 @@
     </Content>
     <Content Include="..\Assets\Icons\Transport.Rew.WVGA.png">
       <Link>Assets\Icons\Transport.Rew.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\TVShows.WVGA.png">
-      <Link>Assets\Icons\TVShows.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\Videos.WVGA.png">
-      <Link>Assets\Icons\Videos.WVGA.png</Link>
     </Content>
     <Content Include="..\Assets\KomodexLogo.WVGA.png">
       <Link>Assets\KomodexLogo.WVGA.png</Link>

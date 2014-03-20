@@ -240,11 +240,6 @@ namespace Komodex.Remote
             Navigate("/AboutPage.xaml?version=" + iTunesVersion + "&protocol=" + iTunesProtocolVersion + "&dmap=" + iTunesDMAPVersion + "&daap=" + iTunesDAAPVersion);
         }
 
-        public static void OpenVideosPage()
-        {
-            Navigate("/LibraryPages/VideosPage.xaml");
-        }
-
         public static void OpenSettingsPage()
         {
             Navigate("/Settings/SettingsPage.xaml");

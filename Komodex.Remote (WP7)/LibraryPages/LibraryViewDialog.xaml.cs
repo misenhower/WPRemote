@@ -39,28 +39,28 @@ namespace Komodex.Remote.LibraryPages
             List<LibraryViewItem> items = new List<LibraryViewItem>();
 
             if (CurrentDatabase.MoviesContainer != null)
-                items.Add(new LibraryViewItem(LocalizedStrings.BrowseMovies, "/Assets/Icons/Movies.png", () => NavigationManager.OpenMoviesPage(CurrentDatabase)));
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowseMovies, "MoviesIcon", () => NavigationManager.OpenMoviesPage(CurrentDatabase)));
             if (CurrentDatabase.TVShowsContainer != null)
-                items.Add(new LibraryViewItem(LocalizedStrings.BrowseTVShows, "/Assets/Icons/TVShows.png", () => NavigationManager.OpenTVShowsPage(CurrentDatabase)));
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowseTVShows, "TVShowsIcon", () => NavigationManager.OpenTVShowsPage(CurrentDatabase)));
             if (CurrentDatabase.PodcastsContainer != null)
-                items.Add(new LibraryViewItem(LocalizedStrings.BrowsePodcasts, "/Assets/Icons/Podcasts.png", () => NavigationManager.OpenPodcastsPage(CurrentDatabase)));
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowsePodcasts, "PodcastsIcon", () => NavigationManager.OpenPodcastsPage(CurrentDatabase)));
             if (CurrentDatabase.iTunesUContainer != null)
-                items.Add(new LibraryViewItem(LocalizedStrings.BrowseiTunesU, "/Assets/Icons/iTunesU.png", () => NavigationManager.OpeniTunesUCoursesPage(CurrentDatabase)));
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowseiTunesU, "iTunesUIcon", () => NavigationManager.OpeniTunesUCoursesPage(CurrentDatabase)));
             if (CurrentDatabase.BooksContainer != null)
-                items.Add(new LibraryViewItem(LocalizedStrings.BrowseAudiobooks, "/Assets/Icons/Audiobooks.png", () => NavigationManager.OpenAudiobooksPage(CurrentDatabase)));
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowseAudiobooks, "AudiobooksIcon", () => NavigationManager.OpenAudiobooksPage(CurrentDatabase)));
             if (CurrentDatabase.GeniusMixes != null && CurrentDatabase.GeniusMixes.Count > 0)
-                items.Add(new LibraryViewItem(LocalizedStrings.BrowseGeniusMixes, "/Assets/Icons/GeniusMixes.png", () => NavigationManager.OpenGeniusMixesPage(CurrentDatabase)));
+                items.Add(new LibraryViewItem(LocalizedStrings.BrowseGeniusMixes, "GeniusMixesIcon", () => NavigationManager.OpenGeniusMixesPage(CurrentDatabase)));
 
             if (CurrentDatabase == server.MainDatabase)
             {
                 if (server.iTunesRadioDatabase != null && server.iTunesRadioDatabase.HasStations)
-                    items.Add(new LibraryViewItem(server.iTunesRadioDatabase.Name, "/Assets/Icons/iTunesRadio.png", () => NavigationManager.OpeniTunesRadioStationsPage(CurrentDatabase.Server.iTunesRadioDatabase)));
+                    items.Add(new LibraryViewItem(server.iTunesRadioDatabase.Name, "iTunesRadioIcon", () => NavigationManager.OpeniTunesRadioStationsPage(CurrentDatabase.Server.iTunesRadioDatabase)));
 
                 if (server.InternetRadioDatabase != null)
-                    items.Add(new LibraryViewItem(LocalizedStrings.BrowseInternetRadio, "/Assets/Icons/InternetRadio.png", () => NavigationManager.OpenInternetRadioCategoriesPage(CurrentDatabase.Server.InternetRadioDatabase)));
+                    items.Add(new LibraryViewItem(LocalizedStrings.BrowseInternetRadio, "InternetRadioIcon", () => NavigationManager.OpenInternetRadioCategoriesPage(CurrentDatabase.Server.InternetRadioDatabase)));
 
                 foreach (var db in CurrentDatabase.Server.SharedDatabases)
-                    items.Add(new LibraryViewItem(db.Name, "/Assets/Icons/SharedLibrary.png", () => NavigationManager.OpenLibraryPage(db)));
+                    items.Add(new LibraryViewItem(db.Name, "SharedLibraryIcon", () => NavigationManager.OpenLibraryPage(db)));
             }
 
             Items = items;
@@ -90,15 +90,15 @@ namespace Komodex.Remote.LibraryPages
 
         public class LibraryViewItem
         {
-            public LibraryViewItem(string title, string iconURI, Action clickAction)
+            public LibraryViewItem(string title, string iconResourceName, Action clickAction)
             {
                 Title = title;
-                IconURI = iconURI;
+                IconControlTemplate = App.Current.Resources[iconResourceName] as ControlTemplate;
                 ClickAction = clickAction;
             }
 
             public string Title { get; private set; }
-            public string IconURI { get; private set; }
+            public ControlTemplate IconControlTemplate { get; private set; }
             public Action ClickAction { get; private set; }
         }
     }

@@ -28,15 +28,17 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 
-                <controls:MultiResolutionImageMask
-                    Source="{Binding IconURI}"
-                    Style="{StaticResource IconCircleStyle}"
+                <ContentControl
+                    Template="{Binding IconControlTemplate}"
+                    VerticalAlignment="Center"
+                    Width="48"
+                    Height="48"
                     />
                 
                 <TextBlock Text="{Binding Title}"
-                            Grid.Column="1"
-                            Style="{StaticResource ItemHeaderStyle}"
-                            />
+                    Grid.Column="1"
+                    Style="{StaticResource ItemHeaderStyle}"
+                    />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
