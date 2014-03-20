@@ -40,6 +40,9 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IconContainer" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IconTemplateContainer" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -61,6 +64,7 @@
                                 Source="{TemplateBinding ImageSource}"
                                 UseResolutionSuffix="{TemplateBinding UseMultiResolutionImages}"
                                 />
+                            <ContentControl x:Name="IconTemplateContainer" Template="{TemplateBinding IconTemplate}" />
                         </Grid>
                     </Border>
                 </ControlTemplate>

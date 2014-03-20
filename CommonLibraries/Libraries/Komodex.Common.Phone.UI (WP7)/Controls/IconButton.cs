@@ -40,5 +40,18 @@ namespace Komodex.Common.Phone.Controls
         }
 
         #endregion
+
+        #region IconTemplate
+
+        public static readonly DependencyProperty IconTemplateProperty =
+           DependencyProperty.Register("IconTemplate", typeof(ControlTemplate), typeof(IconButton), new PropertyMetadata(null));
+
+        public ControlTemplate IconTemplate
+        {
+            get { return (ControlTemplate)GetValue(IconTemplateProperty); }
+            set { SetValue(IconTemplateProperty, value); }
+        }
+
+        #endregion
     }
 }
