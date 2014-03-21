@@ -18,10 +18,7 @@
             <my:FakeButton toolkit:TiltEffect.SuppressTilt="False">
                 <Border Background="{StaticResource PhoneChromeBrush}">
                     <StackPanel Orientation="Horizontal">
-                        <controls:MultiResolutionImageMask
-                            Source="/Assets/Icons/Shuffle.png"
-                            Width="48" Height="48"
-                            />
+                        <ContentControl Template="{StaticResource ShuffleIcon}" Width="48" Height="48" />
                         <TextBlock Text="{Binding Text}"
                                    Margin="0,3,12,0"
                                    FontFamily="{StaticResource PhoneFontFamilySemiLight}"

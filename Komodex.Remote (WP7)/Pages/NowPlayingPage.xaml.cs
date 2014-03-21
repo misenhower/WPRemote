@@ -293,8 +293,8 @@ namespace Komodex.Remote.Pages
         protected const double _playModeButtonOpacityOff = 0.4;
         protected const double _playModeButtonOpacityOn = 0.8;
 
-        protected readonly ImageSource _repeatIcon = new BitmapImage(new Uri("/Assets/Icons/Repeat.png", UriKind.Relative));
-        protected readonly ImageSource _repeatOneIcon = new BitmapImage(new Uri("/Assets/Icons/RepeatOne.png", UriKind.Relative));
+        protected readonly ControlTemplate _repeatIcon = App.Current.Resources["RepeatAllIcon"] as ControlTemplate;
+        protected readonly ControlTemplate _repeatOneIcon = App.Current.Resources["RepeatOneIcon"] as ControlTemplate;
 
         protected void UpdatePlayModeButtons()
         {
@@ -306,7 +306,7 @@ namespace Komodex.Remote.Pages
 
             // Repeat button
             RepeatImage.Opacity = (CurrentServer.RepeatState != RepeatStates.None) ? _playModeButtonOpacityOn : _playModeButtonOpacityOff;
-            RepeatImage.Source = (CurrentServer.RepeatState != RepeatStates.RepeatOne) ? _repeatIcon : _repeatOneIcon;
+            RepeatImage.Template = (CurrentServer.RepeatState != RepeatStates.RepeatOne) ? _repeatIcon : _repeatOneIcon;
         }
 
         private void ShuffleButton_Click(object sender, RoutedEventArgs e)

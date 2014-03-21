@@ -171,17 +171,17 @@
                 
                 <StackPanel Grid.Column="1" Margin="-12,0,0,-12" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                     <Button Style="{StaticResource SimpleButton}" Click="ShuffleButton_Click" Visibility="{Binding IsShuffleAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <controls:MultiResolutionImageMask
+                        <ContentControl
                             x:Name="ShuffleImage"
-                            Source="/Assets/Icons/Shuffle.png"
+                            Template="{StaticResource ShuffleIcon}"
                             CacheMode="BitmapCache"
                             Width="48" Height="48"
                             />
                     </Button>
                     <Button Style="{StaticResource SimpleButton}" Click="RepeatButton_Click" Visibility="{Binding IsRepeatAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <controls:MultiResolutionImageMask
+                        <ContentControl
                             x:Name="RepeatImage"
-                            Source="/Assets/Icons/Repeat.png"
+                            Template="{StaticResource RepeatAllIcon}"
                             CacheMode="BitmapCache"
                             Width="48" Height="48"
                             />
