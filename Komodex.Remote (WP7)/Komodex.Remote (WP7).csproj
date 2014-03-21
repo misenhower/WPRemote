@@ -120,6 +120,7 @@
     <Compile Include="Controls\PlayTransportButtonsControl.xaml.cs">
       <DependentUpon>PlayTransportButtonsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RemoteIconButton.cs" />
     <Compile Include="Controls\ShuffleButton.xaml.cs">
       <DependentUpon>ShuffleButton.xaml</DependentUpon>
     </Compile>
@@ -129,7 +130,6 @@
     <Compile Include="Controls\UtilityPairingDialog.xaml.cs">
       <DependentUpon>UtilityPairingDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\AppendFilenameConverter.cs" />
     <Compile Include="Converters\CollectionCountToStringConverter.cs" />
     <Compile Include="Converters\CurrentDACPItemVisibilityConverter.cs" />
     <Compile Include="Converters\DisableWhenNullConverter.cs" />
@@ -503,42 +503,6 @@
     </Content>
     <Content Include="..\Assets\KomodexLogo.WVGA.png">
       <Link>Assets\KomodexLogo.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\FF.Pressed.WVGA.png">
-      <Link>Assets\PlayTransport\FF.Pressed.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\FF.WVGA.png">
-      <Link>Assets\PlayTransport\FF.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\GeniusShuffle.Pressed.WVGA.png">
-      <Link>Assets\PlayTransport\GeniusShuffle.Pressed.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\GeniusShuffle.WVGA.png">
-      <Link>Assets\PlayTransport\GeniusShuffle.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\iTunesRadio.Pressed.WVGA.png">
-      <Link>Assets\PlayTransport\iTunesRadio.Pressed.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\iTunesRadio.WVGA.png">
-      <Link>Assets\PlayTransport\iTunesRadio.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\Pause.Pressed.WVGA.png">
-      <Link>Assets\PlayTransport\Pause.Pressed.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\Pause.WVGA.png">
-      <Link>Assets\PlayTransport\Pause.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\Play.Pressed.WVGA.png">
-      <Link>Assets\PlayTransport\Play.Pressed.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\Play.WVGA.png">
-      <Link>Assets\PlayTransport\Play.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\Rew.Pressed.WVGA.png">
-      <Link>Assets\PlayTransport\Rew.Pressed.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\PlayTransport\Rew.WVGA.png">
-      <Link>Assets\PlayTransport\Rew.WVGA.png</Link>
     </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

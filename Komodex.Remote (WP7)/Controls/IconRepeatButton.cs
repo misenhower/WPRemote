@@ -9,7 +9,7 @@ using System.Windows.Threading;
 
 namespace Komodex.Remote.Controls
 {
-    public class IconRepeatButton : IconButton
+    public class IconRepeatButton : RemoteIconButton
     {
         private DispatcherTimer _timer;
         public event EventHandler<EventArgs> RepeatClick;

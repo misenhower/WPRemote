@@ -24,7 +24,7 @@
             <Setter Property="UseMultiResolutionImages" Value="True" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="controls:IconButton">
+                    <ControlTemplate TargetType="appControls:RemoteIconButton">
                         <Border Background="Transparent" Padding="{TemplateBinding Padding}">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
@@ -66,19 +66,17 @@
     								BorderThickness="{TemplateBinding BorderThickness}"
     								CornerRadius="62"
                                     />
-                                <controls:MultiResolutionImageMask
+                                <ContentControl
     								x:Name="IconContainer"
     								Foreground="{TemplateBinding Foreground}"
-    								Source="{TemplateBinding ImageSource}"
-    								UseResolutionSuffix="{TemplateBinding UseMultiResolutionImages}"
-                                />
-                                <controls:MultiResolutionImageMask
+    								Template="{TemplateBinding IconTemplate}"
+                                    />
+                                <ContentControl
     								x:Name="IconPressedContainer"
     								Foreground="{TemplateBinding Foreground}"
-    								Source="{Binding ImageSource, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AppendFilenameConverter}, ConverterParameter='.Pressed'}"
-    								UseResolutionSuffix="{TemplateBinding UseMultiResolutionImages}"
+    								Template="{TemplateBinding PressedIconTemplate}"
                                     Opacity="0"
-                                />
+                                    />
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -101,18 +99,20 @@
                         />
                 </toolkit:ContextMenu>
             </toolkit:ContextMenuService.ContextMenu>
-            <controls:IconButton
+            <appControls:RemoteIconButton
                 x:Name="iTunesRadioButton"
                 Style="{StaticResource PlayTransportButton}"
-                ImageSource="/Assets/PlayTransport/iTunesRadio.png"
+                IconTemplate="{StaticResource PlayTransportiTunesRadioIcon}"
+                PressedIconTemplate="{StaticResource PlayTransportiTunesRadioPressedIcon}"
                 Visibility="Collapsed"
                 CacheMode="BitmapCache"
                 Click="iTunesRadioButton_Click"
                 />
-            <controls:IconButton
+            <appControls:RemoteIconButton
                 x:Name="GeniusShuffleButton"
                 Style="{StaticResource PlayTransportButton}"
-                ImageSource="/Assets/PlayTransport/GeniusShuffle.png"
+                IconTemplate="{StaticResource PlayTransportGeniusShuffleIcon}"
+                PressedIconTemplate="{StaticResource PlayTransportGeniusShufflePressedIcon}"
                 Visibility="Collapsed"
                 CacheMode="BitmapCache"
                 Click="GeniusShuffleButton_Click"
@@ -120,23 +120,26 @@
             <appControls:IconRepeatButton
                 x:Name="RewButton"
                 Style="{StaticResource PlayTransportButton}"
-                ImageSource="/Assets/PlayTransport/Rew.png"
+                IconTemplate="{StaticResource PlayTransportRewIcon}"
+                PressedIconTemplate="{StaticResource PlayTransportRewPressedIcon}"
                 CacheMode="BitmapCache"
                 Interval="-1"
                 Click="RewButton_Click"
                 RepeatBegin="RewButton_RepeatBegin"
                 RepeatEnd="RewButton_RepeatEnd"
                 />
-            <controls:IconButton
+            <appControls:RemoteIconButton
                 x:Name="PlayPauseButton"
                 Style="{StaticResource PlayTransportButton}"
+                IconTemplate="{StaticResource PlayTransportPlayIcon}"
                 CacheMode="BitmapCache"
                 Click="PlayPauseButton_Click"
                 />
             <appControls:IconRepeatButton
                 x:Name="FFButton"
                 Style="{StaticResource PlayTransportButton}"
-                ImageSource="/Assets/PlayTransport/FF.png"
+                IconTemplate="{StaticResource PlayTransportFFIcon}"
+                PressedIconTemplate="{StaticResource PlayTransportFFPressedIcon}"
                 CacheMode="BitmapCache"
                 Interval="-1"
                 Click="FFButton_Click"

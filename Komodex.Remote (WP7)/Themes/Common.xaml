@@ -21,7 +21,6 @@
     <localization:LocalizedStringsWrapper xmlns:localization="clr-namespace:Komodex.Remote.Localization" x:Key="LocalizedStrings" />
 
     <!-- Converters -->
-    <appConverters:AppendFilenameConverter x:Key="AppendFilenameConverter" />
     <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <appConverters:ItemCountConverter x:Key="ItemCountConverter" />
     <appConverters:DisableWhenNullConverter x:Key="disableWhenNullConverter" />

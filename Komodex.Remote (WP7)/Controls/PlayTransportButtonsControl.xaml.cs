@@ -103,8 +103,10 @@ namespace Komodex.Remote.Controls
 
         #region Play Transport Buttons
 
-        protected readonly ImageSource _playIcon = new BitmapImage(new Uri("/Assets/PlayTransport/Play.png", UriKind.Relative));
-        protected readonly ImageSource _pauseIcon = new BitmapImage(new Uri("/Assets/PlayTransport/Pause.png", UriKind.Relative));
+        protected readonly ControlTemplate _playIcon = App.Current.Resources["PlayTransportPlayIcon"] as ControlTemplate;
+        protected readonly ControlTemplate _playIconPressed = App.Current.Resources["PlayTransportPlayPressedIcon"] as ControlTemplate;
+        protected readonly ControlTemplate _pauseIcon = App.Current.Resources["PlayTransportPauseIcon"] as ControlTemplate;
+        protected readonly ControlTemplate _pauseIconPressed = App.Current.Resources["PlayTransportPausePressedIcon"] as ControlTemplate;
 
         protected void UpdatePlayTransportButtons()
         {
@@ -122,9 +124,15 @@ namespace Komodex.Remote.Controls
             FFButton.IsEnabled = !isStopped;
 
             if (isPlaying)
-                PlayPauseButton.ImageSource = _pauseIcon;
+            {
+                PlayPauseButton.IconTemplate = _pauseIcon;
+                PlayPauseButton.PressedIconTemplate = _pauseIconPressed;
+            }
             else
-                PlayPauseButton.ImageSource = _playIcon;
+            {
+                PlayPauseButton.IconTemplate = _playIcon;
+                PlayPauseButton.PressedIconTemplate = _playIconPressed;
+            }
 
             // iTunes Radio/Genius Shuffle
             if (Server != null && Server.IsCurrentlyPlayingiTunesRadio)
