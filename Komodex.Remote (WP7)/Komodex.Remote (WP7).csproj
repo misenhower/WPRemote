@@ -477,9 +477,6 @@
     <Content Include="..\Assets\Icons\Browse.WVGA.png">
       <Link>Assets\Icons\Browse.WVGA.png</Link>
     </Content>
-    <Content Include="..\Assets\Icons\Delete.WVGA.png">
-      <Link>Assets\Icons\Delete.WVGA.png</Link>
-    </Content>
     <Content Include="..\Assets\Icons\Ellipsis.WVGA.png">
       <Link>Assets\Icons\Ellipsis.WVGA.png</Link>
     </Content>

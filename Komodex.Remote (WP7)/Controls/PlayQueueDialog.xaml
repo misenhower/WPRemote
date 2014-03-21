@@ -65,7 +65,7 @@
                 <controls:IconButton
                     x:Name="DeleteButton"
                     Grid.Column="2"
-                    ImageSource="/Assets/Icons/Delete.png"
+                    IconTemplate="{StaticResource DeleteIcon}"
                     UseMultiResolutionImages="True"
                     />
             </Grid>
