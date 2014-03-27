@@ -52,9 +52,6 @@ namespace Komodex.Remote
             // Update settings if necessary
             SettingsUpdater.CheckForUpdate();
 
-            // Temporary
-            ResolutionUtility.FilenameSuffix1080p = ResolutionUtility.FilenameSuffixWXGA;
-
             // Standard XAML initialization
             InitializeComponent();
 

@@ -395,6 +395,9 @@
     <Content Include="..\Assets\FirstRunIcon.WXGA.png">
       <Link>Assets\FirstRunIcon.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Add.1080p.png">
+      <Link>Assets\Icons\Add.1080p.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Add.720p.png">
       <Link>Assets\Icons\Add.720p.png</Link>
     </Content>
@@ -403,6 +406,9 @@
     </Content>
     <Content Include="..\Assets\Icons\Add.WXGA.png">
       <Link>Assets\Icons\Add.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.AlbumPlayer.1080p.png">
+      <Link>Assets\Icons\App.AlbumPlayer.1080p.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\App.AlbumPlayer.720p.png">
       <Link>Assets\Icons\App.AlbumPlayer.720p.png</Link>
@@ -413,6 +419,9 @@
     <Content Include="..\Assets\Icons\App.AlbumPlayer.WXGA.png">
       <Link>Assets\Icons\App.AlbumPlayer.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\App.Foobar.1080p.png">
+      <Link>Assets\Icons\App.Foobar.1080p.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\App.Foobar.720p.png">
       <Link>Assets\Icons\App.Foobar.720p.png</Link>
     </Content>
@@ -421,6 +430,9 @@
     </Content>
     <Content Include="..\Assets\Icons\App.Foobar.WXGA.png">
       <Link>Assets\Icons\App.Foobar.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\App.iTunes.1080p.png">
+      <Link>Assets\Icons\App.iTunes.1080p.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\App.iTunes.720p.png">
       <Link>Assets\Icons\App.iTunes.720p.png</Link>
@@ -431,6 +443,9 @@
     <Content Include="..\Assets\Icons\App.iTunes.WXGA.png">
       <Link>Assets\Icons\App.iTunes.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\App.MediaMonkey.1080p.png">
+      <Link>Assets\Icons\App.MediaMonkey.1080p.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\App.MediaMonkey.720p.png">
       <Link>Assets\Icons\App.MediaMonkey.720p.png</Link>
     </Content>
@@ -439,6 +454,9 @@
     </Content>
     <Content Include="..\Assets\Icons\App.MediaMonkey.WXGA.png">
       <Link>Assets\Icons\App.MediaMonkey.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Browse.1080p.png">
+      <Link>Assets\Icons\Browse.1080p.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Browse.720p.png">
       <Link>Assets\Icons\Browse.720p.png</Link>
@@ -449,6 +467,9 @@
     <Content Include="..\Assets\Icons\Browse.WXGA.png">
       <Link>Assets\Icons\Browse.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Ellipsis.1080p.png">
+      <Link>Assets\Icons\Ellipsis.1080p.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Ellipsis.720p.png">
       <Link>Assets\Icons\Ellipsis.720p.png</Link>
     </Content>
@@ -457,6 +478,9 @@
     </Content>
     <Content Include="..\Assets\Icons\Ellipsis.WXGA.png">
       <Link>Assets\Icons\Ellipsis.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Search.1080p.png">
+      <Link>Assets\Icons\Search.1080p.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Search.720p.png">
       <Link>Assets\Icons\Search.720p.png</Link>
@@ -467,6 +491,9 @@
     <Content Include="..\Assets\Icons\Search.WXGA.png">
       <Link>Assets\Icons\Search.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Transport.FF.1080p.png">
+      <Link>Assets\Icons\Transport.FF.1080p.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Transport.FF.720p.png">
       <Link>Assets\Icons\Transport.FF.720p.png</Link>
     </Content>
@@ -475,6 +502,9 @@
     </Content>
     <Content Include="..\Assets\Icons\Transport.FF.WXGA.png">
       <Link>Assets\Icons\Transport.FF.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.GeniusShuffle.1080p.png">
+      <Link>Assets\Icons\Transport.GeniusShuffle.1080p.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Transport.GeniusShuffle.720p.png">
       <Link>Assets\Icons\Transport.GeniusShuffle.720p.png</Link>
@@ -485,6 +515,9 @@
     <Content Include="..\Assets\Icons\Transport.GeniusShuffle.WXGA.png">
       <Link>Assets\Icons\Transport.GeniusShuffle.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Transport.iTunesRadio.1080p.png">
+      <Link>Assets\Icons\Transport.iTunesRadio.1080p.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Transport.iTunesRadio.720p.png">
       <Link>Assets\Icons\Transport.iTunesRadio.720p.png</Link>
     </Content>
@@ -493,6 +526,9 @@
     </Content>
     <Content Include="..\Assets\Icons\Transport.iTunesRadio.WXGA.png">
       <Link>Assets\Icons\Transport.iTunesRadio.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Pause.1080p.png">
+      <Link>Assets\Icons\Transport.Pause.1080p.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Transport.Pause.720p.png">
       <Link>Assets\Icons\Transport.Pause.720p.png</Link>
@@ -503,6 +539,9 @@
     <Content Include="..\Assets\Icons\Transport.Pause.WXGA.png">
       <Link>Assets\Icons\Transport.Pause.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\Transport.Play.1080p.png">
+      <Link>Assets\Icons\Transport.Play.1080p.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Transport.Play.720p.png">
       <Link>Assets\Icons\Transport.Play.720p.png</Link>
     </Content>
@@ -511,6 +550,9 @@
     </Content>
     <Content Include="..\Assets\Icons\Transport.Play.WXGA.png">
       <Link>Assets\Icons\Transport.Play.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\Transport.Rew.1080p.png">
+      <Link>Assets\Icons\Transport.Rew.1080p.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\Transport.Rew.720p.png">
       <Link>Assets\Icons\Transport.Rew.720p.png</Link>
