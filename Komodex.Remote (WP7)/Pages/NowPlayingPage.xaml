@@ -240,7 +240,7 @@
                 Grid.Column="2"
                 Padding="6,12,12,12"
                 Margin="0,-12"
-                ImageSource="/Assets/Icons/AirPlay.png"
+                IconTemplate="{StaticResource AirPlayIcon}"
                 UseMultiResolutionImages="True"
                 />
         </Grid>

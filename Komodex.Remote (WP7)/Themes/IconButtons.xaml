@@ -342,6 +342,15 @@
     </ControlTemplate>
     
     <!-- AirPlay -->
+    <ControlTemplate x:Name="AirPlayIcon">
+        <Canvas Height="48" UseLayoutRounding="False" Width="48">
+            <Canvas Height="19" Canvas.Left="10" Canvas.Top="15" Width="28">
+                <Path Data="F1M28,0L0,0 0,16 5.198,16 6.865,14 2,14 2,2 26,2 26,14 21.136,14 22.803,16 28,16z" Fill="{TemplateBinding Foreground}" Height="16" Canvas.Left="0" Canvas.Top="0" Width="28"/>
+                <Path Data="F1M0,12L10,0 20,12z" Fill="{TemplateBinding Foreground}" Height="12" Canvas.Left="4" Canvas.Top="7" Width="20"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
+    
     <ControlTemplate x:Name="AirPlaySpeakerIcon">
         <Canvas Height="28" UseLayoutRounding="False" Width="31">
             <Canvas Height="27.091" Canvas.Left="3.377" Canvas.Top="0.482" Width="24.93">
@@ -357,5 +366,30 @@
         <Setter Property="Template" Value="{StaticResource AirPlaySpeakerIcon}" />
         <Setter Property="Margin" Value="0,0,12,0" />
     </Style>
+    
+    <ControlTemplate x:Name="AirPlayHasVideoIcon">
+        <Canvas Height="28" UseLayoutRounding="False" Width="31">
+            <Canvas Height="21" Canvas.Left="0" Canvas.Top="4" Width="31">
+                <Path Data="F1M0,18L31,18 31,0 0,0z M2,2L29,2 29,15.999 2,15.999z" Fill="{TemplateBinding Foreground}" Height="18" Canvas.Left="0" Canvas.Top="0" Width="31"/>
+                <Path Data="F1M17,2L0,2 0,0 17,0z" Fill="{TemplateBinding Foreground}" Height="2" Canvas.Left="7" Canvas.Top="19" Width="17"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Name="AirPlayHasPasswordIcon">
+        <Canvas Height="18" UseLayoutRounding="False" Width="14">
+            <Canvas Height="18" Canvas.Left="0" Canvas.Top="0" Width="14">
+                <Path Data="F1M7,2C9.206,2,11,3.794,11,6L11,8 3,8 3,6C3,3.794,4.794,2,7,2 M13,8.277L13,6C13,2.691 10.309,0 7,0 3.691,0 1,2.691 1,6L1,8.277C0.405,8.624,0,9.262,0,10L0,16C0,17.104,0.896,18,2,18L12,18C13.104,18,14,17.104,14,16L14,10C14,9.262,13.596,8.624,13,8.277" Fill="{TemplateBinding Foreground}" Height="18" Canvas.Left="0" Canvas.Top="0" Width="14"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Name="AirPlayCheckIcon">
+        <Canvas Height="22" UseLayoutRounding="False" Width="24">
+            <Canvas Height="20.441" Canvas.Left="0.223" Canvas.Top="0.694" Width="23.554">
+                <Path Data="F1M0.926,10.977L0.147,10.129C-0.06,9.905,-0.049,9.553,0.178,9.343L2.44,7.242C2.543,7.146 2.678,7.093 2.819,7.093 2.975,7.093 3.119,7.157 3.225,7.27L9.436,13.957 20.119,0.212C20.225,0.079 20.387,0 20.559,0 20.684,0 20.803,0.041 20.901,0.117L23.34,2.011C23.455,2.102 23.53,2.234 23.549,2.384 23.567,2.53 23.528,2.676 23.44,2.791L9.713,20.441z" Fill="{TemplateBinding Foreground}" Height="20.441" Canvas.Left="0" Canvas.Top="0" Width="23.554"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
 
 </ResourceDictionary>

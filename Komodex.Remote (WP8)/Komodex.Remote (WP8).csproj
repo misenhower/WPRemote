@@ -386,33 +386,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Assets\AirPlay\Check.720p.png">
-      <Link>Assets\AirPlay\Check.720p.png</Link>
-    </Content>
-    <Content Include="..\Assets\AirPlay\Check.WVGA.png">
-      <Link>Assets\AirPlay\Check.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\AirPlay\Check.WXGA.png">
-      <Link>Assets\AirPlay\Check.WXGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\AirPlay\HasVideo.720p.png">
-      <Link>Assets\AirPlay\HasVideo.720p.png</Link>
-    </Content>
-    <Content Include="..\Assets\AirPlay\HasVideo.WVGA.png">
-      <Link>Assets\AirPlay\HasVideo.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\AirPlay\HasVideo.WXGA.png">
-      <Link>Assets\AirPlay\HasVideo.WXGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\AirPlay\Lock.720p.png">
-      <Link>Assets\AirPlay\Lock.720p.png</Link>
-    </Content>
-    <Content Include="..\Assets\AirPlay\Lock.WVGA.png">
-      <Link>Assets\AirPlay\Lock.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\AirPlay\Lock.WXGA.png">
-      <Link>Assets\AirPlay\Lock.WXGA.png</Link>
-    </Content>
     <Content Include="..\Assets\FirstRunIcon.720p.png">
       <Link>Assets\FirstRunIcon.720p.png</Link>
     </Content>
@@ -430,15 +403,6 @@
     </Content>
     <Content Include="..\Assets\Icons\Add.WXGA.png">
       <Link>Assets\Icons\Add.WXGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\AirPlay.720p.png">
-      <Link>Assets\Icons\AirPlay.720p.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\AirPlay.WVGA.png">
-      <Link>Assets\Icons\AirPlay.WVGA.png</Link>
-    </Content>
-    <Content Include="..\Assets\Icons\AirPlay.WXGA.png">
-      <Link>Assets\Icons\AirPlay.WXGA.png</Link>
     </Content>
     <Content Include="..\Assets\Icons\App.AlbumPlayer.720p.png">
       <Link>Assets\Icons\App.AlbumPlayer.720p.png</Link>

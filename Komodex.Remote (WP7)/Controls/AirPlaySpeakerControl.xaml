@@ -127,10 +127,10 @@
                               Margin="0,0,0,-42"
                               />
                     <Border x:Name="border" Grid.Column="3">
-                        <controls:MultiResolutionImageMask
+                        <ContentControl
                             VerticalAlignment="Center"
                             Margin="6,0,12,0"
-                            Source="/Assets/AirPlay/Check.png"
+                            Template="{StaticResource AirPlayCheckIcon}"
                             Width="24" Height="21"
                             Visibility="{Binding BindableActive, Converter={StaticResource BooleanToVisibilityConverter}}"
                             />
@@ -142,12 +142,11 @@
                         Template="{StaticResource AirPlaySpeakerIcon}"
                         Visibility="{Binding HasVideo, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=true}"
                         />
-                    <controls:MultiResolutionImageMask
+                    <ContentControl
                         Grid.Column="1"
                         VerticalAlignment="Center"
                         Margin="0,5,6,0"
-                        Source="/Assets/AirPlay/HasVideo.png"
-                        Width="31" Height="26"
+                        Template="{StaticResource AirPlayHasVideoIcon}"
                         Visibility="{Binding HasVideo, Converter={StaticResource BooleanToVisibilityConverter}}"
                         />
                     <Grid Grid.Column="2" HorizontalAlignment="Left">
@@ -160,12 +159,11 @@
                                    FontSize="{StaticResource PhoneFontSizeMediumLarge}"
                                    FontFamily="{StaticResource PhoneFontFamilySemiBold}"
                                    />
-                        <controls:MultiResolutionImageMask
+                        <ContentControl
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             Margin="6,3,12,0"
-                            Source="/Assets/AirPlay/Lock.png"
-                            Width="14" Height="18"
+                            Template="{StaticResource AirPlayHasPasswordIcon}"
                             Visibility="{Binding HasPassword, Converter={StaticResource BooleanToVisibilityConverter}}"
                             />
                     </Grid>
