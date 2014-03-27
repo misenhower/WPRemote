@@ -386,6 +386,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Assets\FirstRunIcon.1080p.png">
+      <Link>Assets\FirstRunIcon.1080p.png</Link>
+    </Content>
     <Content Include="..\Assets\FirstRunIcon.720p.png">
       <Link>Assets\FirstRunIcon.720p.png</Link>
     </Content>
@@ -562,6 +565,9 @@
     </Content>
     <Content Include="..\Assets\Icons\Transport.Rew.WXGA.png">
       <Link>Assets\Icons\Transport.Rew.WXGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\KomodexLogo.1080p.png">
+      <Link>Assets\KomodexLogo.1080p.png</Link>
     </Content>
     <Content Include="..\Assets\KomodexLogo.720p.png">
       <Link>Assets\KomodexLogo.720p.png</Link>
