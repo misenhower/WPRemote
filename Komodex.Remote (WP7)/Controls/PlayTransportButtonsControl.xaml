@@ -21,7 +21,6 @@
             <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}" />
             <Setter Property="BorderThickness" Value="{StaticResource PhoneBorderThickness}" />
             <Setter Property="Margin" Value="12,0" />
-            <Setter Property="UseMultiResolutionImages" Value="True" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="appControls:RemoteIconButton">

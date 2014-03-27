@@ -241,7 +241,6 @@
                 Padding="6,12,12,12"
                 Margin="0,-12"
                 IconTemplate="{StaticResource AirPlayIcon}"
-                UseMultiResolutionImages="True"
                 />
         </Grid>
     </Grid>
