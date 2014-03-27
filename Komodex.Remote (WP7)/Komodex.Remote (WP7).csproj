@@ -450,9 +450,6 @@
     <Content Include="..\Assets\AirPlay\Lock.WVGA.png">
       <Link>Assets\AirPlay\Lock.WVGA.png</Link>
     </Content>
-    <Content Include="..\Assets\AirPlay\Speaker.WVGA.png">
-      <Link>Assets\AirPlay\Speaker.WVGA.png</Link>
-    </Content>
     <Content Include="..\Assets\FirstRunIcon.WVGA.png">
       <Link>Assets\FirstRunIcon.WVGA.png</Link>
     </Content>

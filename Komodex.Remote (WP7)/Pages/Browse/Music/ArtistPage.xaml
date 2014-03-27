@@ -89,7 +89,7 @@
                     <TextBlock Text="{Binding Converter={StaticResource SongDetailsConverter}}" Style="{StaticResource ListItemTextSubtleStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
                 </StackPanel>
 
-                <controls:MultiResolutionImageMask
+                <ContentControl
                     Grid.Column="2"
                     Visibility="{Binding IndicatorVisibility, Source={StaticResource CurrentDACPItemVisibilityConverter}}"
                     Style="{StaticResource ListItemSpeakerIconStyle}"

@@ -61,14 +61,6 @@
         <Setter Property="delay:LowProfileImageLoader.ClearImageOnUriChange" Value="True" />
     </Style>
     
-    <!-- Icons -->
-    <Style TargetType="controls:MultiResolutionImageMask" x:Key="ListItemSpeakerIconStyle">
-        <Setter Property="Width" Value="31" />
-        <Setter Property="Height" Value="26" />
-        <Setter Property="Margin" Value="0,0,12,0" />
-        <Setter Property="Source" Value="/Assets/AirPlay/Speaker.png" />
-    </Style>
-
     <!-- List Item Templates -->
     <ControlTemplate x:Name="NormalPlaylistIcon">
         <Canvas Height="48" UseLayoutRounding="False" Width="48">

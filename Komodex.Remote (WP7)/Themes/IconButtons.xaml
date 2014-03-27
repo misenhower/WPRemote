@@ -340,5 +340,22 @@
             </Canvas>
         </Canvas>
     </ControlTemplate>
+    
+    <!-- AirPlay -->
+    <ControlTemplate x:Name="AirPlaySpeakerIcon">
+        <Canvas Height="28" UseLayoutRounding="False" Width="31">
+            <Canvas Height="27.091" Canvas.Left="3.377" Canvas.Top="0.482" Width="24.93">
+                <Path Data="F1M0,4.023L5.724,4.023 10.246,0 10.246,14.9 5.724,10.837 0,10.837z" Fill="{TemplateBinding Foreground}" Height="14.9" Canvas.Left="0" Canvas.Top="6.068" Width="10.246"/>
+                <Path Data="F1M0.81,15.116C0.604,15.116 0.397,15.038 0.239,14.88 -0.076,14.565 -0.076,14.054 0.239,13.739 1.86,12.118 2.752,9.925 2.752,7.56 2.752,5.196 1.859,3 0.236,1.378 -0.079,1.062 -0.079,0.552 0.236,0.236 0.552,-0.078 1.063,-0.078 1.377,0.236 3.305,2.163 4.366,4.764 4.366,7.56 4.366,10.355 3.306,12.955 1.38,14.88 1.223,15.038 1.016,15.116 0.81,15.116" Fill="{TemplateBinding Foreground}" Height="15.116" Canvas.Left="12.064" Canvas.Top="5.96" Width="4.366"/>
+                <Path Data="F1M0.807,21.382C0.601,21.382 0.394,21.304 0.237,21.146 -0.079,20.831 -0.079,20.32 0.237,20.005 2.764,17.476 4.157,14.132 4.157,10.589 4.157,7.09 2.793,3.821 0.319,1.382 0.001,1.069 -0.003,0.558 0.31,0.24 0.623,-0.078 1.134,-0.08 1.452,0.232 4.237,2.977 5.77,6.655 5.77,10.589 5.77,14.563 4.21,18.313 1.377,21.146 1.22,21.304 1.014,21.382 0.807,21.382" Fill="{TemplateBinding Foreground}" Height="21.382" Canvas.Left="15.16" Canvas.Top="2.786" Width="5.77"/>
+                <Path Data="F1M0.865,27.091C0.659,27.091 0.452,27.013 0.295,26.855 -0.021,26.54 -0.021,26.029 0.295,25.714 3.516,22.49 5.292,18.222 5.292,13.695 5.292,9.049 3.495,4.674 0.233,1.375 -0.08,1.058 -0.077,0.547 0.24,0.234 0.556,-0.08 1.067,-0.078 1.382,0.24 4.943,3.843 6.905,8.622 6.905,13.695 6.905,18.653 4.963,23.326 1.435,26.855 1.278,27.013 1.072,27.091 0.865,27.091" Fill="{TemplateBinding Foreground}" Height="27.091" Canvas.Left="18.025" Canvas.Top="0" Width="6.905"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
+    
+    <Style x:Name="ListItemSpeakerIconStyle" TargetType="ContentControl">
+        <Setter Property="Template" Value="{StaticResource AirPlaySpeakerIcon}" />
+        <Setter Property="Margin" Value="0,0,12,0" />
+    </Style>
 
 </ResourceDictionary>

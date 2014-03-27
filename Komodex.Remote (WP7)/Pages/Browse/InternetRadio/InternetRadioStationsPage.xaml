@@ -49,7 +49,7 @@
                     TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}"
                     />
                 
-                <controls:MultiResolutionImageMask
+                <ContentControl
                     Grid.Column="2"
                     Visibility="{Binding IndicatorVisibility, Source={StaticResource CurrentDACPItemVisibilityConverter}}"
                     Style="{StaticResource ListItemSpeakerIconStyle}"

@@ -135,12 +135,11 @@
                             Visibility="{Binding BindableActive, Converter={StaticResource BooleanToVisibilityConverter}}"
                             />
                     </Border>
-                    <controls:MultiResolutionImageMask
+                    <ContentControl
                         Grid.Column="1"
                         VerticalAlignment="Center"
                         Margin="0,5,6,0"
-                        Source="/Assets/AirPlay/Speaker.png"
-                        Width="31" Height="26"
+                        Template="{StaticResource AirPlaySpeakerIcon}"
                         Visibility="{Binding HasVideo, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=true}"
                         />
                     <controls:MultiResolutionImageMask

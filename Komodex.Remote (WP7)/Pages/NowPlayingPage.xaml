@@ -223,11 +223,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             
-            <controls:MultiResolutionImageMask
-                Source="/Assets/AirPlay/Speaker.png"
-                Width="31" Height="26"
-                Opacity="0.8"
-                />
+            <ContentControl Template="{StaticResource AirPlaySpeakerIcon}" Opacity="0.8" />
             
             <Slider x:Name="VolumeSlider"
                     Grid.Column="1"
