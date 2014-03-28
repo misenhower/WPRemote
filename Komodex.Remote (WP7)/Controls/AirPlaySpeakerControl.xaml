@@ -168,13 +168,16 @@
                             />
                     </Grid>
                     <Grid x:Name="grid1" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Height="48" VerticalAlignment="Top" Margin="0,0,36,0">
-                        <Slider x:Name="slider"
+                        <Slider
+                            x:Name="slider"
                             Height="48" VerticalAlignment="Top" Margin="-12,0,-12,0"
                             Tag="{Binding BindsDirectlyToSource=True}"
                             Value="{Binding BindableVolume, Mode=TwoWay}" Maximum="100" LargeChange="5"
                             Style="{StaticResource AltVolumeSliderStyle}"
                             ManipulationStarted="Slider_ManipulationStarted"
-                            ManipulationCompleted="Slider_ManipulationCompleted" />
+                            ManipulationCompleted="Slider_ManipulationCompleted"
+                            CacheMode="BitmapCache"
+                            />
                     </Grid>
                 </Grid>
             </Border>
