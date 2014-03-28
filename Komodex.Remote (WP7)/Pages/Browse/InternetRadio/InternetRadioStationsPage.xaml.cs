@@ -35,8 +35,25 @@ namespace Komodex.Remote.Pages.Browse.InternetRadio
             base.OnNavigatedTo(e);
         }
 
+        protected async override void OnDatabaseChanged()
+        {
+            var db = CurrentDatabase;
+            if (db.Playlists == null)
+            {
+                SetProgressIndicator(null, true);
+                await db.RequestContainersAsync();
+                ClearProgressIndicator();
+            }
+
+            base.OnDatabaseChanged();
+        }
+
         protected override Playlist GetContainer(DACPDatabase database)
         {
+            var playlists = database.Playlists;
+            if (playlists == null)
+                return null;
+
             return database.Playlists.First(pl => pl.ID == _playlistID);
         }
 

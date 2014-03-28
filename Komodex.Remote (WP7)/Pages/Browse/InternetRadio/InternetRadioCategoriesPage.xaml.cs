@@ -20,11 +20,12 @@ namespace Komodex.Remote.Pages.Browse.InternetRadio
             InitializeComponent();
         }
 
-        protected async override void PivotControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        protected async override void OnDatabaseChanged()
         {
-            base.PivotControl_SelectionChanged(sender, e);
+            base.OnDatabaseChanged();
 
-            if (CurrentDatabase != null && CurrentDatabase.Playlists == null)
+            var db = CurrentDatabase;
+            if (db != null && db.Playlists == null)
             {
                 SetProgressIndicator(null, true);
                 await CurrentDatabase.RequestContainersAsync();
