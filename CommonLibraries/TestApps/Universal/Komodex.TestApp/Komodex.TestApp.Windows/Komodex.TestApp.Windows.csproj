@@ -104,6 +104,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\..\..\..\UniversalLibraries\Komodex.Common\Komodex.Common.csproj">
+      <Project>{a203e317-805e-4860-a961-8bc5488b3096}</Project>
+      <Name>Komodex.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainPage.xaml.cs">
