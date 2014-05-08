@@ -85,6 +85,10 @@
       <Project>{a203e317-805e-4860-a961-8bc5488b3096}</Project>
       <Name>Komodex.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\UniversalLibraries\Komodex.Http\Komodex.Http.csproj">
+      <Project>{710285ba-2b4e-4e80-a48c-2249e08e3580}</Project>
+      <Name>Komodex.Http</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainPage.xaml.cs">

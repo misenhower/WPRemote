@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UniversalLibraries", "Unive
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Common", "UniversalLibraries\Komodex.Common\Komodex.Common.csproj", "{A203E317-805E-4860-A961-8BC5488B3096}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Http", "UniversalLibraries\Komodex.Http\Komodex.Http.csproj", "{710285BA-2B4E-4E80-A48C-2249E08E3580}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		TestApps\Universal\Komodex.TestApp\Komodex.TestApp.Shared\Komodex.TestApp.Shared.projitems*{8233d3b4-89ae-496d-9548-d22a729c8c9b}*SharedItemsImports = 4
@@ -86,6 +88,16 @@ Global
 		{A203E317-805E-4860-A961-8BC5488B3096}.Release|ARM.ActiveCfg = Release|Any CPU
 		{A203E317-805E-4860-A961-8BC5488B3096}.Release|x64.ActiveCfg = Release|Any CPU
 		{A203E317-805E-4860-A961-8BC5488B3096}.Release|x86.ActiveCfg = Release|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Release|ARM.ActiveCfg = Release|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Release|x64.ActiveCfg = Release|Any CPU
+		{710285BA-2B4E-4E80-A48C-2249E08E3580}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +107,6 @@ Global
 		{3B0DF3FE-8108-46A6-94FD-CC3C137E7667} = {8078CF93-3919-4083-AF2E-6FD1CBB0B875}
 		{8233D3B4-89AE-496D-9548-D22A729C8C9B} = {8078CF93-3919-4083-AF2E-6FD1CBB0B875}
 		{A203E317-805E-4860-A961-8BC5488B3096} = {505FF039-0326-4601-8524-6995262355F1}
+		{710285BA-2B4E-4E80-A48C-2249E08E3580} = {505FF039-0326-4601-8524-6995262355F1}
 	EndGlobalSection
 EndGlobal
