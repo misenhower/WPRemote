@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Networking;
+using Windows.Networking.Connectivity;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 
@@ -37,9 +38,13 @@ namespace Komodex.Bonjour
                     _udpSocket = new DatagramSocket();
                     _udpSocket.MessageReceived += UDPSocket_MessageReceived;
 
+                    // Fixing an issue on Windows 8.1 by attaching the socket to the Internet connection profile's network adapter.
+                    // Source: http://blogs.msdn.com/b/wsdevsol/archive/2013/12/19/datagramsocket-multicast-functionality-on-windows-8-1-throws-an-error-0x80072af9-wsahost-not-found.aspx
+                    var networkAdapter = NetworkInformation.GetInternetConnectionProfile().NetworkAdapter;
+
                     // Bind the service name and join the multicast group
                     _log.Debug("Opening UDP socket...");
-                    await _udpSocket.BindServiceNameAsync(BonjourUtility.MulticastDNSPort.ToString()).AsTask().ConfigureAwait(false);
+                    await _udpSocket.BindServiceNameAsync(BonjourUtility.MulticastDNSPort.ToString(), networkAdapter).AsTask().ConfigureAwait(false);
                     _log.Debug("Joining multicast group...");
                     _udpSocket.JoinMulticastGroup(_mdnsHostName);
 
