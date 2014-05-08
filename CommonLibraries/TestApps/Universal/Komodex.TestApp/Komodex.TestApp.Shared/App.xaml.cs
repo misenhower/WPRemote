@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Komodex.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -47,6 +48,9 @@ namespace Komodex.TestApp
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            Log.DefaultLogLevel = LogLevel.All;
+            ThreadUtility.Initialize();
+
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Komodex.TestApp.Bonjour;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -43,6 +44,11 @@ namespace Komodex.TestApp
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
+        }
+
+        private void BonjourHyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(BonjourTestPage));
         }
     }
 }
