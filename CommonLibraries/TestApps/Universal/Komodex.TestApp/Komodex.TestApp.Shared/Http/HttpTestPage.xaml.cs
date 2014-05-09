@@ -26,7 +26,7 @@ namespace Komodex.TestApp.Http
     /// </summary>
     public sealed partial class HttpTestPage : Page
     {
-        protected HttpServer _httpServer;
+        private HttpServer _httpServer;
 
         public HttpTestPage()
         {
@@ -77,14 +77,14 @@ namespace Komodex.TestApp.Http
             StopButton.IsEnabled = false;
         }
 
-        protected void LogMessage(string text)
+        private void LogMessage(string text)
         {
             ThreadUtility.RunOnUIThread(() =>
             {
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = text;
                 LogPanel.Children.Add(textBlock);
-                LogScrollViewer.ScrollToVerticalOffset(LogScrollViewer.ScrollableHeight);
+                LogScrollViewer.ChangeView(null, LogScrollViewer.ScrollableHeight, null);
             });
         }
 
@@ -93,7 +93,7 @@ namespace Komodex.TestApp.Http
             LogMessage("Request: " + e.Request.Uri.AbsolutePath);
 
             HttpResponse response = new HttpResponse();
-            string format;
+            //string format;
             using (StreamWriter writer = new StreamWriter(response.Body))
             {
                 writer.WriteLine("<html><head><title>WP8 HTTP Server</title></head><body>");
