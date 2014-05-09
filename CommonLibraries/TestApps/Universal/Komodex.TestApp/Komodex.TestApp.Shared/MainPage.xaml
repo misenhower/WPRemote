@@ -11,6 +11,7 @@
     <Grid>
         <StackPanel Margin="24,12,0,0">
             <HyperlinkButton Content="Bonjour Tests" Click="BonjourHyperlinkButton_Click" />
+            <HyperlinkButton Content="HTTP Server Tests" Click="HttpServerHyperlinkButton_Click" />
         </StackPanel>
     </Grid>
 </Page>

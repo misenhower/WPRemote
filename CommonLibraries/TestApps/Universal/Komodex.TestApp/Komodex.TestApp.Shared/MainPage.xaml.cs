@@ -1,4 +1,5 @@
 ﻿using Komodex.TestApp.Bonjour;
+using Komodex.TestApp.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,6 +50,11 @@ namespace Komodex.TestApp
         private void BonjourHyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(BonjourTestPage));
+        }
+
+        private void HttpServerHyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(HttpTestPage));
         }
     }
 }
