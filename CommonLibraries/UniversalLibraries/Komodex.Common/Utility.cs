@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Threading;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Windows.ApplicationModel;
 
 namespace Komodex.Common
 {
@@ -93,6 +94,31 @@ namespace Komodex.Common
             string assemblyInfo = applicationType.AssemblyQualifiedName;
             string applicationVersion = assemblyInfo.Split('=')[1].Split(',')[0];
             InitializeApplicationID(applicationIdentifier, applicationName, applicationVersion);
+        }
+
+        public static string GetCurrentPackageVersion()
+        {
+            var version = Package.Current.Id.Version;
+            return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+        }
+
+        public static string GetCurrentPackageShortVersion()
+        {
+            var version = Package.Current.Id.Version;
+            string format;
+            if (version.Revision == 0)
+            {
+                if (version.Build == 0)
+                    format = "{0}.{1}";
+                else
+                    format = "{0}.{1}.{2}";
+            }
+            else
+            {
+                format = "{0}.{1}.{2}.{3}";
+            }
+
+            return string.Format(format, version.Major, version.Minor, version.Build, version.Revision);
         }
 
         #endregion
