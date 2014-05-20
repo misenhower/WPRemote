@@ -43,6 +43,14 @@
   <ItemGroup>
     <Compile Include="BindableBase.cs" />
     <Compile Include="BitUtility.cs" />
+    <Compile Include="Converters\BindableBooleanToStringConverter.cs" />
+    <Compile Include="Converters\BooleanConverterBase.cs" />
+    <Compile Include="Converters\BooleanToBrushConverter.cs" />
+    <Compile Include="Converters\BooleanToDoubleConverter.cs" />
+    <Compile Include="Converters\BooleanToStringConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\StringToUpperConverter.cs" />
     <Compile Include="EnumT.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Networking\NetUtility.cs" />
