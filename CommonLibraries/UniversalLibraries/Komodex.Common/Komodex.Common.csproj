@@ -41,6 +41,7 @@
     <TargetPlatform Include="Windows, Version=8.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppInfo.cs" />
     <Compile Include="BindableBase.cs" />
     <Compile Include="BitUtility.cs" />
     <Compile Include="Converters\BindableBooleanToStringConverter.cs" />
