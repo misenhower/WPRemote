@@ -13,8 +13,9 @@ namespace Komodex.Common
     {
         private static Log _log = new Log("Settings");
 
-        protected string _keyName;
-        protected T _value;
+        public string Key { get; protected set; }
+        public bool IsRoaming { get; protected set; }
+
         protected Action<T> _changeAction;
 
         private readonly bool _shouldSerializeValue;
@@ -30,19 +31,18 @@ namespace Komodex.Common
             typeof(Guid),
         };
 
-        private static ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
+        private ApplicationDataContainer _settingsContainer;
 
-        static Setting()
+        public Setting(string key, T defaultValue = default(T), Action<T> changeAction = null, bool isRoaming = false)
         {
-            if (DesignMode.DesignModeEnabled)
-                return;
-        }
-
-        public Setting(string keyName, T defaultValue = default(T), Action<T> changeAction = null)
-        {
-            _keyName = keyName;
+            Key = key;
             _changeAction = changeAction;
+            IsRoaming=isRoaming;
 
+            if (isRoaming)
+                _settingsContainer = ApplicationData.Current.RoamingSettings;
+            else
+                _settingsContainer = ApplicationData.Current.LocalSettings;
 
             // Determine whether this value type should be serialized to XML
             if (!_baseDataTypes.Contains(typeof(T)))
@@ -54,24 +54,24 @@ namespace Komodex.Common
             // Try to load the value from isolated storage
             bool valueLoaded = false;
 
-            valueLoaded = _localSettings.Values.TryGetValue<T>(_keyName, out _value);
+            valueLoaded = _settingsContainer.Values.TryGetValue<T>(Key, out _value);
 
             // If we couldn't load the value directly, try to deserialize it
             if (!valueLoaded && _shouldSerializeValue)
             {
                 string value;
-                if (_localSettings.Values.TryGetValue<string>(_keyName, out value))
+                if (_settingsContainer.Values.TryGetValue<string>(Key, out value))
                     valueLoaded = _xmlSerializer.TryDeserialize<T>(value, out _value);
             }
 
             if (valueLoaded)
             {
                 AttachValueEvents();
-                _log.Debug("Loaded {0} from isolated storage key '{1}'", typeof(T).Name, _keyName);
+                _log.Debug("Loaded {0} from isolated storage key '{1}'", typeof(T).Name, Key);
             }
             else
             {
-                _log.Debug("Initializing default value for settings key '{1}' (type: {0})", typeof(T).Name, _keyName);
+                _log.Debug("Initializing default value for settings key '{1}' (type: {0})", typeof(T).Name, Key);
                 Value = defaultValue; // This will save the default value to isolated storage as well            
             }
 
@@ -96,6 +96,7 @@ namespace Komodex.Common
                 ((INotifyCollectionChanged)_value).CollectionChanged -= Value_CollectionChanged;
         }
 
+        protected T _value;
         public T Value
         {
             get { return _value; }
@@ -131,14 +132,14 @@ namespace Komodex.Common
                 value = _value;
 
 
-            _localSettings.Values[_keyName] = value;
+            _settingsContainer.Values[Key] = value;
 
             // Run modified action
             if (_changeAction != null)
                 _changeAction(_value);
 
-            _log.Debug("Wrote value for key '{0}'", _keyName);
-            _log.Trace("Updated value: '{0}' => {1}", _keyName, value);
+            _log.Debug("Wrote value for key '{0}'", Key);
+            _log.Trace("Updated value: '{0}' => {1}", Key, value);
         }
 
         protected void Value_PropertyChanged(object sender, PropertyChangedEventArgs e)
