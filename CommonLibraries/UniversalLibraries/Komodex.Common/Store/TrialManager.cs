@@ -18,16 +18,13 @@ namespace Komodex.Common.Store
             UpdateLicenseInfo();
         }
 
-        #region Static
+        private static readonly TrialManager _current;
+        public static TrialManager Current { get { return _current; } }
 
-        public static TrialManager Current { get; protected set; }
-
-        public static void Initialize()
+        static TrialManager()
         {
-            Current = new TrialManager();
+            _current = new TrialManager();
         }
-
-        #endregion
 
         public LicenseInformation LicenseInformation { get; protected set; }
         public bool IsTrial { get; protected set; }

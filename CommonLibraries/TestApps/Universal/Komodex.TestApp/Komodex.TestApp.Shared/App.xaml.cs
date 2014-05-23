@@ -1,4 +1,5 @@
 ﻿using Komodex.Common;
+using Komodex.Common.Analytics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,6 +37,8 @@ namespace Komodex.TestApp
         /// </summary>
         public App()
         {
+            AppInfo.Initialize("testapp", "Universal Libraries Test App");
+
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
         }
@@ -50,6 +53,8 @@ namespace Komodex.TestApp
         {
             Log.DefaultLogLevel = LogLevel.All;
             ThreadUtility.Initialize();
+
+            InstallationNotifier.Initialize();
 
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
