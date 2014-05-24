@@ -84,6 +84,8 @@ namespace Komodex.TestApp
                 Window.Current.Content = rootFrame;
             }
 
+            IssueReporter.Initialize();
+
             if (rootFrame.Content == null)
             {
 #if WINDOWS_PHONE_APP

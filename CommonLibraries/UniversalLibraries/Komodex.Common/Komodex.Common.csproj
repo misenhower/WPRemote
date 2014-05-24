@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analytics\InstallationNotifier.cs" />
+    <Compile Include="Analytics\IssueReport.cs" />
+    <Compile Include="Analytics\IssueReporter.cs" />
     <Compile Include="AppInfo.cs" />
     <Compile Include="BindableBase.cs" />
     <Compile Include="BitUtility.cs" />
