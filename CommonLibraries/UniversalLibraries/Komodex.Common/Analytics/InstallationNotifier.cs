@@ -108,6 +108,9 @@ namespace Komodex.Common.Analytics
                     break;
             }
 
+            // Device has touch
+            queryStringParts.Add("ht", DeviceInfo.HasTouch ? "1" : "0");
+
 #if DEBUG
             // Debug
             queryStringParts.Add("d", "1");
@@ -121,6 +124,9 @@ namespace Komodex.Common.Analytics
             // Send the request
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders["User-Agent"] = AppInfo.UserAgent;
+            client.DefaultRequestHeaders["Device-Manufacturer"] = DeviceInfo.SystemManufacturer;
+            client.DefaultRequestHeaders["Device-Model"] = DeviceInfo.SystemProductName;
+            client.DefaultRequestHeaders["Device-SKU"] = DeviceInfo.SystemSku;
             try
             {
                 _log.Debug("Sending notification to: " + uriBuilder.Uri);
