@@ -16,6 +16,7 @@ namespace Komodex.Common.Analytics
 {
     public static class IssueReporter
     {
+        private static readonly Log _log = new Log("Issue Reporter");
         private const string ReportFolderName = "IssueReports";
         private const string ReportUri = "http://sys.komodex.com/appissuereporter/";
 
@@ -26,6 +27,8 @@ namespace Komodex.Common.Analytics
             if (_initialized)
                 return;
             _initialized = true;
+
+            _log.Debug("Initializing...");
 
             Application.Current.UnhandledException += Application_UnhandledException;
             ((Frame)Window.Current.Content).NavigationFailed += Frame_NavigationFailed;
@@ -77,13 +80,28 @@ namespace Komodex.Common.Analytics
                 var files = await folder.GetFilesAsync().AsTask().ConfigureAwait(false);
                 foreach (var file in files)
                 {
+                    _log.Trace("Sending issue report: " + file.Name);
                     var stream = await file.OpenReadAsync();
                     bool success = await SendReportContentAsync(stream);
                     if (success)
+                    {
+                        _log.Trace("Successfully sent issue report, deleting file: " + file.Name);
                         await file.DeleteAsync().AsTask().ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        _log.Error("Couldn't send issue report: " + file.Name);
+                    }
                 }
             }
-            catch { }
+            catch (FileNotFoundException)
+            {
+                // No issue reports, nothing to do
+            }
+            catch (Exception e)
+            {
+                _log.Error("Caught exception: " + e.ToString());
+            }
         }
 
         private static async Task<bool> SendReportContentAsync(IInputStream stream)
@@ -93,6 +111,7 @@ namespace Komodex.Common.Analytics
             try
             {
                 var response = await client.PostAsync(new Uri(ReportUri), new HttpStreamContent(stream)).AsTask().ConfigureAwait(false);
+                _log.Trace("Response status code: {0} ({1})", (int)response.StatusCode, response.StatusCode);
                 return response.IsSuccessStatusCode;
             }
             catch { }
