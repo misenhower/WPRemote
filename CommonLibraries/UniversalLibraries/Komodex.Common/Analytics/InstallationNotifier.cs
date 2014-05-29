@@ -10,6 +10,7 @@ namespace Komodex.Common.Analytics
 {
     public static class InstallationNotifier
     {
+        private static readonly Log _log = new Log("Installation Notifier");
         private const string BaseUri = "http://sys.komodex.com/appnotify/";
 
         private static readonly Setting<string> _lastNotifiedVersion = new Setting<string>("InstallationNotifier.LastNotifiedVersion");
@@ -28,6 +29,8 @@ namespace Komodex.Common.Analytics
 
         public static async void Initialize()
         {
+            _log.Debug("Initializing...");
+
             // Check whether we need to send a notification message
             bool needsNotification = false;
             // Check whether the version has changed
@@ -37,17 +40,26 @@ namespace Komodex.Common.Analytics
             else if (TrialManager.Current.IsTrial != LastNotifiedTrialState)
                 needsNotification = true;
 
-            if (needsNotification)
+            if (!needsNotification)
             {
-                // Attempt to send the notification
-                bool success = await SendNotificationAsync();
+                _log.Trace("Notification already up-to-date.");
+                return;
+            }
 
-                if (success)
-                {
-                    // Update the persistent settings with current values
-                    LastNotifiedVersion = AppInfo.Version;
-                    LastNotifiedTrialState = TrialManager.Current.IsTrial;
-                }
+            // Attempt to send the notification
+            _log.Debug("Sending notification...");
+            bool success = await SendNotificationAsync();
+
+            if (success)
+            {
+                _log.Debug("Successfully sent notification.");
+                // Update the persistent settings with current values
+                LastNotifiedVersion = AppInfo.Version;
+                LastNotifiedTrialState = TrialManager.Current.IsTrial;
+            }
+            else
+            {
+                _log.Error("Couldn't send installation notification");
             }
         }
 
@@ -111,6 +123,7 @@ namespace Komodex.Common.Analytics
             client.DefaultRequestHeaders["User-Agent"] = AppInfo.UserAgent;
             try
             {
+                _log.Debug("Sending notification to: " + uriBuilder.Uri);
                 var response = await client.PostAsync(uriBuilder.Uri, new HttpStringContent(string.Empty)).AsTask().ConfigureAwait(false);
                 return response.IsSuccessStatusCode;
             }
