@@ -84,7 +84,7 @@ namespace Komodex.TestApp
                 Window.Current.Content = rootFrame;
             }
 
-            IssueReporter.Initialize();
+            CrashReporter.Initialize();
 
             if (rootFrame.Content == null)
             {
