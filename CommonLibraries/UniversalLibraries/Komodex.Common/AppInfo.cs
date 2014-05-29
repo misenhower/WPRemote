@@ -86,5 +86,11 @@ namespace Komodex.Common
                 return _userAgent;
             }
         }
+
+        private static readonly Setting<DateTimeOffset> _installationDate = new Setting<DateTimeOffset>("AppInfo.InstallationDate", DateTimeOffset.Now);
+        public static DateTimeOffset InstallationDate
+        {
+            get { return _installationDate.Value; }
+        }
     }
 }

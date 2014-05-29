@@ -13,7 +13,7 @@ namespace Komodex.Common.Analytics
     {
         internal IssueReport() { }
 
-        public static IssueReport Create(Exception e =null)
+        public static IssueReport Create(Exception e = null)
         {
             IssueReport report = new IssueReport();
             report.ID = Guid.NewGuid();
@@ -24,13 +24,14 @@ namespace Komodex.Common.Analytics
 #if DEBUG
             report.IsDebug = true;
 #endif
+            report.AppInstallationDate = AppInfo.InstallationDate;
             report.DeviceType = DeviceInfo.Type.ToString();
             report.CultureName = CultureInfo.CurrentCulture.EnglishName;
 
-            if (e!=null)
+            if (e != null)
             {
                 report.ExceptionType = e.GetType().Name;
-                
+
             }
 
             return report;
@@ -43,6 +44,7 @@ namespace Komodex.Common.Analytics
         public string AppDisplayName { get; set; }
         public string AppVersion { get; set; }
         public bool IsDebug { get; set; }
+        public DateTimeOffset AppInstallationDate { get; set; }
         public string DeviceType { get; set; }
         public string CultureName { get; set; }
 
