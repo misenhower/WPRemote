@@ -131,6 +131,16 @@ namespace Komodex.Analytics
 
                     writer.WriteLine(SmallDashes);
 
+#if WINDOWS_PHONE
+                    writer.WriteLine("-> Network Available: " + Microsoft.Phone.Net.NetworkInformation.DeviceNetworkInformation.IsNetworkAvailable);
+                    writer.WriteLine("-> WiFi Enabled: " + Microsoft.Phone.Net.NetworkInformation.DeviceNetworkInformation.IsWiFiEnabled);
+                    writer.WriteLine("-> Cellular Operator: " + Microsoft.Phone.Net.NetworkInformation.DeviceNetworkInformation.CellularMobileOperator);
+                    writer.WriteLine("-> Cellular Data Enabled: " + Microsoft.Phone.Net.NetworkInformation.DeviceNetworkInformation.IsCellularDataEnabled);
+                    writer.WriteLine("-> Cellular Data Roaming Enabled: " + Microsoft.Phone.Net.NetworkInformation.DeviceNetworkInformation.IsCellularDataRoamingEnabled);
+
+                    writer.WriteLine(SmallDashes);
+#endif
+
                     // Memory usage
                     var used = Utility.ReadableFilesize(Microsoft.Phone.Info.DeviceStatus.ApplicationCurrentMemoryUsage);
                     var peak = Utility.ReadableFilesize(Microsoft.Phone.Info.DeviceStatus.ApplicationPeakMemoryUsage);
