@@ -23,6 +23,14 @@ namespace Komodex.Remote.ServerManagement
         {
             // Hook into events
             DeviceNetworkInformation.NetworkAvailabilityChanged += (sender, e) => UpdateNetworkAvailability();
+
+#if WP8
+            // Windows Phone 8.1 seems to occasionally raise DeviceNetworkInformation.NetworkAvailabilityChanged
+            // before the WiFi network actually becomes available. NetworkInformation.NetworkStatusChanged is
+            // called a few seconds later.
+            Windows.Networking.Connectivity.NetworkInformation.NetworkStatusChanged += (sender) => UpdateNetworkAvailability();
+#endif
+
 #if WP7
             App.RootFrame.Navigated += (sender, e) => { if (_updateOnNavigate) { UpdateNetworkAvailability(); _updateOnNavigate = false; } };
             PhoneApplicationService.Current.Launching += (sender, e) => _updateOnNavigate = true;
