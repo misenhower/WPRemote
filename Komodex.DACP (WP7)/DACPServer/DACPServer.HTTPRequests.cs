@@ -45,11 +45,17 @@ namespace Komodex.DACP
             client.DefaultRequestHeaders.Add("Viewer-Only-Client", "1");
             client.DefaultRequestHeaders.Add("Client-DAAP-Version", "3.11");
 
-            if (HttpClient != null)
+            var oldHttpClient = HttpClient;
+            if (oldHttpClient!= null)
             {
-                HttpClient.CancelPendingRequests();
-                HttpClient.Dispose();
+                try
+                {
+                    oldHttpClient.CancelPendingRequests();
+                    oldHttpClient.Dispose();
+                }
+                catch { }
             }
+
             HttpClient = client;
         }
 
