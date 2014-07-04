@@ -502,10 +502,15 @@ namespace Komodex.Remote.ServerManagement
             _log.Info("Server connected successfully.");
 
             // Update saved data
-            SelectedServerInfo.LastIPAddress = CurrentServer.Hostname;
-            SelectedServerInfo.LastPort = CurrentServer.Port;
-            SelectedServerInfo.Name = CurrentServer.LibraryName;
-            SelectedServerInfo.MACAddresses = CurrentServer.MACAddresses;
+            var serverInfo = SelectedServerInfo;
+            if (serverInfo != null)
+            {
+                serverInfo.LastIPAddress = CurrentServer.Hostname;
+                serverInfo.LastPort = CurrentServer.Port;
+                serverInfo.Name = CurrentServer.LibraryName;
+                serverInfo.MACAddresses = CurrentServer.MACAddresses;
+            }
+
             _pairedServers.Save();
         }
 
