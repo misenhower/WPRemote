@@ -278,7 +278,13 @@ namespace Komodex.DACP
                 ServerVersionString = response.HTTPResponse.Headers.GetValues("DAAP-Server").FirstOrDefault();
 
                 var nodes = DACPNodeDictionary.Parse(response.Nodes);
-                LibraryName = nodes.GetString("minm");
+
+                // Fixing an issue with Apple TV devices where \0 may be appended to the end of the library name
+                string libraryName = nodes.GetString("minm");
+                if (!string.IsNullOrEmpty(libraryName))
+                    libraryName = libraryName.Replace("\0", "");
+                LibraryName = libraryName;
+
                 ServerVersion = nodes.GetInt("aeSV");
                 ServerDMAPVersion = nodes.GetInt("mpro");
                 ServerDAAPVersion = nodes.GetInt("apro");

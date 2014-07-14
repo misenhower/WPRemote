@@ -190,6 +190,9 @@ namespace Komodex.DACP
 
         public static Int32 GetInt32Value(this byte[] data)
         {
+            if (data.Length == 8)
+                return BitUtility.NetworkToHostOrder(BitConverter.ToInt32(data, 4));
+
             return BitUtility.NetworkToHostOrder(BitConverter.ToInt32(data, 0));
         }
 
