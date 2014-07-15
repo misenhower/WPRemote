@@ -110,6 +110,8 @@ namespace Komodex.DACP.Databases
                     if (container.BasePlaylist)
                     {
                         BasePlaylist = container;
+                        if (Server.IsAppleTV && container is MusicContainer)
+                            MusicContainer = (MusicContainer)container;
                         continue;
                     }
 

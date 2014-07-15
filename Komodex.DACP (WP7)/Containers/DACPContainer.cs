@@ -51,7 +51,11 @@ namespace Komodex.DACP.Containers
         {
             // Base Playlist
             if (nodes.GetBool("abpl"))
+            {
+                if (database.Server.IsAppleTV)
+                    return new MusicContainer(database, nodes);
                 return new DACPContainer(database, nodes);
+            }
 
             // Special playlist type
             ContainerType type = (ContainerType)nodes.GetByte("aePS");
@@ -107,7 +111,12 @@ namespace Komodex.DACP.Containers
 
         protected virtual string GroupsMeta
         {
-            get { return "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songartistid"; }
+            get
+            {
+                if (Server.IsAppleTV)
+                    return "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,daap.songtime,dmap.persistentid,daap.songartistid";
+                return "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songartistid";
+            }
         }
 
         #region Artwork

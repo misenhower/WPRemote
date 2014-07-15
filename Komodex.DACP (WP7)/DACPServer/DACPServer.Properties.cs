@@ -163,6 +163,19 @@ namespace Komodex.DACP
             }
         }
 
+        private bool _isAppleTV;
+        public bool IsAppleTV
+        {
+            get { return _isAppleTV; }
+            private set
+            {
+                if (_isAppleTV == value)
+                    return;
+                _isAppleTV = value;
+                PropertyChanged.RaiseOnUIThread(this, "IsAppleTV");
+            }
+        }
+
         #endregion
 
         #region Databases

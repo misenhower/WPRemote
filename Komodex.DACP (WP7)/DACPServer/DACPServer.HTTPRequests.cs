@@ -345,6 +345,10 @@ namespace Komodex.DACP
                     if ((ceSX & (1 << 2)) != 0)
                         SupportsGeniusShuffle = true;
                 }
+
+                // Apple TV
+                // TODO: Is this the best way to detect this?
+                IsAppleTV = nodes.GetBool("ceDR");
             }
             catch (Exception e)
             {
