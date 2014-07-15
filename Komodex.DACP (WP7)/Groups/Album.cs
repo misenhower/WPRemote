@@ -74,7 +74,13 @@ namespace Komodex.DACP.Groups
             DACPRequest request;
             if (Server.SupportsPlayQueue)
             {
-                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", song.ID), mode, "album");
+                object songID;
+                if (Server.IsAppleTV)
+                    songID = song.PersistentID;
+                else
+                    songID = song.ID;
+
+                request = Database.GetPlayQueueEditRequest("add", DACPQueryPredicate.Is("dmap.itemid", songID), mode, "album");
                 request.QueryParameters["queuefilter"] = string.Format("album:{0}", PersistentID);
             }
             else

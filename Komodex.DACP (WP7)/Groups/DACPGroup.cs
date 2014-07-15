@@ -52,7 +52,14 @@ namespace Komodex.DACP.Groups
             width = ResolutionUtility.GetScaledPixels(width);
             height = ResolutionUtility.GetScaledPixels(height);
             string uri = "{0}/databases/{1}/groups/{2}/extra_data/artwork?mw={3}&mh={4}&group-type={5}&session-id={6}";
-            return string.Format(uri, Server.HTTPPrefix, Database.ID, ID, width, height, GroupType, Server.SessionID);
+
+            object groupID;
+            if (Server.IsAppleTV)
+                groupID = PersistentID;
+            else
+                groupID = ID;
+
+            return string.Format(uri, Server.HTTPPrefix, Database.ID, groupID, width, height, GroupType, Server.SessionID);
         }
 
         #endregion

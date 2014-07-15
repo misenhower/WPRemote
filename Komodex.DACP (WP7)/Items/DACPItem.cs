@@ -77,7 +77,14 @@ namespace Komodex.DACP.Items
             width = ResolutionUtility.GetScaledPixels(width);
             height = ResolutionUtility.GetScaledPixels(height);
             string uri = "{0}/databases/{1}/items/{2}/extra_data/artwork?mw={3}&mh={4}&session-id={5}";
-            return string.Format(uri, Server.HTTPPrefix, Database.ID, ID, width, height, Server.SessionID);
+
+            object itemID;
+            if (Server.IsAppleTV)
+                itemID = PersistentID;
+            else
+                itemID = ID;
+
+            return string.Format(uri, Server.HTTPPrefix, Database.ID, itemID, width, height, Server.SessionID);
         }
 
         #endregion
