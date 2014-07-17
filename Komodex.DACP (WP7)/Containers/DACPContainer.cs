@@ -210,7 +210,20 @@ namespace Komodex.DACP.Containers
                 return _groupedGenres;
 
             DACPRequest request = GetGenresRequest(true);
-            _groupedGenres = await Server.GetAlphaGroupedListAsync(request, d => new DACPGenre(this, d), "abgn").ConfigureAwait(false);
+
+            try
+            {
+                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+                if (response.Nodes.Any(n => n.Key == "abgn"))
+                    _groupedGenres = DACPUtility.GetAlphaGroupedDACPList(response.Nodes, d => new DACPGenre(this, (byte[])d), "abgn");
+                else
+                    _groupedGenres = DACPUtility.GetAlphaGroupedDACPList(response.Nodes, n => new DACPGenre(this, (DACPNodeDictionary)n));
+            }
+            catch
+            {
+                _groupedGenres = new DACPList<DACPGenre>(false);
+            }
+
             return _groupedGenres;
         }
 

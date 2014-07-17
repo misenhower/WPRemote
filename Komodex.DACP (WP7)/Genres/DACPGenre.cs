@@ -25,11 +25,22 @@ namespace Komodex.DACP.Genres
             Container = container;
         }
 
+        public DACPGenre(DACPContainer container, DACPNodeDictionary nodes)
+            : base(container.Server, nodes)
+        {
+            Database = container.Database;
+            Container = container;
+        }
+
         public DACPDatabase Database { get; private set; }
         public DACPContainer Container { get; private set; }
 
         protected override void ProcessNodes(DACPNodeDictionary nodes)
         {
+            if (nodes == null)
+                return;
+
+            base.ProcessNodes(nodes);
         }
 
         internal virtual DACPQueryElement GenreQuery
