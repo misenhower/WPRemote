@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.Remote (WP8)", "Komodex.Remote (WP8)\Komodex.Remote (WP8).csproj", "{B4BBA32A-DB36-4079-8541-26A1C043EED3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komodex.DACP (WP8)", "Komodex.DACP (WP8)\Komodex.DACP (WP8).csproj", "{382D5F4D-E257-40B3-8D9D-7F21E71E8298}"
