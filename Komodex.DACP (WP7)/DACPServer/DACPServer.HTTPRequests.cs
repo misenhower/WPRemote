@@ -1329,6 +1329,125 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Control Prompt Update
+
+        private int _controlPromptUpdateNumber = 1;
+        private CancellationTokenSource _currentControlPromptUpdateCancellationTokenSource;
+
+        protected Task<bool> GetFirstControlPromptUpdateAsync()
+        {
+            _controlPromptUpdateNumber = 1;
+            return GetControlPromptUpdateAsync(CancellationToken.None);
+        }
+
+        protected async Task<bool> GetControlPromptUpdateAsync(CancellationToken cancellationToken)
+        {
+            DACPRequest request = new DACPRequest("/controlpromptupdate");
+            request.QueryParameters["prompt-id"] = _controlPromptUpdateNumber.ToString();
+
+            try
+            {
+                var response = await SubmitRequestAsync(request).ConfigureAwait(false);
+
+                if (cancellationToken.IsCancellationRequested)
+                    return false;
+
+                _controlPromptUpdateNumber = response.Nodes.First(n => n.Key == "miid").Value.GetInt32Value();
+
+                // Parse response
+                // This comes back as a list of string key/value pairs.
+                var nodeDictionary = response.Nodes.Where(n => n.Key == "mdcl").Select(n => DACPNodeDictionary.Parse(n.Value)).ToDictionary(n => n.GetString("cmce"), n => n.GetString("cmcv"));
+                if (nodeDictionary.ContainsKey("kKeybMsgKey_MessageType"))
+                {
+                    switch (nodeDictionary["kKeybMsgKey_MessageType"])
+                    {
+                        case "5": // Trackpad interface update
+                            _appleTVTrackpadPort = int.Parse(nodeDictionary["kKeybMsgKey_String"]) ^ AppleTVEncryptionKey;
+                            _appleTVTrackpadKey = BitUtility.NetworkToHostOrder(int.Parse(nodeDictionary["kKeybMsgKey_SubText"]) ^ AppleTVEncryptionKey);
+                            _log.Debug("Apple TV virtual trackpad parameters updated: Encryption key: {0:X8} Port: {1}", _appleTVTrackpadKey, _appleTVTrackpadPort);
+                            break;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        protected async void SubscribeToControlPromptUpdates()
+        {
+            TimeSpan autoCancelTimeSpan = TimeSpan.FromSeconds(45);
+            TimeSpan resubmitDelay = TimeSpan.FromSeconds(2);
+            CancellationToken token;
+
+            while (IsConnected)
+            {
+                _currentControlPromptUpdateCancellationTokenSource = new CancellationTokenSource();
+                token = _currentControlPromptUpdateCancellationTokenSource.Token;
+
+#if WP7
+                var updateTask = GetControlPromptUpdateAsync(token);
+                var cancelTask = TaskEx.Delay(autoCancelTimeSpan, token);
+                await TaskEx.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
+#else
+                var updateTask = GetControlPromptUpdateAsync(token);
+                var cancelTask = Task.Delay(autoCancelTimeSpan, token);
+                await Task.WhenAny(updateTask, cancelTask).ConfigureAwait(false);
+#endif
+
+                if (token.IsCancellationRequested)
+                    return;
+
+                _currentControlPromptUpdateCancellationTokenSource.Cancel();
+
+                if (updateTask.Status == TaskStatus.RanToCompletion)
+                {
+                    if (updateTask.Result == false)
+                    {
+                        SendConnectionError();
+                        return;
+                    }
+
+#if WP7
+                    await TaskEx.Delay(resubmitDelay).ConfigureAwait(false);
+#else
+                    await Task.Delay(resubmitDelay).ConfigureAwait(false);
+#endif
+                }
+            }
+        }
+
+        private async Task<bool> RequestAppleTVTrackpadInfoUpdateAsync()
+        {
+            List<byte> contentBytes = new List<byte>();
+            contentBytes.AddRange(DACPUtility.GetDACPFormattedBytes("cmcc", "0"));
+            contentBytes.AddRange(DACPUtility.GetDACPFormattedBytes("cmbe", "DRPortInfoRequest"));
+            contentBytes.AddRange(DACPUtility.GetDACPFormattedBytes("cmte", string.Format("{0},0x{1}", AppleTVEncryptionKey, PairingCode)));
+
+            ByteArrayContent content = new ByteArrayContent(contentBytes.ToArray());
+
+            DACPRequest request = new DACPRequest("/ctrl-int/1/controlpromptentry");
+            request.HttpContent = content;
+
+            try
+            {
+                await SubmitRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        #endregion
+
+        #region Virtual Trackpad
+
+        private int _appleTVTrackpadPort;
+        private int _appleTVTrackpadKey;
+
+        #endregion
+
         #endregion
     }
 }
