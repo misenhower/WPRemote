@@ -46,7 +46,7 @@ namespace Komodex.DACP
             client.DefaultRequestHeaders.Add("Client-DAAP-Version", "3.11");
 
             var oldHttpClient = HttpClient;
-            if (oldHttpClient!= null)
+            if (oldHttpClient != null)
             {
                 try
                 {
@@ -63,19 +63,12 @@ namespace Komodex.DACP
         {
             if (request.IncludeSessionID)
                 request.QueryParameters["session-id"] = SessionID.ToString();
-            return await SubmitRequestAsync(request.GetURI(), request.CancellationToken).ConfigureAwait(false);
-        }
 
-        internal Task<DACPResponse> SubmitRequestAsync(string uri)
-        {
-            return SubmitRequestAsync(uri, CancellationToken.None);
-        }
+            string uri = request.GetURI();
 
-        internal async Task<DACPResponse> SubmitRequestAsync(string uri, CancellationToken cancellationToken)
-        {
             _log.Info("Submitting request for: " + uri);
 
-            HttpResponseMessage response = await HttpClient.PostAsync(uri, null, cancellationToken).ConfigureAwait(false);
+            HttpResponseMessage response = await HttpClient.PostAsync(uri, request.HttpContent, request.CancellationToken).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
                 throw new DACPRequestException(response);
@@ -1277,5 +1270,65 @@ namespace Komodex.DACP
 
         #endregion
 
+        #region Apple TV
+
+        private const int AppleTVEncryptionKey = 0x4567;
+
+        #region Remote Control Buttons
+
+        private async Task<bool> SendAppleTVControlCommandAsync(string command)
+        {
+            List<byte> contentBytes = new List<byte>();
+            contentBytes.AddRange(DACPUtility.GetDACPFormattedBytes("cmcc", "0"));
+            contentBytes.AddRange(DACPUtility.GetDACPFormattedBytes("cmbe", command));
+
+            ByteArrayContent content = new ByteArrayContent(contentBytes.ToArray());
+
+            DACPRequest request = new DACPRequest("/ctrl-int/1/controlpromptentry");
+            request.HttpContent = content;
+
+            try
+            {
+                await SubmitRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
+        }
+
+        /// <summary>
+        /// Menu command.
+        /// </summary>
+        public Task<bool> SendAppleTVMenuCommandAsync()
+        {
+            return SendAppleTVControlCommandAsync("menu");
+        }
+
+        /// <summary>
+        /// Alternate menu command (equivalent to pressing and holding the Select button).
+        /// </summary>
+        public Task<bool> SendAppleTVContextMenuCommandAsync()
+        {
+            return SendAppleTVControlCommandAsync("contextmenu");
+        }
+
+        /// <summary>
+        /// Top menu command (equivalent to pressing and holding the Menu button).
+        /// </summary>
+        public Task<bool> SendAppleTVTopMenuCommandAsync()
+        {
+            return SendAppleTVControlCommandAsync("topmenu");
+        }
+
+        /// <summary>
+        /// Select command.
+        /// </summary>
+        public Task<bool> SendAppleTVSelectCommand()
+        {
+            return SendAppleTVControlCommandAsync("select");
+        }
+
+        #endregion
+
+        #endregion
     }
 }

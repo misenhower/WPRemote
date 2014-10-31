@@ -242,5 +242,28 @@ namespace Komodex.DACP
         }
 
         #endregion
+
+        public static byte[] GetDACPFormattedBytes(string tag, string value)
+        {
+            return GetDACPFormattedBytes(tag, Encoding.UTF8.GetBytes(value));
+        }
+
+        public static byte[] GetDACPFormattedBytes(string tag, byte[] value)
+        {
+            byte[] result = new byte[8 + value.Length];
+
+            // Tag
+            result[0] = (byte)tag[0];
+            result[1] = (byte)tag[1];
+            result[2] = (byte)tag[2];
+            result[3] = (byte)tag[3];
+
+            // Length
+            BitConverter.GetBytes(BitUtility.HostToNetworkOrder(value.Length)).CopyTo(result, 4);
+
+            value.CopyTo(result, 8);
+
+            return result;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 
@@ -29,6 +30,7 @@ namespace Komodex.DACP
             set { _includeSessionID = value; }
         }
 
+        public HttpContent HttpContent { get; set; }
         public CancellationToken CancellationToken { get; set; }
 
         public string GetURI()
