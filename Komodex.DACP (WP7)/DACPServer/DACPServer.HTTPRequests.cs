@@ -1446,6 +1446,137 @@ namespace Komodex.DACP
         private int _appleTVTrackpadPort;
         private int _appleTVTrackpadKey;
 
+        private readonly SemaphoreSlim _trackpadSemaphore = new SemaphoreSlim(0, 1);
+        private CancellationTokenSource _trackpadCancellationTokenSource;
+        private short _trackpadX;
+        private short _trackpadY;
+
+        //private Windows.Networking.Sockets.StreamSocket _trackpadSocket;
+
+        public async void StartAppleTVTrackpadControl(short x, short y)
+        {
+            // Cancel any previous connections
+            var cancellationTokenSource = _trackpadCancellationTokenSource;
+            if (cancellationTokenSource != null)
+                cancellationTokenSource.Cancel();
+            cancellationTokenSource = new CancellationTokenSource();
+            _trackpadCancellationTokenSource = cancellationTokenSource;
+
+            // Set up initial message
+            int[] message = new int[8];
+            message[0] = 0x00000020;
+            message[1] = 0x00010000;
+            message[2] = 0x00000100; // Touch down
+            message[3] = 0x00000000;
+            message[4] = 0x0000000C;
+            message[5] = 0x00000000; // Initial time = 0
+            message[6] = 0x00000001;
+            message[7] = ((x << 16) + y);
+            byte[] encodedMessage = EncodeAppleTVTrackpadMessage(message);
+
+            // Make socket connection
+            using (var socket = new Windows.Networking.Sockets.StreamSocket())
+            {
+                try
+                {
+                    await socket.ConnectAsync(new Windows.Networking.HostName(Hostname), _appleTVTrackpadPort.ToString()).AsTask().ConfigureAwait(false);
+                }
+                catch
+                {
+                    RequestAppleTVTrackpadInfoUpdateAsync();
+                    return;
+                }
+                if (cancellationTokenSource.IsCancellationRequested)
+                    return;
+
+                using (var writer = new Windows.Storage.Streams.DataWriter(socket.OutputStream))
+                {
+                    DateTime startTime = DateTime.Now;
+
+                    // Write initial message
+                    writer.WriteBytes(encodedMessage);
+                    await writer.StoreAsync().AsTask().ConfigureAwait(false);
+
+                    message[2] = 0x00000101; // Touch move
+
+                    bool closeAfterSend = false;
+
+                    // Write successive messages
+                    while (true)
+                    {
+                        try
+                        {
+                            await _trackpadSemaphore.WaitAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+                        }
+                        catch { }
+
+                        message[5] = (int)(DateTime.Now - startTime).TotalMilliseconds;
+                        message[7] = ((_trackpadX << 16) + _trackpadY);
+
+                        if (cancellationTokenSource.IsCancellationRequested)
+                        {
+                            message[2] = 0x00000102; // Touch up
+                            closeAfterSend = true;
+                        }
+
+                        encodedMessage = EncodeAppleTVTrackpadMessage(message);
+                        writer.WriteBytes(encodedMessage);
+                        await writer.StoreAsync().AsTask().ConfigureAwait(false);
+
+                        if (closeAfterSend)
+                        {
+                            //writer.DetachStream(); // TODO: Is this needed?
+                            return;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        public void MoveAppleTVTrackpadControl(short x, short y)
+        {
+            _trackpadX = x;
+            _trackpadY = y;
+
+            lock (_trackpadSemaphore)
+            {
+                if (_trackpadSemaphore.CurrentCount < 1)
+                    _trackpadSemaphore.Release();
+            }
+        }
+
+        public void ReleaseAppleTVTrackpadControl(short x, short y)
+        {
+            _trackpadX = x;
+            _trackpadY = y;
+
+            var cancellationTokenSource = _trackpadCancellationTokenSource;
+            if (cancellationTokenSource == null)
+                return;
+            cancellationTokenSource.Cancel();
+        }
+
+        private byte[] EncodeAppleTVTrackpadMessage(int[] message)
+        {
+            byte[] result = new byte[message.Length * 4];
+            int encoded;
+            int offset;
+            byte[] bytes;
+            for (int i = 0; i < message.Length; i++)
+            {
+                encoded = message[i] ^ _appleTVTrackpadKey;
+                offset = i * 4;
+                bytes = BitConverter.GetBytes(encoded);
+                result[offset + 0] = bytes[3];
+                result[offset + 1] = bytes[2];
+                result[offset + 2] = bytes[1];
+                result[offset + 3] = bytes[0];
+            }
+
+            return result;
+        }
+
         #endregion
 
         #endregion
