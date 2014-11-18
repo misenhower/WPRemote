@@ -33,6 +33,7 @@ namespace Komodex.HTTP
         private string _serviceName = "80";
         /// <summary>
         /// Gets or sets the local service name or TCP port on which to bind the server.
+        /// Use an empty string to let the system select the local TCP port on which to bind.
         /// </summary>
         public string ServiceName
         {
@@ -47,14 +48,19 @@ namespace Komodex.HTTP
             if (_socketListener != null)
                 return;
 
-            _log.Info("Starting HTTP server on port {0}...", ServiceName);
+            string serviceName = ServiceName ?? string.Empty;
+
+            if (serviceName == string.Empty)
+                _log.Info("Starting HTTP server on a random port...");
+            else
+                _log.Info("Starting HTTP server on port {0}...", serviceName);
 
             _socketListener = new StreamSocketListener();
             _socketListener.ConnectionReceived += SocketListener_ConnectionReceived;
 
             try
             {
-                await _socketListener.BindServiceNameAsync(ServiceName);
+                await _socketListener.BindServiceNameAsync(serviceName);
             }
             catch (Exception ex)
             {
@@ -62,6 +68,11 @@ namespace Komodex.HTTP
                 Stop();
                 throw;
             }
+
+            // Update the port number (in case a random port was specified)
+            serviceName = _socketListener.Information.LocalPort;
+            ServiceName = serviceName;
+            _log.Info("Started HTTP server on port {0}.", serviceName);
         }
 
         public void Stop()
