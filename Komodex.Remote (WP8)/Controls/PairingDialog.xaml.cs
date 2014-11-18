@@ -92,7 +92,7 @@ namespace Komodex.Remote.Controls
 
         protected void StopPairingManager()
         {
-            PairingManager.PairingComplete += PairingManager_PairingComplete;
+            PairingManager.PairingComplete -= PairingManager_PairingComplete;
             PairingManager.Stop();
         }
 
