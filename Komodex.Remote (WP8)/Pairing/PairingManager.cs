@@ -16,7 +16,7 @@ namespace Komodex.Remote.Pairing
 {
     public static class PairingManager
     {
-        private static readonly Log _log = new Log("Pairing") { Level = LogLevel.All };
+        private static readonly Log _log = new Log("Pairing");
 
         private const string DeviceName = "Windows Phone 8 Device";
         private const string DeviceHostnameFormat = "WP8-{0}";
@@ -45,18 +45,11 @@ namespace Komodex.Remote.Pairing
             }
         }
 
-        private static int _port = 8080;
-        public static int Port
-        {
-            get { return _port; }
-            private set { _port = value; }
-        }
-
         public static string PIN { get; private set; }
 
         #endregion
 
-        public static async void Start()
+        public static void Start()
         {
             if (_pairingService != null)
                 return;
@@ -85,7 +78,6 @@ namespace Komodex.Remote.Pairing
             _pairingService = new NetService();
 
             _pairingService.FullServiceInstanceName = Hostname + "._touch-remote._tcp.local.";
-            _pairingService.Port = _port;
             _pairingService.Hostname = _hostname.Value + ".local.";
             Dictionary<string, string> txt = new Dictionary<string, string>();
             txt["txtvers"] = "1";
@@ -98,20 +90,16 @@ namespace Komodex.Remote.Pairing
 
             // Set up HttpServer
             _httpServer = new HttpServer();
-            _httpServer.ServiceName = _port.ToString();
+            _httpServer.ServiceName = string.Empty; // Random port
             _httpServer.RequestReceived += HttpServer_RequestReceived;
 
             // Listen for network availability changes
             NetworkManager.NetworkAvailabilityChanged += NetworkManager_NetworkAvailabilityChanged;
 
             if (NetworkManager.IsLocalNetworkAvailable)
-            {
-                UpdateNetServiceIPs();
-                await _httpServer.Start();
-                _pairingService.Publish();
-            }
-
-            _log.Trace("Pairing parameters:\nHostname: {0}\nPort: {1}\nPIN: {2}\nPairing Code: {3}", Hostname, _port, PIN, pairingCode);
+                StartServices();
+            else
+                _log.Info("Network not available, delaying service start...");
         }
 
         public static void Stop()
@@ -130,6 +118,17 @@ namespace Komodex.Remote.Pairing
                 _pairingService.StopPublishing();
                 _pairingService = null;
             }
+        }
+
+        private static async void StartServices()
+        {
+            UpdateNetServiceIPs();
+            await _httpServer.Start();
+            int port = int.Parse(_httpServer.ServiceName);
+            _pairingService.Port = port;
+            _pairingService.Publish();
+
+            _log.Info("Pairing parameters:\nHostname: {0}\nPort: {1}\nPIN: {2}\nPairing Code: {3}", Hostname, port, PIN, _pairingService.TXTRecordData["Pair"]);
         }
 
         private static void UpdateNetServiceIPs()
@@ -202,16 +201,14 @@ namespace Komodex.Remote.Pairing
             return true;
         }
 
-        private static async void NetworkManager_NetworkAvailabilityChanged(object sender, NetworkAvailabilityChangedEventArgs e)
+        private static void NetworkManager_NetworkAvailabilityChanged(object sender, NetworkAvailabilityChangedEventArgs e)
         {
             if (_pairingService == null)
                 return;
 
             if (e.IsLocalNetworkAvailable)
             {
-                UpdateNetServiceIPs();
-                _pairingService.Publish();
-                await _httpServer.Start();
+                StartServices();
             }
             else
             {
@@ -222,9 +219,9 @@ namespace Komodex.Remote.Pairing
                 // If the application is shutting down or suspending, wait a few seconds so the "stop publishing" messages can be sent
                 if (e.ShuttingDown)
                 {
-                    _log.Info("Delaying shutdown so the pairing service can be unpublished...");
+                    _log.Debug("Delaying shutdown so the pairing service can be unpublished...");
                     task.Wait();
-                    _log.Info("Delay complete.");
+                    _log.Debug("Delay complete.");
                 }
             }
         }
