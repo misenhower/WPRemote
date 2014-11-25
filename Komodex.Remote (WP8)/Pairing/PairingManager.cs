@@ -97,7 +97,7 @@ namespace Komodex.Remote.Pairing
             NetworkManager.NetworkAvailabilityChanged += NetworkManager_NetworkAvailabilityChanged;
 
             if (NetworkManager.IsLocalNetworkAvailable)
-                StartServices();
+                UpdateIPsAndStartServices();
             else
                 _log.Info("Network not available, delaying service start...");
         }
@@ -120,18 +120,7 @@ namespace Komodex.Remote.Pairing
             }
         }
 
-        private static async void StartServices()
-        {
-            UpdateNetServiceIPs();
-            await _httpServer.Start();
-            int port = int.Parse(_httpServer.ServiceName);
-            _pairingService.Port = port;
-            _pairingService.Publish();
-
-            _log.Info("Pairing parameters:\nHostname: {0}\nPort: {1}\nPIN: {2}\nPairing Code: {3}", Hostname, port, PIN, _pairingService.TXTRecordData["Pair"]);
-        }
-
-        private static void UpdateNetServiceIPs()
+        private static async void UpdateIPsAndStartServices()
         {
             if (_pairingService == null)
                 return;
@@ -139,7 +128,13 @@ namespace Komodex.Remote.Pairing
             var hostnames = NetUtility.GetLocalHostNames().Select(h => h.CanonicalName.ToString());
             _pairingService.IPAddresses.Clear();
             _pairingService.IPAddresses.AddRange(hostnames);
+
+            await _httpServer.Start();
+            int port = int.Parse(_httpServer.ServiceName);
+            _pairingService.Port = port;
             _pairingService.Publish();
+
+            _log.Info("Pairing parameters:\nHostname: {0}\nPort: {1}\nPIN: {2}\nPairing Code: {3}", Hostname, port, PIN, _pairingService.TXTRecordData["Pair"]);
         }
 
         private static async void HttpServer_RequestReceived(object sender, HttpRequestEventArgs e)
@@ -208,7 +203,7 @@ namespace Komodex.Remote.Pairing
 
             if (e.IsLocalNetworkAvailable)
             {
-                StartServices();
+                UpdateIPsAndStartServices();
             }
             else
             {
