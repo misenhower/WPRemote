@@ -1270,6 +1270,9 @@ namespace Komodex.DACP
 
         #endregion
 
+        /*
+         * Temporarily removing this for v2.2.4.
+
         #region Apple TV
 
         private const int AppleTVEncryptionKey = 0x4567;
@@ -1580,5 +1583,7 @@ namespace Komodex.DACP
         #endregion
 
         #endregion
+
+         */
     }
 }

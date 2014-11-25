@@ -161,6 +161,8 @@ namespace Komodex.DACP
             if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
+            /*
+             * Temporarily removing this for v2.2.4.
             // Control prompt update
             if (IsAppleTV)
             {
@@ -169,6 +171,7 @@ namespace Komodex.DACP
                 if (!success || cancellationToken.IsCancellationRequested)
                     return ConnectionResult.ConnectionError;
             }
+             */
 
             _log.Info("Connecting: Complete!");
 
@@ -181,11 +184,14 @@ namespace Komodex.DACP
         {
             SubscribeToLibraryUpdates();
             SubscribeToPlayStatusUpdates();
+            /*
+             * Temporarily removing this for v2.2.4.
             if (IsAppleTV)
             {
                 SubscribeToControlPromptUpdates();
                 RequestAppleTVTrackpadInfoUpdateAsync();
             }
+             */
         }
 
         public void Disconnect()
