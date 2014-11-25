@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{6c3a2e1c-3cf5-4e3b-be75-c6a5a3b0c19f}" Title="Remote" RuntimeType="Silverlight" Version="2.2.3.0" Genre="apps.normal" Author="Komodex Systems LLC" Description="Remote for Windows Phone" Publisher="Komodex Systems LLC">
+  <App xmlns="" ProductID="{6c3a2e1c-3cf5-4e3b-be75-c6a5a3b0c19f}" Title="Remote" RuntimeType="Silverlight" Version="2.2.4.0" Genre="apps.normal" Author="Komodex Systems LLC" Description="Remote for Windows Phone" Publisher="Komodex Systems LLC">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <!--<Capability Name="ID_CAP_GAMERSERVICES"/>-->
