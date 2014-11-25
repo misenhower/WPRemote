@@ -129,7 +129,6 @@ namespace Komodex.Bonjour
             _log.Info("Publishing service '{0}'...", FullServiceInstanceName);
 
             _publishing = true;
-            _currentServicePublishMessage = GetPublishMessage();
             await MulticastDNSChannel.AddListenerAsync(this).ConfigureAwait(false);
             await AnnounceServicePublishAsync().ConfigureAwait(false);
             StartRunLoop();
@@ -158,6 +157,11 @@ namespace Komodex.Bonjour
             if (!_publishing || !MulticastDNSChannel.IsJoined)
                 return;
 
+            var initialMessage = GetPublishMessage(PublishMessageType.Initial);
+            _currentServicePublishMessage = GetPublishMessage(PublishMessageType.Normal);
+
+            // Send initial message immediately followed by the "normal" message
+            await MulticastDNSChannel.SendMessageAsync(initialMessage).ConfigureAwait(false);
             await SendServicePublishMessageAsync().ConfigureAwait(false);
             await TaskUtility.Delay(FirstRebroadcastInterval).ConfigureAwait(false);
 
@@ -185,7 +189,7 @@ namespace Komodex.Bonjour
 
         private async Task AnnounceServiceStopPublishingAsync()
         {
-            Message message = GetStopPublishMessage();
+            Message message = GetPublishMessage(PublishMessageType.Stop);
 
             if (_publishing || !MulticastDNSChannel.IsJoined)
                 return;
@@ -207,7 +211,25 @@ namespace Komodex.Bonjour
 
         #region Start/Stop DNS Messages
 
-        private Message GetPublishMessage()
+        private enum PublishMessageType
+        {
+            /// <summary>
+            /// Initial message: Includes SRV, TXT, and A records, but not any PTR records.
+            /// </summary>
+            Initial,
+
+            /// <summary>
+            /// Normal (repeated) publish message. Includes all records with standard TTL.
+            /// </summary>
+            Normal,
+
+            /// <summary>
+            /// Stop publishing message. Sets TTL to zero where necessary.
+            /// </summary>
+            Stop,
+        }
+
+        private Message GetPublishMessage(PublishMessageType type)
         {
             Message message = new Message();
             ResourceRecord record;
@@ -217,28 +239,10 @@ namespace Komodex.Bonjour
             // This is an authoritative response
             message.AuthoritativeAnswer = true;
 
-            // PTR Record for DNS-SD Service Type Enumeration
-            record = new PTRRecord()
-            {
-                TimeToLive = BroadcastTTL,
-                Name = BonjourUtility.DNSSDServiceTypeEnumerationName,
-                DomainName = Type,
-            };
-            message.AnswerRecords.Add(record);
-
-            // PTR Record
-            record = new PTRRecord()
-            {
-                TimeToLive = BroadcastTTL,
-                Name = Type,
-                DomainName = FullServiceInstanceName,
-            };
-            message.AnswerRecords.Add(record);
-
             // SRV Record
             record = new SRVRecord()
             {
-                TimeToLive = BroadcastTTL,
+                TimeToLive = (type == PublishMessageType.Stop) ? TimeSpan.Zero : BroadcastTTL,
                 CacheFlush = true,
                 Name = FullServiceInstanceName,
                 Target = Hostname,
@@ -246,25 +250,12 @@ namespace Komodex.Bonjour
             };
             message.AnswerRecords.Add(record);
 
-            // A Records
-            foreach (var ip in IPAddresses)
-            {
-                record = new ARecord()
-                {
-                    TimeToLive = BroadcastTTL,
-                    CacheFlush = true,
-                    Name = Hostname,
-                    Address = ip,
-                };
-                message.AnswerRecords.Add(record);
-            }
-
             // TXT Record
             if (TXTRecordData != null && TXTRecordData.Count > 0)
             {
                 record = new TXTRecord()
                 {
-                    TimeToLive = BroadcastTTL,
+                    TimeToLive = (type == PublishMessageType.Stop) ? TimeSpan.Zero : BroadcastTTL,
                     CacheFlush = true,
                     Name = FullServiceInstanceName,
                     Data = TXTRecordData,
@@ -272,31 +263,49 @@ namespace Komodex.Bonjour
                 message.AnswerRecords.Add(record);
             }
 
-            return message;
-        }
-
-        private Message GetStopPublishMessage()
-        {
-            Message message = new Message();
-            ResourceRecord record;
-
-            // This message is a response
-            message.QueryResponse = true;
-            // This is an authoritative response
-            message.AuthoritativeAnswer = true;
-
-            // PTR Record
-            record = new PTRRecord()
+            // PTR Record for DNS-SD Service Type Enumeration
+            if (type == PublishMessageType.Normal)
             {
-                TimeToLive = TimeSpan.Zero,
-                Name = Type,
-                DomainName = FullServiceInstanceName,
-            };
-            message.AnswerRecords.Add(record);
+                record = new PTRRecord()
+                {
+                    TimeToLive = BroadcastTTL,
+                    Name = BonjourUtility.DNSSDServiceTypeEnumerationName,
+                    DomainName = Type,
+                };
+                message.AnswerRecords.Add(record);
+            }
+
+            // Service PTR Record
+            if (type != PublishMessageType.Initial)
+            {
+                record = new PTRRecord()
+                {
+                    TimeToLive = (type == PublishMessageType.Stop) ? TimeSpan.Zero : BroadcastTTL,
+                    Name = Type,
+                    DomainName = FullServiceInstanceName,
+                };
+                message.AnswerRecords.Add(record);
+            }
+
+            // A Records
+            if (type != PublishMessageType.Stop)
+            {
+                foreach (var ip in IPAddresses)
+                {
+                    record = new ARecord()
+                    {
+                        TimeToLive = BroadcastTTL,
+                        CacheFlush = true,
+                        Name = Hostname,
+                        Address = ip,
+                    };
+                    message.AdditionalRecords.Add(record);
+                }
+            }
 
             return message;
         }
-        
+
         #endregion
 
         #region Run Loop
@@ -319,7 +328,7 @@ namespace Komodex.Bonjour
             while (_publishing && !token.IsCancellationRequested)
             {
                 if (_lastServicePublishBroadcast.AddMilliseconds(RepeatedRebroadcastInterval) < DateTime.Now)
-                    await SendServicePublishMessageAsync();
+                    await SendServicePublishMessageAsync().ConfigureAwait(false);
 
                 await TaskUtility.Delay(RunLoopInterval).ConfigureAwait(false);
             }
@@ -441,10 +450,17 @@ namespace Komodex.Bonjour
             }
 
             // Send a response if necessary
-            if (shouldRespond && _lastServicePublishBroadcast.AddMilliseconds(MinimumRebroadcastTime) < DateTime.Now)
+            if (shouldRespond)
             {
-                _log.Debug("Received query for service \"{0}\".", FullServiceInstanceName);
-                await SendServicePublishMessageAsync().ConfigureAwait(false);
+                if (_lastServicePublishBroadcast.AddMilliseconds(MinimumRebroadcastTime) < DateTime.Now)
+                {
+                    _log.Debug("Responding to query for service \"{0}\".", FullServiceInstanceName);
+                    await SendServicePublishMessageAsync().ConfigureAwait(false);
+                }
+                else
+                {
+                    _log.Debug("Received query for service \"{0}\", but ignoring since we sent a publish message recently.", FullServiceInstanceName);
+                }
             }
         }
 
