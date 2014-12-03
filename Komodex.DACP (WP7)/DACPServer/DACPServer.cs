@@ -161,8 +161,7 @@ namespace Komodex.DACP
             if (!success || cancellationToken.IsCancellationRequested)
                 return ConnectionResult.ConnectionError;
 
-            /*
-             * Temporarily removing this for v2.2.4.
+#if WP8
             // Control prompt update
             if (IsAppleTV)
             {
@@ -171,7 +170,7 @@ namespace Komodex.DACP
                 if (!success || cancellationToken.IsCancellationRequested)
                     return ConnectionResult.ConnectionError;
             }
-             */
+#endif
 
             _log.Info("Connecting: Complete!");
 
@@ -184,25 +183,34 @@ namespace Komodex.DACP
         {
             SubscribeToLibraryUpdates();
             SubscribeToPlayStatusUpdates();
-            /*
-             * Temporarily removing this for v2.2.4.
+#if WP8
             if (IsAppleTV)
             {
                 SubscribeToControlPromptUpdates();
-                RequestAppleTVTrackpadInfoUpdateAsync();
+                var task = RequestAppleTVTrackpadInfoUpdateAsync();
             }
-             */
+#endif
         }
 
         public void Disconnect()
         {
             IsConnected = false;
-            if (_currentLibraryUpdateCancellationTokenSource != null)
-                _currentLibraryUpdateCancellationTokenSource.Cancel();
-            if (_currentPlayStatusCancellationTokenSource != null)
-                _currentPlayStatusCancellationTokenSource.Cancel();
-            if (_currentRepeatedTrackTimeRequestCancellationTokenSource != null)
-                _currentRepeatedTrackTimeRequestCancellationTokenSource.Cancel();
+            CancellationTokenSource token;
+
+            token = _currentLibraryUpdateCancellationTokenSource;
+            if (token != null)
+                token.Cancel();
+            token = _currentPlayStatusCancellationTokenSource;
+            if (token != null)
+                token.Cancel();
+            token = _currentRepeatedTrackTimeRequestCancellationTokenSource;
+            if (token != null)
+                token.Cancel();
+#if WP8
+            token = _trackpadConnectionCancellationTokenSource;
+            if (token != null)
+                token.Cancel();
+#endif
         }
 
         #endregion

@@ -192,6 +192,10 @@ namespace Komodex.Remote.ServerManagement
                 if (ConnectionState == ServerConnectionState.LookingForLibrary)
                     ConnectionState = ServerConnectionState.WaitingForWiFiConnection;
 
+                var server = CurrentServer;
+                if (server != null)
+                    server.DisconnectAppleTVTrackpadSocket();
+
                 // Set all services to unavailable
                 foreach (ServerConnectionInfo info in PairedServers)
                     info.IsAvailable = false;

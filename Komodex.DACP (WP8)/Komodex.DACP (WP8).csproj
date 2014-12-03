@@ -251,6 +251,7 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Search\SongsSearchResultSection.cs">
       <Link>Search\SongsSearchResultSection.cs</Link>
     </Compile>
+    <Compile Include="DACPServer\DACPServer.AppleTV.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
