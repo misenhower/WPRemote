@@ -50,5 +50,25 @@ namespace Komodex.Remote.Controls
         {
             ServerManager.CurrentServer.SendAppleTVSelectCommand();
         }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            ServerManager.CurrentServer.SendAppleTVMenuCommandAsync();
+        }
+
+        private void MenuButton_Hold(object sender, EventArgs e)
+        {
+            ServerManager.CurrentServer.SendAppleTVTopMenuCommandAsync();
+        }
+
+        private void ContextMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            ServerManager.CurrentServer.SendAppleTVContextMenuCommandAsync();
+        }
+
+        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            ServerManager.CurrentServer.SendPlayPauseCommand();
+        }
     }
 }
