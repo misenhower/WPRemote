@@ -1,0 +1,42 @@
+﻿<base:DialogUserControlBase
+    x:Class="Komodex.Remote.Controls.AppleTVControlDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:base="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="800" d:DesignWidth="480">
+    
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="1" Margin="12,17,0,12">
+            <TextBlock Text="{Binding LibraryName, Converter={StaticResource StringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}" />
+        </StackPanel>
+        
+        <Grid
+            Grid.Row="2"
+            x:Name="Trackpad"
+            ManipulationStarted="Trackpad_ManipulationStarted"
+            ManipulationDelta="Trackpad_ManipulationDelta"
+            ManipulationCompleted="Trackpad_ManipulationCompleted"
+            Tap="Trackpad_Tap"
+            >
+            <Rectangle Fill="{StaticResource PhoneSemitransparentBrush}" />
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="tap to select" TextAlignment="Center" Style="{StaticResource PhoneTextSubtleStyle}" />
+                <TextBlock Text="drag to move" TextAlignment="Center" Style="{StaticResource PhoneTextSubtleStyle}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</base:DialogUserControlBase>
