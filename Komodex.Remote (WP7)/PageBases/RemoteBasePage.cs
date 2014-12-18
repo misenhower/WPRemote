@@ -346,7 +346,7 @@ namespace Komodex.Remote
 
         private void UpdateAppleTVControlButton()
         {
-            if (_appleTVControlButton == null)
+            if (_appleTVControlButton == null || ApplicationBar == null)
                 return;
 
             var server = CurrentServer;
