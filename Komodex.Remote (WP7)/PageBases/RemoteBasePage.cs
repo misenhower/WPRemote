@@ -1,6 +1,7 @@
 ﻿using Komodex.Common;
 using Komodex.Common.Phone;
 using Komodex.DACP;
+using Komodex.Remote.Controls;
 using Komodex.Remote.Localization;
 using Komodex.Remote.ServerManagement;
 using Microsoft.Phone.Controls;
@@ -131,6 +132,9 @@ namespace Komodex.Remote
 
         protected virtual void ServerManager_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
+#if WP8
+            ThreadUtility.RunOnUIThread(UpdateAppleTVControlButton);
+#endif
         }
 
         protected virtual void CurrentServer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -144,6 +148,7 @@ namespace Komodex.Remote
                 case "IsiTunesRadioMenuEnabled":
                 case "IsiTunesRadioSongFavorited":
                 case "IsCurrentlyPlayingGeniusShuffle":
+                case "IsAppleTV":
                     UpdateAppBar();
                     break;
 
@@ -180,6 +185,9 @@ namespace Komodex.Remote
         {
             UpdateAppBarPlayTransportButtons();
             UpdateAppBarNowPlayingButtons();
+#if WP8
+            UpdateAppleTVControlButton();
+#endif
         }
 
         public virtual void UpdateApplicationBarVisibility()
@@ -319,6 +327,51 @@ namespace Komodex.Remote
         }
 
         #endregion
+
+#if WP8
+        #region Apple TV Control Button
+
+        private ApplicationBarIconButton _appleTVControlButton;
+
+        protected void EnableAppleTVControlButton()
+        {
+            var button = new ApplicationBarIconButton();
+            button.Text = "Apple TV";
+            button.IconUri = new Uri("", UriKind.Relative);
+            button.Click += (sender, e) => OpenAppleTVControlDialog();
+
+            _appleTVControlButton = button;
+            UpdateAppleTVControlButton();
+        }
+
+        private void UpdateAppleTVControlButton()
+        {
+            if (_appleTVControlButton == null)
+                return;
+
+            var server = CurrentServer;
+
+            bool isVisible = (server != null && server.IsConnected && server.IsAppleTV);
+
+            if (isVisible)
+            {
+                if (!ApplicationBar.Buttons.Contains(_appleTVControlButton))
+                    ApplicationBar.Buttons.Add(_appleTVControlButton);
+            }
+            else
+            {
+                ApplicationBar.Buttons.Remove(_appleTVControlButton);
+            }
+        }
+
+        protected void OpenAppleTVControlDialog()
+        {
+            var dialog = new AppleTVControlDialog();
+            ShowDialog(dialog);
+        }
+
+        #endregion
+#endif
 
         #endregion
     }
