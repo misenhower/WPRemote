@@ -337,7 +337,7 @@ namespace Komodex.Remote
         {
             var button = new ApplicationBarIconButton();
             button.Text = "Apple TV";
-            button.IconUri = new Uri("", UriKind.Relative);
+            button.IconUri = ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/AppleTVControl.png");
             button.Click += (sender, e) => OpenAppleTVControlDialog();
 
             _appleTVControlButton = button;

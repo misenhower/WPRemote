@@ -461,6 +461,18 @@
     <Content Include="..\Assets\Icons\App.MediaMonkey.WXGA.png">
       <Link>Assets\Icons\App.MediaMonkey.WXGA.png</Link>
     </Content>
+    <Content Include="..\Assets\Icons\AppleTVControl.1080p.png">
+      <Link>Assets\Icons\AppleTVControl.1080p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\AppleTVControl.720p.png">
+      <Link>Assets\Icons\AppleTVControl.720p.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\AppleTVControl.WVGA.png">
+      <Link>Assets\Icons\AppleTVControl.WVGA.png</Link>
+    </Content>
+    <Content Include="..\Assets\Icons\AppleTVControl.WXGA.png">
+      <Link>Assets\Icons\AppleTVControl.WXGA.png</Link>
+    </Content>
     <Content Include="..\Assets\Icons\Browse.1080p.png">
       <Link>Assets\Icons\Browse.1080p.png</Link>
     </Content>
