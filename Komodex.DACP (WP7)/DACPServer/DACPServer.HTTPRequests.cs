@@ -71,7 +71,10 @@ namespace Komodex.DACP
             HttpResponseMessage response = await HttpClient.PostAsync(uri, request.HttpContent, request.CancellationToken).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
+            {
+                _log.Info("Invalid response ({0}) for: {1}", response.StatusCode, uri);
                 throw new DACPRequestException(response);
+            }
 
             byte[] data = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 

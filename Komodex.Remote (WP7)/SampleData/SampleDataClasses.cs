@@ -343,6 +343,11 @@ namespace Komodex.Remote.SampleData
         public List<SampleDataNamedItemBase> LibraryPodcasts { get; set; }
         public List<SampleDataNamedItemGroup> LibraryMovies { get; set; }
         public List<SampleDataNamedItemGroup> LibraryTVShows { get; set; }
+
+        public string CurrentAppleTVKeyboardTitle { get; set; }
+        public string CurrentAppleTVKeyboardSubText { get; set; }
+        public string CurrentAppleTVKeyboardString { get; set; }
+        public string BindableAppleTVKeyboardString { get { return CurrentAppleTVKeyboardString; } }
     }
 
     public class SampleDataNamedItemBase

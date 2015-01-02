@@ -8,8 +8,9 @@
     xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
     xmlns:appControls="clr-namespace:Komodex.Remote.Controls"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:sampledata="clr-namespace:Komodex.Remote.SampleData"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignData /SampleData/DACPServerSampleData.xaml}"
+    d:DataContext="{d:DesignInstance Type=sampledata:SampleDataDACPServer, IsDesignTimeCreatable=True}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -94,6 +95,12 @@
                 <TextBlock Text="drag to move" TextAlignment="Center" Style="{StaticResource PhoneTextSubtleStyle}" />
             </StackPanel>
         </Grid>
+        
+        <StackPanel x:Name="Keyboard" Grid.Row="2" Margin="12,0,12,0" Visibility="Collapsed">
+            <TextBlock Text="{Binding CurrentAppleTVKeyboardTitle}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" />
+            <TextBlock Text="{Binding CurrentAppleTVKeyboardSubText}" Style="{StaticResource PhoneTextSubtleStyle}" TextWrapping="Wrap" />
+            <TextBox x:Name="KeyboardTextBox" Text="{Binding BindableAppleTVKeyboardString, Mode=TwoWay, UpdateSourceTrigger=Explicit}" TextChanged="TextBox_TextChanged" KeyUp="TextBox_KeyUp" />
+        </StackPanel>
 
         <Grid Grid.Row="3" Height="100" toolkit:TiltEffect.SuppressTilt="True">
             <Grid.ColumnDefinitions>

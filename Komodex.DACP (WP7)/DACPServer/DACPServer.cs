@@ -179,7 +179,7 @@ namespace Komodex.DACP
             return ConnectionResult.Success;
         }
 
-        public void StartUpdateRequests()
+        public async void StartUpdateRequests()
         {
             SubscribeToLibraryUpdates();
             SubscribeToPlayStatusUpdates();
@@ -187,7 +187,8 @@ namespace Komodex.DACP
             if (IsAppleTV)
             {
                 SubscribeToControlPromptUpdates();
-                var task = RequestAppleTVTrackpadInfoUpdateAsync();
+                await RequestAppleTVTrackpadInfoUpdateAsync().ConfigureAwait(false);
+                await RequestAppleTVKeyboardInfoUpdateAsync().ConfigureAwait(false);
             }
 #endif
         }

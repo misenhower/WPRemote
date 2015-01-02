@@ -10,6 +10,8 @@ using Microsoft.Phone.Shell;
 using Komodex.Common.Phone;
 using Komodex.Remote.ServerManagement;
 using System.Windows.Input;
+using Komodex.DACP;
+using System.ComponentModel;
 
 namespace Komodex.Remote.Controls
 {
@@ -20,6 +22,71 @@ namespace Komodex.Remote.Controls
             InitializeComponent();
 
             DataContext = ServerManager.CurrentServer;
+            UpdateKeyboardVisibility();
+        }
+
+        protected override void DialogService_Opened(object sender, EventArgs e)
+        {
+            base.DialogService_Opened(sender, e);
+
+            DACPServer server = DataContext as DACPServer;
+            if (server != null)
+                server.PropertyChanged += DACPServer_PropertyChanged;
+        }
+
+        protected override void DialogService_Closed(object sender, EventArgs e)
+        {
+            base.DialogService_Closed(sender, e);
+
+            DACPServer server = DataContext as DACPServer;
+            if (server != null)
+                server.PropertyChanged -= DACPServer_PropertyChanged;
+        }
+
+        private void DACPServer_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "IsAppleTVKeyboardVisible":
+                case "CurrentAppleTVKeyboardType":
+                    UpdateKeyboardVisibility();
+                    break;
+            }
+        }
+
+        private void UpdateKeyboardVisibility()
+        {
+            DACPServer server = DataContext as DACPServer;
+            if (server == null)
+                return;
+
+            if (server.IsAppleTVKeyboardVisible)
+            {
+                Trackpad.Visibility = Visibility.Collapsed;
+                Keyboard.Visibility = Visibility.Visible;
+
+                var inputScope = new InputScope();
+
+                switch (server.CurrentAppleTVKeyboardType)
+                {
+                    case AppleTVKeyboardType.Email:
+                        inputScope.Names.Add(new InputScopeName() { NameValue = InputScopeNameValue.EmailNameOrAddress });
+                        break;
+                    case AppleTVKeyboardType.Standard:
+                    default:
+                        inputScope.Names.Add(new InputScopeName() { NameValue = InputScopeNameValue.Default });
+                        break;
+                }
+
+                KeyboardTextBox.InputScope = inputScope;
+
+                KeyboardTextBox.Focus();
+            }
+            else
+            {
+                Keyboard.Visibility = Visibility.Collapsed;
+                Trackpad.Visibility = Visibility.Visible;
+            }
         }
 
         private bool _isDragging;
@@ -69,6 +136,25 @@ namespace Komodex.Remote.Controls
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {
             ServerManager.CurrentServer.SendPlayPauseCommand();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ((TextBox)sender).GetBindingExpression(TextBox.TextProperty).UpdateSource();
+        }
+
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            var server = DataContext as DACPServer;
+            if (server == null || !server.IsConnected)
+                return;
+
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    var task = server.SendAppleTVKeyboardDoneCommandAsync();
+                    break;
+            }
         }
     }
 }
