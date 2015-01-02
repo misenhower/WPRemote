@@ -100,6 +100,7 @@
             <TextBlock Text="{Binding CurrentAppleTVKeyboardTitle}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" />
             <TextBlock Text="{Binding CurrentAppleTVKeyboardSubText}" Style="{StaticResource PhoneTextSubtleStyle}" TextWrapping="Wrap" />
             <TextBox x:Name="KeyboardTextBox" Text="{Binding BindableAppleTVKeyboardString, Mode=TwoWay, UpdateSourceTrigger=Explicit}" TextChanged="TextBox_TextChanged" KeyUp="TextBox_KeyUp" />
+            <PasswordBox x:Name="KeyboardPasswordBox" PasswordChanged="PasswordBox_PasswordChanged" KeyUp="PasswordBox_KeyUp" />
         </StackPanel>
 
         <Grid Grid.Row="3" Height="100" toolkit:TiltEffect.SuppressTilt="True">

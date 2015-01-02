@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -156,6 +158,9 @@ namespace Komodex.DACP
         #region Text Entry
 
         private string _appleTVKeyboardSessionID;
+        private bool _appleTVKeyboardSecureText;
+        private string _appleTVKeyboardSecureTextCertificate;
+        private string _appleTVKeyboardSecureTextChallenge;
 
         private async Task<bool> SendAppleTVKeyboardStringUpdateCommandAsync(string value, bool done)
         {
@@ -182,6 +187,95 @@ namespace Komodex.DACP
         public Task<bool> SendAppleTVKeyboardDoneCommandAsync()
         {
             return SendAppleTVKeyboardStringUpdateCommandAsync(_currentAppleTVKeyboardString, true);
+        }
+
+        public async Task<bool> SendAppleTVKeyboardSecureTextAsync(string value)
+        {
+            if (!_appleTVKeyboardSecureText || string.IsNullOrEmpty(_appleTVKeyboardSecureTextCertificate) || string.IsNullOrEmpty(_appleTVKeyboardSecureTextChallenge))
+                return false;
+
+            byte[] encryptedBytes;
+
+            try
+            {
+                // Read the certificate
+                byte[] certificateBytes = BitUtility.FromHexString(_appleTVKeyboardSecureTextCertificate);
+                var certificate = new X509Certificate(certificateBytes);
+
+                // X509Certificate gives us the ASN.1 DER-encoded RSA public key
+                var publicKeyEncoded = certificate.GetPublicKey();
+                if (publicKeyEncoded[0] != 0x30 || publicKeyEncoded[1] != 0x81)
+                    throw new Exception();
+                // Byte at index 2 is the length of the entire sequence, we can ignore this
+                if (publicKeyEncoded[3] != 0x02 || publicKeyEncoded[4] != 0x81)
+                    throw new Exception();
+
+                // Length of the public key
+                int length = publicKeyEncoded[5];
+                int position = 6;
+
+                // Skip any padding at the beginning
+                while (publicKeyEncoded[position] == 0x00)
+                {
+                    length--;
+                    position++;
+                }
+
+                // Get the public key
+                byte[] publicKey = new byte[length];
+                System.Buffer.BlockCopy(publicKeyEncoded, position, publicKey, 0, length);
+
+                // Length/position of exponent
+                position += length;
+                if (publicKeyEncoded[position] != 0x02)
+                    throw new Exception();
+                position++;
+                length = publicKeyEncoded[position];
+                position++;
+
+                // Get the exponent
+                byte[] exponent = new byte[length];
+                System.Buffer.BlockCopy(publicKeyEncoded, position, exponent, 0, length);
+
+                // Get bytes to encrypt
+                var bytesToEncode = new List<byte>();
+                bytesToEncode.AddRange(BitUtility.FromHexString(_appleTVKeyboardSecureTextChallenge));
+                bytesToEncode.AddRange(Encoding.UTF8.GetBytes(value));
+
+                // Set up RSA parameters
+                var rsaParameters = new RSAParameters();
+                rsaParameters.Modulus = publicKey;
+                rsaParameters.Exponent = exponent;
+
+                // Create RSA provider
+                using (var rsa = new RSACryptoServiceProvider())
+                {
+                    rsa.ImportParameters(rsaParameters);
+
+                    // Encrypt the source data
+                    encryptedBytes = rsa.Encrypt(bytesToEncode.ToArray(), false);
+                }
+
+            }
+            catch { return false; }
+
+            // Create DACP request
+            List<byte> contentBytes = new List<byte>();
+            contentBytes.AddRange(DACPUtility.GetDACPFormattedBytes("cmcc", _appleTVKeyboardSessionID));
+            contentBytes.AddRange(DACPUtility.GetDACPFormattedBytes("cmbe", "PromptDone"));
+            contentBytes.AddRange(DACPUtility.GetDACPFormattedBytes("cmae", BitUtility.ToHexString(encryptedBytes)));
+
+            ByteArrayContent content = new ByteArrayContent(contentBytes.ToArray());
+
+            DACPRequest request = new DACPRequest("/ctrl-int/1/controlpromptentry");
+            request.HttpContent = content;
+
+            try
+            {
+                await SubmitRequestAsync(request).ConfigureAwait(false);
+            }
+            catch { return false; }
+            return true;
         }
 
         #endregion
@@ -232,9 +326,16 @@ namespace Komodex.DACP
                         case "0": // Show keyboard
                             CurrentAppleTVKeyboardTitle = nodeDictionary["kKeybMsgKey_Title"];
                             CurrentAppleTVKeyboardSubText = nodeDictionary["kKeybMsgKey_SubText"];
-                            CurrentAppleTVKeyboardType = (AppleTVKeyboardType)int.Parse(nodeDictionary["kKeybMsgKey_KeyboardType"]);
                             CurrentAppleTVKeyboardString = nodeDictionary["kKeybMsgKey_String"];
                             _appleTVKeyboardSessionID = nodeDictionary["kKeybMsgKey_SessionID"];
+                            _appleTVKeyboardSecureText = (nodeDictionary["kKeybMsgKey_SecureText"] == "1");
+                            _appleTVKeyboardSecureTextCertificate = nodeDictionary.GetValueOrDefault("certificate");
+                            _appleTVKeyboardSecureTextChallenge = nodeDictionary.GetValueOrDefault("challenge");
+
+                            if (_appleTVKeyboardSecureText)
+                                CurrentAppleTVKeyboardType = AppleTVKeyboardType.Password;
+                            else
+                                CurrentAppleTVKeyboardType = (AppleTVKeyboardType)int.Parse(nodeDictionary["kKeybMsgKey_KeyboardType"]);
                             IsAppleTVKeyboardVisible = true;
                             break;
 
@@ -530,5 +631,6 @@ namespace Komodex.DACP
     {
         Standard = 0,
         Email = 7,
+        Password = -1,
     }
 }

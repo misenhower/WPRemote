@@ -17,6 +17,8 @@ namespace Komodex.Remote.Controls
 {
     public partial class AppleTVControlDialog : DialogUserControlBase
     {
+        private bool _ignorePasswordChanges = true;
+
         public AppleTVControlDialog()
         {
             InitializeComponent();
@@ -67,7 +69,9 @@ namespace Komodex.Remote.Controls
 
                 var inputScope = new InputScope();
 
-                switch (server.CurrentAppleTVKeyboardType)
+                var keyboardType = server.CurrentAppleTVKeyboardType;
+
+                switch (keyboardType)
                 {
                     case AppleTVKeyboardType.Email:
                         inputScope.Names.Add(new InputScopeName() { NameValue = InputScopeNameValue.EmailNameOrAddress });
@@ -80,7 +84,22 @@ namespace Komodex.Remote.Controls
 
                 KeyboardTextBox.InputScope = inputScope;
 
-                KeyboardTextBox.Focus();
+                if (keyboardType == AppleTVKeyboardType.Password)
+                {
+                    _ignorePasswordChanges = true;
+                    KeyboardPasswordBox.Password = string.Empty;
+                    KeyboardTextBox.Visibility = Visibility.Collapsed;
+                    KeyboardPasswordBox.Visibility = Visibility.Visible;
+                    KeyboardPasswordBox.Focus();
+                    _ignorePasswordChanges = false;
+                }
+                else
+                {
+                    _ignorePasswordChanges = true;
+                    KeyboardPasswordBox.Visibility = Visibility.Collapsed;
+                    KeyboardTextBox.Visibility = Visibility.Visible;
+                    KeyboardTextBox.Focus();
+                }
             }
             else
             {
@@ -153,6 +172,33 @@ namespace Komodex.Remote.Controls
             {
                 case Key.Enter:
                     var task = server.SendAppleTVKeyboardDoneCommandAsync();
+                    break;
+            }
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (_ignorePasswordChanges)
+                return;
+
+            DACPServer server = DataContext as DACPServer;
+            if (server == null || !server.IsConnected)
+                return;
+
+            string obscured = new string('*', ((PasswordBox)sender).Password.Length);
+            server.BindableAppleTVKeyboardString = obscured;
+        }
+
+        private void PasswordBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            var server = DataContext as DACPServer;
+            if (server == null || !server.IsConnected)
+                return;
+
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    var task = server.SendAppleTVKeyboardSecureTextAsync(KeyboardPasswordBox.Password);
                     break;
             }
         }
