@@ -78,7 +78,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="TitlePanel" Grid.Row="1" Margin="12,17,0,12">
-            <TextBlock Text="{Binding LibraryName, Converter={StaticResource StringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}" />
+            <TextBlock Text="{Binding LibraryName, Converter={StaticResource StringToUpperConverter}}" Style="{StaticResource PhoneTextAppTitleStyle}" Margin="12,0,0,0" />
         </StackPanel>
 
         <Grid
@@ -110,9 +110,18 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="context" Style="{StaticResource BottomButtonStyle}" Click="ContextMenuButton_Click" />
-            <appControls:IconRepeatButton Grid.Column="1" Content="menu" Style="{StaticResource BottomButtonStyle}" Click="MenuButton_Click" RepeatBegin="MenuButton_Hold" />
-            <Button Grid.Column="2" Content="play/pause" Style="{StaticResource BottomButtonStyle}" Click="PlayPauseButton_Click" />
+            <Button Grid.Column="0" Style="{StaticResource BottomButtonStyle}" Click="ContextMenuButton_Click">
+                <ContentControl Template="{StaticResource AppleTVOptionsIcon}" />
+            </Button>
+            <appControls:IconRepeatButton Grid.Column="1" Style="{StaticResource BottomButtonStyle}" Click="MenuButton_Click" RepeatBegin="MenuButton_Hold">
+                <Grid>
+                    <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" Width="80" Height="80" />
+                    <TextBlock Text="menu" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,4" />
+                </Grid>
+            </appControls:IconRepeatButton>
+            <Button Grid.Column="2" Style="{StaticResource BottomButtonStyle}" Click="PlayPauseButton_Click">
+                <ContentControl Template="{StaticResource AppleTVPlayPauseIcon}" />
+            </Button>
         </Grid>
     </Grid>
 </base:DialogUserControlBase>

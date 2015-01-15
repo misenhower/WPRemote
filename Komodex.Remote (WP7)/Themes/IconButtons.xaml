@@ -391,5 +391,27 @@
             </Canvas>
         </Canvas>
     </ControlTemplate>
+    
+    <!-- Apple TV -->
+    <ControlTemplate x:Name="AppleTVPlayPauseIcon">
+        <Canvas Height="48" UseLayoutRounding="False" Width="48">
+            <Canvas Height="20.589" Canvas.Left="8.903" Canvas.Top="13.706" Width="31.828">
+                <Path Data="F1M13.57,10.248L0,20.589 0,0z" Fill="{TemplateBinding Foreground}" Height="20.589" Canvas.Left="0" Canvas.Top="0" Width="13.57"/>
+                <Path Data="F1M0,19.428L3.963,19.428 3.963,0 0,0z" Fill="{TemplateBinding Foreground}" Height="19.428" Canvas.Left="18.367" Canvas.Top="0.581" Width="3.963"/>
+                <Path Data="F1M0,19.428L3.961,19.428 3.961,0 0,0z" Fill="{TemplateBinding Foreground}" Height="19.428" Canvas.Left="27.867" Canvas.Top="0.581" Width="3.961"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Name="AppleTVOptionsIcon">
+        <Canvas Height="48" UseLayoutRounding="False" Width="48">
+            <Canvas Height="24" Canvas.Left="12" Canvas.Top="14" Width="24">
+                <Path Data="F1M22.5,3L1.5,3C0.671,3 0,2.329 0,1.5 0,0.671 0.671,0 1.5,0L22.5,0C23.328,0 24,0.671 24,1.5 24,2.329 23.328,3 22.5,3" Fill="{TemplateBinding Foreground}" Height="3" Canvas.Left="0" Canvas.Top="0" Width="24"/>
+                <Path Data="F1M22.5,3L1.5,3C0.671,3 0,2.329 0,1.5 0,0.671 0.671,0 1.5,0L22.5,0C23.328,0 24,0.671 24,1.5 24,2.329 23.328,3 22.5,3" Fill="{TemplateBinding Foreground}" Height="3" Canvas.Left="0" Canvas.Top="7" Width="24"/>
+                <Path Data="F1M22.5,3L1.5,3C0.671,3 0,2.328 0,1.5 0,0.672 0.671,0 1.5,0L22.5,0C23.328,0 24,0.672 24,1.5 24,2.328 23.328,3 22.5,3" Fill="{TemplateBinding Foreground}" Height="3" Canvas.Left="0" Canvas.Top="14" Width="24"/>
+                <Path Data="F1M0,0L7,0 3.5,4z" Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="8.5" Canvas.Top="20" Width="7"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
 
 </ResourceDictionary>
