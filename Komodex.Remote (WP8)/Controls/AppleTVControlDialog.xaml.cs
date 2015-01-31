@@ -24,7 +24,6 @@ namespace Komodex.Remote.Controls
             InitializeComponent();
 
             DataContext = ServerManager.CurrentServer;
-            UpdateKeyboardVisibility();
         }
 
         protected override void DialogService_Opened(object sender, EventArgs e)
@@ -34,6 +33,8 @@ namespace Komodex.Remote.Controls
             DACPServer server = DataContext as DACPServer;
             if (server != null)
                 server.PropertyChanged += DACPServer_PropertyChanged;
+
+            UpdateKeyboardVisibility();
         }
 
         protected override void DialogService_Closed(object sender, EventArgs e)

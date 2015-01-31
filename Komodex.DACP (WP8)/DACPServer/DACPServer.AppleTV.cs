@@ -324,9 +324,9 @@ namespace Komodex.DACP
                     switch (nodeDictionary["kKeybMsgKey_MessageType"])
                     {
                         case "0": // Show keyboard
-                            CurrentAppleTVKeyboardTitle = nodeDictionary["kKeybMsgKey_Title"];
-                            CurrentAppleTVKeyboardSubText = nodeDictionary["kKeybMsgKey_SubText"];
-                            CurrentAppleTVKeyboardString = nodeDictionary["kKeybMsgKey_String"];
+                            CurrentAppleTVKeyboardTitle = nodeDictionary.GetValueOrDefault("kKeybMsgKey_Title");
+                            CurrentAppleTVKeyboardSubText = nodeDictionary.GetValueOrDefault("kKeybMsgKey_SubText");
+                            CurrentAppleTVKeyboardString = nodeDictionary.GetValueOrDefault("kKeybMsgKey_String");
                             _appleTVKeyboardSessionID = nodeDictionary["kKeybMsgKey_SessionID"];
                             _appleTVKeyboardSecureText = (nodeDictionary["kKeybMsgKey_SecureText"] == "1");
                             _appleTVKeyboardSecureTextCertificate = nodeDictionary.GetValueOrDefault("certificate");
