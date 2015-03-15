@@ -90,6 +90,7 @@
     <Compile Include="Classes\IDACPList.cs" />
     <Compile Include="Classes\PlayQueue.cs" />
     <Compile Include="Classes\PlayQueueItem.cs" />
+    <Compile Include="Composers\DACPComposer.cs" />
     <Compile Include="Containers\BooksContainer.cs" />
     <Compile Include="Containers\DACPContainer.cs" />
     <Compile Include="Containers\GeniusMix.cs" />

@@ -89,6 +89,14 @@ namespace Komodex.Remote.SampleData
 
     #endregion
 
+    #region Composers
+
+    public class SampleDataDACPComposer : SampleDataDACPElement
+    {
+    }
+
+    #endregion
+
     #region Items
 
     public class SampleDataDACPItem : SampleDataDACPElement
@@ -225,6 +233,17 @@ namespace Komodex.Remote.SampleData
         public string CurrentGenreName { get; set; }
         public SampleDataDACPElementViewSource<SampleDataArtist> ArtistsViewSource { get; set; }
         public SampleDataDACPElementViewSource<SampleDataAlbum> AlbumsViewSource { get; set; }
+        public SampleDataDACPElementViewSource<SampleDataSong> SongsViewSource { get; set; }
+    }
+
+    public class SampleDataComposersPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public SampleDataDACPElementViewSource<SampleDataDACPComposer> ComposersViewSource { get; set; }
+    }
+
+    public class SampleDataComposerPage : SampleDataBrowseContainerBasePage<SampleDataDACPContainer>
+    {
+        public string CurrentComposerName { get; set; }
         public SampleDataDACPElementViewSource<SampleDataSong> SongsViewSource { get; set; }
     }
 

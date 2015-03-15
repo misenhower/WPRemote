@@ -17,6 +17,7 @@ using Komodex.DACP;
 using Komodex.DACP.Databases;
 using Komodex.DACP.Containers;
 using Komodex.DACP.Genres;
+using Komodex.DACP.Composers;
 
 namespace Komodex.Remote
 {
@@ -98,6 +99,16 @@ namespace Komodex.Remote
         public static void OpenMusicGenrePage(DACPGenre genre)
         {
             Navigate("/Pages/Browse/Music/MusicGenrePage.xaml?databaseID={0}&genre={1}", genre.Database.ID, Uri.EscapeDataString(genre.Name));
+        }
+
+        public static void OpenComposersPage(DACPDatabase database)
+        {
+            Navigate("/Pages/Browse/Music/ComposersPage.xaml?databaseID={0}", database.ID);
+        }
+
+        public static void OpenComposerPage(DACPComposer composer)
+        {
+            Navigate("/Pages/Browse/Music/ComposerPage.xaml?databaseID={0}&composer={1}", composer.Database.ID, Uri.EscapeDataString(composer.Name));
         }
 
         #endregion

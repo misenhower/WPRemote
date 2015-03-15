@@ -131,6 +131,9 @@
     <Compile Include="..\Komodex.DACP %28WP7%29\Classes\ServerUpdateEventArgs.cs">
       <Link>Classes\ServerUpdateEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\Komodex.DACP %28WP7%29\Composers\DACPComposer.cs">
+      <Link>Composers\DACPComposer.cs</Link>
+    </Compile>
     <Compile Include="..\Komodex.DACP %28WP7%29\Containers\BooksContainer.cs">
       <Link>Containers\BooksContainer.cs</Link>
     </Compile>

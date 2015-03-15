@@ -798,4 +798,10 @@
   <data name="iTunesRadioAppBarButton" xml:space="preserve">
     <value>radio</value>
   </data>
+  <data name="BrowseComposers" xml:space="preserve">
+    <value>composers</value>
+  </data>
+  <data name="BrowseComposersNoComposers" xml:space="preserve">
+    <value>No composers</value>
+  </data>
 </root>

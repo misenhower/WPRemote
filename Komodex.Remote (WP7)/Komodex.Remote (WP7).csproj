@@ -200,6 +200,12 @@
     <Compile Include="Pages\Browse\Music\ArtistPage.xaml.cs">
       <DependentUpon>ArtistPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Browse\Music\ComposerPage.xaml.cs">
+      <DependentUpon>ComposerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Browse\Music\ComposersPage.xaml.cs">
+      <DependentUpon>ComposersPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Browse\Music\MusicGenrePage.xaml.cs">
       <DependentUpon>MusicGenrePage.xaml</DependentUpon>
     </Compile>
@@ -354,6 +360,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Browse\Music\ArtistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\Music\ComposerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Browse\Music\ComposersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

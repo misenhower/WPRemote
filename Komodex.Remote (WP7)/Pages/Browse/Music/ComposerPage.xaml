@@ -1,0 +1,83 @@
+﻿<app:BrowseMusicContainerBasePage
+    x:Name="Page"
+    x:Class="Komodex.Remote.Pages.Browse.Music.ComposerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:app="clr-namespace:Komodex.Remote"
+    xmlns:appcontrols="clr-namespace:Komodex.Remote.Controls"
+    xmlns:appconverters="clr-namespace:Komodex.Remote.Converters"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:delay="clr-namespace:Delay"
+    xmlns:sampledata="clr-namespace:Komodex.Remote.SampleData"
+    mc:Ignorable="d"
+    Style="{StaticResource RemotePageStyle}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    d:DataContext="{d:DesignInstance Type=sampledata:SampleDataComposerPage, IsDesignTimeCreatable=True}"
+    >
+    
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="SongTemplate">
+            <Grid Margin="{StaticResource ListItemMargin}" Height="75">
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu IsEnabled="{Binding CurrentServer.SupportsPlayQueue, ElementName=Page}">
+                        <toolkit:MenuItem x:Name="PlayNextButton" Header="{Binding LocalizedStrings.PlayNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
+                        <toolkit:MenuItem x:Name="AddToUpNextButton" Header="{Binding LocalizedStrings.AddToUpNextMenuItem, Source={StaticResource LocalizedStrings}}" Click="PlayQueueButton_Click" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <appconverters:CurrentDACPItemVisibilityConverter
+                        x:Key="CurrentDACPItemVisibilityConverter"
+                        CurrentDatabaseID="{Binding CurrentServer.CurrentDatabaseID, ElementName=Page}"
+                        CurrentItemID="{Binding CurrentServer.CurrentItemID, ElementName=Page}"
+                        DACPItem="{Binding}"
+                        />
+                </Grid.Resources>
+
+
+                <Border Background="{StaticResource PhoneChromeBrush}">
+                    <Image delay:LowProfileImageLoader.UriSource="{Binding Artwork75pxURI}" Style="{StaticResource ListItemImageStyle}" />
+                </Border>
+
+                <StackPanel Grid.Column="1" Opacity="{Binding IsDisabled, Converter={StaticResource ItemDisabledOpacityConverter}}">
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextLargeStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
+                    <TextBlock Text="{Binding ArtistAndAlbumName}" Style="{StaticResource ListItemTextSubtleStyle}" TextTrimming="{Binding TextTrimming, Source={StaticResource CurrentDACPItemVisibilityConverter}}" />
+                </StackPanel>
+
+                <ContentControl
+                    Grid.Column="2"
+                    Visibility="{Binding IndicatorVisibility, Source={StaticResource CurrentDACPItemVisibilityConverter}}"
+                    Style="{StaticResource ListItemSpeakerIconStyle}"
+                    />
+            </Grid>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <controls:Pivot x:Name="PivotControl"
+            Title="{Binding CurrentComposerName}"
+            Style="{StaticResource BrowsePagePivotStyle}"
+            >
+            <controls:PivotItem DataContext="{Binding SongsViewSource}" Header="{Binding LocalizedStrings.BrowseSongs, Source={StaticResource LocalizedStrings}}">
+                <controls:LongListSelectorEx
+                    Style="{StaticResource WideHeaderListStyle}"
+                    ItemTemplate="{StaticResource SongTemplate}"
+                    ItemsSource="{Binding Items}"
+                    IsGroupingEnabled="{Binding IsGroupedList}"
+                    EmptyText="{Binding LocalizedStrings.BrowseSongsNoSongs, Source={StaticResource LocalizedStrings}}"
+                    />
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+
+</app:BrowseMusicContainerBasePage>

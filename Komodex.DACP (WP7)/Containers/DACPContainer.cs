@@ -1,4 +1,5 @@
 ﻿using Komodex.Common;
+using Komodex.DACP.Composers;
 using Komodex.DACP.Databases;
 using Komodex.DACP.Genres;
 using Komodex.DACP.Queries;
@@ -182,6 +183,16 @@ namespace Komodex.DACP.Containers
             return request;
         }
 
+        internal DACPRequest GetComposersRequest(bool requestSortHeaders = false)
+        {
+            DACPRequest request = new DACPRequest("/databases/{0}/browse/composers", Database.ID);
+            DACPQueryElement query = DACPQueryCollection.And(DACPQueryPredicate.IsNotEmpty("daap.songcomposer"), MediaKindQuery);
+            request.QueryParameters["filter"] = query.ToString();
+            if (requestSortHeaders)
+                request.QueryParameters["include-sort-headers"] = "1";
+            return request;
+        }
+
         #endregion
 
         #region Items/Groups
@@ -214,8 +225,10 @@ namespace Komodex.DACP.Containers
             try
             {
                 var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+                // iTunes returns an "abgn" node with "mlit" list items that only contain the genre name
                 if (response.Nodes.Any(n => n.Key == "abgn"))
                     _groupedGenres = DACPUtility.GetAlphaGroupedDACPList(response.Nodes, d => new DACPGenre(this, (byte[])d), "abgn");
+                // Apple TV returns an "mlcl" node with "mlit" items that contain an ID, persistent ID, and name
                 else
                     _groupedGenres = DACPUtility.GetAlphaGroupedDACPList(response.Nodes, n => new DACPGenre(this, (DACPNodeDictionary)n));
             }
@@ -225,6 +238,37 @@ namespace Komodex.DACP.Containers
             }
 
             return _groupedGenres;
+        }
+
+        #endregion
+
+        #region Composers
+
+        private IDACPList _groupedComposers;
+
+        public async Task<IDACPList> GetGroupedComposersAsync()
+        {
+            if (_groupedComposers != null)
+                return _groupedComposers;
+
+            DACPRequest request = GetComposersRequest(true);
+
+            try
+            {
+                var response = await Server.SubmitRequestAsync(request).ConfigureAwait(false);
+                // iTunes returns an "abcp" node with "mlit" list items that only contain the composer name
+                if (response.Nodes.Any(n => n.Key == "abcp"))
+                    _groupedComposers = DACPUtility.GetAlphaGroupedDACPList(response.Nodes, d => new DACPComposer(this, (byte[])d), "abcp");
+                // Apple TV returns an "mlcl" node with "mlit" items that contain an ID, persistent ID, and name
+                else
+                    _groupedComposers = DACPUtility.GetAlphaGroupedDACPList(response.Nodes, n => new DACPComposer(this, (DACPNodeDictionary)n));
+            }
+            catch
+            {
+                _groupedComposers = new DACPList<DACPComposer>(false);
+            }
+
+            return _groupedComposers;
         }
 
         #endregion
