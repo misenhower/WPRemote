@@ -242,6 +242,15 @@
         </Canvas>
     </ControlTemplate>
     
+    <ControlTemplate x:Name="ComposersIcon">
+        <Canvas Height="48" UseLayoutRounding="False" Width="48">
+            <Ellipse Style="{StaticResource BaseCircleStyle}" />
+            <Canvas Height="20" Canvas.Left="10" Canvas.Top="14" Width="28">
+                <Path Data="F1M1.5,18.5L1.5,11 3,11 3,16 5,16 5,11 6,11 6,16 8,16 8,11 10,11 10,16 12,16 12,11 13,11 13,16 15,16 15,11 16,11 16,16 18,16 18,11 20,11 20,16 22,16 22,11 23,11 23,16 25,16 25,11 26.5,11 26.5,18.5z M2.75,1.5L25.25,1.5C25.834,1.5,26.5,2.166,26.5,2.75L26.5,10 25,10 23,10 22,10 20,10 18,10 16,10 15,10 13,10 12,10 10,10 8,10 6,10 5,10 3,10 1.5,10 1.5,2.75C1.5,2.166,2.166,1.5,2.75,1.5 M25.25,0L2.75,0C1.336,0,0,1.336,0,2.75L0,20 28,20 28,2.75C28,1.336,26.663,0,25.25,0" Fill="{TemplateBinding Foreground}" Height="20" Canvas.Left="0" Canvas.Top="0" Width="28"/>
+            </Canvas>
+        </Canvas>
+    </ControlTemplate>
+    
     <!-- Play Transport Buttons -->
     <ControlTemplate x:Name="PlayTransportPlayIcon">
         <Canvas Height="62" UseLayoutRounding="False" Width="62">
