@@ -12,7 +12,11 @@ namespace Komodex.Common.Store
     {
         protected TrialManager()
         {
+#if DEBUG
+            LicenseInformation = CurrentAppSimulator.LicenseInformation;
+#else
             LicenseInformation = CurrentApp.LicenseInformation;
+#endif
             LicenseInformation.LicenseChanged += LicenseInformation_LicenseChanged;
 
             UpdateLicenseInfo();
