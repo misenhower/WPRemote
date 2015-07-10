@@ -43,7 +43,8 @@ namespace Komodex.Remote
             AddApplicationBarMenuItem(LocalizedStrings.AboutMenuItem, NavigationManager.OpenAboutPage);
 
 #if WP8
-            EnableAppleTVControlButton();
+            // Disabled for now
+            //EnableAppleTVControlButton();
 #endif
 
 #if DEBUG

@@ -37,7 +37,8 @@ namespace Komodex.Remote.Pages.Library
             AddApplicationBarIconButton(LocalizedStrings.SearchAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Search.png"), () => NavigationManager.OpenSearchPage(CurrentDatabase));
             AddApplicationBarIconButton(LocalizedStrings.MoreAppBarButton, ResolutionUtility.GetUriWithResolutionSuffix("/Assets/Icons/Ellipsis.png"), AppBarMoreButton_Click);
 #if WP8
-            EnableAppleTVControlButton();
+            // Disabled for now
+            //EnableAppleTVControlButton();
 #endif
         }
 
