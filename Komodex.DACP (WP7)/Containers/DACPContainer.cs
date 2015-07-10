@@ -116,7 +116,7 @@ namespace Komodex.DACP.Containers
             {
                 if (Server.IsAppleTV)
                     return "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,daap.songtime,dmap.persistentid,daap.songartistid";
-                return "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songartistid";
+                return "dmap.itemname,dmap.itemid,dmap.persistentid,daap.songartist,daap.songdatereleased,dmap.itemcount,daap.songtime,dmap.persistentid,daap.songartistid,daap.songalbumartist";
             }
         }
 
