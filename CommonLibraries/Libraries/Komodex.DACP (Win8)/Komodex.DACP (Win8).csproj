@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1D3892C9-DA02-4BE8-B270-87EA18DF26F7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Komodex.DACP</RootNamespace>
+    <AssemblyName>Komodex.DACP</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\Komodex.Bonjour %28Win8%29\Komodex.Bonjour %28Win8%29.csproj">
+      <Project>{b0538439-b0b5-4aa1-a9e1-1fd08599958f}</Project>
+      <Name>Komodex.Bonjour %28Win8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Komodex.Common %28Win8%29\Komodex.Common %28Win8%29.csproj">
+      <Project>{4a1beebe-a56b-42d9-b34f-13533f757bcc}</Project>
+      <Name>Komodex.Common %28Win8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Komodex.HTTP %28Win8%29\Komodex.HTTP %28Win8%29.csproj">
+      <Project>{4c0bc047-8f15-40bd-b811-7836a3517578}</Project>
+      <Name>Komodex.HTTP %28Win8%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\AirPlaySpeaker.cs" />
+    <Compile Include="Client\DacpClient.cs" />
+    <Compile Include="Client\DacpClient.HttpRequests.cs" />
+    <Compile Include="Client\DacpClient.Properties.cs" />
+    <Compile Include="Containers\BooksContainer.cs" />
+    <Compile Include="Containers\DacpContainer.cs" />
+    <Compile Include="Containers\GeniusMix.cs" />
+    <Compile Include="Containers\iTunesRadioStation.cs" />
+    <Compile Include="Containers\iTunesUContainer.cs" />
+    <Compile Include="Containers\MoviesContainer.cs" />
+    <Compile Include="Containers\MusicContainer.cs" />
+    <Compile Include="Containers\Playlist.cs" />
+    <Compile Include="Containers\PodcastsContainer.cs" />
+    <Compile Include="Containers\TVShowsContainer.cs" />
+    <Compile Include="Databases\DacpDatabase.cs" />
+    <Compile Include="Databases\iTunesRadioDatabase.cs" />
+    <Compile Include="Genres\DacpGenre.cs" />
+    <Compile Include="Groups\Album.cs" />
+    <Compile Include="Groups\Artist.cs" />
+    <Compile Include="Groups\Audiobook.cs" />
+    <Compile Include="Groups\DacpGroup.cs" />
+    <Compile Include="Groups\iTunesUCourse.cs" />
+    <Compile Include="Groups\Podcast.cs" />
+    <Compile Include="Groups\TVShow.cs" />
+    <Compile Include="Items\AudiobookEpisode.cs" />
+    <Compile Include="Items\DacpItem.cs" />
+    <Compile Include="Items\iTunesUEpisode.cs" />
+    <Compile Include="Items\Movie.cs" />
+    <Compile Include="Items\PodcastEpisode.cs" />
+    <Compile Include="Items\Song.cs" />
+    <Compile Include="Items\TVShowEpisode.cs" />
+    <Compile Include="Pairing\PairingCompleteEventArgs.cs" />
+    <Compile Include="Pairing\PairingManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\DacpQueryCollection.cs" />
+    <Compile Include="Queries\DacpQueryElement.cs" />
+    <Compile Include="Queries\DacpQueryPredicate.cs" />
+    <Compile Include="Search\DacpSearchResults.cs" />
+    <Compile Include="Search\ISearchResultSection.cs" />
+    <Compile Include="Search\SearchResultSection.cs" />
+    <Compile Include="Search\SongsSearchResultSection.cs" />
+    <Compile Include="Utility\DacpElement.cs" />
+    <Compile Include="Utility\DacpList.cs" />
+    <Compile Include="Utility\DacpNode.cs" />
+    <Compile Include="Utility\DacpNodeDictionary.cs" />
+    <Compile Include="Utility\DacpRequest.cs" />
+    <Compile Include="Utility\DacpResponse.cs" />
+    <Compile Include="Utility\DacpUtility.cs" />
+    <Compile Include="Utility\Enums.cs" />
+    <Compile Include="Utility\DacpRequestException.cs" />
+    <Compile Include="Utility\IDacpList.cs" />
+    <Compile Include="Utility\ItemGroup.cs" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,10 @@
+Updates for the Windows Phone Toolkit can be applied by using svn merge.
+
+In the TortoiseSVN GUI, select "Merge two different trees" and enter the following URL for both "from" and "to":
+https://phone.svn.codeplex.com/svn
+
+For the "from" revision, enter the last revision that was imported. For the "to" revision, select HEAD or the desired revision.
+
+Last updated revision: 87100
+
+Complete the merge and this copy should be updated to the latest revision.

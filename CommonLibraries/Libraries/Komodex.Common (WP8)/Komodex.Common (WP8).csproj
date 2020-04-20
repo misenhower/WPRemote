@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{47446A40-33DF-47E4-9071-23AF4B2C7006}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Komodex.Common</RootNamespace>
+    <AssemblyName>Komodex.Common</AssemblyName>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Komodex.Common %28WP7%29\Analytics\CrashReporter.cs">
+      <Link>Analytics\CrashReporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Analytics\FirstRunNotifier.cs">
+      <Link>Analytics\FirstRunNotifier.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\BindableBase.cs">
+      <Link>BindableBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\BitUtility.cs">
+      <Link>BitUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\BindableBooleanToStringConverter.cs">
+      <Link>Converters\BindableBooleanToStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\BooleanConverterBase.cs">
+      <Link>Converters\BooleanConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\BooleanToBrushConverter.cs">
+      <Link>Converters\BooleanToBrushConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\BooleanToDoubleConverter.cs">
+      <Link>Converters\BooleanToDoubleConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\BooleanToStringConverter.cs">
+      <Link>Converters\BooleanToStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\BooleanToVisibilityConverter.cs">
+      <Link>Converters\BooleanToVisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\InverseBooleanConverter.cs">
+      <Link>Converters\InverseBooleanConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\MultiResolutionImageSourceConverter.cs">
+      <Link>Converters\MultiResolutionImageSourceConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Converters\StringToUpperConverter.cs">
+      <Link>Converters\StringToUpperConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\EnumT.cs">
+      <Link>EnumT.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Log.cs">
+      <Link>Log.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Networking\NetUtility.cs">
+      <Link>Networking\NetUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Networking\WakeOnLAN.cs">
+      <Link>Networking\WakeOnLAN.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\ObservableCollectionEx.cs">
+      <Link>ObservableCollectionEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Phone\PhoneUtility.cs">
+      <Link>Phone\PhoneUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Phone\TrialManager.cs">
+      <Link>Phone\TrialManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\ResolutionUtility.cs">
+      <Link>ResolutionUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\SampleData\SampleDataBase.cs">
+      <Link>SampleData\SampleDataBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\SampleData\SampleDataHelper.cs">
+      <Link>SampleData\SampleDataHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Setting.cs">
+      <Link>Setting.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\TaskUtility.cs">
+      <Link>TaskUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\ThreadUtility.cs">
+      <Link>ThreadUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common %28WP7%29\Utility.cs">
+      <Link>Utility.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="Komodex.TestApp.Bonjour.BonjourTestPage"
+    DataContext="{Binding PageViewSource, RelativeSource={RelativeSource Self}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Komodex.TestApp.Bonjour"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Service Publisher" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Start" Grid.Column="0" x:Name="StartPublishButton" Click="StartPublishButton_Click" />
+                    <Button Content="Stop" Grid.Column="1" x:Name="StopPublishButton" Click="StopPublishButton_Click" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Service Browser" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Start" Grid.Column="0" x:Name="StartBrowseButton" Click="StartBrowseButton_Click" />
+                    <Button Content="Stop" Grid.Column="1" x:Name="StopBrowseButton" Click="StopBrowseButton_Click" />
+                </Grid>
+            </StackPanel>
+            <ListView Grid.Row="2" ItemsSource="{Binding DiscoveredServices}">
+                
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

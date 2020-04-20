@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ED7B21D3-43C4-4699-977F-E6043E4BE516}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Komodex.Common.Phone.UI</RootNamespace>
+    <AssemblyName>Komodex.Common.Phone.UI</AssemblyName>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Analytics\PhoneAppCrashReporter.cs">
+      <Link>Analytics\PhoneAppCrashReporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\DataTemplateSelector.cs">
+      <Link>Controls\DataTemplateSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\IconButton.cs">
+      <Link>Controls\IconButton.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\LongListSelectorEx.cs">
+      <Link>Controls\LongListSelectorEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\MultiResolutionImage.cs">
+      <Link>Controls\MultiResolutionImage.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\MultiResolutionImageMask.cs">
+      <Link>Controls\MultiResolutionImageMask.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\NumericTextBox.cs">
+      <Link>Controls\NumericTextBox.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\StandardControls.cs">
+      <Link>Controls\StandardControls.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\WizardControl.cs">
+      <Link>Controls\WizardControl.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Controls\WizardItem.cs">
+      <Link>Controls\WizardItem.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Phone\DialogUserControlBase.cs">
+      <Link>Phone\DialogUserControlBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Phone\PhoneApplicationBasePage.cs">
+      <Link>Phone\PhoneApplicationBasePage.cs</Link>
+    </Compile>
+    <Compile Include="..\Komodex.Common.Phone.UI %28WP7%29\Phone\PhoneApplicationUtility.cs">
+      <Link>Phone\PhoneApplicationUtility.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\Komodex.Common.Phone.UI %28WP7%29\Themes\MultiResolutionImageMask.xaml">
+      <Link>Themes\MultiResolutionImageMask.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Komodex.Common.Phone.UI %28WP7%29\Themes\Wizard.xaml">
+      <Link>Themes\Wizard.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\IconButton.WP8.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\LongListSelectorEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clarity.PageTransitions %28WP8%29\Clarity.PageTransitions %28WP8%29.csproj">
+      <Project>{A0C2A02F-A33B-4869-ADC3-1A48743E26B2}</Project>
+      <Name>Clarity.PageTransitions %28WP8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Komodex.Common %28WP8%29\Komodex.Common %28WP8%29.csproj">
+      <Project>{47446A40-33DF-47E4-9071-23AF4B2C7006}</Project>
+      <Name>Komodex.Common %28WP8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Phone.Controls.Toolkit\Microsoft.Phone.Controls.Toolkit.WP8\Microsoft.Phone.Controls.Toolkit.WP8.csproj">
+      <Project>{486642F0-AB94-4F28-B49C-106CA3134239}</Project>
+      <Name>Microsoft.Phone.Controls.Toolkit.WP8</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

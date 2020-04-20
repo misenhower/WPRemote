@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="Komodex.TestApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Komodex.TestApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel Margin="24,12,0,0">
+            <HyperlinkButton Content="Bonjour Tests" Click="BonjourHyperlinkButton_Click" />
+            <HyperlinkButton Content="HTTP Server Tests" Click="HttpServerHyperlinkButton_Click" />
+        </StackPanel>
+    </Grid>
+</Page>

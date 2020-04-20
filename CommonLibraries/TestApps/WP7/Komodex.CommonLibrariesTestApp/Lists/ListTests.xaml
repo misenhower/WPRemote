@@ -1,0 +1,95 @@
+﻿<commonPhoneUI:PhoneApplicationBasePage
+    x:Class="Komodex.CommonLibrariesTestApp.Lists.ListTests"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls;assembly=Komodex.Common.Phone.UI"
+    xmlns:commonPhoneUI="clr-namespace:Komodex.Common.Phone;assembly=Komodex.Common.Phone.UI"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+    
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Name="GroupHeaderTemplate">
+            <Border Background="{StaticResource PhoneAccentBrush}">
+                <TextBlock Text="{Binding}" Foreground="White" />
+            </Border>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot Title="LIST TESTS">
+            <controls:PivotItem Header="flat">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Grid.Row="0" Content="Source=List" Click="SetFlatItemsSource" />
+                    <Button Grid.Column="1" Grid.Row="0" Content="Source=Null" Click="ClearFlatItemsSource" />
+
+                    <Button Grid.Column="0" Grid.Row="1" Content="Add Item" Click="AddFlatItem" />
+                    <Button Grid.Column="1" Grid.Row="1" Content="Remove Item" Click="RemoveFlatItem" />
+
+                    <commonControls:LongListSelectorEx x:Name="flatList"
+                                                       Grid.Row="2"
+                                                       Grid.ColumnSpan="2"
+                                                       IsGroupingEnabled="False"
+                                                       EmptyText="No items found."
+                        />
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="grouped">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Grid.Row="0" Content="Source=List" Click="SetGroupedItemsSource" />
+                    <Button Grid.Column="1" Grid.Row="0" Content="Source=Null" Click="ClearGroupedItemsSource" />
+
+                    <Button Grid.Column="0" Grid.Row="1" Content="Add Group" Click="AddGroup" />
+                    <Button Grid.Column="1" Grid.Row="1" Content="Remove Group" Click="RemoveGroup" />
+
+                    <Button Grid.Column="0" Grid.Row="2" Content="Add Item" Click="AddGroupItem" />
+                    <Button Grid.Column="1" Grid.Row="2" Content="Remove Item" Click="RemoveGroupItem" />
+
+                    <CheckBox Grid.Row="3" Grid.ColumnSpan="2" Content="Hide empty groups" IsChecked="{Binding Path=HideEmptyGroups, ElementName=groupedList, Mode=TwoWay}" />
+
+                    <commonControls:LongListSelectorEx x:Name="groupedList"
+                                                       Grid.Row="4"
+                                                       Grid.ColumnSpan="2"
+                                                       IsGroupingEnabled="True"
+                                                       GroupHeaderTemplate="{StaticResource GroupHeaderTemplate}"
+                                                       EmptyText="No items found."
+                        />
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+    
+</commonPhoneUI:PhoneApplicationBasePage>

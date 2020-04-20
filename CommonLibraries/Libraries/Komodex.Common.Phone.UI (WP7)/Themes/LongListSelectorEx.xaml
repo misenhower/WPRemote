@@ -1,0 +1,45 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:commonControls="clr-namespace:Komodex.Common.Phone.Controls"
+    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"
+    >
+    
+    <Style TargetType="commonControls:LongListSelectorEx">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="EmptyTextStyle" Value="{StaticResource PhoneTextGroupHeaderStyle}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="commonControls:LongListSelectorEx">
+                    <Grid>
+                        <toolkitPrimitives:TemplatedListBox x:Name="TemplatedListBox" 
+                            Background="{TemplateBinding Background}">
+                            <toolkitPrimitives:TemplatedListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </toolkitPrimitives:TemplatedListBox.ItemContainerStyle>
+                        </toolkitPrimitives:TemplatedListBox>
+                        <TextBlock Name="EmptyTextTextBlock" Text="{TemplateBinding EmptyText}" Style="{TemplateBinding EmptyTextStyle}" TextWrapping="Wrap" Visibility="Collapsed" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="EmptyTextStates">
+                                <VisualState x:Name="EmptyTextCollapsed" />
+                                <VisualState x:Name="EmptyTextVisible">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EmptyTextTextBlock" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
+</ResourceDictionary>
+    

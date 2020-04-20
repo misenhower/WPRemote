@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="Komodex.TestApp.Http.HttpTestPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Komodex.TestApp.Http"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="HTTP Server" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Start" Grid.Column="0" x:Name="StartButton" Click="StartButton_Click" />
+                    <Button Content="Stop" Grid.Column="1" x:Name="StopButton" Click="StopButton_Click" />
+                </Grid>
+            </StackPanel>
+            <ScrollViewer x:Name="LogScrollViewer" Grid.Row="1" HorizontalScrollBarVisibility="Auto">
+                <StackPanel x:Name="LogPanel" Margin="12,0,0,0" />
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>
